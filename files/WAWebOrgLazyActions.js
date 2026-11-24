@@ -7,7 +7,8 @@ __d(
       u,
       c,
       d,
-      m = (d = r("WAWebLazyLoadedRetriable"))(
+      m,
+      p = (m = r("WAWebLazyLoadedRetriable"))(
         async function () {
           return r("JSResourceForInteraction")("WAWebOrgRequestContactAction")
             .__setRef("WAWebOrgLazyActions")
@@ -28,7 +29,7 @@ __d(
           },
         },
       ),
-      p = d(
+      _ = m(
         async function () {
           return r("JSResourceForInteraction")("WAWebOrgFetchDirectoryAction")
             .__setRef("WAWebOrgLazyActions")
@@ -49,7 +50,7 @@ __d(
           },
         },
       ),
-      _ = d(
+      f = m(
         async function () {
           return r("JSResourceForInteraction")("WAWebOrgSearchMembersAction")
             .__setRef("WAWebOrgLazyActions")
@@ -70,7 +71,7 @@ __d(
           },
         },
       ),
-      f = d(
+      g = m(
         async function () {
           return r("JSResourceForInteraction")("WAWebOrgMemberSourceQuery")
             .__setRef("WAWebOrgLazyActions")
@@ -90,11 +91,33 @@ __d(
               .sendLogs("org-member-source-query-load-failed");
           },
         },
+      ),
+      h = m(
+        async function () {
+          return r("JSResourceForInteraction")("WAWebOrgPrivacyListJob")
+            .__setRef("WAWebOrgLazyActions")
+            .load();
+        },
+        "OrgPrivacyListJob",
+        {
+          onFinalFailure: function (t) {
+            o("WALogger")
+              .ERROR(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "[org-privacy-list] job load failed",
+                  ])),
+              )
+              .catching(t)
+              .sendLogs("org-privacy-list-job-load-failed");
+          },
+        },
       );
-    ((l.loadOrgRequestContactAction = m),
-      (l.loadOrgFetchDirectoryAction = p),
-      (l.loadOrgSearchMembersAction = _),
-      (l.loadOrgMemberSourceQuery = f));
+    ((l.loadOrgRequestContactAction = p),
+      (l.loadOrgFetchDirectoryAction = _),
+      (l.loadOrgSearchMembersAction = f),
+      (l.loadOrgMemberSourceQuery = g),
+      (l.loadOrgPrivacyListJob = h));
   },
   98,
 );

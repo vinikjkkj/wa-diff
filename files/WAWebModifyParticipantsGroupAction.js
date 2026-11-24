@@ -35,7 +35,9 @@ __d(
     "WAWebWamEnumCompanionInviteOriginType",
     "WAWebWidFactory",
     "WAWebWidToJid",
+    "WAWebWorkFeature",
     "countWhere",
+    "cr:22529",
     "getErrorSafe",
     "react",
   ],
@@ -112,19 +114,7 @@ __d(
         y = m.map(function (e) {
           return o("WAWebJidToWid").userJidToUserWid(e.id);
         }),
-        C = k(
-          l.id,
-          c.map(function (e) {
-            var t = e.id;
-            return t;
-          }),
-          c.map(function (e) {
-            return o(
-              "WAWebGroupMutationParticipantUtils",
-            ).getGroupAddParticipant(e, g, "addParticipants");
-          }),
-          y,
-        ),
+        C = k(l.id, c, g, y),
         b = r("WAWebFbtIntlList")(
           c.map(function (e) {
             return o("WAWebFrontendContactGetters").getFormattedShortName(e);
@@ -347,26 +337,43 @@ __d(
         C
       );
     }
-    async function k(e, t, n, r) {
-      var a = await o(
-          "WAWebSentGroupAgentRequests",
-        ).recordSentGroupAgentRequests(e, t, "add"),
-        i;
+    async function k(e, t, r, a) {
+      o("WAWebWorkFeature").isWork() &&
+        (await (n("cr:22529") == null
+          ? void 0
+          : n("cr:22529").resolveWorkGroupMutationIdentifiers(t, r)));
+      var i = t.map(function (e) {
+          var t = e.id;
+          return t;
+        }),
+        l = t.map(function (e) {
+          return o("WAWebGroupMutationParticipantUtils").getGroupAddParticipant(
+            e,
+            r,
+            "addParticipants",
+          );
+        }),
+        s = await o("WAWebSentGroupAgentRequests").recordSentGroupAgentRequests(
+          e,
+          i,
+          "add",
+        ),
+        u;
       try {
-        i = await (
+        u = await (
           o("WAWebBackendRuntime").isWebDiBackendEnabled()
             ? o("WAWebBackendRuntime").runtime(
                 o("WAWebGroupParticipantsService").GroupParticipantsService,
               ).addGroupParticipants
             : o("WAWebGroupModifyParticipantsJob").addGroupParticipants
-        )(e, n, r);
-      } catch (n) {
+        )(e, l, a);
+      } catch (t) {
         throw (
-          I(n) &&
+          I(t) &&
             o(
               "WAWebIncompatibleAgentRequestsRejectTriggers",
-            ).startIncompatibleAgentRequestRejectsAfterAnswer(e, a, t, []),
-          n
+            ).startIncompatibleAgentRequestRejectsAfterAnswer(e, s, i, []),
+          t
         );
       }
       return (
@@ -374,9 +381,9 @@ __d(
           "WAWebIncompatibleAgentRequestsRejectTriggers",
         ).startIncompatibleAgentRequestRejectsAfterAnswer(
           e,
-          a,
-          t,
-          i.participants
+          s,
+          i,
+          u.participants
             .filter(function (e) {
               var t = e.code;
               return t === "200";
@@ -386,7 +393,7 @@ __d(
               return t;
             }),
         ),
-        i
+        u
       );
     }
     function I(e) {

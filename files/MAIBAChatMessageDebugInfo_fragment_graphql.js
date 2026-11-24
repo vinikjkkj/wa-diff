@@ -68,6 +68,13 @@ __d(
                 name: "id",
                 storageKey: null,
               },
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "agent_session_conversation_id",
+                storageKey: null,
+              },
               e,
               {
                 alias: null,

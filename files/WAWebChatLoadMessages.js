@@ -118,7 +118,7 @@ __d(
                   "[loadEarlierMsgs] returning early: noEarlierMsgs=true",
                 ])),
             ),
-          Promise.resolve()
+          Promise.resolve(void 0)
         );
       if (p.msgLoadState.isLoadingEarlierMsgs) return p.loadEarlierPromise;
       var h = p ? p.head() : null,

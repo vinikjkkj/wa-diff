@@ -5,13 +5,19 @@ __d(
     "use strict";
     var e = "get-host-info",
       l = {
-        prod: { acsProjectName: "WA_Theia", teeHost: "teellm.wa.meta.com" },
+        prod: {
+          acsProjectName: "WA_Theia",
+          clientPolicy: "prod",
+          teeHost: "teellm.wa.meta.com",
+        },
         rc: {
           acsProjectName: "WA_TheiaInternal",
+          clientPolicy: "staging",
           teeHost: "alpha.teellm.wa.meta.com",
         },
         debug: {
           acsProjectName: "WA_TheiaDebug",
+          clientPolicy: "debug",
           teeHost: "debug.teellm.wa.meta.com",
         },
       },

@@ -1,6 +1,14 @@
 __d(
   "WAWebCommsWorkerProxy",
-  ["WAComms", "WAErrors", "WALogger", "WAWap", "WAWebCommsWorkerReady", "err"],
+  [
+    "WAComms",
+    "WAErrors",
+    "WALogger",
+    "WAWap",
+    "WAWebCommsUnifiedSessionId",
+    "WAWebCommsWorkerReady",
+    "err",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -103,9 +111,17 @@ __d(
             ((this.$2 = !1),
               (this.socketId = o("WAComms").DEFAULT_SOCKET_ID),
               this.$1.fireAndForget("comms", "createComms", t),
+              this.setUnifiedSessionId(
+                o("WAWebCommsUnifiedSessionId").getCommsUnifiedSessionId(),
+              ),
               this.$4 && this.startHandlingRequests(),
               this.$1.fireAndForget("comms", "openSocketLoop"),
               o("WAWebCommsWorkerReady").setCommsWorkerReady(!0));
+          }),
+          (t.setUnifiedSessionId = function (t) {
+            this.$1.fireAndForget("comms", "setUnifiedSessionId", {
+              unifiedSessionId: t,
+            });
           }),
           (t.sendIq = async function (t) {
             var e = this,
@@ -206,7 +222,19 @@ __d(
         throw r("err")("[WAWebCommsWorkerProxy] comms startup args are null");
       e.fireAndForget("comms", "createComms", c);
       var t = new s(e);
-      return ((u = t), o("WAWebCommsWorkerReady").setCommsWorkerReady(!0), t);
+      return (
+        t.setUnifiedSessionId(
+          o("WAWebCommsUnifiedSessionId").getCommsUnifiedSessionId(),
+        ),
+        o("WAWebCommsUnifiedSessionId").setCommsUnifiedSessionIdListener(
+          function (e) {
+            return t.setUnifiedSessionId(e);
+          },
+        ),
+        (u = t),
+        o("WAWebCommsWorkerReady").setCommsWorkerReady(!0),
+        t
+      );
     }
     function m() {
       var t = u;

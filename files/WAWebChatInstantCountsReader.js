@@ -197,11 +197,11 @@ __d(
       var n = o("WATimeUtils").unixTime(),
         a = e.unreadCount,
         i = $(e, t),
-        l = i == null && M(e, n),
+        l = i == null && w(e, n),
         u = [],
         c = [];
       await r("WAWeb-dexie").ignoreTransaction(async function () {
-        var t = await Promise.all([l ? w(e, n) : [], a > 0 ? A(e) : []]);
+        var t = await Promise.all([l ? A(e, n) : [], a > 0 ? F(e) : []]);
         ((u = t[0]), (c = t[1]));
       });
       var d = o("WAWebChatInstantCounts").countChatInstants({
@@ -243,7 +243,28 @@ __d(
         );
       }).length;
     }
-    function M(e, t) {
+    async function M(e) {
+      var t = o("WATimeUtils").unixTime();
+      if (!w(e, t)) return [];
+      var n = [];
+      return (
+        await r("WAWeb-dexie").ignoreTransaction(async function () {
+          n = await A(e, t);
+        }),
+        n
+          .filter(function (e) {
+            return o("WAWebChatInstantCounts").isUnconsumedIncomingInstant(
+              e,
+              t,
+            );
+          })
+          .map(function (e) {
+            return e.id;
+          })
+          .reverse()
+      );
+    }
+    function w(e, t) {
       return (
         e.t != null &&
         e.t > t - o("WATimeUtils").DAY_SECONDS &&
@@ -251,7 +272,7 @@ __d(
         !o("WAWebChatGroupUtils").isSuspendedGroup(e)
       );
     }
-    function w(e, t) {
+    function A(e, t) {
       return o("WAWebSchemaMessage")
         .getMessageTable()
         .between(
@@ -270,7 +291,7 @@ __d(
           { lowerInclusive: !0, reverse: !0, shouldDecrypt: !1 },
         );
     }
-    function A(e) {
+    function F(e) {
       return o("WAWebSchemaMessage")
         .getMessageTable()
         .between(
@@ -288,7 +309,8 @@ __d(
       (l.subscribeToChatInstantCounts = y),
       (l.recountChatInstants = C),
       (l.invalidateChatInstantCounts = R),
-      (l.readChatInstantCounts = L));
+      (l.readChatInstantCounts = L),
+      (l.readUnplayedInstantKeys = M));
   },
   98,
 );

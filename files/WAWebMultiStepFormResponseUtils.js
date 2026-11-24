@@ -2,107 +2,134 @@ __d(
   "WAWebMultiStepFormResponseUtils",
   [
     "WATimeUtils",
+    "WAWebABProps",
     "WAWebAck",
     "WAWebInteractiveMessageType",
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgKey",
     "WAWebMsgType",
-    "WAWebMultiStepFormButton",
+    "WAWebMultiStepFormAnswers",
     "WAWebSendMsgChatAction",
     "WAWebUserUtils",
     "WAWebViewMode.flow",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      for (var n = {}, r = 0; r < e.length; r++) {
-        var a = e[r],
-          i = t[r],
-          l = i.customAnswer.trim();
-        if (
-          a.variant ===
-          o("WAWebMultiStepFormButton").A2UIChoicePickerVariant
-            .MutuallyExclusive
-        )
-          if (l !== "") n[a.id] = l;
-          else {
-            var s = Array.from(i.selectedIds)[0];
-            s != null && (n[a.id] = s);
+    var e = 1,
+      s = 3;
+    function u(e, t) {
+      var n = {};
+      for (var r of e)
+        if (r.component === "InputFields")
+          for (var a of r.fields) {
+            var i = o("WAWebMultiStepFormAnswers")
+              .getFieldValue(t, a.id)
+              .trim();
+            i !== "" && (n[a.id] = i);
           }
-        else {
-          var u = Array.from(i.selectedIds);
-          (l !== "" && u.push(l), u.length > 0 && (n[a.id] = u));
-        }
-      }
+        else
+          for (var l of [r].concat(
+            o("WAWebMultiStepFormAnswers").getRevealedChildren(r, t),
+          )) {
+            var s = d(l, t);
+            s != null && (n[l.id] = s);
+          }
       return n;
     }
-    function s(e, t) {
-      for (
-        var n = [],
-          r = function () {
-            var r = e[a],
-              i = t[a],
-              l = i.customAnswer.trim(),
-              s = "";
-            if (
-              r.variant ===
-              o("WAWebMultiStepFormButton").A2UIChoicePickerVariant
-                .MutuallyExclusive
-            )
-              if (l !== "") s = l;
-              else {
-                var u = Array.from(i.selectedIds)[0];
-                if (u != null) {
-                  var c,
-                    d = r.options.find(function (e) {
-                      return e.id === u;
-                    });
-                  s = (c = d == null ? void 0 : d.title) != null ? c : u;
-                }
-              }
-            else {
-              var m = Array.from(i.selectedIds).map(function (e) {
-                var t, n;
-                return (t =
-                  (n = r.options.find(function (t) {
-                    return t.id === e;
-                  })) == null
-                    ? void 0
-                    : n.title) != null
-                  ? t
-                  : e;
-              });
-              (l !== "" && m.push(l), (s = m.join(", ")));
-            }
-            s !== "" &&
-              n.push(
-                r.label +
-                  `
-*` +
-                  s +
-                  "*",
-              );
-          },
-          a = 0;
-        a < e.length;
-        a++
-      )
-        r();
-      return n.join(`
+    function c(e, t) {
+      return e.flatMap(function (e) {
+        return e.component === "InputFields" ? m(e, t) : p(e, t);
+      }).join(`
 
 `);
     }
-    async function u(e, t, n) {
-      var a = o("WAWebUserUtils").getMeLidUserOrThrow(),
-        i = {
+    function d(e, t) {
+      var n = o("WAWebMultiStepFormAnswers").getChoiceAnswer(t, e.id),
+        r = n.customAnswer.trim();
+      if (o("WAWebMultiStepFormAnswers").isSingleSelect(e))
+        return r !== ""
+          ? r
+          : o("WAWebMultiStepFormAnswers").getSingleSelectedId(n);
+      var a = Array.from(n.selectedIds);
+      return (r !== "" && a.push(r), a.length > 0 ? a : null);
+    }
+    function m(e, t) {
+      return e.fields.flatMap(function (e) {
+        var n = o("WAWebMultiStepFormAnswers").getFieldValue(t, e.id).trim();
+        return n !== ""
+          ? [
+              e.label +
+                `
+*` +
+                n +
+                "*",
+            ]
+          : [];
+      });
+    }
+    function p(e, t) {
+      var n = _(e, t);
+      if (n == null) return [];
+      var r = o("WAWebMultiStepFormAnswers").getRevealedChildren(e, t),
+        a = [n]
+          .concat(
+            r
+              .filter(function (e) {
+                return e.label == null;
+              })
+              .map(function (e) {
+                return _(e, t);
+              })
+              .filter(Boolean),
+          )
+          .join(", "),
+        i =
+          e.label != null
+            ? e.label +
+              `
+*` +
+              a +
+              "*"
+            : "*" + a + "*";
+      return [i].concat(
+        r
+          .filter(function (e) {
+            return e.label != null;
+          })
+          .flatMap(function (e) {
+            return p(e, t);
+          }),
+      );
+    }
+    function _(e, t) {
+      var n = o("WAWebMultiStepFormAnswers").getChoiceAnswer(t, e.id),
+        r = n.customAnswer.trim();
+      if (o("WAWebMultiStepFormAnswers").isSingleSelect(e) && r !== "")
+        return r;
+      var a = Array.from(n.selectedIds).map(function (t) {
+        var n, r;
+        return (n =
+          (r = e.options.find(function (e) {
+            return e.id === t;
+          })) == null
+            ? void 0
+            : r.title) != null
+          ? n
+          : t;
+      });
+      return (r !== "" && a.push(r), a.length > 0 ? a.join(", ") : null);
+    }
+    async function f(t, n, a) {
+      var i = o("WAWebUserUtils").getMeLidUserOrThrow(),
+        l = {
           type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE,
           kind: o("WAWebMsgType").MsgKind.InteractiveResponse,
           ack: o("WAWebAck").ACK.CLOCK,
-          to: e.id,
-          from: a,
+          to: t.id,
+          from: i,
           id: new (r("WAWebMsgKey"))({
             id: await r("WAWebMsgKey").newId(),
-            from: a,
-            to: e.id,
+            from: i,
+            to: t.id,
             participant: void 0,
             selfDir: "out",
           }),
@@ -115,22 +142,24 @@ __d(
               r("WAWebInteractiveMessagesNativeFlowName").FORM_MESSAGE,
             ),
             description: "Agentic Form Submitted",
-            paramsJson: JSON.stringify(t),
-            version: 1,
+            paramsJson: JSON.stringify(n),
+            version: o("WAWebABProps").getABPropConfigValue("im_a2ui_appt_web")
+              ? s
+              : e,
           },
           nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
             .FORM_MESSAGE,
           interactiveType: r("WAWebInteractiveMessageType").NATIVE_FLOW,
           viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-          body: n,
+          body: a,
         },
-        l = o("WAWebSendMsgChatAction").addAndSendMsgToChat(e, i),
-        s = l[1];
-      await s;
+        u = o("WAWebSendMsgChatAction").addAndSendMsgToChat(t, l),
+        c = u[1];
+      await c;
     }
-    ((l.buildResponseJson = e),
-      (l.buildResponseBody = s),
-      (l.sendFormResponse = u));
+    ((l.buildResponseJson = u),
+      (l.buildResponseBody = c),
+      (l.sendFormResponse = f));
   },
   98,
 );

@@ -234,7 +234,7 @@ __d(
         return !1;
       var c = o("WAWebFrontendMsgGetters").getMaybeChat(s);
       if (
-        (c != null && o("WAWebChatGetters").getIsBroadcast(c)) ||
+        (c != null && c.id.isBroadcastList()) ||
         (c != null &&
           c.isSuspendedOrTerminated() &&
           o("WAWebMiscGatingUtils").isGroupSuspendV2Enabled()) ||

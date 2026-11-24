@@ -1,108 +1,87 @@
 __d(
   "WAWebMessageQueryServiceWebLive",
   [
-    "JSResourceForInteraction",
-    "Promise",
+    "WAWebApiMessageInfoStore",
+    "WAWebDBMessageFindLocal",
     "WAWebMessageQueryService",
     "WebDi.Async",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = r("JSResourceForInteraction")("WAWebApiMessageInfoStore").__setRef(
-        "WAWebMessageQueryServiceWebLive",
-      ),
-      u = r("JSResourceForInteraction")("WAWebDBMessageFindLocal").__setRef(
-        "WAWebMessageQueryServiceWebLive",
-      ),
-      c = o("WAWebMessageQueryService").MessageQueryService.make(function* () {
-        var t = yield* o("WebDi.Async").fromPromise(function () {
-            return (e || (e = n("Promise"))).all([s.load(), u.load()]);
-          }),
-          r = t[0],
-          a = r.queryMsgInfo,
-          i = r.queryMsgInfos,
-          l = t[1],
-          c = l.getAllDocsMessages,
-          d = l.getVoipOngoingCallLogMessages,
-          m = l.msgCountStarred,
-          p = l.msgFindAfter,
-          _ = l.msgFindBefore,
-          f = l.msgFindByDirection,
-          g = l.msgFindCallLog,
-          h = l.msgFindEvents,
-          y = l.msgFindMedia,
-          C = l.msgFindSearch,
-          b = l.msgFindStarred,
-          v = {
-            msgFindAfter: function (t) {
-              return o("WebDi.Async").fromPromise(function () {
-                return p(t);
-              });
-            },
-            msgFindBefore: function (t) {
-              return o("WebDi.Async").fromPromise(function () {
-                return _(t);
-              });
-            },
-            msgFindByDirection: function (t) {
-              return o("WebDi.Async").fromPromise(function () {
-                return f(t);
-              });
-            },
-            msgFindSearch: function (t) {
-              return o("WebDi.Async").fromPromise(function () {
-                return C(t);
-              });
-            },
-            msgFindMedia: function (t) {
-              return o("WebDi.Async").fromPromise(function () {
-                return y(t);
-              });
-            },
-            msgFindStarred: function (t) {
-              return o("WebDi.Async").fromPromise(function () {
-                return b(t);
-              });
-            },
-            msgCountStarred: function (t) {
-              return o("WebDi.Async").fromPromise(function () {
-                return m(t);
-              });
-            },
-            msgFindCallLog: function (t) {
-              return o("WebDi.Async").fromPromise(function () {
-                return g(t);
-              });
-            },
-            msgFindEvents: function (t) {
-              return o("WebDi.Async").fromPromise(function () {
-                return h(t);
-              });
-            },
-            getAllDocsMessages: function (t) {
-              return o("WebDi.Async").fromPromise(function () {
-                return c(t);
-              });
-            },
-            getVoipOngoingCallLogMessages: function () {
-              return o("WebDi.Async").fromPromise(function () {
-                return d();
-              });
-            },
-            queryMsgInfo: function (t) {
-              return o("WebDi.Async").fromPromise(function () {
-                return a(t);
-              });
-            },
-            queryMsgInfos: function (t) {
-              return o("WebDi.Async").fromPromise(function () {
-                return i(t);
-              });
-            },
-          };
-        return v;
-      });
-    l.MessageQueryServiceWebLive = c;
+    var e = o("WAWebMessageQueryService").MessageQueryService.make(
+      function* () {
+        var e = {
+          msgFindAfter: function (t) {
+            return o("WebDi.Async").fromPromise(function () {
+              return o("WAWebDBMessageFindLocal").msgFindAfter(t);
+            });
+          },
+          msgFindBefore: function (t) {
+            return o("WebDi.Async").fromPromise(function () {
+              return o("WAWebDBMessageFindLocal").msgFindBefore(t);
+            });
+          },
+          msgFindByDirection: function (t) {
+            return o("WebDi.Async").fromPromise(function () {
+              return o("WAWebDBMessageFindLocal").msgFindByDirection(t);
+            });
+          },
+          msgFindSearch: function (t) {
+            return o("WebDi.Async").fromPromise(function () {
+              return o("WAWebDBMessageFindLocal").msgFindSearch(t);
+            });
+          },
+          msgFindMedia: function (t) {
+            return o("WebDi.Async").fromPromise(function () {
+              return o("WAWebDBMessageFindLocal").msgFindMedia(t);
+            });
+          },
+          msgFindStarred: function (t) {
+            return o("WebDi.Async").fromPromise(function () {
+              return o("WAWebDBMessageFindLocal").msgFindStarred(t);
+            });
+          },
+          msgCountStarred: function (t) {
+            return o("WebDi.Async").fromPromise(function () {
+              return o("WAWebDBMessageFindLocal").msgCountStarred(t);
+            });
+          },
+          msgFindCallLog: function (t) {
+            return o("WebDi.Async").fromPromise(function () {
+              return o("WAWebDBMessageFindLocal").msgFindCallLog(t);
+            });
+          },
+          msgFindEvents: function (t) {
+            return o("WebDi.Async").fromPromise(function () {
+              return o("WAWebDBMessageFindLocal").msgFindEvents(t);
+            });
+          },
+          getAllDocsMessages: function (t) {
+            return o("WebDi.Async").fromPromise(function () {
+              return o("WAWebDBMessageFindLocal").getAllDocsMessages(t);
+            });
+          },
+          getVoipOngoingCallLogMessages: function () {
+            return o("WebDi.Async").fromPromise(function () {
+              return o(
+                "WAWebDBMessageFindLocal",
+              ).getVoipOngoingCallLogMessages();
+            });
+          },
+          queryMsgInfo: function (t) {
+            return o("WebDi.Async").fromPromise(function () {
+              return o("WAWebApiMessageInfoStore").queryMsgInfo(t);
+            });
+          },
+          queryMsgInfos: function (t) {
+            return o("WebDi.Async").fromPromise(function () {
+              return o("WAWebApiMessageInfoStore").queryMsgInfos(t);
+            });
+          },
+        };
+        return e;
+      },
+    );
+    l.MessageQueryServiceWebLive = e;
   },
   98,
 );

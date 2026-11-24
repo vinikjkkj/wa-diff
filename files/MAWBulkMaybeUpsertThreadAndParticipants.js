@@ -23,7 +23,7 @@ __d(
     "use strict";
     var e = function (t, n) {
         var e;
-        return r("MAWInteractionTracing").traceAndComplete(
+        return r("MAWInteractionTracing").traceAndFlush(
           t.reason === "init_sync"
             ? o("MAWMICInteractionTraceId").getMICInteractionTraceIdMap(
                 function (e) {

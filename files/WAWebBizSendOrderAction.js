@@ -137,134 +137,137 @@ __d(
         );
       }
     }
-    async function p(e, t, n, a) {
-      var i,
-        l,
-        s =
-          (i = o(
+    async function p(e, t, n, a, i) {
+      var l, s;
+      i === void 0 && (i = null);
+      var u =
+          (l = o(
             "WAWebPaymentsGatingUtils",
           ).getPixCodeReceiptAndStateBubbleVersionOnSend(e)) != null
-            ? i
+            ? l
             : await C(
                 e,
                 o("WAWebPaymentsGatingUtils")
                   .isPixCodeReceiptAndStateP2mEnabled,
               ),
-        u = o("WAWebPaymentsGatingUtils").isTreatmentBubbleVersion(s),
-        c = o("WAWebOrderCollection").OrderCollection.addOrder(),
-        d = {
+        c = o("WAWebPaymentsGatingUtils").isTreatmentBubbleVersion(u),
+        d = o("WAWebOrderCollection").OrderCollection.addOrder(),
+        p = {
           reference_id: r("WAWebBizOrderGetFriendlyRandomIdAction")(),
           type: "physical-goods",
           payment_configuration: "merchant_categorization_code",
           payment_settings: [
-            ((l = {
+            ((s = {
               type: o("WAWebBizOrderDetailsParams").PaymentSettingType
                 .PIX_STATIC_CODE,
             }),
-            (l[
+            (s[
               o("WAWebBizOrderDetailsParams").PaymentSettingType.PIX_STATIC_CODE
             ] = {
               merchant_name: t.display_name,
               key: t.key,
               key_type: t.key_type,
             }),
-            l),
+            s),
           ],
           currency: "BRL",
           total_amount: { value: n, offset: a },
-          order_request_id: c.id,
-          br_receipt_and_state_enabled: u ? !0 : void 0,
-          br_receipt_and_state_bubble_version: s != null ? s : void 0,
+          order_request_id: d.id,
+          br_receipt_and_state_enabled: c ? !0 : void 0,
+          br_receipt_and_state_bubble_version: u != null ? u : void 0,
+          additional_note: i != null ? i : void 0,
         };
       (await m({
         caption: null,
         chat: e,
         nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
           .ORDER_DETAILS,
-        buttonParamsJson: o("WAWebBizOrderDetailsParams").stringify(d),
+        buttonParamsJson: o("WAWebBizOrderDetailsParams").stringify(p),
         errorMessage: "Pix payment request send to chat failure",
         thumbnail: "",
         buttonName: "review_and_pay",
         nfmInteractiveMsg: !0,
       }),
-        u && y(!0));
+        c && y(!0));
     }
-    async function _(e, t, n, a, i) {
-      if (t.length === 0)
+    async function _(e, t, n, a, i, l) {
+      if ((l === void 0 && (l = null), t.length === 0))
         throw r("err")("UPR payment request attempted with no payment keys");
-      var l = o("WAWebOrderCollection").OrderCollection.addOrder(),
-        s = babelHelpers.extends(
+      var s = o("WAWebOrderCollection").OrderCollection.addOrder(),
+        u = babelHelpers.extends(
           {},
           o("WAWebUprPaymentRequestParams").buildUprPaymentRequestParams({
             currency: n,
             paymentKeys: t,
             amount: a,
+            note: l,
             offset: i,
             referenceId: r("WAWebBizOrderGetFriendlyRandomIdAction")(),
           }),
-          { order_request_id: l.id },
+          { order_request_id: s.id },
         );
       await m({
         caption: null,
         chat: e,
         nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
           .ORDER_DETAILS,
-        buttonParamsJson: JSON.stringify(s),
+        buttonParamsJson: JSON.stringify(u),
         errorMessage: "UPR payment request send to chat failure",
         thumbnail: "",
         buttonName: "review_and_pay",
         nfmInteractiveMsg: !0,
       });
     }
-    async function f(e, t) {
+    async function f(e, t, n) {
       (t === void 0 && (t = null),
-        await g(e, t),
+        n === void 0 && (n = null),
+        await g(e, t, n),
         o("WAWebBizFrontendGatingUtils").isCustomPaymentMethodsSyncEnabled() &&
           o("WAWebPaymentsPixBannerUtils").shouldDismissTryItPixKeyPromo());
     }
-    async function g(e, t) {
-      var n, a;
-      t === void 0 && (t = null);
-      var i = o("WAWebOrderCollection").OrderCollection.addOrder(),
-        l = o("WAWebUserPrefsCustomPaymentMethods").getPIX();
-      if (!l) throw r("err")("pix key not found");
-      var s =
-          (n = o(
+    async function g(e, t, n) {
+      var a, i;
+      (t === void 0 && (t = null), n === void 0 && (n = null));
+      var l = o("WAWebOrderCollection").OrderCollection.addOrder(),
+        s = o("WAWebUserPrefsCustomPaymentMethods").getPIX();
+      if (!s) throw r("err")("pix key not found");
+      var u =
+          (a = o(
             "WAWebPaymentsGatingUtils",
           ).getPixKeyReceiptAndStateBubbleVersionOnSend(e)) != null
-            ? n
+            ? a
             : await C(
                 e,
                 o("WAWebPaymentsGatingUtils").isPixKeyReceiptAndStateP2mEnabled,
               ),
-        u = o("WAWebPaymentsGatingUtils").isTreatmentBubbleVersion(s),
-        c = babelHelpers.extends(
+        c = o("WAWebPaymentsGatingUtils").isTreatmentBubbleVersion(u),
+        d = babelHelpers.extends(
           {
             reference_id: r("WAWebBizOrderGetFriendlyRandomIdAction")(),
             type: "physical-goods",
             payment_configuration: "merchant_categorization_code",
             payment_settings: [
-              ((a = {
+              ((i = {
                 type: o("WAWebBizOrderDetailsParams").PaymentSettingType
                   .PIX_STATIC_CODE,
               }),
-              (a[
+              (i[
                 o(
                   "WAWebBizOrderDetailsParams",
                 ).PaymentSettingType.PIX_STATIC_CODE
               ] = {
-                merchant_name: l.display_name,
-                key: l.key,
-                key_type: l.key_type,
+                merchant_name: s.display_name,
+                key: s.key,
+                key_type: s.key_type,
               }),
-              a),
+              i),
             ],
-            currency: i.currency,
+            currency: l.currency,
             total_amount: {
               value: 0,
               offset: o("WAWebOrderDetailMathDefaultOffset").DEFAULT_OFFSET,
             },
-            order_request_id: i.id,
+            order_request_id: l.id,
             order: {
               status: o("WAWebOrderStatus").getDefaultOrderStatus(),
               items: [
@@ -293,8 +296,9 @@ __d(
           },
           t != null && { referral: t },
           {
-            br_receipt_and_state_enabled: u ? !0 : void 0,
-            br_receipt_and_state_bubble_version: s != null ? s : void 0,
+            br_receipt_and_state_enabled: c ? !0 : void 0,
+            br_receipt_and_state_bubble_version: u != null ? u : void 0,
+            additional_note: n != null ? n : void 0,
           },
         );
       (await m({
@@ -302,13 +306,13 @@ __d(
         chat: e,
         nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
           .PAYMENT_INFO,
-        buttonParamsJson: o("WAWebBizOrderDetailsParams").stringify(c),
+        buttonParamsJson: o("WAWebBizOrderDetailsParams").stringify(d),
         errorMessage: "Pix Order message send to chat failure",
         thumbnail: "",
         buttonName: "payment_info",
         nfmInteractiveMsg: !0,
       }),
-        u && y(!1));
+        c && y(!1));
     }
     var h = r("WAWebLazyLoadedRetriable")(function () {
       return r("JSResourceForInteraction")("WAWebPaymentDetailsLogger")

@@ -114,20 +114,19 @@ __d(
             o("WAWebFetchAdAccountToken").markTokenAsInvalid(),
             { type: "failed", reason: "auth-failure" }
           );
-        var d = r("getErrorSafe")(e),
-          p = o("WALogger")
-            .WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "fetchMetaOnePromoEligibility: threw",
-                ])),
-            )
-            .catching(d),
-          _ = y(d) ? p.tags("non-sad") : p;
-        return (
-          _.sendLogs("meta-one-promo-eligibility-fetch-failed"),
-          { type: "failed", reason: "error" }
-        );
+        var d = r("getErrorSafe")(e);
+        return y(d)
+          ? { type: "failed", reason: "network" }
+          : (o("WALogger")
+              .WARN(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "fetchMetaOnePromoEligibility: threw",
+                  ])),
+              )
+              .catching(d)
+              .sendLogs("meta-one-promo-eligibility-fetch-failed"),
+            { type: "failed", reason: "error" });
       }
     }
     function y(e) {

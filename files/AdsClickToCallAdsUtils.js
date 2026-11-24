@@ -57,6 +57,14 @@ __d(
       return e === r("AdsPromotedObjectTypes").PHONE_CALL;
     }
     var f = "0";
+    function g(e) {
+      var t,
+        n =
+          e == null || (t = e.phoneNumber) == null
+            ? void 0
+            : t.getDisplayNumber();
+      return n == null || n === "" ? null : n;
+    }
     ((l.getIsCallAdsNewOptimizationUnderTrafficObjective = s),
       (l.getIsClickToCallAdsUnderLeadGenObjective = u),
       (l.getIsClickToCallAdsUnderConversionsOrSalesObjective = c),
@@ -64,7 +72,8 @@ __d(
       (l.getIsCallAdsLeadGenObjective = m),
       (l.getDefaultFromCallAdsSource = p),
       (l.isPhoneCallPromotedObjectType = _),
-      (l.CALL_EXTENSION_PHONE_DATA_ID_PLACEHOLDER = f));
+      (l.CALL_EXTENSION_PHONE_DATA_ID_PLACEHOLDER = f),
+      (l.getValidatedPhoneDisplayNumber = g));
   },
   98,
 );

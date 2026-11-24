@@ -1,30 +1,30 @@
 __d(
   "WAWebBizProfileUnlinkedFacebookPages",
-  [],
-  function (t, n, r, o, a, i) {
-    var e = new Map(),
-      l = 0;
-    function s(t) {
-      (l++, e.set(t, l));
+  ["WATimeUtils"],
+  function (t, n, r, o, a, i, l) {
+    var e = 6e4,
+      s = new Map();
+    function u(e) {
+      s.set(e, o("WATimeUtils").monotonicTime());
     }
-    function u(t) {
-      return e.has(t);
+    function c(e) {
+      return s.has(e);
     }
-    function c() {
-      return l;
+    function d(e) {
+      s.delete(e);
     }
-    function d(t, n) {
-      var r = e.get(t);
-      r != null && r <= n && e.delete(t);
+    function m(t, n) {
+      var r = s.get(t);
+      r != null && n - r >= e && s.delete(t);
     }
-    function m() {
-      e.clear();
+    function p() {
+      s.clear();
     }
-    ((i.markFacebookPageUnlinked = s),
-      (i.isFacebookPageUnlinked = u),
-      (i.getFacebookPageUnlinkCount = c),
-      (i.clearFacebookPageUnlinkedBefore = d),
-      (i.clearUnlinkedFacebookPages = m));
+    ((l.markFacebookPageUnlinked = u),
+      (l.isFacebookPageUnlinked = c),
+      (l.clearFacebookPageUnlinked = d),
+      (l.clearFacebookPageUnlinkedForReadStartedAt = m),
+      (l.clearUnlinkedFacebookPages = p));
   },
-  66,
+  98,
 );

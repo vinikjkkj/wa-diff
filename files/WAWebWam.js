@@ -571,12 +571,12 @@ __d(
     }
     async function Z(e, t, n) {
       return e === "" || e[0] === "["
-        ? Promise.resolve()
+        ? Promise.resolve(void 0)
         : o("WAWebWamUtils").isWamBufferTooBigToUpload(e)
           ? (new (o("WAWebWamClientErrorsWamEvent").WamClientErrorsWamEvent)({
               wamClientBufferDropErrorCount: 1,
             }).commit(),
-            Promise.resolve())
+            Promise.resolve(void 0))
           : n === "private"
             ? h.load().then(function (n) {
                 return n(e, t);

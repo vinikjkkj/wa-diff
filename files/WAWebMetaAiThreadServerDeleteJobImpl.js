@@ -2,7 +2,6 @@ __d(
   "WAWebMetaAiThreadServerDeleteJobImpl",
   [
     "QPLFlow",
-    "WALogger",
     "WAWebDeleteMetaAiThreadGQL",
     "WAWebJobsMigrationGating",
     "WAWebLazyPersistedQueue",
@@ -10,63 +9,36 @@ __d(
     "WAWebPersistedJobManager",
     "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebPersistedQueueQpl",
-    "WAWebUserPrefsMeUser",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s,
-      u,
-      c = new Map();
-    function d(e, t) {
-      var n = JSON.stringify([e, t]),
-        r = c.get(n);
-      if (r != null) return r;
-      var a = o("WAWebJobsMigrationGating").isJobsManagerDecommissioned()
-          ? p
-          : m,
-        i = a(e, t).finally(function () {
-          c.delete(n);
+    var e = new Map();
+    function s(t) {
+      var n = e.get(t);
+      if (n != null) return n;
+      var r = o("WAWebJobsMigrationGating").isJobsManagerDecommissioned()
+          ? c
+          : u,
+        a = r(t).finally(function () {
+          e.delete(t);
         });
-      return (c.set(n, i), i);
+      return (e.set(t, a), a);
     }
-    async function m(t, n) {
-      if (
-        !(await o("WAWebPersistedJobManager").hasUnfinishedJob(
-          o("WAWebMetaAiThreadServerDeleteJob").JOB_TYPE,
-          t,
-        ))
-      ) {
-        if (!f(n)) {
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[meta-ai-thread-server-delete] account-changed-before-enqueue",
-              ])),
-          );
-          return;
-        }
-        await o("WAWebPersistedJobManagerWorkerCompatible")
+    async function u(e) {
+      (await o("WAWebPersistedJobManager").hasUnfinishedJob(
+        o("WAWebMetaAiThreadServerDeleteJob").JOB_TYPE,
+        e,
+      )) ||
+        (await o("WAWebPersistedJobManagerWorkerCompatible")
           .getJobManager()
           .waitUntilPersisted({
             type: o("WAWebMetaAiThreadServerDeleteJob").JOB_TYPE,
-            args: { botFbid: t, meLid: n },
-            uniqKey: t,
-          });
-      }
+            args: { botFbid: e },
+            uniqKey: e,
+          }));
     }
-    async function p(e, t) {
-      if (
-        (await o("WAWebLazyPersistedQueue").whenPersistedQueuesMayOpen(), !f(t))
-      ) {
-        o("WALogger").LOG(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
-              "[meta-ai-thread-server-delete] account-changed-before-enqueue",
-            ])),
-        );
-        return;
-      }
-      var n = o("QPLFlow").startQPLFlow(
+    async function c(e) {
+      await o("WAWebLazyPersistedQueue").whenPersistedQueuesMayOpen();
+      var t = o("QPLFlow").startQPLFlow(
         o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_EVENT,
         {
           annotations: {
@@ -78,36 +50,17 @@ __d(
           timeoutInMs: o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_TIMEOUT_MS,
         },
       );
-      await o("QPLFlow").endWith(n, async function () {
-        var r = await o("WAWebLazyPersistedQueue").whenPersistedQueuesReady(n);
-        await r.enqueueMetaAiThreadServerDeleteNow(e, t);
+      await o("QPLFlow").endWith(t, async function () {
+        var n = await o("WAWebLazyPersistedQueue").whenPersistedQueuesReady(t);
+        await n.enqueueMetaAiThreadServerDeleteNow(e);
       });
     }
-    async function _(e) {
-      var t = e.botFbid,
-        n = e.meLid;
-      if (!f(n)) {
-        o("WALogger").LOG(
-          u ||
-            (u = babelHelpers.taggedTemplateLiteralLoose([
-              "[meta-ai-thread-server-delete] account-changed-since-enqueue",
-            ])),
-        );
-        return;
-      }
-      var r = await o("WAWebDeleteMetaAiThreadGQL").deleteMetaAiThreadGQL(t);
-      r === "retryable" &&
+    async function d(e) {
+      var t = await o("WAWebDeleteMetaAiThreadGQL").deleteMetaAiThreadGQL(e);
+      t === "retryable" &&
         o("WAWebMetaAiThreadServerDeleteJob").retryOnBackoff();
     }
-    function f(e) {
-      var t;
-      return (
-        ((t = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) == null
-          ? void 0
-          : t.toString()) === e
-      );
-    }
-    ((l.enqueueMetaAiThreadServerDelete = d), (l.deleteOnServer = _));
+    ((l.enqueueMetaAiThreadServerDelete = s), (l.deleteOnServer = d));
   },
   98,
 );

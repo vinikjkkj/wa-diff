@@ -93,20 +93,11 @@ __d(
         return (
           (n.resolve = function () {
             var t = this,
-              n = this.$3;
-            if (
-              n != null &&
-              n.expiresAtMs - c > this.$4() &&
-              (n.credentials.confidential !== !0 || this.$2())
-            )
-              return Promise.resolve({
-                credentials: n.credentials,
-                kind: "ok",
-                slowWake: n.slowWake,
-              });
+              n = this.$21();
+            if (n != null) return n;
             var r = this.$12;
             if (r != null) return r;
-            var a = this.$21(this.$11)
+            var a = this.$22(this.$11)
               .catch(function () {
                 return (
                   o("WALogger")
@@ -128,6 +119,18 @@ __d(
                 t.$12 === a && (t.$12 = null);
               });
             return ((this.$12 = a), a);
+          }),
+          (n.$21 = function () {
+            var e = this.$3;
+            return e != null &&
+              e.expiresAtMs - c > this.$4() &&
+              (e.credentials.confidential !== !0 || this.$2())
+              ? Promise.resolve({
+                  credentials: e.credentials,
+                  kind: "ok",
+                  slowWake: e.slowWake,
+                })
+              : null;
           }),
           (n.refreshVm = function (t, n) {
             var e = n === void 0 ? {} : n,
@@ -163,22 +166,22 @@ __d(
               this.$18.clear(),
               (this.$10 = null));
           }),
-          (n.$21 = async function (t) {
+          (n.$22 = async function (t) {
             var e = await this.$13();
             return t !== this.$11
               ? f
               : e
-                ? this.$22(t)
+                ? this.$23(t)
                 : {
                     cause: "channel_not_linked",
                     detail: "Muse channel is not linked",
                     kind: "failure",
                   };
           }),
-          (n.$22 = async function (t) {
+          (n.$23 = async function (t) {
             var e,
               n = (e = this.$1) != null ? e : this.$19(),
-              r = n != null ? n : await this.$23(t);
+              r = n != null ? n : await this.$24(t);
             if (r == null)
               return {
                 cause: "mint_failed",
@@ -186,27 +189,27 @@ __d(
                 kind: "failure",
               };
             var o = r,
-              a = await this.$24(o, t);
+              a = await this.$25(o, t);
             if (a.kind === "unauthorized" && n != null) {
-              this.$25(n, t);
-              var i = await this.$23(t);
+              this.$26(n, t);
+              var i = await this.$24(t);
               if (i == null)
                 return {
                   cause: "mint_failed",
                   detail: a.detail,
                   kind: "failure",
                 };
-              ((o = i), (a = await this.$24(o, t)));
+              ((o = i), (a = await this.$25(o, t)));
             }
             return a.kind === "unauthorized"
-              ? (this.$25(o, t),
+              ? (this.$26(o, t),
                 t === this.$11 && this.dropForcedWake(),
                 { cause: "unauthorized", detail: a.detail, kind: "failure" })
               : a.kind !== "ok"
                 ? a
-                : this.$26(a, t);
+                : this.$27(a, t);
           }),
-          (n.$26 = function (t, n) {
+          (n.$27 = function (t, n) {
             var e = this;
             if (n !== this.$11) return f;
             var r = t.entry;
@@ -235,10 +238,10 @@ __d(
               { credentials: o, kind: "ok", slowWake: a }
             );
           }),
-          (n.$24 = async function (t, n) {
+          (n.$25 = async function (t, n) {
             var e = await this.$7.fetch(t);
             if (e.kind === "ok" && e.entries.length === 0) {
-              var r = await this.$27(t, n);
+              var r = await this.$28(t, n);
               if (r != null) return r;
               e = await this.$7.fetch(t);
             }
@@ -250,12 +253,12 @@ __d(
                 detail: "fetch_vms returned no VM",
                 kind: "failure",
               };
-            var a = await this.$28({ entry: o, generation: n, token: t });
+            var a = await this.$29({ entry: o, generation: n, token: t });
             return T(a)
-              ? this.$29({ entry: o, generation: n, prepared: a, token: t })
+              ? this.$30({ entry: o, generation: n, prepared: a, token: t })
               : a;
           }),
-          (n.$27 = async function (t, n) {
+          (n.$28 = async function (t, n) {
             if (this.$16 === n)
               return {
                 cause: "lease_pending",
@@ -280,7 +283,7 @@ __d(
                   ? null
                   : r;
           }),
-          (n.$29 = async function (t) {
+          (n.$30 = async function (t) {
             var e,
               n = t.entry,
               r = t.generation,
@@ -293,19 +296,19 @@ __d(
               ? o
               : (e = $({ after: l, before: n })) != null
                 ? e
-                : this.$28({ entry: l, generation: r, token: a });
+                : this.$29({ entry: l, generation: r, token: a });
           }),
-          (n.$28 = async function (t) {
+          (n.$29 = async function (t) {
             var e,
               n = t.entry,
               r = t.generation,
               o = t.token,
-              a = this.$30(n);
+              a = this.$31(n);
             if (a != null) return a;
-            var i = this.$31(n.vmId, r),
-              l = this.$32(n.vmId, r),
+            var i = this.$32(n.vmId, r),
+              l = this.$33(n.vmId, r),
               s = l || this.$15(),
-              u = await this.$33(o, n, r);
+              u = await this.$34(o, n, r);
             if (u.kind !== "ok") return u;
             var c = u.entry,
               d =
@@ -313,14 +316,14 @@ __d(
                   ? null
                   : (e = $({ after: c, before: n })) != null
                     ? e
-                    : this.$30(c);
+                    : this.$31(c);
             return d != null
               ? d
               : s
-                ? this.$34({ entry: c, generation: r, isForced: i, token: o })
+                ? this.$35({ entry: c, generation: r, isForced: i, token: o })
                 : { entry: c, kind: "ok", wake: v };
           }),
-          (n.$30 = function (t) {
+          (n.$31 = function (t) {
             return w(t)
               ? null
               : t.vmType !== g || !this.$2()
@@ -335,7 +338,7 @@ __d(
                       detail: "Confidential VM is being replaced",
                       kind: "failure",
                     }
-                  : this.$35(t)
+                  : this.$36(t)
                     ? P(t)
                       ? null
                       : {
@@ -350,7 +353,7 @@ __d(
                         kind: "failure",
                       };
           }),
-          (n.$35 = function (t) {
+          (n.$36 = function (t) {
             var e = t.noiseNotaryToken;
             return (
               e != null &&
@@ -359,16 +362,16 @@ __d(
               t.notaryExpiresAtMs - c > this.$4()
             );
           }),
-          (n.$33 = async function (t, n, r) {
+          (n.$34 = async function (t, n, r) {
             var e,
               o = (e = n.state) == null ? void 0 : e.toUpperCase();
             return o != null && C.has(o)
               ? { cause: "vm_state", detail: "VM is " + o, kind: "failure" }
               : o != null && b.has(o)
-                ? this.$36(t, n.vmId, r)
+                ? this.$37(t, n.vmId, r)
                 : { entry: n, kind: "ok" };
           }),
-          (n.$34 = function (t) {
+          (n.$35 = function (t) {
             var e,
               n = this,
               r = t.entry,
@@ -376,10 +379,10 @@ __d(
               a = t.isForced,
               i = t.token,
               l = this.$8,
-              s = (e = this.$18.get(r.vmId)) != null ? e : this.$37(i, r.vmId);
+              s = (e = this.$18.get(r.vmId)) != null ? e : this.$38(i, r.vmId);
             return (
               s.then(function (e) {
-                return n.$38({
+                return n.$39({
                   epoch: l,
                   generation: o,
                   isForced: a,
@@ -390,7 +393,7 @@ __d(
               { entry: r, kind: "ok", wake: s }
             );
           }),
-          (n.$37 = function (t, n) {
+          (n.$38 = function (t, n) {
             var e = this,
               r = this.$7.wake(t, n).catch(function () {
                 return S;
@@ -412,17 +415,17 @@ __d(
               r
             );
           }),
-          (n.$32 = function (t, n) {
+          (n.$33 = function (t, n) {
             if (n !== this.$11) return !1;
             var e = this.$10 === t;
             return ((this.$10 = null), e);
           }),
-          (n.$31 = function (t, n) {
+          (n.$32 = function (t, n) {
             if (n !== this.$11) return !1;
             var e = this.$9 === t;
             return ((this.$9 = null), e);
           }),
-          (n.$38 = function (t) {
+          (n.$39 = function (t) {
             var e = t.epoch,
               n = t.generation,
               r = t.isForced,
@@ -435,7 +438,7 @@ __d(
                 e === this.$8 &&
                 (this.$9 = o));
           }),
-          (n.$36 = async function (t, n, r, o, a) {
+          (n.$37 = async function (t, n, r, o, a) {
             (o === void 0 && (o = 0), a === void 0 && (a = this.$4()));
             var e = Math.min(d * Math.pow(2, o), m);
             if (o >= p || this.$4() - a + e > _)
@@ -447,15 +450,15 @@ __d(
             if ((await this.$20(e), r !== this.$11)) return f;
             var i = await this.$7.fetch(t),
               l = D(i, n);
-            return l != null ? l : this.$36(t, n, r, o + 1, a);
+            return l != null ? l : this.$37(t, n, r, o + 1, a);
           }),
-          (n.$23 = async function (t) {
+          (n.$24 = async function (t) {
             var e = await this.$17();
             return e.kind !== "ok"
               ? null
               : (t === this.$11 && (this.$1 = e.token), e.token);
           }),
-          (n.$25 = function (t, n) {
+          (n.$26 = function (t, n) {
             n === this.$11 && this.$1 === t && (this.$1 = null);
           }),
           t

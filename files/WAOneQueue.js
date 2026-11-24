@@ -367,12 +367,13 @@ __d(
               r = n.afterInit,
               a = r === void 0 ? !1 : r,
               i = n.flush,
-              l = n.operationType,
-              s = n.priority,
-              u = s === void 0 ? this.$15 : s,
-              c = function () {
+              l = n.flushReason,
+              s = n.operationType,
+              u = n.priority,
+              c = u === void 0 ? this.$15 : u,
+              d = function () {
                 return e.$19({
-                  name: l,
+                  name: s,
                   fn: (function (e) {
                     function t() {
                       return e.apply(this, arguments);
@@ -385,27 +386,27 @@ __d(
                     );
                   })(async function () {
                     var n = await t(e.$11);
-                    return (i && (await e.$18()), n);
+                    return (i && (await e.$18(l)), n);
                   }),
-                  priority: u,
+                  priority: c,
                 });
               };
             if (a && this.$4 !== o("WAOfflineUtils").ServerRPCMode.ONLINE) {
-              var d = new (o("WAResolvable").Resolvable)();
+              var m = new (o("WAResolvable").Resolvable)();
               return (
                 this.$8.push(function () {
-                  c()
+                  d()
                     .then(function (e) {
-                      return d.resolve(e);
+                      return m.resolve(e);
                     })
                     .catch(function (e) {
-                      return d.reject(e);
+                      return m.reject(e);
                     });
                 }),
-                d.promise
+                m.promise
               );
             }
-            return c();
+            return d();
           }),
           t
         );

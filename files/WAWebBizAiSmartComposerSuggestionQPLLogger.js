@@ -4,6 +4,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = r("qpl")._(217267791, "3641"),
       s = {
+        HANDOFF_READY_TO_BUY: "handoff_ready_to_buy",
         MESSAGE_RECEIVED: "message_received",
         MODE_SWITCH: "mode_switched",
         THREAD_OPEN: "thread_open",

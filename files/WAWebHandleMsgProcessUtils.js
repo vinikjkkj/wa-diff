@@ -13,6 +13,7 @@ __d(
     "WAWebHandleMsgValidate",
     "WAWebIcdcHandlerApi",
     "WAWebKeepAndApplyBrazilPaymentStateUpdates",
+    "WAWebNullFunc",
     "WAWebOfflineDeviceCache",
     "WAWebPaymentsGatingUtils",
     "WAWebSyncDeviceAdvDeviceListJob",
@@ -171,9 +172,7 @@ __d(
             ? Promise.resolve(c(t, n, r))
             : o("WAWebKeepAndApplyBrazilPaymentStateUpdates")
                 .keepAndApplyBrazilPaymentStateUpdate(t, a)
-                .then(function () {
-                  return null;
-                }));
+                .then(o("WAWebNullFunc").returnNull));
     }
     function g(e) {
       return h(e).catch(function (t) {

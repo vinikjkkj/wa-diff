@@ -2,6 +2,7 @@ __d(
   "WAWebGetMultiStepFormAction",
   [
     "fbt",
+    "WAWebABProps",
     "WAWebCmd",
     "WAWebMsgCollection",
     "WAWebMsgType",
@@ -14,7 +15,11 @@ __d(
         i = t.chat,
         l = t.galaxyFlowDisabled,
         c = t.interactivePayload;
-      if (!o("WAWebMultiStepFormButton").opensMultiStepFormFromButton(i.id))
+      if (
+        o("WAWebABProps").getABPropConfigValue(
+          "im_nfm_multi_step_form_killswitch",
+        )
+      )
         return null;
       var d = c,
         m = d == null ? void 0 : d.messageParamsJson,
@@ -22,7 +27,10 @@ __d(
           m != null
             ? o("WAWebMultiStepFormButton").parseMultiStepFormButton(m)
             : null;
-      return p == null
+      return p == null ||
+        e.fromMe ||
+        (!o("WAWebMultiStepFormButton").opensMultiStepFormFromButton(i.id) &&
+          !o("WAWebABProps").getABPropConfigValue("im_a2ui_appt_web"))
         ? null
         : {
             label:

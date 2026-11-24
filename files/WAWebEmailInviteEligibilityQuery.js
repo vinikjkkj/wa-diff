@@ -21,8 +21,10 @@ __d(
           t == null || (e = t.viewer) == null
             ? void 0
             : e.can_send_email_invites;
-      if (n == null)
-        throw new Error("email invite eligibility missing from the response");
+      if (n == null) {
+        var a = new Error("email invite eligibility missing from the response");
+        throw (a.stack, a);
+      }
       return n;
     }
     l.fetchCanSendEmailInvites = u;

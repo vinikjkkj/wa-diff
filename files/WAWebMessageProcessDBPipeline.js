@@ -4,10 +4,12 @@ __d(
     "WACustomError",
     "WALogger",
     "WAPromiseTimeout",
+    "WAWebDrainOrphansAfterOfflineDelivery",
     "WAWebHandleOrphansForNewMsg",
     "WAWebMessageProcessorCache",
     "WAWebWamWorkerOfflineProcessReporter",
     "getErrorSafe",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -32,7 +34,21 @@ __d(
     }
     async function p(e, t) {
       var n = await _(t);
-      e.flushImmediatly && n && f(e.msgData, e.uiNotified);
+      if (n) {
+        if (e.flushImmediatly) {
+          f(e.msgData, e.uiNotified);
+          return;
+        }
+        if (!e.callerReplaysOrphans && r("justknobx")._("8690")) {
+          if (e.offlineDeliveryEnded) {
+            f(e.msgData, e.uiNotified);
+            return;
+          }
+          o(
+            "WAWebDrainOrphansAfterOfflineDelivery",
+          ).drainOrphansAfterOfflineDelivery(e.msgData, e.uiNotified.promise);
+        }
+      }
     }
     function _(t) {
       return t

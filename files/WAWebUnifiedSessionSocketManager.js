@@ -39,13 +39,14 @@ __d(
               return;
             }
             ((this.$4 = !0), (this.$3 = t));
-            var r = o("WAWebUserPrefsAppStateSync").getAllCriticalDataSynced(),
-              a =
+            var r =
                 (e = v == null ? void 0 : v.isMainStreamReadyMd) != null
                   ? e
-                  : !1;
-            ((this.$1 = r),
-              (this.$2 = r && a ? C.CONNECTED : C.DISCONNECTED),
+                  : !1,
+              a =
+                r && o("WAWebUserPrefsAppStateSync").getAllCriticalDataSynced();
+            ((this.$1 = a),
+              (this.$2 = a && r ? C.CONNECTED : C.DISCONNECTED),
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -54,8 +55,8 @@ __d(
                     " stream=",
                     "",
                   ])),
-                String(r),
                 String(a),
+                String(r),
                 this.$2,
               ),
               v != null &&
@@ -129,6 +130,10 @@ __d(
                     "[unified-session-socket] open->CONNECTED",
                   ])),
               ),
+              this.$1 ||
+                (this.$1 = o(
+                  "WAWebUserPrefsAppStateSync",
+                ).getAllCriticalDataSynced()),
               this.$1 === !1)
             ) {
               o("WALogger").WARN(

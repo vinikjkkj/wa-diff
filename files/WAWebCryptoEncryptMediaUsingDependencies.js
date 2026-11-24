@@ -33,7 +33,7 @@ __d(
         sidecar: o(
           "WAWebCryptoCalculateStreamingSidecar",
         ).calculateStreamingSidecar(a, n),
-        firstFrameSidecar: Promise.resolve(),
+        firstFrameSidecar: Promise.resolve(void 0),
       };
     }
     function p(e) {
@@ -44,7 +44,7 @@ __d(
         l = o("WAWebWebpParseWebp").parseWebp(a),
         s = l.firstFrameLength;
       return {
-        sidecar: Promise.resolve(),
+        sidecar: Promise.resolve(void 0),
         firstFrameSidecar:
           s != null
             ? r("WAWebCryptoCalculateFirstFrameSidecar")(
@@ -52,7 +52,7 @@ __d(
                 o("WAArrayBuffersConcat").concatArrayBuffers(t, i),
                 n,
               )
-            : Promise.resolve(),
+            : Promise.resolve(void 0),
       };
     }
     var _ = new Map([
@@ -99,9 +99,9 @@ __d(
             ? i
             : {},
         b = C.sidecar,
-        v = b === void 0 ? Promise.resolve() : b,
+        v = b === void 0 ? Promise.resolve(void 0) : b,
         S = C.firstFrameSidecar,
-        R = S === void 0 ? Promise.resolve() : S,
+        R = S === void 0 ? Promise.resolve(void 0) : S,
         L = new Uint8Array(g).subarray(u.byteLength),
         E = o("WATypedArraysConcat").concatTypedArrays(Uint8Array, [
           L,

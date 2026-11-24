@@ -32,17 +32,35 @@ __d(
         c = r("WAWebNoop"),
         d = function () {
           ((u = !0),
-            o("WAWebStatusCollection").StatusCollection.off("add", p),
+            o("WAWebStatusCollection").StatusCollection.off("add", f),
             o("WAWebStatusCollection").StatusCollection.off(
               "change:msgsChanged",
-              p,
+              f,
             ),
-            document.removeEventListener("visibilitychange", p),
-            window.removeEventListener("online", p));
+            document.removeEventListener("visibilitychange", f),
+            window.removeEventListener("online", f));
         },
         m = null,
-        p = function () {
+        p = !1,
+        f = function () {
           if (h()) {
+            if (
+              !o("WAWebEventsWaitForOfflineDeliveryEnd").isOfflineDeliveryEnd()
+            ) {
+              p ||
+                ((p = !0),
+                o("WAWebEventsWaitForOfflineDeliveryEnd")
+                  .waitForOfflineDeliveryEnd({ ignoreInit: !0 })
+                  .then(function () {
+                    ((p = !1),
+                      !u &&
+                        o(
+                          "WAWebEventsWaitForOfflineDeliveryEnd",
+                        ).isOfflineDeliveryEnd() &&
+                        f());
+                  }));
+              return;
+            }
             var r = t().filter(
               o("WAWebStatusVisibilityUtils")
                 .isUserOrTrustedGroupOrNewsletterStatus,
@@ -65,14 +83,14 @@ __d(
           .waitForOfflineDeliveryEnd({ ignoreInit: !0 })
           .then(function () {
             u ||
-              (o("WAWebStatusCollection").StatusCollection.on("add", p),
+              (o("WAWebStatusCollection").StatusCollection.on("add", f),
               o("WAWebStatusCollection").StatusCollection.on(
                 "change:msgsChanged",
-                p,
+                f,
               ),
-              document.addEventListener("visibilitychange", p),
-              window.addEventListener("online", p),
-              p());
+              document.addEventListener("visibilitychange", f),
+              window.addEventListener("online", f),
+              f());
           }),
         function () {
           (d(), s && c());

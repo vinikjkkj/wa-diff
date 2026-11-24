@@ -3,6 +3,7 @@ __d(
   [
     "QPLFlow",
     "WALogger",
+    "WAWebBoolFunc",
     "WAWebInboundMsgQueueDef",
     "WAWebInboundMsgQueueGating",
     "WAWebInboundMsgQueueRow",
@@ -13,8 +14,12 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = null;
-    function u(e, t) {
+      s = [
+        o("WAWebInboundMsgQueueRow").InboundRowPriority.NORMAL,
+        o("WAWebInboundMsgQueueRow").InboundRowPriority.LOW,
+      ],
+      u = null;
+    function c(e, t) {
       return o("WAWebLazyPersistedQueue")
         .whenPersistedQueuesReadyDuringResume(e)
         .then(async function () {
@@ -24,21 +29,18 @@ __d(
               var t = e.queueId;
               return t;
             }),
-            c,
+            d,
           ),
             await o("WAWebInboundMsgQueueDef").INBOUND_MSG_QUEUE.put(t));
         });
     }
-    async function c(e) {
+    async function d(e) {
       var t = new Set(e),
         n = [].concat(e).sort(),
         r = n[0],
         a = n[n.length - 1],
         i = await Promise.all(
-          [
-            o("WAWebInboundMsgQueueRow").InboundRowPriority.NORMAL,
-            o("WAWebInboundMsgQueueRow").InboundRowPriority.LOW,
-          ].map(function (e) {
+          s.map(function (e) {
             return o(
               "WAWebInboundMsgQueueDef",
             ).INBOUND_MSG_QUEUE.readFromIndexRange("priority", {
@@ -52,26 +54,26 @@ __d(
         return t.has(n);
       }).length;
     }
-    function d(e, t) {
+    function m(e, t) {
       return o("WAWebLazyPersistedQueue")
         .whenPersistedQueuesReadyDuringResume(e)
         .then(function () {
           return o("WAWebInboundMsgQueueDef").INBOUND_MSG_QUEUE.put(t);
         });
     }
-    function m(e, t) {
+    function p(e, t) {
       return o("WAWebLazyPersistedQueue")
         .whenPersistedQueuesReadyDuringResume(e)
         .then(function () {
           return o("WAWebInboundMsgQueueDef").INBOUND_MSG_QUEUE.ack(t);
         });
     }
-    function p(e, t, n, r) {
+    function _(e, t, n, r) {
       return o("WAWebLazyPersistedQueue")
         .whenPersistedQueuesReadyDuringResume(e)
         .then(function () {
           return o("WAWebInboundMsgQueueGating").isWAWebPersistedQueueEnabled()
-            ? v(
+            ? S(
                 function (e, n) {
                   return o(
                     "WAWebInboundMsgQueueDef",
@@ -93,7 +95,7 @@ __d(
               );
         });
     }
-    function _(e) {
+    function f(e) {
       return o("WAWebLazyPersistedQueue")
         .whenPersistedQueuesReadyDuringResume(e)
         .then(async function () {
@@ -104,15 +106,15 @@ __d(
           return t;
         });
     }
-    function f(e, t, n, r, a) {
+    function g(e, t, n, r, a) {
       return o("WAWebLazyPersistedQueue")
         .whenPersistedQueuesReadyDuringResume(e)
         .then(function () {
-          return C(t, n, r, a, new Map());
+          return b(t, n, r, a, new Map());
         });
     }
-    function g(e, t) {
-      var n = s;
+    function h(e, t) {
+      var n = u;
       return n == null || (t != null && t >= n)
         ? Promise.resolve([])
         : o("WAWebInboundMsgQueueDef").INBOUND_MSG_QUEUE.getAllFromIndexRange(
@@ -140,10 +142,10 @@ __d(
             e,
           );
     }
-    function h(e) {
-      return s != null && e <= s;
+    function y(e) {
+      return u != null && e <= u;
     }
-    function y() {
+    function C() {
       var t = o("QPLFlow").startQPLFlow(
         o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_EVENT,
         {
@@ -164,45 +166,40 @@ __d(
               order: "desc",
             }),
             n = e[0];
-          s = n == null ? void 0 : n.queueId;
+          u = n == null ? void 0 : n.queueId;
         })
-        .then(
-          function () {
-            return !0;
-          },
-          function (t) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[inbound-msg-queue] preload failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .tags("messaging")
-                .sendLogs("inbound-msg-queue-preload-failed"),
-              !1
-            );
-          },
-        );
+        .then(o("WAWebBoolFunc").returnTrue, function (t) {
+          return (
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[inbound-msg-queue] preload failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t))
+              .tags("messaging")
+              .sendLogs("inbound-msg-queue-preload-failed"),
+            !1
+          );
+        });
     }
-    async function C(e, t, n, r, a) {
+    async function b(e, t, n, r, a) {
       if (e.length === 0 || n <= 0) return a;
       var i = e[0],
         l = babelHelpers.arrayLikeToArray(e).slice(1),
         s = o("WAWebInboundMsgQueueGating").isWAWebPersistedQueueEnabled()
-          ? await v(
+          ? await S(
               function (e, n) {
-                return S(i, t, e, n);
+                return R(i, t, e, n);
               },
               n,
               r,
             )
-          : await b(i, t, { filter: r, limit: n, order: "asc" });
-      return (a.set(i, s), C(l, t, n - s.length, r, a));
+          : await v(i, t, { filter: r, limit: n, order: "asc" });
+      return (a.set(i, s), b(l, t, n - s.length, r, a));
     }
-    function b(e, t, n) {
+    function v(e, t, n) {
       var r = t.before,
         a = t.upTo;
       return r != null
@@ -223,7 +220,7 @@ __d(
               n,
             );
     }
-    async function v(e, t, n, r, o) {
+    async function S(e, t, n, r, o) {
       (r === void 0 && (r = null), o === void 0 && (o = []));
       var a = t - o.length,
         i = await e(r, a),
@@ -231,9 +228,9 @@ __d(
         s = i.at(-1);
       return i.length < a || s == null || l.length >= t
         ? l
-        : v(e, t, n, s.queueId, l);
+        : S(e, t, n, s.queueId, l);
     }
-    function S(e, t, n, r) {
+    function R(e, t, n, r) {
       var a = t.before,
         i = t.upTo,
         l = a != null ? a : i;
@@ -267,15 +264,15 @@ __d(
                 r,
               );
     }
-    ((l.putNewInboundMsgs = u),
-      (l.putInboundMsgs = d),
-      (l.ackInboundMsgs = m),
-      (l.readInboundMsgs = p),
-      (l.readOldestInboundMsg = _),
-      (l.readInboundMsgsForChats = f),
-      (l.readLeftoverInboundMsgs = g),
-      (l.isLeftoverInboundMsg = h),
-      (l.preloadInboundMsgQueue = y));
+    ((l.putNewInboundMsgs = c),
+      (l.putInboundMsgs = m),
+      (l.ackInboundMsgs = p),
+      (l.readInboundMsgs = _),
+      (l.readOldestInboundMsg = f),
+      (l.readInboundMsgsForChats = g),
+      (l.readLeftoverInboundMsgs = h),
+      (l.isLeftoverInboundMsg = y),
+      (l.preloadInboundMsgQueue = C));
   },
   98,
 );

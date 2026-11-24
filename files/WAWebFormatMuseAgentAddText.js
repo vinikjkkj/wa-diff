@@ -8,6 +8,7 @@ __d(
     "WAWebBotUtils",
     "WAWebGroupAgentAddAttribution",
     "WAWebLidMigrationUtils",
+    "WAWebSystemMessageGatingUtils",
     "WAWebSystemMessagesUtils",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -35,7 +36,12 @@ __d(
         )
       )
         return null;
-      if (a == null) return s._(/*BTDS*/ "", [s._param("agent_name", n)]);
+      if (a == null)
+        return o(
+          "WAWebSystemMessageGatingUtils",
+        ).systemMessageTerminalPeriodsEnabled()
+          ? s._(/*BTDS*/ "", [s._param("agent_name", n)])
+          : s._(/*BTDS*/ "", [s._param("agent_name", n)]);
       var d =
         r ===
           o("WAWebGroupAgentAddAttribution").GroupAgentAddAttribution.OWNER ||
@@ -45,16 +51,38 @@ __d(
             : t.user) === c.creatorLid);
       return o("WAWebSystemMessagesUtils").isMe(a)
         ? d
-          ? s._(/*BTDS*/ "", [s._param("agent_name", n)])
-          : s._(/*BTDS*/ "", [s._param("agent_name", n)])
+          ? (o(
+              "WAWebSystemMessageGatingUtils",
+            ).systemMessageTerminalPeriodsEnabled() &&
+              s._(/*BTDS*/ "", [s._param("agent_name", n)])) ||
+            s._(/*BTDS*/ "", [s._param("agent_name", n)])
+          : (o(
+              "WAWebSystemMessageGatingUtils",
+            ).systemMessageTerminalPeriodsEnabled() &&
+              s._(/*BTDS*/ "", [s._param("agent_name", n)])) ||
+            s._(/*BTDS*/ "", [s._param("agent_name", n)])
         : i == null
           ? null
           : d
-            ? s._(/*BTDS*/ "", [
+            ? (o(
+                "WAWebSystemMessageGatingUtils",
+              ).systemMessageTerminalPeriodsEnabled() &&
+                s._(/*BTDS*/ "", [
+                  s._param("owner_name", i),
+                  s._param("agent_name", n),
+                ])) ||
+              s._(/*BTDS*/ "", [
                 s._param("owner_name", i),
                 s._param("agent_name", n),
               ])
-            : s._(/*BTDS*/ "", [
+            : (o(
+                "WAWebSystemMessageGatingUtils",
+              ).systemMessageTerminalPeriodsEnabled() &&
+                s._(/*BTDS*/ "", [
+                  s._param("user_name", i),
+                  s._param("agent_name", n),
+                ])) ||
+              s._(/*BTDS*/ "", [
                 s._param("user_name", i),
                 s._param("agent_name", n),
               ]);

@@ -9,14 +9,17 @@ __d(
     function d(e) {
       return e.phase === "token" && e.cause === "unauthorized";
     }
-    function m(e, t, n) {
-      return e == null || t <= 0 || n < e.lastAttemptAtMs ? 0 : p(e, t);
+    function m(e) {
+      return d(e) || S(e.cause);
     }
-    function p(e, t) {
+    function p(e, t, n) {
+      return e == null || t <= 0 || n < e.lastAttemptAtMs ? 0 : _(e, t);
+    }
+    function _(e, t) {
       var n = Math.min(e.consecutiveFailures, c);
       return e.lastAttemptAtMs + t * u * Math.pow(2, n);
     }
-    function _(e, t) {
+    function f(e, t) {
       var n;
       return {
         lastAttemptAtMs: t,
@@ -24,7 +27,7 @@ __d(
           (n = e == null ? void 0 : e.consecutiveFailures) != null ? n : 0,
       };
     }
-    function f(e, t) {
+    function g(e, t) {
       return (function (t) {
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
@@ -39,7 +42,7 @@ __d(
         ) {
           var n = t.failure,
             r = t.tokenRequestSent;
-          if (r || !v(n.cause))
+          if (r || !S(n.cause))
             return babelHelpers.extends({}, e, {
               consecutiveFailures: e.consecutiveFailures + 1,
             });
@@ -47,7 +50,7 @@ __d(
         return e;
       })(t);
     }
-    function g(e, t) {
+    function h(e, t) {
       return (function (e) {
         if (
           (((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -62,7 +65,7 @@ __d(
           "retryAtMs" in e
         ) {
           var n = e.retryAtMs;
-          return C(n, t);
+          return b(n, t);
         }
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -75,7 +78,7 @@ __d(
           "retryAtMs" in e
         ) {
           var r = e.retryAtMs;
-          return b(r, t);
+          return v(r, t);
         }
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -83,7 +86,7 @@ __d(
           "retryAtMs" in e
         ) {
           var a = e.retryAtMs;
-          return b(a, t);
+          return v(a, t);
         }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -91,16 +94,16 @@ __d(
         );
       })(e);
     }
-    function h(e, t, n) {
+    function y(e, t, n) {
       return t <= 0
         ? null
         : e == null || e > n
           ? n
           : e + t * o("WATimeUtils").HOUR_MILLISECONDS;
     }
-    function y(e, t, n) {
+    function C(e, t, n) {
       return e === "valid"
-        ? C(n + t * o("WATimeUtils").HOUR_MILLISECONDS, n)
+        ? b(n + t * o("WATimeUtils").HOUR_MILLISECONDS, n)
         : e === "rejected" || e === "incomplete" || e === "error"
           ? o("WATimeUtils").HOUR_SECONDS
           : (function () {
@@ -110,25 +113,26 @@ __d(
               );
             })();
     }
-    function C(e, t) {
+    function b(e, t) {
       var n = Math.ceil((e - t) / u);
       return Math.min(Math.max(n, 1), o("WATimeUtils").DAY_SECONDS);
     }
-    function b(t, n) {
-      return Math.max(C(t, n), e);
+    function v(t, n) {
+      return Math.max(b(t, n), e);
     }
-    function v(e) {
+    function S(e) {
       return e === "network" || e === "timeout";
     }
     ((l.isRejectedProof = d),
-      (l.getMintAllowedAtMs = m),
-      (l.getMintBackoffEndMs = p),
-      (l.claimMintThrottle = _),
-      (l.settleMintThrottle = f),
-      (l.getMintRetrySeconds = g),
-      (l.getValidationDueAtMs = h),
-      (l.getValidationRecheckSeconds = y),
-      (l.secondsUntil = C));
+      (l.isRetriableAttemptFailure = m),
+      (l.getMintAllowedAtMs = p),
+      (l.getMintBackoffEndMs = _),
+      (l.claimMintThrottle = f),
+      (l.settleMintThrottle = g),
+      (l.getMintRetrySeconds = h),
+      (l.getValidationDueAtMs = y),
+      (l.getValidationRecheckSeconds = C),
+      (l.secondsUntil = b));
   },
   98,
 );

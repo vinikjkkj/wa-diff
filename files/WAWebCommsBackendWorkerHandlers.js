@@ -9,7 +9,9 @@ __d(
     "WATransferableResult",
     "WAWap",
     "WAWebBackendWorkerRegistrationState",
+    "WAWebCommsConfigBase",
     "WAWebCommsConfigWorker",
+    "WAWebCommsUnifiedSessionId",
     "WAWebPageLoadLogging",
     "getErrorSafe",
   ],
@@ -221,6 +223,13 @@ __d(
             },
             !1,
           );
+        }),
+        setUnifiedSessionId: u("setUnifiedSessionId", function (e) {
+          var t = e.unifiedSessionId;
+          (o("WAWebCommsUnifiedSessionId").setCommsUnifiedSessionId(t),
+            o("WAWebBackendWorkerRegistrationState").isRegistered() &&
+              o("WAComms").isSocketConnected() &&
+              o("WAWebCommsConfigBase").shareUnifiedSessionId());
         }),
       };
     }

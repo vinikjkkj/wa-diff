@@ -167,12 +167,15 @@ __d(
           : { error: e, result: "failure" },
       );
     }
-    function k(e, t) {
-      T(
-        "suggested_reply_card_tapped",
-        o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM.CLICK,
-        { card_type: t, trigger: e },
-      );
+    function k(e, t, n) {
+      var r = { card_type: t, trigger: e };
+      (n != null && (r.route_outcome = n),
+        T(
+          "suggested_reply_card_tapped",
+          o("WAWebWamEnumSmbUserActionTypeEnum").SMB_USER_ACTION_TYPE_ENUM
+            .CLICK,
+          r,
+        ));
     }
     function I(e) {
       var t = e.from,

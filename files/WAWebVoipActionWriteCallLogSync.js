@@ -26,6 +26,7 @@ __d(
     "WAWebVoipCallLogWriteMutex",
     "WAWebVoipOngoingCallCollection",
     "WAWebVoipTransferredCallRegistry",
+    "WAWebVoipUnresolvedPlaceholderLoadable",
     "WAWebVoipWaCallEnums",
     "WAWebWidFactory",
     "compactMap",
@@ -154,195 +155,203 @@ __d(
         b = n.silenceReason,
         v = n.startTime;
       if (
-        !(
-          u != null &&
-          !i &&
-          o("WAWebVoipActionWriteCallLogImpl").isCallIdAlreadyProcessed(u)
-        )
+        u != null &&
+        !i &&
+        o("WAWebVoipActionWriteCallLogImpl").isCallIdAlreadyProcessed(u)
       ) {
-        var S = y || !r("isStringNullOrEmpty")(c),
-          L,
-          k =
-            s != null && s !== ""
-              ? o("WAWebWidFactory").createWid(s)
-              : o("WAWebUserUtils").getMeDevicePnLessOrFallback_DO_NOT_USE();
-        try {
-          L = await o("WAWebCallLogUtils").getCallLogTargetDetails({
-            callCreatorWid: k,
-            callId: u,
-            groupJid: r("isStringNullOrEmpty")(m)
-              ? null
-              : o("WAWebWidFactory").createWid(m),
-            isCallLink: S,
-            participants: r("compactMap")(n.participants, function (e) {
-              return e.userJid != null && e.userJid !== ""
-                ? o("WAWebWidFactory").createWid(e.userJid)
-                : null;
-            }),
-          });
-        } catch (e) {
-          o("WALogger").LOG(
-            p || (p = babelHelpers.taggedTemplateLiteralLoose(["", ": ", ""])),
-            l.message,
-            String(e),
-          );
-          return;
-        }
-        var I = L,
-          T = I.callCreatorUserWid,
-          D = I.chatId,
-          x = I.fromMe,
-          $ = I.msgKeyId,
-          P = I.participant,
-          N = I.viewMode,
-          M = o("WATimeUtils").castToUnixTime(
-            (t = o("WALongInt").maybeNumber(v)) != null
-              ? t
-              : o("WATimeUtils").unixTime(),
-          ),
-          w = new (r("WAWebMsgKey"))({
-            remote: D,
-            participant: P,
-            fromMe: x,
-            id: $,
-          });
-        if (
-          (i &&
-            D.isRegularUser() &&
-            o("WAWebLidMigrationUtils").toUserLid(D) == null) ||
-          (!i && R(D, w, M))
-        ) {
-          o("WALogger").LOG(
-            _ ||
-              (_ = babelHelpers.taggedTemplateLiteralLoose([
-                "generateCallLogFromCallSyncRecord: skip unresolved history target or transferred segment, histSync=",
-                "",
-              ])),
-            i,
-          );
-          return;
-        }
-        var A =
-            !i &&
-            !o("WATimeUtils").happenedWithin(
-              M,
-              o("WATimeUtils").MINUTE_SECONDS,
-            ) &&
-            (await E(D, w, M)),
-          F =
-            N === o("WAWebViewMode.flow").ViewModeType.HIDDEN ||
-            N ===
-              o("WAWebViewMode.flow").ViewModeType.CALL_LOG_AD_HOC_GROUP_CALL,
-          O = !r("isStringNullOrEmpty")(m) && u != null;
-        O &&
-          (await o(
-            "WAWebVoipOngoingCallCollection",
-          ).WAWebVoipOngoingCallCollection.waitUntilLoaded());
-        var B = await o(
-          "WAWebVoipCallLogWriteMutex",
-        ).WACallLogWriteMutex.acquire();
-        try {
-          var W,
-            q =
-              O && u != null
-                ? o(
-                    "WAWebVoipOngoingCallCollection",
-                  ).WAWebVoipOngoingCallCollection.getByCallId(u)
-                : null,
-            U = o("WAWebCallLogUtils").getCallOutcomeFromCallResultSyncProto(
-              r("nullthrows")(
-                d,
-                "generateCallLogFromCallSyncRecord: callResult is null from call log record sync",
-              ),
-            ),
-            V = {
-              id: w,
-              type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
-              kind: o("WAWebMsgType").MsgKind.CallLog,
-              viewMode:
-                !F && (A || i || S)
-                  ? o("WAWebViewMode.flow").ViewModeType.HISTORY_SYNCED_CALL_LOG
-                  : N,
-              callOutcome:
-                q != null
-                  ? o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing
-                  : U,
-              finalCallOutcome: q != null ? U : void 0,
-              callSilenceReason:
-                b != null
-                  ? o("WAWebCallLogUtils").getCallSilenceReason(b)
-                  : void 0,
-              isVideoCall: C != null ? C : !1,
-              callCreator: k,
-              callDuration:
-                n.duration == null
-                  ? void 0
-                  : (W = o("WALongInt").maybeNumber(n.duration)) != null
-                    ? W
-                    : void 0,
-              callParticipants: n.participants
-                .filter(function (e) {
-                  return e.userJid != null;
-                })
-                .map(function (e) {
-                  return {
-                    participant: o("WAWebWidFactory").createWid(
-                      r("nullthrows")(e.userJid),
-                    ),
-                    outcome:
-                      e.callResult != null
-                        ? o(
-                            "WAWebCallLogUtils",
-                          ).getCallParticipantStateFromCallResultSyncProto(
-                            e.callResult,
-                          )
-                        : o("WAWebVoipWaCallEnums").CallParticipantState
-                            .Invalid,
-                  };
-                }),
-              from: T,
-              t: M,
-              to: D,
-              isCallLink: S,
-              callLinkToken: c != null ? c : void 0,
-            };
-          await o(
-            "WAWebVoipActionWriteCallLogImpl",
-          ).writeVoipCallLogMessageImpl(D, V, !1);
-        } catch (e) {
-          i
-            ? o("WALogger")
-                .ERROR(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "generateCallLogFromCallHistorySyncRecord: failed to generate call log message from history sync",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .tags("nexus-voip")
-                .sendLogs(l.log)
-            : o("WALogger")
-                .ERROR(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "generateCallLogFromCallSyncRecord: failed to generate call log message from syncd",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .tags("nexus-voip")
-                .sendLogs(l.log);
-        } finally {
-          B.release();
-        }
+        o(
+          "WAWebVoipUnresolvedPlaceholderLoadable",
+        ).scheduleSyncedRootCallLogRepair(n, u, null);
+        return;
       }
+      var S = y || !r("isStringNullOrEmpty")(c),
+        k,
+        T =
+          s != null && s !== ""
+            ? o("WAWebWidFactory").createWid(s)
+            : o("WAWebUserUtils").getMeDevicePnLessOrFallback_DO_NOT_USE();
+      try {
+        k = await o("WAWebCallLogUtils").getCallLogTargetDetails({
+          callCreatorWid: T,
+          callId: u,
+          groupJid: r("isStringNullOrEmpty")(m)
+            ? null
+            : o("WAWebWidFactory").createWid(m),
+          isCallLink: S,
+          participants: r("compactMap")(n.participants, function (e) {
+            return e.userJid != null && e.userJid !== ""
+              ? o("WAWebWidFactory").createWid(e.userJid)
+              : null;
+          }),
+        });
+      } catch (e) {
+        o("WALogger").LOG(
+          p || (p = babelHelpers.taggedTemplateLiteralLoose(["", ": ", ""])),
+          l.message,
+          String(e),
+        );
+        return;
+      }
+      var D = k,
+        x = D.callCreatorUserWid,
+        $ = D.chatId,
+        P = D.fromMe,
+        N = D.msgKeyId,
+        M = D.participant,
+        w = D.viewMode,
+        A = o("WATimeUtils").castToUnixTime(
+          (t = o("WALongInt").maybeNumber(v)) != null
+            ? t
+            : o("WATimeUtils").unixTime(),
+        ),
+        F = new (r("WAWebMsgKey"))({
+          remote: $,
+          participant: M,
+          fromMe: P,
+          id: N,
+        });
+      if (
+        (i &&
+          $.isRegularUser() &&
+          o("WAWebLidMigrationUtils").toUserLid($) == null) ||
+        (!i && E($, F, A))
+      ) {
+        o("WALogger").LOG(
+          _ ||
+            (_ = babelHelpers.taggedTemplateLiteralLoose([
+              "generateCallLogFromCallSyncRecord: skip unresolved history target or transferred segment, histSync=",
+              "",
+            ])),
+          i,
+        );
+        return;
+      }
+      var O =
+          !i &&
+          !o("WATimeUtils").happenedWithin(
+            A,
+            o("WATimeUtils").MINUTE_SECONDS,
+          ) &&
+          (await I($, F, A)),
+        B =
+          w === o("WAWebViewMode.flow").ViewModeType.HIDDEN ||
+          w === o("WAWebViewMode.flow").ViewModeType.CALL_LOG_AD_HOC_GROUP_CALL,
+        W = !r("isStringNullOrEmpty")(m) && u != null;
+      W &&
+        (await o(
+          "WAWebVoipOngoingCallCollection",
+        ).WAWebVoipOngoingCallCollection.waitUntilLoaded());
+      var q = null,
+        U = await o("WAWebVoipCallLogWriteMutex").WACallLogWriteMutex.acquire();
+      try {
+        var V,
+          H =
+            W && u != null
+              ? o(
+                  "WAWebVoipOngoingCallCollection",
+                ).WAWebVoipOngoingCallCollection.getByCallId(u)
+              : null,
+          G = o("WAWebCallLogUtils").getCallOutcomeFromCallResultSyncProto(
+            r("nullthrows")(
+              d,
+              "generateCallLogFromCallSyncRecord: callResult is null from call log record sync",
+            ),
+          ),
+          z = {
+            id: F,
+            type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
+            kind: o("WAWebMsgType").MsgKind.CallLog,
+            viewMode:
+              !B && (O || i || S)
+                ? o("WAWebViewMode.flow").ViewModeType.HISTORY_SYNCED_CALL_LOG
+                : w,
+            callOutcome:
+              H != null ? o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing : G,
+            finalCallOutcome: H != null ? G : void 0,
+            callSilenceReason:
+              b != null
+                ? o("WAWebCallLogUtils").getCallSilenceReason(b)
+                : void 0,
+            isVideoCall: C != null ? C : !1,
+            callCreator: T,
+            callDuration:
+              n.duration == null
+                ? void 0
+                : (V = o("WALongInt").maybeNumber(n.duration)) != null
+                  ? V
+                  : void 0,
+            callParticipants: n.participants
+              .filter(function (e) {
+                return e.userJid != null;
+              })
+              .map(function (e) {
+                return {
+                  participant: o("WAWebWidFactory").createWid(
+                    r("nullthrows")(e.userJid),
+                  ),
+                  outcome:
+                    e.callResult != null
+                      ? o(
+                          "WAWebCallLogUtils",
+                        ).getCallParticipantStateFromCallResultSyncProto(
+                          e.callResult,
+                        )
+                      : o("WAWebVoipWaCallEnums").CallParticipantState.Invalid,
+                };
+              }),
+            from: x,
+            t: A,
+            to: $,
+            isCallLink: S,
+            callLinkToken: c != null ? c : void 0,
+          },
+          j = await o(
+            "WAWebVoipActionWriteCallLogImpl",
+          ).writeVoipCallLogMessageImpl($, z, !1);
+        q = R(j, i, F, u);
+      } catch (e) {
+        i
+          ? o("WALogger")
+              .ERROR(
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                    "generateCallLogFromCallHistorySyncRecord: failed to generate call log message from history sync",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .tags("nexus-voip")
+              .sendLogs(l.log)
+          : o("WALogger")
+              .ERROR(
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                    "generateCallLogFromCallSyncRecord: failed to generate call log message from syncd",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .tags("nexus-voip")
+              .sendLogs(l.log);
+      } finally {
+        U.release();
+      }
+      L(q, n);
     }
-    function R(e, t, n) {
+    function R(e, t, n, r) {
+      return e != null && !t && n.id === r ? n : null;
+    }
+    function L(e, t) {
+      e != null &&
+        o(
+          "WAWebVoipUnresolvedPlaceholderLoadable",
+        ).scheduleSyncedRootCallLogRepair(t, e.id, e);
+    }
+    function E(e, t, n) {
       var a,
         i = (a = r("WAWebCallCollection").activeCall) == null ? void 0 : a.id,
         l = o(
           "WAWebVoipTransferredCallRegistry",
         ).getLiveTransferredCallStartTime(i),
-        s = l != null ? L(i, e) : null;
+        s = l != null ? k(i, e) : null;
       return s == null || l == null
         ? !1
         : t.fromMe &&
@@ -351,7 +360,7 @@ __d(
             n >= s.t &&
             n <= l;
     }
-    function L(e, t) {
+    function k(e, t) {
       var n,
         a = (n = r("WAWebCallCollection").activeCall) == null ? void 0 : n.msg;
       if (a != null) return a;
@@ -366,7 +375,7 @@ __d(
             }),
           );
     }
-    async function E(e, t, n) {
+    async function I(e, t, n) {
       try {
         var a = await Promise.all([
             o("WAWebApiChatCommon").getChatRecord(e),
@@ -374,7 +383,7 @@ __d(
           ]),
           i = a[0],
           l = a[1];
-        if (k(t) || I(l == null ? void 0 : l.viewMode)) return !1;
+        if (T(t) || D(l == null ? void 0 : l.viewMode)) return !1;
         var s = i == null ? void 0 : i.t;
         return s != null && s >= n;
       } catch (e) {
@@ -391,7 +400,7 @@ __d(
         );
       }
     }
-    function k(e) {
+    function T(e) {
       if (
         o("WAWebABProps").getABPropConfigValue(
           "enable_1on1_call_transfer_entry_point",
@@ -406,7 +415,7 @@ __d(
         t.selfOtherDeviceConnected === !0
       );
     }
-    function I(e) {
+    function D(e) {
       return (
         o("WAWebViewModeUtils").isOfflineResumeCallLogPlaceholderViewMode(e) ||
         e ===

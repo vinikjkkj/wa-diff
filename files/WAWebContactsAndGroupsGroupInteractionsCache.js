@@ -116,7 +116,13 @@ __d(
         i = e[t];
       if (i == null) return !0;
       var l = (a = i.t) != null ? a : 0,
-        s = await k(i, null, [], n, r);
+        s = await k({
+          beforeInternalId: null,
+          chat: i,
+          control: r,
+          now: n,
+          timeline: [],
+        });
       return s == null
         ? !1
         : (D(i.id.toString(), {
@@ -128,22 +134,33 @@ __d(
           }),
           E(e, t + 1, n, r));
     }
-    async function k(e, t, n, r, a) {
-      if ((await x(a), a.isAborted)) return null;
-      var i = await o(
+    async function k(e) {
+      var t = e.beforeInternalId,
+        n = e.chat,
+        r = e.control,
+        a = e.now,
+        i = e.timeline;
+      if ((await x(r), r.isAborted)) return null;
+      var l = await o(
         "WAWebContactsAndGroupsGroupTimelineJob",
       ).queryGroupTimelinePageJob({
         beforeInternalId: t,
-        groupId: e.id,
+        groupId: n.id,
         limit: c,
-        sinceTs: r - o("WAWebContactsAndGroupsThisWeek").THIS_WEEK_IN_SECONDS,
+        sinceTs: a - o("WAWebContactsAndGroupsThisWeek").THIS_WEEK_IN_SECONDS,
       });
-      return a.isAborted
+      return r.isAborted
         ? null
-        : (n.push.apply(n, i.msgs),
-          i.nextBeforeInternalId == null
-            ? n
-            : k(e, i.nextBeforeInternalId, n, r, a));
+        : (i.push.apply(i, l.msgs),
+          l.nextBeforeInternalId == null
+            ? i
+            : k({
+                beforeInternalId: l.nextBeforeInternalId,
+                chat: n,
+                control: r,
+                now: a,
+                timeline: i,
+              }));
     }
     function I(e) {
       try {

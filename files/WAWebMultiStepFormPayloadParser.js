@@ -1,134 +1,139 @@
 __d(
   "WAWebMultiStepFormPayloadParser",
-  ["$InternalEnum"],
-  function (t, n, r, o, a, i) {
-    var e = "a2ui_form",
-      l = "2",
-      s = n("$InternalEnum")({ Form: "form", ChoicePicker: "ChoicePicker" }),
-      u = n("$InternalEnum")({
-        MutuallyExclusive: "mutuallyExclusive",
-        MultipleSelection: "multipleSelection",
-      }),
-      c = 3,
-      d = 5;
-    function m(e) {
-      return e == null ||
-        typeof e != "object" ||
-        typeof e.id != "string" ||
-        typeof e.title != "string"
-        ? null
-        : { id: e.id, title: e.title };
-    }
-    function p(e) {
-      if (typeof e == "string") return e;
-      if (Array.isArray(e)) {
-        var t = [];
-        for (var n of e) {
-          if (typeof n != "string") return null;
-          t.push(n);
-        }
-        return t;
-      }
-      return null;
-    }
-    function _(e, t) {
-      if (
-        t == null ||
-        typeof t != "object" ||
-        !Array.isArray(t.children) ||
-        t.children.length === 0 ||
-        t.children.length > c
-      )
-        return null;
-      var n = [];
-      for (var r of t.children) {
-        if (typeof r != "string") return null;
-        n.push(r);
-      }
-      return { id: e, component: s.Form, children: n };
-    }
-    function f(e, t) {
-      var n;
-      if (t == null || typeof t != "object") return null;
-      var r = t.label;
-      if (typeof r != "string" || typeof t.variant != "string") return null;
-      var o = u.cast(t.variant);
-      if (
-        o == null ||
-        !Array.isArray(t.options) ||
-        t.options.length === 0 ||
-        t.options.length > d
-      )
-        return null;
-      var a = [];
-      for (var i of t.options) {
-        var l = m(i);
-        if (l == null) return null;
-        a.push(l);
-      }
-      var c = {
-          id: e,
-          component: s.ChoicePicker,
-          variant: o,
-          label: r,
-          options: a,
-        },
-        _ = (n = t.allow_custom_answer) != null ? n : t.allow_custom;
-      typeof _ == "boolean" && (c.allow_custom_answer = _);
-      var f = p(t.default_id);
-      return (f != null && (c.default_id = f), c);
-    }
-    function g(t) {
+  [
+    "WAWebABProps",
+    "WAWebMultiStepFormChoiceParser",
+    "WAWebMultiStepFormInputFieldsParser",
+    "WAWebMultiStepFormPillParser",
+    "WAWebMultiStepFormTypes",
+  ],
+  function (t, n, r, o, a, i, l) {
+    var e;
+    function s(e) {
       try {
-        var n = JSON.parse(t),
-          r = n.payload,
-          o = n.version;
-        if (o !== l || r == null || typeof r != "object" || r.type !== e)
+        var t = JSON.parse(e),
+          n = t.payload,
+          r = t.version;
+        if (
+          r !== o("WAWebMultiStepFormTypes").A2UI_FORM_VERSION ||
+          n == null ||
+          typeof n != "object" ||
+          n.type !== o("WAWebMultiStepFormTypes").A2UI_FORM_PAYLOAD_TYPE
+        )
           return null;
-        var a = r.data;
+        var a = n.data;
         if (a == null || typeof a != "object") return null;
         var i = a.components,
-          u = a.root;
-        if (typeof u != "string" || !Array.isArray(i) || i.length === 0)
-          return null;
-        var c = [],
-          d = null,
-          m = new Map();
-        for (var p of i) {
-          if (p == null || typeof p != "object" || typeof p.id != "string")
-            return null;
-          if (p.component === s.Form) {
-            var g = _(p.id, p);
-            if (g == null) return null;
-            (c.push(g), p.id === u && (d = g.children));
-          } else if (p.component === s.ChoicePicker) {
-            var h = f(p.id, p);
-            if (h == null) return null;
-            (c.push(h), m.set(p.id, h));
-          } else return null;
-        }
-        if (d == null) return null;
-        var y = [];
-        for (var C of d) {
-          var b = m.get(C);
-          b != null && y.push(b);
-        }
-        return y.length === 0
-          ? null
-          : {
-              version: o,
-              steps: y,
-              payload: { type: e, data: { root: u, components: c } },
-            };
+          l = a.root;
+        return typeof l != "string" ? null : u(r, l, i);
       } catch (e) {
         return null;
       }
     }
-    ((i.A2UI_FORM_PAYLOAD_TYPE = e),
-      (i.A2UI_FORM_VERSION = l),
-      (i.A2UIComponentType = s),
-      (i.A2UIChoicePickerVariant = u),
-      (i.parseMultiStepFormPayload = g));
+    function u(e, t, n) {
+      if (!Array.isArray(n) || n.length === 0) return null;
+      var r = [],
+        a = new Map(),
+        i = null;
+      for (var l of n) {
+        var s = d(l);
+        if (s == null) return null;
+        (r.push(s),
+          s.component === "form"
+            ? s.id === t && (i = s.children)
+            : a.set(s.id, s));
+      }
+      if (i == null) return null;
+      var u = c(i, a);
+      return u == null || !p(u)
+        ? null
+        : {
+            version: e,
+            steps: u,
+            payload: {
+              type: o("WAWebMultiStepFormTypes").A2UI_FORM_PAYLOAD_TYPE,
+              data: { root: t, components: r },
+            },
+          };
+    }
+    function c(e, t) {
+      var n = [];
+      for (var r of e) {
+        var o = t.get(r);
+        if (o == null) return null;
+        n.push(o);
+      }
+      return n;
+    }
+    function d(e) {
+      if (e == null || typeof e != "object") return null;
+      var t = o("WAWebMultiStepFormTypes").parseAnswerKey(e.id);
+      return t == null
+        ? null
+        : e.component === "form"
+          ? m(t, e)
+          : e.component === "ChoicePicker"
+            ? o("WAWebMultiStepFormChoiceParser").parseChoicePicker(t, e, !0)
+            : e.component === "CompositePillWithChoicePicker"
+              ? o("WAWebABProps").getABPropConfigValue("im_a2ui_appt_web")
+                ? o("WAWebMultiStepFormPillParser").parseCompositePill(t, e)
+                : null
+              : e.component === "InputFields" &&
+                  o("WAWebABProps").getABPropConfigValue("im_a2ui_appt_web")
+                ? o("WAWebMultiStepFormInputFieldsParser").parseInputFields(
+                    t,
+                    e,
+                  )
+                : null;
+    }
+    function m(e, t) {
+      var n = o("WAWebMultiStepFormTypes").parseStringArray(t.children);
+      return n == null ||
+        n.length === 0 ||
+        n.length > o("WAWebMultiStepFormTypes").MAX_FORM_CHILDREN
+        ? null
+        : { id: e, component: "form", children: n };
+    }
+    function p(e) {
+      var t = new Map();
+      for (var n of e)
+        for (var r of _(n)) {
+          var o = t.get(r);
+          if (o != null && o !== n.id) return !1;
+          t.set(r, n.id);
+        }
+      var a = new Set();
+      for (var i of e)
+        for (var l of f(i)) {
+          if (t.has(l) || a.has(l)) return !1;
+          a.add(l);
+        }
+      return !0;
+    }
+    function _(e) {
+      return e.component === "CompositePillWithChoicePicker"
+        ? e.options.flatMap(function (e) {
+            return e.children.map(function (e) {
+              return e.id;
+            });
+          })
+        : [];
+    }
+    function f(e) {
+      return e.component === "InputFields"
+        ? e.fields.map(function (e) {
+            return e.id;
+          })
+        : [e.id];
+    }
+    ((l.A2UI_FORM_PAYLOAD_TYPE = (e = o(
+      "WAWebMultiStepFormTypes",
+    )).A2UI_FORM_PAYLOAD_TYPE),
+      (l.A2UI_FORM_VERSION = e.A2UI_FORM_VERSION),
+      (l.A2UIChoicePickerVariant = e.A2UIChoicePickerVariant),
+      (l.A2UIInputFieldType = e.A2UIInputFieldType),
+      (l.MAX_INPUT_FIELD_LENGTH = e.MAX_INPUT_FIELD_LENGTH),
+      (l.parseMultiStepFormPayload = s));
   },
-  66,
+  98,
 );

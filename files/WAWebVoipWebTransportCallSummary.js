@@ -30,6 +30,8 @@ __d(
         GroupCallDisabled: 11,
         NoReadyAfterAcceptTimeout: 12,
         NoReadyDuringRingingTimeout: 13,
+        RelayDrainReconnectTimeout: 14,
+        RelayDrainReconnectLimit: 15,
       }),
       c = (function () {
         function t() {

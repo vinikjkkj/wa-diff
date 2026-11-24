@@ -147,9 +147,14 @@ __d(
           : o("WAWebProtobufsE2E.pb").Message$ExtendedTextMessage$FontType
               .SYSTEM;
       try {
-        var l = o("WAWebFontLoader").FontLoader.loadMessageFont(i),
-          d = n == null ? void 0 : n.fontLoadTimeoutMs;
-        await (d == null ? l : o("WAPromiseTimeout").promiseTimeout(l, d));
+        if (
+          i !==
+          o("WAWebProtobufsE2E.pb").Message$ExtendedTextMessage$FontType.SYSTEM
+        ) {
+          var l = o("WAWebFontLoader").FontLoader.loadMessageFont(i),
+            d = n == null ? void 0 : n.fontLoadTimeoutMs;
+          await (d == null ? l : o("WAPromiseTimeout").promiseTimeout(l, d));
+        }
       } catch (e) {
         e instanceof o("WACustomError").TimeoutError
           ? o("WALogger").LOG(

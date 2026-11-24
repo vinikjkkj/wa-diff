@@ -210,19 +210,20 @@ __d(
                                                     ),
                                                     name: s._(/*BTDS*/ ""),
                                                   }
-                                                : e ===
-                                                      "fetch_ad_object_spec" ||
-                                                    e ===
-                                                      "get_ad_spec_being_edited"
+                                                : e === "rank_recommendations"
                                                   ? {
+                                                      completedName: s._(
+                                                        /*BTDS*/ "",
+                                                      ),
                                                       description: s._(
                                                         /*BTDS*/ "",
                                                       ),
                                                       name: s._(/*BTDS*/ ""),
                                                     }
-                                                  : e === "get_field_context" ||
+                                                  : e ===
+                                                        "fetch_ad_object_spec" ||
                                                       e ===
-                                                        "fragment_spec_mutation_metadata"
+                                                        "get_ad_spec_being_edited"
                                                     ? {
                                                         description: s._(
                                                           /*BTDS*/ "",
@@ -230,9 +231,9 @@ __d(
                                                         name: s._(/*BTDS*/ ""),
                                                       }
                                                     : e ===
-                                                          "prepare_ad_creation_candidate" ||
+                                                          "get_field_context" ||
                                                         e ===
-                                                          "prepare_campaign_creation_proposal"
+                                                          "fragment_spec_mutation_metadata"
                                                       ? {
                                                           description: s._(
                                                             /*BTDS*/ "",
@@ -242,7 +243,9 @@ __d(
                                                           ),
                                                         }
                                                       : e ===
-                                                          "propose_ad_strategy"
+                                                            "prepare_ad_creation_candidate" ||
+                                                          e ===
+                                                            "prepare_campaign_creation_proposal"
                                                         ? {
                                                             description: s._(
                                                               /*BTDS*/ "",
@@ -252,7 +255,7 @@ __d(
                                                             ),
                                                           }
                                                         : e ===
-                                                            "execute_confirmed_ad_creation"
+                                                            "propose_ad_strategy"
                                                           ? {
                                                               description: s._(
                                                                 /*BTDS*/ "",
@@ -262,11 +265,7 @@ __d(
                                                               ),
                                                             }
                                                           : e ===
-                                                                "edit_ad_object" ||
-                                                              e ===
-                                                                "edit_ad_object_drafts" ||
-                                                              e ===
-                                                                "leadgen_campaign_draft_edit"
+                                                              "execute_confirmed_ad_creation"
                                                             ? {
                                                                 description:
                                                                   s._(
@@ -277,7 +276,11 @@ __d(
                                                                 ),
                                                               }
                                                             : e ===
-                                                                "duplicate_ad_object"
+                                                                  "edit_ad_object" ||
+                                                                e ===
+                                                                  "edit_ad_object_drafts" ||
+                                                                e ===
+                                                                  "leadgen_campaign_draft_edit"
                                                               ? {
                                                                   description:
                                                                     s._(
@@ -288,11 +291,7 @@ __d(
                                                                   ),
                                                                 }
                                                               : e ===
-                                                                    "create_ad_study" ||
-                                                                  e ===
-                                                                    "edit_ad_object_study" ||
-                                                                  e ===
-                                                                    "link_ad_object_to_study"
+                                                                  "duplicate_ad_object"
                                                                 ? {
                                                                     description:
                                                                       s._(
@@ -303,7 +302,11 @@ __d(
                                                                     ),
                                                                   }
                                                                 : e ===
-                                                                    "preflight_ad_object_edit"
+                                                                      "create_ad_study" ||
+                                                                    e ===
+                                                                      "edit_ad_object_study" ||
+                                                                    e ===
+                                                                      "link_ad_object_to_study"
                                                                   ? {
                                                                       description:
                                                                         s._(
@@ -314,7 +317,7 @@ __d(
                                                                       ),
                                                                     }
                                                                   : e ===
-                                                                      "preview_publish"
+                                                                      "preflight_ad_object_edit"
                                                                     ? {
                                                                         description:
                                                                           s._(
@@ -325,9 +328,7 @@ __d(
                                                                         ),
                                                                       }
                                                                     : e ===
-                                                                          "ads_policy_tool" ||
-                                                                        e ===
-                                                                          "run_ads_checker"
+                                                                        "preview_publish"
                                                                       ? {
                                                                           description:
                                                                             s._(
@@ -338,7 +339,9 @@ __d(
                                                                           ),
                                                                         }
                                                                       : e ===
-                                                                          "generate_ad_text"
+                                                                            "ads_policy_tool" ||
+                                                                          e ===
+                                                                            "run_ads_checker"
                                                                         ? {
                                                                             description:
                                                                               s._(
@@ -349,7 +352,7 @@ __d(
                                                                             ),
                                                                           }
                                                                         : e ===
-                                                                            "edit_ad_image"
+                                                                            "generate_ad_text"
                                                                           ? {
                                                                               description:
                                                                                 s._(
@@ -360,7 +363,7 @@ __d(
                                                                               ),
                                                                             }
                                                                           : e ===
-                                                                              "generate_ad_image"
+                                                                              "edit_ad_image"
                                                                             ? {
                                                                                 description:
                                                                                   s._(
@@ -371,7 +374,7 @@ __d(
                                                                                 ),
                                                                               }
                                                                             : e ===
-                                                                                "ad_library_search"
+                                                                                "generate_ad_image"
                                                                               ? {
                                                                                   description:
                                                                                     s._(
@@ -382,7 +385,7 @@ __d(
                                                                                   ),
                                                                                 }
                                                                               : e ===
-                                                                                  "list_ad_videos"
+                                                                                  "ad_library_search"
                                                                                 ? {
                                                                                     description:
                                                                                       s._(
@@ -393,7 +396,7 @@ __d(
                                                                                     ),
                                                                                   }
                                                                                 : e ===
-                                                                                    "list_ad_destination_candidates"
+                                                                                    "list_ad_videos"
                                                                                   ? {
                                                                                       description:
                                                                                         s._(
@@ -404,13 +407,7 @@ __d(
                                                                                       ),
                                                                                     }
                                                                                   : e ===
-                                                                                        "list_ad_optimization_goal_candidates" ||
-                                                                                      e ===
-                                                                                        "ig_objective_metadata" ||
-                                                                                      e ===
-                                                                                        "ig_objective_recommendation" ||
-                                                                                      e ===
-                                                                                        "ig_objective_eligibility"
+                                                                                      "list_ad_destination_candidates"
                                                                                     ? {
                                                                                         description:
                                                                                           s._(
@@ -421,9 +418,13 @@ __d(
                                                                                         ),
                                                                                       }
                                                                                     : e ===
-                                                                                          "placement_constraints" ||
+                                                                                          "list_ad_optimization_goal_candidates" ||
                                                                                         e ===
-                                                                                          "ig_ad_placement"
+                                                                                          "ig_objective_metadata" ||
+                                                                                        e ===
+                                                                                          "ig_objective_recommendation" ||
+                                                                                        e ===
+                                                                                          "ig_objective_eligibility"
                                                                                       ? {
                                                                                           description:
                                                                                             s._(
@@ -434,9 +435,9 @@ __d(
                                                                                           ),
                                                                                         }
                                                                                       : e ===
-                                                                                            "ig_budget_metadata" ||
+                                                                                            "placement_constraints" ||
                                                                                           e ===
-                                                                                            "ig_recommended_budgets"
+                                                                                            "ig_ad_placement"
                                                                                         ? {
                                                                                             description:
                                                                                               s._(
@@ -447,7 +448,9 @@ __d(
                                                                                             ),
                                                                                           }
                                                                                         : e ===
-                                                                                            "ig_draft"
+                                                                                              "ig_budget_metadata" ||
+                                                                                            e ===
+                                                                                              "ig_recommended_budgets"
                                                                                           ? {
                                                                                               description:
                                                                                                 s._(
@@ -458,7 +461,7 @@ __d(
                                                                                               ),
                                                                                             }
                                                                                           : e ===
-                                                                                              "ig_media_eligibility"
+                                                                                              "ig_draft"
                                                                                             ? {
                                                                                                 description:
                                                                                                   s._(
@@ -469,7 +472,7 @@ __d(
                                                                                                 ),
                                                                                               }
                                                                                             : e ===
-                                                                                                "create_rf_plan"
+                                                                                                "ig_media_eligibility"
                                                                                               ? {
                                                                                                   description:
                                                                                                     s._(
@@ -480,7 +483,7 @@ __d(
                                                                                                   ),
                                                                                                 }
                                                                                               : e ===
-                                                                                                  "edit_rf_plan"
+                                                                                                  "create_rf_plan"
                                                                                                 ? {
                                                                                                     description:
                                                                                                       s._(
@@ -491,7 +494,7 @@ __d(
                                                                                                     ),
                                                                                                   }
                                                                                                 : e ===
-                                                                                                    "delete_rf_plan"
+                                                                                                    "edit_rf_plan"
                                                                                                   ? {
                                                                                                       description:
                                                                                                         s._(
@@ -502,13 +505,7 @@ __d(
                                                                                                       ),
                                                                                                     }
                                                                                                   : e ===
-                                                                                                        "get_user_assets" ||
-                                                                                                      e ===
-                                                                                                        "permitted_assets_for_action" ||
-                                                                                                      e ===
-                                                                                                        "user_permission_on_asset" ||
-                                                                                                      e ===
-                                                                                                        "check_mbs_current_asset_access"
+                                                                                                      "delete_rf_plan"
                                                                                                     ? {
                                                                                                         description:
                                                                                                           s._(
@@ -519,9 +516,13 @@ __d(
                                                                                                         ),
                                                                                                       }
                                                                                                     : e ===
-                                                                                                          "get_user_catalogs" ||
+                                                                                                          "get_user_assets" ||
                                                                                                         e ===
-                                                                                                          "get_catalog_info"
+                                                                                                          "permitted_assets_for_action" ||
+                                                                                                        e ===
+                                                                                                          "user_permission_on_asset" ||
+                                                                                                        e ===
+                                                                                                          "check_mbs_current_asset_access"
                                                                                                       ? {
                                                                                                           description:
                                                                                                             s._(
@@ -532,9 +533,9 @@ __d(
                                                                                                           ),
                                                                                                         }
                                                                                                       : e ===
-                                                                                                            "get_catalog_products" ||
+                                                                                                            "get_user_catalogs" ||
                                                                                                           e ===
-                                                                                                            "get_product_details"
+                                                                                                            "get_catalog_info"
                                                                                                         ? {
                                                                                                             description:
                                                                                                               s._(
@@ -545,7 +546,9 @@ __d(
                                                                                                             ),
                                                                                                           }
                                                                                                         : e ===
-                                                                                                            "get_catalog_event_health"
+                                                                                                              "get_catalog_products" ||
+                                                                                                            e ===
+                                                                                                              "get_product_details"
                                                                                                           ? {
                                                                                                               description:
                                                                                                                 s._(
@@ -556,11 +559,7 @@ __d(
                                                                                                               ),
                                                                                                             }
                                                                                                           : e ===
-                                                                                                                "list_lead_gen_forms" ||
-                                                                                                              e ===
-                                                                                                                "create_lead_gen_form" ||
-                                                                                                              e ===
-                                                                                                                "check_lead_gen_tos"
+                                                                                                              "get_catalog_event_health"
                                                                                                             ? {
                                                                                                                 description:
                                                                                                                   s._(
@@ -571,19 +570,11 @@ __d(
                                                                                                                 ),
                                                                                                               }
                                                                                                             : e ===
-                                                                                                                  "get_business_context" ||
+                                                                                                                  "list_lead_gen_forms" ||
                                                                                                                 e ===
-                                                                                                                  "advertiser_context" ||
+                                                                                                                  "create_lead_gen_form" ||
                                                                                                                 e ===
-                                                                                                                  "get_advertiser_business_profile" ||
-                                                                                                                e ===
-                                                                                                                  "infer_business_setup_selection" ||
-                                                                                                                e ===
-                                                                                                                  "list_ad_account_currencies" ||
-                                                                                                                e ===
-                                                                                                                  "list_ad_account_timezones" ||
-                                                                                                                e ===
-                                                                                                                  "resolve_business_name"
+                                                                                                                  "check_lead_gen_tos"
                                                                                                               ? {
                                                                                                                   description:
                                                                                                                     s._(
@@ -594,7 +585,19 @@ __d(
                                                                                                                   ),
                                                                                                                 }
                                                                                                               : e ===
-                                                                                                                  "get_ig_profile_info"
+                                                                                                                    "get_business_context" ||
+                                                                                                                  e ===
+                                                                                                                    "advertiser_context" ||
+                                                                                                                  e ===
+                                                                                                                    "get_advertiser_business_profile" ||
+                                                                                                                  e ===
+                                                                                                                    "infer_business_setup_selection" ||
+                                                                                                                  e ===
+                                                                                                                    "list_ad_account_currencies" ||
+                                                                                                                  e ===
+                                                                                                                    "list_ad_account_timezones" ||
+                                                                                                                  e ===
+                                                                                                                    "resolve_business_name"
                                                                                                                 ? {
                                                                                                                     description:
                                                                                                                       s._(
@@ -605,11 +608,7 @@ __d(
                                                                                                                     ),
                                                                                                                   }
                                                                                                                 : e ===
-                                                                                                                      "get_page_info" ||
-                                                                                                                    e ===
-                                                                                                                      "get_mbs_page_profile" ||
-                                                                                                                    e ===
-                                                                                                                      "get_mbs_entity_info"
+                                                                                                                    "get_ig_profile_info"
                                                                                                                   ? {
                                                                                                                       description:
                                                                                                                         s._(
@@ -620,7 +619,11 @@ __d(
                                                                                                                       ),
                                                                                                                     }
                                                                                                                   : e ===
-                                                                                                                      "get_entity_info"
+                                                                                                                        "get_page_info" ||
+                                                                                                                      e ===
+                                                                                                                        "get_mbs_page_profile" ||
+                                                                                                                      e ===
+                                                                                                                        "get_mbs_entity_info"
                                                                                                                     ? {
                                                                                                                         description:
                                                                                                                           s._(
@@ -631,7 +634,7 @@ __d(
                                                                                                                         ),
                                                                                                                       }
                                                                                                                     : e ===
-                                                                                                                        "lwi_post_explorer"
+                                                                                                                        "get_entity_info"
                                                                                                                       ? {
                                                                                                                           description:
                                                                                                                             s._(
@@ -642,7 +645,7 @@ __d(
                                                                                                                           ),
                                                                                                                         }
                                                                                                                       : e ===
-                                                                                                                          "page_insights"
+                                                                                                                          "lwi_post_explorer"
                                                                                                                         ? {
                                                                                                                             description:
                                                                                                                               s._(
@@ -653,7 +656,7 @@ __d(
                                                                                                                             ),
                                                                                                                           }
                                                                                                                         : e ===
-                                                                                                                            "inbox_insights"
+                                                                                                                            "page_insights"
                                                                                                                           ? {
                                                                                                                               description:
                                                                                                                                 s._(
@@ -664,7 +667,7 @@ __d(
                                                                                                                               ),
                                                                                                                             }
                                                                                                                           : e ===
-                                                                                                                              "review_management"
+                                                                                                                              "inbox_insights"
                                                                                                                             ? {
                                                                                                                                 description:
                                                                                                                                   s._(
@@ -675,7 +678,7 @@ __d(
                                                                                                                                 ),
                                                                                                                               }
                                                                                                                             : e ===
-                                                                                                                                "get_mbs_contact_card"
+                                                                                                                                "review_management"
                                                                                                                               ? {
                                                                                                                                   description:
                                                                                                                                     s._(
@@ -686,7 +689,7 @@ __d(
                                                                                                                                   ),
                                                                                                                                 }
                                                                                                                               : e ===
-                                                                                                                                  "help_article_tool"
+                                                                                                                                  "get_mbs_contact_card"
                                                                                                                                 ? {
                                                                                                                                     description:
                                                                                                                                       s._(
@@ -697,7 +700,7 @@ __d(
                                                                                                                                     ),
                                                                                                                                   }
                                                                                                                                 : e ===
-                                                                                                                                    "markdown_to_pdf"
+                                                                                                                                    "help_article_tool"
                                                                                                                                   ? {
                                                                                                                                       description:
                                                                                                                                         s._(
@@ -708,7 +711,7 @@ __d(
                                                                                                                                       ),
                                                                                                                                     }
                                                                                                                                   : e ===
-                                                                                                                                      "get_download_link"
+                                                                                                                                      "markdown_to_pdf"
                                                                                                                                     ? {
                                                                                                                                         description:
                                                                                                                                           s._(
@@ -719,7 +722,7 @@ __d(
                                                                                                                                         ),
                                                                                                                                       }
                                                                                                                                     : e ===
-                                                                                                                                        "read"
+                                                                                                                                        "get_download_link"
                                                                                                                                       ? {
                                                                                                                                           description:
                                                                                                                                             s._(
@@ -730,7 +733,7 @@ __d(
                                                                                                                                           ),
                                                                                                                                         }
                                                                                                                                       : e ===
-                                                                                                                                          "write"
+                                                                                                                                          "read"
                                                                                                                                         ? {
                                                                                                                                             description:
                                                                                                                                               s._(
@@ -741,7 +744,7 @@ __d(
                                                                                                                                             ),
                                                                                                                                           }
                                                                                                                                         : e ===
-                                                                                                                                            "bash"
+                                                                                                                                            "write"
                                                                                                                                           ? {
                                                                                                                                               description:
                                                                                                                                                 s._(
@@ -752,7 +755,7 @@ __d(
                                                                                                                                               ),
                                                                                                                                             }
                                                                                                                                           : e ===
-                                                                                                                                              "playwright_cli"
+                                                                                                                                              "bash"
                                                                                                                                             ? {
                                                                                                                                                 description:
                                                                                                                                                   s._(
@@ -763,26 +766,8 @@ __d(
                                                                                                                                                 ),
                                                                                                                                               }
                                                                                                                                             : e ===
-                                                                                                                                                  "load_skill" ||
-                                                                                                                                                e ===
-                                                                                                                                                  "load_skills" ||
-                                                                                                                                                e ===
-                                                                                                                                                  "load_skill_resource" ||
-                                                                                                                                                e ===
-                                                                                                                                                  "cfgr_load_skill" ||
-                                                                                                                                                e ===
-                                                                                                                                                  "cfgr_load_skills" ||
-                                                                                                                                                e ===
-                                                                                                                                                  "maiba_load_skills" ||
-                                                                                                                                                e ===
-                                                                                                                                                  "app_state_patch" ||
-                                                                                                                                                e ===
-                                                                                                                                                  "app_state_read"
+                                                                                                                                                "playwright_cli"
                                                                                                                                               ? {
-                                                                                                                                                  completedName:
-                                                                                                                                                    s._(
-                                                                                                                                                      /*BTDS*/ "",
-                                                                                                                                                    ),
                                                                                                                                                   description:
                                                                                                                                                     s._(
                                                                                                                                                       /*BTDS*/ "",
@@ -792,8 +777,26 @@ __d(
                                                                                                                                                   ),
                                                                                                                                                 }
                                                                                                                                               : e ===
-                                                                                                                                                  "maiba_list_skills"
+                                                                                                                                                    "load_skill" ||
+                                                                                                                                                  e ===
+                                                                                                                                                    "load_skills" ||
+                                                                                                                                                  e ===
+                                                                                                                                                    "load_skill_resource" ||
+                                                                                                                                                  e ===
+                                                                                                                                                    "cfgr_load_skill" ||
+                                                                                                                                                  e ===
+                                                                                                                                                    "cfgr_load_skills" ||
+                                                                                                                                                  e ===
+                                                                                                                                                    "maiba_load_skills" ||
+                                                                                                                                                  e ===
+                                                                                                                                                    "app_state_patch" ||
+                                                                                                                                                  e ===
+                                                                                                                                                    "app_state_read"
                                                                                                                                                 ? {
+                                                                                                                                                    completedName:
+                                                                                                                                                      s._(
+                                                                                                                                                        /*BTDS*/ "",
+                                                                                                                                                      ),
                                                                                                                                                     description:
                                                                                                                                                       s._(
                                                                                                                                                         /*BTDS*/ "",
@@ -803,15 +806,7 @@ __d(
                                                                                                                                                     ),
                                                                                                                                                   }
                                                                                                                                                 : e ===
-                                                                                                                                                      "create_plan" ||
-                                                                                                                                                    e ===
-                                                                                                                                                      "commit_plan" ||
-                                                                                                                                                    e ===
-                                                                                                                                                      "advance_plan" ||
-                                                                                                                                                    e ===
-                                                                                                                                                      "subagent_tool_planner" ||
-                                                                                                                                                    e ===
-                                                                                                                                                      "transfer_to_subagent_planning"
+                                                                                                                                                    "maiba_list_skills"
                                                                                                                                                   ? {
                                                                                                                                                       description:
                                                                                                                                                         s._(
@@ -822,7 +817,15 @@ __d(
                                                                                                                                                       ),
                                                                                                                                                     }
                                                                                                                                                   : e ===
-                                                                                                                                                      "read_team_plan"
+                                                                                                                                                        "create_plan" ||
+                                                                                                                                                      e ===
+                                                                                                                                                        "commit_plan" ||
+                                                                                                                                                      e ===
+                                                                                                                                                        "advance_plan" ||
+                                                                                                                                                      e ===
+                                                                                                                                                        "subagent_tool_planner" ||
+                                                                                                                                                      e ===
+                                                                                                                                                        "transfer_to_subagent_planning"
                                                                                                                                                     ? {
                                                                                                                                                         description:
                                                                                                                                                           s._(
@@ -833,13 +836,7 @@ __d(
                                                                                                                                                         ),
                                                                                                                                                       }
                                                                                                                                                     : e ===
-                                                                                                                                                          "create_scheduled_task" ||
-                                                                                                                                                        e ===
-                                                                                                                                                          "create_scheduled_reminder" ||
-                                                                                                                                                        e ===
-                                                                                                                                                          "create_condition_based_task" ||
-                                                                                                                                                        e ===
-                                                                                                                                                          "create_async_task"
+                                                                                                                                                        "read_team_plan"
                                                                                                                                                       ? {
                                                                                                                                                           description:
                                                                                                                                                             s._(
@@ -850,13 +847,13 @@ __d(
                                                                                                                                                           ),
                                                                                                                                                         }
                                                                                                                                                       : e ===
-                                                                                                                                                            "list_tasks" ||
+                                                                                                                                                            "create_scheduled_task" ||
                                                                                                                                                           e ===
-                                                                                                                                                            "get_task" ||
+                                                                                                                                                            "create_scheduled_reminder" ||
                                                                                                                                                           e ===
-                                                                                                                                                            "update_task" ||
+                                                                                                                                                            "create_condition_based_task" ||
                                                                                                                                                           e ===
-                                                                                                                                                            "delete_task"
+                                                                                                                                                            "create_async_task"
                                                                                                                                                         ? {
                                                                                                                                                             description:
                                                                                                                                                               s._(
@@ -867,9 +864,13 @@ __d(
                                                                                                                                                             ),
                                                                                                                                                           }
                                                                                                                                                         : e ===
-                                                                                                                                                              "transfer_to_subagent_performance_subagent" ||
+                                                                                                                                                              "list_tasks" ||
                                                                                                                                                             e ===
-                                                                                                                                                              "transfer_to_subagent_signals_subagent"
+                                                                                                                                                              "get_task" ||
+                                                                                                                                                            e ===
+                                                                                                                                                              "update_task" ||
+                                                                                                                                                            e ===
+                                                                                                                                                              "delete_task"
                                                                                                                                                           ? {
                                                                                                                                                               description:
                                                                                                                                                                 s._(
@@ -880,7 +881,9 @@ __d(
                                                                                                                                                               ),
                                                                                                                                                             }
                                                                                                                                                           : e ===
-                                                                                                                                                              "transfer_to_subagent_ig_boost_executor_subagent"
+                                                                                                                                                                "transfer_to_subagent_performance_subagent" ||
+                                                                                                                                                              e ===
+                                                                                                                                                                "transfer_to_subagent_signals_subagent"
                                                                                                                                                             ? {
                                                                                                                                                                 description:
                                                                                                                                                                   s._(
@@ -891,7 +894,7 @@ __d(
                                                                                                                                                                 ),
                                                                                                                                                               }
                                                                                                                                                             : e ===
-                                                                                                                                                                "transfer_to_subagent_ad_creation_copilot_subagent"
+                                                                                                                                                                "transfer_to_subagent_ig_boost_executor_subagent"
                                                                                                                                                               ? {
                                                                                                                                                                   description:
                                                                                                                                                                     s._(
@@ -902,11 +905,7 @@ __d(
                                                                                                                                                                   ),
                                                                                                                                                                 }
                                                                                                                                                               : e ===
-                                                                                                                                                                    "contact_support" ||
-                                                                                                                                                                  e ===
-                                                                                                                                                                    "support_handoff" ||
-                                                                                                                                                                  e ===
-                                                                                                                                                                    "support_agent"
+                                                                                                                                                                  "transfer_to_subagent_ad_creation_copilot_subagent"
                                                                                                                                                                 ? {
                                                                                                                                                                     description:
                                                                                                                                                                       s._(
@@ -917,7 +916,11 @@ __d(
                                                                                                                                                                     ),
                                                                                                                                                                   }
                                                                                                                                                                 : e ===
-                                                                                                                                                                    "axon_human_handover"
+                                                                                                                                                                      "contact_support" ||
+                                                                                                                                                                    e ===
+                                                                                                                                                                      "support_handoff" ||
+                                                                                                                                                                    e ===
+                                                                                                                                                                      "support_agent"
                                                                                                                                                                   ? {
                                                                                                                                                                       description:
                                                                                                                                                                         s._(
@@ -928,9 +931,7 @@ __d(
                                                                                                                                                                       ),
                                                                                                                                                                     }
                                                                                                                                                                   : e ===
-                                                                                                                                                                        "transfer_to_subagent_main" ||
-                                                                                                                                                                      e ===
-                                                                                                                                                                        "transfer_to_subagent_support_subagent"
+                                                                                                                                                                      "axon_human_handover"
                                                                                                                                                                     ? {
                                                                                                                                                                         description:
                                                                                                                                                                           s._(
@@ -941,7 +942,9 @@ __d(
                                                                                                                                                                         ),
                                                                                                                                                                       }
                                                                                                                                                                     : e ===
-                                                                                                                                                                        "tool_group"
+                                                                                                                                                                          "transfer_to_subagent_main" ||
+                                                                                                                                                                        e ===
+                                                                                                                                                                          "transfer_to_subagent_support_subagent"
                                                                                                                                                                       ? {
                                                                                                                                                                           description:
                                                                                                                                                                             s._(
@@ -952,7 +955,7 @@ __d(
                                                                                                                                                                           ),
                                                                                                                                                                         }
                                                                                                                                                                       : e ===
-                                                                                                                                                                          "noop"
+                                                                                                                                                                          "tool_group"
                                                                                                                                                                         ? {
                                                                                                                                                                             description:
                                                                                                                                                                               s._(
@@ -963,7 +966,7 @@ __d(
                                                                                                                                                                             ),
                                                                                                                                                                           }
                                                                                                                                                                         : e ===
-                                                                                                                                                                            "create_multi_ad_objects"
+                                                                                                                                                                            "noop"
                                                                                                                                                                           ? {
                                                                                                                                                                               description:
                                                                                                                                                                                 s._(
@@ -974,7 +977,7 @@ __d(
                                                                                                                                                                               ),
                                                                                                                                                                             }
                                                                                                                                                                           : e ===
-                                                                                                                                                                              "get_advertiser_signals_v2"
+                                                                                                                                                                              "create_multi_ad_objects"
                                                                                                                                                                             ? {
                                                                                                                                                                                 description:
                                                                                                                                                                                   s._(
@@ -985,7 +988,7 @@ __d(
                                                                                                                                                                                 ),
                                                                                                                                                                               }
                                                                                                                                                                             : e ===
-                                                                                                                                                                                "resolve_special_ad_category_requirements"
+                                                                                                                                                                                "get_advertiser_signals_v2"
                                                                                                                                                                               ? {
                                                                                                                                                                                   description:
                                                                                                                                                                                     s._(
@@ -996,7 +999,7 @@ __d(
                                                                                                                                                                                   ),
                                                                                                                                                                                 }
                                                                                                                                                                               : e ===
-                                                                                                                                                                                  "update_scheduled_task"
+                                                                                                                                                                                  "resolve_special_ad_category_requirements"
                                                                                                                                                                                 ? {
                                                                                                                                                                                     description:
                                                                                                                                                                                       s._(
@@ -1007,7 +1010,7 @@ __d(
                                                                                                                                                                                     ),
                                                                                                                                                                                   }
                                                                                                                                                                                 : e ===
-                                                                                                                                                                                    "update_condition_based_task"
+                                                                                                                                                                                    "update_scheduled_task"
                                                                                                                                                                                   ? {
                                                                                                                                                                                       description:
                                                                                                                                                                                         s._(
@@ -1018,7 +1021,7 @@ __d(
                                                                                                                                                                                       ),
                                                                                                                                                                                     }
                                                                                                                                                                                   : e ===
-                                                                                                                                                                                      "list_maiba_tasks"
+                                                                                                                                                                                      "update_condition_based_task"
                                                                                                                                                                                     ? {
                                                                                                                                                                                         description:
                                                                                                                                                                                           s._(
@@ -1029,7 +1032,7 @@ __d(
                                                                                                                                                                                         ),
                                                                                                                                                                                       }
                                                                                                                                                                                     : e ===
-                                                                                                                                                                                        "pause_maiba_task"
+                                                                                                                                                                                        "list_maiba_tasks"
                                                                                                                                                                                       ? {
                                                                                                                                                                                           description:
                                                                                                                                                                                             s._(
@@ -1040,7 +1043,7 @@ __d(
                                                                                                                                                                                           ),
                                                                                                                                                                                         }
                                                                                                                                                                                       : e ===
-                                                                                                                                                                                          "resume_maiba_task"
+                                                                                                                                                                                          "pause_maiba_task"
                                                                                                                                                                                         ? {
                                                                                                                                                                                             description:
                                                                                                                                                                                               s._(
@@ -1051,7 +1054,7 @@ __d(
                                                                                                                                                                                             ),
                                                                                                                                                                                           }
                                                                                                                                                                                         : e ===
-                                                                                                                                                                                            "delete_maiba_task"
+                                                                                                                                                                                            "resume_maiba_task"
                                                                                                                                                                                           ? {
                                                                                                                                                                                               description:
                                                                                                                                                                                                 s._(
@@ -1062,9 +1065,7 @@ __d(
                                                                                                                                                                                               ),
                                                                                                                                                                                             }
                                                                                                                                                                                           : e ===
-                                                                                                                                                                                                "find_business_id" ||
-                                                                                                                                                                                              e ===
-                                                                                                                                                                                                "find_business_id_data"
+                                                                                                                                                                                              "delete_maiba_task"
                                                                                                                                                                                             ? {
                                                                                                                                                                                                 description:
                                                                                                                                                                                                   s._(
@@ -1075,14 +1076,10 @@ __d(
                                                                                                                                                                                                 ),
                                                                                                                                                                                               }
                                                                                                                                                                                             : e ===
-                                                                                                                                                                                                  "get_pixel" ||
+                                                                                                                                                                                                  "find_business_id" ||
                                                                                                                                                                                                 e ===
-                                                                                                                                                                                                  "get_pixel_data"
+                                                                                                                                                                                                  "find_business_id_data"
                                                                                                                                                                                               ? {
-                                                                                                                                                                                                  completedName:
-                                                                                                                                                                                                    s._(
-                                                                                                                                                                                                      /*BTDS*/ "",
-                                                                                                                                                                                                    ),
                                                                                                                                                                                                   description:
                                                                                                                                                                                                     s._(
                                                                                                                                                                                                       /*BTDS*/ "",
@@ -1092,10 +1089,14 @@ __d(
                                                                                                                                                                                                   ),
                                                                                                                                                                                                 }
                                                                                                                                                                                               : e ===
-                                                                                                                                                                                                    "get_capi" ||
+                                                                                                                                                                                                    "get_pixel" ||
                                                                                                                                                                                                   e ===
-                                                                                                                                                                                                    "get_capi_data"
+                                                                                                                                                                                                    "get_pixel_data"
                                                                                                                                                                                                 ? {
+                                                                                                                                                                                                    completedName:
+                                                                                                                                                                                                      s._(
+                                                                                                                                                                                                        /*BTDS*/ "",
+                                                                                                                                                                                                      ),
                                                                                                                                                                                                     description:
                                                                                                                                                                                                       s._(
                                                                                                                                                                                                         /*BTDS*/ "",
@@ -1105,7 +1106,9 @@ __d(
                                                                                                                                                                                                     ),
                                                                                                                                                                                                   }
                                                                                                                                                                                                 : e ===
-                                                                                                                                                                                                    "ask_signals_specialist"
+                                                                                                                                                                                                      "get_capi" ||
+                                                                                                                                                                                                    e ===
+                                                                                                                                                                                                      "get_capi_data"
                                                                                                                                                                                                   ? {
                                                                                                                                                                                                       description:
                                                                                                                                                                                                         s._(
@@ -1116,7 +1119,7 @@ __d(
                                                                                                                                                                                                       ),
                                                                                                                                                                                                     }
                                                                                                                                                                                                   : e ===
-                                                                                                                                                                                                      "list_claimable_pages"
+                                                                                                                                                                                                      "ask_signals_specialist"
                                                                                                                                                                                                     ? {
                                                                                                                                                                                                         description:
                                                                                                                                                                                                           s._(
@@ -1127,7 +1130,7 @@ __d(
                                                                                                                                                                                                         ),
                                                                                                                                                                                                       }
                                                                                                                                                                                                     : e ===
-                                                                                                                                                                                                        "list_claimable_ad_accounts"
+                                                                                                                                                                                                        "list_claimable_pages"
                                                                                                                                                                                                       ? {
                                                                                                                                                                                                           description:
                                                                                                                                                                                                             s._(
@@ -1138,7 +1141,7 @@ __d(
                                                                                                                                                                                                           ),
                                                                                                                                                                                                         }
                                                                                                                                                                                                       : e ===
-                                                                                                                                                                                                          "get_destination_portfolios"
+                                                                                                                                                                                                          "list_claimable_ad_accounts"
                                                                                                                                                                                                         ? {
                                                                                                                                                                                                             description:
                                                                                                                                                                                                               s._(
@@ -1149,7 +1152,7 @@ __d(
                                                                                                                                                                                                             ),
                                                                                                                                                                                                           }
                                                                                                                                                                                                         : e ===
-                                                                                                                                                                                                            "check_page_claimability"
+                                                                                                                                                                                                            "get_destination_portfolios"
                                                                                                                                                                                                           ? {
                                                                                                                                                                                                               description:
                                                                                                                                                                                                                 s._(
@@ -1160,7 +1163,7 @@ __d(
                                                                                                                                                                                                               ),
                                                                                                                                                                                                             }
                                                                                                                                                                                                           : e ===
-                                                                                                                                                                                                              "maiba_gp8_get_asset_create_context"
+                                                                                                                                                                                                              "check_page_claimability"
                                                                                                                                                                                                             ? {
                                                                                                                                                                                                                 description:
                                                                                                                                                                                                                   s._(
@@ -1171,7 +1174,7 @@ __d(
                                                                                                                                                                                                                 ),
                                                                                                                                                                                                               }
                                                                                                                                                                                                             : e ===
-                                                                                                                                                                                                                "maiba_gp8_get_page_ig_connect_context"
+                                                                                                                                                                                                                "maiba_gp8_get_asset_create_context"
                                                                                                                                                                                                               ? {
                                                                                                                                                                                                                   description:
                                                                                                                                                                                                                     s._(
@@ -1181,7 +1184,18 @@ __d(
                                                                                                                                                                                                                     /*BTDS*/ "",
                                                                                                                                                                                                                   ),
                                                                                                                                                                                                                 }
-                                                                                                                                                                                                              : null;
+                                                                                                                                                                                                              : e ===
+                                                                                                                                                                                                                  "maiba_gp8_get_page_ig_connect_context"
+                                                                                                                                                                                                                ? {
+                                                                                                                                                                                                                    description:
+                                                                                                                                                                                                                      s._(
+                                                                                                                                                                                                                        /*BTDS*/ "",
+                                                                                                                                                                                                                      ),
+                                                                                                                                                                                                                    name: s._(
+                                                                                                                                                                                                                      /*BTDS*/ "",
+                                                                                                                                                                                                                    ),
+                                                                                                                                                                                                                  }
+                                                                                                                                                                                                                : null;
     }
     ((l.MAIBAToolActivityHeaderIndexProvider = p),
       (l.getMAIBAToolActivityHeaderIndexes = f),

@@ -27,14 +27,15 @@ __d(
       g = 4,
       h = new Set(["already_ended", "declined", "unknown"]),
       y = 409,
-      C = 404,
-      b = 503,
-      v = "peer_rule_not_found",
-      S = "disabled",
-      R = new Set(["connections_unavailable", "peer_operation_unavailable"]),
-      L = { availability: "unavailable", canAccept: !1 };
-    async function E() {
-      return j("read-status", async function (e) {
+      C = 403,
+      b = 404,
+      v = 503,
+      S = "peer_rule_not_found",
+      R = "disabled",
+      L = new Set(["connections_unavailable", "peer_operation_unavailable"]),
+      E = { availability: "unavailable", canAccept: !1 };
+    async function k() {
+      return K("read-status", async function (e) {
         var t = await e.request(
           "GET",
           o("WAWebHatchVmTransport").JarvisPaths.PEERS_STATUS,
@@ -47,28 +48,28 @@ __d(
                 "WAWebHatchPeerConnectionsDecoder",
               ).decodeHatchPeerStatus(t.value),
             }
-          : K(t)
-            ? { kind: "ok", value: L }
-            : X("read-status", t);
+          : Q(t)
+            ? { kind: "ok", value: E }
+            : J("read-status", t);
       });
     }
-    var k = new Map();
-    async function I() {
-      return j("read-connections", function (e) {
-        return T(e, null, 0, []);
+    var I = new Map();
+    async function T() {
+      return K("read-connections", function (e) {
+        return D(e, null, 0, []);
       });
     }
-    async function T(t, n, r, a) {
+    async function D(t, n, r, a) {
       var i = await t.request(
         "GET",
         o("WAWebHatchVmTransport").JarvisPaths.PEERS_CONNECTIONS(u, n),
         { responseShape: "flat-or-envelope" },
       );
-      if (i.kind !== "Ok") return X("read-connections", i);
+      if (i.kind !== "Ok") return J("read-connections", i);
       var l = o("WAWebHatchPeerConnectionsDecoder").decodeHatchPeerConnections(
         i.value,
       );
-      if (l == null) return Y("read-connections", "malformed");
+      if (l == null) return Z("read-connections", "malformed");
       var s = [].concat(a, l),
         d = o(
           "WAWebHatchPeerConnectionsDecoder",
@@ -89,35 +90,35 @@ __d(
               )
               .sendLogs("hatch-peer-connections-truncated"),
             { kind: "ok", value: s })
-          : T(t, d, r + 1, s);
+          : D(t, d, r + 1, s);
     }
-    async function D(e) {
-      return j("read-connection", async function (t) {
+    async function x(e) {
+      return K("read-connection", async function (t) {
         var n = o("WAWebHatchVmTransport").JarvisPaths.PEERS_CONNECTION(e);
-        if (n == null) return Y("read-connection", "invalid_id");
+        if (n == null) return Z("read-connection", "invalid_id");
         var r = await t.request("GET", n, {
           responseShape: "flat-or-envelope",
         });
-        if (r.kind !== "Ok") return X("read-connection", r);
+        if (r.kind !== "Ok") return J("read-connection", r);
         var a = o(
           "WAWebHatchPeerConnectionsDecoder",
         ).decodeHatchPeerConnectionDetail(r.value);
         return a != null
           ? { kind: "ok", value: a }
-          : Y("read-connection", "malformed");
+          : Z("read-connection", "malformed");
       });
     }
-    async function x(e) {
-      return j("read-requests", async function (t) {
-        var n = await U(t);
+    async function $(e) {
+      return K("read-requests", async function (t) {
+        var n = await V(t);
         return n != null && (!e || n.count === n.items.length)
           ? { kind: "ok", value: n }
-          : V(t);
+          : H(t);
       });
     }
-    async function $() {
+    async function P() {
       return o("WAWebHatchFrontendGating").isHatchPeerConnectionsSendEnabled()
-        ? j("read-recommendations", async function (e) {
+        ? K("read-recommendations", async function (e) {
             var t = await e.request(
               "GET",
               o("WAWebHatchVmTransport").JarvisPaths.PEERS_RECOMMENDATIONS,
@@ -128,29 +129,29 @@ __d(
             )
               return { kind: "ok", value: [] };
             if (t.kind !== "Ok")
-              return K(t)
+              return X(t)
                 ? { kind: "ok", value: [] }
-                : X("read-recommendations", t);
+                : J("read-recommendations", t);
             var n = o(
               "WAWebHatchPeerRecommendationsDecoder",
             ).decodeHatchPeerRecommendations(t.value);
             return n != null
               ? { kind: "ok", value: n }
-              : Y("read-recommendations", "malformed");
+              : Z("read-recommendations", "malformed");
           })
         : { kind: "ok", value: [] };
     }
-    async function P(e, t) {
+    async function N(e, t) {
       t === void 0 && (t = o("WAWebBoolFunc").returnTrue);
       var n = o("WAWebHatchVmConnection").getHatchVmAccountGeneration(),
         r = function () {
-          return Q(n) && t();
+          return Y(n) && t();
         };
       if (!t()) return { kind: "failed" };
-      var a = await j("accept-read", async function (n) {
+      var a = await K("accept-read", async function (n) {
         if (!t()) return { kind: "failed" };
-        var r = await (e.kind === "delivery" ? H(n) : G(n));
-        if (r.kind !== "Ok") return X("accept-read", r);
+        var r = await (e.kind === "delivery" ? G(n) : z(n));
+        if (r.kind !== "Ok") return J("accept-read", r);
         var a =
           e.kind === "delivery"
             ? o(
@@ -177,7 +178,7 @@ __d(
             ((typeof e == "object" && e !== null) || typeof e == "function") &&
             e.kind === "malformed"
           )
-            return Y("accept-read", "malformed");
+            return Z("accept-read", "malformed");
           throw Error(
             "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
               e,
@@ -193,108 +194,108 @@ __d(
       return r()
         ? p.has(i)
           ? { kind: "ok", value: null }
-          : Y("accept", i)
+          : Z("accept", i)
         : { kind: "failed" };
     }
-    async function N(e) {
-      return z(
+    async function M(e) {
+      return j(
         "ignore",
         function (t) {
           return t.request(
             "POST",
             o("WAWebHatchVmTransport").JarvisPaths.PEERS_INBOX_DECLINE,
             {
-              body: te({ delivery_id: e }),
+              body: re({ delivery_id: e }),
               responseShape: "flat-or-envelope",
               timeoutMs: d,
             },
           );
         },
         function (e) {
-          return h.has(ee(e, "status"));
+          return h.has(ne(e, "status"));
         },
       );
     }
-    async function M(e) {
+    async function w(e) {
       var t = o(
         "WAWebHatchVmTransport",
       ).JarvisPaths.PEERS_CONNECTION_DISCONNECT(e);
       return t == null
-        ? Y("disconnect", "invalid_id")
-        : z(
+        ? Z("disconnect", "invalid_id")
+        : j(
             "disconnect",
             function (e) {
               return e.request("POST", t, {
-                body: te({}),
+                body: re({}),
                 responseShape: "flat-or-envelope",
                 timeoutMs: d,
               });
             },
             function (e) {
-              return Z(e, "disconnected");
+              return te(e, "disconnected");
             },
           );
     }
-    async function w(e, t, n, r) {
+    async function A(e, t, n, r) {
       var a = o("WAWebHatchVmTransport").JarvisPaths.PEERS_CONNECTION_RULES(e);
       return a == null
-        ? Y("add-rule", "invalid_id")
-        : j("add-rule", async function (e) {
+        ? Z("add-rule", "invalid_id")
+        : K("add-rule", async function (e) {
             var o = await e.request("POST", a, {
-              body: te({ description: n, expected_revision: t, rule_id: r }),
+              body: re({ description: n, expected_revision: t, rule_id: r }),
               responseShape: "flat-or-envelope",
               timeoutMs: d,
             });
             return o.kind !== "Ok"
-              ? X("add-rule", o)
-              : J(o.value, r, t)
+              ? J("add-rule", o)
+              : ee(o.value, r, t)
                 ? { kind: "ok", value: null }
-                : Y("add-rule", "not_applied");
+                : Z("add-rule", "not_applied");
           });
     }
-    async function A(e, t) {
+    async function F(e, t) {
       var n = o("WAWebHatchVmTransport").JarvisPaths.PEERS_CONNECTION_RULE(
         e,
         t,
       );
       return n == null
-        ? Y("remove-rule", "invalid_id")
-        : j("remove-rule", async function (e) {
+        ? Z("remove-rule", "invalid_id")
+        : K("remove-rule", async function (e) {
             var t = await e.request("DELETE", n, {
               responseShape: "flat-or-envelope",
               timeoutMs: d,
             });
-            return t.kind === "Rejected" && t.errorCode === v
+            return t.kind === "Rejected" && t.errorCode === S
               ? { kind: "ok", value: null }
               : t.kind !== "Ok"
-                ? X("remove-rule", t)
-                : Z(t.value, "accepted")
+                ? J("remove-rule", t)
+                : te(t.value, "accepted")
                   ? { kind: "ok", value: null }
-                  : Y("remove-rule", "not_applied");
+                  : Z("remove-rule", "not_applied");
           });
     }
-    async function F(e) {
-      var t = await j("read-image", async function (t) {
+    async function O(e) {
+      var t = await K("read-image", async function (t) {
         var n = await t.peerImage(e.museId, e.kind, e.sha256);
         return n.kind !== "Ok"
-          ? X("read-image", n)
-          : q("read-image", n.value, { maxBytes: _[e.kind], sha256: e.sha256 });
+          ? J("read-image", n)
+          : U("read-image", n.value, { maxBytes: _[e.kind], sha256: e.sha256 });
       });
       return t.kind === "ok"
         ? URL.createObjectURL(new Blob([t.value], { type: "image/jpeg" }))
         : null;
     }
-    async function O() {
-      var e = await j("read-connect-intro", B);
+    async function B() {
+      var e = await K("read-connect-intro", W);
       return e.kind === "ok" ? URL.createObjectURL(e.value) : null;
     }
-    async function B(e) {
+    async function W(e) {
       var t = await e.request(
         "GET",
         o("WAWebHatchVmTransport").JarvisPaths.PEERS_STATUS,
         { responseShape: "flat-or-envelope" },
       );
-      if (t.kind !== "Ok") return Y("read-connect-intro", t.kind.toLowerCase());
+      if (t.kind !== "Ok") return Z("read-connect-intro", t.kind.toLowerCase());
       if (
         !o(
           "WAWebHatchPeerConnectionsDecoder",
@@ -307,21 +308,21 @@ __d(
         { responseShape: "flat-or-envelope" },
       );
       if (n.kind !== "Ok")
-        return n.kind === "Rejected" && n.statusCode === b
+        return n.kind === "Rejected" && n.statusCode === v
           ? { kind: "gone" }
-          : X("read-connect-intro", n);
+          : J("read-connect-intro", n);
       var r = o(
         "WAWebHatchPeerConnectionsDecoder",
       ).decodeHatchPeerConnectIntroImage(n.value);
       if (r == null) return { kind: "gone" };
-      var a = k.get(r.sha256);
-      return a != null ? { kind: "ok", value: a } : W(e, r);
+      var a = I.get(r.sha256);
+      return a != null ? { kind: "ok", value: a } : q(e, r);
     }
-    async function W(e, t) {
-      if (t.byteLength > f) return Y("read-connect-intro-image", "size");
+    async function q(e, t) {
+      if (t.byteLength > f) return Z("read-connect-intro-image", "size");
       var n = await e.peerConnectIntroImage(t.sha256);
-      if (n.kind !== "Ok") return X("read-connect-intro-image", n);
-      var r = await q("read-connect-intro-image", n.value, {
+      if (n.kind !== "Ok") return J("read-connect-intro-image", n);
+      var r = await U("read-connect-intro-image", n.value, {
         byteLength: t.byteLength,
         maxBytes: f,
         sha256: t.sha256,
@@ -329,30 +330,30 @@ __d(
       if (r.kind !== "ok") return { kind: "failed" };
       var o = new Blob([r.value], { type: "image/jpeg" });
       return (
-        k.size >= g && k.clear(),
-        k.set(t.sha256, o),
+        I.size >= g && I.clear(),
+        I.set(t.sha256, o),
         { kind: "ok", value: o }
       );
     }
-    async function q(e, t, n) {
+    async function U(e, t, n) {
       if (
         t.byteLength === 0 ||
         t.byteLength > n.maxBytes ||
         (n.byteLength != null && t.byteLength !== n.byteLength)
       )
-        return Y(e, "size");
+        return Z(e, "size");
       var r;
       try {
         r = await o("WACryptoSha256").sha256(t);
       } catch (t) {
-        return Y(e, "digest_unavailable");
+        return Z(e, "digest_unavailable");
       }
       return o("WAWebHatchAttestationBytes").bytesToHex(new Uint8Array(r)) ===
         n.sha256
         ? { kind: "ok", value: t }
-        : Y(e, "digest_mismatch");
+        : Z(e, "digest_mismatch");
     }
-    async function U(e) {
+    async function V(e) {
       var t = await e.request(
         "GET",
         o("WAWebHatchVmTransport").JarvisPaths.PEERS_REQUEST_BANNER,
@@ -364,86 +365,89 @@ __d(
           )
         : null;
     }
-    async function V(e) {
-      var t = await Promise.all([H(e), G(e)]),
+    async function H(e) {
+      var t = await Promise.all([G(e), z(e)]),
         n = t[0],
         r = t[1];
-      if (n.kind !== "Ok") return X("read-inbox", n);
+      if (n.kind !== "Ok") return J("read-inbox", n);
       var a = o("WAWebHatchPeerConnectionsDecoder").decodeHatchPeerInbox(
         n.value,
       );
-      if (a == null) return Y("read-inbox", "malformed");
+      if (a == null) return Z("read-inbox", "malformed");
       var i = [];
       if (r.kind === "Ok")
         i = o("WAWebHatchPeerConnectionsDecoder").decodeHatchPeerOpenedInvites(
           r.value,
         );
-      else if (!K(r)) return X("read-opened", r);
-      if (i == null) return Y("read-opened", "malformed");
+      else if (!Q(r)) return J("read-opened", r);
+      if (i == null) return Z("read-opened", "malformed");
       var l = [].concat(a, i).sort(function (e, t) {
         return t.receivedAtMs - e.receivedAtMs;
       });
       return { kind: "ok", value: { count: l.length, items: l } };
     }
-    function H(e) {
+    function G(e) {
       return e.request(
         "GET",
         o("WAWebHatchVmTransport").JarvisPaths.PEERS_INBOX,
         { responseShape: "flat-or-envelope" },
       );
     }
-    function G(e) {
+    function z(e) {
       return e.request(
         "GET",
         o("WAWebHatchVmTransport").JarvisPaths.PEERS_INVITES_OPENED,
         { responseShape: "flat-or-envelope" },
       );
     }
-    async function z(e, t, n) {
+    async function j(e, t, n) {
       return (
         n === void 0 && (n = o("WAWebBoolFunc").returnTrue),
-        j(e, async function (r) {
+        K(e, async function (r) {
           var o = await t(r);
           return o.kind !== "Ok"
-            ? X(e, o)
+            ? J(e, o)
             : n(o.value)
               ? { kind: "ok", value: null }
-              : Y(e, "not_applied");
+              : Z(e, "not_applied");
         })
       );
     }
-    async function j(e, t) {
+    async function K(e, t) {
       if (!o("WAWebHatchFrontendGating").isHatchPeerPairingCardEnabled())
         return { kind: "failed" };
       var n = o("WAWebHatchVmConnection").getHatchVmAccountGeneration(),
         r = await o("WAWebHatchVmConnection").connectHatchVmApiWithResult(
           new AbortController().signal,
         );
-      if (!Q(n)) return { kind: "failed" };
-      if (r.kind !== "ready") return Y(e, "no_vm");
+      if (!Y(n)) return { kind: "failed" };
+      if (r.kind !== "ready") return Z(e, "no_vm");
       var a = await t(r.api);
-      return Q(n) ? a : { kind: "failed" };
-    }
-    function K(e) {
-      return (
-        e.kind === "Rejected" &&
-        (e.statusCode === C ||
-          e.errorCode === S ||
-          (e.statusCode === b && R.has(e.errorCode)))
-      );
+      return Y(n) ? a : { kind: "failed" };
     }
     function Q(e) {
+      return (
+        e.kind === "Rejected" &&
+        (e.statusCode === b ||
+          e.errorCode === R ||
+          (e.statusCode === v && L.has(e.errorCode)))
+      );
+    }
+    function X(e) {
+      return Q(e) || (e.kind === "Rejected" && e.statusCode === C);
+    }
+    function Y(e) {
       return (
         o("WAWebHatchFrontendGating").isHatchPeerPairingCardEnabled() &&
         e === o("WAWebHatchVmConnection").getHatchVmAccountGeneration()
       );
     }
-    function X(e, t) {
+    function J(e, t) {
       return t.kind === "Rejected" && t.statusCode === y
         ? { kind: "conflict" }
-        : Y(e, t.kind.toLowerCase());
+        : Z(e, t.kind.toLowerCase());
     }
-    function Y(e, t) {
+    function Z(e, t) {
       return (
         o("WALogger")
           .WARN(
@@ -460,7 +464,7 @@ __d(
         { kind: "failed" }
       );
     }
-    function J(e, t, n) {
+    function ee(e, t, n) {
       var r = o("WAWebHatchJsonReaders").readInteger(e, "revision"),
         a = o("WAWebHatchJsonReaders").readObject(e, "rule");
       return (
@@ -473,31 +477,31 @@ __d(
         o("WAWebHatchJsonReaders").readTrimmedString(a, "description") !== ""
       );
     }
-    function Z(e, t) {
+    function te(e, t) {
       return (
         e != null && typeof e == "object" && !Array.isArray(e) && e[t] === !0
       );
     }
-    function ee(e, t) {
+    function ne(e, t) {
       if (e == null || typeof e != "object" || Array.isArray(e)) return null;
       var n = e[t];
       return typeof n == "string" ? n : null;
     }
-    function te(e) {
+    function re(e) {
       return new TextEncoder().encode(JSON.stringify(e));
     }
-    ((l.readHatchPeerStatus = E),
-      (l.readHatchPeerConnections = I),
-      (l.readHatchPeerConnection = D),
-      (l.readHatchPeerRequests = x),
-      (l.readHatchPeerRecommendations = $),
-      (l.acceptHatchPeerRequest = P),
-      (l.ignoreHatchPeerInboxRequest = N),
-      (l.disconnectHatchPeerConnection = M),
-      (l.addHatchPeerConnectionRule = w),
-      (l.removeHatchPeerConnectionRule = A),
-      (l.readHatchPeerImageUrl = F),
-      (l.readHatchPeerConnectIntroImageUrl = O));
+    ((l.readHatchPeerStatus = k),
+      (l.readHatchPeerConnections = T),
+      (l.readHatchPeerConnection = x),
+      (l.readHatchPeerRequests = $),
+      (l.readHatchPeerRecommendations = P),
+      (l.acceptHatchPeerRequest = N),
+      (l.ignoreHatchPeerInboxRequest = M),
+      (l.disconnectHatchPeerConnection = w),
+      (l.addHatchPeerConnectionRule = A),
+      (l.removeHatchPeerConnectionRule = F),
+      (l.readHatchPeerImageUrl = O),
+      (l.readHatchPeerConnectIntroImageUrl = B));
   },
   98,
 );

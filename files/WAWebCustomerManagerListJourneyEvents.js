@@ -542,11 +542,11 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.DISMISS,
       });
     }
-    function le(e) {
+    function le(e, t) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
+        extraAttributes: { stage: t != null ? t : null },
         surface: o("WAWebCustomerManagerWamLogging").viewSurface(e),
-        userActionTarget: o("WAWebCustomerManagerSMBUserJourneyTypes")
-          .UserActionTarget.ROW,
+        userActionTarget: "customer_manager_profile_click",
         userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
@@ -832,7 +832,7 @@ __d(
       (l.clickEmptyStateManageLabels = oe),
       (l.viewHeaderMenu = ae),
       (l.dismissHeaderMenu = ie),
-      (l.clickRow = le),
+      (l.clickProfile = le),
       (l.clickRowChat = se),
       (l.clickRowSelectCheckbox = ue),
       (l.clickSelectAllCheckbox = ce),

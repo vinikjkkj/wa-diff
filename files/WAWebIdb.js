@@ -483,7 +483,7 @@ __d(
           (n.bulkCreateOrReplace = function (t) {
             var e,
               n = this;
-            if (t.length === 0) return Promise.resolve();
+            if (t.length === 0) return Promise.resolve(void 0);
             (e = this.updateListener) == null ||
               e.call(
                 this,

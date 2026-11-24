@@ -5,42 +5,29 @@ __d(
     "use strict";
     var e, s;
     function u(e) {
-      var t,
-        r,
-        o,
-        a = e,
-        i =
-          (t =
-            (r =
-              (o = e.requestFullscreen) != null ? o : a.mozRequestFullScreen) !=
-            null
-              ? r
-              : a.msRequestFullscreen) != null
-            ? t
-            : a.webkitRequestFullscreen;
-      return typeof i == "function"
-        ? i.call(e)
-        : (s || (s = n("Promise"))).reject();
+      var t = e;
+      return typeof e.requestFullscreen == "function"
+        ? e.requestFullscreen()
+        : typeof t.mozRequestFullScreen == "function"
+          ? t.mozRequestFullScreen()
+          : typeof t.msRequestFullscreen == "function"
+            ? t.msRequestFullscreen()
+            : typeof t.webkitRequestFullscreen == "function"
+              ? t.webkitRequestFullscreen()
+              : (s || (s = n("Promise"))).reject();
     }
     function c() {
       if ((e || (e = r("ExecutionEnvironment"))).canUseDOM) {
-        var t,
-          o,
-          a,
-          i = document,
-          l =
-            (t =
-              (o =
-                (a = document.exitFullscreen) != null
-                  ? a
-                  : i.mozCancelFullScreen) != null
-                ? o
-                : i.msExitFullscreen) != null
-              ? t
-              : i.webkitExitFullscreen;
-        return typeof l == "function"
-          ? l.call(document)
-          : (s || (s = n("Promise"))).reject();
+        var t = document;
+        return typeof document.exitFullscreen == "function"
+          ? document.exitFullscreen()
+          : typeof t.mozCancelFullScreen == "function"
+            ? t.mozCancelFullScreen()
+            : typeof t.msExitFullscreen == "function"
+              ? t.msExitFullscreen()
+              : typeof t.webkitExitFullscreen == "function"
+                ? t.webkitExitFullscreen()
+                : (s || (s = n("Promise"))).reject();
       }
       return (s || (s = n("Promise"))).reject();
     }

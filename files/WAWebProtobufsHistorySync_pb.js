@@ -190,6 +190,7 @@ __d(
           e.TYPES.ENUM,
           o("WAWebProtobufsAea.pb").NonE2EEAttestation$AccountType,
         ],
+        unreadReplyToMyMessageCount: [70, e.TYPES.UINT32],
       }),
       (v.name = "IdentityVerificationState"),
       (v.internalSpec = {

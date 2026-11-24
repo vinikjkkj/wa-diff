@@ -465,6 +465,7 @@ __d(
             (e.selfOtherDeviceConnected = o("WAWebBaseModel").prop(null)),
             (e.switchEntryCallLogTime = o("WAWebBaseModel").prop()),
             (e.switchEntryEnded = o("WAWebBaseModel").prop()),
+            (e.joinableCallId = o("WAWebBaseModel").prop()),
             (e.isVoiceChat = o("WAWebBaseModel").prop(null)),
             (e.bytesSent = o("WAWebBaseModel").prop(null)),
             (e.bytesReceived = o("WAWebBaseModel").prop(null)),
@@ -997,7 +998,7 @@ __d(
             var e = this,
               n;
             if (o("WAWebFrontendMsgGetters").getAsRevoked(this))
-              return Promise.resolve();
+              return Promise.resolve(void 0);
             var a = t.downloadEvenIfExpensive,
               i = t.isAutoDownload,
               l = t.isUserInitiated,
@@ -1008,7 +1009,7 @@ __d(
               !l &&
               !o("WAWebMsgModelPropUtils").isTrustedForAutoDownload(this)
             )
-              return Promise.resolve();
+              return Promise.resolve(void 0);
             if (
               !o("WAWebMsgGetters").getIsStatus(this) &&
               !o("WAWebMsgGetters").getIsNewsletterMsg(this) &&
@@ -1027,7 +1028,7 @@ __d(
                       {},
                     ),
                   )),
-                Promise.resolve()
+                Promise.resolve(void 0)
               );
             if (
               (o("WAWebFrontendMsgGetters").getAsMms(this) ||

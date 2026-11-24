@@ -171,7 +171,7 @@ __d(
                     t.$7,
                     t.$8,
                   ),
-                    r("MAWInteractionTracing").finishTrace(
+                    r("MAWInteractionTracing").finishTraceAndFlush(
                       o("MAWMICInteractionTraceId").getMICInteractionTraceIdMap(
                         function (e) {
                           return { group: "offline-drain-queue", id: e };
@@ -213,7 +213,7 @@ __d(
               case "maw-infra-end": {
                 var n;
                 if (
-                  (r("MAWInteractionTracing").finishTrace(
+                  (r("MAWInteractionTracing").finishTraceAndFlush(
                     o("MAWMICInteractionTraceId").getMICInteractionTraceIdMap(
                       function (e) {
                         return { group: "offline-drain-queue", id: e };

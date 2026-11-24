@@ -131,12 +131,29 @@ __d(
         n.insertAfter(r),
         r.select(1, 1));
     }
+    function p(e) {
+      var t = e.target;
+      if (
+        !(t instanceof Element) ||
+        t.closest('button, [role="button"]') != null
+      )
+        return !1;
+      var n = o("Lexical").$getNearestNodeFromDOMNode(t);
+      if (!o("MAIBAContextChipNode").$isMAIBAContextChipNode(n)) return !1;
+      var r = o("Lexical").$getEditor().getElementByKey(n.getKey());
+      if (r == null) return !1;
+      var a = r.getBoundingClientRect(),
+        i = e.clientX < a.left + a.width / 2,
+        l = getComputedStyle(r).direction === "rtl";
+      return (i !== l ? n.selectPrevious() : n.selectNext(0, 0), !0);
+    }
     ((l.getMAIBAContextChipRejection = e),
       (l.$replaceMAIBAComposerContentWithSegments = s),
       (l.$readMAIBAContextChipsInOrder = u),
       (l.$readMAIBAComposerValueWithChipReferences = c),
       (l.$removeMAIBAContextChipNode = d),
-      (l.$insertMAIBAContextChip = m));
+      (l.$insertMAIBAContextChip = m),
+      (l.$selectBesideClickedMAIBAContextChip = p));
   },
   98,
 );

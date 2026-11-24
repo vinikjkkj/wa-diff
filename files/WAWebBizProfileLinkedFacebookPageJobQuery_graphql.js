@@ -7,7 +7,13 @@ __d(
       var e = [
         {
           alias: null,
-          args: null,
+          args: [
+            {
+              kind: "Literal",
+              name: "show_fb_add_whatsapp_btn_status",
+              value: !0,
+            },
+          ],
           concreteType: "XFBWhatsAppBizLinkedAccountsResponse",
           kind: "LinkedField",
           name: "xfb_wa_biz_linked_accounts",
@@ -53,6 +59,13 @@ __d(
                     {
                       alias: null,
                       args: null,
+                      kind: "ScalarField",
+                      name: "fb_add_whatsapp_btn_enabled",
+                      storageKey: null,
+                    },
+                    {
+                      alias: null,
+                      args: null,
                       concreteType: "XFBWaBizLinkedAccountsProfilePicture",
                       kind: "LinkedField",
                       name: "profile_picture",
@@ -75,7 +88,8 @@ __d(
               storageKey: null,
             },
           ],
-          storageKey: null,
+          storageKey:
+            "xfb_wa_biz_linked_accounts(show_fb_add_whatsapp_btn_status:true)",
         },
       ];
       return {

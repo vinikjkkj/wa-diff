@@ -997,7 +997,7 @@ __d(
       );
     }
     async function Pe(e, t, n, a) {
-      var i = Promise.resolve(),
+      var i = Promise.resolve(void 0),
         l = 0,
         s = o("WATimeUtils").unixTimeMs();
       if (n != null) {
@@ -1018,7 +1018,7 @@ __d(
           ),
           (i = o("WAWebSyncdMMSDownload").downloadSnapshot(e, c)));
       }
-      var d = Promise.resolve();
+      var d = Promise.resolve(void 0);
       if (t != null && t.length > 0) {
         var m = t.map(function (t) {
           return r(

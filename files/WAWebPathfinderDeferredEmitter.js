@@ -1,74 +1,135 @@
 __d(
   "WAWebPathfinderDeferredEmitter",
-  ["Promise", "WALogger", "getErrorSafe"],
+  ["Promise", "WALogger", "WAWebODS", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = 20,
-      c = 3e4;
-    function d(t, a, i) {
-      var l = [],
-        d = !1,
-        p = 0;
-      function _(t, n) {
-        !d ||
-          t !== p ||
-          ((d = !1),
-          (l = []),
-          o("WALogger")
-            .WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[pathfinder] emitter not loaded",
-                ])),
-            )
-            .catching(r("getErrorSafe")(n))
-            .sendLogs(i));
+      u,
+      c = 20,
+      d = "web.pathfinder.deferred_row_drop",
+      m = 3e4,
+      p = "timed out",
+      _ = 6e4,
+      f = 6e5;
+    function g(t, a, i, l) {
+      l === void 0 && (l = c);
+      var d = [],
+        g = !1,
+        C = 0,
+        b = 0,
+        v = !1,
+        S = 0,
+        R = _,
+        L = new Set();
+      function E(t, n) {
+        if (!(!g || t !== C)) {
+          g = !1;
+          var a = d.length;
+          ((d = []),
+            (b += a),
+            I(),
+            (S = self.performance.now() + R),
+            (R = Math.min(R * 2, f)));
+          var l = n === p ? "timeout" : "load";
+          L.has(l) ||
+            (L.add(l),
+            o("WALogger")
+              .WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[pathfinder] emitter not loaded (",
+                    "): ",
+                    " rows dropped",
+                  ])),
+                l,
+                a,
+              )
+              .catching(r("getErrorSafe")(n))
+              .sendLogs(i));
+        }
       }
-      function f() {
-        d = !0;
-        var e = ++p;
+      function k() {
+        g = !0;
+        var e = ++C;
         try {
           var r = self.setTimeout(function () {
-            _(e, "timed out");
-          }, c);
-          (s || (s = n("Promise")))
+            E(e, p);
+          }, m);
+          (u || (u = n("Promise")))
             .resolve()
             .then(function () {
               return t.load();
             })
             .then(
               function (t) {
-                (self.clearTimeout(r), e === p && (d = !1));
-                var n = l;
-                l = [];
+                (self.clearTimeout(r), e === C && (g = !1), (R = _), (S = 0));
+                var n = d;
+                d = [];
                 for (var o of n) a(t, o);
+                I();
               },
               function (t) {
-                (self.clearTimeout(r), _(e, t));
+                (self.clearTimeout(r), E(e, t));
               },
             );
         } catch (t) {
-          _(e, t);
+          E(e, t);
+        }
+      }
+      function I() {
+        if (b !== 0) {
+          var e = b;
+          ((b = 0), h(e));
+        }
+      }
+      function T() {
+        if ((b++, !v)) {
+          v = !0;
+          try {
+            self.addEventListener("pagehide", I);
+          } catch (e) {
+            o("WALogger")
+              .WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[pathfinder] dropped rows not reported on page close",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e));
+          }
         }
       }
       return function (e) {
-        var n = m(t);
+        var n = y(t);
         if (n != null) {
           a(n, e);
           return;
         }
-        l.length >= u || (l.push(e), d || f());
+        if (d.length >= l) {
+          T();
+          return;
+        }
+        if (!g && S > 0 && self.performance.now() < S) {
+          T();
+          return;
+        }
+        (d.push(e), g || k());
       };
     }
-    function m(e) {
+    function h(e) {
+      try {
+        r("WAWebODS").incr("web.pathfinder.deferred_row_drop", e);
+      } catch (e) {}
+    }
+    function y(e) {
       try {
         return e.getModuleIfRequireable();
       } catch (e) {
         return null;
       }
     }
-    l.createPathfinderDeferredEmitter = d;
+    ((l.PATHFINDER_DEFERRED_ROW_DROP_ODS_KEY = d),
+      (l.createPathfinderDeferredEmitter = g));
   },
   98,
 );

@@ -22,17 +22,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function s(e) {
-      o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
-        extraAttributes: { stage: e != null ? e : null },
-        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
-          .CUSTOMER_MANAGER_PIPELINE,
-        userActionTarget: "pipeline_customer_card",
-        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
-          .SMB_USER_ACTION_TYPE_ENUM.CLICK,
-      });
-    }
-    function u(e, t) {
+    function s(e, t) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         extraAttributes: { new_stage: t, prev_stage: e },
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
@@ -42,7 +32,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.EDIT,
       });
     }
-    function c(e) {
+    function u(e) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         extraAttributes: { from_stage: e },
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
@@ -52,7 +42,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.EDIT,
       });
     }
-    function d(e, t, n) {
+    function c(e, t, n) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         extraAttributes: { action_status: e, new_stage: n, prev_stage: t },
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
@@ -62,7 +52,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.API,
       });
     }
-    function m(e) {
+    function d(e) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         extraAttributes: { stage: e },
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
@@ -72,7 +62,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function p(e) {
+    function m(e) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         extraAttributes: { stage: e },
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
@@ -82,7 +72,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function _(e, t) {
+    function p(e, t) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         extraAttributes: { from_stage: t, reason: e },
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
@@ -93,13 +83,12 @@ __d(
       });
     }
     ((l.viewPipeline = e),
-      (l.clickPipelineCustomerCard = s),
-      (l.editPipelineCardDrag = u),
-      (l.editPipelineCardDragStart = c),
-      (l.pipelineCardDragResult = d),
-      (l.viewPipelineColumnError = m),
-      (l.clickPipelineColumnRetry = p),
-      (l.pipelineCardDragAbandoned = _));
+      (l.editPipelineCardDrag = s),
+      (l.editPipelineCardDragStart = u),
+      (l.pipelineCardDragResult = c),
+      (l.viewPipelineColumnError = d),
+      (l.clickPipelineColumnRetry = m),
+      (l.pipelineCardDragAbandoned = p));
   },
   98,
 );

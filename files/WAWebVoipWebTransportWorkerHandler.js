@@ -2,6 +2,7 @@ __d(
   "WAWebVoipWebTransportWorkerHandler",
   [
     "SecurePostMessage",
+    "WAWebBoolFunc",
     "WAWebVoipJsWorkerMessageHandlerHelpers",
     "WAWebVoipWasmHeapBuffer",
     "WAWebVoipWebTransportNativeSendRing",
@@ -471,12 +472,8 @@ __d(
       var t = null;
       return Promise.race([
         e.closed.then(
-          function () {
-            return !0;
-          },
-          function () {
-            return !0;
-          },
+          o("WAWebBoolFunc").returnTrue,
+          o("WAWebBoolFunc").returnTrue,
         ),
         new Promise(function (e) {
           t = self.setTimeout(function () {

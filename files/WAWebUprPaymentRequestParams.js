@@ -5,15 +5,16 @@ __d(
     function e(e) {
       var t = e.amount,
         n = e.currency,
-        r = e.offset,
-        a = e.paymentKeys,
-        i = e.referenceId,
-        l = {
+        r = e.note,
+        a = e.offset,
+        i = e.paymentKeys,
+        l = e.referenceId,
+        u = {
           payment_type: o("WAWebUprConstants").UPR_PAYMENT_TYPE,
           type: "physical-goods",
-          reference_id: i,
+          reference_id: l,
           currency: n,
-          payment_settings: a.map(function (e) {
+          payment_settings: i.map(function (e) {
             return {
               type: o("WAWebUprConstants").UprPaymentSettingType
                 .PAYMENT_ACCOUNT,
@@ -21,7 +22,11 @@ __d(
             };
           }),
         };
-      return (t != null && (l.total_amount = { value: t, offset: r }), l);
+      return (
+        t != null && (u.total_amount = { value: t, offset: a }),
+        r != null && (u.additional_note = r),
+        u
+      );
     }
     function s(e) {
       var t,

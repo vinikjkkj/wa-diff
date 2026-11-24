@@ -14,6 +14,7 @@ __d(
     "WAWebGroupHistoryGating",
     "WAWebGroupHistoryParticipantAvatarRow.react",
     "WAWebGroupHistoryPostJoinConfirmPopup.react",
+    "WAWebGroupHistoryPostJoinEligibility",
     "WAWebGroupHistoryPostJoinEligibilityFull",
     "WAWebGroupHistoryRestrictionHelper",
     "WAWebGroupHistorySendMessagesModal.react",
@@ -174,21 +175,25 @@ __d(
               : null,
           v = async function (s, m) {
             b == null || b.markConfirm();
-            var r;
+            var r = o(
+                "WAWebGroupHistoryPostJoinEligibility",
+              ).getPostJoinHistoryWindowEnd(a.id, p),
+              _;
             try {
-              r = await o(
+              _ = await o(
                 "WAWebGroupHistoryPostJoinEligibilityFull",
               ).isEligibleForPostJoinHistoryFull({
                 groupMetadata: n,
                 groupWid: t,
                 joinTimeFallback: i,
                 participant: a,
+                windowEnd: r,
               });
             } catch (e) {
               (m(), k(e), T());
               return;
             }
-            if ((m(), !r.eligible)) {
+            if ((m(), !_.eligible)) {
               (l != null &&
                 o(
                   "WAWebGroupHistorySenderUserJourneyLogger",
@@ -196,7 +201,7 @@ __d(
                   {
                     ineligibleReason: o(
                       "WAWebGroupHistorySenderUserJourneyLogger",
-                    ).mapEligibilityResultToIneligibleReason(r.reason),
+                    ).mapEligibilityResultToIneligibleReason(_.reason),
                     uiSurface: u,
                   },
                 ),
@@ -208,11 +213,11 @@ __d(
               contactName: C,
               groupHistorySystemMessageType: c,
               groupWid: e,
-              joinTime: p,
               messageCount: s,
               receiverWid: a.contact.id,
               restrictedWids: d,
               uiSurface: u,
+              windowEnd: r,
             });
           },
           S = _.messageCount;
@@ -561,16 +566,16 @@ __d(
         n = e.contactName,
         r = e.groupHistorySystemMessageType,
         a = e.groupWid,
-        i = e.joinTime,
-        l = e.messageCount,
-        u = e.receiverWid,
-        c = e.restrictedWids,
-        d = e.uiSurface,
+        i = e.messageCount,
+        l = e.receiverWid,
+        u = e.restrictedWids,
+        c = e.uiSurface,
+        d = e.windowEnd,
         p = o("WAWebGroupHistoryRestrictionHelper").filterParticipants(
-          [u].concat(c),
+          [l].concat(u),
           function (e) {
             return (
-              e !== u ||
+              e !== l ||
               o(
                 "WAWebGroupHistoryRestrictionHelper",
               ).isPostJoinHistoryRestrictedWid(e)
@@ -581,11 +586,11 @@ __d(
         g = p.nonHistoryReceivers;
       if (_.length !== 0) {
         var h = o("WAWebWidToJid").widToGroupJid(a),
-          y = A(t, r, _.length, d);
+          y = A(t, r, _.length, c);
         try {
           var C = await o(
               "WAWebSendHistoryBundleAction",
-            ).sendHistoryBundleAction(h, _, g, l, i, y),
+            ).sendHistoryBundleAction(h, _, g, i, d, y),
             b = C.bundleAcked,
             v = C.noticeAcked;
           if (

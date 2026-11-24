@@ -8,8 +8,8 @@ __d(
     "WAWebMmsClientMmsCheckIfUploadExists",
     "WAWebMmsClientMmsLogError",
     "WAWebMmsClientSelectHost",
+    "WAWebMmsClientWaitForNetworkBeforeAttempt",
     "WAWebMmsOperationsConst",
-    "WAWebNetworkStatusStateManager",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -38,7 +38,6 @@ __d(
                 signal: c,
               }),
               async function (e, u) {
-                var p;
                 (o("WALogger").LOG(
                   s ||
                     (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -47,48 +46,36 @@ __d(
                     ])),
                   u + 1,
                 ),
-                  (p = n.uploadQpl) == null ||
-                    p.addAnnotations({
-                      bool: {
-                        network_online: t.networkStatus.isOnline(),
-                        navigator_online: navigator.onLine,
-                      },
-                    }));
-                var f = o(
-                  "WAWebNetworkStatusStateManager",
-                ).networkOfflineCauseStateManager.get();
-                if (f != null) {
-                  var g;
-                  (g = n.uploadQpl) == null ||
-                    g.addAnnotations({
-                      string: { network_offline_source: f.source },
-                      int: { network_offline_age_ms: Date.now() - f.sinceMs },
-                    });
-                }
-                await t.networkStatus.waitIfOffline();
+                  await o(
+                    "WAWebMmsClientWaitForNetworkBeforeAttempt",
+                  ).waitForNetworkBeforeAttempt({
+                    failCount: u,
+                    networkStatus: t.networkStatus,
+                    uploadQpl: n.uploadQpl,
+                  }));
                 try {
-                  var h = await t.mediaHosts.getHostsInfo({
+                  var p = await t.mediaHosts.getHostsInfo({
                       operation: r("WAWebMmsOperationsConst").UPLOAD,
                       encFilehash: a,
                       type: d,
                       signal: c,
                     }),
-                    y = h.auth,
-                    C = h.fallbackHost,
-                    b = h.selectedHost,
-                    v = r("WAWebMmsClientSelectHost")({
-                      selectedHost: b,
-                      fallbackHost: C,
+                    f = p.auth,
+                    g = p.fallbackHost,
+                    h = p.selectedHost,
+                    y = r("WAWebMmsClientSelectHost")({
+                      selectedHost: h,
+                      fallbackHost: g,
                       lastHostUsed: _,
                       attemptCount: u,
                       lastFetchMadeProgress: m,
                     });
                   return (
-                    (_ = v),
+                    (_ = y),
                     await r("WAWebMmsClientMmsCheckIfUploadExists")({
-                      auth: y,
+                      auth: f,
                       encFilehash: a,
-                      hostname: v.hostname,
+                      hostname: y.hostname,
                       type: d,
                       signal: c,
                       onProgress: function () {
@@ -100,10 +87,10 @@ __d(
                     })
                   );
                 } catch (t) {
-                  var S = r("getErrorSafe")(t);
-                  if (o("WAWebMmsClientIsErrorRetryable").isErrorRetryable(S))
-                    return e(S);
-                  throw S;
+                  var C = r("getErrorSafe")(t);
+                  if (o("WAWebMmsClientIsErrorRetryable").isErrorRetryable(C))
+                    return e(C);
+                  throw C;
                 }
               },
             );

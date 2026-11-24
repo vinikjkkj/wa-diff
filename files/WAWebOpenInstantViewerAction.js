@@ -10,15 +10,17 @@ __d(
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("WAWebInstantViewerFeed").buildInstantViewerFeed(e);
-      t.length !== 0 &&
+      c(o("WAWebInstantViewerFeed").buildInstantViewerFeed(e));
+    }
+    function c(e) {
+      e.length !== 0 &&
         o("WAWebModalManager").ModalManager.openMedia(
           s.jsx(o("WAWebInstantViewerLoadable").WAWebInstantViewerLoadable, {
-            msgs: t,
+            msgs: e,
           }),
         );
     }
-    l.openInstantViewer = u;
+    ((l.openInstantViewer = u), (l.openInstantViewerOn = c));
   },
   98,
 );

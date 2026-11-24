@@ -56,7 +56,6 @@ __d(
               : null;
     }
     ((i.CLOSED_TAB_CALL_RINGS_KEY = e),
-      (i.CLOSED_TAB_CALL_RING_TTL_MS = l),
       (i.parseClosedTabCallRings = u),
       (i.addClosedTabCallRing = c),
       (i.settleClosedTabCallRing = d));

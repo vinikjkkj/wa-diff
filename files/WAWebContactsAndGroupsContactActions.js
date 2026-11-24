@@ -3,12 +3,14 @@ __d(
   [
     "WALogger",
     "WAWebAddToFavoritesAction",
+    "WAWebAddToFavoritesModalLoadable",
     "WAWebBlockContactUtils",
     "WAWebBlockContants",
     "WAWebCmd",
     "WAWebContactsAndGroupsContacts",
     "WAWebContactsAndGroupsNavigationAction",
     "WAWebFindChatAction",
+    "WAWebModalManager",
     "WAWebRemoveFromFavoritesAction",
     "WAWebVoipStartCall",
     "WAWebWamEnumCallFromUi",
@@ -68,7 +70,16 @@ __d(
           o("WAWebBlockContants").BlockEntryPoint.ChatListContextMenuBlock,
         );
     }
-    function g(e) {
+    function g() {
+      o("WAWebModalManager").ModalManager.open(
+        m.jsx(
+          o("WAWebAddToFavoritesModalLoadable").AddToFavoritesModalLoadable,
+          { onClose: o("WAWebModalManager").closeModalManager },
+        ),
+        { transition: "modal-flow" },
+      );
+    }
+    function h(e) {
       o("WAWebCmd").Cmd.favoriteChat(
         e,
         !e.isFavorite,
@@ -76,7 +87,7 @@ __d(
           .CONTACT_INFO,
       );
     }
-    function h(e) {
+    function y(e) {
       var t = e.id.toString();
       if (!p.has(t)) {
         p.add(t);
@@ -108,20 +119,20 @@ __d(
           });
       }
     }
-    function y(e, t) {
+    function C(e, t) {
       o("WAWebBlockContactUtils").handleUnblock(
         e,
         o("WAWebBlockContants").BlockEntryPoint.ChatListContextMenuBlock,
         t,
       );
     }
-    function C(e) {
-      v(e, !0);
-    }
     function b(e) {
-      v(e, !1);
+      S(e, !0);
     }
-    function v(e, t) {
+    function v(e) {
+      S(e, !1);
+    }
+    function S(e, t) {
       o("WAWebVoipStartCall")
         .startWAWebVoipCall(
           e.id,
@@ -145,11 +156,12 @@ __d(
     }
     ((l.openContactChatFromContactsAndGroups = _),
       (l.blockContactFromContactsAndGroups = f),
-      (l.toggleContactFavoriteFromContactsAndGroups = g),
-      (l.toggleContactWithoutChatFavoriteFromContactsAndGroups = h),
-      (l.unblockContactFromContactsAndGroups = y),
-      (l.startVideoCallFromContactsAndGroups = C),
-      (l.startVoiceCallFromContactsAndGroups = b));
+      (l.openAddToFavoritesFromContactsAndGroups = g),
+      (l.toggleContactFavoriteFromContactsAndGroups = h),
+      (l.toggleContactWithoutChatFavoriteFromContactsAndGroups = y),
+      (l.unblockContactFromContactsAndGroups = C),
+      (l.startVideoCallFromContactsAndGroups = b),
+      (l.startVoiceCallFromContactsAndGroups = v));
   },
   98,
 );

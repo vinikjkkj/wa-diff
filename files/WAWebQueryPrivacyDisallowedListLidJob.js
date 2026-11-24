@@ -1,8 +1,8 @@
 __d(
   "WAWebQueryPrivacyDisallowedListLidJob",
   [
+    "JSResourceForInteraction",
     "WALogger",
-    "WASmaxPrivacyGetContactBlacklistRPC",
     "WAWebDBCreateLidPnMappings",
     "WAWebJidToWid",
     "WAWebLidMigrationUtils",
@@ -13,8 +13,17 @@ __d(
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p;
-    async function _(t) {
+    var e,
+      s,
+      u,
+      c,
+      d,
+      m,
+      p,
+      _ = r("JSResourceForInteraction")(
+        "WASmaxPrivacyGetContactBlacklistRPC",
+      ).__setRef("WAWebQueryPrivacyDisallowedListLidJob");
+    async function f(t) {
       var n;
       if (
         t ===
@@ -62,10 +71,10 @@ __d(
               },
             },
         },
-        i = await o(
-          "WASmaxPrivacyGetContactBlacklistRPC",
-        ).sendGetContactBlacklistRPC(a);
-      if (i.name === "GetContactBlacklistResponseError")
+        i = await _.load(),
+        l = i.sendGetContactBlacklistRPC,
+        f = await l(a);
+      if (f.name === "GetContactBlacklistResponseError")
         throw (
           o("WALogger").ERROR(
             s ||
@@ -73,21 +82,21 @@ __d(
                 "GetContactBlacklist lid err: ",
                 "",
               ])),
-            i.value.errorGetPrivacyListError.name,
+            f.value.errorGetPrivacyListError.name,
           ),
           r("err")("GetContactBlacklist lid request invalid response")
         );
-      var l = i.value,
-        _ = l.privacyAddressingMode,
-        f = l.privacyList,
-        g = f == null ? void 0 : f.user;
-      if (f == null || g == null || g.length === 0)
+      var g = f.value,
+        h = g.privacyAddressingMode,
+        y = g.privacyList,
+        C = y == null ? void 0 : y.user;
+      if (y == null || C == null || C.length === 0)
         return {
           status: "mismatch",
           users: [],
-          dhash: f == null ? void 0 : f.dhash,
+          dhash: y == null ? void 0 : y.dhash,
         };
-      if (i.name === "GetContactBlacklistResponseSuccess")
+      if (f.name === "GetContactBlacklistResponseSuccess")
         throw (
           o("WALogger").ERROR(
             u ||
@@ -97,7 +106,7 @@ __d(
           ),
           r("err")("GetContactBlacklist lid request invalid response")
         );
-      if (_ !== "lid")
+      if (h !== "lid")
         throw (
           o("WALogger").ERROR(
             c ||
@@ -107,9 +116,9 @@ __d(
           ),
           r("err")("GetContactBlacklist lid request invalid response")
         );
-      var h = [],
-        y = [],
-        C = g.map(function (e) {
+      var b = [],
+        v = [],
+        S = C.map(function (e) {
           var t,
             n = e.jid,
             a;
@@ -142,12 +151,12 @@ __d(
               ? void 0
               : t.contactListIds;
           if ((_ == null ? void 0 : _.name) === "Username")
-            h.push({
+            b.push({
               userId: a,
               username: o("WAWebUsernameTypes").asUsername(_.value.username),
             });
           else if ((_ == null ? void 0 : _.name) === "PnJid")
-            y.push({
+            v.push({
               lid: a,
               pn: o("WAWebJidToWid").userJidToUserWid(_.value.pnJid),
             });
@@ -175,17 +184,17 @@ __d(
           return a;
         });
       (await o("WAWebDBCreateLidPnMappings").createLidPnMappingsInBatches({
-        mappings: y,
+        mappings: v,
         write: "now",
         learningSource: "query-privacy-disallowed-list",
       }),
         o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
-          h.length > 0 &&
-          (await o("WAWebSetUsernameJob").setUsernamesJob(h)));
-      var b = f.dhash;
-      return { status: "mismatch", users: C, dhash: b };
+          b.length > 0 &&
+          (await o("WAWebSetUsernameJob").setUsernamesJob(b)));
+      var R = y.dhash;
+      return { status: "mismatch", users: S, dhash: R };
     }
-    l.queryPrivacyDisallowedListLid = _;
+    l.queryPrivacyDisallowedListLid = f;
   },
   98,
 );

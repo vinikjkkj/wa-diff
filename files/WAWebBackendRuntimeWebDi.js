@@ -48,12 +48,13 @@ __d(
     "WebDi.Run",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = null;
-    async function s(e, t) {
-      var n = await u();
+    var e = null,
+      s = null;
+    async function u(e, t) {
+      var n = s != null ? s : await c();
       return (await n.run(o("WebDi.Fx").flatMap(t)(e))).getOrThrow();
     }
-    function u() {
+    function c() {
       if (e == null) {
         var t;
         e = o("WebDi.Run")
@@ -149,13 +150,18 @@ __d(
               o("WAWebStatusUpdatesServiceWebLive").StatusUpdatesServiceWebLive,
             ),
           ])
-          .catch(function (t) {
-            throw ((e = null), t);
-          });
+          .then(
+            function (e) {
+              return ((s = e), e);
+            },
+            function (t) {
+              throw ((e = null), t);
+            },
+          );
       }
       return e;
     }
-    l.run = s;
+    l.run = u;
   },
   98,
 );

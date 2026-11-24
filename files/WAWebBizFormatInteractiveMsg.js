@@ -2,7 +2,6 @@ __d(
   "WAWebBizFormatInteractiveMsg",
   [
     "fbt",
-    "WAWebABProps",
     "WAWebBizOrderDetailsParams",
     "WAWebBloksWidgetPayload",
     "WAWebBrazilPixKeyFormattingUtils",
@@ -68,10 +67,7 @@ __d(
     function u(e) {
       var t;
       if (e == null) return "";
-      if (
-        o("WAWebBloksWidgetPayload").isA2UIBloksWidget(e) &&
-        o("WAWebABProps").getABPropConfigValue("im_a2ui_reply_quote_enabled")
-      ) {
+      if (o("WAWebBloksWidgetPayload").isA2UIBloksWidget(e)) {
         var n = o("WAWebBloksWidgetPayload").readA2UITitle(e.data);
         if (n != null) return n;
       }

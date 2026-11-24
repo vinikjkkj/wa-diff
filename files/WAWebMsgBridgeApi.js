@@ -17,6 +17,7 @@ __d(
     "WAWebMessageAssociationUIUtils",
     "WAWebMsgCollection",
     "WAWebODS",
+    "WAWebPathfinderMessageSent",
     "WAWebReactionsCollection",
     "WAWebUpdateEditedMessagesAction",
     "WAWebUpdateMessageUIAction",
@@ -351,6 +352,12 @@ __d(
           var e = t.msgKey,
             n = o("WAWebMsgCollection").MsgCollection.get(e);
           n != null && n.delete();
+        },
+        recordPathfinderScheduledMsgSent: function (t) {
+          var e = t.send;
+          o(
+            "WAWebPathfinderMessageSent",
+          ).recordPathfinderScheduledMessageSentOnPost(e);
         },
         loadAssociationChildrenIntoCollection: async function (t) {
           var e = t.childMsgKeys,

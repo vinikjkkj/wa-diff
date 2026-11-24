@@ -37,7 +37,7 @@ __d(
               t.type,
             )
             .sendLogs("media-fault: resumeUploadMsg msg without mediaObject"),
-          Promise.resolve()
+          Promise.resolve(void 0)
         );
       a.userUploadAttemptCount++;
       var i = a.filehash,

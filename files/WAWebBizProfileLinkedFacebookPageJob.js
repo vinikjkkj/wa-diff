@@ -28,6 +28,7 @@ __d(
           pageId: u,
           pictureUrl: c === "" ? null : c,
           shownOnProfile: s.shown_on_profile,
+          whatsAppButtonEnabled: s.fb_add_whatsapp_btn_enabled,
         },
         type: "linked",
       };

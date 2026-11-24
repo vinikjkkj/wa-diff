@@ -74,7 +74,8 @@ __d(
     ((l.UNREAD_INSTANT_WALK_LIMIT = e),
       (l.countChatInstants = s),
       (l.getUnreadCountWithoutInstants = u),
-      (l.shouldShowUnreadDot = c));
+      (l.shouldShowUnreadDot = c),
+      (l.isUnconsumedIncomingInstant = d));
   },
   98,
 );

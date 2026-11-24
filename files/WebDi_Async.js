@@ -4,6 +4,12 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
+      return u(e, t, !1);
+    }
+    function s(e, t) {
+      return u(e, t, !0);
+    }
+    function u(e, t, n) {
       return new (o("WebDi.Fx").Async)(function (n, r) {
         e(r).then(
           function (e) {
@@ -17,10 +23,11 @@ __d(
             );
           },
         );
-      });
+      }, n);
     }
-    var s = o("WebDi.UnsafeCoerce").coerce(e);
-    function u(e) {
+    var c = o("WebDi.UnsafeCoerce").coerce(e),
+      d = o("WebDi.UnsafeCoerce").coerce(s);
+    function m(e) {
       return function (t) {
         return new (o("WebDi.Fx").Chain)(
           new (o("WebDi.Fx").Recover)(
@@ -46,7 +53,7 @@ __d(
         );
       };
     }
-    function c(e) {
+    function p(e) {
       return function (t) {
         return new (o("WebDi.Fx").Recover)(t, function (t) {
           return new (o("WebDi.Result").Err)(
@@ -55,7 +62,7 @@ __d(
         });
       };
     }
-    function d(e) {
+    function _(e) {
       return new (o("WebDi.Fx").Transform)(
         new (o("WebDi.Fx").Recover)(e, function (e) {
           return new (o("WebDi.Result").Ok)(new (o("WebDi.Result").Err)(e));
@@ -69,10 +76,11 @@ __d(
         },
       );
     }
-    ((l.fromPromise = s),
-      (l.ensuring = u),
-      (l.mapError = c),
-      (l.attemptFx = d));
+    ((l.fromPromise = c),
+      (l.fromPromiseWithAbortSignal = d),
+      (l.ensuring = m),
+      (l.mapError = p),
+      (l.attemptFx = _));
   },
   98,
 );

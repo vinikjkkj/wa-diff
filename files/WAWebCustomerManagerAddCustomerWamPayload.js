@@ -21,7 +21,7 @@ __d(
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
           .CUSTOMER_MANAGER_ADD_CUSTOMER,
         userActionTarget: o("WAWebCustomerManagerSMBUserJourneyTypes")
-          .UserActionTarget.SAVE_BUTTON,
+          .UserActionTarget.ADD_CUSTOMER_SAVE,
         userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       };
@@ -32,9 +32,9 @@ __d(
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
           .CUSTOMER_MANAGER_ADD_CUSTOMER,
         userActionTarget: o("WAWebCustomerManagerSMBUserJourneyTypes")
-          .UserActionTarget.SAVE_ACTION,
+          .UserActionTarget.ADD_CUSTOMER_SAVE,
         userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
-          .SMB_USER_ACTION_TYPE_ENUM.API,
+          .SMB_USER_ACTION_TYPE_ENUM.WRITE,
       };
     }
     function c(e) {

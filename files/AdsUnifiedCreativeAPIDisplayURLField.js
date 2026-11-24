@@ -14,9 +14,8 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "";
-    function s(e, t) {
-      var n = t.getUnifiedCreativeAPIFieldMapping(e),
-        o = n.displayURL;
+    function s(e, t, n) {
+      var o = n(e, t);
       if (o)
         return r("shallowEqual")(
           r("AdsAPIAdgroupPaths").CREATIVE.OBJECT_STORY_SPEC.LINK_DATA.CAPTION,
@@ -29,7 +28,7 @@ __d(
             ]
           : [o];
     }
-    function u(e, t) {
+    function u(e, t, n) {
       if (
         o("AdsMultiMediaUtils").isPrimaryMediaDestinationCustomizationEnabled(
           "silent",
@@ -39,50 +38,50 @@ __d(
           "multi_media",
         )
       ) {
-        var n,
-          a =
-            (n = r(
+        var a,
+          i =
+            (a = r(
               "AdsAdgroupRecordAccessors",
             ).creative.media_sourcing_spec.destinations.get(e)) == null ||
-            (n = n.get(0)) == null
+            (a = a.get(0)) == null
               ? void 0
-              : n.get("display_url");
-        if (typeof a == "string" && a.length > 0) return a;
+              : a.get("display_url");
+        if (typeof i == "string" && i.length > 0) return i;
       }
-      var i = s(e, t);
-      if (i)
-        for (var l of i) {
-          var u = e.getIn(l);
-          if (u !== void 0) return u;
+      var l = s(e, t, n);
+      if (l)
+        for (var u of l) {
+          var c = e.getIn(u);
+          if (c !== void 0) return c;
         }
     }
     var c = o("AdsUnifiedCreativeAPIFieldFactory").createCustom(
       "displayURL",
-      function () {
+      function (t) {
         return {
           aggregate: o("AdsUEditorSelectorUtils").memoizeBulkAggregation(
-            function (t) {
-              return t.map(function (t) {
-                var n = t.adgroup,
-                  r = t.adgroupSpecPathPlugin,
-                  a = u(n, r),
-                  i = o("AdsAssetFeedUtils").isAutomaticFlow(n);
+            function (n) {
+              return n.map(function (n) {
+                var r = n.adgroup,
+                  a = n.adgroupSpecPathPlugin,
+                  i = u(r, a, t.getPath),
+                  l = o("AdsAssetFeedUtils").isAutomaticFlow(r);
                 return (o(
                   "AdsAssetFeedUtils",
-                ).isAdgroupUsingNonDofAssetFeedSpec(n) &&
+                ).isAdgroupUsingNonDofAssetFeedSpec(r) &&
                   !o("AdsAssetFeedUtils").isFormatAutomationAdgroupFromRecord(
-                    n,
+                    r,
                   )) ||
-                  i
+                  l
                   ? o("AdsAssetFeedFieldUtils").getAssetAtIndex(
-                      a,
+                      i,
                       "display_url",
                       o("AdsAssetFeedFieldUtils").getDefaultAssetIndex(
-                        n,
+                        r,
                         "link_urls",
                       ),
                     ) || e
-                  : o("AdsAssetFeedFieldUtils").getNonAssetFeedValue(a) || e;
+                  : o("AdsAssetFeedFieldUtils").getNonAssetFeedValue(i) || e;
               });
             },
           ),

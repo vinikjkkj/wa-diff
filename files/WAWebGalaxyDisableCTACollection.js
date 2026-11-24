@@ -126,8 +126,11 @@ __d(
               ((t.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
                 t.interactiveType ===
                   r("WAWebInteractiveMessageType").NATIVE_FLOW &&
-                t.nativeFlowName ===
-                  r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW) ||
+                (t.nativeFlowName ===
+                  r("WAWebInteractiveMessagesNativeFlowName").CTA_FLOW ||
+                  t.nativeFlowName ===
+                    r("WAWebInteractiveMessagesNativeFlowName")
+                      .FORM_MESSAGE)) ||
                 (t.type ===
                   o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE &&
                   t.ctwaContext != null)) &&

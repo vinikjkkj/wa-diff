@@ -7,18 +7,29 @@ __d(
     "WAWebHatchJarvisText",
     "WAWebMsgGetters",
     "WAWebUnifiedResponseUtils",
+    "fbs",
     "getPlainTextFromUnifiedResponse",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
+    var e = /!\[[^\[\]\r\n]*\]\((?:container|sandbox):\/\/[^()\s]+\)/g;
+    function s(t) {
+      var n,
+        o = (n = u(t)) != null ? n : "",
+        a = o.replace(e, "");
+      return a === o
+        ? o
+        : a.replace(/\n{3,}/g, "\n\n").trim() ||
+            r("fbs")._(/*BTDS*/ "").toString();
+    }
+    function u(e, t) {
       var n = o("WAWebUnifiedResponseUtils").isUnifiedResponseVisible(e)
-        ? s(e, e.unifiedResponse)
+        ? c(e, e.unifiedResponse)
         : "";
       return n !== ""
         ? n
         : o("WAWebGetPlainTextFromBotMsg").getPlainTextFromBotMsg(e, t);
     }
-    function s(e, t) {
+    function c(e, t) {
       if (t == null) return "";
       var n = o("WAWebHatchJarvisReplyGate").getHatchJarvisDrawMode({
           chatId: e.id.remote,
@@ -36,7 +47,9 @@ __d(
         ? o("WAWebHatchJarvisText").getHatchJarvisReplyText(a.displayText)
         : r("getPlainTextFromUnifiedResponse")(t);
     }
-    ((l.getRichResponsePreviewText = e), (l.getUnifiedResponsePreviewText = s));
+    ((l.getRichResponseQuoteText = s),
+      (l.getRichResponsePreviewText = u),
+      (l.getUnifiedResponsePreviewText = c));
   },
-  98,
+  226,
 );

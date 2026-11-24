@@ -43,6 +43,8 @@ __d(
     "WAWebWamEnumCompanionInviteOriginType",
     "WAWebWidFactory",
     "WAWebWidToJid",
+    "WAWebWorkFeature",
+    "cr:22529",
     "err",
     "fbs",
     "getErrorSafe",
@@ -61,13 +63,17 @@ __d(
       g,
       h = g || (g = o("react")),
       y = [];
-    function C(e, t, n, r) {
+    async function C(e, t, r, a) {
       return (
-        n === void 0 && (n = y),
+        r === void 0 && (r = y),
+        o("WAWebWorkFeature").isWork() &&
+          (await (n("cr:22529") == null
+            ? void 0
+            : n("cr:22529").resolveWorkGroupMutationIdentifiers(t, !0))),
         L({
           createGroupArgs: e,
-          groupCreateEntryPoint: r,
-          outContacts: n,
+          groupCreateEntryPoint: a,
+          outContacts: r,
           participants: t,
         })
       );

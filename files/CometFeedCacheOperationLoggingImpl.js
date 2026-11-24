@@ -14,8 +14,40 @@ __d(
       c = 2e3,
       d = 20,
       m = 1e4,
-      p = new WeakMap();
-    function _(e, t) {
+      p = new WeakMap(),
+      _ = {
+        author: {
+          seen_or_above: "author_seen_or_above",
+          unpositioned: "author_unpositioned",
+          unseen_below: "author_unseen_below",
+        },
+        both: {
+          seen_or_above: "both_seen_or_above",
+          unpositioned: "both_unpositioned",
+          unseen_below: "both_unseen_below",
+        },
+        none: {
+          seen_or_above: "none_seen_or_above",
+          unpositioned: "none_unpositioned",
+          unseen_below: "none_unseen_below",
+        },
+        target: {
+          seen_or_above: "target_seen_or_above",
+          unpositioned: "target_unpositioned",
+          unseen_below: "target_unseen_below",
+        },
+        unknown: {
+          seen_or_above: "unknown_seen_or_above",
+          unpositioned: "unknown_unpositioned",
+          unseen_below: "unknown_unseen_below",
+        },
+      },
+      f = o("relay-runtime").getRelayHandleKey(
+        "comet_news_feed",
+        "CometNewsFeed_viewer_news_feed",
+        null,
+      );
+    function g(e, t) {
       return e === "author"
         ? t === "missing_story"
           ? "skipped_author_missing_story"
@@ -53,7 +85,7 @@ __d(
               );
             })();
     }
-    function f(e, t, n, r) {
+    function h(e, t, n, r) {
       var o,
         a,
         i,
@@ -73,9 +105,10 @@ __d(
         ((i = r == null ? void 0 : r.surface) != null ? i : 0)
       );
     }
-    function g(t, n, r, a) {
+    function y(t, n, r, a) {
+      var i;
       a === void 0 && (a = 1);
-      var i = (function (e) {
+      var l = (function (e) {
           if (Array.isArray(e) && e.length === 2 && e[0] === !0 && e[1] === !0)
             return "both";
           if (Array.isArray(e) && e.length === 2 && e[0] === !0 && e[1] === !1)
@@ -89,41 +122,46 @@ __d(
               e,
           );
         })([t.author != null, t.target != null]),
-        l = t.removed === 0 ? "zero" : "nonzero",
         s =
+          ((i = t.opportunity) != null ? i : t.removed) === 0
+            ? "zero"
+            : "nonzero",
+        c =
           t.trigger === "snooze" || t.trigger === "unfollow"
-            ? f(
+            ? h(
                 t.trigger,
                 (t.author != null ? 1 : 0) + (t.target != null ? 2 : 0),
-                l,
+                s,
                 t.context,
               )
-            : t.trigger + "." + i + "." + l;
+            : t.trigger + "." + l + "." + s;
       (e || (e = o("ODS"))).bumpEntityKey(
         757,
         "comet_feed_cache_invalidation",
-        "opportunity." + s + "." + n + "." + r,
+        "opportunity." + c + "." + n + "." + r,
         Math.min(r === "duration_seconds" ? u / 1e3 : m, Math.max(0, a)),
       );
     }
-    function h(e, t, n) {
+    function C(e, t, n) {
+      var r;
       e.actions.delete(t) &&
-        (g(t.operation, "window", n),
-        g(
+        (y(t.operation, "window", n),
+        y(
           t.operation,
           "window",
           "duration_seconds",
           Math.floor(Math.min(u, Date.now() - t.operation.started) / 1e3),
         ),
         t.candidates.clear(),
+        (r = t.pool) == null || r.clear(),
         t.operation.baseline.clear());
     }
-    function y(e) {
+    function b(e) {
       var t = p.get(e);
       if (t == null) return null;
       var n = Date.now();
       for (var r of t.actions)
-        n - r.operation.started >= u && h(t, r, "expired");
+        n - r.operation.started >= u && C(t, r, "expired");
       for (var o of t.deliveries) {
         var a = o[0],
           i = o[1];
@@ -131,7 +169,7 @@ __d(
       }
       return t;
     }
-    function C(e) {
+    function v(e) {
       p.has(e) ||
         p.set(e, {
           actions: new Set(),
@@ -140,10 +178,10 @@ __d(
           sequence: 0,
         });
     }
-    function b(e) {
+    function S(e) {
       return e === !0;
     }
-    function v(e) {
+    function R(e) {
       var t,
         n = e.getLinkedRecords("actors"),
         r = e.getLinkedRecord("target_group"),
@@ -151,13 +189,13 @@ __d(
       return {
         author: n == null || (t = n[0]) == null ? void 0 : t.getDataID(),
         authorKnown: n !== void 0,
-        hidden: o != null && b(o.getValue("is_hidden_from_client")),
+        hidden: o != null && S(o.getValue("is_hidden_from_client")),
         id: e.getDataID(),
         target: r == null ? void 0 : r.getDataID(),
         targetKnown: r !== void 0,
       };
     }
-    function S(e, t) {
+    function L(e, t) {
       var n = e.getSource(),
         r = n.get(t);
       if (r == null) return null;
@@ -172,7 +210,7 @@ __d(
         authorKnown: a !== void 0,
         hidden:
           u != null &&
-          b(
+          S(
             (s || (s = o("relay-runtime/store/RelayModernRecord"))).getValue(
               u,
               "is_hidden_from_client",
@@ -183,7 +221,7 @@ __d(
         targetKnown: i !== void 0,
       };
     }
-    function R(e, t) {
+    function E(e, t) {
       if (t.id === e.storyID || t.hidden) return "excluded";
       if (
         (e.author != null && !t.authorKnown) ||
@@ -194,21 +232,21 @@ __d(
         r = e.target != null && t.target === e.target;
       return n && r ? "both" : n ? "author" : r ? "target" : "none";
     }
-    function L(e, t, n) {
+    function k(e, t, n) {
       var r = t.candidates,
         o = t.operation;
       if (!(o.baseline.has(n.id) || r.has(n.id))) {
         if (r.size >= c) {
-          (g(o, "window", "saturated"), h(e, t, "censored"));
+          (y(o, "window", "saturated"), C(e, t, "censored"));
           return;
         }
-        var a = R(o, n);
+        var a = E(o, n);
         (r.set(n.id, { identity: n, match: a }),
-          g(o, "fetched", "candidate"),
-          g(o, "fetched", a));
+          y(o, "fetched", "candidate"),
+          y(o, "fetched", a));
       }
     }
-    function E(t, n) {
+    function I(t, n) {
       if (!(t.historyCensoredUntil > Date.now())) {
         var r = t.deliveries.get(n.id);
         if (r != null) {
@@ -218,7 +256,7 @@ __d(
         if (t.deliveries.size >= c) {
           t.historyCensoredUntil = Date.now() + u;
           for (var a of t.actions)
-            (g(a.operation, "window", "saturated"), h(t, a, "censored"));
+            (y(a.operation, "window", "saturated"), C(t, a, "censored"));
           (t.deliveries.clear(),
             (e || (e = o("ODS"))).bumpEntityKey(
               757,
@@ -233,15 +271,15 @@ __d(
             sequence: t.sequence,
             timestamp: Date.now(),
           }));
-        for (var i of t.actions) L(t, i, n);
+        for (var i of t.actions) k(t, i, n);
       }
     }
-    function k(e, t) {
-      C(e);
+    function T(e, t) {
+      v(e);
       var n = t("comet_news_feed"),
         r = {
           update: function (r, a) {
-            (P(
+            (F(
               function () {
                 var t,
                   n =
@@ -253,7 +291,7 @@ __d(
                   a.args.before == null
                 ) {
                   var i,
-                    l = y(e);
+                    l = b(e);
                   if (l == null || l.historyCensoredUntil > Date.now()) return;
                   var s =
                     (i =
@@ -267,9 +305,9 @@ __d(
                   for (var u of s) {
                     var c = u == null ? void 0 : u.getLinkedRecord("node");
                     c != null
-                      ? E(l, v(c))
+                      ? I(l, R(c))
                       : u != null &&
-                        E(l, {
+                        I(l, {
                           author: null,
                           authorKnown: !1,
                           hidden: !1,
@@ -289,8 +327,8 @@ __d(
         return e === "comet_news_feed" ? r : t(e);
       };
     }
-    function I(e, t, n, r, a) {
-      var i = y(e);
+    function D(e, t, n, r, a) {
+      var i = b(e);
       if (i == null) return null;
       var l = new Set(i.deliveries.keys()),
         s = 0,
@@ -318,8 +356,8 @@ __d(
             break;
           }
           s++;
-          var C = g == null ? void 0 : g.getLinkedRecord("node");
-          C != null ? l.add(C.getDataID()) : (u = !1);
+          var y = g == null ? void 0 : g.getLinkedRecord("node");
+          y != null ? l.add(y.getDataID()) : (u = !1);
         }
         if (d) break;
       }
@@ -339,36 +377,36 @@ __d(
         trigger: n,
       };
     }
-    function T(e, t, n) {
+    function x(e, t, n) {
       if (!t.finished) {
         t.finished = !0;
-        var r = y(e);
+        var r = b(e);
         if (r == null) {
           t.baseline.clear();
           return;
         }
-        if ((g(t, "result", n), n === "null_result")) {
+        if ((y(t, "result", n), n === "null_result")) {
           t.baseline.clear();
           return;
         }
         if (t.author == null && t.target == null) {
-          (g(t, "result", "ineligible"),
+          (y(t, "result", "ineligible"),
             t.skippedAuthor != null &&
-              g(t, "result", _("author", t.skippedAuthor)),
+              y(t, "result", g("author", t.skippedAuthor)),
             t.skippedTarget != null &&
-              g(t, "result", _("target", t.skippedTarget)),
+              y(t, "result", g("target", t.skippedTarget)),
             t.baseline.clear());
           return;
         }
         if (
-          (g(t, "result", "removed_edges", t.removed),
-          g(t, "result", "matched_edges", t.removed),
+          (y(t, "result", "removed_edges", t.removed),
+          y(t, "result", "matched_edges", t.removed),
           t.baselineComplete
-            ? (g(t, "result", "considered_edges", t.considered),
-              g(t, "result", "remaining_edges", t.considered - t.removed))
-            : g(t, "result", "counts_unknown"),
-          (t.saturated || t.removed >= m) && g(t, "result", "counts_saturated"),
-          t.removed === 0 && g(t, "result", "no_match"),
+            ? (y(t, "result", "considered_edges", t.considered),
+              y(t, "result", "remaining_edges", t.considered - t.removed))
+            : y(t, "result", "counts_unknown"),
+          (t.saturated || t.removed >= m) && y(t, "result", "counts_saturated"),
+          t.removed === 0 && y(t, "result", "no_match"),
           n !== "completed")
         ) {
           t.baseline.clear();
@@ -378,28 +416,185 @@ __d(
           var a = o.candidates.get(t.storyID);
           a != null &&
             ["author", "target", "both"].includes(a.match) &&
-            g(o.operation, "window", "repeated_action");
+            y(o.operation, "window", "repeated_action");
         }
-        if (!t.baselineComplete || r.historyCensoredUntil > Date.now()) {
-          (g(t, "window", t.saturated ? "saturated" : "baseline_unknown"),
-            g(t, "window", "censored"),
-            t.baseline.clear());
-          return;
-        }
-        if (r.actions.size >= d) {
-          (g(t, "window", "saturated"),
-            g(t, "window", "censored"),
-            t.baseline.clear());
-          return;
-        }
-        var i = { candidates: new Map(), operation: t };
-        (r.actions.add(i), g(t, "window", "started"));
-        for (var l of r.deliveries.values())
-          l.sequence > t.deliverySequence && L(r, i, l.identity);
+        $(r, t);
       }
     }
-    function D(t, n) {
-      var r = y(t);
+    function $(e, t, n) {
+      if (!t.baselineComplete || e.historyCensoredUntil > Date.now()) {
+        (y(t, "window", t.saturated ? "saturated" : "baseline_unknown"),
+          y(t, "window", "censored"),
+          t.baseline.clear());
+        return;
+      }
+      if (e.actions.size >= d) {
+        (y(t, "window", "saturated"),
+          y(t, "window", "censored"),
+          t.baseline.clear());
+        return;
+      }
+      var r =
+        n == null
+          ? { candidates: new Map(), operation: t }
+          : { candidates: new Map(), operation: t, pool: n };
+      (e.actions.add(r), y(t, "window", "started"));
+      for (var o of e.deliveries.values())
+        o.sequence > t.deliverySequence && k(e, r, o.identity);
+    }
+    function P(e) {
+      var t = e.getSource().get("client:root:viewer");
+      if (t == null) return null;
+      var n = [];
+      for (var r of (
+        s || (s = o("relay-runtime/store/RelayModernRecord"))
+      ).getFields(t))
+        if (r === f || r.startsWith(f + "(")) {
+          var a = (
+            s || (s = o("relay-runtime/store/RelayModernRecord"))
+          ).getLinkedRecordID(t, r);
+          a != null && n.push(a);
+        }
+      return n;
+    }
+    function N(t, n, r) {
+      var a,
+        i,
+        l,
+        u,
+        d,
+        p = b(t);
+      if (p != null) {
+        (e || (e = o("ODS"))).bumpEntityKey(
+          757,
+          "comet_feed_cache_invalidation",
+          "opportunity.interested.entry_point." + r,
+        );
+        var f = L(t, n),
+          g = {
+            author: f == null ? void 0 : f.author,
+            baseline: new Set(p.deliveries.keys()),
+            baselineComplete: p.historyCensoredUntil <= Date.now(),
+            considered: 0,
+            deliverySequence: p.sequence,
+            finished: !0,
+            opportunity: 0,
+            removed: 0,
+            saturated: p.historyCensoredUntil > Date.now(),
+            started: Date.now(),
+            storyID: n,
+            target: f == null ? void 0 : f.target,
+            trigger: "interested",
+          };
+        if (f == null) {
+          y(g, "result", "missing_story");
+          return;
+        }
+        if (g.author == null && g.target == null) {
+          (y(g, "result", "completed"), y(g, "result", "ineligible"));
+          return;
+        }
+        var h = t.getSource(),
+          C = new Map(),
+          v = new Map(),
+          S = !1,
+          R = !0,
+          k = !1,
+          I = P(t);
+        I == null && ((g.baselineComplete = !1), (R = !1));
+        for (var T of I != null ? I : []) {
+          var D = h.get(T),
+            x =
+              D == null
+                ? null
+                : (
+                    s || (s = o("relay-runtime/store/RelayModernRecord"))
+                  ).getLinkedRecordIDs(
+                    D,
+                    o("relay-runtime").ConnectionInterface.get().EDGES,
+                  ),
+            N = (x != null ? x : []).map(function (e) {
+              return e == null ? null : h.get(e);
+            }),
+            M = N.findIndex(function (e) {
+              return (
+                e != null &&
+                (
+                  s || (s = o("relay-runtime/store/RelayModernRecord"))
+                ).getLinkedRecordID(e, "node") === n
+              );
+            });
+          S = S || M >= 0;
+          for (var w = 0; w < N.length; w++) {
+            var A;
+            if (g.considered >= m) {
+              k = !0;
+              break;
+            }
+            g.considered++;
+            var F = N[w],
+              O =
+                F == null
+                  ? null
+                  : (
+                      s || (s = o("relay-runtime/store/RelayModernRecord"))
+                    ).getLinkedRecordID(F, "node");
+            O == null
+              ? ((g.baselineComplete = !1), (R = !1))
+              : g.baseline.size < c || g.baseline.has(O)
+                ? g.baseline.add(O)
+                : ((g.baselineComplete = !1), (g.saturated = !0));
+            var B = O == null ? null : L(t, O),
+              W = B == null ? "unknown" : E(g, B);
+            if (W !== "excluded") {
+              var q =
+                  M < 0
+                    ? "unpositioned"
+                    : w > M &&
+                        (F == null ||
+                          (
+                            s ||
+                            (s = o("relay-runtime/store/RelayModernRecord"))
+                          ).getValue(F, "has_been_seen") !== !0)
+                      ? "unseen_below"
+                      : "seen_or_above",
+                U = _[W][q];
+              (C.set(U, ((A = C.get(U)) != null ? A : 0) + 1),
+                O != null &&
+                  q === "unseen_below" &&
+                  (W === "author" || W === "target" || W === "both") &&
+                  v.set(O, W));
+            }
+          }
+          if (k) break;
+        }
+        var V =
+            ((a = C.get("author_unseen_below")) != null ? a : 0) +
+            ((i = C.get("both_unseen_below")) != null ? i : 0),
+          H =
+            ((l = C.get("target_unseen_below")) != null ? l : 0) +
+            ((u = C.get("both_unseen_below")) != null ? u : 0),
+          G = V + ((d = C.get("target_unseen_below")) != null ? d : 0);
+        ((g.opportunity = G),
+          y(g, "result", "completed"),
+          S || y(g, "result", "acted_missing"));
+        for (var z of C) {
+          var j = z[0],
+            K = z[1];
+          y(g, "result", j, K);
+        }
+        (G > 0 && y(g, "result", "any_unseen_below"),
+          V > 0 && y(g, "result", "any_author_unseen_below"),
+          H > 0 && y(g, "result", "any_target_unseen_below"),
+          R && !k
+            ? y(g, "result", "considered_edges", g.considered)
+            : y(g, "result", "counts_unknown"),
+          k && y(g, "result", "counts_saturated"),
+          $(p, g, v));
+      }
+    }
+    function M(t, n) {
+      var r = b(t);
       if (r != null) {
         (e || (e = o("ODS"))).bumpEntityKey(
           757,
@@ -413,20 +608,43 @@ __d(
               : (
                   s || (s = o("relay-runtime/store/RelayModernRecord"))
                 ).getLinkedRecordID(a, "node"),
-          l = i == null || r.actions.size === 0 ? null : S(t, i),
+          l = i == null || r.actions.size === 0 ? null : L(t, i),
           u = !1,
-          c = i == null;
-        for (var d of r.actions) {
-          var m = i == null ? null : d.candidates.get(i);
-          if (m != null) {
-            var p = l == null ? "unknown" : R(d.operation, l);
-            (m.match === "unknown" &&
-              p !== "unknown" &&
-              ((m.match = p), g(d.operation, "hydrated", p)),
-              (c = c || p === "unknown"),
-              (u = u || ["author", "target", "both"].includes(p)));
-          }
-        }
+          c = i == null,
+          d = function () {
+            var e,
+              t = i == null ? null : (e = m.pool) == null ? void 0 : e.get(i);
+            if (i != null && t != null) {
+              var n;
+              ((n = m.pool) == null || n.delete(i),
+                y(m.operation, "window", "pool_viewed"),
+                y(
+                  m.operation,
+                  "window",
+                  t === "author"
+                    ? "pool_viewed_author"
+                    : t === "target"
+                      ? "pool_viewed_target"
+                      : t === "both"
+                        ? "pool_viewed_both"
+                        : (function () {
+                            throw Error(
+                              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                t,
+                            );
+                          })(),
+                ));
+            }
+            var r = i == null ? null : m.candidates.get(i);
+            if (r == null) return 1;
+            var o = l == null ? "unknown" : E(m.operation, l);
+            (r.match === "unknown" &&
+              o !== "unknown" &&
+              ((r.match = o), y(m.operation, "hydrated", o)),
+              (c = c || o === "unknown"),
+              (u = u || ["author", "target", "both"].includes(o)));
+          };
+        for (var m of r.actions) d();
         u
           ? (e || (e = o("ODS"))).bumpEntityKey(
               757,
@@ -441,21 +659,23 @@ __d(
             );
       }
     }
-    function x(e, t) {
+    function w(e, t) {
       var n,
         r,
         o = Array.from(
-          (n = (r = y(e)) == null ? void 0 : r.actions) != null ? n : [],
+          (n = (r = b(e)) == null ? void 0 : r.actions) != null ? n : [],
         ).filter(function (e) {
-          return e.operation.storyID === t;
+          return (
+            e.operation.storyID === t && e.operation.trigger !== "interested"
+          );
         });
       return o.length === 1 ? o[0] : null;
     }
-    function $(e, t) {
-      var n = y(e);
-      n != null && h(n, t, "undo");
+    function A(e, t) {
+      var n = b(e);
+      n != null && C(n, t, "undo");
     }
-    function P(t, n) {
+    function F(t, n) {
       try {
         return t();
       } catch (t) {
@@ -471,41 +691,49 @@ __d(
         return n;
       }
     }
-    var N = {
+    var O = {
       complete: function (t, n, r) {
-        P(
+        F(
           function () {
-            return T(t, n, r);
+            return x(t, n, r);
           },
           void 0,
         );
       },
       getUndoObservation: function (t, n) {
-        return P(function () {
-          return x(t, n);
+        return F(function () {
+          return w(t, n);
         }, null);
       },
-      observeVPV: function (t, n) {
-        P(
+      observeInterested: function (t, n, r) {
+        F(
           function () {
-            return D(t, n);
+            return N(t, n, r);
+          },
+          void 0,
+        );
+      },
+      observeVPV: function (t, n) {
+        F(
+          function () {
+            return M(t, n);
           },
           void 0,
         );
       },
       prepare: function (t, n, r, o, a) {
-        return P(function () {
-          return I(t, n, r, o, a);
+        return F(function () {
+          return D(t, n, r, o, a);
         }, null);
       },
       recordRejected: function (n, r, a, i) {
-        P(
+        F(
           function () {
-            y(n) != null &&
+            b(n) != null &&
               (e || (e = o("ODS"))).bumpEntityKey(
                 757,
                 "comet_feed_cache_invalidation",
-                "opportunity." + f(r, 0, "zero", i) + ".result." + a,
+                "opportunity." + h(r, 0, "zero", i) + ".result." + a,
                 1,
               );
           },
@@ -513,13 +741,13 @@ __d(
         );
       },
       recordSkipped: function (n, r, a, i) {
-        P(
+        F(
           function () {
-            y(n) != null &&
+            b(n) != null &&
               (e || (e = o("ODS"))).bumpEntityKey(
                 757,
                 "comet_feed_cache_invalidation",
-                "opportunity." + r + "." + a + ".zero.result." + _(a, i),
+                "opportunity." + r + "." + a + ".zero.result." + g(a, i),
                 1,
               );
           },
@@ -527,24 +755,24 @@ __d(
         );
       },
       register: function (t) {
-        P(
+        F(
           function () {
-            return C(t);
+            return v(t);
           },
           void 0,
         );
       },
       undo: function (t, n) {
-        P(
+        F(
           function () {
-            return $(t, n);
+            return A(t, n);
           },
           void 0,
         );
       },
-      wrapHandlerProvider: k,
+      wrapHandlerProvider: T,
     };
-    l.default = N;
+    l.default = O;
   },
   98,
 );

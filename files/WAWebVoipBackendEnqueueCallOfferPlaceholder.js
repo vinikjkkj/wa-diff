@@ -7,6 +7,7 @@ __d(
     "WAWebMessageQueueTimeout",
     "WAWebUserUtils",
     "WAWebVoipCallLogPlaceholderTracker",
+    "WAWebVoipCallOfferRingWindow",
     "WAWebVoipCallOfferStanzaParser",
     "getErrorSafe",
   ],
@@ -22,16 +23,19 @@ __d(
         ).isOfflineCallLogOrderingEnabled() &&
         ((t = e.attrs) == null ? void 0 : t.offline) != null
       ) {
-        var n = o("WAWebVoipCallOfferStanzaParser").parseCallOfferStanza(e);
-        n != null &&
-          (o("WAWebUserUtils").isMeAccount(n.callCreator) ||
+        var n = o("WAWebVoipCallOfferStanzaParser").parseCallOffer(e);
+        if (n != null) {
+          var r = n.placeholderProps;
+          o("WAWebUserUtils").isMeAccount(r.callCreator) ||
             o("WAWebVoipCallLogPlaceholderTracker").isPlaceholderPending(
-              n.callId,
+              r.callId,
             ) ||
+            o("WAWebVoipCallOfferRingWindow").canCallOfferStillRing(n) ||
             (o("WAWebVoipCallLogPlaceholderTracker").markPlaceholderPending(
-              n.callId,
+              r.callId,
             ),
-            u(n)));
+            u(r));
+        }
       }
     }
     function u(t) {

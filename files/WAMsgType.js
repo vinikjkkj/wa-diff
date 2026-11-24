@@ -60,8 +60,6 @@ __d(
     ((i.TEXT = e),
       (i.FUTUREPROOF = l),
       (i.UNAVAILABLE = u),
-      (i.REVOKED = _),
-      (i.STICKER = g),
       (i.NOTE_REPLY = L),
       (i.MSG_TYPE = P));
   },

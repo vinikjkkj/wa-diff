@@ -47,14 +47,22 @@ __d(
     }
     function _(e) {
       var t,
-        n = (t = f(e)) != null ? t : d;
+        n = (t = g(e)) != null ? t : d;
       return [n.make, n.ai_system_used, n.publisher].some(function (e) {
         return Array.isArray(e) && e.length > 0;
-      })
+      }) || f(n.names)
         ? e
         : null;
     }
     function f(e) {
+      return (
+        e != null &&
+        typeof e == "object" &&
+        !Array.isArray(e) &&
+        Object.keys(e).length > 0
+      );
+    }
+    function g(e) {
       var t;
       try {
         t = JSON.parse(e);

@@ -97,7 +97,7 @@ __d(
     function I() {
       try {
         var t = function () {
-            return Promise.resolve();
+            return Promise.resolve(void 0);
           },
           n = r("WAWebNoop");
         (o("WAWebLogger").initializeWAWebLogger(

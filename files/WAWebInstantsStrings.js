@@ -82,7 +82,10 @@ __d(
     function x(e) {
       return s._(/*BTDS*/ "", [s._plural(e, "count")]);
     }
-    function $(e, t) {
+    function $(e) {
+      return s._(/*BTDS*/ "", [s._plural(e, "count")]);
+    }
+    function P(e, t) {
       return s
         ._(/*BTDS*/ "", [s._plural(e, "zaps"), s._plural(t, "messages")])
         .toString();
@@ -110,7 +113,8 @@ __d(
       (l.getInstantViewerDeletedLabel = T),
       (l.getInstantViewerVideoAccessibilityLabel = D),
       (l.getChatListUnplayedInstantsLabel = x),
-      (l.getChatListUnplayedInstantsAndUnreadLabel = $));
+      (l.getChatListPlayInstantsLabel = $),
+      (l.getChatListUnplayedInstantsAndUnreadLabel = P));
   },
   226,
 );

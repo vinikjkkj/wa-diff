@@ -7,51 +7,13 @@ __d(
     "WAWebMetaAiThreadServerDeleteJob",
     "WAWebPersistBotProfiles",
     "WAWebResolveBotProfile",
-    "WAWebUserPrefsMeUser",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e) {
-      var t = _(e),
-        n = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
-      return t == null || n == null
-        ? null
-        : { botFbid: t, originLid: n.toString() };
+    var e, s;
+    async function u(e, t) {
+      (await d(t)) && (await m(e));
     }
-    async function m(t, n) {
-      var r = n.botFbid,
-        a = n.originLid;
-      if (!p(a)) {
-        o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "[meta-ai-thread-server-delete] account-changed-before-enqueue",
-            ])),
-        );
-        return;
-      }
-      if (await f(r)) {
-        if (!p(a)) {
-          o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "[meta-ai-thread-server-delete] account-changed-during-enqueue",
-              ])),
-          );
-          return;
-        }
-        await g(t);
-      }
-    }
-    function p(e) {
-      var t;
-      return (
-        ((t = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) == null
-          ? void 0
-          : t.toString()) === e
-      );
-    }
-    function _(e) {
+    function c(e) {
       if (!e.isFbidBot()) return null;
       var t = o("WAWebResolveBotProfile").resolveBotSupportInput(e);
       return t == null ||
@@ -64,20 +26,20 @@ __d(
         ? null
         : e.user;
     }
-    async function f(e) {
+    async function d(t) {
       try {
         return (
           await o(
             "WAWebMetaAiThreadServerDeleteJob",
-          ).enqueueMetaAiThreadServerDelete(e),
+          ).enqueueMetaAiThreadServerDelete(t),
           !0
         );
-      } catch (e) {
+      } catch (t) {
         return (
           o("WALogger")
             .ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
                   "[meta-ai-thread-server-delete] enqueue-failed",
                 ])),
             )
@@ -86,7 +48,7 @@ __d(
         );
       }
     }
-    async function g(e) {
+    async function m(e) {
       try {
         await o("WAWebPersistBotProfiles").mergeBotSupportFields(e, {
           isDeleted: !0,
@@ -94,19 +56,18 @@ __d(
       } catch (e) {
         o("WALogger")
           .ERROR(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
                 "[meta-ai-thread-server-delete] local-tombstone-failed",
               ])),
           )
           .sendLogs("meta-ai-thread-local-tombstone-failed");
       }
     }
-    ((l.getMetaAiThreadServerDelete = d),
-      (l.completeMetaAiThreadServerDelete = m),
-      (l.getMetaAiThreadServerDeleteBotFbid = _),
-      (l.persistMetaAiThreadServerDelete = f),
-      (l.tombstoneDeletedMetaAiThread = g));
+    ((l.completeMetaAiThreadServerDelete = u),
+      (l.getMetaAiThreadServerDeleteBotFbid = c),
+      (l.persistMetaAiThreadServerDelete = d),
+      (l.tombstoneDeletedMetaAiThread = m));
   },
   98,
 );

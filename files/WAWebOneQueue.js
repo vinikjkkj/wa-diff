@@ -203,7 +203,11 @@ __d(
           function () {
             return Promise.resolve();
           },
-          { flush: !0, operationType: "wa_web_offline_batch_flush" },
+          {
+            flush: !0,
+            flushReason: "offlineBatch",
+            operationType: "wa_web_offline_batch_flush",
+          },
         );
       }).catch(function (t) {
         o("WALogger")
@@ -237,7 +241,7 @@ __d(
       var e = o("WAWebABProps").getABPropConfigValue(
         "web_message_processing_cache_size",
       );
-      return z() ? Math.floor(e / 2) : b === 0 ? Math.min(e, m) : e;
+      return b === 0 ? Math.min(e, m) : e;
     }
     function z() {
       return r("qex")._("6062") === !0;

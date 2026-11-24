@@ -7,11 +7,14 @@ __d(
     "WAWebCallCollection",
     "WAWebCallLogMsgData.flow",
     "WAWebCallLogUtils",
+    "WAWebModelStorageUtils",
+    "WAWebMsgCollection",
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebUserUtils",
     "WAWebVoipActionWriteCallLogImpl",
     "WAWebVoipTransferredCallRegistry",
+    "WAWebVoipUnresolvedPlaceholderLoadable",
     "WAWebVoipWaCallEnums",
     "WAWebWidFactory",
     "getErrorSafe",
@@ -59,7 +62,7 @@ __d(
       }
     }
     async function p(e) {
-      var t = await g(e),
+      var t = await h(e),
         n = t.callCreatorUserWid,
         r = t.chatId,
         a = t.id,
@@ -98,6 +101,7 @@ __d(
             },
           ],
           selfOtherDeviceConnected: !0,
+          switchEntryCallLogTime: "pending",
         },
         c = await o(
           "WAWebVoipActionWriteCallLogImpl",
@@ -113,7 +117,7 @@ __d(
         }));
     }
     async function _(e) {
-      var t = await g(e),
+      var t = await h(e),
         n = t.chatId,
         r = t.id;
       (o("WALogger").LOG(
@@ -133,7 +137,11 @@ __d(
                 .Completed,
             },
           },
-        ));
+        ),
+        await g(r),
+        o(
+          "WAWebVoipUnresolvedPlaceholderLoadable",
+        ).scheduleSwitchEntryCallLogRepair(r, null));
     }
     function f(e) {
       var t;
@@ -144,6 +152,25 @@ __d(
       );
     }
     async function g(e) {
+      var t = await o("WAWebModelStorageUtils")
+        .getStorage()
+        .lock(["message"], async function (t) {
+          var n = t[0],
+            r = await n.get(e.toString(), !1);
+          return (r == null ? void 0 : r.switchEntryCallLogTime) == null ||
+            f(e.id)
+            ? !1
+            : (r.switchEntryEnded !== !0 &&
+                (await n.merge(r.id, { switchEntryEnded: !0 })),
+              !0);
+        });
+      if (t) {
+        var n;
+        (n = o("WAWebMsgCollection").MsgCollection.get(e)) == null ||
+          n.set({ switchEntryEnded: !0 });
+      }
+    }
+    async function h(e) {
       var t = e.peerWid,
         n = e.rootCallCreatorJid,
         a = e.rootCallId,
@@ -173,7 +200,9 @@ __d(
         viewMode: p,
       };
     }
-    l.writeCallLogForSwitchEntryPoint = d;
+    ((l.writeCallLogForSwitchEntryPoint = d),
+      (l.isSwitchEntryRootCallLiveHere = f),
+      (l.markSwitchEntryCallLogEnded = g));
   },
   98,
 );

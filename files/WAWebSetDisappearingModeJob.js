@@ -22,21 +22,20 @@ __d(
       if (!a.success) {
         var i = a.errorCode,
           l = a.errorText;
-        throw (
-          o("WALogger")
-            .WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "setDisappearingMode: failed ",
-                  ", ",
-                  "",
-                ])),
-              i,
-              l,
-            )
-            .tags("DM", "DDM"),
-          new Error("setDisappearingMode: failed " + i + ", " + l)
-        );
+        o("WALogger")
+          .WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "setDisappearingMode: failed ",
+                ", ",
+                "",
+              ])),
+            i,
+            l,
+          )
+          .tags("DM", "DDM");
+        var u = new Error("setDisappearingMode: failed " + i + ", " + l);
+        throw (u.stack, u);
       }
     }
     l.setDisappearingMode = u;

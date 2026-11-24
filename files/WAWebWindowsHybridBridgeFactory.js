@@ -5,7 +5,6 @@ __d(
     "WAWebBuildConstants",
     "WAWebEnvironment",
     "WAWebWindowsHybridBridge",
-    "WAWebWindowsHybridBridge.v2636",
     "WAWebWindowsHybridBridge.v2637",
     "WAWebWindowsHybridBridge.v2638",
     "WAWebWindowsHybridBridge.v2639",
@@ -16,6 +15,7 @@ __d(
     "WAWebWindowsHybridBridge.v2644",
     "WAWebWindowsHybridBridge.v2645",
     "WAWebWindowsHybridBridge.v2646",
+    "WAWebWindowsHybridBridge.v2647",
     "WAWebWindowsHybridBridgeCommon",
     "WAWebWindowsHybridBridgeUtils",
     "WAWebWindowsHybridFlowHelpers",
@@ -77,82 +77,82 @@ __d(
     }
     function y(e, t) {
       try {
-        return e != null && e.startsWith("2636")
-          ? new (o("WAWebWindowsHybridBridge.v2636").WindowsHybridBridge_v2636)(
+        return e != null && e.startsWith("2637")
+          ? new (o("WAWebWindowsHybridBridge.v2637").WindowsHybridBridge_v2637)(
               o("WAWebWindowsHybridFlowHelpers").unsafeCastCustomWebView(t),
             )
-          : e != null && e.startsWith("2637")
+          : e != null && e.startsWith("2638")
             ? new (o(
-                "WAWebWindowsHybridBridge.v2637",
-              ).WindowsHybridBridge_v2637)(
+                "WAWebWindowsHybridBridge.v2638",
+              ).WindowsHybridBridge_v2638)(
                 o("WAWebWindowsHybridFlowHelpers").unsafeCastCustomWebView(t),
               )
-            : e != null && e.startsWith("2638")
+            : e != null && e.startsWith("2639")
               ? new (o(
-                  "WAWebWindowsHybridBridge.v2638",
-                ).WindowsHybridBridge_v2638)(
+                  "WAWebWindowsHybridBridge.v2639",
+                ).WindowsHybridBridge_v2639)(
                   o("WAWebWindowsHybridFlowHelpers").unsafeCastCustomWebView(t),
                 )
-              : e != null && e.startsWith("2639")
+              : e != null && e.startsWith("2640")
                 ? new (o(
-                    "WAWebWindowsHybridBridge.v2639",
-                  ).WindowsHybridBridge_v2639)(
+                    "WAWebWindowsHybridBridge.v2640",
+                  ).WindowsHybridBridge_v2640)(
                     o("WAWebWindowsHybridFlowHelpers").unsafeCastCustomWebView(
                       t,
                     ),
                   )
-                : e != null && e.startsWith("2640")
+                : e != null && e.startsWith("2641")
                   ? new (o(
-                      "WAWebWindowsHybridBridge.v2640",
-                    ).WindowsHybridBridge_v2640)(
+                      "WAWebWindowsHybridBridge.v2641",
+                    ).WindowsHybridBridge_v2641)(
                       o(
                         "WAWebWindowsHybridFlowHelpers",
                       ).unsafeCastCustomWebView(t),
                     )
-                  : e != null && e.startsWith("2641")
+                  : e != null && e.startsWith("2642")
                     ? new (o(
-                        "WAWebWindowsHybridBridge.v2641",
-                      ).WindowsHybridBridge_v2641)(
+                        "WAWebWindowsHybridBridge.v2642",
+                      ).WindowsHybridBridge_v2642)(
                         o(
                           "WAWebWindowsHybridFlowHelpers",
                         ).unsafeCastCustomWebView(t),
                       )
-                    : e != null && e.startsWith("2642")
+                    : e != null && e.startsWith("2643")
                       ? new (o(
-                          "WAWebWindowsHybridBridge.v2642",
-                        ).WindowsHybridBridge_v2642)(
+                          "WAWebWindowsHybridBridge.v2643",
+                        ).WindowsHybridBridge_v2643)(
                           o(
                             "WAWebWindowsHybridFlowHelpers",
                           ).unsafeCastCustomWebView(t),
                         )
-                      : e != null && e.startsWith("2643")
+                      : e != null && e.startsWith("2644")
                         ? new (o(
-                            "WAWebWindowsHybridBridge.v2643",
-                          ).WindowsHybridBridge_v2643)(
+                            "WAWebWindowsHybridBridge.v2644",
+                          ).WindowsHybridBridge_v2644)(
                             o(
                               "WAWebWindowsHybridFlowHelpers",
                             ).unsafeCastCustomWebView(t),
                           )
-                        : e != null && e.startsWith("2644")
+                        : e != null && e.startsWith("2645")
                           ? new (o(
-                              "WAWebWindowsHybridBridge.v2644",
-                            ).WindowsHybridBridge_v2644)(
+                              "WAWebWindowsHybridBridge.v2645",
+                            ).WindowsHybridBridge_v2645)(
                               o(
                                 "WAWebWindowsHybridFlowHelpers",
                               ).unsafeCastCustomWebView(t),
                             )
-                          : e != null && e.startsWith("2645")
+                          : e != null && e.startsWith("2646")
                             ? new (o(
-                                "WAWebWindowsHybridBridge.v2645",
-                              ).WindowsHybridBridge_v2645)(
+                                "WAWebWindowsHybridBridge.v2646",
+                              ).WindowsHybridBridge_v2646)(
                                 o(
                                   "WAWebWindowsHybridFlowHelpers",
                                 ).unsafeCastCustomWebView(t),
                               )
-                            : e != null && e.startsWith("2646")
+                            : e != null && e.startsWith("2647")
                               ? new (o(
-                                  "WAWebWindowsHybridBridge.v2646",
-                                ).WindowsHybridBridge_v2646)(
+                                  "WAWebWindowsHybridBridge.v2647",
+                                ).WindowsHybridBridge_v2647)(
                                   o(
                                     "WAWebWindowsHybridFlowHelpers",
                                   ).unsafeCastCustomWebView(t),

@@ -9,52 +9,67 @@ __d(
       },
       l = "iptc-digital-source-type",
       s = "tiff-make",
-      u = "iptc-ai-system-used",
-      c = "dc-publisher",
-      d = "xmpmm-history";
-    function m(t) {
+      u = "tiff-model",
+      c = "iptc-ai-system-used",
+      d = "dc-publisher",
+      m = "xmpmm-history";
+    function p(t) {
       return { digitalSourceType: e[t] };
     }
-    function p(e) {
+    function _(e) {
+      return (
+        e.digitalSourceType != null ||
+        [e.make, e.model, e.aiSystemUsed, e.publisher, e.history].some(
+          function (e) {
+            return e != null && e.length > 0;
+          },
+        )
+      );
+    }
+    function f(e) {
       var t,
         n = e.digitalSourceType;
-      return n == null
-        ? []
-        : [l + "=" + n].concat(
-            f(s, e.make),
-            f(u, e.aiSystemUsed),
-            f(c, e.publisher),
-            f(d, (t = e.history) == null ? void 0 : t.map(_)),
-          );
+      return [].concat(
+        n == null ? [] : [l + "=" + n],
+        h(s, e.make),
+        h(u, e.model),
+        h(c, e.aiSystemUsed),
+        h(d, e.publisher),
+        h(m, (t = e.history) == null ? void 0 : t.map(g)),
+      );
     }
-    function _(e) {
+    function g(e) {
       var t = e.action,
         n = e.parameters;
       return t + "|" + n;
     }
-    function f(e, t) {
+    function h(e, t) {
       return (t != null ? t : []).map(function (t) {
         return e + "=" + t;
       });
     }
-    function g(e, t) {
-      var n = e.digitalSourceType;
-      return n == null || !t.has(l)
-        ? null
-        : {
-            digitalSourceType: n,
-            make: h(e.make, s, t),
-            aiSystemUsed: h(e.aiSystemUsed, u, t),
-            publisher: h(e.publisher, c, t),
-            history: h(e.history, d, t),
-          };
+    function y(e, t) {
+      var n = e.digitalSourceType,
+        r = babelHelpers.extends(
+          {},
+          n != null && t.has(l) ? { digitalSourceType: n } : null,
+          {
+            make: C(e.make, s, t),
+            model: C(e.model, u, t),
+            aiSystemUsed: C(e.aiSystemUsed, c, t),
+            publisher: C(e.publisher, d, t),
+            history: C(e.history, m, t),
+          },
+        );
+      return _(r) ? r : null;
     }
-    function h(e, t, n) {
+    function C(e, t, n) {
       return e != null && e.length > 0 && n.has(t) ? e : void 0;
     }
-    ((i.digitalSourceTypeFields = m),
-      (i.provenanceFieldArgs = p),
-      (i.allowedProvenanceFields = g));
+    ((i.digitalSourceTypeFields = p),
+      (i.hasProvenanceValue = _),
+      (i.provenanceFieldArgs = f),
+      (i.allowedProvenanceFields = y));
   },
   66,
 );

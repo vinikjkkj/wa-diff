@@ -74,7 +74,7 @@ __d(
       }
     }
     function m(e) {
-      if (e == null || typeof e != "string")
+      if (typeof e != "string")
         return {
           status: s.INVALID,
           type: o("WAWebContactImportTypedError").NameError.INVALID,

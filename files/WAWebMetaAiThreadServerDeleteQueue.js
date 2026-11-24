@@ -13,8 +13,8 @@ __d(
     function u() {
       m().start();
     }
-    async function c(e, t) {
-      (await d(e)) || (await m().addAndDrain({ botFbid: e, meLid: t }));
+    async function c(e) {
+      (await d(e)) || (await m().addAndDrain({ botFbid: e }));
     }
     async function d(e) {
       if (
@@ -42,10 +42,9 @@ __d(
             queue: o("WAWebMetaAiThreadServerDeleteQueueDef")
               .META_AI_THREAD_SERVER_DELETE_QUEUE,
             run: function (t) {
-              return o("WAWebMetaAiThreadServerDeleteJobImpl").deleteOnServer({
-                botFbid: t.botFbid,
-                meLid: t.meLid,
-              });
+              return o("WAWebMetaAiThreadServerDeleteJobImpl").deleteOnServer(
+                t.botFbid,
+              );
             },
           })),
         s

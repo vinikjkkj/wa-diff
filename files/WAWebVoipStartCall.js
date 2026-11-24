@@ -55,6 +55,7 @@ __d(
     "WAWebVoipPeerTcToken",
     "WAWebVoipStackInterface",
     "WAWebVoipStartCallPermissions",
+    "WAWebVoipTransferredGroupCallJoin",
     "WAWebVoipUiLoadable",
     "WAWebVoipUiVideoCallLoadable",
     "WAWebVoipUiVideoGroupCallLoadable",
@@ -1266,10 +1267,11 @@ __d(
       ) {
         (o("WAWebVoipActivityTracker").startActivityTracking(),
           o("WAWebVoipActivityTracker").startUiActivityTracking());
-        var f = await o(
-          "WAWebVoipOngoingCallJoinDevices",
-        ).checkOngoingCallJoinDevices(a, c, m);
-        if (f == null) {
+        var f = o("WAWebVoipTransferredGroupCallJoin").getGroupCallIdToJoin(a),
+          g = await o(
+            "WAWebVoipOngoingCallJoinDevices",
+          ).checkOngoingCallJoinDevices(f, c, m);
+        if (g == null) {
           o("WAWebVoipActivityTracker").clearAllActivityTracking();
           return;
         }
@@ -1277,15 +1279,15 @@ __d(
           r("WAWebEnvironment").isWindows &&
           !o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()
         ) {
-          var g,
-            h =
+          var h,
+            y =
               ue == null ||
-              (g = ue(
+              (h = ue(
                 r("WAWebWindowsHybridBridgeInitiator").WAWebVoipStartCall,
               )) == null
                 ? void 0
-                : g.voip;
-          if (h == null) {
+                : h.voip;
+          if (y == null) {
             (o("WALogger")
               .LOG(
                 D ||
@@ -1298,7 +1300,7 @@ __d(
             return;
           }
           if (
-            !("joinOngoingCall" in h) ||
+            !("joinOngoingCall" in y) ||
             (o("WAWebBuildConstants").WINDOWS_BUILD != null &&
               o("WAWebBuildConstants").WINDOWS_BUILD.startsWith("2511")) ||
             (o("WAWebBuildConstants").WINDOWS_BUILD != null &&
@@ -1326,10 +1328,10 @@ __d(
             return;
           }
         }
-        var y = o(
+        var C = o(
           "WAWebVoipOngoingCallCollection",
         ).WAWebVoipOngoingCallCollection.getByCallId(a);
-        if (y == null) {
+        if (C == null) {
           (o("WALogger")
             .LOG(
               $ ||
@@ -1342,7 +1344,7 @@ __d(
             .color(ae),
             o("WAWebVoipActivityTracker").clearAllActivityTracking());
           return;
-        } else if (y.callCreator == null) {
+        } else if (C.callCreator == null) {
           (o("WALogger")
             .LOG(
               P ||
@@ -1373,16 +1375,16 @@ __d(
           o("WAWebVoipActivityTracker").trackUiActivity(
             o("WAWebVoipActivityTracker").VoipUiActivity.USER_JOIN_ONGOING_CALL,
           ));
-        var C = y.isVoiceChat === !0,
-          b = C
+        var b = C.isVoiceChat === !0,
+          v = b
             ? o("WAWebVoipJoinVoiceChat").getVoiceChatJoinParticipants(
-                (t = y.callParticipants) != null ? t : [],
-                y.callCreator,
+                (t = C.callParticipants) != null ? t : [],
+                C.callCreator,
               )
-            : (n = y.callParticipants) != null
+            : (n = C.callParticipants) != null
               ? n
               : [],
-          v = b
+          S = v
             .map(function (e) {
               var t = o("WAWebLidMigrationUtils").toPn(e.participant);
               return (
@@ -1403,12 +1405,12 @@ __d(
             .filter(function (e) {
               return e != null && !o("WAWebUserUtils").isMeAccount(e);
             }),
-          S = await Ce({ isGroup: !0, isJoin: !0, isVideo: c });
-        if (S.status !== "not_ready") {
-          var R = S.abortController.signal,
-            L = Promise.all([
+          R = await Ce({ isGroup: !0, isJoin: !0, isVideo: c });
+        if (R.status !== "not_ready") {
+          var L = R.abortController.signal,
+            E = Promise.all([
               o("WAWebVoipStackInterface").getVoipStackInterface(),
-              Ve(v, !0),
+              Ve(S, !0),
               ge(
                 o("WAWebVoipUiLoadable").requireBundle,
                 "voip-join-group-call-preload-ui",
@@ -1426,20 +1428,20 @@ __d(
                   )
                 : void 0,
             ]);
-          L.catch(r("WAWebNoop"));
+          E.catch(r("WAWebNoop"));
           try {
-            var E = await r("WAPromiseRaceAbort")(L, R),
-              k = E[0],
-              I = E[1],
-              T = I.gcDeviceJidsCsv,
-              O = I.gcUserJids,
-              B = I.gcUserPnJids;
+            var k = await r("WAPromiseRaceAbort")(E, L),
+              I = k[0],
+              T = k[1],
+              O = T.gcDeviceJidsCsv,
+              B = T.gcUserJids,
+              W = T.gcUserPnJids;
             await Promise.all(
-              O.map(function (e) {
+              B.map(function (e) {
                 return o("WAWebSendTcTokenChatAction").sendTcToken(e);
               }),
             );
-            var W = i.id.isGroup() ? i.id.toString({ legacy: !0 }) : "";
+            var q = i.id.isGroup() ? i.id.toString({ legacy: !0 }) : "";
             if (
               (o("WALogger")
                 .LOG(
@@ -1448,10 +1450,10 @@ __d(
                       "voip: startWAWebVoipGroupCallPN: groupJid: ",
                       "",
                     ])),
-                  W,
+                  q,
                 )
                 .color(ae),
-              R.aborted)
+              L.aborted)
             ) {
               o("WALogger")
                 .LOG(
@@ -1463,50 +1465,53 @@ __d(
                 .color(ae);
               return;
             }
-            o("WAWebCoreActionsODS").logCallGroupJoin();
-            var q = r("nullthrows")(y.callCreator).toString({
+            (o("WAWebCoreActionsODS").logCallGroupJoin(),
+              o("WAWebVoipTransferredGroupCallJoin").mapJoinedSegmentToRootCall(
+                C,
+              ));
+            var U = r("nullthrows")(C.callCreator).toString({
                 legacy: !0,
                 formatIncludeDevice: !0,
               }),
-              U = B.map(function (e) {
+              V = W.map(function (e) {
                 var t;
                 return (t = e == null ? void 0 : e.toString({ legacy: !0 })) !=
                   null
                   ? t
                   : "";
               }),
-              V = O.map(function (e) {
+              H = B.map(function (e) {
                 return e.toString({ legacy: !0 });
               });
-            if (C)
+            if (b)
               await o("WAWebVoipJoinVoiceChat").joinOngoingVoiceChat({
-                callCreatorJid: q,
-                callId: a,
+                callCreatorJid: U,
+                callId: f,
                 chat: i,
-                groupParticipantsDeviceJidsCsv: T,
-                groupParticipantsLidUserJid: V,
-                groupParticipantsPnUserJid: U,
+                groupParticipantsDeviceJidsCsv: O,
+                groupParticipantsLidUserJid: H,
+                groupParticipantsPnUserJid: V,
                 isDeviceSwitch: u,
                 lobbyEntryPoint: _,
-                signal: R,
-                voipStackInterface: k,
+                signal: L,
+                voipStackInterface: I,
               });
             else {
-              var H;
-              await (k == null
+              var G;
+              await (I == null
                 ? void 0
-                : k.joinOngoingCall(
-                    a,
-                    q,
-                    "",
+                : I.joinOngoingCall(
+                    f,
                     U,
+                    "",
                     V,
-                    T,
+                    H,
+                    O,
                     c,
-                    W,
+                    q,
                     0,
                     !0,
-                    (H = y.callLinkToken) != null ? H : "",
+                    (G = C.callLinkToken) != null ? G : "",
                     !1,
                     "",
                     m,
@@ -1516,7 +1521,7 @@ __d(
                   ));
             }
           } catch (e) {
-            if (R.aborted) {
+            if (L.aborted) {
               o("WALogger")
                 .LOG(
                   F ||
@@ -1532,7 +1537,7 @@ __d(
               e
             );
           }
-          f.afterJoin();
+          g.afterJoin();
         }
       }
     }

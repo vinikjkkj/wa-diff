@@ -17,7 +17,7 @@ __d(
         s = t.newRole,
         u = t.user,
         c = i.newsletterMetadata;
-      if (c == null) return (e || (e = n("Promise"))).resolve();
+      if (c == null) return (e || (e = n("Promise"))).resolve(void 0);
       var d =
         l === "promote" &&
         o("WAWebUserUtils").isMeAccount(u) &&
@@ -65,7 +65,7 @@ __d(
               user: u,
             }),
           )
-        : (e || (e = n("Promise"))).resolve();
+        : (e || (e = n("Promise"))).resolve(void 0);
     }
     l.showNewsletterRoleChangeNotification = s;
   },

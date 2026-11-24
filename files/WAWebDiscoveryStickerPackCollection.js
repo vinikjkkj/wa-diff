@@ -78,7 +78,7 @@ __d(
               ];
             e != null &&
               (this.$DiscoveryStickerPackCollection$p_5++,
-              this.$DiscoveryStickerPackCollection$p_9(e),
+              this.$DiscoveryStickerPackCollection$p_10(e),
               this.trigger("change:materializedPackCount"));
           }),
           (a.materializeAllStickerPacks = function () {
@@ -92,7 +92,7 @@ __d(
               r.forEach(function (n) {
                 var r;
                 t((r = n.emojis) != null ? r : []) &&
-                  e.$DiscoveryStickerPackCollection$p_10(n);
+                  e.$DiscoveryStickerPackCollection$p_11(n);
               });
             });
           }),
@@ -101,7 +101,7 @@ __d(
           }),
           (a.retain = function () {
             (this.$DiscoveryStickerPackCollection$p_7++,
-              this.$DiscoveryStickerPackCollection$p_11());
+              this.$DiscoveryStickerPackCollection$p_12());
           }),
           (a.release = function () {
             var e = this;
@@ -115,7 +115,8 @@ __d(
                   function () {
                     ((e.$DiscoveryStickerPackCollection$p_2 = null),
                       e.$DiscoveryStickerPackCollection$p_7 === 0 &&
-                        e.delete());
+                        ((e.$DiscoveryStickerPackCollection$p_5 = 0),
+                        e.$DiscoveryStickerPackCollection$p_13()));
                   },
                   _,
                 )));
@@ -136,7 +137,7 @@ __d(
             var l = new AbortController();
             ((this.$DiscoveryStickerPackCollection$p_1 = l),
               (this.$DiscoveryStickerPackCollection$p_3 = i));
-            var u = this.$DiscoveryStickerPackCollection$p_12(l, i, t, n)
+            var u = this.$DiscoveryStickerPackCollection$p_14(l, i, t, n)
               .catch(function (e) {
                 if (a.$DiscoveryStickerPackCollection$p_1 !== l) {
                   var t = a.$DiscoveryStickerPackCollection$p_4;
@@ -144,7 +145,7 @@ __d(
                 }
                 var n = r("getErrorSafe")(e);
                 if (n.name !== o("WAAbortError").ABORT_ERROR) {
-                  var i = o("WALogger")
+                  var u = o("WALogger")
                       .WARN(
                         s ||
                           (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -152,9 +153,12 @@ __d(
                           ])),
                       )
                       .catching(n),
-                    u = S(n) ? i.tags("non-sad") : i;
-                  (u.sendLogs("discovery-sticker-packs-fetch-failed"),
-                    (a.fetchState = a.length > 0 ? d.SUCCESS : d.ERROR),
+                    c = S(n) ? u.tags("non-sad") : u;
+                  (c.sendLogs("discovery-sticker-packs-fetch-failed"),
+                    (a.fetchState =
+                      a.$DiscoveryStickerPackCollection$p_9 === i
+                        ? d.SUCCESS
+                        : d.ERROR),
                     a.trigger("change:fetchState"));
                 }
               })
@@ -164,7 +168,7 @@ __d(
               });
             return ((this.$DiscoveryStickerPackCollection$p_4 = u), u);
           }),
-          (a.$DiscoveryStickerPackCollection$p_12 = async function (
+          (a.$DiscoveryStickerPackCollection$p_14 = async function (
             t,
             n,
             a,
@@ -189,10 +193,10 @@ __d(
                 .sendLogs("discovery-sticker-packs-cache-read-failed");
             }
             if (
-              this.$DiscoveryStickerPackCollection$p_13(t, n) &&
+              this.$DiscoveryStickerPackCollection$p_15(t, n) &&
               !(
                 e != null &&
-                (this.$DiscoveryStickerPackCollection$p_14(e.stickerPacks),
+                (this.$DiscoveryStickerPackCollection$p_16(e.stickerPacks, n),
                 b(e))
               )
             ) {
@@ -203,8 +207,8 @@ __d(
                 signal: t.signal,
                 stickerCount: i,
               });
-              if (this.$DiscoveryStickerPackCollection$p_13(t, n)) {
-                this.$DiscoveryStickerPackCollection$p_14(l);
+              if (this.$DiscoveryStickerPackCollection$p_15(t, n)) {
+                this.$DiscoveryStickerPackCollection$p_16(l, n);
                 try {
                   await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
                     m,
@@ -228,22 +232,22 @@ __d(
               }
             }
           }),
-          (a.$DiscoveryStickerPackCollection$p_13 = function (t, n) {
+          (a.$DiscoveryStickerPackCollection$p_15 = function (t, n) {
             return (
               !t.signal.aborted &&
               this.$DiscoveryStickerPackCollection$p_1 === t &&
               this.$DiscoveryStickerPackCollection$p_3 === n
             );
           }),
-          (a.$DiscoveryStickerPackCollection$p_14 = function (t) {
-            (this.$DiscoveryStickerPackCollection$p_15(),
+          (a.$DiscoveryStickerPackCollection$p_16 = function (t, n) {
+            (this.$DiscoveryStickerPackCollection$p_13(),
               (this.$DiscoveryStickerPackCollection$p_8 = t),
+              (this.$DiscoveryStickerPackCollection$p_9 = n),
               (this.$DiscoveryStickerPackCollection$p_5 = 0),
-              this.materializeNextStickerPack(),
               (this.fetchState = d.SUCCESS),
               this.trigger("change:fetchState"));
           }),
-          (a.$DiscoveryStickerPackCollection$p_9 = function (t) {
+          (a.$DiscoveryStickerPackCollection$p_10 = function (t) {
             var e,
               n,
               r = this,
@@ -254,12 +258,12 @@ __d(
               (n = l.stickers) == null ||
                 n.add(
                   i.map(function (e) {
-                    return r.$DiscoveryStickerPackCollection$p_10(e);
+                    return r.$DiscoveryStickerPackCollection$p_11(e);
                   }),
                 ),
               this.add(l));
           }),
-          (a.$DiscoveryStickerPackCollection$p_10 = function (n) {
+          (a.$DiscoveryStickerPackCollection$p_11 = function (n) {
             var t = this.$DiscoveryStickerPackCollection$p_6.get(n.id);
             if (t != null) return t;
             var r = n.emojis,
@@ -272,7 +276,7 @@ __d(
             }
             return (this.$DiscoveryStickerPackCollection$p_6.set(i.id, i), i);
           }),
-          (a.$DiscoveryStickerPackCollection$p_15 = function () {
+          (a.$DiscoveryStickerPackCollection$p_13 = function () {
             (this.$DiscoveryStickerPackCollection$p_6.forEach(function (e) {
               return e.delete();
             }),
@@ -283,14 +287,14 @@ __d(
               }),
               this.reset());
           }),
-          (a.$DiscoveryStickerPackCollection$p_11 = function () {
+          (a.$DiscoveryStickerPackCollection$p_12 = function () {
             this.$DiscoveryStickerPackCollection$p_2 != null &&
               (self.clearTimeout(this.$DiscoveryStickerPackCollection$p_2),
               (this.$DiscoveryStickerPackCollection$p_2 = null));
           }),
           (a.delete = function () {
             var e;
-            (this.$DiscoveryStickerPackCollection$p_11(),
+            (this.$DiscoveryStickerPackCollection$p_12(),
               (e = this.$DiscoveryStickerPackCollection$p_1) == null ||
                 e.abort(),
               (this.$DiscoveryStickerPackCollection$p_1 = null),
@@ -298,8 +302,9 @@ __d(
               (this.$DiscoveryStickerPackCollection$p_4 = null),
               (this.$DiscoveryStickerPackCollection$p_5 = 0),
               (this.$DiscoveryStickerPackCollection$p_8 = []),
+              (this.$DiscoveryStickerPackCollection$p_9 = null),
               (this.fetchState = d.INITIAL),
-              this.$DiscoveryStickerPackCollection$p_15());
+              this.$DiscoveryStickerPackCollection$p_13());
           }),
           n
         );

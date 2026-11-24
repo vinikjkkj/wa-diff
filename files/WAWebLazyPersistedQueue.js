@@ -9,6 +9,7 @@ __d(
     "WAWebJobsMigrationGating",
     "WAWebLazyLoadedRetriable",
     "WAWebPersistedQueueQpl",
+    "cr:22501",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -97,7 +98,7 @@ __d(
       );
     }
     async function S(e) {
-      var t = await o("QPLFlow").QplSubspan.wrapInSubspan(e, "bundle_fetch", s);
+      var t = await o("QPLFlow").QplSubspan.wrapInSubspan(e, "bundle_fetch", R);
       return (
         await o("QPLFlow").QplSubspan.wrapInSubspan(e, "db_open", function () {
           return t.ensurePersistedQueuesOpen(p);
@@ -106,19 +107,22 @@ __d(
       );
     }
     function R() {
+      return n("cr:22501") != null ? n("cr:22501").loadPersistedQueues() : s();
+    }
+    function L() {
       if (o("WAWebJobsMigrationGating").isPersistedQueuesEnabled()) {
         if (o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd) {
-          L("immediate");
+          E("immediate");
           return;
         }
         o("WAWebBackendEventBus").BackendEventBus.onceOfflineDeliveryEnd(
           function () {
-            return L("offline_delivery_end");
+            return E("offline_delivery_end");
           },
         );
       }
     }
-    function L(t) {
+    function E(t) {
       var n = o("QPLFlow").startQPLFlow(
         o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_EVENT,
         {
@@ -149,7 +153,7 @@ __d(
     ((l.whenPersistedQueuesReady = h),
       (l.whenPersistedQueuesReadyDuringResume = y),
       (l.whenPersistedQueuesMayOpen = C),
-      (l.schedulePersistedQueuesPreload = R));
+      (l.schedulePersistedQueuesPreload = L));
   },
   98,
 );

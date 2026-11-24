@@ -1,25 +1,20 @@
 __d(
   "WAWebContactQueryServiceWebLive",
-  ["JSResourceForInteraction", "WAWebContactQueryService", "WebDi.Async"],
+  ["WAWebContactQueryService", "WAWebQueryExistsJob", "WebDi.Async"],
   function (t, n, r, o, a, i, l) {
-    var e = r("JSResourceForInteraction")("WAWebQueryExistsJob").__setRef(
-        "WAWebContactQueryServiceWebLive",
-      ),
-      s = o("WAWebContactQueryService").ContactQueryService.make(function* () {
-        var t = yield* o("WebDi.Async").fromPromise(function () {
-            return e.load();
-          }),
-          n = t.queryPhoneExists,
-          r = {
-            queryPhoneExists: function (t, r) {
-              return o("WebDi.Async").fromPromise(function () {
-                return n(t, r);
-              });
-            },
-          };
-        return r;
-      });
-    l.ContactQueryServiceWebLive = s;
+    var e = o("WAWebContactQueryService").ContactQueryService.make(
+      function* () {
+        var e = {
+          queryPhoneExists: function (t, n) {
+            return o("WebDi.Async").fromPromise(function () {
+              return o("WAWebQueryExistsJob").queryPhoneExists(t, n);
+            });
+          },
+        };
+        return e;
+      },
+    );
+    l.ContactQueryServiceWebLive = e;
   },
   98,
 );

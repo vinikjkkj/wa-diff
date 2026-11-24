@@ -9,8 +9,10 @@ __d(
     function u() {
       return s._(/*BTDS*/ "");
     }
-    function c() {
-      return s._(/*BTDS*/ "");
+    function c(e) {
+      return e == null
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "", [s._param("count", e, [0])]);
     }
     function d() {
       return s._(/*BTDS*/ "");
@@ -21,44 +23,48 @@ __d(
     function p() {
       return s._(/*BTDS*/ "");
     }
-    function _(e) {
-      return s._(/*BTDS*/ "", [s._param("suggested budget", e)]);
+    function _() {
+      return s._(/*BTDS*/ "");
     }
     function f(e) {
-      return s._(/*BTDS*/ "", [s._param("cost", e)]);
+      return s._(/*BTDS*/ "", [s._param("suggested budget", e)]);
     }
     function g(e) {
       return s._(/*BTDS*/ "", [s._param("cost", e)]);
     }
     function h(e) {
-      return s._(/*BTDS*/ "", [s._param("maxBid", e)]);
+      return s._(/*BTDS*/ "", [s._param("cost", e)]);
     }
-    function y() {
-      return s._(/*BTDS*/ "");
+    function y(e) {
+      return s._(/*BTDS*/ "", [s._param("maxBid", e)]);
     }
     function C() {
       return s._(/*BTDS*/ "");
     }
-    function b(e) {
-      return s._(/*BTDS*/ "", [s._param("minimum", e)]);
+    function b() {
+      return s._(/*BTDS*/ "");
     }
     function v(e) {
       return s._(/*BTDS*/ "", [s._param("minimum", e)]);
     }
+    function S(e) {
+      return s._(/*BTDS*/ "", [s._param("minimum", e)]);
+    }
     ((l.getBudgetSectionTitle = e),
       (l.getSummaryValueUnavailableLabel = u),
-      (l.getTargetAudienceLabel = c),
-      (l.getMaximumBidTitle = d),
-      (l.getMaximumBidDescription = m),
-      (l.getMaximumBidInputLabel = p),
-      (l.getSuggestedBudgetHelperText = _),
-      (l.getDefaultCostHelperText = f),
-      (l.getMaxBidHelperText = g),
-      (l.getMaxBidTooHighError = h),
-      (l.getMaxBidCurrencyChangedError = y),
-      (l.getMaxBidRequiredError = C),
-      (l.getMaxBidMustBeAboveError = b),
-      (l.getBudgetMustBeAboveError = v));
+      (l.getOptimizedDeliveryNote = c),
+      (l.getTargetAudienceLabel = d),
+      (l.getMaximumBidTitle = m),
+      (l.getMaximumBidDescription = p),
+      (l.getMaximumBidInputLabel = _),
+      (l.getSuggestedBudgetHelperText = f),
+      (l.getDefaultCostHelperText = g),
+      (l.getMaxBidHelperText = h),
+      (l.getMaxBidTooHighError = y),
+      (l.getMaxBidCurrencyChangedError = C),
+      (l.getMaxBidRequiredError = b),
+      (l.getMaxBidMustBeAboveError = v),
+      (l.getBudgetMustBeAboveError = S));
   },
   226,
 );

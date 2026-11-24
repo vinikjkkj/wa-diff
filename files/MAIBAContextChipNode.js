@@ -89,6 +89,9 @@ __d(
         (n.updateDOM = function () {
           return !1;
         }),
+        (n.isKeyboardSelectable = function () {
+          return !1;
+        }),
         (n.decorate = function () {
           return u.jsx(r("MAIBAContextChipToken.react"), {
             chip: this.getChip(),

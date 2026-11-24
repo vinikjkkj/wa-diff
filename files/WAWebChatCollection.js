@@ -165,8 +165,9 @@ __d(
           (a.getChatByAccountLid = function (t) {
             var e = this.get(t);
             if (e) return e;
-            var n = o("WAWebLidMigrationUtils").toPn(t),
-              r = n ? this.get(n) : null;
+            var n = o("WAWebLidMigrationUtils").toPn(t);
+            if (n == null) return null;
+            var r = this.get(n);
             return t.equals(r == null ? void 0 : r.accountLid) ? r : null;
           }),
           (a.getLatestChatForWid = function (t) {

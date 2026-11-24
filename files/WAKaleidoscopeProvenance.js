@@ -1,6 +1,12 @@
 __d(
   "WAKaleidoscopeProvenance",
-  ["WAGetKaleidoscopeWasm", "WAKaleidoscopeLogger", "WASI", "getErrorSafe"],
+  [
+    "WAGetKaleidoscopeWasm",
+    "WAKaleidoscopeLogger",
+    "WAKaleidoscopeProvenanceField",
+    "WASI",
+    "getErrorSafe",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -10,18 +16,17 @@ __d(
       d,
       m,
       p,
-      _,
-      f = "input",
-      g = "output",
-      h = "allowlists",
+      _ = "input",
+      f = "output",
+      g = "allowlists",
+      h = "/" + _,
       y = "/" + f,
       C = "/" + g,
-      b = "/" + h,
-      v = null;
-    async function S(t, n, a, i) {
+      b = null;
+    async function v(t, n, a, i) {
       a === void 0 && (a = []);
-      var l = i == null || i.trim() === "" ? null : x(i),
-        m = $({ allowlistsContent: l, hints: a, input: t }),
+      var l = i == null || i.trim() === "" ? null : D(i),
+        m = x({ allowlistsContent: l, hints: a, input: t }),
         p;
       n == null || n.addPoint("extraction_start");
       try {
@@ -40,8 +45,8 @@ __d(
                 ])),
               g,
             );
-          var y = await $({ allowlistsContent: null, hints: a, input: t })();
-          ((g = y.exitCode), (h = y.fs));
+          var C = await x({ allowlistsContent: null, hints: a, input: t })();
+          ((g = C.exitCode), (h = C.fs));
         }
         if (g !== 0)
           return (
@@ -59,7 +64,7 @@ __d(
               n.addPoint("extraction_end", { int: { exit_code: g } }),
             { provenance: null, engineErrorCode: null, systemProvenance: null }
           );
-        p = (_ = h[C]) == null ? void 0 : _.content;
+        p = (_ = h[y]) == null ? void 0 : _.content;
       } catch (e) {
         return (
           o("WAKaleidoscopeLogger")
@@ -117,7 +122,7 @@ __d(
           { provenance: null, engineErrorCode: null, systemProvenance: null }
         );
       }
-      var v = I(b);
+      var v = k(b);
       return v != null
         ? (n == null ||
             n.addPoint("extraction_fail", {
@@ -126,47 +131,44 @@ __d(
             }),
           { provenance: null, engineErrorCode: v })
         : (n == null || n.addPoint("extraction_end"),
-          { provenance: D(b), engineErrorCode: null, systemProvenance: R(b) });
+          { provenance: T(b), engineErrorCode: null, systemProvenance: S(b) });
     }
-    function R(e) {
+    function S(e) {
       if (e == null || typeof e != "object") return null;
       var t = e.mapped_fields;
       if (t == null || typeof t != "object") return null;
       var n = t,
-        r = n.digital_source_type;
-      return typeof r != "string" || r === ""
-        ? (o("WAKaleidoscopeLogger")
-            .ksLogger()
-            .WARN(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "provenance mapped_fields has no digital source type",
-                ])),
-            ),
-          null)
-        : {
-            digitalSourceType: r,
-            make: k(n.make),
-            aiSystemUsed: k(n.ai_system_used),
-            publisher: k(n.publisher),
-            history: L(n.history),
-          };
+        r = n.digital_source_type,
+        a = babelHelpers.extends(
+          {},
+          typeof r == "string" && r !== "" ? { digitalSourceType: r } : null,
+          {
+            make: E(n.make),
+            model: E(n.model),
+            aiSystemUsed: E(n.ai_system_used),
+            publisher: E(n.publisher),
+            history: R(n.history),
+          },
+        );
+      return o("WAKaleidoscopeProvenanceField").hasProvenanceValue(a)
+        ? a
+        : null;
     }
-    function L(e) {
+    function R(e) {
       if (!(!Array.isArray(e) || e.length === 0)) {
         var t = [];
         for (var n of e) {
           if (n == null || typeof n != "object") return;
           var r = n.action,
             o = n.parameters,
-            a = E(r);
+            a = L(r);
           if (a == null || typeof o != "string" || o === "") return;
           t.push({ action: a, parameters: o });
         }
         return t;
       }
     }
-    function E(e) {
+    function L(e) {
       return e === "created"
         ? "created"
         : e === "opened"
@@ -175,7 +177,7 @@ __d(
             ? "edited"
             : void 0;
     }
-    function k(e) {
+    function E(e) {
       if (!(!Array.isArray(e) || e.length === 0)) {
         var t = [];
         for (var n of e) {
@@ -185,7 +187,7 @@ __d(
         return t;
       }
     }
-    function I(e) {
+    function k(e) {
       if (e == null || typeof e != "object") return null;
       var t = e,
         n = t.error_code;
@@ -196,7 +198,7 @@ __d(
         ? n
         : null;
     }
-    function T(e) {
+    function I(e) {
       if (e == null || typeof e != "object") return null;
       var t = e,
         n = t.created_with_genai === !0,
@@ -205,31 +207,31 @@ __d(
       var o = {};
       return (n && (o.createdWithGenAi = !0), r && (o.editedWithGenAi = !0), o);
     }
-    function D(e) {
+    function T(e) {
       if (e == null || typeof e != "object") return null;
       var t = e,
-        n = T(t.iptc),
-        r = T(t.c2pa);
+        n = I(t.iptc),
+        r = I(t.c2pa);
       if (n == null && r == null) return null;
       var o = {};
       return (n != null && (o.iptc = n), r != null && (o.c2pa = r), o);
     }
-    function x(e) {
-      var t = v;
+    function D(e) {
+      var t = b;
       if (t != null && t.json === e) return t.content;
       var n = new TextEncoder().encode(e);
-      return ((v = { json: e, content: n }), n);
+      return ((b = { json: e, content: n }), n);
     }
-    function $(e) {
+    function x(e) {
       var t = o("WASI").createWasi(
-          P(
+          $(
             babelHelpers.extends({}, e, {
               stderr: function (t) {
                 o("WAKaleidoscopeLogger")
                   .ksLogger()
                   .DEBUG(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
                     t,
                   );
               },
@@ -237,8 +239,8 @@ __d(
                 o("WAKaleidoscopeLogger")
                   .ksLogger()
                   .DEBUG(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
                     t,
                   );
               },
@@ -253,7 +255,7 @@ __d(
         return r(t);
       };
     }
-    function P(e) {
+    function $(e) {
       var t,
         n,
         r = e.allowlistsContent,
@@ -261,11 +263,11 @@ __d(
         a = e.input,
         i = e.stderr,
         l = e.stdout,
-        s = ["kaleidoscope", "provenance", "--json-report=" + g];
+        s = ["kaleidoscope", "provenance", "--json-report=" + f];
       for (var u of o) s.push("--mimetype-hints=" + u);
       return (
-        r != null && s.push("--allowlists=" + h),
-        s.push(f),
+        r != null && s.push("--allowlists=" + g),
+        s.push(_),
         {
           args: s,
           fs: babelHelpers.extends(
@@ -273,8 +275,8 @@ __d(
             r == null
               ? null
               : ((t = {}),
-                (t[b] = {
-                  path: b,
+                (t[C] = {
+                  path: C,
                   timestamps: {
                     access: new Date(),
                     change: new Date(),
@@ -285,8 +287,8 @@ __d(
                 }),
                 t),
             ((n = {}),
-            (n[y] = {
-              path: y,
+            (n[h] = {
+              path: h,
               timestamps: {
                 access: new Date(),
                 change: new Date(),
@@ -295,8 +297,8 @@ __d(
               mode: "binary",
               content: new Uint8Array(a),
             }),
-            (n[C] = {
-              path: C,
+            (n[y] = {
+              path: y,
               timestamps: {
                 access: new Date(),
                 change: new Date(),
@@ -313,7 +315,7 @@ __d(
         }
       );
     }
-    l.detectAiProvenanceFromBytes = S;
+    l.detectAiProvenanceFromBytes = v;
   },
   98,
 );

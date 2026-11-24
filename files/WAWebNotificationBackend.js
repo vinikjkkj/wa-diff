@@ -75,7 +75,7 @@ __d(
       return r instanceof
         o("WAWebPollsVoteNotification").PollVoteNotification &&
         r.bodyText === t.bodyText
-        ? (s || (s = n("Promise"))).resolve()
+        ? (s || (s = n("Promise"))).resolve(void 0)
         : o(
             "WAWebNotificationController",
           ).WANotificationController.triggerNotification(t);

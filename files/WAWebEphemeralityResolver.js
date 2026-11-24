@@ -1,40 +1,21 @@
 __d(
   "WAWebEphemeralityResolver",
-  ["WALogger", "WATimeUtils", "WAWebAfterReadUtils", "WAWebEphemeralityTypes"],
+  [
+    "WALogger",
+    "WATimeUtils",
+    "WAWebAfterReadUtils",
+    "WAWebEphemeralityTypes",
+    "justknobx",
+  ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
-    function d(t) {
-      if (!t)
-        return (
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "getDisappearingModeSettingForUser: empty contact",
-              ])),
-          ),
-          null
-        );
-      var n = t.disappearingModeDuration,
-        r = t.disappearingModeSettingTimestamp;
-      return (
-        o("WALogger")
-          .LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "getDisappearingModeSettingForUser ",
-                " dur=",
-                " ts=",
-                "",
-              ])),
-            t.id.toString(),
-            n,
-            r,
-          )
-          .tags("DM", "DDM"),
-        n == null || n === 0
-          ? null
-          : { duration: n, settingTimestamp: r != null ? r : 0 }
-      );
+    function d(e) {
+      if ((L(E(), e), !e)) return null;
+      var t = e.disappearingModeDuration,
+        n = e.disappearingModeSettingTimestamp;
+      return t == null || t === 0
+        ? null
+        : { duration: t, settingTimestamp: n != null ? n : 0 };
     }
     function m(e) {
       var t = d(e);
@@ -96,25 +77,25 @@ __d(
           })
         : e;
     }
-    function v(e, t) {
-      var n = m(e),
-        r = m(t);
-      if (n == null && r == null)
+    function v(t, n) {
+      var r = m(t),
+        a = m(n);
+      if (r == null && a == null)
         return (
           o("WALogger")
             .LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
                   "[DMResolve] DM setting for chat is null",
                 ])),
             )
             .tags("DM", "DDM"),
           null
         );
-      var a;
-      n != null &&
-        (a = {
-          duration: n,
+      var i;
+      r != null &&
+        (i = {
+          duration: r,
           settingTimestamp: o("WATimeUtils").unixTime(),
           initiator: o("WAWebEphemeralityTypes").DisappearingModeInitiator
             .InitiatedByMe,
@@ -122,10 +103,10 @@ __d(
             .DisappearingModeTrigger.AccountSettings,
           initiatedByMe: !0,
         });
-      var i;
-      r != null &&
-        (i = {
-          duration: r,
+      var l;
+      a != null &&
+        (l = {
+          duration: a,
           settingTimestamp: o("WATimeUtils").unixTime(),
           initiator: o("WAWebEphemeralityTypes").DisappearingModeInitiator
             .InitiatedByOther,
@@ -133,14 +114,14 @@ __d(
             .DisappearingModeTrigger.AccountSettings,
           initiatedByMe: !1,
         });
-      var l;
+      var s;
       return (
-        a != null && i != null
-          ? i.duration < a.duration
-            ? (l = i)
-            : (l = a)
-          : (l = a != null ? a : i),
-        l == null ? null : b(l)
+        i != null && l != null
+          ? l.duration < i.duration
+            ? (s = l)
+            : (s = i)
+          : (s = i != null ? i : l),
+        s == null ? null : b(s)
       );
     }
     function S(e, t) {
@@ -198,8 +179,8 @@ __d(
     }
     function R(e, t) {
       o("WALogger").LOG(
-        c ||
-          (c = babelHelpers.taggedTemplateLiteralLoose([
+        s ||
+          (s = babelHelpers.taggedTemplateLiteralLoose([
             "[DMResolve] resolving new incoming chat DM settings",
           ])),
       );
@@ -267,6 +248,40 @@ __d(
               initiatedByMe: !0,
             })
           : babelHelpers.extends({}, n);
+      }
+    }
+    function L(e, t) {
+      if (!e) {
+        if (!t) {
+          o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "getDisappearingModeSettingForUser: empty contact",
+              ])),
+          );
+          return;
+        }
+        o("WALogger")
+          .LOG(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "getDisappearingModeSettingForUser ",
+                " dur=",
+                " ts=",
+                "",
+              ])),
+            t.id.toString(),
+            t.disappearingModeDuration,
+            t.disappearingModeSettingTimestamp,
+          )
+          .tags("DM", "DDM");
+      }
+    }
+    function E() {
+      try {
+        return r("justknobx")._("8692");
+      } catch (e) {
+        return !1;
       }
     }
     ((l.getDisappearingModeSettingForUser = d),

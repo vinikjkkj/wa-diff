@@ -34,7 +34,9 @@ __d(
                 ((e.interruptDelivered = !0),
                   (r = c),
                   (a = new (o("WebDi.Cause").Interrupt)(
-                    String((t = e.signal().reason) != null ? t : "interrupted"),
+                    String(
+                      (t = e.interruptReason()) != null ? t : "interrupted",
+                    ),
                   )));
               }
               if (e.allowAsync && ++e.steps >= p) {
@@ -200,45 +202,47 @@ __d(
     }
     function C(e, t, n) {
       if (!n) return h(new (o("WebDi.RunErrors").AsyncBoundary)());
-      var r = e.signal(),
-        a = !1,
+      var r = !1,
+        a,
         i,
-        l,
-        u = function () {
+        l = function () {
           var t;
-          if (!a) {
-            ((a = !0), (e.interruptDelivered = !0));
+          if (!r) {
+            ((r = !0), (e.interruptDelivered = !0));
             try {
-              l == null || l();
+              i == null || i();
             } catch (e) {}
             ((e.status = "running"),
               _(
                 e,
                 c,
                 new (o("WebDi.Cause").Interrupt)(
-                  String((t = r.reason) != null ? t : "interrupted"),
+                  String((t = e.interruptReason()) != null ? t : "interrupted"),
                 ),
               ));
           }
         },
-        m = function (n) {
-          a ||
-            ((a = !0),
-            r.removeEventListener("abort", u),
+        u = function (n) {
+          r ||
+            ((r = !0),
+            e.offInterrupt(l),
             e.status === "suspended"
               ? ((e.status = "running"), (e.current = n), _(e, s, void 0))
-              : (i = n));
+              : (a = n));
         };
       try {
-        l = t.register(m, r);
+        i = t.register(
+          u,
+          t.usesSignal ? e.signal() : o("WebDi.UnsafeCoerce").coerce(void 0),
+        );
       } catch (e) {
-        return ((a = !0), h(e));
+        return ((r = !0), h(e));
       }
-      if (i != null) return ((e.current = i), s);
-      if (a) return d;
+      if (a != null) return ((e.current = a), s);
+      if (r) return d;
       if (!e.interruptDelivered) {
-        if (r.aborted) return (u(), d);
-        r.addEventListener("abort", u, { once: !0 });
+        if (e.interrupted()) return (l(), d);
+        e.onInterrupt(l);
       }
       return ((e.status = "suspended"), d);
     }

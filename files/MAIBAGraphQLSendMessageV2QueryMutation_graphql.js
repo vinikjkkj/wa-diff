@@ -5481,6 +5481,13 @@ __d(
               selections: [
                 B,
                 L,
+                {
+                  alias: null,
+                  args: null,
+                  kind: "ScalarField",
+                  name: "agent_session_conversation_id",
+                  storageKey: null,
+                },
                 nn,
                 {
                   alias: null,
@@ -5822,7 +5829,7 @@ __d(
           ],
         },
         params: {
-          id: "29205710889057355",
+          id: "40615395058051776",
           metadata: {},
           name: "MAIBAGraphQLSendMessageV2QueryMutation",
           operationKind: "mutation",

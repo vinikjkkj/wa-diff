@@ -50,6 +50,14 @@ __d(
               return e.id.id === t;
             });
           }),
+          (a.getMsgKeyIdByJoinableCallId = function (t) {
+            var e;
+            return (e = this.toArray().find(function (e) {
+              return e.joinableCallId === t;
+            })) == null
+              ? void 0
+              : e.id.id;
+          }),
           (a.getByChat = function (t) {
             return this.getByChatId(t.id);
           }),

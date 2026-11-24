@@ -23,10 +23,12 @@ __d(
       g,
       h = o("WAWebBuildConstants").DYN_ORIGIN + "status.json",
       y = 10 * 1e3,
-      C = 0,
-      b = "socket_open",
-      v = !1,
-      S = (function (t) {
+      C = 30 * 1e3,
+      b = 0,
+      v = null,
+      S = "socket_open",
+      R = !1,
+      L = (function (t) {
         function n() {
           for (var n, a = arguments.length, i = new Array(a), l = 0; l < a; l++)
             i[l] = arguments[l];
@@ -75,10 +77,10 @@ __d(
             )),
             (n.checkOnlineDeduped = r("WAMemoizeConcurrent")(
               function () {
-                return String(C);
+                return String(b);
               },
               async function () {
-                var e = b;
+                var e = S;
                 if (
                   (o("WALogger").LOG(
                     c ||
@@ -86,7 +88,7 @@ __d(
                         "NetworkStatus:checkOnline checking",
                       ])),
                   ),
-                  (v || r("gkx")("26256")) && this.simulatedOfflineConditions)
+                  (R || r("gkx")("26256")) && this.simulatedOfflineConditions)
                 ) {
                   o("WALogger").LOG(
                     d ||
@@ -96,7 +98,7 @@ __d(
                   );
                   return;
                 }
-                var t = C,
+                var t = b,
                   n = new AbortController(),
                   a = self.setTimeout(function () {
                     return n.abort();
@@ -118,7 +120,7 @@ __d(
                     );
                     return;
                   }
-                  if (t !== C) {
+                  if (t !== b) {
                     o("WALogger").LOG(
                       p ||
                         (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -181,33 +183,46 @@ __d(
                 e ? "online" : "offline",
               )
               .tags("comms"),
-              e &&
-                o(
-                  "WAWebNetworkStatusStateManager",
-                ).networkOfflineCauseStateManager.set(null),
+              e
+                ? (o(
+                    "WAWebNetworkStatusStateManager",
+                  ).networkOfflineCauseStateManager.set(null),
+                  E())
+                : this.$NetworkStatus$p_2(),
               o("WAWebNetworkStatusStateManager").networkStatusStateManager.set(
                 e,
               ));
+          }),
+          (a.$NetworkStatus$p_2 = function () {
+            var e = this;
+            v != null ||
+              !r("gkx")("28987") ||
+              (v = self.setInterval(function () {
+                e.checkOnline("offline_recheck");
+              }, C));
           }),
           (a.isOnline = function () {
             return this.online;
           }),
           (a.markOnline = function () {
-            (C++, (this.online = !0));
+            (b++, (this.online = !0));
           }),
           (a.checkOnline = function (t) {
-            return ((b = t), this.checkOnlineDeduped());
+            return ((S = t), this.checkOnlineDeduped());
           }),
           (a.simulateNetworkStatus = function (t) {
-            (v || r("gkx")("26256")) &&
+            (R || r("gkx")("26256")) &&
               ((this.online = t), (this.simulatedOfflineConditions = !t));
           }),
           n
         );
-      })(o("WAWebBaseModel").BaseModel),
-      R = o("WAWebBaseModel").defineModel(S),
-      L = new R();
-    l.default = L;
+      })(o("WAWebBaseModel").BaseModel);
+    function E() {
+      v != null && (self.clearInterval(v), (v = null));
+    }
+    var k = o("WAWebBaseModel").defineModel(L),
+      I = new k();
+    l.default = I;
   },
   98,
 );

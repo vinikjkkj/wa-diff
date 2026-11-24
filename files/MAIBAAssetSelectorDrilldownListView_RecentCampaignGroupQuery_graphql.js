@@ -7,19 +7,18 @@ __d(
       var e = [
           { defaultValue: null, kind: "LocalArgument", name: "accountID" },
         ],
-        t = { vultureHash: "dnuVcgdhYe7koff-_X3bjLYqDDM=" },
-        n = [
+        t = [
           {
             kind: "Variable",
             name: "legacy_account_id",
             variableName: "accountID",
           },
         ],
-        r = [
+        n = [
           { kind: "Literal", name: "first", value: 10 },
           { kind: "Literal", name: "orderby", value: ["newest_updated_time"] },
         ],
-        o = {
+        r = {
           alias: null,
           args: null,
           kind: "ScalarField",
@@ -30,12 +29,12 @@ __d(
         fragment: {
           argumentDefinitions: e,
           kind: "Fragment",
-          metadata: t,
+          metadata: null,
           name: "MAIBAAssetSelectorDrilldownListView_RecentCampaignGroupQuery",
           selections: [
             {
               alias: null,
-              args: n,
+              args: t,
               concreteType: "AdAccount",
               kind: "LinkedField",
               name: "ad_account",
@@ -61,7 +60,7 @@ __d(
           selections: [
             {
               alias: null,
-              args: n,
+              args: t,
               concreteType: "AdAccount",
               kind: "LinkedField",
               name: "ad_account",
@@ -69,7 +68,7 @@ __d(
               selections: [
                 {
                   alias: "campaign_groups",
-                  args: r,
+                  args: n,
                   concreteType: "AdAccountAdCampaignGroupsConnection",
                   kind: "LinkedField",
                   name: "ad_campaign_groups",
@@ -91,7 +90,7 @@ __d(
                           name: "node",
                           plural: !1,
                           selections: [
-                            o,
+                            r,
                             {
                               alias: null,
                               args: null,
@@ -150,14 +149,14 @@ __d(
                 },
                 {
                   alias: "campaign_groups",
-                  args: r,
+                  args: n,
                   filters: ["orderby"],
                   handle: "connection",
                   key: "MAIBAAssetDataUtils_RecentCampaignsFragment_campaign_groups",
                   kind: "LinkedHandle",
                   name: "ad_campaign_groups",
                 },
-                o,
+                r,
               ],
               storageKey: null,
             },
@@ -165,7 +164,7 @@ __d(
         },
         params: {
           id: "26307538495590557",
-          metadata: t,
+          metadata: {},
           name: "MAIBAAssetSelectorDrilldownListView_RecentCampaignGroupQuery",
           operationKind: "query",
           text: null,

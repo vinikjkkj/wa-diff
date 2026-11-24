@@ -5383,6 +5383,13 @@ __d(
                       name: "conversation",
                       plural: !1,
                       selections: [
+                        {
+                          alias: null,
+                          args: null,
+                          kind: "ScalarField",
+                          name: "agent_session_conversation_id",
+                          storageKey: null,
+                        },
                         r,
                         {
                           alias: null,
@@ -5471,7 +5478,7 @@ __d(
           ],
         },
         params: {
-          id: "29855923177429277",
+          id: "29161137990215631",
           metadata: {},
           name: "refetchMAIBAPendingMessagesQuery",
           operationKind: "query",

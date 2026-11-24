@@ -1,106 +1,100 @@
 __d(
   "WAWebPrivacyServiceWebLive",
-  ["JSResourceForInteraction", "Promise", "WAWebPrivacyService", "WebDi.Async"],
+  [
+    "JSResourceForInteraction",
+    "WAWebAccountSyncJob",
+    "WAWebApiPrivacyDisallowedList",
+    "WAWebPrivacyService",
+    "WAWebQueryPrivacyDisallowedListUtil",
+    "WAWebSetPrivacyJob",
+    "WebDi.Async",
+  ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s,
-      u = (s = r("JSResourceForInteraction"))("WAWebAccountSyncJob").__setRef(
-        "WAWebPrivacyServiceWebLive",
-      ),
-      c = s("WAWebApiPrivacyDisallowedList").__setRef(
-        "WAWebPrivacyServiceWebLive",
-      ),
-      d = s("WAWebQueryPrivacyDisallowedListUtil").__setRef(
-        "WAWebPrivacyServiceWebLive",
-      ),
-      m = s("WAWebSetPrivacyJob").__setRef("WAWebPrivacyServiceWebLive"),
-      p = s("WAWebPhoneNumberSharingSettingsUI").__setRef(
-        "WAWebPrivacyServiceWebLive",
-      ),
-      _ = s("WAWebUpdatePhoneNumberSharingSetting").__setRef(
-        "WAWebPrivacyServiceWebLive",
-      ),
-      f = s("WAWebUpdatePhoneNumberSharingList").__setRef(
-        "WAWebPrivacyServiceWebLive",
-      ),
-      g = o("WAWebPrivacyService").PrivacyService.make(function* () {
-        var t = yield* o("WebDi.Async").fromPromise(function () {
-            return (e || (e = n("Promise"))).all([
-              u.load(),
-              c.load(),
-              d.load(),
-              m.load(),
-              p.load(),
-              _.load(),
-              f.load(),
-            ]);
-          }),
-          r = t[0].updatePrivacySettings,
-          a = t[1].queryDisallowedLists,
-          i = t[2].queryPrivacyDisallowedList,
-          l = t[3].setPrivacy,
-          s = t[4],
-          g = s.isPhoneNumberSharingSettingsAvailable,
-          h = s.loadPhoneNumberSharingSettings,
-          y = s.readPhoneNumberSharingList,
-          C = s.readPhoneNumberSharingSettingsSnapshot,
-          b = t[5].updatePhoneNumberSharingSetting,
-          v = t[6].updatePhoneNumberSharingList,
-          S = {
-            isPhoneNumberSharingSettingsAvailable: function () {
-              return o("WebDi.Async").fromPromise(function () {
-                return g();
+    var e = r("JSResourceForInteraction")(
+        "WAWebPhoneNumberSharingSettingsUI",
+      ).__setRef("WAWebPrivacyServiceWebLive"),
+      s = r("JSResourceForInteraction")(
+        "WAWebUpdatePhoneNumberSharingSetting",
+      ).__setRef("WAWebPrivacyServiceWebLive"),
+      u = r("JSResourceForInteraction")(
+        "WAWebUpdatePhoneNumberSharingList",
+      ).__setRef("WAWebPrivacyServiceWebLive"),
+      c = o("WAWebPrivacyService").PrivacyService.make(function* () {
+        var t = {
+          isPhoneNumberSharingSettingsAvailable: function () {
+            return o("WebDi.Async").fromPromise(function () {
+              return e.load().then(function (e) {
+                var t = e.isPhoneNumberSharingSettingsAvailable;
+                return t();
               });
-            },
-            loadPhoneNumberSharingSettings: function () {
-              return o("WebDi.Async").fromPromise(function () {
-                return h();
+            });
+          },
+          loadPhoneNumberSharingSettings: function () {
+            return o("WebDi.Async").fromPromise(function () {
+              return e.load().then(function (e) {
+                var t = e.loadPhoneNumberSharingSettings;
+                return t();
               });
-            },
-            readPhoneNumberSharingSettingsSnapshot: function () {
-              return o("WebDi.Async").fromPromise(function () {
-                return C();
+            });
+          },
+          readPhoneNumberSharingSettingsSnapshot: function () {
+            return o("WebDi.Async").fromPromise(function () {
+              return e.load().then(function (e) {
+                var t = e.readPhoneNumberSharingSettingsSnapshot;
+                return t();
               });
-            },
-            updatePhoneNumberSharingSetting: function (t) {
-              return o("WebDi.Async").fromPromise(function () {
-                return b(t);
+            });
+          },
+          updatePhoneNumberSharingSetting: function (t) {
+            return o("WebDi.Async").fromPromise(function () {
+              return s.load().then(function (e) {
+                var n = e.updatePhoneNumberSharingSetting;
+                return n(t);
               });
-            },
-            readPhoneNumberSharingList: function (t) {
-              return o("WebDi.Async").fromPromise(function () {
-                return y(t);
+            });
+          },
+          readPhoneNumberSharingList: function (n) {
+            return o("WebDi.Async").fromPromise(function () {
+              return e.load().then(function (e) {
+                var t = e.readPhoneNumberSharingList;
+                return t(n);
               });
-            },
-            updatePhoneNumberSharingList: function (t, n, r) {
-              return o("WebDi.Async").fromPromise(function () {
-                return v(t, n, r);
+            });
+          },
+          updatePhoneNumberSharingList: function (t, n, r) {
+            return o("WebDi.Async").fromPromise(function () {
+              return u.load().then(function (e) {
+                var o = e.updatePhoneNumberSharingList;
+                return o(t, n, r);
               });
-            },
-            queryDisallowedLists: function () {
-              return o("WebDi.Async").fromPromise(function () {
-                return a();
-              });
-            },
-            updatePrivacySettings: function () {
-              return o("WebDi.Async").fromPromise(function () {
-                return r();
-              });
-            },
-            queryPrivacyDisallowedList: function (t) {
-              return o("WebDi.Async").fromPromise(function () {
-                return i(t);
-              });
-            },
-            setPrivacy: function (t) {
-              return o("WebDi.Async").fromPromise(function () {
-                return l(t);
-              });
-            },
-          };
-        return S;
+            });
+          },
+          queryDisallowedLists: function () {
+            return o("WebDi.Async").fromPromise(function () {
+              return o("WAWebApiPrivacyDisallowedList").queryDisallowedLists();
+            });
+          },
+          updatePrivacySettings: function () {
+            return o("WebDi.Async").fromPromise(function () {
+              return o("WAWebAccountSyncJob").updatePrivacySettings();
+            });
+          },
+          queryPrivacyDisallowedList: function (t) {
+            return o("WebDi.Async").fromPromise(function () {
+              return o(
+                "WAWebQueryPrivacyDisallowedListUtil",
+              ).queryPrivacyDisallowedList(t);
+            });
+          },
+          setPrivacy: function (t) {
+            return o("WebDi.Async").fromPromise(function () {
+              return o("WAWebSetPrivacyJob").setPrivacy(t);
+            });
+          },
+        };
+        return t;
       });
-    l.PrivacyServiceWebLive = g;
+    l.PrivacyServiceWebLive = c;
   },
   98,
 );

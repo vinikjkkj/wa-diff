@@ -4,14 +4,15 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = null;
-    function s(t, n) {
-      e = {
-        callId: t,
-        root: n,
-        startedAt: o("WATimeUtils").unixTime(),
-        hasEnded: !1,
-        hasFailed: !1,
-      };
+    function s(t, n, r) {
+      (r === void 0 && (r = o("WATimeUtils").unixTime()),
+        (e = {
+          callId: t,
+          root: n,
+          startedAt: r,
+          hasEnded: !1,
+          hasFailed: !1,
+        }));
     }
     function u(t) {
       var n = e;

@@ -60,7 +60,7 @@ __d(
             u.type,
           )
           .sendLogs("media-fault: downloadMsg msg without mediaObject"),
-        Promise.resolve()
+        Promise.resolve(void 0)
       );
     }
     l.downloadMsg = s;

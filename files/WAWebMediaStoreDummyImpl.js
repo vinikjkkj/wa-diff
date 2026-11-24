@@ -18,7 +18,7 @@ __d(
         var o = r.prototype;
         return (
           (o.get = function (r) {
-            return (e || (e = n("Promise"))).resolve();
+            return (e || (e = n("Promise"))).resolve(void 0);
           }),
           (o.queryByIndex = function (r, o) {
             return (e || (e = n("Promise"))).resolve([]);

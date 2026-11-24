@@ -5336,6 +5336,13 @@ __d(
                                   selections: [
                                     c,
                                     f,
+                                    {
+                                      alias: null,
+                                      args: null,
+                                      kind: "ScalarField",
+                                      name: "agent_session_conversation_id",
+                                      storageKey: null,
+                                    },
                                     Et,
                                     {
                                       alias: null,
@@ -5495,7 +5502,7 @@ __d(
           ],
         },
         params: {
-          id: "29092355293749083",
+          id: "30237371685853134",
           metadata: {},
           name: "MAIBAMessageListQuery",
           operationKind: "query",

@@ -53,10 +53,7 @@ __d(
                 })();
     }
     function y(e, t) {
-      if (e == null || C(e)) return !1;
-      var n = h(e, t),
-        r = n.stage;
-      return r !== "trial_start" && r !== "locked";
+      return e == null || C(e) ? !1 : !b(h(e, t));
     }
     function C(e) {
       return (e == null ? void 0 : e.state) === "CM_UNAVAILABLE";

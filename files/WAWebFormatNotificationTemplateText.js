@@ -943,7 +943,11 @@ __d(
         jid: e.from,
       });
       return t.length > 0 && t[0] === "true"
-        ? s._(/*BTDS*/ "", [s._param("receiver_name", n)])
+        ? o(
+            "WAWebSystemMessageGatingUtils",
+          ).systemMessageTerminalPeriodsEnabled()
+          ? s._(/*BTDS*/ "", [s._param("receiver_name", n)])
+          : s._(/*BTDS*/ "", [s._param("receiver_name", n)])
         : o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
@@ -1268,7 +1272,11 @@ __d(
         a = n[0];
       return o("WAWebChatAssignmentUtils").shouldUseChatAssignmentCTA(t)
         ? s._(/*BTDS*/ "", [s._param("agent_name", a)])
-        : s._(/*BTDS*/ "", [s._param("agent_name", a)]);
+        : o(
+              "WAWebSystemMessageGatingUtils",
+            ).systemMessageTerminalPeriodsEnabled()
+          ? s._(/*BTDS*/ "", [s._param("agent_name", a)])
+          : s._(/*BTDS*/ "", [s._param("agent_name", a)]);
     }
     function V(e) {
       return o("WAWebChatAssignmentUtils").shouldUseChatAssignmentCTA(e)

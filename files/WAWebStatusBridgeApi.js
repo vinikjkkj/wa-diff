@@ -65,6 +65,17 @@ __d(
               );
             });
         },
+        fillNewsletterStatusGap: function (t) {
+          var e = t.newsletterJid;
+          return r("JSResourceForInteraction")(
+            "WAWebNewsletterStatusGapFillAction",
+          )
+            .__setRef("WAWebStatusBridgeApi")
+            .load()
+            .then(function (t) {
+              return t.fillNewsletterStatusGap(e, void 0, !0);
+            });
+        },
         fillSubscribedStatusGaps: function () {
           return r("JSResourceForInteraction")(
             "WAWebNewsletterStatusGapFillAction",

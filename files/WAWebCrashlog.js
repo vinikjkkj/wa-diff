@@ -237,7 +237,7 @@ __d(
         P = t.requireFreshFileId,
         N = P === void 0 ? !1 : P;
       if (r("WAWebBrokerGlobalAppState").isLogoutInProgress)
-        return Promise.resolve();
+        return Promise.resolve(void 0);
       g === z.SUPPORT && (await o("WAWebPriorLogs").printAllPriorLogs());
       var M = E,
         w = V != null && V();
@@ -327,7 +327,8 @@ __d(
             e,
           );
         }
-      if (o("WAWebLoggerUtils").isWaitingForUpload()) return Promise.resolve();
+      if (o("WAWebLoggerUtils").isWaitingForUpload())
+        return Promise.resolve(void 0);
       o("WAWebLoggerUtils").setWaitingForUpload(!0);
       var Q = !F;
       if (

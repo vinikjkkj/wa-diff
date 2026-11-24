@@ -13,8 +13,8 @@ __d(
     "WAWebMmsClientPollMediaHosts",
     "WAWebMmsClientSelectHost",
     "WAWebMmsClientUploadStreamer",
+    "WAWebMmsClientWaitForNetworkBeforeAttempt",
     "WAWebMmsOperationsConst",
-    "WAWebNetworkStatusStateManager",
     "WAWebWamEnumOverallLastUploadRetryPhaseType",
     "getErrorSafe",
     "nullthrows",
@@ -119,48 +119,35 @@ __d(
                   b + 1,
                 ));
               try {
-                var S;
-                (S = e.uploadQpl) == null ||
-                  S.addAnnotations({
-                    bool: {
-                      network_online: t.networkStatus.isOnline(),
-                      navigator_online: navigator.onLine,
-                    },
-                  });
-                var R = o(
-                  "WAWebNetworkStatusStateManager",
-                ).networkOfflineCauseStateManager.get();
-                if (R != null) {
-                  var L;
-                  (L = e.uploadQpl) == null ||
-                    L.addAnnotations({
-                      string: { network_offline_source: R.source },
-                      int: { network_offline_age_ms: Date.now() - R.sinceMs },
-                    });
-                }
-                await t.networkStatus.waitIfOffline();
-                var E = await v(),
-                  k = E.auth,
-                  I = E.fallbackHost,
-                  T = E.selectedHost,
-                  D = { selectedHost: T, fallbackHost: I },
-                  x = r("WAWebMmsClientSelectHost")({
-                    selectedHost: T,
-                    fallbackHost: I,
+                await o(
+                  "WAWebMmsClientWaitForNetworkBeforeAttempt",
+                ).waitForNetworkBeforeAttempt({
+                  failCount: b,
+                  networkStatus: t.networkStatus,
+                  uploadQpl: e.uploadQpl,
+                });
+                var S = await v(),
+                  R = S.auth,
+                  L = S.fallbackHost,
+                  E = S.selectedHost,
+                  k = { selectedHost: E, fallbackHost: L },
+                  I = r("WAWebMmsClientSelectHost")({
+                    selectedHost: E,
+                    fallbackHost: L,
                     attemptCount: b,
                     lastHostUsed: C,
                     lastFetchMadeProgress: g,
                   });
                 return (
-                  (C = x),
-                  p({ hostName: x.hostname, hostClass: x.class, failCount: b }),
+                  (C = I),
+                  p({ hostName: I.hostname, hostClass: I.class, failCount: b }),
                   await r("WARetryPromise")(async function (t) {
                     var c = t.retry,
                       m = await i({
-                        auth: k,
+                        auth: R,
                         encFilehash: l,
                         byteLength: a.byteLength,
-                        hostname: x.hostname,
+                        hostname: I.hostname,
                         type: f,
                         signal: _,
                         byteOffset: n,
@@ -177,9 +164,9 @@ __d(
                           ).shouldPollUploadHosts(f, a.byteLength)
                             ? o("WAWebMmsClientPollMediaHosts")
                                 .pollMediaHosts({
-                                  connectionBlock: D,
+                                  connectionBlock: k,
                                   getHost: function () {
-                                    return x;
+                                    return I;
                                   },
                                   getMediaHosts: function () {
                                     return v(!0);
@@ -194,10 +181,10 @@ __d(
                                 })
                             : null,
                           i = r("WAWebMmsClientMmsUpload")({
-                            auth: k,
+                            auth: R,
                             ciphertextHmac:
                               m > 0 ? new Uint8Array(a).subarray(m) : a,
-                            hostname: x.hostname,
+                            hostname: I.hostname,
                             encFilehash: l,
                             type: f,
                             signal: _,
@@ -219,29 +206,29 @@ __d(
                         );
                       });
                     return y.kind === "host-changed"
-                      ? ((x = y.host), (C = x), c())
+                      ? ((I = y.host), (C = I), c())
                       : y.value;
                   })
                 );
               } catch (e) {
-                var $ = r("getErrorSafe")(e);
+                var T = r("getErrorSafe")(e);
                 g = !1;
-                var P = o("WAWebMmsClientIsErrorRetryable").isErrorRetryable($),
-                  N = !P || b === r("WAWebMmsClientMmsBackoffOptions").retries;
+                var D = o("WAWebMmsClientIsErrorRetryable").isErrorRetryable(T),
+                  x = !D || b === r("WAWebMmsClientMmsBackoffOptions").retries;
                 if (
-                  (N ||
+                  (x ||
                     m({
-                      error: $,
+                      error: T,
                       failCount: b,
                       overallLastUploadRetryPhase: o(
                         "WAWebWamEnumOverallLastUploadRetryPhaseType",
                       ).OVERALL_LAST_UPLOAD_RETRY_PHASE_TYPE.UPLOAD,
                       overallT: Date.now() - h,
                     }),
-                  P)
+                  D)
                 )
-                  return y($);
-                throw $;
+                  return y(T);
+                throw T;
               }
             },
           );

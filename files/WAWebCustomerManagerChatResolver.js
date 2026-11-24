@@ -15,22 +15,18 @@ __d(
     }
     function s(e) {
       var t = o("WAWebChatCollection").ChatCollection.get(e.chatJid);
-      if (t != null) return t;
-      var n = e.wid,
-        r = n.isUser() ? o("WAWebLidMigrationUtils").toUserLid(n) : null;
-      return r != null
-        ? o("WAWebChatCollection").ChatCollection.getChatByAccountLid(r)
-        : null;
+      return t != null ? t : c(e.wid);
     }
     function u(e) {
       var t = o("WAWebChatCollection").ChatCollection.get(e);
       if (t != null) return t;
       var n = o("WAWebCustomerManagerChatJid").toChatJidOrNull(String(e));
-      if (n == null) return null;
-      var r = o("WAWebWidFactory").createWid(String(n)),
-        a = r.isUser() ? o("WAWebLidMigrationUtils").toUserLid(r) : null;
-      return a != null
-        ? o("WAWebChatCollection").ChatCollection.getChatByAccountLid(a)
+      return n == null ? null : c(o("WAWebWidFactory").createWid(String(n)));
+    }
+    function c(e) {
+      var t = e.isUser() ? o("WAWebLidMigrationUtils").toUserLid(e) : null;
+      return t != null
+        ? o("WAWebChatCollection").ChatCollection.getChatByAccountLid(t)
         : null;
     }
     ((l.prepareCustomerManagerChatLookup = e),

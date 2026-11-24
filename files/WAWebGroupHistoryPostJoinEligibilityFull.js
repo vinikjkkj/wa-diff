@@ -13,33 +13,39 @@ __d(
         r = e.groupWid,
         a = e.joinTimeFallback,
         i = e.participant,
-        l = o("WAWebGroupHistoryPostJoinEligibility").groupContextFromMetadata(
+        l = e.windowEnd,
+        s = o("WAWebGroupHistoryPostJoinEligibility").groupContextFromMetadata(
           n,
         ),
-        s = o(
+        u = o(
           "WAWebGroupHistoryPostJoinEligibility",
-        ).getPostJoinHistoryGroupEligibility(l);
-      if (!s.eligible) return s;
-      var u = o(
+        ).getPostJoinHistoryGroupEligibility(s);
+      if (!u.eligible) return u;
+      var c = o(
         "WAWebGroupHistoryPostJoinEligibility",
       ).getParticipantPostJoinEligibilityInGroup(
         i,
-        l,
+        s,
         a,
         o("WAWebGroupHistoryRestrictionHelper").isPostJoinHistoryRestrictedWid,
       );
-      if (!u.eligible) return u;
-      var c = (t = i.joinTime) != null ? t : a;
-      if (c == null) return { eligible: !1, reason: "no_join_time" };
-      var d = await o(
+      if (!c.eligible) return c;
+      var d = (t = i.joinTime) != null ? t : a;
+      if (d == null) return { eligible: !1, reason: "no_join_time" };
+      var m = await o(
         "WAWebGetGroupHistoryBundleMessagesCount",
       ).getGroupHistoryBundleMessageCount({
         groupWid: r,
-        targetStartMessageTime: c,
+        targetStartMessageTime:
+          l != null
+            ? l
+            : o(
+                "WAWebGroupHistoryPostJoinEligibility",
+              ).getPostJoinHistoryWindowEnd(i.id, d),
       });
-      return d === 0
+      return m === 0
         ? { eligible: !1, reason: "no_available_messages" }
-        : { eligible: !0, messageCount: d };
+        : { eligible: !0, messageCount: m };
     }
     async function s(e) {
       var t = e.groupMetadata,

@@ -78,77 +78,86 @@ __d(
     }
     function y(e, t) {
       var a,
-        i = m(null),
-        l = i[0],
-        u = i[1],
-        _ = m(null),
-        h = _[0],
-        y = _[1],
-        C = m(e.coreVideoPlayerMetaData.videoFBID),
-        b = C[0],
-        v = m(
+        i,
+        l = m(null),
+        u = l[0],
+        _ = l[1],
+        h = m(null),
+        y = h[0],
+        C = h[1],
+        b = m(e.coreVideoPlayerMetaData.videoFBID),
+        v = b[0],
+        S = m(
+          (a =
+            e.coreVideoPlayerMetaData
+              .reclaimNeverMountedEngineOwner_EXPERIMENTAL) != null
+            ? a
+            : v,
+        ),
+        R = S[0],
+        L = m(
           e.coreVideoPlayerMetaData.reclaimNeverMountedEngine_EXPERIMENTAL ===
             !0,
         ),
-        S = v[0],
-        R = e.coreVideoPlayerMetaData.wrapVideoPixels_EXPERIMENTAL,
-        L = d(e),
-        E = d(t),
-        k = d(null),
-        I = r("useStable")(function () {
-          var e = E.current({
+        E = L[0],
+        k = e.coreVideoPlayerMetaData.wrapVideoPixels_EXPERIMENTAL,
+        I = d(e),
+        T = d(t),
+        D = d(null),
+        x = r("useStable")(function () {
+          var e = T.current({
             checkInDOM: function () {
               var e = document.body,
-                t = k.current;
+                t = D.current;
               return e != null && t != null && e.contains(t);
             },
             handleFatalError: function (t) {},
-            initialProps: L.current,
-            setExposedStateInReact: u,
+            initialProps: I.current,
+            setExposedStateInReact: _,
           });
-          return (S && f(b, e), e);
+          return (E && f(R, e), e);
         }),
-        T = l != null ? l : I.initialExposedState,
-        D = (a = T.error) != null ? a : h;
-      if (D != null) {
-        var x =
+        $ = u != null ? u : x.initialExposedState,
+        P = (i = $.error) != null ? i : y;
+      if (P != null) {
+        var N =
           e.coreVideoPlayerMetaData.VideoPlayerShakaPerformanceLoggerClass;
-        throw (x && x.flushQueuedLogs(), p(D, b));
+        throw (N && N.flushQueuedLogs(), p(P, v));
       }
       (c(
         function () {
           return (
-            g(b, I),
-            I.handleReactEffectInit(),
+            g(R, x),
+            x.handleReactEffectInit(),
             function () {
-              I.handleReactEffectCleanup();
+              x.handleReactEffectCleanup();
             }
           );
         },
-        [I, b],
+        [x, R],
       ),
         c(
           function () {
             var e = o("RunComet").onBeforeUnload(function () {
-              I.handleOnBeforeUnload();
+              x.handleOnBeforeUnload();
             });
             return function () {
               e.remove();
             };
           },
-          [I],
+          [x],
         ));
-      var $ = d(null);
+      var M = d(null);
       c(
         function () {
-          (e !== $.current && I.handleReactPropsChanged(e), ($.current = e));
+          (e !== M.current && x.handleReactPropsChanged(e), (M.current = e));
         },
         void 0,
       );
-      var P = r("useSEOLoggedOutWebCrawler")(),
-        N = e.coreVideoPlayerMetaData.renderVideoPixelsFit,
-        M = N ? N(T) : null,
-        w = P
+      var w = r("useSEOLoggedOutWebCrawler")(),
+        A = e.coreVideoPlayerMetaData.renderVideoPixelsFit,
+        F = A ? A($) : null,
+        O = w
           ? s.jsx(r("VideoPlayerImplementationReactVideoElement.react"), {
               alt: e.coreVideoPlayerMetaData.alt,
               audioOnly: e.coreVideoPlayerMetaData.audioOnly,
@@ -167,14 +176,14 @@ __d(
               videoElementPreloadHint:
                 e.coreVideoPlayerMetaData.preloadForProgressiveHint,
               videoElementRefCallback: null,
-              videoPixelsFit: M,
+              videoPixelsFit: F,
             })
           : s.jsx(r("VideoPlayerImplementationReactVideoElement.react"), {
               alt: e.coreVideoPlayerMetaData.alt,
               audioOnly: e.coreVideoPlayerMetaData.audioOnly,
               isSpatial: e.coreVideoPlayerMetaData.isSpatial,
               poster: e.coreVideoPlayerMetaData.poster,
-              videoElementCallbacks: I.videoElementCallbacks,
+              videoElementCallbacks: x.videoElementCallbacks,
               videoElementHDRPatchEnabled_EXPERIMENTAL:
                 e.coreVideoPlayerMetaData
                   .videoElementHDRPatchEnabled_EXPERIMENTAL,
@@ -184,42 +193,42 @@ __d(
                 e.coreVideoPlayerMetaData.preloadForProgressiveDisabled,
               videoElementPreloadHint:
                 e.coreVideoPlayerMetaData.preloadForProgressiveHint,
-              videoElementRefCallback: I.videoElementRefCallback,
-              videoPixelsFit: M,
+              videoElementRefCallback: x.videoElementRefCallback,
+              videoPixelsFit: F,
             }),
-        A = e.renderWithExposedState({
-          implementationController: I.implementationController,
-          implementationExposedState: T,
+        B = e.renderWithExposedState({
+          implementationController: x.implementationController,
+          implementationExposedState: $,
         }),
-        F = s.jsxs(s.Fragment, {
+        W = s.jsxs(s.Fragment, {
           children: [
             r("gkx")("24349")
-              ? s.jsx("div", { ref: k, style: { display: "none" } })
+              ? s.jsx("div", { ref: D, style: { display: "none" } })
               : null,
-            T.isDRM === !0
+            $.isDRM === !0
               ? n("cr:2336")
                 ? s.jsx(n("cr:2336"), {
-                    controller: I.implementationController,
+                    controller: x.implementationController,
                   })
                 : n("cr:4596")
                   ? s.jsx(n("cr:4596"), {
-                      controller: I.implementationController,
+                      controller: x.implementationController,
                     })
                   : null
               : null,
-            R ? R(w) : w,
+            k ? k(O) : O,
             s.jsx(r("VideoPlayerVideoPixelsFitContext").Provider, {
-              value: M,
-              children: A,
+              value: F,
+              children: B,
             }),
           ],
         });
       return {
-        engine: I,
-        exposedState: T,
-        reactVideoComponents: A,
-        reactVideoFrame: w,
-        reactVideoFrameAndComponents: F,
+        engine: x,
+        exposedState: $,
+        reactVideoComponents: B,
+        reactVideoFrame: O,
+        reactVideoFrameAndComponents: W,
       };
     }
     ((l.makeExpandedErrorFromVideoPlayerError = p),

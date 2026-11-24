@@ -35,7 +35,6 @@ __d(
               identifierQueryVariableName: "id",
             },
           },
-          vultureHash: "CiRTlSXLZDbW6gaLjZR9ftvFm_A=",
         },
         name: "MAIBAAssetDataUtils_RecentCampaignsFragment",
         selections: [

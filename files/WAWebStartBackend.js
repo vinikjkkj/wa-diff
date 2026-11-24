@@ -830,14 +830,6 @@ __d(
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("bb-pro-eligibility-prefetch-load-failed");
             }),
-        o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
-          "fetchBizAiLargeScreensGate",
-          { trigger: "app-launch" },
-        ),
-        o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
-          "fetchBizAiWebSmartComposerAiListsGate",
-          { trigger: "app-launch" },
-        ),
         o("WAWebMobilePlatforms").isSMB() &&
           o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
             "fetchBizAiWebDataDownloadsGate",

@@ -5430,7 +5430,20 @@ __d(
                                   kind: "LinkedField",
                                   name: "conversation",
                                   plural: !1,
-                                  selections: [p, y, _, i, l],
+                                  selections: [
+                                    p,
+                                    y,
+                                    {
+                                      alias: null,
+                                      args: null,
+                                      kind: "ScalarField",
+                                      name: "agent_session_conversation_id",
+                                      storageKey: null,
+                                    },
+                                    _,
+                                    i,
+                                    l,
+                                  ],
                                   storageKey: null,
                                 },
                                 {
@@ -5713,7 +5726,7 @@ __d(
           ],
         },
         params: {
-          id: "29567525076271140",
+          id: "29706296569025740",
           metadata: {},
           name: "MAIBAChatThreadQuery",
           operationKind: "query",

@@ -3,8 +3,8 @@ __d(
   ["WAWebL10N"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c;
-    function d(t) {
+    var e, s, u;
+    function c(t) {
       if (t == null || t === 0) return "\u2014";
       try {
         var n =
@@ -20,7 +20,7 @@ __d(
         return "\u2014";
       }
     }
-    function m(e) {
+    function d(e) {
       if (e == null || e === 0) return "\u2014";
       try {
         var t =
@@ -30,32 +30,15 @@ __d(
                 day: "numeric",
                 month: "short",
                 timeZone: "UTC",
-                year: "numeric",
               });
         return ((s = t), t.format(e * 1e3));
       } catch (e) {
         return "\u2014";
       }
     }
-    function p(e) {
-      if (e == null || e === 0) return "\u2014";
-      try {
-        var t =
-          u != null
-            ? u
-            : new Intl.DateTimeFormat(void 0, {
-                day: "numeric",
-                month: "short",
-                timeZone: "UTC",
-              });
-        return ((u = t), t.format(e * 1e3));
-      } catch (e) {
-        return "\u2014";
-      }
-    }
-    function _(e) {
+    function m(e) {
       var t = r("WAWebL10N").getFullLocale(),
-        n = c;
+        n = u;
       return (
         (n == null || n.locale !== t) &&
           ((n = {
@@ -65,14 +48,13 @@ __d(
             }),
             locale: t,
           }),
-          (c = n)),
+          (u = n)),
         n.formatter.format(Date.UTC(2e3, e - 1, 1))
       );
     }
-    ((l.formatCustomerDate = d),
-      (l.formatCustomerDateOnly = m),
-      (l.formatCustomerBirthday = p),
-      (l.formatBirthMonth = _));
+    ((l.formatCustomerDate = c),
+      (l.formatCustomerBirthday = d),
+      (l.formatBirthMonth = m));
   },
   98,
 );

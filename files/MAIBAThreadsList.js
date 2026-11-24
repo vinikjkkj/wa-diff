@@ -207,7 +207,10 @@ __d(
             return e.thread_status === t;
           });
         },
-        ue = se("ACTIVE"),
+        ue = o("MAIBARecommendationInbox").withoutRecommendationThreads(
+          se("ACTIVE"),
+          Q,
+        ),
         ce = se("PINNED"),
         de = se("ARCHIVED"),
         me = []

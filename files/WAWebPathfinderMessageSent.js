@@ -15,65 +15,101 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = r("JSResourceForInteraction")(
+      u,
+      c = r("JSResourceForInteraction")(
         "WAWebPathfinderMessageSentEmitter",
       ).__setRef("WAWebPathfinderMessageSent"),
-      c = o("WAWebPathfinderDeferredEmitter").createPathfinderDeferredEmitter(
-        u,
+      d = o("WAWebPathfinderDeferredEmitter").createPathfinderDeferredEmitter(
+        c,
         function (e, t) {
           e.emitPathfinderMessageSent(t);
         },
         "pathfinder-message-sent-load-failed",
       ),
-      d = { isCounted: _, takeSendMethod: v, isHiddenPayment: h, emit: c };
-    function m(e) {
-      p(e, d);
+      m = 100,
+      p = o("WAWebPathfinderDeferredEmitter").createPathfinderDeferredEmitter(
+        c,
+        function (e, t) {
+          e.emitPathfinderMessageSent(t);
+        },
+        "pathfinder-scheduled-message-sent-load-failed",
+        m,
+      ),
+      _ = { isCounted: y, takeSendMethod: k, isHiddenPayment: S, emit: d };
+    function f(e) {
+      h(e, _);
     }
-    function p(t, n) {
+    function g(t) {
       try {
-        var a = n.takeSendMethod(t.id);
-        if (!n.isCounted(t)) return;
-        var i = o("WAWebPathfinderScreenName").getCurrentScreenName();
-        if (g(i)) return;
-        var l = {
-          type: t.type,
-          subtype: t.subtype,
-          chatKind: o("WAWebPathfinderMessageSentFields").getChatKind(t),
-          pairedMediaType: t.pairedMediaType,
-          associationType: t.associationType,
-          mediaType: o(
-            "WAWebPathfinderMessageSentFields",
-          ).getPathfinderMessageSentMediaType(t),
-          sendMethod: a,
-          capturedAt: {
-            timestampMs: Date.now(),
-            screenName: i,
-            unifiedSessionId: f(),
-            heldBackSurface: null,
-          },
-          hiddenPayment: n.isHiddenPayment(t),
-        };
-        n.emit(l);
+        var n = o("WAWebPathfinderScreenName").getCurrentScreenName();
+        if (v(n)) return;
+        p(
+          babelHelpers.extends({}, t, {
+            sendMethod: void 0,
+            capturedAt: C(n),
+            hiddenPayment: !1,
+          }),
+        );
       } catch (t) {
         o("WALogger")
           .WARN(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[pathfinder] message_sent not recorded",
+                "[pathfinder] scheduled message_sent not recorded",
               ])),
           )
           .catching(r("getErrorSafe")(t))
           .sendLogs("pathfinder-message-sent-record-failed");
       }
     }
-    function _(e) {
+    function h(e, t) {
+      try {
+        var n = t.takeSendMethod(e.id);
+        if (!t.isCounted(e)) return;
+        var a = o("WAWebPathfinderScreenName").getCurrentScreenName();
+        if (v(a)) return;
+        var i = {
+          type: e.type,
+          subtype: e.subtype,
+          chatKind: o("WAWebPathfinderMessageSentFields").getChatKind(e),
+          pairedMediaType: e.pairedMediaType,
+          associationType: e.associationType,
+          mediaType: o(
+            "WAWebPathfinderMessageSentFields",
+          ).getPathfinderMessageSentMediaType(e),
+          sendMethod: n,
+          capturedAt: C(a),
+          hiddenPayment: t.isHiddenPayment(e),
+        };
+        t.emit(i);
+      } catch (e) {
+        o("WALogger")
+          .WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[pathfinder] message_sent not recorded",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e))
+          .sendLogs("pathfinder-message-sent-record-failed");
+      }
+    }
+    function y(e) {
       return (
         (e.local === !0 || e.type === o("WAWebMsgType").MSG_TYPE.ALBUM) &&
         e.isScheduledMsg !== !0 &&
         o("WAWebPathfinderMessageSentFields").isUserSend(e)
       );
     }
-    function f() {
+    function C(e) {
+      return {
+        timestampMs: Date.now(),
+        screenName: e,
+        unifiedSessionId: b(),
+        heldBackSurface: null,
+      };
+    }
+    function b() {
       try {
         var e = r("ifRequireable")(
           "WAWebUnifiedSession",
@@ -88,7 +124,7 @@ __d(
         return null;
       }
     }
-    function g(e) {
+    function v(e) {
       try {
         return r("ifRequireable")(
           "WAWebPathfinderHeldBackSurface",
@@ -102,8 +138,8 @@ __d(
         return (
           o("WALogger")
             .WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[pathfinder] held-back verdict unreadable",
                 ])),
             )
@@ -113,7 +149,7 @@ __d(
         );
       }
     }
-    function h(e) {
+    function S(e) {
       try {
         return r("ifRequireable")(
           "WAWebSilentPaymentMsg",
@@ -127,21 +163,22 @@ __d(
         return !1;
       }
     }
-    var y = 100,
-      C = new Map();
-    function b(e, t) {
-      if (t != null && (C.set(e.toString(), t), C.size > y)) {
-        var n = C.keys().next().value;
-        n != null && C.delete(n);
+    var R = 100,
+      L = new Map();
+    function E(e, t) {
+      if (t != null && (L.set(e.toString(), t), L.size > R)) {
+        var n = L.keys().next().value;
+        n != null && L.delete(n);
       }
     }
-    function v(e) {
+    function k(e) {
       var t = e.toString(),
-        n = C.get(t);
-      return (C.delete(t), n);
+        n = L.get(t);
+      return (L.delete(t), n);
     }
-    ((l.recordPathfinderMessageSentAfterCommit = m),
-      (l.labelPathfinderSendMethod = b));
+    ((l.recordPathfinderMessageSentAfterCommit = f),
+      (l.recordPathfinderScheduledMessageSentOnPost = g),
+      (l.labelPathfinderSendMethod = E));
   },
   98,
 );

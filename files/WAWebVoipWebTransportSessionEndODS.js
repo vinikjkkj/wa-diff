@@ -17,14 +17,14 @@ __d(
           (r("WAWebODS").incr(
             "web.call.webtransport.session_end.closed_by_relay",
           ),
-            d(t));
+            p(t));
           break e;
         }
         if (e === "connection_lost") {
           (r("WAWebODS").incr(
             "web.call.webtransport.session_end.connection_lost",
           ),
-            m(t));
+            _(t));
           break e;
         }
         if (e === "stream_error") {
@@ -46,7 +46,42 @@ __d(
         "web.call.webtransport.session_end.closed_wait_timeout",
       );
     }
-    function c(e) {
+    function c() {
+      r("WAWebODS").incr("web.call.webtransport.session_end.relay_draining");
+    }
+    function d(e) {
+      e: {
+        if (e === "started") {
+          r("WAWebODS").incr(
+            "web.call.webtransport.relay_drain_reconnect.started",
+          );
+          break e;
+        }
+        if (e === "healthy") {
+          r("WAWebODS").incr(
+            "web.call.webtransport.relay_drain_reconnect.healthy",
+          );
+          break e;
+        }
+        if (e === "deadline_fallback") {
+          r("WAWebODS").incr(
+            "web.call.webtransport.relay_drain_reconnect.deadline_fallback",
+          );
+          break e;
+        }
+        if (e === "limit_reached") {
+          r("WAWebODS").incr(
+            "web.call.webtransport.relay_drain_reconnect.limit_reached",
+          );
+          break e;
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      }
+    }
+    function m(e) {
       return e == null
         ? "no_datagram"
         : e < 1e3
@@ -57,9 +92,9 @@ __d(
               ? "10_30s"
               : "ge_30s";
     }
-    function d(e) {
+    function p(e) {
       e: {
-        var t = c(e);
+        var t = m(e);
         if (t === "no_datagram") {
           r("WAWebODS").incr(
             "web.call.webtransport.session_end.closed_by_relay.silence.no_datagram",
@@ -96,9 +131,9 @@ __d(
         );
       }
     }
-    function m(e) {
+    function _(e) {
       e: {
-        var t = c(e);
+        var t = m(e);
         if (t === "no_datagram") {
           r("WAWebODS").incr(
             "web.call.webtransport.session_end.connection_lost.silence.no_datagram",
@@ -137,7 +172,9 @@ __d(
     }
     ((l.classifyWebtransportSessionEnd = e),
       (l.logCallWebtransportSessionEnd = s),
-      (l.logCallWebtransportSessionEndClosedWaitTimeout = u));
+      (l.logCallWebtransportSessionEndClosedWaitTimeout = u),
+      (l.logCallWebtransportSessionEndRelayDraining = c),
+      (l.logCallWebtransportRelayDrainReconnect = d));
   },
   98,
 );

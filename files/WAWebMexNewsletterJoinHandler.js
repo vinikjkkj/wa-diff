@@ -8,6 +8,7 @@ __d(
     "WAWebMexNewsletterParseUtils",
     "WAWebNewsletterBackendAddOnsUtils",
     "WAWebNewsletterCommonGatingUtils",
+    "WAWebNewsletterGatingUtils",
     "WAWebNewsletterGetMessagesJob",
     "WAWebNewsletterMetadataJob",
     "WAWebNewsletterModelUtils",
@@ -92,7 +93,14 @@ __d(
           pic: a,
           msgs: l,
           noEarlierMsgs: s,
-        }));
+        }),
+        o(
+          "WAWebNewsletterGatingUtils",
+        ).isNewsletterStatusFetchOnJoinNotificationEnabled() &&
+          o("WAWebBackendApi").frontendFireAndForget(
+            "fillNewsletterStatusGap",
+            { newsletterJid: r },
+          ));
     }
     async function d(e) {
       var t = e.chat,

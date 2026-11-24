@@ -61,7 +61,8 @@ __d(
         : e.pageId === t.pageId &&
             e.displayName === t.displayName &&
             e.pictureUrl === t.pictureUrl &&
-            e.shownOnProfile === t.shownOnProfile;
+            e.shownOnProfile === t.shownOnProfile &&
+            e.whatsAppButtonEnabled === t.whatsAppButtonEnabled;
     }
     ((l.createLinkedFacebookPagePublisher = p),
       (l.useLinkedFacebookPageFromStore = _));

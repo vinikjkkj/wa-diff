@@ -96,9 +96,9 @@ __d(
         });
       var r = t.getLastMsgKeyForAction(),
         a = r ? t.msgs.get(r) : void 0,
-        i = o("WAWebMetaAiThreadChatServerDelete").getMetaAiThreadServerDelete(
-          t.id,
-        ),
+        i = o(
+          "WAWebMetaAiThreadChatServerDelete",
+        ).getMetaAiThreadServerDeleteBotFbid(t.id),
         l = (t.promises.sendDelete = (
           o("WAWebBackendRuntime").isWebDiBackendEnabled()
             ? o("WAWebBackendRuntime").runtime(

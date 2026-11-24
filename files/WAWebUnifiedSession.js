@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WASmaxUnifiedSessionShareRPC",
     "WATimeUtils",
+    "WAWebCommsUnifiedSessionId",
     "WAWebUnifiedSessionSocketManager",
     "cr:9137",
   ],
@@ -37,7 +38,8 @@ __d(
             return ++this.$2;
           }),
           (r.clearSessionId = function () {
-            this.$1 = null;
+            ((this.$1 = null),
+              o("WAWebCommsUnifiedSessionId").setCommsUnifiedSessionId(null));
           }),
           (r.generateSessionId = function (r) {
             try {
@@ -46,6 +48,9 @@ __d(
               ((this.$1 = String(t)),
                 (this.$3 = !1),
                 (this.$2 = 0),
+                o("WAWebCommsUnifiedSessionId").setCommsUnifiedSessionId(
+                  this.$1,
+                ),
                 n("cr:9137") == null ||
                   n("cr:9137").syncUnifiedSessionIdToNative(this.$1),
                 this.$6());

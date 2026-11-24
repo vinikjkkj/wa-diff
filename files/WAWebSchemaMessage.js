@@ -273,6 +273,7 @@ __d(
             a("finalCallOutcome"),
             a("switchEntryCallLogTime"),
             a("switchEntryEnded"),
+            a("joinableCallId"),
             a("bytesSent"),
             a("bytesReceived"),
             a("richResponse"),

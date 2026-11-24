@@ -143,15 +143,12 @@ __d(
       var e = I();
       return e === 3 || e === 4;
     }
-    function x() {
-      return I() === 3;
-    }
-    function $(e) {
+    function x(e) {
       var t = e.bizAgentEligible,
         n = I();
-      return n >= 6 ? P() : n === 5 ? N() : n === 4 ? M() : F(t);
+      return n >= 6 ? $() : n === 5 ? P() : n === 4 ? N() : A(t);
     }
-    function P() {
+    function $() {
       var e = k - 1,
         t = [].concat(
           o("WAWebABProps").getABPropConfigValue(
@@ -176,7 +173,7 @@ __d(
         [].concat([].concat(t, [b], v).slice(0, e), [E])
       );
     }
-    function N() {
+    function P() {
       var e = [y].concat(
         o("WAWebChatThemeGatingUtils").isChatThemesEnabled() ? [f] : [],
         o("WAWebStatusGatingUtils").isStatusLikesSendEnabled() ? [C] : [],
@@ -184,11 +181,11 @@ __d(
       );
       return [].concat(e, v).slice(0, k);
     }
-    function M() {
+    function N() {
       var e = o("WAWebVoipGatingUtils").isWhatsNewCallingHighlightEnabled();
-      return o("WAWebMobilePlatforms").isSMB() ? A(e) : w(e);
+      return o("WAWebMobilePlatforms").isSMB() ? w(e) : M(e);
     }
-    function w(e) {
+    function M(e) {
       return o("WAWebChatThemeGatingUtils").isChatThemesEnabled()
         ? e
           ? [f, u, c, m]
@@ -197,17 +194,17 @@ __d(
           ? [u, g, c, m]
           : [g, c, m, d];
     }
-    function A(e) {
+    function w(e) {
       return e ? [u, h, g, c] : [h, g, c, m];
     }
-    function F(e) {
+    function A(e) {
       var t = o("WAWebVoipGatingUtils").isWhatsNewCallingHighlightEnabled();
-      return o("WAWebMobilePlatforms").isSMB() ? B(t, e) : O(t);
+      return o("WAWebMobilePlatforms").isSMB() ? O(t, e) : F(t);
     }
-    function O(t) {
+    function F(t) {
       return t ? [u, c, d, m] : [c, d, m, e];
     }
-    function B(t, n) {
+    function O(t, n) {
       var r = t ? [u, p, _, c] : [p, _, c, m];
       return n
         ? r
@@ -220,8 +217,7 @@ __d(
     }
     ((l.hasWhatsNewContent = T),
       (l.hasSmbWhatsNewContent = D),
-      (l.hasBizAgentWhatsNewHighlight = x),
-      (l.getWhatsNewFeatures = $));
+      (l.getWhatsNewFeatures = x));
   },
   226,
 );

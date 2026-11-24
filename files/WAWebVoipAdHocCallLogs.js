@@ -37,34 +37,42 @@ __d(
     function c(e, t) {
       var n,
         r,
-        a = t === void 0 ? {} : t,
-        i = a.includeEndedCall,
-        l = i === void 0 ? !0 : i,
-        u = a.includeUntracked,
-        c = u === void 0 ? !1 : u,
-        d =
+        a,
+        i = t === void 0 ? {} : t,
+        l = i.includeEndedCall,
+        u = l === void 0 ? !0 : l,
+        c = i.includeUntracked,
+        d = c === void 0 ? !1 : c,
+        m =
           (n =
-            (r = o("WAWebVoipTransferredCallRegistry").getTransferredCallRoot(
-              e,
-            )) == null
-              ? void 0
-              : r.rootCallId) != null
+            (r =
+              (a = o("WAWebVoipTransferredCallRegistry").getTransferredCallRoot(
+                e,
+              )) == null
+                ? void 0
+                : a.rootCallId) != null
+              ? r
+              : o(
+                  "WAWebVoipOngoingCallCollection",
+                ).WAWebVoipOngoingCallCollection.getMsgKeyIdByJoinableCallId(
+                  e,
+                )) != null
             ? n
             : e,
-        m = [].concat(
+        p = [].concat(
           o(
             "WAWebVoipOngoingCallCollection",
-          ).WAWebVoipOngoingCallCollection.getAllByCallId(d),
+          ).WAWebVoipOngoingCallCollection.getAllByCallId(m),
         );
-      if (m.length === 0 && !c) return m;
-      var p = s(e, d, { includeEndedCall: l });
+      if (p.length === 0 && !d) return p;
+      var _ = s(e, m, { includeEndedCall: u });
       return (
-        p != null &&
-          !m.some(function (e) {
-            return e.id.equals(p.id);
+        _ != null &&
+          !p.some(function (e) {
+            return e.id.equals(_.id);
           }) &&
-          m.push(p),
-        m
+          p.push(_),
+        p
       );
     }
     function d(t) {

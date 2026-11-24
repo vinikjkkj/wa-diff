@@ -73,7 +73,7 @@ __d(
     function h(e) {
       var t = o("WAWebFrontendMsgGetters").getChat(e);
       return o("WAWebFrontendMsgGetters").getAsMms(e)
-        ? Promise.resolve()
+        ? Promise.resolve(void 0)
         : E({ chat: t, msg: e, type: "text" });
     }
     function y(e, t, n) {

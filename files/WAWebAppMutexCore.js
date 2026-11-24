@@ -226,13 +226,14 @@ __d(
                 if (e === L.TAKEOVER)
                   return (
                     this.$15(),
+                    (this.$4 = !1),
                     o("WAWebUserPrefsTabMutex").localTakeoverSuccess(),
                     !0
                   );
                 if (e.indexOf(L.PING) === 0)
                   o("WAWebUserPrefsTabMutex").setMutex(L.PONG + Math.random());
                 else if (e.indexOf(L.CHECK_ACTIVE_CALL) === 0) {
-                  if (o("WAWebVoipGatingUtils").isCallingEnabled()) {
+                  if (this.$4) {
                     var n = this.$9.hasActiveCall();
                     (o("WALogger").LOG(
                       p ||

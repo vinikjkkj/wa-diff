@@ -231,10 +231,13 @@ __d(
         (e.keptCount = (l = e.keptCount) != null ? l : t.keptCount));
     }
     function S(e, t) {
+      var n;
       return e.kind === "callLog"
         ? babelHelpers.extends({}, e, {
             switchEntryCallLogTime: t.switchEntryCallLogTime,
             switchEntryEnded: t.switchEntryEnded,
+            joinableCallId:
+              (n = e.joinableCallId) != null ? n : t.joinableCallId,
           })
         : babelHelpers.extends({}, e);
     }

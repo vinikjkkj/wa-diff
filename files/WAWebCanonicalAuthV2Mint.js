@@ -1,6 +1,7 @@
 __d(
   "WAWebCanonicalAuthV2Mint",
   [
+    "WAPromiseDelays",
     "WAWebCanonicalAuthV2MintHistory",
     "WAWebCanonicalAuthV2Policy",
     "WAWebCanonicalEntRecoveryWam",
@@ -12,14 +13,15 @@ __d(
     "WAWebWamEnumCanonicalEntRecoveryCompanionEvent",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e(e, t, n) {
+    var e = 2e3;
+    async function s(e, t, n) {
       var r = o("WAWebCanonicalNoiseAuthClient").makeNoiseProofKey(
         t,
         await o("WAWebUserPrefsInfoStore").waNoiseInfo.getIfUnlocked(),
       );
       if (r == null) return { kind: "unavailable" };
-      var a = y(r, n.signal) ? await u(e, n.signal) : { kind: "stale" };
-      if (a.kind !== "tracked" && a.kind !== "untracked") return m(a);
+      var a = C(r, n.signal) ? await c(e, n.signal) : { kind: "stale" };
+      if (a.kind !== "tracked" && a.kind !== "untracked") return p(a);
       o("WAWebCanonicalEntRecoveryWam").logCompanionEvent(
         o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
           .CANONICAL_ENT_RECOVERY_COMPANION_EVENT.CRED_REQUEST_STARTED,
@@ -27,16 +29,16 @@ __d(
           .START,
         e,
       );
-      var i = await _({
+      var i = await f({
           proofKey: r,
           purpose: e,
           session: n,
           latch: { tokenRequestSent: !1 },
         }),
-        l = await d(a, i, n.signal);
-      return y(r, n.signal) ? p(i, l) : { kind: "cancelled", retryAtMs: l };
+        l = await m(a, i, n.signal);
+      return C(r, n.signal) ? _(i, l) : { kind: "cancelled", retryAtMs: l };
     }
-    function s(e, t) {
+    function u(e, t) {
       var n = e.attempts,
         r = e.failure,
         a = e.tokenRequestSent;
@@ -66,7 +68,7 @@ __d(
           }),
         ));
     }
-    async function u(e, t) {
+    async function c(e, t) {
       var n = o(
         "WAWebCanonicalGating",
       ).getCanonicalAuthV2MinMintIntervalSeconds();
@@ -75,7 +77,7 @@ __d(
         function (e) {
           return t.aborted
             ? { next: null, result: { kind: "stale" } }
-            : c(e, n);
+            : d(e, n);
         },
       );
       return (
@@ -87,7 +89,7 @@ __d(
         r != null ? r : { kind: "unowned" }
       );
     }
-    function c(e, t) {
+    function d(e, t) {
       var n = Date.now(),
         r = o("WAWebCanonicalAuthV2Policy").getMintAllowedAtMs(e, t, n);
       if (n < r)
@@ -98,7 +100,7 @@ __d(
         result: { kind: "tracked", throttle: a, intervalSeconds: t },
       };
     }
-    async function d(e, t, n) {
+    async function m(e, t, n) {
       if (e.kind !== "tracked") return 0;
       var r =
         t.kind === "cancelled"
@@ -119,7 +121,7 @@ __d(
         e.intervalSeconds,
       );
     }
-    function m(e) {
+    function p(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -145,7 +147,7 @@ __d(
         );
       })(e);
     }
-    function p(e, t) {
+    function _(e, t) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -181,24 +183,30 @@ __d(
         );
       })(e);
     }
-    async function _(e) {
-      var t = await f(e),
-        n =
-          t.kind === "failed" &&
-          o("WAWebCanonicalAuthV2Policy").isRejectedProof(t.failure),
-        r = n ? await f(e) : t;
-      return r.kind === "failed"
+    async function f(t) {
+      var n = await g(t),
+        r =
+          n.kind === "failed" &&
+          o("WAWebCanonicalAuthV2Policy").isRetriableAttemptFailure(n.failure)
+            ? n.failure
+            : null;
+      r != null &&
+        !o("WAWebCanonicalAuthV2Policy").isRejectedProof(r) &&
+        (await o("WAPromiseDelays").delayMs(e));
+      var a = r != null && !t.session.signal.aborted,
+        i = a ? await g(t) : n;
+      return i.kind === "failed"
         ? {
             kind: "failed",
-            failure: r.failure,
-            tokenRequestSent: e.latch.tokenRequestSent,
-            attempts: n ? 2 : 1,
+            failure: i.failure,
+            tokenRequestSent: t.latch.tokenRequestSent,
+            attempts: a ? 2 : 1,
           }
-        : r;
+        : i;
     }
-    async function f(e) {
+    async function g(e) {
       var t = o("WAWebCanonicalEntRecoveryWam").generateRequestId(),
-        n = await g(e, t);
+        n = await h(e, t);
       if (n.kind !== "issued") return n;
       var r = await o("WAWebCanonicalNoiseAuthClient").signNoiseChallenge(
         e.proofKey,
@@ -214,14 +222,14 @@ __d(
               errorName: r.errorName,
             },
           }
-        : h(e, t, r.proof);
+        : y(e, t, r.proof);
     }
-    async function g(e, t) {
+    async function h(e, t) {
       var n = e.proofKey,
         r = e.purpose,
         a = e.session;
-      if (!y(n, a.signal)) return { kind: "cancelled" };
-      C(
+      if (!C(n, a.signal)) return { kind: "cancelled" };
+      b(
         o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
           .START,
         r,
@@ -231,39 +239,44 @@ __d(
         n,
         a.signal,
       );
-      return y(n, a.signal)
-        ? i.kind === "failed"
-          ? (C(
-              o("WAWebWamEnumCanonicalEntEventMarker")
-                .CANONICAL_ENT_EVENT_MARKER.ERROR,
-              r,
-              t,
-            ),
-            {
-              kind: "failed",
-              failure: {
-                phase: "challenge",
-                cause: i.failure,
-                httpStatus: i.httpStatus,
-                errorName: null,
-              },
-            })
-          : (C(
-              o("WAWebWamEnumCanonicalEntEventMarker")
-                .CANONICAL_ENT_EVENT_MARKER.SUCCESS,
-              r,
-              t,
-            ),
-            i)
-        : { kind: "cancelled" };
+      if (!C(n, a.signal)) return { kind: "cancelled" };
+      if (i.kind === "failed") {
+        var l;
+        return (
+          b(
+            o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
+              .ERROR,
+            r,
+            t,
+          ),
+          {
+            kind: "failed",
+            failure: {
+              phase: "challenge",
+              cause: i.failure,
+              httpStatus: i.httpStatus,
+              errorName: (l = i.errorName) != null ? l : null,
+            },
+          }
+        );
+      }
+      return (
+        b(
+          o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
+            .SUCCESS,
+          r,
+          t,
+        ),
+        i
+      );
     }
-    async function h(e, t, n) {
+    async function y(e, t, n) {
       var r = e.latch,
         a = e.proofKey,
         i = e.purpose,
         l = e.session;
-      if (!y(a, l.signal)) return { kind: "cancelled" };
-      (b(
+      if (!C(a, l.signal)) return { kind: "cancelled" };
+      (v(
         o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
           .START,
         i,
@@ -273,33 +286,38 @@ __d(
       var s = o("WAWebCanonicalNoiseAuthClient").exchangeNoiseProof(n);
       l.onTokenRequest(s);
       var u = await s;
-      return y(a, l.signal)
-        ? u.kind === "failed"
-          ? (b(
-              o("WAWebWamEnumCanonicalEntEventMarker")
-                .CANONICAL_ENT_EVENT_MARKER.ERROR,
-              i,
-              t,
-            ),
-            {
-              kind: "failed",
-              failure: {
-                phase: "token",
-                cause: u.failure,
-                httpStatus: u.httpStatus,
-                errorName: null,
-              },
-            })
-          : (b(
-              o("WAWebWamEnumCanonicalEntEventMarker")
-                .CANONICAL_ENT_EVENT_MARKER.SUCCESS,
-              i,
-              t,
-            ),
-            { kind: "stored" })
-        : { kind: "cancelled" };
+      if (!C(a, l.signal)) return { kind: "cancelled" };
+      if (u.kind === "failed") {
+        var c;
+        return (
+          v(
+            o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
+              .ERROR,
+            i,
+            t,
+          ),
+          {
+            kind: "failed",
+            failure: {
+              phase: "token",
+              cause: u.failure,
+              httpStatus: u.httpStatus,
+              errorName: (c = u.errorName) != null ? c : null,
+            },
+          }
+        );
+      }
+      return (
+        v(
+          o("WAWebWamEnumCanonicalEntEventMarker").CANONICAL_ENT_EVENT_MARKER
+            .SUCCESS,
+          i,
+          t,
+        ),
+        { kind: "stored" }
+      );
     }
-    function y(e, t) {
+    function C(e, t) {
       return (
         !t.aborted &&
         o("WAWebCanonicalNoiseAuthClient").isProofKeyFor(
@@ -308,7 +326,7 @@ __d(
         )
       );
     }
-    function C(e, t, n) {
+    function b(e, t, n) {
       o("WAWebCanonicalEntRecoveryWam").logCompanionEvent(
         o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
           .CANONICAL_ENT_RECOVERY_COMPANION_EVENT.NOISE_AUTH_CHALLENGE,
@@ -317,7 +335,7 @@ __d(
         n,
       );
     }
-    function b(e, t, n) {
+    function v(e, t, n) {
       o("WAWebCanonicalEntRecoveryWam").logCompanionEvent(
         o("WAWebWamEnumCanonicalEntRecoveryCompanionEvent")
           .CANONICAL_ENT_RECOVERY_COMPANION_EVENT.NOISE_AUTH_TOKEN,
@@ -326,7 +344,7 @@ __d(
         n,
       );
     }
-    ((l.runMint = e), (l.logMintFailed = s));
+    ((l.runMint = s), (l.logMintFailed = u));
   },
   98,
 );

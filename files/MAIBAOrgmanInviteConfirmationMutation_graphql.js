@@ -5279,6 +5279,13 @@ __d(
                 selections: [
                   p,
                   r,
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "agent_session_conversation_id",
+                    storageKey: null,
+                  },
                   Et,
                   {
                     alias: null,
@@ -5446,7 +5453,7 @@ __d(
           ],
         },
         params: {
-          id: "29692472070440673",
+          id: "29523954733955724",
           metadata: {},
           name: "MAIBAOrgmanInviteConfirmationMutation",
           operationKind: "mutation",

@@ -256,8 +256,8 @@ __d(
           (t.dismissHeaderMenu = function (t) {
             o("WAWebCustomerManagerListJourneyEvents").dismissHeaderMenu(t);
           }),
-          (t.clickRow = function (t) {
-            o("WAWebCustomerManagerListJourneyEvents").clickRow(t);
+          (t.clickProfile = function (t, n) {
+            o("WAWebCustomerManagerListJourneyEvents").clickProfile(t, n);
           }),
           (t.clickRowChat = function () {
             o("WAWebCustomerManagerListJourneyEvents").clickRowChat();
@@ -384,11 +384,6 @@ __d(
           (t.viewPipeline = function (t) {
             o("WAWebCustomerManagerPipelineJourneyEvents").viewPipeline(t);
           }),
-          (t.clickPipelineCustomerCard = function (t) {
-            o(
-              "WAWebCustomerManagerPipelineJourneyEvents",
-            ).clickPipelineCustomerCard(t);
-          }),
           (t.editPipelineCardDrag = function (t, n) {
             o("WAWebCustomerManagerPipelineJourneyEvents").editPipelineCardDrag(
               t,
@@ -510,10 +505,10 @@ __d(
               "WAWebCustomerManagerAddCustomerJourneyEvents",
             ).validateAddCustomerPhone(t);
           }),
-          (t.saveCustomerBlocked = function (t) {
+          (t.saveCustomerBlocked = function (t, n) {
             o(
               "WAWebCustomerManagerAddCustomerJourneyEvents",
-            ).saveCustomerBlocked(t);
+            ).saveCustomerBlocked(t, n);
           }),
           (t.editAddCustomerField = function (t, n, r) {
             o(

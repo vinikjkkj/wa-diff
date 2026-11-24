@@ -126,14 +126,17 @@ __d(
             }
             return _(this.msg)
               ? r("WAWebNotificationMuteReason").IgnoreInternalSilentTag
-              : o("WAWebViewModeUtils").isViewModeVisibleInSurface(
-                    o("WAWebViewMode.flow").ViewModeSurface.NOTIFICATION,
-                    this.msg.viewMode,
-                  )
-                ? o("WAWebBizAiAgentStatusUtils").shouldMuteNotification(e)
+              : this.isHiddenByViewMode()
+                ? r("WAWebNotificationMuteReason").IgnoreHiddenViewModeMsgs
+                : o("WAWebBizAiAgentStatusUtils").shouldMuteNotification(e)
                   ? r("WAWebNotificationMuteReason").AIRepliesOn
-                  : null
-                : r("WAWebNotificationMuteReason").IgnoreHiddenViewModeMsgs;
+                  : null;
+          }),
+          (n.isHiddenByViewMode = function () {
+            return !o("WAWebViewModeUtils").isViewModeVisibleInSurface(
+              o("WAWebViewMode.flow").ViewModeSurface.NOTIFICATION,
+              this.msg.viewMode,
+            );
           }),
           (n.shouldSquelch = function () {
             var e = o(

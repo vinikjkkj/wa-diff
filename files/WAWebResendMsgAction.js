@@ -83,7 +83,7 @@ __d(
                   )
         );
       }
-      return Promise.resolve();
+      return Promise.resolve(void 0);
     }
     l.resendMsg = e;
   },

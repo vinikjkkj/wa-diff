@@ -13,6 +13,7 @@ __d(
     "WAWebVoipActionWriteCallLogImpl",
     "WAWebVoipAdHocCallLogs",
     "WAWebVoipCallLogWriteMutex",
+    "WAWebVoipNativeRootCallLogEnding",
     "WAWebVoipOngoingCallCollection",
     "WAWebVoipTransferredCallRegistry",
     "WAWebVoipWaCallEnums",
@@ -57,15 +58,18 @@ __d(
             o("WAWebVoipActionWriteCallLogImpl").markCallIdProcessed(m));
           return;
         }
-        var E = l != null ? l : void 0,
-          k = i != null ? i : void 0,
-          I = o("WAWebCallLogUtils").getCallOutcomeFromCallLogResult(v, f),
-          T = v === o("WAWebVoipWaCallEnums").CallLogResult.ScreenedElsewhere;
+        var E = o(
+            "WAWebVoipNativeRootCallLogEnding",
+          ).captureNativeRootCallLogEnd(t),
+          k = l != null ? l : void 0,
+          I = i != null ? i : void 0,
+          T = o("WAWebCallLogUtils").getCallOutcomeFromCallLogResult(v, f),
+          D = v === o("WAWebVoipWaCallEnums").CallLogResult.ScreenedElsewhere;
         R &&
           o("WAWebToastManager").ToastManager.open(
             d.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
           );
-        var D =
+        var x =
             (n =
               (a = o("WAWebVoipTransferredCallRegistry").getTransferredCallRoot(
                 m,
@@ -74,123 +78,123 @@ __d(
                 : a.rootCallId) != null
               ? n
               : m,
-          x = o(
+          $ = o(
             "WAWebVoipOngoingCallCollection",
-          ).WAWebVoipOngoingCallCollection.getByCallId(D),
-          $ =
+          ).WAWebVoipOngoingCallCollection.getByCallId(x),
+          P =
             c != null
               ? c
               : g
                 ? o("WAWebUserUtils").getMeDevicePnLessOrFallback_DO_NOT_USE()
                 : b,
-          P = y === !0 || !r("isStringNullOrEmpty")(_);
-        if (x != null) {
-          var N = h != null,
-            M = await o(
+          N = y === !0 || !r("isStringNullOrEmpty")(_);
+        if ($ != null) {
+          var M = h != null,
+            w = await o(
               "WAWebVoipCallLogWriteMutex",
             ).WACallLogWriteMutex.acquire();
           try {
-            var w = o("WAWebVoipAdHocCallLogs").getCallLogMsgsForCall(m);
-            if (w.length === 0) return;
-            var A = o(
+            var A = o("WAWebVoipAdHocCallLogs").getCallLogMsgsForCall(m);
+            if (A.length === 0) return;
+            var F = o(
                 "WAWebVoipOngoingCallCollection",
-              ).WAWebVoipOngoingCallCollection.getAllByCallId(D),
-              F = function (t) {
+              ).WAWebVoipOngoingCallCollection.getAllByCallId(x),
+              O = function (t) {
                 return (
-                  N ||
-                  (!P &&
+                  M ||
+                  (!N &&
                     o("WAWebVoipAdHocCallLogs").isAdHocGroupCallLog(t) &&
-                    A.includes(t))
+                    F.includes(t))
                 );
               },
-              O = await Promise.allSettled(
-                w.map(function (e) {
+              B = await Promise.allSettled(
+                A.map(function (e) {
                   var t = babelHelpers.extends({}, e.toJSON(), {
                     callDuration: f == null ? e.callDuration : f,
-                    callOutcome: F(e)
+                    callOutcome: O(e)
                       ? o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing
-                      : I,
-                    finalCallOutcome: I,
+                      : T,
+                    finalCallOutcome: T,
                     terminatedByDeviceSwitch: R,
-                    screenedElsewhere: T,
-                    bytesSent: E,
-                    bytesReceived: k,
+                    screenedElsewhere: D,
+                    bytesSent: k,
+                    bytesReceived: I,
                   });
                   return o(
                     "WAWebVoipActionWriteCallLogImpl",
                   ).writeVoipCallLogMessageImpl(t.to, t, !1);
                 }),
               );
-            (O.some(function (e) {
+            (B.some(function (e) {
               return e.status === "fulfilled" && e.value != null;
             }) && o("WAWebVoipActionWriteCallLogImpl").markCallIdProcessed(m),
               h == null &&
-                !P &&
-                w.forEach(function (e, t) {
-                  var n = O[t];
-                  !F(e) &&
+                !N &&
+                A.forEach(function (e, t) {
+                  var n = B[t];
+                  !O(e) &&
                     n.status === "fulfilled" &&
                     n.value != null &&
                     o(
                       "WAWebVoipOngoingCallCollection",
                     ).WAWebVoipOngoingCallCollection.remove(e.id);
                 }));
-            for (var B of O) if (B.status === "rejected") throw B.reason;
+            for (var W of B) if (W.status === "rejected") throw W.reason;
           } finally {
-            M.release();
+            w.release();
           }
         } else {
-          if (h != null || P) return;
-          var W = await o("WAWebCallLogUtils").getCallLogTargetDetails({
-              callCreatorWid: $,
+          if (h != null || N) return;
+          var q = await o("WAWebCallLogUtils").getCallLogTargetDetails({
+              callCreatorWid: P,
               peerWid: b,
               callId: m,
               groupJid: h,
-              isCallLink: P,
+              isCallLink: N,
               participants: r("compactMap")(C, function (e) {
                 return e.jid;
               }),
             }),
-            q = W.callCreatorUserWid,
-            U = W.chatId,
-            V = W.fromMe,
-            H = W.msgKeyId,
-            G = W.participant,
-            z = W.viewMode,
-            j = babelHelpers.extends(
+            U = q.callCreatorUserWid,
+            V = q.chatId,
+            H = q.fromMe,
+            G = q.msgKeyId,
+            z = q.participant,
+            j = q.viewMode,
+            K = babelHelpers.extends(
               {
                 id: new (r("WAWebMsgKey"))({
-                  remote: U,
-                  participant: G,
-                  fromMe: V,
-                  id: H,
+                  remote: V,
+                  participant: z,
+                  fromMe: H,
+                  id: G,
                 }),
                 type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
                 kind: o("WAWebMsgType").MsgKind.CallLog,
-                viewMode: z,
-                callOutcome: I,
+                viewMode: j,
+                callOutcome: T,
                 isVideoCall: L != null ? L : !1,
-                callCreator: $,
+                callCreator: P,
                 callDuration: f == null ? void 0 : f,
-                from: q,
+                from: U,
                 t: S,
               },
               p(C),
               {
-                to: U,
+                to: V,
                 isCallLink: !1,
                 callLinkToken: _ != null ? _ : void 0,
-                finalCallOutcome: I,
+                finalCallOutcome: T,
                 terminatedByDeviceSwitch: R,
-                screenedElsewhere: T,
-                bytesSent: E,
-                bytesReceived: k,
+                screenedElsewhere: D,
+                bytesSent: k,
+                bytesReceived: I,
               },
             ),
-            K = await o(
-              "WAWebVoipActionWriteCallLogImpl",
-            ).writeVoipCallLogMessageImpl(U, j, !1);
-          K != null &&
+            Q = await o(
+              "WAWebVoipNativeRootCallLogEnding",
+            ).writeNativeRootCallLogFromEnding(K, m, E);
+          Q != null &&
             o("WAWebVoipActionWriteCallLogImpl").markCallIdProcessed(m);
         }
       } catch (e) {

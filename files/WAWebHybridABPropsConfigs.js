@@ -568,6 +568,7 @@ __d(
       status_vsr_model: [39804, "int", 0, 0],
       stickers_emoji_tagging_enabled: [26465, "bool", !1, !1],
       support_contact_form_using_graphql: [26001, "bool", !1, !1],
+      support_wass_chat_auth_refresh_enabled: [42420, "bool", !1, !1],
       unified_session_log_call_event: [8582, "bool", !1, !1],
       unify_end_call_events: [2856, "bool", !1, !1],
       use_cached_app_settings_from_global_ctx: [13428, "bool", !0, !0],

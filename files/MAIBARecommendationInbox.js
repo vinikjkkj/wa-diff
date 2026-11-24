@@ -27,7 +27,22 @@ __d(
         };
       });
     }
-    l.useMAIBARecommendationInboxData = s;
+    function u(e, t) {
+      var n = new Set(
+        t
+          .map(function (e) {
+            return e.conversation_id;
+          })
+          .filter(Boolean),
+      );
+      return n.size === 0
+        ? e
+        : e.filter(function (e) {
+            return !n.has(e.external_conversation_id);
+          });
+    }
+    ((l.useMAIBARecommendationInboxData = s),
+      (l.withoutRecommendationThreads = u));
   },
   98,
 );

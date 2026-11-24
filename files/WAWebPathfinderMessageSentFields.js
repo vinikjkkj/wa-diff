@@ -4,20 +4,32 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e, s, u;
     function c(e) {
+      return d(e)
+        ? {
+            type: e.type,
+            subtype: e.subtype,
+            chatKind: p(e),
+            pairedMediaType: e.pairedMediaType,
+            associationType: e.associationType,
+            mediaType: _(e),
+          }
+        : null;
+    }
+    function d(e) {
       return (
         e.id.fromMe &&
         (e.type !== o("WAWebMsgType").MSG_TYPE.PROTOCOL ||
           e.subtype === "share_phone_number")
       );
     }
-    var d = new Set(["bot", "c.us", "hosted", "hosted.lid", "lid"]);
-    function m(e) {
-      var t = e.id.remote.server;
-      return t === "g.us" ? "group" : d.has(t) ? "user" : "other";
-    }
+    var m = new Set(["bot", "c.us", "hosted", "hosted.lid", "lid"]);
     function p(e) {
+      var t = e.id.remote.server;
+      return t === "g.us" ? "group" : m.has(t) ? "user" : "other";
+    }
+    function _(e) {
       var t,
-        n = _[e.type];
+        n = f[e.type];
       if (n != null) return n;
       if (
         e.type === o("WAWebMsgType").MSG_TYPE.ALBUM &&
@@ -30,7 +42,7 @@ __d(
         ? o("WAWebWamEnumMediaType").MEDIA_TYPE.TEXT
         : r;
     }
-    var _ =
+    var f =
       ((e = {}),
       (e[(s = o("WAWebMsgType")).MSG_TYPE.COMMENT] = (u = o(
         "WAWebWamEnumMediaType",
@@ -40,9 +52,10 @@ __d(
       (e[s.MSG_TYPE.RICH_RESPONSE] = u.MEDIA_TYPE.RICH_RESPONSE),
       (e[s.MSG_TYPE.SHARABLE_EVENT_INVITE] = u.MEDIA_TYPE.EVENT_INVITE),
       e);
-    ((l.isUserSend = c),
-      (l.getChatKind = m),
-      (l.getPathfinderMessageSentMediaType = p));
+    ((l.getPathfinderPostedSend = c),
+      (l.isUserSend = d),
+      (l.getChatKind = p),
+      (l.getPathfinderMessageSentMediaType = _));
   },
   98,
 );

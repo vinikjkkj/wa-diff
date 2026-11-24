@@ -6,11 +6,9 @@ __d(
     "WAWebBizAISettingsCategoryHandlers",
     "WAWebBizAISettingsVersionCollection",
     "WAWebBizAiBulkThreadControlLogEvents",
-    "WAWebBizAiLargeScreensGateModel",
     "WAWebBizAiResponseSettingsV2GateModel",
     "WAWebBizAiWebDataDownloadsGateModel",
     "WAWebBizAiWebEditingCoachingGateModel",
-    "WAWebBizAiWebSmartComposerAiListsGateModel",
     "WAWebChatCollection",
     "WAWebLidMigrationUtils",
     "WAWebProtobufSyncAction.pb",
@@ -45,22 +43,23 @@ __d(
       updateChatCapiThreadControl: async function (n) {
         var t = n.consumerLid,
           a = n.consumerPhoneNumber,
-          i = n.lastHandoffActor,
-          l = n.shouldSuppressNotification,
-          d = n.status,
-          m = n.suggestedRepliesEnabled,
-          p = n.timestampMs;
+          i = n.handoffReason,
+          l = n.lastHandoffActor,
+          d = n.shouldSuppressNotification,
+          m = n.status,
+          p = n.suggestedRepliesEnabled,
+          _ = n.timestampMs;
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
               "[BizAI] updateChatCapiThreadControl status=",
               "",
             ])),
-          d,
+          m,
         );
         try {
-          var _ = g(t, a);
-          if (_ == null) {
+          var f = g(t, a);
+          if (f == null) {
             (o("WALogger")
               .ERROR(
                 s ||
@@ -71,7 +70,7 @@ __d(
               .sendLogs("maiba-thread-control-chat-not-found"),
               o(
                 "WAWebBizAiBulkThreadControlLogEvents",
-              ).logThreadControlApplyOutcome("not_found", d));
+              ).logThreadControlApplyOutcome("not_found", m));
             return;
           }
           o("WALogger").LOG(
@@ -81,28 +80,29 @@ __d(
                 " chat=",
                 "",
               ])),
-            d,
-            _.id.toLogString(),
+            m,
+            f.id.toLogString(),
           );
-          var f = await o(
+          var h = await o(
             "WAWebAIAgentAIReplyUtils",
           ).applyServerEchoThreadControl({
-            chat: _,
+            chat: f,
             options: {
-              suppressNotification: l,
-              suggestedRepliesEnabled: m,
-              lastHandoffActor: i,
+              handoffReason: i,
+              suppressNotification: d,
+              suggestedRepliesEnabled: p,
+              lastHandoffActor: l,
             },
-            status: d,
-            timestampMs: p,
+            status: m,
+            timestampMs: _,
           });
           o(
             "WAWebBizAiBulkThreadControlLogEvents",
-          ).logThreadControlApplyOutcome(f, d);
+          ).logThreadControlApplyOutcome(h, m);
         } catch (e) {
           (o(
             "WAWebBizAiBulkThreadControlLogEvents",
-          ).logThreadControlApplyOutcome("failed", d),
+          ).logThreadControlApplyOutcome("failed", m),
             o("WALogger")
               .ERROR(
                 c ||
@@ -247,21 +247,11 @@ __d(
             "WAWebBizAISettingsVersionCollection",
           ).BizAISettingsVersionCollection.handleNudge(a, r, n));
       },
-      loadedBizAiLargeScreensGate: function (t) {
-        var e = t.enabled;
-        o("WAWebBizAiLargeScreensGateModel").applyBizAiLargeScreensGate(e);
-      },
       loadedBizAiResponseSettingsV2Gate: function (t) {
         var e = t.enabled;
         o(
           "WAWebBizAiResponseSettingsV2GateModel",
         ).applyBizAiResponseSettingsV2Gate(e);
-      },
-      loadedBizAiWebSmartComposerAiListsGate: function (t) {
-        var e = t.enabled;
-        o(
-          "WAWebBizAiWebSmartComposerAiListsGateModel",
-        ).applyBizAiWebSmartComposerAiListsGate(e);
       },
       loadedBizAiWebDataDownloadsGate: function (t) {
         var e = t.enabled;

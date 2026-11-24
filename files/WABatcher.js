@@ -12,7 +12,7 @@ __d(
         return (l && l.args === e && (l = null), o(e));
       }
       var u = function () {
-          if (l == null) return (e || (e = n("Promise"))).resolve();
+          if (l == null) return (e || (e = n("Promise"))).resolve(void 0);
           var t = l;
           return ((l = null), clearTimeout(t.timer), t.run(), t.batchPromise);
         },

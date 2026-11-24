@@ -161,13 +161,13 @@ __d(
         u = s.map(function (t) {
           return a ===
             o("WAWebVoipJsonParserPayloads").UpdateJoinableCallLogType.Create
-            ? g(t, e, l)
-            : y(t, e);
+            ? h(t, e, l)
+            : C(t, e);
         });
       else if (
         a === o("WAWebVoipJsonParserPayloads").UpdateJoinableCallLogType.Create
       )
-        u = [await h(e, r("nullthrows")(t), l)];
+        u = [await y(e, r("nullthrows")(t), l)];
       else {
         o("WALogger").LOG(
           c ||
@@ -183,21 +183,29 @@ __d(
       }
       await o("WAWebVoipAdHocCallLogs").settleAllOrThrow(
         u.map(function (e) {
-          return f(
+          return g(
             n,
             a,
-            i
-              ? babelHelpers.extends({}, e, {
-                  viewMode:
-                    o("WAWebViewMode.flow").ViewModeType
-                      .CALL_LOG_AD_HOC_GROUP_CALL,
-                })
-              : e,
+            f(
+              i
+                ? babelHelpers.extends({}, e, {
+                    viewMode:
+                      o("WAWebViewMode.flow").ViewModeType
+                        .CALL_LOG_AD_HOC_GROUP_CALL,
+                  })
+                : e,
+              n,
+            ),
           );
         }),
       );
     }
-    async function f(e, t, n) {
+    function f(e, t) {
+      return e.id.id === t
+        ? e
+        : babelHelpers.extends({}, e, { joinableCallId: t });
+    }
+    async function g(e, t, n) {
       var r = await o(
         "WAWebVoipActionWriteCallLogImpl",
       ).writeVoipCallLogMessageImpl(n.to, n, !1);
@@ -212,7 +220,7 @@ __d(
             "WAWebVoipOngoingCallCollection",
           ).WAWebVoipOngoingCallCollection.add(r, { merge: !0 }));
     }
-    function g(e, t, n) {
+    function h(e, t, n) {
       var r = t.CallParticipantInfos,
         a = t.SelfOtherDeviceConnected,
         i = t.VideoEnabled;
@@ -230,7 +238,7 @@ __d(
         n,
       );
     }
-    async function h(e, t, n) {
+    async function y(e, t, n) {
       var a,
         i = e.CallId,
         l = e.CallParticipantInfos,
@@ -287,7 +295,7 @@ __d(
         n,
       );
     }
-    function y(e, t) {
+    function C(e, t) {
       var n,
         r = t.CallParticipantInfos,
         a = t.CallSummary,
@@ -298,7 +306,7 @@ __d(
         c =
           s ===
           o("WAWebVoipJsonParserPayloads").UpdateJoinableCallLogType.Delete
-            ? C((n = e.callParticipants) != null ? n : [], a)
+            ? b((n = e.callParticipants) != null ? n : [], a)
             : s ===
                 o("WAWebVoipJsonParserPayloads").UpdateJoinableCallLogType
                   .Update
@@ -327,7 +335,7 @@ __d(
         selfOtherDeviceConnected: l,
       });
     }
-    function C(e, t) {
+    function b(e, t) {
       var n = t == null ? void 0 : t.Users;
       if (n == null) return e;
       var a = function (t) {

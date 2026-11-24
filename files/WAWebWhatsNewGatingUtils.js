@@ -1,9 +1,7 @@
 __d(
   "WAWebWhatsNewGatingUtils",
   [
-    "WAPromiseDelays",
     "WAWebABProps",
-    "WAWebBizAiLargeScreensGateModel",
     "WAWebColdLaunchDeeplink",
     "WAWebMobilePlatforms",
     "WAWebWhatsNewContent",
@@ -26,30 +24,18 @@ __d(
           !o("WAWebWhatsNewContent").hasSmbWhatsNewContent())
       );
     }
-    var u = 3e3;
-    async function c() {
-      return !o("WAWebMobilePlatforms").isSMB() ||
-        !o("WAWebWhatsNewContent").hasBizAgentWhatsNewHighlight() ||
-        o("WAWebBizAiLargeScreensGateModel").isBizAiLargeScreensGateEnabled()
-        ? !0
-        : (await o("WAPromiseDelays").delayMs(u),
-          o(
-            "WAWebBizAiLargeScreensGateModel",
-          ).isBizAiLargeScreensGateEnabled());
-    }
-    var d = 30,
-      m = 15;
-    function p() {
+    var u = 30,
+      c = 15;
+    function d() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_whats_new_auto_modal_short_cooldown",
       ) === !0
-        ? m
-        : d;
+        ? c
+        : u;
     }
     ((l.shouldShowWhatsNewAutoModalOnLaunch = e),
       (l.isWhatsNewAutoModalEnabled = s),
-      (l.resolveWhatsNewBizAgentEligible = c),
-      (l.getWhatsNewAutoModalCooldownDays = p));
+      (l.getWhatsNewAutoModalCooldownDays = d));
   },
   98,
 );

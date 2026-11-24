@@ -14,7 +14,7 @@ __d(
       u = 0;
     function c() {
       if (
-        (!r("WAWebHatchLinkedStatusManager").isLinked() && !h()) ||
+        (!r("WAWebHatchLinkedStatusManager").isLinked() && !g()) ||
         !o("WAWebHatchFrontendGating").isHatchCvmEnabled()
       )
         return null;
@@ -25,20 +25,17 @@ __d(
       return a ? "transferring" : n && (!t || u > 0) ? "pin_required" : null;
     }
     async function d(e) {
-      g(1);
+      f(1);
       try {
         return await e();
       } finally {
-        g(-1);
+        f(-1);
       }
     }
     function m() {
-      return c() != null || f();
+      return c() != null || _();
     }
-    function p() {
-      return o("WAWebHatchCvmSecretPref").peekHatchCvmVmType() === "standard";
-    }
-    function _(e) {
+    function p(e) {
       var t = o("WAWebHatchCvmSecretPref").subscribeToHatchCvmSecretChanges(e),
         n = r("WAWebHatchLinkedStatusManager").subscribeToLinkedStatus(
           function () {
@@ -52,14 +49,14 @@ __d(
         }
       );
     }
-    function f() {
+    function _() {
       return (
-        (r("WAWebHatchLinkedStatusManager").isLinked() || h()) &&
+        (r("WAWebHatchLinkedStatusManager").isLinked() || g()) &&
         !o("WAWebHatchFrontendGating").isHatchCvmEnabled() &&
         o("WAWebHatchCvmSecretPref").peekHatchCvmVmType() === "confidential"
       );
     }
-    function g(t) {
+    function f(t) {
       u += t;
       for (var n of Array.from(s))
         try {
@@ -76,7 +73,7 @@ __d(
             .sendLogs("hatch-cvm-read-only-listener-failed");
         }
     }
-    function h() {
+    function g() {
       return (
         r(
           "WAWebHatchLinkedStatusManager",
@@ -86,8 +83,7 @@ __d(
     ((l.getHatchCvmReadOnlyReason = c),
       (l.holdHatchCvmReadOnlyDuringPinCheck = d),
       (l.areHatchVmFeaturesHidden = m),
-      (l.isHatchCvmTransferToConfidential = p),
-      (l.subscribeToHatchCvmReadOnly = _));
+      (l.subscribeToHatchCvmReadOnly = p));
   },
   98,
 );

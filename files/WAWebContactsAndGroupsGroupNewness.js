@@ -12,17 +12,21 @@ __d(
         !m(e, t, n)
       );
     }
-    function u(e, t, n, r) {
-      var a,
-        i = (a = e.groupMetadata) == null ? void 0 : a.creation;
-      return m(e, t, r) && i != null
-        ? { author: null, reason: "created", t: i }
-        : n != null &&
-            o("WAWebContactsAndGroupsThisWeek").happenedThisWeek(n.t, t)
-          ? { author: n.author, reason: p(n.subtype), t: n.t }
-          : i != null &&
-              o("WAWebContactsAndGroupsThisWeek").happenedThisWeek(i, t)
-            ? { author: null, reason: "added", t: i }
+    function u(e) {
+      var t,
+        n = e.chat,
+        r = e.isMe,
+        a = e.myJoin,
+        i = e.now,
+        l = (t = n.groupMetadata) == null ? void 0 : t.creation;
+      return m(n, i, r) && l != null
+        ? { author: null, reason: "created", t: l }
+        : a != null &&
+            o("WAWebContactsAndGroupsThisWeek").happenedThisWeek(a.t, i)
+          ? { author: a.author, reason: p(a.subtype), t: a.t }
+          : l != null &&
+              o("WAWebContactsAndGroupsThisWeek").happenedThisWeek(l, i)
+            ? { author: null, reason: "added", t: l }
             : null;
     }
     function c(e, t, n) {

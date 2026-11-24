@@ -3,36 +3,66 @@ __d(
   [
     "JSResourceForInteraction",
     "WALogger",
+    "WAPromiseTimeout",
     "WAWebLazyLoadedRetriable",
+    "WAWebReleaseToEventLoop",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s,
-      u = r("WAWebLazyLoadedRetriable")(function () {
+      u,
+      c,
+      d,
+      m = (d = r("WAWebLazyLoadedRetriable"))(function () {
         return r("JSResourceForInteraction")(
           "WAWebVoipActionUncountUnresolvedPlaceholder",
         )
           .__setRef("WAWebVoipUnresolvedPlaceholderLoadable")
           .load();
       }, "VoipUncountUnresolvedPlaceholder"),
-      c = r("WAWebLazyLoadedRetriable")(function () {
+      p = d(function () {
         return r("JSResourceForInteraction")(
           "WAWebVoipActionCountShownPlaceholder",
         )
           .__setRef("WAWebVoipUnresolvedPlaceholderLoadable")
           .load();
       }, "VoipCountShownPlaceholder"),
-      d = r("WAWebLazyLoadedRetriable")(function () {
+      _ = d(function () {
         return r("JSResourceForInteraction")(
           "WAWebVoipActionSweepUnresolvedPlaceholders",
         )
           .__setRef("WAWebVoipUnresolvedPlaceholderLoadable")
           .load();
-      }, "VoipSweepUnresolvedPlaceholders");
-    function m() {
-      d().then(
+      }, "VoipSweepUnresolvedPlaceholders"),
+      f = 3e4,
+      g = 1e4,
+      h = d(function () {
+        return r("JSResourceForInteraction")(
+          "WAWebVoipActionRepairSwitchEntryCallLog",
+        )
+          .__setRef("WAWebVoipUnresolvedPlaceholderLoadable")
+          .load();
+      }, "VoipRepairSwitchEntryCallLog"),
+      y = d(async function () {
+        return r("JSResourceForInteraction")(
+          "WAWebVoipOrderingHiddenCallLogAlert",
+        )
+          .__setRef("WAWebVoipUnresolvedPlaceholderLoadable")
+          .load();
+      }, "VoipOrderingHiddenCallLogAlert"),
+      C = 1e4,
+      b = d(async function () {
+        return r("JSResourceForInteraction")("WAWebVoipCallLogOrderingPolicy")
+          .__setRef("WAWebVoipUnresolvedPlaceholderLoadable")
+          .load();
+      }, "VoipCallLogOrderingPolicy");
+    function v() {
+      return o("WAPromiseTimeout").promiseTimeout(b(), C);
+    }
+    function S() {
+      _().then(
         function (e) {
           var t = e.scheduleUnresolvedPlaceholderSweep;
           return t();
@@ -50,33 +80,76 @@ __d(
         },
       );
     }
-    function p(e) {
-      u().then(
+    function R(e) {
+      m().then(
         function (t) {
           var n = t.scheduleUnresolvedPlaceholderCheck;
           return n(e);
         },
         function (t) {
-          return f(e, t);
+          return T(e, t);
         },
       );
     }
-    function _(e) {
-      c().then(
+    function L(e) {
+      p().then(
         function (t) {
           var n = t.queueCountShownPlaceholderAgain;
           return n(e);
         },
         function (t) {
-          return f(e, t);
+          return T(e, t);
         },
       );
     }
-    function f(e, t) {
+    function E(e, t) {
+      D(e.id, function (n) {
+        var r = n.repairSwitchEntryCallLog;
+        return r(e, t);
+      });
+    }
+    function k(e, t, n) {
+      var r = babelHelpers.extends({}, e, {
+        participants: e.participants.map(function (e) {
+          return babelHelpers.extends({}, e);
+        }),
+      });
+      D(t, function (e) {
+        var o = e.repairSyncedRootCallLog;
+        return o(r, t, n);
+      });
+    }
+    function I(e) {
+      o("WAWebReleaseToEventLoop")
+        .releaseToEventLoop()
+        .then(function () {
+          return o("WAPromiseTimeout").promiseTimeout(y(), g);
+        })
+        .then(
+          function (t) {
+            var n = t.alertOrderingHiddenCallLog;
+            return n(e);
+          },
+          function (t) {
+            o("WALogger")
+              .WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[voip] call log ",
+                    ": out-of-order alert not loaded",
+                  ])),
+                e.msg.id.id,
+              )
+              .catching(r("getErrorSafe")(t))
+              .tags("non-sad");
+          },
+        );
+    }
+    function T(e, t) {
       o("WALogger")
         .WARN(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
               "[voip] placeholder ",
               ": unread update not loaded",
             ])),
@@ -85,9 +158,34 @@ __d(
         .catching(r("getErrorSafe")(t))
         .tags("non-sad");
     }
-    ((l.scheduleUnresolvedPlaceholderSweepLoadable = m),
-      (l.scheduleUnresolvedPlaceholderCheckLoadable = p),
-      (l.countShownPlaceholderAgainLoadable = _));
+    function D(e, t) {
+      o("WAWebReleaseToEventLoop")
+        .releaseToEventLoop()
+        .then(function () {
+          return o("WAPromiseTimeout").promiseTimeout(h(), f);
+        })
+        .then(t)
+        .catch(function (t) {
+          o("WALogger")
+            .WARN(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[voip] call log ",
+                  ": switch entry repair not done",
+                ])),
+              e,
+            )
+            .catching(r("getErrorSafe")(t))
+            .tags("non-sad");
+        });
+    }
+    ((l.loadCallLogOrderingPolicy = v),
+      (l.scheduleUnresolvedPlaceholderSweepLoadable = S),
+      (l.scheduleUnresolvedPlaceholderCheckLoadable = R),
+      (l.countShownPlaceholderAgainLoadable = L),
+      (l.scheduleSwitchEntryCallLogRepair = E),
+      (l.scheduleSyncedRootCallLogRepair = k),
+      (l.scheduleOrderingHiddenCallLogAlertLoadable = I));
   },
   98,
 );

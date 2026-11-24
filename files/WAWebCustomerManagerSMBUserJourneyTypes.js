@@ -4,6 +4,7 @@ __d(
   function (t, n, r, o, a, i) {
     var e = {
       ADD_CUSTOMER_BUTTON: "add_customer_button",
+      ADD_CUSTOMER_SAVE: "customer_manager_add_customer_save",
       CANCEL_BUTTON: "cancel_button",
       CLOSE_BUTTON: "close_button",
       DISMISS: "dismiss",
@@ -24,10 +25,8 @@ __d(
       LAST_MESSAGE_FILTER_CHIP: "last_message_filter_chip",
       LEAD_STAGE_FILTER_CHIP: "lead_stage_filter_chip",
       CUSTOMER_MANAGER_PIPELINE_CLICK: "customer_manager_pipeline_click",
-      ROW: "row",
       ROW_CHAT_BUTTON: "row_chat_button",
       SAVE_ACTION: "save_action",
-      SAVE_BUTTON: "save_button",
       SEARCH_INPUT: "search_input",
       VIEW_SWITCHER: "view_switcher",
       VIEW_TOGGLE_LIST: "view_toggle_list",

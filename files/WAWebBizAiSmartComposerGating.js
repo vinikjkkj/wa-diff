@@ -3,59 +3,37 @@ __d(
   [
     "WAWebBizAiAgentGating",
     "WAWebBizAiAgentStatusUtils",
-    "WAWebBizAiWebSmartComposerAiListsGateModel",
     "WAWebMobilePlatforms",
-    "useWAWebBizAiWebSmartComposerAiListsGateEnabled",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return p() && o("WAWebBizAiAgentStatusUtils").hasOnboardedAiAgent();
+      return c() && o("WAWebBizAiAgentStatusUtils").hasOnboardedAiAgent();
     }
     function s(e) {
       return !e.id.isAiHub();
     }
     function u(e, t) {
       return (
-        o("WAWebBizAiAgentStatusUtils").isChatEligibleForAiAgent(e, t) && m()
+        o("WAWebBizAiAgentStatusUtils").isChatEligibleForAiAgent(e, t) && d()
       );
     }
     function c() {
-      return _(r("useWAWebBizAiWebSmartComposerAiListsGateEnabled")());
-    }
-    function d(e) {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
-        _(e) &&
+        d() &&
         o("WAWebBizAiAgentGating").isAiAgentAutoReplyEnabled()
       );
     }
-    function m() {
-      return _(
-        o(
-          "WAWebBizAiWebSmartComposerAiListsGateModel",
-        ).isBizAiWebSmartComposerAiListsGateEnabled(),
-      );
-    }
-    function p() {
-      return d(
-        o(
-          "WAWebBizAiWebSmartComposerAiListsGateModel",
-        ).isBizAiWebSmartComposerAiListsGateEnabled(),
-      );
-    }
-    function _(e) {
-      return (
-        !o("WAWebBizAiAgentGating").isSmartComposerAiListsEmergencyDisabled() &&
-        e &&
-        o("WAWebBizAiAgentGating").isSmartComposerWebEnabled()
-      );
+    function d() {
+      return !o(
+        "WAWebBizAiAgentGating",
+      ).isSmartComposerAiListsEmergencyDisabled();
     }
     ((l.isSmartComposerShellEnabled = e),
       (l.shouldUseSmartComposerShellForChat = s),
       (l.isSmartComposerEnabledForChat = u),
-      (l.useIsSmartComposerWebUIEnabled = c),
-      (l.isSmartComposerShellBaseEnabledWithJointGate = d),
-      (l.isSmartComposerWebUIEnabled = m));
+      (l.isSmartComposerShellBaseEnabled = c),
+      (l.isSmartComposerWebUIEnabled = d));
   },
   98,
 );

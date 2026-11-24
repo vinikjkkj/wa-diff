@@ -5,9 +5,12 @@ __d(
     "WACustomError",
     "WALogger",
     "WAPromiseTimeout",
+    "WAWebBuildType",
     "WAWebPonyfillsIdleCallback",
     "WAWebQplFlowWrapper",
     "WAWebUserPrefsMeUser",
+    "WAWebWamEnumAppBuildType",
+    "WAWebWindowsBuildType",
     "WAWebWindowsHybridBridgeCommon",
     "WAWebWindowsStartupQplEvents",
     "WAWebWindowsStartupReportParser",
@@ -213,7 +216,8 @@ __d(
         r = e.report,
         a = r.attempts,
         i = r.current,
-        l = r.firstInstallLaunch;
+        l = r.firstInstallLaunch,
+        s = ee();
       return (
         i != null &&
           (H(i)
@@ -224,18 +228,18 @@ __d(
                   ])),
               )
             : (U(i.id, function () {
-                return G(i, e, t);
+                return G(i, e, t, s);
               }),
               n.push(i.id))),
         a.forEach(function (e, t) {
           (U(e.id, function () {
-            return J(e, t);
+            return J(e, t, s);
           }),
             n.push(e.id));
         }),
         l != null &&
           (U(l.id, function () {
-            return Z(l, a.length);
+            return Z(l, a.length, s);
           }),
           n.push(l.id)),
         n
@@ -270,36 +274,37 @@ __d(
     function H(e) {
       return R[e.navOutcome] === 2 && e.points.nav_completed == null;
     }
-    function G(e, t, n) {
-      var r,
-        a,
-        i = t.processStartWeb,
-        l = i + ((r = e.points.nav_completed) != null ? r : 0),
-        s = o("WAWebQplFlowWrapper").QPL.markerStart(
+    function G(e, t, n, r) {
+      var a,
+        i,
+        l = t.processStartWeb,
+        s = l + ((a = e.points.nav_completed) != null ? a : 0),
+        u = o("WAWebQplFlowWrapper").QPL.markerStart(
           o("WAWebWindowsStartupQplEvents").WINDOWS_HYBRID_STARTUP_EVENT,
           {
-            timestamp: o("WAWebWindowsStartupWebTimings").toQplTimestamp(i),
+            timestamp: o("WAWebWindowsStartupWebTimings").toQplTimestamp(l),
             instanceKey: v,
           },
         );
-      (z(s, e.points, i),
+      (z(u, e.points, l),
         t.clockSyncErrorMs > p &&
-          s.annotate({ int: babelHelpers.extends({}, j(e.points)) }));
-      var u = K(s, e, t);
-      (s.annotate({
+          u.annotate({ int: babelHelpers.extends({}, j(e.points)) }));
+      var c = K(u, e, t);
+      (u.annotate({
         int: babelHelpers.extends({}, e.annotations.int, {
           hyb_nav_outcome: e.navOutcome,
           hyb_clock_sync_error_ms: Math.round(t.clockSyncErrorMs),
-          hyb_web_timing_status: u,
+          hyb_web_timing_status: c,
           hyb_reporter_ms: Math.round(self.performance.now() - n),
+          hyb_app_build: r,
         }),
         string: babelHelpers.extends({}, e.annotations.string),
         bool: babelHelpers.extends({}, e.annotations.bool, {
           hyb_logged_in: o("WAWebUserPrefsMeUser").getMaybeMeLidUser() != null,
         }),
       }),
-        s.end((a = R[e.navOutcome]) != null ? a : 3, {
-          timestamp: o("WAWebWindowsStartupWebTimings").toQplTimestamp(l),
+        u.end((i = R[e.navOutcome]) != null ? i : 3, {
+          timestamp: o("WAWebWindowsStartupWebTimings").toQplTimestamp(s),
         }));
     }
     function z(e, t, n) {
@@ -367,38 +372,56 @@ __d(
           timestamp: o("WAWebWindowsStartupWebTimings").toQplTimestamp(n),
         });
     }
-    function J(e, t) {
-      var n = o("WAWebQplFlowWrapper").QPL.markerStart(
+    function J(e, t, n) {
+      var r = o("WAWebQplFlowWrapper").QPL.markerStart(
         o("WAWebWindowsStartupQplEvents").WINDOWS_HYBRID_STARTUP_ATTEMPT_EVENT,
         { instanceKey: t + 1 },
       );
-      (n.annotate({
+      (r.annotate({
         int: babelHelpers.extends({}, e.annotations.int, {
           hyb_nav_outcome: e.navOutcome,
+          hyb_app_build: n,
         }),
         string: babelHelpers.extends({}, e.annotations.string),
         bool: babelHelpers.extends({}, e.annotations.bool),
       }),
-        n.end(L.has(e.navOutcome) ? 4 : 3));
+        r.end(L.has(e.navOutcome) ? 4 : 3));
     }
-    function Z(e, t) {
-      var n,
-        r = o("WAWebQplFlowWrapper").QPL.markerStart(
+    function Z(e, t, n) {
+      var r,
+        a = o("WAWebQplFlowWrapper").QPL.markerStart(
           o("WAWebWindowsStartupQplEvents")
             .WINDOWS_HYBRID_STARTUP_ATTEMPT_EVENT,
           { instanceKey: t + 1 },
         );
-      (r.annotate({
+      (a.annotate({
         int: babelHelpers.extends({}, e.annotations.int, j(e.points), {
           hyb_nav_outcome: e.navOutcome,
           hyb_first_launch_after_update: E,
+          hyb_app_build: n,
         }),
         string: babelHelpers.extends({}, e.annotations.string),
         bool: babelHelpers.extends({}, e.annotations.bool, {
           hyb_signed_out_launch: !0,
         }),
       }),
-        r.end((n = R[e.navOutcome]) != null ? n : 3));
+        a.end((r = R[e.navOutcome]) != null ? r : 3));
+    }
+    function ee() {
+      return (function (e) {
+        if (e === o("WAWebBuildType").BuildType.DEBUG)
+          return o("WAWebWamEnumAppBuildType").APP_BUILD_TYPE.DEBUG;
+        if (e === o("WAWebBuildType").BuildType.ALPHA)
+          return o("WAWebWamEnumAppBuildType").APP_BUILD_TYPE.ALPHA;
+        if (e === o("WAWebBuildType").BuildType.BETA)
+          return o("WAWebWamEnumAppBuildType").APP_BUILD_TYPE.BETA;
+        if (e === o("WAWebBuildType").BuildType.RELEASE)
+          return o("WAWebWamEnumAppBuildType").APP_BUILD_TYPE.RELEASE;
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      })(o("WAWebWindowsBuildType").getWindowsBuildType());
     }
     ((l.startReportingStartupTrace = D),
       (l.reportStartupTraceWithRetry = x),

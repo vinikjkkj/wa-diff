@@ -7,6 +7,7 @@ __d(
     "WAWebBizAiAgentStatusUtils",
     "WAWebBizAiCapiThreadControl",
     "WAWebBizAiMuteUnmuteErrorDrawer.react",
+    "WAWebBizAiReadyToBuyHandoff",
     "WAWebModalManager",
     "WAWebProtobufsE2E.pb",
     "getErrorSafe",
@@ -187,39 +188,38 @@ __d(
         i.watermarkMs = Math.max(i.watermarkMs, a);
       }
       if (i.pendingMutations > 0) return "pending";
-      var l = E(t, r, n);
+      var l = k(t, r, n);
       if (
         ((i.serverConfirmed = r), (i.desired = r), t.capiThreadControl !== r)
       ) {
-        var s = k(t, n, l);
-        return (
-          s == null
-            ? await o("WAWebBizAiCapiThreadControl").setCapiThreadControl(t, r)
-            : await o("WAWebBizAiCapiThreadControl").setCapiThreadControl(
-                t,
-                r,
-                s,
-              ),
-          "applied"
-        );
+        var s = I(t, n, l),
+          u =
+            s == null
+              ? o("WAWebBizAiCapiThreadControl").setCapiThreadControl(t, r)
+              : o("WAWebBizAiCapiThreadControl").setCapiThreadControl(t, r, s);
+        return (L(t, n), await u, "applied");
       }
-      var u = I({
+      var c = T({
           chat: t,
           suggestedRepliesEnabled:
             n == null ? void 0 : n.suggestedRepliesEnabled,
         }),
-        c =
+        d =
           l != null
             ? o("WAWebBizAiCapiThreadControl").setAiLastHandoffActor(t, l)
             : Promise.resolve();
-      return (await Promise.all([u, c]), "applied");
+      return (L(t, n), await Promise.all([c, d]), "applied");
     }
     function R(e, t) {
       return o("WAWebBizAiAgentGating").isCompanionThreadSyncFixEnabled()
         ? Math.floor(e / m) < Math.floor(t / m)
         : e <= t;
     }
-    function L(e, t, n) {
+    function L(e, t) {
+      var n = t == null ? void 0 : t.handoffReason;
+      n != null && o("WAWebBizAiReadyToBuyHandoff").recordAiHandoffReason(e, n);
+    }
+    function E(e, t, n) {
       return (
         e.capiThreadControl !== t ||
         (t ===
@@ -230,17 +230,17 @@ __d(
           (e.suggestedRepliesEnabled === !0) !== n)
       );
     }
-    function E(e, t, n) {
+    function k(e, t, n) {
       var r = n == null ? void 0 : n.lastHandoffActor;
       return r == null
         ? null
         : r.actor != null
           ? r.actor
-          : L(e, t, n == null ? void 0 : n.suggestedRepliesEnabled)
+          : E(e, t, n == null ? void 0 : n.suggestedRepliesEnabled)
             ? "UNKNOWN"
             : null;
     }
-    function k(e, t, n) {
+    function I(e, t, n) {
       var r =
           (t == null ? void 0 : t.suppressNotification) === !0
             ? babelHelpers.extends({}, d)
@@ -254,7 +254,7 @@ __d(
         Object.keys(r).length > 0 ? r : null
       );
     }
-    function I(e) {
+    function T(e) {
       var t = e.chat,
         n = e.suggestedRepliesEnabled;
       return typeof n != "boolean"

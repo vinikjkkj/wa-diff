@@ -2,11 +2,13 @@ __d(
   "WAWebCommsConfigBase",
   [
     "WALogger",
+    "WASmaxUnifiedSessionShareRPC",
     "WAWapJid",
     "WAWebABProps",
     "WAWebBackendEventBusWorkerCompatible",
     "WAWebCommsProcessAck",
     "WAWebCommsSendPing",
+    "WAWebCommsUnifiedSessionId",
     "WAWebEnvironment",
     "WAWebNoop",
     "WAWebOfflineResumePreAckHandler",
@@ -14,28 +16,31 @@ __d(
     "WAWebSocketConstants",
     "WAWebStanzaValidation",
     "cr:17672",
+    "getErrorSafe",
     "gkx",
+    "justknobx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = 9e5;
-    function u(e, t) {
+      s,
+      u = 9e5;
+    function c(e, t) {
       !r("gkx")("16539") ||
         n("cr:17672") == null ||
         (o("WAWebABProps").getABPropConfigValue("web_memlab_fixes_4") &&
           !n("cr:17672").hasDevToolHandler()) ||
         n("cr:17672").sendNewStanzaToDevTool(e, t);
     }
-    function c() {
+    function d() {
       return {
         jitter: 0.1,
-        max: s,
+        max: u,
         algo: { type: "fibonacci", first: 1e3, second: 1e3 },
         relativeDelay: !1,
       };
     }
-    function d(t) {
+    function m(t) {
       var n = o(
         "WAWebOfflineResumePreAckHandler",
       ).createParseAndSerializeOfflinePreAck(t.isRegistered);
@@ -60,14 +65,15 @@ __d(
           },
           healthCheckInterval: 15,
           deadSocketTime: 2e4,
-          maxSocketLoopWaitTime: s,
+          maxSocketLoopWaitTime: u,
           shouldCloseStaleSocket: !0,
-          socketReconnectBackoffAlgo: c(),
+          socketReconnectBackoffAlgo: d(),
           shouldBlockReceivingUntilSuccess: !0,
           handlers: {
             onConnect: function () {
               t.isRegistered() &&
-                (o("WAWebBackendEventBusWorkerCompatible")
+                (p(),
+                o("WAWebBackendEventBusWorkerCompatible")
                   .getBackendEventBus()
                   .triggerSetSocketState(
                     o("WAWebSocketConstants").SOCKET_STATE.CONNECTED,
@@ -121,14 +127,14 @@ __d(
                     n,
                   )
                   .sendLogs("send-string-jid"),
-                u(n, !0),
+                c(n, !0),
                 o("WAWebStanzaValidation").validateSentStanza(n));
             },
             onHandleAck: function (t) {
               r("WAWebCommsProcessAck")(t);
             },
             onHandleStanza: function (t) {
-              u(t, !1);
+              c(t, !1);
             },
             onSendIq: o("WAWebStanzaValidation").validateSentStanza,
             onClockSkewUpdate:
@@ -140,7 +146,29 @@ __d(
         };
       };
     }
-    l.createGetCommsConfig = d;
+    function p() {
+      try {
+        var e = o("WAWebCommsUnifiedSessionId").getCommsUnifiedSessionId();
+        if (e == null || !r("justknobx")._("5513")) return;
+        o("WASmaxUnifiedSessionShareRPC")
+          .sendShareRPC({ unifiedSessionId: e })
+          .catch(_);
+      } catch (e) {
+        _(e);
+      }
+    }
+    function _(e) {
+      o("WALogger")
+        .ERROR(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "[comms] unified session share failed",
+            ])),
+        )
+        .catching(r("getErrorSafe")(e))
+        .sendLogs("unified-session-share-failed");
+    }
+    ((l.createGetCommsConfig = m), (l.shareUnifiedSessionId = p));
   },
   98,
 );

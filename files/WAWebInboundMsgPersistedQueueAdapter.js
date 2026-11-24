@@ -4,6 +4,7 @@ __d(
     "Promise",
     "WALogger",
     "WAResolvable",
+    "WAWebBoolFunc",
     "WAWebMessageCacheOneQueueFlushable",
     "WAWebNoop",
     "getErrorSafe",
@@ -28,9 +29,7 @@ __d(
       p = !1,
       _ = r("WAWebNoop"),
       f = !1,
-      g = function () {
-        return !1;
-      },
+      g = o("WAWebBoolFunc").returnFalse,
       h = !1;
     function y(e) {
       d = e;
@@ -41,9 +40,7 @@ __d(
         (p = !1),
         (_ = r("WAWebNoop")),
         (f = !1),
-        (g = function () {
-          return !1;
-        }),
+        (g = o("WAWebBoolFunc").returnFalse),
         (h = !1));
     }
     function b(e) {

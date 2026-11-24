@@ -1,6 +1,6 @@
 __d(
   "WAWebLoggerWorker",
-  ["WATagsLogger", "gkx"],
+  ["WATagsLogger", "WAWebConsoleLogLevelChannel", "gkx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 3;
@@ -37,7 +37,8 @@ __d(
       },
     };
     function c() {
-      o("WATagsLogger").initializeWaLogger(u);
+      (o("WATagsLogger").initializeWaLogger(u),
+        o("WAWebConsoleLogLevelChannel").subscribeConsoleLogLevel(s));
     }
     function d(e) {
       if (m(e)) {

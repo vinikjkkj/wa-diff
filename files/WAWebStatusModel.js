@@ -251,11 +251,11 @@ __d(
             return (
               t === void 0 && (t = o("WAWebCollectionConstants").PAGE_SIZE),
               this.msgs.msgLoadState.noEarlierMsgs
-                ? Promise.resolve()
+                ? Promise.resolve(void 0)
                 : this.msgs.msgLoadState.isLoadingEarlierMsgs
                   ? this.msgs.loadEarlierPromise
                   : ((this.msgs.msgLoadState.noEarlierMsgs = !0),
-                    Promise.resolve())
+                    Promise.resolve(void 0))
             );
           }),
           (a.handleReadStatus = function (t) {

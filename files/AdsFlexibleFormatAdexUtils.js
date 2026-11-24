@@ -319,11 +319,10 @@ __d(
         : O(a);
     }
     function U(e, t) {
-      return r("justknobx")._("6898")
-        ? o("AdsAPICampaignRecordUtils").isScheduledLiveVideoAd(e) ||
-            (t != null &&
-              o("AdsAPIAdgroupRecordUtils").isScheduledLiveVideoAd(t))
-        : !1;
+      return (
+        o("AdsAPICampaignRecordUtils").isScheduledLiveVideoAd(e) ||
+        (t != null && o("AdsAPIAdgroupRecordUtils").isScheduledLiveVideoAd(t))
+      );
     }
     function V(e, t) {
       return o("AdsPCAUnifiedFormatEligibilityUtils").isEligiblePCAUnifiedL1(

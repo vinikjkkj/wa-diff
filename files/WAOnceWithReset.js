@@ -3,25 +3,24 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     "use strict";
-    var e = {};
-    function l(t) {
-      var n = e,
-        r = function () {
-          if (n === e) {
-            for (var r = arguments.length, o = new Array(r), a = 0; a < r; a++)
-              o[a] = arguments[a];
-            n = t.call.apply(t, [this].concat(o));
+    function e(e) {
+      var t = null,
+        n = function () {
+          if (t == null) {
+            for (var n = arguments.length, r = new Array(n), o = 0; o < n; o++)
+              r[o] = arguments[o];
+            t = { value: e.call.apply(e, [this].concat(r)) };
           }
-          return n;
+          return t.value;
         };
       return (
-        (r.reset = function () {
-          n = e;
+        (n.reset = function () {
+          t = null;
         }),
-        r
+        n
       );
     }
-    i.default = l;
+    i.default = e;
   },
   66,
 );

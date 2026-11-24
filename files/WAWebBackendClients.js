@@ -1,7 +1,6 @@
 __d(
   "WAWebBackendClients",
   [
-    "JSResourceForInteraction",
     "WAWebAddonServiceClient",
     "WAWebBlocklistServiceClient",
     "WAWebChatDeleteServiceClient",
@@ -41,178 +40,176 @@ __d(
     "WAWebScheduledMessageServiceClient",
     "WAWebSpamServiceClient",
     "WAWebStatusUpdatesServiceClient",
+    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = r("JSResourceForInteraction")("WAWebBackendRuntimeWebDi").__setRef(
+    var e = r("requireDeferred")("WAWebBackendRuntimeWebDi").__setRef(
         "WAWebBackendClients",
       ),
       s = {
-        WAAddonService: m(function () {
-          return o("WAWebAddonServiceClient").addonServiceClient(d);
+        WAAddonService: d(function () {
+          return o("WAWebAddonServiceClient").addonServiceClient(c);
         }),
-        WABlocklistService: m(function () {
-          return o("WAWebBlocklistServiceClient").blocklistServiceClient(d);
+        WABlocklistService: d(function () {
+          return o("WAWebBlocklistServiceClient").blocklistServiceClient(c);
         }),
-        WAChatDeleteService: m(function () {
-          return o("WAWebChatDeleteServiceClient").chatDeleteServiceClient(d);
+        WAChatDeleteService: d(function () {
+          return o("WAWebChatDeleteServiceClient").chatDeleteServiceClient(c);
         }),
-        WAChatPinService: m(function () {
-          return o("WAWebChatPinServiceClient").chatPinServiceClient(d);
+        WAChatPinService: d(function () {
+          return o("WAWebChatPinServiceClient").chatPinServiceClient(c);
         }),
-        WAChatReadService: m(function () {
-          return o("WAWebChatReadServiceClient").chatReadServiceClient(d);
+        WAChatReadService: d(function () {
+          return o("WAWebChatReadServiceClient").chatReadServiceClient(c);
         }),
-        WAChatSettingsService: m(function () {
+        WAChatSettingsService: d(function () {
           return o("WAWebChatSettingsServiceClient").chatSettingsServiceClient(
-            d,
+            c,
           );
         }),
-        WAChatStateService: m(function () {
-          return o("WAWebChatStateServiceClient").chatStateServiceClient(d);
+        WAChatStateService: d(function () {
+          return o("WAWebChatStateServiceClient").chatStateServiceClient(c);
         }),
-        WAChatStoreService: m(function () {
-          return o("WAWebChatStoreServiceClient").chatStoreServiceClient(d);
+        WAChatStoreService: d(function () {
+          return o("WAWebChatStoreServiceClient").chatStoreServiceClient(c);
         }),
-        WACommunityService: m(function () {
-          return o("WAWebCommunityServiceClient").communityServiceClient(d);
+        WACommunityService: d(function () {
+          return o("WAWebCommunityServiceClient").communityServiceClient(c);
         }),
-        WAContactQueryService: m(function () {
+        WAContactQueryService: d(function () {
           return o("WAWebContactQueryServiceClient").contactQueryServiceClient(
-            d,
+            c,
           );
         }),
-        WAContactStoreService: m(function () {
+        WAContactStoreService: d(function () {
           return o("WAWebContactStoreServiceClient").contactStoreServiceClient(
-            d,
+            c,
           );
         }),
-        WADisappearingModeService: m(function () {
+        WADisappearingModeService: d(function () {
           return o(
             "WAWebDisappearingModeServiceClient",
-          ).disappearingModeServiceClient(d);
+          ).disappearingModeServiceClient(c);
         }),
-        WAGroupInviteService: m(function () {
-          return o("WAWebGroupInviteServiceClient").groupInviteServiceClient(d);
+        WAGroupInviteService: d(function () {
+          return o("WAWebGroupInviteServiceClient").groupInviteServiceClient(c);
         }),
-        WAGroupLifecycleService: m(function () {
+        WAGroupLifecycleService: d(function () {
           return o(
             "WAWebGroupLifecycleServiceClient",
-          ).groupLifecycleServiceClient(d);
+          ).groupLifecycleServiceClient(c);
         }),
-        WAGroupMembershipRequestsService: m(function () {
+        WAGroupMembershipRequestsService: d(function () {
           return o(
             "WAWebGroupMembershipRequestsServiceClient",
-          ).groupMembershipRequestsServiceClient(d);
+          ).groupMembershipRequestsServiceClient(c);
         }),
-        WAGroupParticipantsService: m(function () {
+        WAGroupParticipantsService: d(function () {
           return o(
             "WAWebGroupParticipantsServiceClient",
-          ).groupParticipantsServiceClient(d);
+          ).groupParticipantsServiceClient(c);
         }),
-        WAGroupQueryService: m(function () {
-          return o("WAWebGroupQueryServiceClient").groupQueryServiceClient(d);
+        WAGroupQueryService: d(function () {
+          return o("WAWebGroupQueryServiceClient").groupQueryServiceClient(c);
         }),
-        WAGroupSettingsService: m(function () {
+        WAGroupSettingsService: d(function () {
           return o(
             "WAWebGroupSettingsServiceClient",
-          ).groupSettingsServiceClient(d);
+          ).groupSettingsServiceClient(c);
         }),
-        WAGroupStoreService: m(function () {
-          return o("WAWebGroupStoreServiceClient").groupStoreServiceClient(d);
+        WAGroupStoreService: d(function () {
+          return o("WAWebGroupStoreServiceClient").groupStoreServiceClient(c);
         }),
-        WALidMappingService: m(function () {
-          return o("WAWebLidMappingServiceClient").lidMappingServiceClient(d);
+        WALidMappingService: d(function () {
+          return o("WAWebLidMappingServiceClient").lidMappingServiceClient(c);
         }),
-        WAMediaDownloadService: m(function () {
+        WAMediaDownloadService: d(function () {
           return o(
             "WAWebMediaDownloadServiceClient",
-          ).mediaDownloadServiceClient(d);
+          ).mediaDownloadServiceClient(c);
         }),
-        WAMediaUploadService: m(function () {
-          return o("WAWebMediaUploadServiceClient").mediaUploadServiceClient(d);
+        WAMediaUploadService: d(function () {
+          return o("WAWebMediaUploadServiceClient").mediaUploadServiceClient(c);
         }),
-        WAMessageDeleteService: m(function () {
+        WAMessageDeleteService: d(function () {
           return o(
             "WAWebMessageDeleteServiceClient",
-          ).messageDeleteServiceClient(d);
+          ).messageDeleteServiceClient(c);
         }),
-        WAMessageQueryService: m(function () {
+        WAMessageQueryService: d(function () {
           return o("WAWebMessageQueryServiceClient").messageQueryServiceClient(
-            d,
+            c,
           );
         }),
-        WAMessageSendService: m(function () {
-          return o("WAWebMessageSendServiceClient").messageSendServiceClient(d);
+        WAMessageSendService: d(function () {
+          return o("WAWebMessageSendServiceClient").messageSendServiceClient(c);
         }),
-        WAMessageStarService: m(function () {
-          return o("WAWebMessageStarServiceClient").messageStarServiceClient(d);
+        WAMessageStarService: d(function () {
+          return o("WAWebMessageStarServiceClient").messageStarServiceClient(c);
         }),
-        WAMessageStoreService: m(function () {
+        WAMessageStoreService: d(function () {
           return o("WAWebMessageStoreServiceClient").messageStoreServiceClient(
-            d,
+            c,
           );
         }),
-        WAPeerDataService: m(function () {
-          return o("WAWebPeerDataServiceClient").peerDataServiceClient(d);
+        WAPeerDataService: d(function () {
+          return o("WAWebPeerDataServiceClient").peerDataServiceClient(c);
         }),
-        WAPollService: m(function () {
-          return o("WAWebPollServiceClient").pollServiceClient(d);
+        WAPollService: d(function () {
+          return o("WAWebPollServiceClient").pollServiceClient(c);
         }),
-        WAPresenceService: m(function () {
-          return o("WAWebPresenceServiceClient").presenceServiceClient(d);
+        WAPresenceService: d(function () {
+          return o("WAWebPresenceServiceClient").presenceServiceClient(c);
         }),
-        WAPrivacyService: m(function () {
-          return o("WAWebPrivacyServiceClient").privacyServiceClient(d);
+        WAPrivacyService: d(function () {
+          return o("WAWebPrivacyServiceClient").privacyServiceClient(c);
         }),
-        WAProfilePictureService: m(function () {
+        WAProfilePictureService: d(function () {
           return o(
             "WAWebProfilePictureServiceClient",
-          ).profilePictureServiceClient(d);
+          ).profilePictureServiceClient(c);
         }),
-        WAProfileService: m(function () {
-          return o("WAWebProfileServiceClient").profileServiceClient(d);
+        WAProfileService: d(function () {
+          return o("WAWebProfileServiceClient").profileServiceClient(c);
         }),
-        WAReactionService: m(function () {
-          return o("WAWebReactionServiceClient").reactionServiceClient(d);
+        WAReactionService: d(function () {
+          return o("WAWebReactionServiceClient").reactionServiceClient(c);
         }),
-        WAReceiptService: m(function () {
-          return o("WAWebReceiptServiceClient").receiptServiceClient(d);
+        WAReceiptService: d(function () {
+          return o("WAWebReceiptServiceClient").receiptServiceClient(c);
         }),
-        WARevokeService: m(function () {
-          return o("WAWebRevokeServiceClient").revokeServiceClient(d);
+        WARevokeService: d(function () {
+          return o("WAWebRevokeServiceClient").revokeServiceClient(c);
         }),
-        WAScheduledMessageService: m(function () {
+        WAScheduledMessageService: d(function () {
           return o(
             "WAWebScheduledMessageServiceClient",
-          ).scheduledMessageServiceClient(d);
+          ).scheduledMessageServiceClient(c);
         }),
-        WASpamService: m(function () {
-          return o("WAWebSpamServiceClient").spamServiceClient(d);
+        WASpamService: d(function () {
+          return o("WAWebSpamServiceClient").spamServiceClient(c);
         }),
-        WAStatusUpdatesService: m(function () {
+        WAStatusUpdatesService: d(function () {
           return o(
             "WAWebStatusUpdatesServiceClient",
-          ).statusUpdatesServiceClient(d);
+          ).statusUpdatesServiceClient(c);
         }),
       };
     function u(e) {
       return s[e.id]();
     }
-    function c() {
-      e.preload();
-    }
-    async function d(t, n) {
+    async function c(t, n) {
       var r,
         o = (r = e.getModuleIfRequired()) != null ? r : await e.load();
       return o.run(t, n);
     }
-    function m(e) {
+    function d(e) {
       var t = null;
       return function () {
         return (t == null && (t = e()), t);
       };
     }
-    ((l.client = u), (l.preloadRuntime = c));
+    l.client = u;
   },
   98,
 );

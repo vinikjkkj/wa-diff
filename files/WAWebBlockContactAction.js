@@ -105,7 +105,7 @@ __d(
       var l = e.isContactBlocked,
         s = t && l,
         u = !t && !l;
-      if (s || u) return Promise.resolve();
+      if (s || u) return Promise.resolve(void 0);
       var c = y({
           action: t ? "block" : "unblock",
           bizOptOutArgs: r,

@@ -298,15 +298,19 @@ __d(
         !o("WAWebRuntimeEnvironmentUtils").isWorker())
       ) {
         var n = A(),
-          r = Array.from(n.values()).map(function (e) {
+          a = r("gkx")("16539"),
+          i = Array.from(n.values()).map(function (e) {
             return {
               configCode: e.configCode,
-              configValue: e.configValue,
+              configValue:
+                a && e.overriddenConfigValue != null
+                  ? e.overriddenConfigValue
+                  : e.configValue,
               awaitingExpoKey: D(e.configExpoKey),
             };
           });
         o("WAWebBackendWorkerInitState").recordInitAbProps({
-          configs: r,
+          configs: i,
           urlSearch: window.location.search,
         });
       }

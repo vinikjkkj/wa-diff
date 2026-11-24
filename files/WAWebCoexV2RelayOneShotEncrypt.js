@@ -26,17 +26,18 @@ __d(
     var e = ["aeaEvidence"],
       s,
       u,
-      c = o("WAWebWidFactory").createWid("1@bot"),
-      d = 36 * o("WATimeUtils").HOUR_SECONDS,
-      m = null,
-      p = null;
-    async function _(e) {
+      c,
+      d = o("WAWebWidFactory").createWid("1@bot"),
+      m = 36 * o("WATimeUtils").HOUR_SECONDS,
+      p = null,
+      _ = null;
+    async function f(e) {
       var t = e.coexV2SelfHosted,
         n = e.editType,
         a = e.msg,
         i = e.msgProtobuf,
         l = e.retryCount,
-        u = await f(l > 0),
+        u = await y(l > 0),
         c = u.keyInfo,
         d = {
           coexV2SelfHosted: t,
@@ -47,7 +48,7 @@ __d(
           to: o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID,
         };
       try {
-        var m = await C(c, o("WAWebSendMsgCommonApi").encodeAndPad(i));
+        var m = await R(c, o("WAWebSendMsgCommonApi").encodeAndPad(i));
         return (
           o(
             "WAWebPostE2eMessageSendMetric",
@@ -83,20 +84,44 @@ __d(
         );
       }
     }
-    function f(e) {
-      var t = m,
-        n = t != null && h(t) ? t : null;
-      if (p == null && !e && n != null) return Promise.resolve(n);
-      var a = p != null ? p : g();
-      return n == null
-        ? a
-        : a.catch(function (e) {
-            if (!h(n)) throw e;
-            return (
+    function g() {
+      return b() != null
+        ? !0
+        : (_ == null &&
+            C().catch(function (e) {
               o("WALogger")
                 .WARN(
                   u ||
                     (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[coexv2] shared prekey bundle warm-up fetch failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e));
+            }),
+          !1);
+    }
+    async function h(e) {
+      var t = e.forceFetch,
+        n = e.plaintext,
+        r = t ? null : b(),
+        o = r != null ? r : await y(t),
+        a = o.keyInfo;
+      return R(a, n);
+    }
+    function y(e) {
+      var t = p,
+        n = t != null && v(t) ? t : null;
+      if (_ == null && !e && n != null) return Promise.resolve(n);
+      var a = _ != null ? _ : C();
+      return n == null
+        ? a
+        : a.catch(function (e) {
+            if (!v(n)) throw e;
+            return (
+              o("WALogger")
+                .WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
                       "[coexv2] shared prekey bundle fetch failed, using the stored bundle",
                     ])),
                 )
@@ -105,18 +130,22 @@ __d(
             );
           });
     }
-    function g() {
-      var e = y().finally(function () {
-        p = null;
+    function C() {
+      var e = S().finally(function () {
+        _ = null;
       });
-      return ((p = e), e);
+      return ((_ = e), e);
     }
-    function h(e) {
-      return o("WATimeUtils").unixTime() < e.fetchedAtSec + d;
+    function b() {
+      var e = p;
+      return e != null && v(e) ? e : null;
     }
-    async function y() {
+    function v(e) {
+      return o("WATimeUtils").unixTime() < e.fetchedAtSec + m;
+    }
+    async function S() {
       var e = o("WATimeUtils").unixTime(),
-        t = await o("WAWebFetchPrekeysJob").fetchPrekeys([c]),
+        t = await o("WAWebFetchPrekeysJob").fetchPrekeys([d]),
         n = t.errors,
         a = t.prekeyBundles,
         i = a[0];
@@ -127,9 +156,9 @@ __d(
           : r("err")("[coexv2] no shared prekey bundle in response");
       }
       var s = { fetchedAtSec: e, keyInfo: i };
-      return ((m = s), s);
+      return ((p = s), s);
     }
-    async function C(t, n) {
+    async function R(t, n) {
       var a = await o("WAWebCryptoLibraryDbCallbacksApi")
         .getCryptoDbCallbacks()
         .getRegistrationInfo();
@@ -149,7 +178,7 @@ __d(
       if (!s.success) {
         var u;
         throw (
-          ((u = m) == null ? void 0 : u.keyInfo) === t && (m = null),
+          ((u = p) == null ? void 0 : u.keyInfo) === t && (p = null),
           r("err")(s.error)
         );
       }
@@ -183,7 +212,9 @@ __d(
         type: o("WAWebBackendJobs.flow").CiphertextType.Pkmsg,
       };
     }
-    l.encryptCoexV2RelayOneShot = _;
+    ((l.encryptCoexV2RelayOneShot = f),
+      (l.warmCoexV2BotPrekeyBundle = g),
+      (l.encryptForCoexV2Bot = h));
   },
   98,
 );

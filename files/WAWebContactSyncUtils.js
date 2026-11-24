@@ -23,34 +23,33 @@ __d(
       return (
         t.forEach(function (e) {
           if (e.type === "add") {
-            var t = new (o("WAWebUsyncUser").USyncUser)().withPhone(
-              e.phoneNumber,
-            );
+            var t = e.phoneNumber,
+              i = new (o("WAWebUsyncUser").USyncUser)().withPhone(
+                t.startsWith("+") ? t : "+" + t,
+              );
             (a.push({
-              user: t,
-              wid: o("WAWebContactSyncPrivacyHints").userWidFromPhone(
-                e.phoneNumber,
-              ),
+              user: i,
+              wid: o("WAWebContactSyncPrivacyHints").userWidFromPhone(t),
             }),
-              n.withUser(t));
+              n.withUser(i));
             return;
           }
           if (e.type === "add_username") {
-            var i = new (o("WAWebUsyncUser").USyncUser)()
+            var l = new (o("WAWebUsyncUser").USyncUser)()
               .withId(e.lid)
               .withUsername(e.username);
-            (a.push({ user: i, wid: e.lid }), n.withUser(i));
+            (a.push({ user: l, wid: e.lid }), n.withUser(l));
             return;
           }
           e.type;
-          var l = e.contact,
-            s = new (o("WAWebUsyncUser").USyncUser)().withType("delete");
-          if (l.isLid()) s.withId(l);
-          else if (l.isRegularUserPn()) {
-            var u = o("WAWebLidMigrationUtils").toUserLid(l);
-            (u != null && s.withId(u), s.withPnJid(l));
-          } else (s.withId(l), r.length < 3 && r.push(l.toLogString()));
-          (a.push({ user: s, wid: l }), n.withUser(s));
+          var s = e.contact,
+            u = new (o("WAWebUsyncUser").USyncUser)().withType("delete");
+          if (s.isLid()) u.withId(s);
+          else if (s.isRegularUserPn()) {
+            var c = o("WAWebLidMigrationUtils").toUserLid(s);
+            (c != null && u.withId(c), u.withPnJid(s));
+          } else (u.withId(s), r.length < 3 && r.push(s.toLogString()));
+          (a.push({ user: u, wid: s }), n.withUser(u));
         }),
         await o("WAWebContactSyncPrivacyHints").attachUsyncPrivacyHints(a),
         r.length > 0 &&

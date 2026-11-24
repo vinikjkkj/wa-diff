@@ -9,9 +9,7 @@ __d(
     "WAWebChatCollection",
     "WAWebContactCollection",
     "WAWebEphemeralityResolver",
-    "WAWebFetchBizAiLargeScreensGate",
     "WAWebFetchBizAiResponseSettingsV2Gate",
-    "WAWebFetchBizAiWebSmartComposerAiListsGate",
     "WAWebFetchQuickPromotions",
     "WAWebFtsClient",
     "WAWebGetNewChatMessageCappingInfoJob",
@@ -241,18 +239,6 @@ __d(
                 o("WAWebTasksTaskType").TaskType.FETCH_QUICK_PROMOTIONS,
               );
             });
-        },
-        fetchBizAiLargeScreensGate: function (t) {
-          var e = t.trigger;
-          return o(
-            "WAWebFetchBizAiLargeScreensGate",
-          ).fetchBizAiLargeScreensGate(e);
-        },
-        fetchBizAiWebSmartComposerAiListsGate: function (t) {
-          var e = t.trigger;
-          return o(
-            "WAWebFetchBizAiWebSmartComposerAiListsGate",
-          ).fetchBizAiWebSmartComposerAiListsGate(e);
         },
         fetchBizAiWebDataDownloadsGate: async function (t) {
           var e = t.trigger,

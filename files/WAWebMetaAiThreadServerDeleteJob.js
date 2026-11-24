@@ -7,7 +7,6 @@ __d(
     "WATimeUtils",
     "WAWebDefinePersistedJob",
     "WAWebNetworkStatus",
-    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -22,14 +21,14 @@ __d(
         },
       };
     async function d(e) {
-      var t = o("WAWebUserUtils").getMeLidUserOrThrow().toString(),
-        n = await s.load();
-      return n.enqueueMetaAiThreadServerDelete(e, t);
+      var t = await s.load();
+      return t.enqueueMetaAiThreadServerDelete(e);
     }
     var m = o("WAWebDefinePersistedJob")
       .defineWebPersistedJob()
       .finalStep("deleteOnServer", function (e) {
-        return p(e);
+        var t = e.botFbid;
+        return p(t);
       })
       .end();
     async function p(e) {

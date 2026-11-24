@@ -5,6 +5,7 @@ __d(
     "WAAPI",
     "WAArmadilloMiTransportAdminMessage.pb",
     "WABuildMpsPayload",
+    "WAGlobals",
     "WALogger",
     "WAMPSFlushable",
   ],
@@ -115,6 +116,35 @@ __d(
             break e;
           }
           if (
+            ((typeof l == "object" && l !== null) || typeof l == "function") &&
+            l.type === "join" &&
+            l.isNew === !1 &&
+            l.isE2EEMigration === !1 &&
+            "group" in l
+          ) {
+            var b = l.group,
+              v = l,
+              S = b.inviter,
+              R = o("WAGlobals").getMyUserJid();
+            S != null &&
+              S !== R &&
+              o("WAMPSFlushable").mpsFlushable.enqueue(
+                o("WABuildMpsPayload").buildMpsGroupParticipantsChanged(
+                  v.groupJid,
+                  S,
+                  [R],
+                  o("WAArmadilloMiTransportAdminMessage.pb")
+                    .MiTransportAdminMessage$GroupParticipantChanged$Action
+                    .ADDED,
+                  a,
+                  i,
+                ),
+                function () {},
+                "wa",
+              );
+            break e;
+          }
+          if (
             (((typeof l == "object" && l !== null) || typeof l == "function") &&
               l.type === "join") ||
             (((typeof l == "object" && l !== null) || typeof l == "function") &&
@@ -126,16 +156,16 @@ __d(
             l.type === "promote" &&
             "participants" in l
           ) {
-            var b = l.participants,
-              v = l,
-              S = v.groupJid,
-              R = v.participant;
-            R != null &&
+            var L = l.participants,
+              E = l,
+              k = E.groupJid,
+              I = E.participant;
+            I != null &&
               o("WAMPSFlushable").mpsFlushable.enqueue(
                 o("WABuildMpsPayload").buildMpsGroupAdminChangedMsg(
-                  S,
-                  R,
-                  b.map(function (e) {
+                  k,
+                  I,
+                  L.map(function (e) {
                     return e.user;
                   }),
                   o("WAArmadilloMiTransportAdminMessage.pb")
@@ -153,16 +183,16 @@ __d(
             l.type === "demote" &&
             "participants" in l
           ) {
-            var L = l.participants,
-              E = l,
-              k = E.groupJid,
-              I = E.participant;
-            I != null &&
+            var T = l.participants,
+              D = l,
+              x = D.groupJid,
+              $ = D.participant;
+            $ != null &&
               o("WAMPSFlushable").mpsFlushable.enqueue(
                 o("WABuildMpsPayload").buildMpsGroupAdminChangedMsg(
-                  k,
-                  I,
-                  L.map(function (e) {
+                  x,
+                  $,
+                  T.map(function (e) {
                     return e.user;
                   }),
                   o("WAArmadilloMiTransportAdminMessage.pb")
@@ -180,16 +210,16 @@ __d(
             l.type === "remove" &&
             "participants" in l
           ) {
-            var T = l.participants,
-              D = l,
-              x = D.groupJid,
-              $ = D.participant;
-            $ != null &&
+            var P = l.participants,
+              N = l,
+              M = N.groupJid,
+              w = N.participant;
+            w != null &&
               o("WAMPSFlushable").mpsFlushable.enqueue(
                 o("WABuildMpsPayload").buildMpsGroupParticipantsChanged(
-                  x,
-                  $,
-                  T.map(function (e) {
+                  M,
+                  w,
+                  P.map(function (e) {
                     return e.user;
                   }),
                   o("WAArmadilloMiTransportAdminMessage.pb")
@@ -208,16 +238,16 @@ __d(
             l.type === "add" &&
             "participants" in l
           ) {
-            var P = l.participants,
-              N = l,
-              M = N.groupJid,
-              w = N.participant;
-            w != null &&
+            var A = l.participants,
+              F = l,
+              O = F.groupJid,
+              B = F.participant;
+            B != null &&
               o("WAMPSFlushable").mpsFlushable.enqueue(
                 o("WABuildMpsPayload").buildMpsGroupParticipantsChanged(
-                  M,
-                  w,
-                  P.map(function (e) {
+                  O,
+                  B,
+                  A.map(function (e) {
                     return e.user;
                   }),
                   o("WAArmadilloMiTransportAdminMessage.pb")

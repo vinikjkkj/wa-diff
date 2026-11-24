@@ -107,6 +107,7 @@ __d(
           kind: "failed",
           failure: o ? "timeout" : "network",
           httpStatus: null,
+          errorName: h(e),
         };
       } finally {
         (self.clearTimeout(a), e == null || e.removeEventListener("abort", r));

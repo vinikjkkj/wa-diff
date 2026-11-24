@@ -63,7 +63,7 @@ __d(
               uptime: e.uptime,
             },
           ])
-        : Promise.resolve();
+        : Promise.resolve(void 0);
     }
     var b = 5e3,
       v = 60,

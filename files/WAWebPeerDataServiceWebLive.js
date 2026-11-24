@@ -1,25 +1,20 @@
 __d(
   "WAWebPeerDataServiceWebLive",
-  ["JSResourceForInteraction", "WAWebPeerDataService", "WebDi.Async"],
+  ["WAWebPeerDataService", "WAWebSendNonMessageDataRequest", "WebDi.Async"],
   function (t, n, r, o, a, i, l) {
-    var e = r("JSResourceForInteraction")(
-        "WAWebSendNonMessageDataRequest",
-      ).__setRef("WAWebPeerDataServiceWebLive"),
-      s = o("WAWebPeerDataService").PeerDataService.make(function* () {
-        var t = yield* o("WebDi.Async").fromPromise(function () {
-            return e.load();
-          }),
-          n = t.sendPeerDataOperationRequest,
-          r = {
-            sendPeerDataOperationRequest: function (t, r, a) {
-              return o("WebDi.Async").fromPromise(function () {
-                return n(t, r, a);
-              });
-            },
-          };
-        return r;
-      });
-    l.PeerDataServiceWebLive = s;
+    var e = o("WAWebPeerDataService").PeerDataService.make(function* () {
+      var e = {
+        sendPeerDataOperationRequest: function (t, n, r) {
+          return o("WebDi.Async").fromPromise(function () {
+            return o(
+              "WAWebSendNonMessageDataRequest",
+            ).sendPeerDataOperationRequest(t, n, r);
+          });
+        },
+      };
+      return e;
+    });
+    l.PeerDataServiceWebLive = e;
   },
   98,
 );

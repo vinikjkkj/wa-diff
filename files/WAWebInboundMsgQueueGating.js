@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e() {
       return (
-        o("WAWebJobsMigrationGating").isJobsManagerDecommissioned() &&
+        o("WAWebJobsMigrationGating").isJobsManagerDecommissionArm() &&
         o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled() &&
         r("qex")._("6205") === !0
       );

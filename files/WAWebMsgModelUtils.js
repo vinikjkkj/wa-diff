@@ -161,16 +161,10 @@ __d(
       );
     }
     function b(e) {
-      var t,
-        n =
-          (t = o("WAWebRichResponsePreviewText").getRichResponsePreviewText(
-            e,
-          )) != null
-            ? t
-            : "";
+      var t = o("WAWebRichResponsePreviewText").getRichResponseQuoteText(e);
       ((e.type = o("WAWebMsgType").MSG_TYPE.CHAT),
         (e.subtype = void 0),
-        (e.body = n),
+        (e.body = t),
         (e.richResponse = void 0),
         (e.unifiedResponse = void 0),
         (e.unifiedResponseRawData = void 0),

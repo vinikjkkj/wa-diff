@@ -90,7 +90,7 @@ __d(
     function m(e) {
       var t = o("WAWebMsgGetters").getLatestEditMsgKey(e);
       return t == null || !o("WAWebMsgActionCapability").canEditText(e)
-        ? Promise.resolve()
+        ? Promise.resolve(void 0)
         : o("WAWebDBMsgUtils")
             .getMsgByMsgKey(t)
             .then(function (t) {

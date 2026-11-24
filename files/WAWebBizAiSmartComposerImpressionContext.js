@@ -21,8 +21,9 @@ __d(
       h = new WeakMap(),
       y = new WeakMap(),
       C = new WeakMap(),
-      b = new WeakMap();
-    function v(t) {
+      b = new WeakMap(),
+      v = new WeakMap();
+    function S(t) {
       var n = t.children,
         a = p(new Set());
       return (
@@ -47,17 +48,17 @@ __d(
                   );
               }
             var i = f.get(a);
-            i != null && (f.delete(a), i.onExit(i.card));
+            (i != null && (f.delete(a), i.onExit(i.card)), $(a, "exit_chat"));
           }, []),
         ),
         u.jsx(g.Provider, { value: a, children: n })
       );
     }
-    v.displayName = v.name + " [from " + i.id + "]";
-    function S() {
+    S.displayName = S.name + " [from " + i.id + "]";
+    function R() {
       return m(g);
     }
-    function R(e, t) {
+    function L(e, t) {
       if (e === _) return function () {};
       var n = C.get(e);
       return (
@@ -70,11 +71,11 @@ __d(
         }
       );
     }
-    function L(e) {
+    function E(e) {
       var t, n;
       return (t = (n = f.get(e)) == null ? void 0 : n.card) != null ? t : null;
     }
-    function E(e, t, n) {
+    function k(e, t, n) {
       var r;
       if (e === _) return t;
       var o = (r = f.get(e)) == null ? void 0 : r.card,
@@ -90,24 +91,25 @@ __d(
       }
       return (f.set(e, { card: a, onExit: n }), a);
     }
-    function k(e, t) {
+    function I(e, t) {
       var n;
       ((n = f.get(e)) == null ? void 0 : n.card) === t && f.delete(e);
     }
-    function I(e) {
+    function T(e) {
       f.delete(e);
     }
-    function T(e, t) {
+    function D(e, t) {
       if (e !== _) {
         var n = t.status;
-        if (!B(n)) {
+        if (!U(n)) {
           b.delete(e);
           return;
         }
         var r = b.get(e);
-        if (W(r, t)) {
-          var a = q(t, n);
+        if (V(r, t)) {
+          var a = H(t, n);
           (b.set(e, a),
+            v.delete(e),
             a.actions.add("appear"),
             o("WAWebBizAiSmartComposerLogEvents").logSuggestionCardFunnel({
               action: "appear",
@@ -136,76 +138,72 @@ __d(
         }
       }
     }
-    function D(e, t) {
+    function x(e, t) {
       if (e === _) return null;
       var n = b.get(e);
-      if (n == null) return null;
-      if (t === "reply_message") return (b.delete(e), null);
-      if (n.actions.has("dismiss")) return null;
-      (n.actions.add("dismiss"),
-        o("WAWebBizAiSmartComposerLogEvents").logSuggestionCardFunnel({
-          action: "dismiss",
-          cardStatus: n.status,
-          cardType: n.cardType,
-          dismissReason: t,
-          errorCode: n.errorCode,
-          funnelId: n.funnelId,
-        }));
-      var r = n.cardType,
-        a = n.funnelId,
-        i = n.status;
-      return t !== "tapped" || i !== "success" || r == null
+      return n == null
         ? null
-        : function (e) {
-            n.actions.has("sent") ||
-              (n.actions.add("sent"),
-              o("WAWebBizAiSmartComposerLogEvents").logSuggestionCardFunnel({
-                action: "sent",
-                cardStatus: "success",
-                cardType: r,
-                editDistanceRatio: e,
-                funnelId: a,
-              }));
-          };
-    }
-    function x(e) {
-      e !== _ && b.delete(e);
+        : t === "reply_message"
+          ? (b.delete(e), null)
+          : G(n, t) && t === "tapped"
+            ? z(n)
+            : null;
     }
     function $(e, t) {
+      var n = v.get(e);
+      n != null && (v.delete(e), G(n, t));
+    }
+    function P(e) {
+      if (e === _) return null;
+      var t = b.get(e);
+      if (t == null || t.actions.has("dismiss")) return null;
+      var n = z(t);
+      return n == null
+        ? null
+        : (v.set(e, t),
+          function (r) {
+            t.actions.has("dismiss") ||
+              (t.actions.add("dismiss"), v.get(e) === t && v.delete(e), n(r));
+          });
+    }
+    function N(e) {
+      e !== _ && b.delete(e);
+    }
+    function M(e, t) {
       return e === _ || e.current.has(t) ? !1 : (e.current.add(t), !0);
     }
-    function P(e, t) {
+    function w(e, t) {
       if (e !== _) {
         e.current.delete(t);
         var n = h.get(e);
         n != null && (n.delete(t), n.size === 0 && h.delete(e));
       }
     }
-    function N(e, t) {
+    function A(e, t) {
       if (e !== _)
         for (var n of e.current) n.startsWith(t) && e.current.delete(n);
     }
-    function M(e, t, n) {
+    function F(e, t, n) {
       return e === _ || !e.current.delete(t) ? !1 : (e.current.add(n), !0);
     }
-    function w(e, t, n) {
+    function O(e, t, n) {
       if (e === _) return n;
       var r = h.get(e);
       r == null && ((r = new Map()), h.set(e, r));
       var o = r.get(t);
       return o != null ? o : (r.set(t, n), n);
     }
-    function A(e, t, n) {
+    function B(e, t, n) {
       if (e !== _) {
         var r = y.get(e);
         (r == null && ((r = new Map()), y.set(e, r)), r.set(t, n));
       }
     }
-    function F(e, t) {
+    function W(e, t) {
       var n;
       return e === _ ? null : (n = y.get(e)) == null ? void 0 : n.get(t);
     }
-    function O(e, t, n) {
+    function q(e, t, n) {
       if (e !== _) {
         var r = y.get(e);
         r == null ||
@@ -213,10 +211,10 @@ __d(
           (r.delete(t), r.size === 0 && y.delete(e));
       }
     }
-    function B(e) {
+    function U(e) {
       return e === "error" || e === "loading" || e === "success";
     }
-    function W(e, t) {
+    function V(e, t) {
       return e == null
         ? !0
         : e.actions.has("dismiss")
@@ -224,7 +222,7 @@ __d(
           : e.status !== "loading" &&
             (e.stanzaId !== t.stanzaId || t.status === "loading");
     }
-    function q(e, t) {
+    function H(e, t) {
       return {
         actions: new Set(),
         cardType: e.cardType,
@@ -236,24 +234,58 @@ __d(
         status: t,
       };
     }
-    ((l.WAWebBizAiSmartComposerImpressionProvider = v),
-      (l.useWAWebBizAiSmartComposerImpressions = S),
-      (l.registerSmartComposerSessionExitHandler = R),
-      (l.getSmartComposerShownCard = L),
-      (l.registerSmartComposerShownCard = E),
-      (l.forgetSmartComposerShownCard = k),
-      (l.discardSmartComposerShownCardWithoutExit = I),
-      (l.recordSmartComposerFunnelCardState = T),
-      (l.dismissSmartComposerFunnel = D),
-      (l.resetSmartComposerFunnel = x),
-      (l.markSmartComposerImpression = $),
-      (l.forgetSmartComposerImpression = P),
-      (l.forgetSmartComposerImpressionsWithPrefix = N),
-      (l.moveSmartComposerImpression = M),
-      (l.rememberSmartComposerSuggestionAttribution = w),
-      (l.rememberSmartComposerPendingSuggestion = A),
-      (l.getSmartComposerPendingSuggestion = F),
-      (l.forgetSmartComposerPendingSuggestion = O));
+    function G(e, t) {
+      return e.actions.has("dismiss")
+        ? !1
+        : (e.actions.add("dismiss"),
+          o("WAWebBizAiSmartComposerLogEvents").logSuggestionCardFunnel({
+            action: "dismiss",
+            cardStatus: e.status,
+            cardType: e.cardType,
+            dismissReason: t,
+            errorCode: e.errorCode,
+            funnelId: e.funnelId,
+          }),
+          !0);
+    }
+    function z(e) {
+      var t = e.cardType,
+        n = e.funnelId,
+        r = e.status;
+      return r !== "success" || t == null
+        ? null
+        : function (r) {
+            e.actions.has("sent") ||
+              (e.actions.add("sent"),
+              o("WAWebBizAiSmartComposerLogEvents").logSuggestionCardFunnel({
+                action: "sent",
+                cardStatus: "success",
+                cardType: t,
+                editDistanceRatio: r,
+                funnelId: n,
+              }));
+          };
+    }
+    ((l.WAWebBizAiSmartComposerImpressionProvider = S),
+      (l.useWAWebBizAiSmartComposerImpressions = R),
+      (l.registerSmartComposerSessionExitHandler = L),
+      (l.getSmartComposerShownCard = E),
+      (l.registerSmartComposerShownCard = k),
+      (l.forgetSmartComposerShownCard = I),
+      (l.discardSmartComposerShownCardWithoutExit = T),
+      (l.recordSmartComposerFunnelCardState = D),
+      (l.dismissSmartComposerFunnel = x),
+      (l.dismissHandedOffSmartComposerFunnel = $),
+      (l.captureSmartComposerFunnel = P),
+      (l.resetSmartComposerFunnel = N),
+      (l.markSmartComposerImpression = M),
+      (l.forgetSmartComposerImpression = w),
+      (l.forgetSmartComposerImpressionsWithPrefix = A),
+      (l.moveSmartComposerImpression = F),
+      (l.rememberSmartComposerSuggestionAttribution = O),
+      (l.rememberSmartComposerPendingSuggestion = B),
+      (l.getSmartComposerPendingSuggestion = W),
+      (l.forgetSmartComposerPendingSuggestion = q));
   },
   98,
 );

@@ -160,9 +160,10 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VALIDATION,
       });
     }
-    function x(e) {
+    function x(e, t) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
-        extraAttributes: { reason: e },
+        extraAttributes:
+          t == null ? { reason: e } : { add_attempt_id: t, reason: e },
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
           .CUSTOMER_MANAGER_ADD_CUSTOMER,
         userActionTarget: o("WAWebCustomerManagerSMBUserJourneyTypes")

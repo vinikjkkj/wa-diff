@@ -30,6 +30,7 @@ __d(
     "WAWebProductDetailsFlowLoadable",
     "WAWebProtobufsE2E.pb",
     "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebWamEnumCatalogEntryPoint",
     "WAWebWamEnumOrderDetailsCreationAction",
     "nullthrows",
@@ -66,7 +67,7 @@ __d(
         p = i[3],
         _ = i[4],
         f = i[5],
-        g = (l == null ? void 0 : l.equals(a)) === !0,
+        g = l != null && o("WAWebUserUtils").isMeAccount(l),
         h = r("useWAWebUIM")(),
         y = r("nullthrows")(
           o("WAWebFrontendMsgGetters").getMaybeChatByMsgKey(n, d),

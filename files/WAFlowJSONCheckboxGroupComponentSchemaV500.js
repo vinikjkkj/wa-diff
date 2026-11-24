@@ -1,9 +1,14 @@
 __d(
   "WAFlowJSONCheckboxGroupComponentSchemaV500",
-  ["WAFlowJSONChildrenSchema", "WAFlowJSONConstants", "WAFlowJSONSchemaUtils"],
+  [
+    "$InternalEnum",
+    "WAFlowJSONChildrenSchema",
+    "WAFlowJSONConstants",
+    "WAFlowJSONSchemaUtils",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = Object.freeze({ REGULAR: "regular", LARGE: "large" });
+    var e = n("$InternalEnum")({ REGULAR: "regular", LARGE: "large" });
     function s() {
       return [e.REGULAR, e.LARGE];
     }

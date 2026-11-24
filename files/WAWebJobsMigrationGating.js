@@ -14,31 +14,49 @@ __d(
             ? void 0
             : o.decommission) != null
         ? t
-        : h();
+        : y();
     }
     function c() {
-      return f().queues;
+      var t, n, o, a;
+      return (t =
+        (n = (o = s) == null ? void 0 : o.decommissionArm) != null
+          ? n
+          : (a = e) == null
+            ? void 0
+            : a.decommissionArm) != null
+        ? t
+        : r("gkx")("14549");
     }
     function d() {
-      return f().rest;
+      return g().queues;
     }
     function m() {
-      return f().serviced;
+      return g().rest;
     }
     function p() {
-      return f();
+      return g().serviced;
     }
-    function _(e) {
+    function _() {
+      return g();
+    }
+    function f(e) {
       s = e;
     }
-    function f() {
-      return s != null ? s : (e == null && (e = g()), e);
-    }
     function g() {
+      return s != null ? s : (e == null && (e = h()), e);
+    }
+    function h() {
       return r("gkx")("14549")
-        ? { decommission: r("gkx")("2034"), queues: !0, rest: !0, serviced: !0 }
+        ? {
+            decommission: r("gkx")("2034"),
+            decommissionArm: !0,
+            queues: !0,
+            rest: !0,
+            serviced: !0,
+          }
         : {
             decommission: !1,
+            decommissionArm: !1,
             queues: o("WAWebABProps").getABPropConfigValue(
               "wa_web_jm_to_ts_queues",
             ),
@@ -50,15 +68,16 @@ __d(
             ),
           };
     }
-    function h() {
+    function y() {
       return r("gkx")("14549") && r("gkx")("2034");
     }
     ((l.isJobsManagerDecommissioned = u),
-      (l.isPersistedQueuesEnabled = c),
-      (l.isRestOperationsEnabled = d),
-      (l.isServicedJobsEnabled = m),
-      (l.getJobsMigrationGates = p),
-      (l.initJobsMigrationGatesFromWorkerInit = _));
+      (l.isJobsManagerDecommissionArm = c),
+      (l.isPersistedQueuesEnabled = d),
+      (l.isRestOperationsEnabled = m),
+      (l.isServicedJobsEnabled = p),
+      (l.getJobsMigrationGates = _),
+      (l.initJobsMigrationGatesFromWorkerInit = f));
   },
   98,
 );

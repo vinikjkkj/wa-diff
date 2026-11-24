@@ -18,7 +18,6 @@ __d(
         TURN_OFF: "turn_off",
         CANCEL: "cancel",
         AUTO_REPLY_BLOCKING_BAR: "auto_reply_blocking_bar",
-        AUTO_REPLY_FAB: "auto_reply_fab",
         AI_REPLIES: "ai_replies",
       });
     function m(e) {
@@ -85,36 +84,11 @@ __d(
       });
     }
     function y() {
-      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
-        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
-          .GEN_AI_AGENT,
-        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.CHAT_THREAD,
-        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
-          .SMB_USER_ACTION_TYPE_ENUM.VIEW,
-        userActionTarget: d.AUTO_REPLY_FAB,
-      });
-    }
-    function C() {
-      o("WAWebSMBUserJourneyLogger").SMBUserJourneyLogger.log({
-        featureName: o("WAWebWamEnumSmbFeatureNameEnum").SMB_FEATURE_NAME_ENUM
-          .GEN_AI_AGENT,
-        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE.CHAT_THREAD,
-        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
-          .SMB_USER_ACTION_TYPE_ENUM.CLICK,
-        userActionTarget: d.AUTO_REPLY_FAB,
-      });
-    }
-    function b() {
-      u(function () {
-        y();
-      }, []);
-    }
-    function v() {
       u(function () {
         g();
       }, []);
     }
-    function S(e) {
+    function C(e) {
       var t = c(function () {
         _(e);
       });
@@ -122,7 +96,7 @@ __d(
         t();
       }, []);
     }
-    function R(e) {
+    function b(e) {
       var t = c(function () {
         f(e);
       });
@@ -137,11 +111,9 @@ __d(
       (l.logViewGenAiAgentAutoReplyErrorDialog = f),
       (l.logViewGenAiAgentAutoReplyBlockingBar = g),
       (l.logClickGenAiAgentAutoReplyBlockingBar = h),
-      (l.logClickGenAiAgentAutoReplyFab = C),
-      (l.useLogViewGenAiAgentAutoReplyFab = b),
-      (l.useLogViewGenAiAgentAutoReplyBlockingBar = v),
-      (l.useLogViewGenAiAgentAutoReplyConfirmationDialog = S),
-      (l.useLogViewGenAiAgentAutoReplyErrorDialog = R));
+      (l.useLogViewGenAiAgentAutoReplyBlockingBar = y),
+      (l.useLogViewGenAiAgentAutoReplyConfirmationDialog = C),
+      (l.useLogViewGenAiAgentAutoReplyErrorDialog = b));
   },
   98,
 );
