@@ -11,34 +11,61 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = "37530667723245709",
-      u = "39555726347375671",
-      c = new URL("https://acs.whatsapp.com/graphql"),
-      d = (656096963291760).toString(),
-      m = (0x97e965c4439a).toString();
-    async function p(t, n, r) {
+      s,
+      u,
+      c = "37530667723245709",
+      d = "39555726347375671",
+      m = new URL("https://acs.whatsapp.com/graphql"),
+      p = (656096963291760).toString(),
+      _ = (0x97e965c4439a).toString();
+    async function f(t, n, r) {
       if ((r === void 0 && (r = !1), t.length === 0)) return [];
-      var a = r ? u : s,
+      var a = r ? d : c,
         i = new Headers();
       i.append("X-FB-Friendly-Name", a);
       try {
         var l = await o("WAWebOHAIClient").fetchOHAI({
-          url: c,
+          url: m,
           project: o("WAWebMusicOnChatsAcsProject").getMusicOnChatsAcsProject(
             o("WAWebACSTokenConfig").ACS_PROJECTS.WA_ChatsMusic,
           ),
-          payload: _(Array.from(new Set(t)), n, a, r),
+          payload: g(Array.from(new Set(t)), n, a, r),
           headers: i,
         });
-        if (!l.ok) return null;
-        var d = await l.json();
-        return f(d, r);
-      } catch (t) {
+        if (!l.ok)
+          return (
+            o("WALogger")
+              .ERROR(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[music] chats consumption fetch failed: HTTP ",
+                    "",
+                  ])),
+                l.status,
+              )
+              .sendLogs("music-chats-consumption-fetch-failed"),
+            null
+          );
+        var p = await l.json(),
+          _ = h(p, r);
+        return (
+          _ == null &&
+            o("WALogger")
+              .ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[music] chats consumption answer has no items",
+                  ])),
+              )
+              .sendLogs("music-chats-consumption-fetch-failed"),
+          _
+        );
+      } catch (e) {
         return (
           o("WALogger")
             .ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[music] chats consumption fetch failed",
                 ])),
             )
@@ -47,12 +74,12 @@ __d(
         );
       }
     }
-    function _(e, t, n, r) {
+    function g(e, t, n, r) {
       var a = o("WAWebABProps").getABPropConfigValue(
           "music_on_chats_artwork_pixel_side_size",
         ),
         i = new FormData();
-      (i.append("app_id", o("WAWebMobilePlatforms").isSMB() ? d : m),
+      (i.append("app_id", o("WAWebMobilePlatforms").isSMB() ? p : _),
         i.append("doc_id", n));
       var l = {
         params: {
@@ -79,97 +106,97 @@ __d(
         i
       );
     }
-    function f(e, t) {
-      var n = b(C(C(e, "data"), "music_consumption"), "items");
+    function h(e, t) {
+      var n = S(v(v(e, "data"), "music_consumption"), "items");
       if (n == null) return null;
-      var r = t && L(e, "errors") == null;
+      var r = t && k(e, "errors") == null;
       return n
         .map(function (e) {
-          var n = y(e);
+          var n = b(e);
           return n == null || !t
             ? n
             : babelHelpers.extends({}, n, {
-                lyrics: r ? g(C(C(e, "audio_metadata"), "lyrics")) : null,
+                lyrics: r ? y(v(v(e, "audio_metadata"), "lyrics")) : null,
               });
         })
         .filter(Boolean);
     }
-    function g(e) {
+    function y(e) {
       var t,
-        n = (t = b(e, "lines")) != null ? t : [];
-      return S(e, "available") !== !0 || n.length === 0
+        n = (t = S(e, "lines")) != null ? t : [];
+      return L(e, "available") !== !0 || n.length === 0
         ? { available: !1 }
-        : { available: !0, lines: n.map(h) };
+        : { available: !0, lines: n.map(C) };
     }
-    function h(e) {
+    function C(e) {
       var t, n;
       return {
-        startTimeInMs: R(e, "start_time_in_ms"),
-        endTimeInMs: R(e, "end_time_in_ms"),
-        text: (t = v(C(e, "line"), "text")) != null ? t : "",
-        wordOffsets: ((n = b(e, "word_offsets")) != null ? n : []).map(
+        startTimeInMs: E(e, "start_time_in_ms"),
+        endTimeInMs: E(e, "end_time_in_ms"),
+        text: (t = R(v(e, "line"), "text")) != null ? t : "",
+        wordOffsets: ((n = S(e, "word_offsets")) != null ? n : []).map(
           function (e) {
             return {
-              startIndex: R(e, "start_index"),
-              endIndex: R(e, "end_index"),
-              startOffsetMs: R(e, "start_offset_ms"),
-              endOffsetMs: R(e, "end_offset_ms"),
+              startIndex: E(e, "start_index"),
+              endIndex: E(e, "end_index"),
+              startOffsetMs: E(e, "start_offset_ms"),
+              endOffsetMs: E(e, "end_offset_ms"),
             };
           },
         ),
       };
     }
-    function y(e) {
+    function b(e) {
       var t,
         n,
-        r = v(e, "media_id");
+        r = R(e, "media_id");
       if (r == null) return null;
-      var o = C(e, "availability_info"),
-        a = C(e, "audio_metadata"),
+      var o = v(e, "availability_info"),
+        a = v(e, "audio_metadata"),
         i =
           (t =
-            (n = b(a, "progressive_download")) == null
+            (n = S(a, "progressive_download")) == null
               ? void 0
               : n
                   .map(function (e) {
-                    return v(e, "url");
+                    return R(e, "url");
                   })
                   .find(Boolean)) != null
             ? t
             : null;
       return {
-        artworkUri: v(C(a, "display_image"), "downloadable_uri"),
-        isAvailable: S(o, "is_available_for_consumption"),
+        artworkUri: R(v(a, "display_image"), "downloadable_uri"),
+        isAvailable: L(o, "is_available_for_consumption"),
         mediaId: r,
         songUri: i,
       };
     }
-    function C(e, t) {
-      var n = L(e, t);
+    function v(e, t) {
+      var n = k(e, t);
       return n != null && typeof n == "object" && !Array.isArray(n) ? n : null;
     }
-    function b(e, t) {
-      var n = L(e, t);
+    function S(e, t) {
+      var n = k(e, t);
       return Array.isArray(n) ? n : null;
     }
-    function v(e, t) {
-      var n = L(e, t);
+    function R(e, t) {
+      var n = k(e, t);
       return typeof n == "string" && n !== "" ? n : null;
     }
-    function S(e, t) {
-      var n = L(e, t);
+    function L(e, t) {
+      var n = k(e, t);
       return typeof n == "boolean" ? n : null;
     }
-    function R(e, t) {
-      var n = L(e, t);
+    function E(e, t) {
+      var n = k(e, t);
       return typeof n == "number" ? n : void 0;
     }
-    function L(e, t) {
+    function k(e, t) {
       return e != null && typeof e == "object" && !Array.isArray(e)
         ? e[t]
         : void 0;
     }
-    l.fetchMusicChatsConsumption = p;
+    l.fetchMusicChatsConsumption = f;
   },
   98,
 );

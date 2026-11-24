@@ -1,6 +1,7 @@
 __d(
   "WAWebPathfinderUserTouch",
   [
+    "WAWebPathfinderHeldBackScreen",
     "WAWebPathfinderHeldBackSurface",
     "WAWebPathfinderLogger",
     "WAWebPathfinderPIIFilter",
@@ -67,7 +68,8 @@ __d(
         o("WAWebPathfinderHeldBackSurface").isHeldBackEvent({
           heldBackSurface: r,
           screenName: u,
-        })
+        }) ||
+        o("WAWebPathfinderHeldBackScreen").claimedLeavingVerdict(u) != null
       ) {
         I(n) && (g = null);
         return;

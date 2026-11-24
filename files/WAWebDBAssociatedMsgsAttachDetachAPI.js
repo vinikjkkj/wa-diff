@@ -14,7 +14,6 @@ __d(
     "WAWebSchemaMessage",
     "WAWebViewMode.flow",
     "getErrorSafe",
-    "justknobx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -46,39 +45,37 @@ __d(
       }
     }
     async function p(e) {
-      if (r("justknobx")._("6943")) {
-        var t = new Map();
-        if (
-          (e.forEach(function (e) {
-            e.type === o("WAWebMsgType").MSG_TYPE.ALBUM
-              ? t.set(e.id.toString(), e.id)
-              : o("WAWebMessageAssociation.flow").isAssociatedMsg(e) &&
-                e.viewMode === o("WAWebViewMode.flow").ViewModeType.VISIBLE &&
-                t.set(e.parentMsgKey.toString(), e.parentMsgKey);
-          }),
-          t.size !== 0)
-        ) {
-          var n = await o("WAWebSchemaMessage")
-              .getMessageTable()
-              .bulkGet(Array.from(t.keys()), !1),
-            a = n.flatMap(function (e) {
-              var n =
-                e != null && e.type === o("WAWebMsgType").MSG_TYPE.ALBUM
-                  ? t.get(String(e.id))
-                  : null;
-              return n != null ? [n] : [];
-            });
-          a.length !== 0 &&
-            (o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[viewModeUpdate] attaching detached children of ",
-                  " parents after history sync",
-                ])),
-              a.length,
-            ),
-            await _({ parentMsgKeys: a, showParentsInChat: !0 }));
-        }
+      var t = new Map();
+      if (
+        (e.forEach(function (e) {
+          e.type === o("WAWebMsgType").MSG_TYPE.ALBUM
+            ? t.set(e.id.toString(), e.id)
+            : o("WAWebMessageAssociation.flow").isAssociatedMsg(e) &&
+              e.viewMode === o("WAWebViewMode.flow").ViewModeType.VISIBLE &&
+              t.set(e.parentMsgKey.toString(), e.parentMsgKey);
+        }),
+        t.size !== 0)
+      ) {
+        var n = await o("WAWebSchemaMessage")
+            .getMessageTable()
+            .bulkGet(Array.from(t.keys()), !1),
+          r = n.flatMap(function (e) {
+            var n =
+              e != null && e.type === o("WAWebMsgType").MSG_TYPE.ALBUM
+                ? t.get(String(e.id))
+                : null;
+            return n != null ? [n] : [];
+          });
+        r.length !== 0 &&
+          (o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[viewModeUpdate] attaching detached children of ",
+                " parents after history sync",
+              ])),
+            r.length,
+          ),
+          await _({ parentMsgKeys: r, showParentsInChat: !0 }));
       }
     }
     async function _(e) {

@@ -97,108 +97,109 @@ __d(
               "handleStatusUpdate",
               { rawMsg: k, checksum: null, isMsgUpdate: !1 },
             )),
-            await o("WAPromiseLoop").promiseLoop(async function (e, t, a) {
-              var i = o("WAPromiseDelays").delayMs(
-                o("WABackoffUtils").expBackoff(a, 12e4, 1e3, 0.1),
-              );
-              try {
-                var l;
-                if (S)
-                  try {
-                    ((k = await o("WAWebDBProcessMessage").updateMessage(k)),
-                      (l = !1));
-                  } catch (e) {
-                    if (
-                      e instanceof
-                        o("WAWebDBProcessMessage").NoMessageToUpdateError &&
-                      R
-                    )
-                      ((l = !0),
-                        o("WALogger").LOG(
-                          s ||
-                            (s = babelHelpers.taggedTemplateLiteralLoose([
-                              "Msg overwrite failed, will fall back to creation",
-                            ])),
-                        ));
-                    else throw e;
-                  }
-                if (!S || l === !0)
-                  if (E) {
-                    var p,
-                      _ = r("nullthrows")(k.t, "revoke timestamp is null"),
-                      f = r("nullthrows")(
-                        k.protocolMessageKey,
-                        "revoke target is null",
-                      ),
-                      g = await o(
-                        "WAWebDBProcessRevokeMsgs",
-                      ).processRevokeMsgsAndGetCleanupEligibleKeys([
-                        {
-                          revokeMsgKey: f,
-                          newMsgKey: k.id,
-                          timestamp: _,
-                          subtype: k.subtype,
-                          authenticatedSender:
-                            (p = k.senderWithDevice) != null
-                              ? p
-                              : o("WAWebMsgGetters").getSender(k),
-                          sender: k.author,
-                          revokeTimestamp: _,
-                        },
-                      ]),
-                      h = g.get(f.toString());
-                    h != null &&
-                      (o("WAWebUiRuntime").isWebDiUiEnabled()
-                        ? o("WAWebUiRuntime")
-                            .uiRuntime(
-                              o("WAWebReactionUiService").ReactionUiService,
-                            )
-                            .deleteModelsForLastAddOnPreview([h])
-                        : o("WAWebBackendApi").frontendFireAndForget(
-                            "deleteModelsForLastAddOnPreview",
-                            { messagesIds: [h] },
-                          ),
-                      await o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
-                        n.toString(),
-                        [h],
-                      ));
-                  } else
+            await o("WAPromiseLoop").promiseLoop(
+              async function (e, t, a) {
+                var i = o("WAPromiseDelays").delayMs(
+                  o("WABackoffUtils").expBackoff(a, 12e4, 1e3, 0.1),
+                );
+                try {
+                  var l;
+                  if (S)
                     try {
-                      (await o("WAWebDBProcessMessage").storeMessages([k], n),
-                        (P = !0),
-                        k.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT &&
-                          o(
-                            "WAWebHandlePlaceholderWam",
-                          ).postPlaceholderActivityAddEvent([k]));
+                      ((k = await o("WAWebDBProcessMessage").updateMessage(k)),
+                        (l = !1));
                     } catch (e) {
                       if (
                         e instanceof
-                        o("WAWebDBProcessMessage").DuplicateMessageError
+                          o("WAWebDBProcessMessage").NoMessageToUpdateError &&
+                        R
                       )
-                        k.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT
-                          ? o("WALogger").LOG(
-                              u ||
-                                (u = babelHelpers.taggedTemplateLiteralLoose([
-                                  "processPlaceholderMsg: skip creating duplicate placeholder",
-                                ])),
-                            )
-                          : (o("WALogger").LOG(
-                              c ||
-                                (c = babelHelpers.taggedTemplateLiteralLoose([
-                                  "storeMessages loop: detect resend message",
-                                ])),
-                            ),
-                            (k = await o("WAWebDBProcessMessage").updateMessage(
-                              k,
-                            )),
-                            (L.update = !0));
+                        ((l = !0),
+                          o("WALogger").LOG(
+                            s ||
+                              (s = babelHelpers.taggedTemplateLiteralLoose([
+                                "Msg overwrite failed, will fall back to creation",
+                              ])),
+                          ));
                       else throw e;
                     }
-                if (k.type === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE) {
-                  var y = k.id.toString();
-                  await o("WAWebApiGroupInviteV4Store").persistGroupInviteV4Msg(
-                    y,
-                    {
+                  if (!S || l === !0)
+                    if (E) {
+                      var p,
+                        _ = r("nullthrows")(k.t, "revoke timestamp is null"),
+                        f = r("nullthrows")(
+                          k.protocolMessageKey,
+                          "revoke target is null",
+                        ),
+                        g = await o(
+                          "WAWebDBProcessRevokeMsgs",
+                        ).processRevokeMsgsAndGetCleanupEligibleKeys([
+                          {
+                            revokeMsgKey: f,
+                            newMsgKey: k.id,
+                            timestamp: _,
+                            subtype: k.subtype,
+                            authenticatedSender:
+                              (p = k.senderWithDevice) != null
+                                ? p
+                                : o("WAWebMsgGetters").getSender(k),
+                            sender: k.author,
+                            revokeTimestamp: _,
+                          },
+                        ]),
+                        h = g.get(f.toString());
+                      h != null &&
+                        (o("WAWebUiRuntime").isWebDiUiEnabled()
+                          ? o("WAWebUiRuntime")
+                              .uiRuntime(
+                                o("WAWebReactionUiService").ReactionUiService,
+                              )
+                              .deleteModelsForLastAddOnPreview([h])
+                          : o("WAWebBackendApi").frontendFireAndForget(
+                              "deleteModelsForLastAddOnPreview",
+                              { messagesIds: [h] },
+                            ),
+                        await o("WAWebRequestDeleteAddOns").requestDeleteAddOns(
+                          n.toString(),
+                          [h],
+                        ));
+                    } else
+                      try {
+                        (await o("WAWebDBProcessMessage").storeMessages([k], n),
+                          (P = !0),
+                          k.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT &&
+                            o(
+                              "WAWebHandlePlaceholderWam",
+                            ).postPlaceholderActivityAddEvent([k]));
+                      } catch (e) {
+                        if (
+                          e instanceof
+                          o("WAWebDBProcessMessage").DuplicateMessageError
+                        )
+                          k.type === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT
+                            ? o("WALogger").LOG(
+                                u ||
+                                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                                    "processPlaceholderMsg: skip creating duplicate placeholder",
+                                  ])),
+                              )
+                            : (o("WALogger").LOG(
+                                c ||
+                                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                                    "storeMessages loop: detect resend message",
+                                  ])),
+                              ),
+                              (k = await o(
+                                "WAWebDBProcessMessage",
+                              ).updateMessage(k)),
+                              (L.update = !0));
+                        else throw e;
+                      }
+                  if (k.type === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE) {
+                    var y = k.id.toString();
+                    await o(
+                      "WAWebApiGroupInviteV4Store",
+                    ).persistGroupInviteV4Msg(y, {
                       id: y,
                       from: k.from.toString(),
                       to: k.to.toString(),
@@ -207,36 +208,37 @@ __d(
                       expired:
                         o("WATimeUtils").unixTime() >=
                         parseInt(String(k.inviteCodeExp), 10),
-                    },
+                    });
+                  }
+                  e();
+                } catch (e) {
+                  return (
+                    o("WALogger")
+                      .LOG(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "storeMessages loop: failed with error ",
+                            ".",
+                          ])),
+                        e,
+                      )
+                      .tags("handleSingleMsg"),
+                    a > 3
+                      ? (o("WALogger").WARN(
+                          m ||
+                            (m = babelHelpers.taggedTemplateLiteralLoose([
+                              "storeMessages loop: Gave up after ",
+                              " tries",
+                            ])),
+                          a,
+                        ),
+                        Promise.reject(e))
+                      : i
                   );
                 }
-                e();
-              } catch (e) {
-                return (
-                  o("WALogger")
-                    .LOG(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
-                          "storeMessages loop: failed with error ",
-                          ".",
-                        ])),
-                      e,
-                    )
-                    .tags("handleSingleMsg"),
-                  a > 3
-                    ? (o("WALogger").WARN(
-                        m ||
-                          (m = babelHelpers.taggedTemplateLiteralLoose([
-                            "storeMessages loop: Gave up after ",
-                            " tries",
-                          ])),
-                        a,
-                      ),
-                      Promise.reject(e))
-                    : i
-                );
-              }
-            }),
+              },
+              void 0,
+            ),
             o("WALogger")
               .LOG(
                 p ||

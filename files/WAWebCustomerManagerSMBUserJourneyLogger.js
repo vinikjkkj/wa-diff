@@ -259,8 +259,8 @@ __d(
           (t.clickProfile = function (t, n) {
             o("WAWebCustomerManagerListJourneyEvents").clickProfile(t, n);
           }),
-          (t.clickRowChat = function () {
-            o("WAWebCustomerManagerListJourneyEvents").clickRowChat();
+          (t.clickChat = function (t) {
+            o("WAWebCustomerManagerListJourneyEvents").clickChat(t);
           }),
           (t.clickRowSelectCheckbox = function (t) {
             o("WAWebCustomerManagerListJourneyEvents").clickRowSelectCheckbox(

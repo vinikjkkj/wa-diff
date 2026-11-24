@@ -16,25 +16,28 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return o("WAPromiseLoop").promiseLoop(function (e, t, n) {
-        var a = o("WAPromiseDelays").delayMs(
-          o("WABackoffUtils").expBackoff(n, 12e4, 0, 0),
-        );
-        return r("JSResourceForInteraction")("pdfjs-dist")
-          .__setRef("WAWebPDFUtils")
-          .load()
-          .then(function (t) {
-            ((t.GlobalWorkerOptions.workerSrc =
-              o("WAWebPDFWorkerSrc").getWorkerSrc()),
-              e({
-                GlobalWorkerOptions: t.GlobalWorkerOptions,
-                getDocument: t.getDocument,
-              }));
-          })
-          .catch(function () {
-            return a;
-          });
-      });
+      return o("WAPromiseLoop").promiseLoop(
+        function (e, t, n) {
+          var a = o("WAPromiseDelays").delayMs(
+            o("WABackoffUtils").expBackoff(n, 12e4, 0, 0),
+          );
+          return r("JSResourceForInteraction")("pdfjs-dist")
+            .__setRef("WAWebPDFUtils")
+            .load()
+            .then(function (t) {
+              ((t.GlobalWorkerOptions.workerSrc =
+                o("WAWebPDFWorkerSrc").getWorkerSrc()),
+                e({
+                  GlobalWorkerOptions: t.GlobalWorkerOptions,
+                  getDocument: t.getDocument,
+                }));
+            })
+            .catch(function () {
+              return a;
+            });
+        },
+        void 0,
+      );
     }
     function s(t) {
       var n = URL.createObjectURL(t);

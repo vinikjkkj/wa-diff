@@ -6,6 +6,7 @@ __d(
     "WAWebDBMsgUtils",
     "WAWebMsgType",
     "WAWebViewMode.flow",
+    "WAWebVoipCallLogOrderingContext",
     "WAWebVoipCallLogPlaceholderTracker",
     "getErrorSafe",
     "justknobx",
@@ -78,7 +79,10 @@ __d(
               originalNotificationViewMode: i != null ? i : a,
             };
     }
-    ((l.recheckStoredCallLogOrdering = s),
+    ((l.getCallLogOrdering = o(
+      "WAWebVoipCallLogOrderingContext",
+    ).getCallLogOrdering),
+      (l.recheckStoredCallLogOrdering = s),
       (l.getStoredOrderSafeCallLogViewMode = u));
   },
   98,

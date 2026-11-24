@@ -6,7 +6,7 @@ __d(
       for (var n = e; n.parentNode; ) n = n.parentNode;
       if (n instanceof Element) {
         var r = n.querySelectorAll(t);
-        return Array.prototype.indexOf.call(r, e) !== -1;
+        return Array.from(r).indexOf(e) !== -1;
       }
       return !1;
     }

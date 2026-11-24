@@ -1,9 +1,9 @@
 __d(
   "WAWebBizAiHubIdentity",
-  ["WAWebBizAiHomeChat", "WAWebBizAiStrings"],
+  ["WAWebBizAiStrings"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      return o("WAWebBizAiHomeChat").isProductionBizAiHub(e)
+      return e.isAiHub()
         ? o("WAWebBizAiStrings").getBizAiHubTitle().toString()
         : null;
     }

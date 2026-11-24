@@ -5,6 +5,7 @@ __d(
     "WALogger",
     "WAWebLexicalUtils",
     "WAWebPathfinderDeferredEmitter",
+    "WAWebPathfinderHeldBackScreen",
     "WAWebPathfinderHeldBackSurface",
     "WAWebPathfinderScreenName",
     "WAWebUnifiedSession",
@@ -88,9 +89,12 @@ __d(
     }
     function g(e) {
       try {
-        return o("WAWebPathfinderHeldBackSurface").isHeldBackEvent({
-          screenName: e,
-        });
+        return (
+          o("WAWebPathfinderHeldBackSurface").isHeldBackEvent({
+            screenName: e,
+          }) ||
+          o("WAWebPathfinderHeldBackScreen").claimedLeavingVerdict(e) != null
+        );
       } catch (e) {
         return (
           o("WALogger")

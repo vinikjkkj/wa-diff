@@ -5,7 +5,6 @@ __d(
     "WALongInt",
     "WATimeUtils",
     "WAWebAck",
-    "WAWebBizAiHomeChat",
     "WAWebE2EProtoParserApi",
     "WAWebE2EProtoUtils",
     "WAWebInstantMsgTypes",
@@ -134,10 +133,7 @@ __d(
     }
     function c(e) {
       return (
-        e.isGroup() ||
-        (e.isRegularUser() &&
-          !e.isHosted() &&
-          !o("WAWebBizAiHomeChat").isBizAiHomeChat(e))
+        e.isGroup() || (e.isRegularUser() && !e.isHosted() && !e.isAiHub())
       );
     }
     l.default = s;

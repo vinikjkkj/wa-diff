@@ -5,7 +5,6 @@ __d(
     "WALongInt",
     "WATimeUtils",
     "WAWebABProps",
-    "WAWebBizAiHomeChat",
     "WAWebE2EProtoParserApi",
     "WAWebE2EProtoUtils",
     "WAWebMediaMessageGetValidatedProperties",
@@ -110,10 +109,7 @@ __d(
     }
     function u(e) {
       return (
-        e.isGroup() ||
-        (e.isRegularUser() &&
-          !e.isHosted() &&
-          !o("WAWebBizAiHomeChat").isBizAiHomeChat(e))
+        e.isGroup() || (e.isRegularUser() && !e.isHosted() && !e.isAiHub())
       );
     }
     l.default = s;

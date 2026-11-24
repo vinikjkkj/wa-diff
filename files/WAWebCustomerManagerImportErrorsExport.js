@@ -21,16 +21,20 @@ __d(
       return e + " (" + n + ")";
     }
     function p(e) {
-      var t = [],
-        n = new Set();
-      for (var r of e)
-        for (var a of Object.keys(r.rowData))
-          a === u || n.has(a) || (n.add(a), t.push(a));
-      var i = new Set(n),
-        l = m(c(), i);
-      i.add(l);
-      var s = m(d(), i),
-        p = []
+      var t = Array.from(
+          new Set(
+            e.flatMap(function (e) {
+              return Object.keys(e.rowData);
+            }),
+          ),
+        ).filter(function (e) {
+          return e !== u;
+        }),
+        n = new Set(t),
+        r = m(c(), n);
+      n.add(r);
+      var a = m(d(), n),
+        i = []
           .concat(e)
           .sort(function (e, t) {
             return e.rowIndex - t.rowIndex;
@@ -48,7 +52,7 @@ __d(
               ],
             );
           });
-      return { headers: [l].concat(t, [s]), rows: p };
+      return { headers: [r].concat(t, [a]), rows: i };
     }
     async function _(t) {
       try {

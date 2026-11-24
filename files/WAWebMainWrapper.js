@@ -5,6 +5,7 @@ __d(
     "JSSPWAWebConfigInit",
     "JsSelfProfilerIdleTraceRunner",
     "WALogger",
+    "WAWebABProps",
     "WAWebCallsOnlyGating",
     "WAWebCrashAnnotations",
     "WAWebEmojiAssetLoader",
@@ -33,6 +34,7 @@ __d(
     "getErrorSafe",
     "gkx",
     "justknobx",
+    "useDelayedStateSkipUnchangedGate",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -93,7 +95,12 @@ __d(
         o("WAWebLogConnectionStateForCrash").annotateCrashWithConnectionState(),
         o("WAWebLogBusinessAccountForCrash").annotateCrashWithBusinessAccount(),
         r("WAWebLogPifeExposure")(),
-        o("WAWebPathfinderCrashLog").initPathfinderCrashLog());
+        o("WAWebPathfinderCrashLog").initPathfinderCrashLog(),
+        o(
+          "useDelayedStateSkipUnchangedGate",
+        ).installUseDelayedStateSkipUnchangedGate(function () {
+          return o("WAWebABProps").getABPropConfigValue("web_memlab_fixes_5");
+        }));
       var a = n("WAWebMain.react");
       return {
         MainComponent: a.MainComponent,

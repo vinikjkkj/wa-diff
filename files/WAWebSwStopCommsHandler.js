@@ -29,14 +29,19 @@ __d(
             }),
             (t.onAction = async function (e) {
               var t =
-                  o(
-                    "WAWebMessageQueue",
-                  ).isWorkerOnlineMessageQueueTrackingEnabled(),
-                n = o("WAWebSwInterruptOfflineResume").interruptOfflineResume(
-                  o("WAWebWamEnumOfflineProcessInterruptReasons")
-                    .OFFLINE_PROCESS_INTERRUPT_REASONS.PAGE_OPENED,
-                  "Offline resume interrupted by STOP_COMMS",
-                );
+                o(
+                  "WAWebMessageQueue",
+                ).isWorkerOnlineMessageQueueTrackingEnabled() ||
+                o(
+                  "WAWebMessageProcessorCache",
+                ).messageProcessorCache.isFailClosed();
+              t &&
+                o("WAWebMessageProcessorCache").messageProcessorCache.close();
+              var n = o("WAWebSwInterruptOfflineResume").interruptOfflineResume(
+                o("WAWebWamEnumOfflineProcessInterruptReasons")
+                  .OFFLINE_PROCESS_INTERRUPT_REASONS.PAGE_OPENED,
+                "Offline resume interrupted by STOP_COMMS",
+              );
               (o("WAWebSwOfflineResumeState").cancelOfflineResume(),
                 await n,
                 t && (await d()));

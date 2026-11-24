@@ -81,7 +81,7 @@ __d(
           );
         },
         isInactiveByDefault: function (t) {
-          return (r("vulture")("JZIx9jmFHMYJjOBdTrnQwlWWWPE="), !0);
+          return !0;
         },
         getPreviews: function (t) {
           var e = [],

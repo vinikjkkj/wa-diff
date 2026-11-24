@@ -168,9 +168,7 @@ __d(
     }
     var T = function () {
       (r("vulture")("_vqa3QjOI20RiFgGGAV7zojeAtc="),
-        o("WAWebModalManager").ModalManager.open(
-          y.jsx(r("WAWebBizBot1pLearnMore.react"), {}),
-        ));
+        o("WAWebBizBot1pLearnMore.react").openBizBot1pLearnMoreDialog());
     };
     ((T.doc = "Opens the biz bot 1p learn more modal"),
       (T.paramsToExecute = []));

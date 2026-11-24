@@ -11,7 +11,6 @@ __d(
     "AdsCampaignBulkEditStore",
     "AdsCampaignCLODataSourceValidator",
     "AdsCampaignDraftFragmentStore",
-    "AdsCampaignGroupCombinedStore",
     "AdsCampaignLeadGenOnsiteCloHasNoCrmPixelValidator",
     "AdsCampaignMaxMinSpendLimitCoexistingValidator",
     "AdsCampaignMaxMinSpendLimitConflictValidator",
@@ -22,6 +21,7 @@ __d(
     "AdsDataAtom",
     "AdsODAXUtils",
     "AdsObjectTypes",
+    "AdsPECampaignGroupSelectors",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -30,8 +30,7 @@ __d(
         r("AdsAccountStore"),
         r("AdsCampaignBulkEditStore"),
         r("AdsCampaignDraftFragmentStore"),
-        r("AdsCampaignGroupCombinedStore"),
-      ],
+      ].concat(o("AdsPECampaignGroupSelectors").getCachedSelector.getStores()),
       u = s.map(function (e) {
         return e.getDispatchToken();
       }),
@@ -77,8 +76,8 @@ __d(
               a = n.get(t).current,
               i = (e = n.get(t)) == null ? void 0 : e.original,
               l = a.campaign_id,
-              s = r("AdsCampaignGroupCombinedStore")
-                .getCachedObject(l)
+              s = o("AdsPECampaignGroupSelectors")
+                .getCachedSelector()(l)
                 .getValueEnforcing(),
               u = r("AdsAccountStore").getSelectedAccount().getValue(),
               c = !t || r("AdsCampaignDraftFragmentStore").isNew(t),

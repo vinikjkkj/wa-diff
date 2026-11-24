@@ -518,7 +518,7 @@ __d(
         : o("WAWebHatchFrontendGating").isHatchPeerPairingCardEnabled()
           ? o("WAWebHatchFrontendGating").isHatchPeerConnectionsSendEnabled()
             ? [{ item: { card: n, type: "pairing_share" }, type: "item" }]
-            : $(w(n.title, n.body).join("\n"))
+            : [{ text: s._(/*BTDS*/ "").toString(), type: "markdown" }]
           : [];
     }
     function x(e, t) {

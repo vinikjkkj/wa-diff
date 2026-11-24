@@ -1,9 +1,8 @@
 __d(
   "WAWebUsernameRevocationStrings",
-  ["fbt", "WAWebMobilePlatforms"],
+  ["fbt", "WAWebFaqUrl", "WAWebMobilePlatforms"],
   function (t, n, r, o, a, i, l, s) {
-    var e = "https://www.whatsapp.com/legal/messaging-guidelines";
-    function u() {
+    function e() {
       var e = {
         bannerAction: s._(/*BTDS*/ ""),
         whyTitle: s._(/*BTDS*/ ""),
@@ -17,6 +16,7 @@ __d(
           bannerTitle: s._(/*BTDS*/ ""),
           bannerBody: s._(/*BTDS*/ ""),
           detailsSubhead: null,
+          learnMoreUrl: o("WAWebFaqUrl").getSmbUsernameRevocationFaqUrl(),
           whatBody: t,
           whatBodyWithoutUsername: t,
         });
@@ -24,12 +24,13 @@ __d(
       return babelHelpers.extends({}, e, {
         bannerTitle: s._(/*BTDS*/ ""),
         bannerBody: s._(/*BTDS*/ ""),
+        learnMoreUrl: o("WAWebFaqUrl").getUsernameRevocationFaqUrl(),
         detailsSubhead: s._(/*BTDS*/ ""),
         whatBody: s._(/*BTDS*/ ""),
         whatBodyWithoutUsername: null,
       });
     }
-    ((l.MESSAGING_GUIDELINES_URL = e), (l.getUsernameRevocationStrings = u));
+    l.getUsernameRevocationStrings = e;
   },
   226,
 );

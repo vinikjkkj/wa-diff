@@ -28,9 +28,8 @@ __d(
       m,
       p,
       _,
-      f,
-      g = 3e3;
-    async function h(e) {
+      f = 3e3;
+    async function g(e) {
       var t = e.groupInfos,
         n = await o("WAWebSchemaParticipant")
           .getParticipantTable()
@@ -108,7 +107,7 @@ __d(
         .getParticipantTable()
         .bulkCreateOrReplace(a);
     }
-    function y(e) {
+    function h(e) {
       var t = e.admins,
         n = e.deviceIds,
         r = e.group,
@@ -147,7 +146,7 @@ __d(
           );
         });
     }
-    function C(e) {
+    function y(e) {
       return o("WAWebModelStorageUtils")
         .getStorage()
         .lock(["participant"], async function (t) {
@@ -173,8 +172,8 @@ __d(
           return n.bulkCreateOrReplace(a);
         });
     }
-    var b = (function () {
-        return o("WABatcher").batch({ delayMs: g }, async function (t) {
+    var C = (function () {
+        return o("WABatcher").batch({ delayMs: f }, async function (t) {
           var n = Array.from(
             new Set(
               t.map(function (e) {
@@ -326,8 +325,8 @@ __d(
           );
         });
       })(),
-      v = (function () {
-        return o("WABatcher").batch({ delayMs: g }, async function (e) {
+      b = (function () {
+        return o("WABatcher").batch({ delayMs: f }, async function (e) {
           var t = Array.from(
             new Set(
               e.map(function (e) {
@@ -415,12 +414,12 @@ __d(
           );
         });
       })();
-    function S(e) {
+    function v(e) {
       var t = e.data,
         n = e.group,
         a = e.isOffline,
         i = a === void 0 ? !1 : a;
-      if (i) return v({ id: String(n), data: t });
+      if (i) return b({ id: String(n), data: t });
       var l = t.participants,
         s = n.toString();
       return o("WAWebModelStorageUtils")
@@ -466,7 +465,7 @@ __d(
           }
         });
     }
-    function R(e, t) {
+    function S(e, t) {
       return o("WAWebModelStorageUtils")
         .getStorage()
         .lock(["participant"], async function (n) {
@@ -481,14 +480,14 @@ __d(
           );
         });
     }
-    function L(e) {
+    function R(e) {
       var t = e.data,
         n = e.group,
         a = e.groupMetadata,
         i = e.isOffline,
         l = i === void 0 ? !1 : i,
         s = !!(a != null && a.defaultSubgroup);
-      if (l) return b({ id: String(n), data: t, groupMetadata: a });
+      if (l) return C({ id: String(n), data: t, groupMetadata: a });
       var u = t.participants,
         c = n.toString();
       return o("WAWebModelStorageUtils")
@@ -585,9 +584,9 @@ __d(
           }
         });
     }
-    var E = n("$InternalEnum").Mirrored(["Success", "Error"]);
-    async function k(e, t) {
-      var n = E.Error;
+    var L = n("$InternalEnum").Mirrored(["Success", "Error"]);
+    async function E(e, t) {
+      var n = L.Error;
       return (
         await o("WAWebModelStorageUtils")
           .getStorage()
@@ -626,7 +625,7 @@ __d(
                     c.map(function (e) {
                       var t = e[0],
                         n = e[1];
-                      return [I(t, s).toString(), !1];
+                      return [k(t, s).toString(), !1];
                     }),
                   ),
                 },
@@ -635,7 +634,7 @@ __d(
                 i.merge(e.toString(), p),
                 l.merge(e.toString(), _),
               ]),
-                (n = E.Success));
+                (n = L.Success));
             } catch (t) {
               o("WALogger").ERROR(
                 d ||
@@ -652,7 +651,7 @@ __d(
         n
       );
     }
-    function I(e, t) {
+    function k(e, t) {
       var n,
         a = o("WAWebWidFactory").createDeviceWidOrThrow(e),
         i = t(o("WAWebWidFactory").asUserWidOrThrow(a));
@@ -678,7 +677,7 @@ __d(
         )
         .toString();
     }
-    function T(e) {
+    function I(e) {
       var t = e.group;
       return o("WAWebModelStorageUtils")
         .getStorage()
@@ -689,7 +688,7 @@ __d(
           });
         });
     }
-    function D(e) {
+    function T(e) {
       var t = e.groupIds;
       return o("WAWebModelStorageUtils")
         .getStorage()
@@ -705,7 +704,7 @@ __d(
           );
         });
     }
-    function x(e) {
+    function D(e) {
       var t = e.group,
         n = e.newId,
         r = e.oldId,
@@ -724,7 +723,7 @@ __d(
           );
         });
     }
-    async function $(e) {
+    async function x(e) {
       var t,
         n,
         r,
@@ -815,7 +814,7 @@ __d(
         deviceCount: s.senderKey.size,
       };
     }
-    async function P(e) {
+    async function $(e) {
       try {
         var t = await o("WAWebSchemaParticipant")
           .getParticipantTable()
@@ -841,28 +840,19 @@ __d(
         );
       }
     }
-    ((l.addParticipantInfo = (f = o(
-      "WAWebDBGroupParticipantHelpers",
-    )).addParticipantInfo),
-      (l.addParticipantInfoCAG = f.addParticipantInfoCAG),
-      (l.createParticipantInfo = f.createParticipantInfo),
-      (l.removeParticipantInfo = f.removeParticipantInfo),
-      (l.removeParticipantInfoCAG = f.removeParticipantInfoCAG),
-      (l.replaceParticipantInfo = f.replaceParticipantInfo),
-      (l.replaceParticipantInfoCAG = f.replaceParticipantInfoCAG),
-      (l.updateGroupParticipantTableWithoutDeviceSync = h),
-      (l.replaceParticipants = y),
-      (l.addPastParticipants = C),
-      (l.updateCommunityParticipants = S),
-      (l.setDBGroupSuperAdmin = R),
-      (l.updateDBParticipants = L),
-      (l.AddressingModeMigrationResult = E),
-      (l.migrateParticipantInfoAddressingMode = k),
-      (l.markGroupParticipantStale = T),
-      (l.bulkMarkGroupParticipantStale = D),
-      (l.modifyGroupParticipant = x),
-      (l.getGroupParticipant = $),
-      (l.computeGroupParticipantsHash = P));
+    ((l.updateGroupParticipantTableWithoutDeviceSync = g),
+      (l.replaceParticipants = h),
+      (l.addPastParticipants = y),
+      (l.updateCommunityParticipants = v),
+      (l.setDBGroupSuperAdmin = S),
+      (l.updateDBParticipants = R),
+      (l.AddressingModeMigrationResult = L),
+      (l.migrateParticipantInfoAddressingMode = E),
+      (l.markGroupParticipantStale = I),
+      (l.bulkMarkGroupParticipantStale = T),
+      (l.modifyGroupParticipant = D),
+      (l.getGroupParticipant = x),
+      (l.computeGroupParticipantsHash = $));
   },
   98,
 );

@@ -126,13 +126,23 @@ __d(
     }
     function v(e) {
       try {
-        return r("ifRequireable")(
-          "WAWebPathfinderHeldBackSurface",
-          function (t) {
-            var n = t.isHeldBackEvent;
-            return n({ screenName: e });
-          },
-          o("WAWebBoolFunc").returnFalse,
+        return (
+          r("ifRequireable")(
+            "WAWebPathfinderHeldBackSurface",
+            function (t) {
+              var n = t.isHeldBackEvent;
+              return n({ screenName: e });
+            },
+            o("WAWebBoolFunc").returnFalse,
+          ) ||
+          r("ifRequireable")(
+            "WAWebPathfinderHeldBackScreen",
+            function (t) {
+              var n = t.claimedLeavingVerdict;
+              return n(e) != null;
+            },
+            o("WAWebBoolFunc").returnFalse,
+          )
         );
       } catch (e) {
         return (

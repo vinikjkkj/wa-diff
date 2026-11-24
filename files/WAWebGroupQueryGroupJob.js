@@ -13,6 +13,7 @@ __d(
     "WAWebCreateOrReplaceDisplayNamesAndLidPnMappingsJob",
     "WAWebDBCommunity",
     "WAWebDBGroupParticipant",
+    "WAWebDBGroupParticipantHelpers",
     "WAWebDBGroupsGroupMetadata",
     "WAWebEnvironment",
     "WAWebGroupAgentDeletedChat",
@@ -581,14 +582,16 @@ __d(
                 u = o("WAWebLidMigrationUtils").toLid(s),
                 c = !!(n != null && n.defaultSubgroup),
                 d = c
-                  ? o("WAWebDBGroupParticipant").removeParticipantInfoCAG(
+                  ? o(
+                      "WAWebDBGroupParticipantHelpers",
+                    ).removeParticipantInfoCAG(
                       i,
                       [{ id: s, lid: u, isAdmin: !1, isSuperAdmin: !1 }],
                       Date.now(),
                       null,
                       null,
                     )
-                  : o("WAWebDBGroupParticipant").removeParticipantInfo(
+                  : o("WAWebDBGroupParticipantHelpers").removeParticipantInfo(
                       i,
                       [{ id: s, isAdmin: !1, isSuperAdmin: !1 }],
                       Date.now(),
@@ -618,7 +621,9 @@ __d(
               if (_ != null) {
                 var h = o("WAWebWidFactory").createUserWidOrThrow(_),
                   y = o("WAWebLidMigrationUtils").toLid(h),
-                  C = o("WAWebDBGroupParticipant").removeParticipantInfoCAG(
+                  C = o(
+                    "WAWebDBGroupParticipantHelpers",
+                  ).removeParticipantInfoCAG(
                     p,
                     [{ id: h, lid: y, isAdmin: !1, isSuperAdmin: !1 }],
                     Date.now(),

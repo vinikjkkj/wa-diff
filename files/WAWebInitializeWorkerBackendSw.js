@@ -11,6 +11,7 @@ __d(
     "WAWebModelStorage",
     "WAWebNotificationWorkerBackend",
     "WAWebOffdStorage",
+    "WAWebPushSubscriptionLifecycleLogger",
     "WAWebSignalStorage",
     "WAWebUpdaterVersion",
     "WAWebUserPrefsGeneral",
@@ -87,12 +88,15 @@ __d(
             ? void 0
             : t.unsubscribe());
           a === !0
-            ? o("WALogger").LOG(
+            ? (o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[push-notification] unsubscribed from push mgr +",
                   ])),
-              )
+              ),
+              o("WAWebPushSubscriptionLifecycleLogger").logSwPushUnsubscribe(
+                "db_init_failed",
+              ))
             : o("WALogger").LOG(
                 c ||
                   (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -114,21 +118,26 @@ __d(
     async function R(e, t) {
       try {
         var n = await Promise.all([
+            k(),
             E(),
-            L(),
             o("WAWebUserPrefsGeneral").getOfflinePushDisabled(),
           ]),
           a = n[0],
           i = n[1],
           l = n[2];
         if ((e == null ? void 0 : e.aborted) === !0) return;
-        if (!a || i || l === !0)
-          return (
-            k(),
-            o(
+        var s = L(a, i, l);
+        if (s != null) {
+          var u = I(s);
+          try {
+            await o(
               "WAWebNotificationWorkerBackend",
-            ).showPushNotificationSyncCompleteMessage()
-          );
+            ).showPushNotificationSyncCompleteMessage();
+          } finally {
+            await u;
+          }
+          return;
+        }
         if (
           (await o("WAWebWorkerEncKeyHelper").initEncSalt(),
           (e == null ? void 0 : e.aborted) === !0)
@@ -161,7 +170,16 @@ __d(
           .sendLogs("push-notification-init-error");
       }
     }
-    async function L() {
+    function L(e, t, n) {
+      return e != null
+        ? e
+        : n === !0
+          ? "offline_push_disabled"
+          : t
+            ? "offline_push_limit"
+            : null;
+    }
+    async function E() {
       var e,
         t =
           (e = await o("WAWebUserPrefsGeneral").getOfflinePushCount()) != null
@@ -191,9 +209,9 @@ __d(
           : !1
       );
     }
-    async function E() {
+    async function k() {
       var e = await o("WAWebUserPrefsGeneral").getAppVersionBase();
-      if (e == null) return !1;
+      if (e == null) return "main_app_version_missing";
       var t = new (o("WAWebUpdaterVersion").Version)(e),
         n = new (o("WAWebUpdaterVersion").Version)(
           o("WAWebBuildConstants").VERSION_BASE,
@@ -211,32 +229,36 @@ __d(
               t,
             )
             .sendLogs("service-worker-lt-main-page-version"),
-          !1)
-        : !0;
+          "sw_version_behind")
+        : null;
     }
-    async function k() {
+    async function I(e) {
       try {
-        var e;
+        var t;
         (o("WAWebABPropsCache").initializeABPropsCache(),
           await o("WAWebABPropsUpdateFromStorage").updateABPropsFromStorage());
-        var t = await ((e = self.registration) == null ||
-        (e = e.pushManager) == null ||
-        e.getSubscription == null
+        var n = await ((t = self.registration) == null ||
+        (t = t.pushManager) == null ||
+        t.getSubscription == null
           ? void 0
-          : e.getSubscription());
-        if (t) {
-          var n = await (t.unsubscribe == null ? void 0 : t.unsubscribe());
-          o("WALogger").LOG(
+          : t.getSubscription());
+        if (n) {
+          var a = await (n.unsubscribe == null ? void 0 : n.unsubscribe());
+          (o("WALogger").LOG(
             h ||
               (h = babelHelpers.taggedTemplateLiteralLoose([
                 "Push subscription unsubscribed ",
                 ".",
               ])),
-            n ? "successfully" : "unsuccessfully",
-          );
+            a ? "successfully" : "unsuccessfully",
+          ),
+            a === !0 &&
+              (await o(
+                "WAWebPushSubscriptionLifecycleLogger",
+              ).logSwPushUnsubscribe(e)));
         }
       } catch (e) {
-        var a = r("getErrorSafe")(e);
+        var i = r("getErrorSafe")(e);
         o("WALogger")
           .ERROR(
             y ||
@@ -244,7 +266,7 @@ __d(
                 "unsubscribe-push-subscription-failure",
               ])),
           )
-          .catching(a)
+          .catching(i)
           .sendLogs("unsubscribe-push-subscription-failure");
       }
     }

@@ -12,6 +12,7 @@ __d(
     "WAWebMmsClientMmsUpload",
     "WAWebMmsClientPollMediaHosts",
     "WAWebMmsClientSelectHost",
+    "WAWebMmsClientUploadRetryResume",
     "WAWebMmsClientUploadStreamer",
     "WAWebMmsClientWaitForNetworkBeforeAttempt",
     "WAWebMmsOperationsConst",
@@ -95,12 +96,13 @@ __d(
           h = Date.now(),
           y = { encFilehash: l, type: f },
           C = null,
-          b = await o("WAExponentialBackoff").exponentialBackoff(
+          b = null,
+          v = await o("WAExponentialBackoff").exponentialBackoff(
             babelHelpers.extends({}, r("WAWebMmsClientMmsBackoffOptions"), {
               signal: _,
             }),
-            async function (y, b) {
-              var v = function (n) {
+            async function (y, v) {
+              var S = function (n) {
                 return t.mediaHosts.getHostsInfo({
                   operation: r("WAWebMmsOperationsConst").UPLOAD,
                   encFilehash: l,
@@ -116,42 +118,42 @@ __d(
                       "mmsClient.upload: attempt #",
                       "",
                     ])),
-                  b + 1,
+                  v + 1,
                 ));
               try {
                 await o(
                   "WAWebMmsClientWaitForNetworkBeforeAttempt",
                 ).waitForNetworkBeforeAttempt({
-                  failCount: b,
+                  failCount: v,
                   networkStatus: t.networkStatus,
                   uploadQpl: e.uploadQpl,
                 });
-                var S = await v(),
-                  R = S.auth,
-                  L = S.fallbackHost,
-                  E = S.selectedHost,
-                  k = { selectedHost: E, fallbackHost: L },
-                  I = r("WAWebMmsClientSelectHost")({
-                    selectedHost: E,
-                    fallbackHost: L,
-                    attemptCount: b,
+                var R = await S(),
+                  L = R.auth,
+                  E = R.fallbackHost,
+                  k = R.selectedHost,
+                  I = { selectedHost: k, fallbackHost: E },
+                  T = r("WAWebMmsClientSelectHost")({
+                    selectedHost: k,
+                    fallbackHost: E,
+                    attemptCount: v,
                     lastHostUsed: C,
                     lastFetchMadeProgress: g,
                   });
                 return (
-                  (C = I),
-                  p({ hostName: I.hostname, hostClass: I.class, failCount: b }),
+                  (C = T),
+                  p({ hostName: T.hostname, hostClass: T.class, failCount: v }),
                   await r("WARetryPromise")(async function (t) {
                     var c = t.retry,
                       m = await i({
-                        auth: R,
+                        auth: L,
                         encFilehash: l,
                         byteLength: a.byteLength,
-                        hostname: I.hostname,
+                        hostname: T.hostname,
                         type: f,
                         signal: _,
                         byteOffset: n,
-                        failCount: b,
+                        failCount: v,
                         mediaId: u,
                         token: e.token,
                         generateThumbnailOnServer: s,
@@ -159,17 +161,17 @@ __d(
                       p = new AbortController(),
                       h = p.signal,
                       y = await r("WARaceSignal")([_, h], function (t) {
-                        var n = o(
+                        var i = o(
                             "WAWebMmsClientPollMediaHosts",
                           ).shouldPollUploadHosts(f, a.byteLength)
                             ? o("WAWebMmsClientPollMediaHosts")
                                 .pollMediaHosts({
-                                  connectionBlock: k,
+                                  connectionBlock: I,
                                   getHost: function () {
-                                    return I;
+                                    return T;
                                   },
                                   getMediaHosts: function () {
-                                    return v(!0);
+                                    return S(!0);
                                   },
                                   getRemainingBytes: function () {
                                     return a.byteLength;
@@ -180,59 +182,92 @@ __d(
                                   return { kind: "host-changed", host: e };
                                 })
                             : null,
-                          i = r("WAWebMmsClientMmsUpload")({
-                            auth: R,
-                            ciphertextHmac:
-                              m > 0 ? new Uint8Array(a).subarray(m) : a,
-                            hostname: I.hostname,
-                            encFilehash: l,
-                            type: f,
-                            signal: _,
-                            onProgress: function (t) {
-                              ((g = !0), d(t, m));
-                            },
-                            byteRange:
-                              m > 0 ? { start: m, end: a.byteLength } : void 0,
-                            mediaId: u,
-                            token: e.token,
-                            generateThumbnailOnServer: s,
-                          }).then(function (e) {
+                          c = (
+                            o(
+                              "WAWebMmsClientUploadRetryResume",
+                            ).shouldResumeUploadRetry({
+                              byteLength: a.byteLength,
+                              encFilehash: l,
+                              failCount: v,
+                              firstAttemptOffset: n,
+                              pollsUploadHosts: i != null,
+                              previousAttemptError: b,
+                              token: e.token,
+                              type: f,
+                            })
+                              ? o(
+                                  "WAWebMmsClientUploadRetryResume",
+                                ).uploadRetryFromServerCount({
+                                  auth: L,
+                                  ciphertextHmac: a,
+                                  encFilehash: l,
+                                  generateThumbnailOnServer: s,
+                                  hostname: T.hostname,
+                                  mediaId: u,
+                                  onProgress: function (t, n) {
+                                    ((g = !0), d(t, n));
+                                  },
+                                  signal: _,
+                                  token: e.token,
+                                  type: f,
+                                  uploadQpl: e.uploadQpl,
+                                })
+                              : r("WAWebMmsClientMmsUpload")({
+                                  auth: L,
+                                  ciphertextHmac:
+                                    m > 0 ? new Uint8Array(a).subarray(m) : a,
+                                  hostname: T.hostname,
+                                  encFilehash: l,
+                                  type: f,
+                                  signal: _,
+                                  onProgress: function (t) {
+                                    ((g = !0), d(t, m));
+                                  },
+                                  byteRange:
+                                    m > 0
+                                      ? { start: m, end: a.byteLength }
+                                      : void 0,
+                                  mediaId: u,
+                                  token: e.token,
+                                  generateThumbnailOnServer: s,
+                                })
+                          ).then(function (e) {
                             return { kind: "upload-completed", value: e };
                           });
-                        return Promise.race([i, n].filter(Boolean)).finally(
+                        return Promise.race([c, i].filter(Boolean)).finally(
                           function () {
                             return p.abort();
                           },
                         );
                       });
                     return y.kind === "host-changed"
-                      ? ((I = y.host), (C = I), c())
+                      ? ((T = y.host), (C = T), c())
                       : y.value;
                   })
                 );
               } catch (e) {
-                var T = r("getErrorSafe")(e);
-                g = !1;
-                var D = o("WAWebMmsClientIsErrorRetryable").isErrorRetryable(T),
-                  x = !D || b === r("WAWebMmsClientMmsBackoffOptions").retries;
+                var D = r("getErrorSafe")(e);
+                ((g = !1), (b = D));
+                var x = o("WAWebMmsClientIsErrorRetryable").isErrorRetryable(D),
+                  $ = !x || v === r("WAWebMmsClientMmsBackoffOptions").retries;
                 if (
-                  (x ||
+                  ($ ||
                     m({
-                      error: T,
-                      failCount: b,
+                      error: D,
+                      failCount: v,
                       overallLastUploadRetryPhase: o(
                         "WAWebWamEnumOverallLastUploadRetryPhaseType",
                       ).OVERALL_LAST_UPLOAD_RETRY_PHASE_TYPE.UPLOAD,
                       overallT: Date.now() - h,
                     }),
-                  D)
+                  x)
                 )
-                  return y(T);
-                throw T;
+                  return y(D);
+                throw D;
               }
             },
           );
-        return { response: b, retryStartTime: h };
+        return { response: v, retryStartTime: h };
       }
       async function i(e) {
         var t = e.auth,

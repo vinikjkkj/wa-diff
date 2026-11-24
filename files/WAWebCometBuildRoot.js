@@ -2,15 +2,21 @@ __d(
   "WAWebCometBuildRoot",
   [
     "invariant",
+    "Actor",
+    "CometHeroInteractionWithDiv.react",
     "CometPageContent.react",
     "CometPlaceholder.react",
     "CometRelayEnvironmentFactory",
+    "CometTimeSpentEventListener.react",
+    "CurrentUser",
     "JSResourceForInteraction",
+    "RelayEnvironmentFactoryProvider",
     "buildCometRootComponent",
     "buildWAWebCometRouterStateProvider",
     "justknobx",
     "lazyLoadComponent",
     "react",
+    "shouldUseNonReactTSListeners",
     "useCometRouterState",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -32,8 +38,37 @@ __d(
             .CometRelayEnvironmentFactory,
         }),
       );
+      if (m()) {
+        var l = function () {
+            return u.jsxs(
+              o("RelayEnvironmentFactoryProvider")
+                .RelayEnvironmentFactoryProvider,
+              {
+                factory: o("CometRelayEnvironmentFactory")
+                  .CometRelayEnvironmentFactory,
+                children: [
+                  u.jsx(a, {
+                    children: u.jsx(o("Actor").ActorProvider, {
+                      initialActorID: s,
+                      readonly: !0,
+                      children: u.jsx(r("CometHeroInteractionWithDiv.react"), {
+                        interactionDesc: "initial load",
+                        interactionUUID: t,
+                        children: u.jsx(_, {}),
+                      }),
+                    }),
+                  }),
+                  c && u.jsx(r("CometTimeSpentEventListener.react"), {}),
+                ],
+              },
+            );
+          },
+          s = r("CurrentUser").getID(),
+          c = !n && r("shouldUseNonReactTSListeners") !== !0;
+        return ((l.displayName = l.name + " [from " + i.id + "]"), l);
+      }
       return o("buildCometRootComponent").buildCometRootComponent(
-        m() ? u.jsx(_, {}) : u.jsx(p, {}),
+        u.jsx(p, {}),
         {
           disableTimeSpentLogging: n,
           initialLoadTraceId: t,

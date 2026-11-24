@@ -116,7 +116,7 @@ __d(
         c,
         d,
         m,
-        _,
+        f,
         g =
           (a =
             (i = t == null ? void 0 : t.address) != null
@@ -181,7 +181,7 @@ __d(
           },
           {
             label: o("WAWebCustomerManagerImportTemplateUtils").FBT_BIRTHDAY,
-            imported: f(
+            imported: _(
               o(
                 "WAWebCustomerManagerImportDateParsingUtils",
               ).readValidCustomerManagerImportDate(
@@ -191,7 +191,7 @@ __d(
                 "birthday",
               ),
             ),
-            stored: f(
+            stored: _(
               (d = t == null ? void 0 : t.birthday) != null
                 ? d
                 : n == null
@@ -208,9 +208,9 @@ __d(
                 ? void 0
                 : m.trim(),
             stored:
-              t == null || (_ = t.lastOrderDescription) == null
+              t == null || (f = t.lastOrderDescription) == null
                 ? void 0
-                : _.trim(),
+                : f.trim(),
           },
         ];
       return S.filter(function (e) {
@@ -228,11 +228,7 @@ __d(
     function _(e) {
       if (e == null) return null;
       var t = new Date(e * 1e3);
-      return Number.isNaN(t.getTime()) ? null : t.toISOString().slice(0, 10);
-    }
-    function f(e) {
-      var t;
-      return (t = _(e)) == null ? void 0 : t.slice(5);
+      return Number.isNaN(t.getTime()) ? null : t.toISOString().slice(5, 10);
     }
     ((l.CustomerManagerImportPhoneDataOwnershipError = e),
       (l.readImportedCustomerMergeState = c),

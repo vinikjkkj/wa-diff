@@ -10,9 +10,9 @@ __d(
         .load();
       return e.showMusicMsgInfoPopup;
     }, "MusicMsgInfoPopup");
-    async function s(t, n) {
-      var r = await e();
-      r(t, n);
+    async function s(t) {
+      var n = await e();
+      n(t);
     }
     l.showMusicMsgInfoPopupLoadable = s;
   },

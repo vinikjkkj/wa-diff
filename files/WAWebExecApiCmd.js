@@ -56,7 +56,7 @@ __d(
     "WAWebGetCTWAEligibilityFromConversion",
     "WAWebGroupInviteLinkModalLoadable.react",
     "WAWebHatchFrontendGating",
-    "WAWebHatchPairingUnavailableDialog.react",
+    "WAWebHatchPairingUnavailableDialogLoadable",
     "WAWebInboxFiltersGatingUtils",
     "WAWebInfoFlowLoadable",
     "WAWebInjectSignupGreetingMessage",
@@ -1052,8 +1052,9 @@ __d(
             )
           )
             return (
-              o("WAWebModalManager").ModalManager.open(
-                B.jsx(r("WAWebHatchPairingUnavailableDialog.react"), {}),
+              o("WAWebModalManager").ModalManager.close(),
+              o("WDSDialogBridge").openWDSDialog(
+                B.jsx(r("WAWebHatchPairingUnavailableDialogLoadable"), {}),
               ),
               o("WALogger")
                 .LOG(

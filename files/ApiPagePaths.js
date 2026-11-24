@@ -1,19 +1,26 @@
 __d(
   "ApiPagePaths",
-  ["ApiPageFields", "generatePaths"],
+  ["$InternalEnum", "ApiPageFields", "generatePaths"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = Object.freeze({ DATA: "data" }),
-      s = [
+    var e = n("$InternalEnum")({ DATA: "data" }),
+      s = Object.freeze(
+        Object.fromEntries(
+          e.members().map(function (t) {
+            return [e.getName(t), t.valueOf()];
+          }),
+        ),
+      ),
+      u = [
         { pathKeys: [], expandsTo: r("ApiPageFields") },
-        { pathKeys: ["PICTURE"], expandsTo: e },
+        { pathKeys: ["PICTURE"], expandsTo: s },
         { pathKeys: ["PICTURE", "DATA"], expandsTo: { URL: "url" } },
-        { pathKeys: ["USERPERMISSIONS"], expandsTo: e },
-        { pathKeys: ["BUSINESSPROJECTS"], expandsTo: e },
+        { pathKeys: ["USERPERMISSIONS"], expandsTo: s },
+        { pathKeys: ["BUSINESSPROJECTS"], expandsTo: s },
       ],
-      u = r("generatePaths")(s),
-      c = u;
-    l.default = c;
+      c = r("generatePaths")(u),
+      d = c;
+    l.default = d;
   },
   98,
 );

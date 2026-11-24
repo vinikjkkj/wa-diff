@@ -1,6 +1,6 @@
 __d(
   "WAWebMusicGatingUtils",
-  ["WAWebABProps", "WAWebBizAiHomeChat"],
+  ["WAWebABProps"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
@@ -34,10 +34,7 @@ __d(
     }
     function p(e) {
       return (
-        e.isGroup() ||
-        (e.isRegularUser() &&
-          !e.isHosted() &&
-          !o("WAWebBizAiHomeChat").isBizAiHomeChat(e))
+        e.isGroup() || (e.isRegularUser() && !e.isHosted() && !e.isAiHub())
       );
     }
     function _() {

@@ -6,6 +6,7 @@ __d(
     "WALogger",
     "WAPromiseLoop",
     "WAPromiseTimeout",
+    "WAWebBackendEventBus",
     "WAWebClearDanglingReceipts",
     "WAWebGetMessageCache",
     "WAWebOffdStorageUtils",
@@ -13,7 +14,9 @@ __d(
     "WAWebPageLoadLogging",
     "WAWebPassiveModeManager",
     "WAWebSchemaDanglingReceipt",
+    "WAWebStanzasInFlight",
     "WAWebWamOfflineResumeReporter",
+    "WAWebWorkerOnlineMessageAdmission",
     "cr:10195",
     "getErrorSafe",
   ],
@@ -33,10 +36,11 @@ __d(
       C,
       b,
       v,
-      S = 4,
-      R = 60 * 1e3,
-      L = {
-        registerPassiveTasksForConnect: E,
+      S,
+      R = 4,
+      L = 60 * 1e3,
+      E = {
+        registerPassiveTasksForConnect: k,
         shouldConnectAsPassiveMode: function () {
           return Promise.resolve(
             o(
@@ -45,7 +49,7 @@ __d(
           );
         },
       };
-    async function E() {
+    async function k() {
       o("WAWebOnlineDanglingReceipts").hasOnlineDanglingReceipts() &&
         o("WAWebPassiveModeManager").PassiveTaskManager.registerPassiveTask(
           "SendOnlineDanglingReceipts",
@@ -114,12 +118,14 @@ __d(
           n.length,
           i,
         ));
-      var l =
-        (await o("WAWebGetMessageCache").getMessageCache().size()) > 0 ||
-        (await o("WAWebGetMessageCache")
-          .getMessageCache()
-          .checkpointQueueSize()) > 0;
-      (a || l) &&
+      var l = I(),
+        f =
+          l != null ||
+          (await o("WAWebGetMessageCache").getMessageCache().size()) > 0 ||
+          (await o("WAWebGetMessageCache")
+            .getMessageCache()
+            .checkpointQueueSize()) > 0;
+      (a || f) &&
         o("WAWebPassiveModeManager").PassiveTaskManager.registerPassiveTask(
           "SendDanglingReceipts",
           async function (e) {
@@ -155,33 +161,59 @@ __d(
                   .verbose()
                   .sendLogs("send-and-clear-dangling-receipts-failed");
               }
-            l && (await I());
+            (l != null && (await T(l)), f && (await x()));
           },
         );
     }
-    var k = null;
-    async function I() {
-      if (k)
-        return (
-          o("WALogger").LOG(
+    function I() {
+      return o("WAWebWorkerOnlineMessageAdmission").workerOnlineMessageAdmission
+        .queue != null
+        ? o("WAWebStanzasInFlight").waitForStanzasInFlight({
+            includeOnline: o("WAWebBackendEventBus").BackendEventBus
+              .isOfflineDeliveryEnd,
+          })
+        : null;
+    }
+    async function T(e) {
+      try {
+        await o("WAPromiseTimeout").promiseTimeout(
+          e,
+          o("WAWebStanzasInFlight").STANZA_HANDLING_P99_MS,
+        );
+      } catch (e) {
+        o("WALogger")
+          .WARN(
             f ||
               (f = babelHelpers.taggedTemplateLiteralLoose([
+                "[passive] stanzas from the closed socket are still in their handlers",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e));
+      }
+    }
+    var D = null;
+    async function x() {
+      if (D)
+        return (
+          o("WALogger").LOG(
+            g ||
+              (g = babelHelpers.taggedTemplateLiteralLoose([
                 "[passive] flush message cache: skip",
               ])),
           ),
-          k
+          D
         );
       try {
         o("WALogger").LOG(
-          g ||
-            (g = babelHelpers.taggedTemplateLiteralLoose([
+          h ||
+            (h = babelHelpers.taggedTemplateLiteralLoose([
               "[passive] flush message cache",
             ])),
         );
         var e = o("WAPromiseLoop").promiseLoop(async function (e, t, n) {
           (o("WALogger").LOG(
-            h ||
-              (h = babelHelpers.taggedTemplateLiteralLoose([
+            y ||
+              (y = babelHelpers.taggedTemplateLiteralLoose([
                 "[passive] flush msg cache: sz=",
                 " qsz=",
                 " gen=",
@@ -203,22 +235,22 @@ __d(
               .getMessageCache()
               .checkpointQueueSize()) === 0
               ? e()
-              : n + 1 >= S &&
+              : n + 1 >= R &&
                 (o("WALogger").WARN(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
+                  C ||
+                    (C = babelHelpers.taggedTemplateLiteralLoose([
                       "[passive] flush message cache: stop after ",
                       " attempts",
                     ])),
-                  S,
+                  R,
                 ),
                 e()));
         });
-        ((k = o("WAPromiseTimeout").promiseTimeout(e, R)),
-          await k,
+        ((D = o("WAPromiseTimeout").promiseTimeout(e, L)),
+          await D,
           o("WALogger").LOG(
-            C ||
-              (C = babelHelpers.taggedTemplateLiteralLoose([
+            b ||
+              (b = babelHelpers.taggedTemplateLiteralLoose([
                 "[passive] flush message cache: done",
               ])),
           ));
@@ -226,8 +258,8 @@ __d(
         e instanceof o("WACustomError").TimeoutError
           ? o("WALogger")
               .ERROR(
-                b ||
-                  (b = babelHelpers.taggedTemplateLiteralLoose([
+                v ||
+                  (v = babelHelpers.taggedTemplateLiteralLoose([
                     "[passive] flush message cache: timeout",
                   ])),
               )
@@ -236,8 +268,8 @@ __d(
               })
           : o("WALogger")
               .ERROR(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
+                S ||
+                  (S = babelHelpers.taggedTemplateLiteralLoose([
                     "[passive] flush message cache failed: ",
                     "",
                   ])),
@@ -248,10 +280,10 @@ __d(
                 sampling: 0.01,
               });
       } finally {
-        k = null;
+        D = null;
       }
     }
-    l.registerPassiveTasksForConnectMainThread = L;
+    l.registerPassiveTasksForConnectMainThread = E;
   },
   98,
 );

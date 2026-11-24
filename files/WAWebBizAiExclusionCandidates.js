@@ -1,7 +1,6 @@
 __d(
   "WAWebBizAiExclusionCandidates",
   [
-    "WAWebBizAiHomeChat",
     "WAWebChatGetters",
     "WAWebContactComparator",
     "WAWebFrontendContactGetters",
@@ -49,7 +48,7 @@ __d(
         o("WAWebChatGetters").getIsUser(e) &&
         !o("WAWebChatGetters").getIsBot(e) &&
         !o("WAWebChatGetters").getIsPSA(e) &&
-        !o("WAWebBizAiHomeChat").isBizAiHomeChat(e.id)
+        !e.id.isAiHub()
       );
     }
     function d(e) {

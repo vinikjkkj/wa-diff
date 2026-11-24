@@ -75,7 +75,25 @@ __d(
               .associated_product_set_id.delete,
           )(t);
     }
-    function d(e) {
+    function d(e, t, n) {
+      if (
+        !o(
+          "AdsConnectedSourcesProductsOptOutUtils",
+        ).shouldWithdrawDefaultCatalogForNewStickyProductsOptOut(e, t, n)
+      )
+        return t;
+      var r = c(t, t);
+      return (
+        r !== t &&
+          (s || (s = o("ODS"))).bumpEntityKey(
+            8427,
+            "AdsAdgroupConnectedSourcesMutators",
+            "default_catalog_withdrawn_for_sticky_products_opt_out",
+          ),
+        r
+      );
+    }
+    function m(e) {
       return o("AdsMutators").chain(
         r("AdsAdgroupRecordAccessors").creative.degrees_of_freedom_spec
           .creative_features_spec.product_extensions.delete,
@@ -85,7 +103,7 @@ __d(
           .associated_product_set_id.delete,
       )(e);
     }
-    function m(e) {
+    function p(e) {
       var t;
       return o("AdsMutators").chain(
         (t = r("AdsAdgroupRecordAccessors")).creative.degrees_of_freedom_spec
@@ -95,7 +113,7 @@ __d(
         t.creative.creative_sourcing_spec.dynamic_site_links_spec.delete,
       )(e);
     }
-    function p(e) {
+    function _(e) {
       var t = r("AdsAdgroupRecordAccessors").creative.creative_sourcing_spec
           .site_links_data_consented,
         n = r("AdsAdgroupRecordAccessors").creative.degrees_of_freedom_spec
@@ -115,7 +133,7 @@ __d(
         o
       );
     }
-    function _(e) {
+    function f(e) {
       var t;
       return o("AdsMutators").chain(
         (t = r(
@@ -134,7 +152,7 @@ __d(
         ),
       )(e);
     }
-    function f(e, t) {
+    function g(e, t) {
       return t == null || t.isEmpty()
         ? e
         : r(
@@ -144,7 +162,7 @@ __d(
             e,
           );
     }
-    function g(e, t) {
+    function h(e, t) {
       var n,
         a = o("AdsSiteLinksComparableDomain").getSiteLinksComparableDomain(t);
       return a == null ||
@@ -160,12 +178,12 @@ __d(
           ) ||
         o("AdsSiteLinksComparableDomain").isRetailerMode(e)
         ? e
-        : C(e, a);
+        : b(e, a);
     }
-    function h() {
+    function y() {
       return !r("justknobx")._("7002");
     }
-    function y(e) {
+    function C(e) {
       var t;
       return (
         ((t = e.creative) == null ||
@@ -175,7 +193,7 @@ __d(
           : t.enroll_status) === "OPT_IN"
       );
     }
-    function C(e, t) {
+    function b(e, t) {
       var n,
         a =
           (n = e.creative) == null || (n = n.creative_sourcing_spec) == null
@@ -197,11 +215,11 @@ __d(
       var l = r(
         "AdsAdgroupRecordAccessors",
       ).creative.creative_sourcing_spec.site_links_spec.set(i, e);
-      return i.size > 0 || r("isSiteLinksManuallyOn")(l) || (y(l) && h())
+      return i.size > 0 || r("isSiteLinksManuallyOn")(l) || (C(l) && y())
         ? l
-        : p(l);
+        : _(l);
     }
-    function b(e, t) {
+    function v(e, t) {
       return (
         t != null &&
         t !== "MANUAL" &&
@@ -213,7 +231,7 @@ __d(
         ).shouldSkipDefaultCatalogForStickyProductsOptOut(e)
       );
     }
-    function v(e, t, n, r, a, i, l, u, c, d, m, p, _, f) {
+    function S(e, t, n, r, a, i, l, u, c, d, m, p, _, f) {
       (c === void 0 && (c = !1),
         d === void 0 && (d = null),
         m === void 0 && (m = null),
@@ -230,7 +248,7 @@ __d(
           "AdsCreativeEnrollmentDefaultOnStoreUtils",
         ).isCreativeEnrollmentDefaultOnVetoedForSelectedAccount("catalog")
         ? e
-        : n && b(e, r)
+        : n && v(e, r)
           ? ((s || (s = o("ODS"))).bumpEntityKey(
               8427,
               "AdsAdgroupConnectedSourcesMutators",
@@ -238,13 +256,13 @@ __d(
             ),
             e)
           : n
-            ? R(e, t, g, a, i, l, u, c, d, m, p, _)
-            : L(e, g, a, i, d, m, p, f);
+            ? L(e, t, g, a, i, l, u, c, d, m, p, _)
+            : E(e, g, a, i, d, m, p, f);
     }
-    function S(e) {
+    function R(e) {
       return e === !0 || !r("gkx")("27623");
     }
-    function R(e, t, a, i, l, s, u, c, d, m, p, _) {
+    function L(e, t, a, i, l, s, u, c, d, m, p, _) {
       (a === void 0 && (a = "DEFAULT"),
         c === void 0 && (c = !1),
         d === void 0 && (d = null),
@@ -349,7 +367,7 @@ __d(
         );
       return o("AdsMutators").chain.apply(o("AdsMutators"), C)(e);
     }
-    function L(e, t, n, a, i, l, s, u) {
+    function E(e, t, n, a, i, l, s, u) {
       (i === void 0 && (i = null),
         l === void 0 && (l = null),
         s === void 0 && (s = null),
@@ -359,7 +377,7 @@ __d(
         c != null &&
           n != null &&
           t === "MANUAL" &&
-          S(u) &&
+          R(u) &&
           o(
             "AdsMetadataConnectedSourcesUtils",
           ).updateConnectedSourceCatalogOptOutTimestamp(
@@ -400,14 +418,14 @@ __d(
         )(e)
       );
     }
-    function E(e, t) {
+    function k(e, t) {
       return o("AdsMutators").chain(
         r(
           "AdsAdgroupRecordAccessors",
         ).creative.creative_sourcing_spec.source_url.set(t),
       )(e);
     }
-    function k(e, t, n) {
+    function I(e, t, n) {
       var r;
       if (t == null || t === "") return e;
       var a =
@@ -417,7 +435,7 @@ __d(
       if (a != null && a !== "") return e;
       var i = e,
         l = !1;
-      ((i = E(e, t)), (l = !0));
+      ((i = k(e, t)), (l = !0));
       var s = e.account_id;
       return (
         o("SEFunnelLogger").logL1SourceUrlSync(
@@ -432,7 +450,7 @@ __d(
         i
       );
     }
-    function I(e, t, n, r) {
+    function T(e, t, n, r) {
       return {
         ad_account_id: n != null ? String(n) : null,
         adgroup_id: e.id != null ? String(e.id) : null,
@@ -441,11 +459,11 @@ __d(
         raw_object_creation_source: r,
       };
     }
-    function T(e, t, n, a, i) {
+    function D(e, t, n, a, i) {
       var l = r("justknobx")._("3523");
       return (
         l ||
-          o("SEFunnelLogger").logL1DefaultingTrigger(I(e, t, n, i), {
+          o("SEFunnelLogger").logL1DefaultingTrigger(T(e, t, n, i), {
             caller: a,
             skip_reason: "weblink_prefill_jk_off",
             triggered: !1,
@@ -453,10 +471,10 @@ __d(
         l
       );
     }
-    function D(e, t, n, a, i, l, s, c, d, m) {
+    function x(e, t, n, a, i, l, s, c, d, m) {
       var p,
         _ = function (r, i) {
-          o("SEFunnelLogger").logL1DefaultingTrigger(I(e, n, a, m), {
+          o("SEFunnelLogger").logL1DefaultingTrigger(T(e, n, a, m), {
             caller: d,
             skip_reason: i,
             triggered: r,
@@ -510,7 +528,7 @@ __d(
               .mustfix("Site-links defaulting orchestrator trigger failed");
           }));
     }
-    function x(e, t) {
+    function $(e, t) {
       var n,
         a,
         i = r("AdsAdgroupRecordAccessors").creative.creative_sourcing_spec
@@ -522,7 +540,7 @@ __d(
             ? n
             : 0) === 0
           ? i.action_metadata.type.delete(i.enroll_status.delete(e))
-          : $(e, "website_media")
+          : P(e, "website_media")
         : l
           ? e
           : o("AdsMutators").chain(
@@ -530,7 +548,7 @@ __d(
               i.action_metadata.type.set("MANUAL"),
             )(e);
     }
-    function $(e, t) {
+    function P(e, t) {
       var n,
         a,
         i,
@@ -644,7 +662,7 @@ __d(
           return e;
       }
     }
-    function P(e) {
+    function N(e) {
       var t,
         n,
         a = e;
@@ -678,7 +696,7 @@ __d(
         a
       );
     }
-    function N(e) {
+    function M(e) {
       var t,
         n =
           (t = e.creative) == null ||
@@ -698,7 +716,7 @@ __d(
               .creative_features_spec.product_extensions.delete,
           )(e);
     }
-    function M(e) {
+    function w(e) {
       var t,
         n =
           (t = e.creative) == null || (t = t.creative_sourcing_spec) == null
@@ -710,7 +728,7 @@ __d(
             "AdsAdgroupRecordAccessors",
           ).creative.creative_sourcing_spec.app_info_spec.delete(e);
     }
-    function w(t, n, a, i, l) {
+    function A(t, n, a, i, l) {
       var s,
         u,
         c,
@@ -758,7 +776,7 @@ __d(
             ).creative.call_to_action.value.link.set(i),
           )(t);
     }
-    function A(t, n, a, i, l, s) {
+    function F(t, n, a, i, l, s) {
       var u;
       s === void 0 && (s = !1);
       var c =
@@ -771,7 +789,7 @@ __d(
         ).creative.creative_sourcing_spec.source_url.set(l),
         function (t) {
           if (s && !(e || (e = r("isEmpty")))(l)) {
-            var u = w(t, n, a, l, c);
+            var u = A(t, n, a, l, c);
             if (u != null) return u;
           }
           if (
@@ -805,7 +823,7 @@ __d(
         },
       )(t);
     }
-    function F(e, t, n, a, i, l) {
+    function O(e, t, n, a, i, l) {
       var s,
         u =
           l !== void 0
@@ -830,32 +848,33 @@ __d(
           })),
         !o("AdsProductExtensionsUtil").isFromExistingPost(c) &&
           i !== u &&
-          (c = E(c, i)),
+          (c = k(c, i)),
         c
       );
     }
     ((l.withdrawDefaultedCatalogConsentMutator = c),
-      (l.adsDeleteConnectedSourceCatalogMutator = d),
-      (l.adsDeleteConnectedSourceSiteExtensionsMutator = m),
-      (l.setEmptySiteLinksOffMutator = p),
-      (l.setKeptSiteLinksManualOffMutator = _),
-      (l.setKeptSiteLinksSpecMutator = f),
-      (l.prepareSiteLinksDomainChangeMutator = g),
-      (l.isKeepSiteLinksOnThroughDomainRefreshEnabled = h),
-      (l.clearStaleSiteLinksForDomainMutator = C),
-      (l.isAutomaticCatalogOptInSkipped = b),
-      (l.setConnectedSourcesCatalogEnrollStatusMutator = v),
-      (l.setSourceUrlMutator = E),
-      (l.syncSourceUrlIfUnsetMutator = k),
-      (l.isSiteLinksTriggerOnWeblinkPrefillEnabled = T),
-      (l.triggerSiteLinksIfEligible = D),
-      (l.toggleWebsiteMediaConsentMutator = x),
-      (l.upwardGrantConnectedSourceConsentMutator = $),
-      (l.clearStaleWebsiteHighlightsMutator = P),
-      (l.clearDefaultSourcedCatalogMutator = N),
-      (l.clearStaleAppInfoMutator = M),
-      (l.setSourceUrlAndDestinationUrlMutator = A),
-      (l.setDestinationUrlAndSourceUrlMutator = F));
+      (l.withdrawDefaultedCatalogForNewStickyProductsOptOutMutator = d),
+      (l.adsDeleteConnectedSourceCatalogMutator = m),
+      (l.adsDeleteConnectedSourceSiteExtensionsMutator = p),
+      (l.setEmptySiteLinksOffMutator = _),
+      (l.setKeptSiteLinksManualOffMutator = f),
+      (l.setKeptSiteLinksSpecMutator = g),
+      (l.prepareSiteLinksDomainChangeMutator = h),
+      (l.isKeepSiteLinksOnThroughDomainRefreshEnabled = y),
+      (l.clearStaleSiteLinksForDomainMutator = b),
+      (l.isAutomaticCatalogOptInSkipped = v),
+      (l.setConnectedSourcesCatalogEnrollStatusMutator = S),
+      (l.setSourceUrlMutator = k),
+      (l.syncSourceUrlIfUnsetMutator = I),
+      (l.isSiteLinksTriggerOnWeblinkPrefillEnabled = D),
+      (l.triggerSiteLinksIfEligible = x),
+      (l.toggleWebsiteMediaConsentMutator = $),
+      (l.upwardGrantConnectedSourceConsentMutator = P),
+      (l.clearStaleWebsiteHighlightsMutator = N),
+      (l.clearDefaultSourcedCatalogMutator = M),
+      (l.clearStaleAppInfoMutator = w),
+      (l.setSourceUrlAndDestinationUrlMutator = F),
+      (l.setDestinationUrlAndSourceUrlMutator = O));
   },
   98,
 );

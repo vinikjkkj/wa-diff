@@ -4,7 +4,6 @@ __d(
     "WAWebContactEditDrawer.react",
     "WAWebContactUtils",
     "WAWebDrawerManager",
-    "WAWebModalManager",
     "WAWebNativeContactsNuxPopup.react",
     "react",
   ],
@@ -13,9 +12,7 @@ __d(
       s = e || (e = o("react"));
     function u(e, t) {
       if (o("WAWebContactUtils").shouldShowNativeContactsNux()) {
-        o("WAWebModalManager").ModalManager.open(
-          s.jsx(r("WAWebNativeContactsNuxPopup.react"), { source: t }),
-        );
+        o("WAWebNativeContactsNuxPopup.react").openNativeContactsNuxPopup(t);
         return;
       }
       (o("WAWebDrawerManager").DrawerManager.closeDrawerRight(),

@@ -15,6 +15,15 @@ __d(
       return s != null && s.name === e ? s.verdict : void 0;
     }
     function d(t) {
+      if (!(t == null || t === e)) {
+        var n = c(t);
+        return n != null &&
+          !o("WAWebPathfinderHeldBackSurface").isScreenClaimedByOpenSurface(t)
+          ? n
+          : void 0;
+      }
+    }
+    function m(t) {
       var n;
       return t === e
         ? void 0
@@ -23,7 +32,7 @@ __d(
           ? n
           : void 0;
     }
-    function m(t, n) {
+    function p(t, n) {
       if (n != null) {
         if (t === "BACKGROUND") return c(n);
         n === e && u(n);
@@ -32,8 +41,9 @@ __d(
     ((l.UNNAMED_SCREEN = e),
       (l.noteEnteredScreen = u),
       (l.leavingVerdict = c),
-      (l.enteringVerdict = d),
-      (l.getLifecycleHeldBackVerdict = m));
+      (l.claimedLeavingVerdict = d),
+      (l.enteringVerdict = m),
+      (l.getLifecycleHeldBackVerdict = p));
   },
   98,
 );

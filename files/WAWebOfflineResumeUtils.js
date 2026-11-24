@@ -67,45 +67,48 @@ __d(
     }
     function R() {
       return r("WAWebNetworkStatus").online
-        ? o("WAPromiseLoop").promiseLoop(async function (e, t, n) {
-            var r = o("WAPromiseDelays").delayMs(
-              o("WABackoffUtils").expBackoff(n, 12e4, 1e3, 0.1),
-            );
-            try {
-              return (
-                await o("WAWebClearDanglingReceipts").clearDanglingReceipts(),
-                o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[offline-resume][utils] runReceiptCleanUpLoop: done.",
-                    ])),
-                ),
-                e()
+        ? o("WAPromiseLoop").promiseLoop(
+            async function (e, t, n) {
+              var r = o("WAPromiseDelays").delayMs(
+                o("WABackoffUtils").expBackoff(n, 12e4, 1e3, 0.1),
               );
-            } catch (t) {
-              return (
-                o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[offline-resume][utils] runReceiptCleanUpLoop failed ",
-                      "",
-                    ])),
-                  t,
-                ),
-                n > 3
-                  ? (o("WALogger").WARN(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
-                          "[offline-resume] runReceiptCleanUpLoop: gave up ",
-                          " tries",
-                        ])),
-                      n,
-                    ),
-                    e())
-                  : r
-              );
-            }
-          })
+              try {
+                return (
+                  await o("WAWebClearDanglingReceipts").clearDanglingReceipts(),
+                  o("WALogger").LOG(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "[offline-resume][utils] runReceiptCleanUpLoop: done.",
+                      ])),
+                  ),
+                  e()
+                );
+              } catch (t) {
+                return (
+                  o("WALogger").LOG(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "[offline-resume][utils] runReceiptCleanUpLoop failed ",
+                        "",
+                      ])),
+                    t,
+                  ),
+                  n > 3
+                    ? (o("WALogger").WARN(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "[offline-resume] runReceiptCleanUpLoop: gave up ",
+                            " tries",
+                          ])),
+                        n,
+                      ),
+                      e())
+                    : r
+                );
+              }
+            },
+            void 0,
+          )
         : (o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([

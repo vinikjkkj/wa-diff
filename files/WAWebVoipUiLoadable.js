@@ -8,6 +8,7 @@ __d(
     "WAWebVoipActivityTracker",
     "WAWebVoipCallLinkLoadingPreview.react",
     "WAWebVoipHiddenPrewarmIdleWork",
+    "WAWebVoipIncomingLoadingPreview.react",
     "WAWebVoipInitEventEmitter",
     "WAWebVoipOutgoingLoadingPreview.react",
     "react",
@@ -54,13 +55,21 @@ __d(
             isVideo: e.isVideo,
           });
         var n = r("WAWebCallCollection").pendingOutgoingCall;
-        return n != null
-          ? s.jsx(r("WAWebVoipOutgoingLoadingPreview.react"), {
-              isJoin: n.isJoin,
-              isVideo: n.isVideo,
+        if (n != null)
+          return s.jsx(r("WAWebVoipOutgoingLoadingPreview.react"), {
+            isJoin: n.isJoin,
+            isVideo: n.isVideo,
+          });
+        var o = r("WAWebCallCollection").activeCall;
+        return (o == null ? void 0 : o.callLinkState) != null
+          ? s.jsx(r("WAWebVoipCallLinkLoadingPreview.react"), {
+              isVideo: o.isVideo,
             })
-          : s.jsx(s.Fragment, {});
+          : o != null && !o.outgoing
+            ? s.jsx(r("WAWebVoipIncomingLoadingPreview.react"), { call: o })
+            : s.jsx(s.Fragment, {});
       },
+      renderLoadingImmediately: !0,
     });
     ((l.requireBundle = u), (l.WAWebVoipUiLoadable = m));
   },

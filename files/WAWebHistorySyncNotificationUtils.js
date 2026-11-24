@@ -353,12 +353,6 @@ __d(
     }
     ((l.HistorySyncScheduleSource = m),
       (l.processPastParticipants = p),
-      (l.getHistorySyncBasicChunkInfoString = o(
-        "WAWebHistorySyncLogUtils",
-      ).getHistorySyncBasicChunkInfoString),
-      (l.getHistorySyncLogDetailsString = o(
-        "WAWebHistorySyncLogUtils",
-      ).getHistorySyncLogDetailsString),
       (l.checkSelfHistorySyncIdentity = _),
       (l.saveGroupMetadataForLeftGroup = f),
       (l.handleChatThreadLoggingMetadata = g),

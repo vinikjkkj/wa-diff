@@ -25,7 +25,6 @@ __d(
       LAST_MESSAGE_FILTER_CHIP: "last_message_filter_chip",
       LEAD_STAGE_FILTER_CHIP: "lead_stage_filter_chip",
       CUSTOMER_MANAGER_PIPELINE_CLICK: "customer_manager_pipeline_click",
-      ROW_CHAT_BUTTON: "row_chat_button",
       SAVE_ACTION: "save_action",
       SEARCH_INPUT: "search_input",
       VIEW_SWITCHER: "view_switcher",

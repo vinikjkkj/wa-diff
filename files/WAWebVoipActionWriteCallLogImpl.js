@@ -537,10 +537,16 @@ __d(
               (o("WALogger").LOG(
                 h ||
                   (h = babelHelpers.taggedTemplateLiteralLoose([
-                    "[voip] call log dequeued after ",
-                    "ms queue wait",
+                    "[voip-order] q ",
+                    " ms=",
+                    " off=",
+                    " end=",
+                    "",
                   ])),
+                _.id.id,
                 e,
+                n,
+                o("WAWebCmd").Cmd.isOfflineDeliveryEnd,
               ),
                 o("WAWebVoipActivityTracker").trackUiActivity(
                   o("WAWebVoipActivityTracker").VoipUiActivity
@@ -553,14 +559,20 @@ __d(
                   (o("WALogger").LOG(
                     y ||
                       (y = babelHelpers.taggedTemplateLiteralLoose([
-                        "[voip] call log done: queue=",
-                        "ms write=",
-                        "ms total=",
-                        "ms",
+                        "[voip-order] done ",
+                        " w=",
+                        " all=",
+                        " t=",
+                        " v=",
+                        " o=",
+                        "",
                       ])),
-                    e,
+                    _.id.id,
                     r,
                     n,
+                    t == null ? void 0 : t.t,
+                    t == null ? void 0 : t.viewMode,
+                    t == null ? void 0 : t.callOutcome,
                   ),
                     o("WAWebVoipActivityTracker").trackUiActivity(
                       o("WAWebVoipActivityTracker").VoipUiActivity
@@ -573,8 +585,10 @@ __d(
                     .ERROR(
                       C ||
                         (C = babelHelpers.taggedTemplateLiteralLoose([
-                          "[voip] call log write failed",
+                          "[voip-order] fail ",
+                          "",
                         ])),
+                      _.id.id,
                     )
                     .catching(r("getErrorSafe")(e))
                     .sendLogs("voip-callog-write-failed"),
@@ -780,66 +794,67 @@ __d(
         r = e.orderingWriteContext,
         a = e.pendingOutcome,
         i = e.skipIdbPersistForUpdate,
-        l = o("WAWebMsgCollection").MsgCollection.get(t.id);
-      if (l == null) {
-        var s = await z(t, r),
-          u = await o("WAWebSendMsgChatAction").addVoipCallLogMsgToChat(
-            n,
-            await o("WAWebVoipLiveRootCallLogState").withNativeLiveRootViewMode(
-              await ee(s.message),
-            ),
-          );
+        l = await z(t, r),
+        s = l.message,
+        u = o("WAWebMsgCollection").MsgCollection.get(s.id);
+      if (u == null) {
+        var c = await o("WAWebSendMsgChatAction").addVoipCallLogMsgToChat(
+          n,
+          await o("WAWebVoipLiveRootCallLogState").withNativeLiveRootViewMode(
+            await ee(l.message),
+          ),
+        );
         return (
-          u != null &&
+          c != null &&
             o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(
-              t.id,
+              s.id,
               a,
             ),
           {
-            msg: u,
-            surface: u != null ? "created" : "none",
-            originalViewMode: s.originalViewMode,
+            msg: c,
+            surface: c != null ? "created" : "none",
+            originalViewMode: l.originalViewMode,
           }
         );
       }
-      var c =
-          l.viewMode ===
+      var d =
+          u.viewMode ===
             o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OFFLINE_RESUME ||
-          l.viewMode ===
+          u.viewMode ===
             o("WAWebViewMode.flow").ViewModeType
               .CALL_LOG_OFFLINE_RESUME_PROMOTED,
-        d = se(c, l.viewMode, t.viewMode),
-        m = ie(l.viewMode, t.viewMode),
-        p = await o("WAWebVoipLiveRootCallLogState").withNativeLiveRootViewMode(
-          te(c, l, t),
+        m = se(d, u.viewMode, s.viewMode),
+        p = ie(u.viewMode, s.viewMode),
+        _ = await o("WAWebVoipLiveRootCallLogState").withNativeLiveRootViewMode(
+          te(d, u, s),
         );
-      le(c, l.viewMode, p.viewMode);
-      var _ = ge(
-        l.t,
+      le(d, u.viewMode, _.viewMode);
+      var f = ge(
+        u.t,
         o("WAWebVoipLiveRootCallLogState").preserveCallParticipants(
-          l.callParticipants,
-          ye(l.screenedElsewhere, he(l.callOutcome, p)),
+          u.callParticipants,
+          ye(u.screenedElsewhere, he(u.callOutcome, _)),
         ),
       );
       return (
         i
-          ? await l.applyUpdate(_)
+          ? await u.applyUpdate(f)
           : await Promise.all([
-              l.applyUpdate(_),
+              u.applyUpdate(f),
               await o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
                 chatId: n,
-                newMsg: _,
+                newMsg: f,
                 handleSingleMsgOrigin: "voipNotification",
                 messageOverwriteOption: o("WAWebHandleMsgTypes")
                   .MessageOverwriteOption.VOIP_CALL_LOG,
               }),
             ]),
-        o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(t.id, a),
-        m &&
+        o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(s.id, a),
+        p &&
           o(
             "WAWebVoipUnresolvedPlaceholderLoadable",
-          ).countShownPlaceholderAgainLoadable(t.id),
-        { msg: l, surface: d ? "promoted" : "none" }
+          ).countShownPlaceholderAgainLoadable(s.id),
+        { msg: u, surface: m ? "promoted" : "none" }
       );
     }
     async function ee(e) {
@@ -999,10 +1014,14 @@ __d(
             (o("WALogger").LOG(
               L ||
                 (L = babelHelpers.taggedTemplateLiteralLoose([
-                  "[voip] call log IDB persist dequeued after ",
-                  "ms",
+                  "[voip-order] eager-q ",
+                  " ms=",
+                  " end=",
+                  "",
                 ])),
+              a.id.id,
               e,
+              o("WAWebCmd").Cmd.isOfflineDeliveryEnd,
             ),
               o("WAWebVoipActivityTracker").trackUiActivity(
                 o("WAWebVoipActivityTracker").VoipUiActivity
@@ -1034,16 +1053,26 @@ __d(
                 o("WALogger").LOG(
                   E ||
                     (E = babelHelpers.taggedTemplateLiteralLoose([
-                      "[voip] call log persisted to IDB successfully",
+                      "[voip-order] phase=eager-handled ",
+                      " modelT=",
+                      " modelView=",
+                      " modelOutcome=",
+                      "",
                     ])),
+                  a.id.id,
+                  a.t,
+                  a.viewMode,
+                  a.callOutcome,
                 ));
             } catch (e) {
               (o("WALogger")
                 .ERROR(
                   k ||
                     (k = babelHelpers.taggedTemplateLiteralLoose([
-                      "[voip] call log IDB persist failed",
+                      "[voip-order] eager-fail ",
+                      "",
                     ])),
+                  a.id.id,
                 )
                 .catching(r("getErrorSafe")(e))
                 .tags("voip")

@@ -103,7 +103,7 @@ __d(
         var o = n();
         return o != null && o.isConnected && o.contains(t);
       }
-      return r != null && O(t, r);
+      return r != null && B(t, r);
     }
     function S(e) {
       for (var t = e; t != null; t = t.parentElement)
@@ -169,6 +169,11 @@ __d(
       );
     }
     function D(e) {
+      return s.some(function (t) {
+        return t.screenName === e;
+      });
+    }
+    function x(e) {
       var t = s.findLast(function (t) {
         return (
           e != null &&
@@ -178,21 +183,21 @@ __d(
       });
       return t != null ? t.name : null;
     }
-    var x = null;
-    function $(e) {
-      x = e;
-    }
+    var $ = null;
     function P(e) {
-      for (var t, n = s.length - 1; n >= 0; n--) {
-        var r = s[n];
-        if (A(r, e)) return r.name;
-      }
-      return e != null && (t = x == null ? void 0 : x(e)) != null ? t : null;
+      $ = e;
     }
     function N(e) {
+      for (var t, n = s.length - 1; n >= 0; n--) {
+        var r = s[n];
+        if (F(r, e)) return r.name;
+      }
+      return e != null && (t = $ == null ? void 0 : $(e)) != null ? t : null;
+    }
+    function M(e) {
       return s
         .filter(function (t) {
-          return A(t, e);
+          return F(t, e);
         })
         .map(function (e) {
           var t = e.name,
@@ -200,23 +205,23 @@ __d(
           return { name: t, token: n };
         });
     }
-    function M() {
+    function w() {
       return new Set(
         s.map(function (e) {
           return e.token;
         }),
       );
     }
-    function w(e) {
-      var t = e.heldBackSurface !== void 0 ? e.heldBackSurface : P();
+    function A(e) {
+      var t = e.heldBackSurface !== void 0 ? e.heldBackSurface : N();
       return (
         t != null ||
         d(e.screenName) ||
         d(e.destinationName) ||
-        D(e.screenName) != null
+        x(e.screenName) != null
       );
     }
-    function A(e, t) {
+    function F(e, t) {
       var n = e.getRoot,
         r = e.holdsUntilRootAttached,
         o = e.rootTestId;
@@ -226,12 +231,12 @@ __d(
           ? r
           : t instanceof Node && a.contains(t);
       }
-      return o == null || (r && !F(o)) ? !0 : O(t, o);
+      return o == null || (r && !O(o)) ? !0 : B(t, o);
     }
-    function F(e) {
+    function O(e) {
       return document.querySelector('[data-testid="' + e + '"]') != null;
     }
-    function O(e, t) {
+    function B(e, t) {
       return (
         e instanceof Element && e.closest('[data-testid="' + t + '"]') != null
       );
@@ -249,12 +254,13 @@ __d(
       (i.getOpenScopedHeldBackSurface = k),
       (i.openHeldBack = I),
       (i.enterHeldBackSurface = T),
-      (i.captureHeldBackScreen = D),
-      (i.setHeldPopupLookup = $),
-      (i.captureHeldBackSurface = P),
-      (i.getCoveringHeldBackHolds = N),
-      (i.getActiveHeldBackTokens = M),
-      (i.isHeldBackEvent = w));
+      (i.isScreenClaimedByOpenSurface = D),
+      (i.captureHeldBackScreen = x),
+      (i.setHeldPopupLookup = P),
+      (i.captureHeldBackSurface = N),
+      (i.getCoveringHeldBackHolds = M),
+      (i.getActiveHeldBackTokens = w),
+      (i.isHeldBackEvent = A));
   },
   66,
 );

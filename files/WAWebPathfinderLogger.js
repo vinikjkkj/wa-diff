@@ -183,6 +183,7 @@ __d(
           (a.triggering_testid = t.triggering_testid),
         t.press_kind != null && (a.press_kind = t.press_kind),
         t.is_back === !0 && (a.is_back = "true"),
+        t.is_empty != null && (a.is_empty = String(t.is_empty)),
         r("isEmptyObject")(a) ? void 0 : a
       );
     }
@@ -410,7 +411,7 @@ __d(
             if (!W()) return null;
             var e = o(
               "WAWebPathfinderTraceEnvelope",
-            ).buildPathfinderTraceEnvelope(rt());
+            ).buildPathfinderTraceEnvelope(ot());
             return e != null &&
               o("WAWebPathfinderTraceEnvelope").exceedsTraceByteBudget(e)
               ? (o("WALogger")
@@ -600,7 +601,7 @@ __d(
           e.screenName !== o("WAWebPathfinderHeldBackScreen").UNNAMED_SCREEN;
       if (
         !o("WAWebPathfinderHeldBackPermit").takePermittedHeldBackRow(e) &&
-        o("WAWebPathfinderHeldBackSurface").isHeldBackEvent(e)
+        tt(e)
       )
         return !1;
       var c = q();
@@ -684,6 +685,7 @@ __d(
                 triggering_testid: d.triggeringTestId,
                 press_kind: C,
                 is_back: u,
+                is_empty: d.isInputEmpty,
               },
               A,
             ),
@@ -761,7 +763,15 @@ __d(
         }
       return !0;
     }
-    function tt() {
+    function tt(e) {
+      return (
+        o("WAWebPathfinderHeldBackSurface").isHeldBackEvent(e) ||
+        o("WAWebPathfinderHeldBackScreen").claimedLeavingVerdict(
+          e.screenName,
+        ) != null
+      );
+    }
+    function nt() {
       for (var e = [], t = 0; t < ke; t++) {
         var n = (Te + t) % ke,
           r = Ie[n];
@@ -769,7 +779,7 @@ __d(
       }
       return e;
     }
-    function nt() {
+    function rt() {
       var e = De;
       if (e == null) return null;
       for (var t = [], n = 0; n < ke; n++) {
@@ -778,12 +788,12 @@ __d(
       }
       return t;
     }
-    function rt() {
+    function ot() {
       return {
-        entries: tt(),
+        entries: nt(),
         headClipped: Me > ke,
         totalRecorded: Me,
-        pairedFlags: nt(),
+        pairedFlags: rt(),
       };
     }
     ((l.FALCO_MAP = y),
@@ -792,8 +802,8 @@ __d(
       (l.registerPathfinderEmitObserver = We),
       (l.PATHFINDER_RING_BUFFER_OVERFLOW_ODS_KEY = qe),
       (l.emitPathfinderEvent = et),
-      (l.getPathfinderLogSnapshot = tt),
-      (l.getPathfinderLogSnapshotWithMeta = rt));
+      (l.getPathfinderLogSnapshot = nt),
+      (l.getPathfinderLogSnapshotWithMeta = ot));
   },
   98,
 );

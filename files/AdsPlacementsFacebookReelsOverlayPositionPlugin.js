@@ -73,12 +73,36 @@ __d(
           return null;
       }
     }
-    function d() {
+    function d(e, t) {
+      return r("AdsAppUtils").isCanvasAppObjective(t, e.promotedObjectType)
+        ? o("AdsPlacementIneligibilityReason").createCanvasAppReason()
+        : e.promotedObjectType !== r("AdsPromotedObjectTypes").MESSENGER &&
+            t === r("AdsAPIObjectives").MESSAGES
+          ? o("AdsPlacementIneligibilityReason").createMessengerReason(
+              e.objective,
+            )
+          : e.promotedObjectType === r("AdsPromotedObjectTypes").INSTAGRAM &&
+              (t === r("AdsAPIObjectives").CONVERSIONS ||
+                e.objective === r("AdsAPIObjectives").LINK_CLICKS)
+            ? o("AdsPlacementIneligibilityReason").createInstagramDirectReason(
+                e.objective,
+              )
+            : o(
+                  "AdsInstagramLeadGenPlacementUtils",
+                ).isInstagramLeadGenDestinationSelected(
+                  babelHelpers.extends({}, e, { objective: t }),
+                )
+              ? o(
+                  "AdsPlacementIneligibilityReason",
+                ).createInstagramLeadGenReason(e.objective)
+              : null;
+    }
+    function m() {
       return o("WebPixelRatio").get() >= 2
         ? r("bx").getURL(r("bx")("50881"))
         : r("bx").getURL(r("bx")("50880"));
     }
-    var m = {
+    var p = {
         type: "placements/position",
         key: "facebook/reels_overlay",
         name: e(),
@@ -95,8 +119,8 @@ __d(
           videoCrop: "9:16",
         },
         apiPosition: "facebook_reels_overlay",
-        placementImage: d(),
-        placementPreviewImage: d(),
+        placementImage: m(),
+        placementPreviewImage: m(),
         platformKey: "facebook",
         getPlacementSpecificPreviewInfo: function () {
           return o(
@@ -130,7 +154,7 @@ __d(
           if (a) return a;
           var i = o(
             "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
-          ).getSOOBundleParentIneligibilityReason(m, t);
+          ).getSOOBundleParentIneligibilityReason(p, t);
           if (i != null) return i;
           if (t.isReelsTrendingAds === !0)
             return o(
@@ -228,33 +252,8 @@ __d(
             return o(
               "AdsPlacementIneligibilityReason",
             ).createOmnichannelReason();
-          if (r("AdsAppUtils").isCanvasAppObjective(l, t.promotedObjectType))
-            return o("AdsPlacementIneligibilityReason").createCanvasAppReason();
-          if (
-            t.promotedObjectType !== r("AdsPromotedObjectTypes").MESSENGER &&
-            l === r("AdsAPIObjectives").MESSAGES
-          )
-            return o("AdsPlacementIneligibilityReason").createMessengerReason(
-              t.objective,
-            );
-          if (
-            t.promotedObjectType === r("AdsPromotedObjectTypes").INSTAGRAM &&
-            (l === r("AdsAPIObjectives").CONVERSIONS ||
-              t.objective === r("AdsAPIObjectives").LINK_CLICKS)
-          )
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createInstagramDirectReason(t.objective);
-          if (
-            o(
-              "AdsInstagramLeadGenPlacementUtils",
-            ).isInstagramLeadGenDestinationSelected(
-              babelHelpers.extends({}, t, { objective: l }),
-            )
-          )
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createInstagramLeadGenReason(t.objective);
+          var m = d(t, l);
+          if (m != null) return m;
           if (t.containsOffer === !0)
             return o("AdsPlacementIneligibilityReason").createOfferOptionReason(
               t.objective,
@@ -276,9 +275,9 @@ __d(
             return o(
               "AdsPlacementIneligibilityReason",
             ).createInstantGameReason();
-          var d = c(t.promotedObjectType);
-          return d != null
-            ? d
+          var _ = c(t.promotedObjectType);
+          return _ != null
+            ? _
             : t.destinationType === r("AdCampaignDestination").FACEBOOK_LIVE
               ? o("AdsPlacementIneligibilityReason").createFacebookLiveReason()
               : (n = t.isClickToMPAds) != null && n
@@ -342,7 +341,7 @@ __d(
             a != null &&
             (e = a.eligibilityInformation) != null &&
             e.capabilities &&
-            !m.isEnabled(a.eligibilityInformation.capabilities)
+            !p.isEnabled(a.eligibilityInformation.capabilities)
           )
             return t;
           switch (a.type) {
@@ -398,8 +397,8 @@ __d(
         parentPlacements: r("immutable").OrderedSet(["facebook/feed"]),
         childPlacements: r("immutable").OrderedSet([]),
       },
-      p = m;
-    l.default = p;
+      _ = p;
+    l.default = _;
   },
   98,
 );

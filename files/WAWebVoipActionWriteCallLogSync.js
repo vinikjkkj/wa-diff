@@ -18,11 +18,14 @@ __d(
     "WAWebMsgCollection",
     "WAWebMsgKey",
     "WAWebMsgType",
+    "WAWebSchemaMessage",
     "WAWebUserPrefsHistorySync",
     "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
     "WAWebVoipActionWriteCallLogImpl",
+    "WAWebVoipCallLogOrderingAdmission",
+    "WAWebVoipCallLogPlaceholderTracker",
     "WAWebVoipCallLogWriteMutex",
     "WAWebVoipOngoingCallCollection",
     "WAWebVoipTransferredCallRegistry",
@@ -32,6 +35,7 @@ __d(
     "compactMap",
     "getErrorSafe",
     "isStringNullOrEmpty",
+    "justknobx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -47,10 +51,22 @@ __d(
       f,
       g,
       h,
-      y = [],
-      C = null;
-    function b() {
-      if (C != null)
+      y,
+      C,
+      b,
+      v,
+      S,
+      R,
+      L,
+      E,
+      k,
+      I,
+      T,
+      D,
+      x = [],
+      $ = null;
+    function P() {
+      if ($ != null)
         return (
           o("WALogger").LOG(
             e ||
@@ -58,7 +74,7 @@ __d(
                 "generateCallLogFromCallSyncRecord: listener already registered",
               ])),
           ),
-          C.promise
+          $.promise
         );
       (o("WALogger").LOG(
         s ||
@@ -66,8 +82,8 @@ __d(
             "generateCallLogFromCallSyncRecord: setting up listener",
           ])),
       ),
-        (C = new (o("WAResolvable").Resolvable)()));
-      var t = C;
+        ($ = new (o("WAResolvable").Resolvable)()));
+      var t = $;
       return (
         o("WAWebCmd").Cmd.on(
           "on_initial_chat_synced_from_bridge",
@@ -78,10 +94,10 @@ __d(
                   "generateCallLogFromCallSyncRecord: listener called, pending=",
                   "",
                 ])),
-              y.length,
+              x.length,
             ),
-              await o("WAPromiseEach").promiseEach(y, function (e, n) {
-                return S(e).then(function () {
+              await o("WAPromiseEach").promiseEach(x, function (e, n) {
+                return M(e).then(function () {
                   (o("WALogger").LOG(
                     c ||
                       (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -91,8 +107,8 @@ __d(
                     e.fromHistorySync,
                   ),
                     t.resolve(),
-                    (y = []),
-                    (C = null));
+                    (x = []),
+                    ($ = null));
                 });
               }));
           },
@@ -100,7 +116,7 @@ __d(
         t.promise
       );
     }
-    async function v(e) {
+    async function N(e) {
       if (
         o("WAWebUserPrefsHistorySync").getInitialHistorySyncComplete() ||
         o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled()
@@ -113,7 +129,7 @@ __d(
             ])),
           e.fromHistorySync,
         ),
-          await S(e));
+          await M(e));
       else
         return (
           o("WALogger").LOG(
@@ -124,11 +140,11 @@ __d(
               ])),
             e.fromHistorySync,
           ),
-          y.push(e),
-          b()
+          x.push(e),
+          P()
         );
     }
-    async function S(e) {
+    async function M(e) {
       var t,
         n = e.callLogRecord,
         a = e.fromHistorySync,
@@ -149,35 +165,43 @@ __d(
         c = n.callLinkToken,
         d = n.callResult,
         m = n.groupJid,
-        h = n.isCallLink,
-        y = h === void 0 ? !1 : h,
-        C = n.isVideo,
-        b = n.silenceReason,
-        v = n.startTime;
+        C = n.isCallLink,
+        b = C === void 0 ? !1 : C,
+        v = n.isVideo,
+        S = n.silenceReason,
+        R = n.startTime;
       if (
         u != null &&
         !i &&
         o("WAWebVoipActionWriteCallLogImpl").isCallIdAlreadyProcessed(u)
       ) {
-        o(
-          "WAWebVoipUnresolvedPlaceholderLoadable",
-        ).scheduleSyncedRootCallLogRepair(n, u, null);
+        (o("WALogger").LOG(
+          p ||
+            (p = babelHelpers.taggedTemplateLiteralLoose([
+              "[voip-order] producer=sync callId=",
+              " reason=already-processed",
+            ])),
+          u,
+        ),
+          o(
+            "WAWebVoipUnresolvedPlaceholderLoadable",
+          ).scheduleSyncedRootCallLogRepair(n, u, null));
         return;
       }
-      var S = y || !r("isStringNullOrEmpty")(c),
-        k,
-        T =
+      var L = b || !r("isStringNullOrEmpty")(c),
+        E,
+        k =
           s != null && s !== ""
             ? o("WAWebWidFactory").createWid(s)
             : o("WAWebUserUtils").getMeDevicePnLessOrFallback_DO_NOT_USE();
       try {
-        k = await o("WAWebCallLogUtils").getCallLogTargetDetails({
-          callCreatorWid: T,
+        E = await o("WAWebCallLogUtils").getCallLogTargetDetails({
+          callCreatorWid: k,
           callId: u,
           groupJid: r("isStringNullOrEmpty")(m)
             ? null
             : o("WAWebWidFactory").createWid(m),
-          isCallLink: S,
+          isCallLink: L,
           participants: r("compactMap")(n.participants, function (e) {
             return e.userJid != null && e.userJid !== ""
               ? o("WAWebWidFactory").createWid(e.userJid)
@@ -186,39 +210,39 @@ __d(
         });
       } catch (e) {
         o("WALogger").LOG(
-          p || (p = babelHelpers.taggedTemplateLiteralLoose(["", ": ", ""])),
+          _ || (_ = babelHelpers.taggedTemplateLiteralLoose(["", ": ", ""])),
           l.message,
           String(e),
         );
         return;
       }
-      var D = k,
-        x = D.callCreatorUserWid,
-        $ = D.chatId,
-        P = D.fromMe,
-        N = D.msgKeyId,
-        M = D.participant,
-        w = D.viewMode,
-        A = o("WATimeUtils").castToUnixTime(
-          (t = o("WALongInt").maybeNumber(v)) != null
+      var I = E,
+        T = I.callCreatorUserWid,
+        D = I.chatId,
+        x = I.fromMe,
+        $ = I.msgKeyId,
+        P = I.participant,
+        N = I.viewMode,
+        M = o("WATimeUtils").castToUnixTime(
+          (t = o("WALongInt").maybeNumber(R)) != null
             ? t
             : o("WATimeUtils").unixTime(),
         ),
-        F = new (r("WAWebMsgKey"))({
-          remote: $,
-          participant: M,
-          fromMe: P,
-          id: N,
+        A = new (r("WAWebMsgKey"))({
+          remote: D,
+          participant: P,
+          fromMe: x,
+          id: $,
         });
       if (
         (i &&
-          $.isRegularUser() &&
-          o("WAWebLidMigrationUtils").toUserLid($) == null) ||
-        (!i && E($, F, A))
+          D.isRegularUser() &&
+          o("WAWebLidMigrationUtils").toUserLid(D) == null) ||
+        (!i && V(D, A, M))
       ) {
         o("WALogger").LOG(
-          _ ||
-            (_ = babelHelpers.taggedTemplateLiteralLoose([
+          f ||
+            (f = babelHelpers.taggedTemplateLiteralLoose([
               "generateCallLogFromCallSyncRecord: skip unresolved history target or transferred segment, histSync=",
               "",
             ])),
@@ -226,59 +250,76 @@ __d(
         );
         return;
       }
-      var O =
-          !i &&
-          !o("WATimeUtils").happenedWithin(
-            A,
-            o("WATimeUtils").MINUTE_SECONDS,
-          ) &&
-          (await I($, F, A)),
-        B =
-          w === o("WAWebViewMode.flow").ViewModeType.HIDDEN ||
-          w === o("WAWebViewMode.flow").ViewModeType.CALL_LOG_AD_HOC_GROUP_CALL,
-        W = !r("isStringNullOrEmpty")(m) && u != null;
-      W &&
+      var F = await w({
+        chatId: D,
+        callLogMsgKey: A,
+        callLogT: M,
+        viewMode: N,
+        fromHistorySync: i,
+        isCallLinkCall: L,
+      });
+      !i &&
+        !x &&
+        !D.isGroup() &&
+        !L &&
+        o("WALogger").LOG(
+          g ||
+            (g = babelHelpers.taggedTemplateLiteralLoose([
+              "[voip-order] producer=sync callId=",
+              " inputT=",
+              " view=",
+              " admittedView=",
+              " result=",
+              " offlineEnd=",
+              "",
+            ])),
+          A.id,
+          M,
+          N,
+          F,
+          d,
+          o("WAWebCmd").Cmd.isOfflineDeliveryEnd,
+        );
+      var O = !r("isStringNullOrEmpty")(m) && u != null;
+      O &&
         (await o(
           "WAWebVoipOngoingCallCollection",
         ).WAWebVoipOngoingCallCollection.waitUntilLoaded());
-      var q = null,
-        U = await o("WAWebVoipCallLogWriteMutex").WACallLogWriteMutex.acquire();
+      var B = null,
+        W = await o("WAWebVoipCallLogWriteMutex").WACallLogWriteMutex.acquire();
       try {
-        var V,
-          H =
-            W && u != null
+        var H,
+          G =
+            O && u != null
               ? o(
                   "WAWebVoipOngoingCallCollection",
                 ).WAWebVoipOngoingCallCollection.getByCallId(u)
               : null,
-          G = o("WAWebCallLogUtils").getCallOutcomeFromCallResultSyncProto(
+          z = o("WAWebCallLogUtils").getCallOutcomeFromCallResultSyncProto(
             r("nullthrows")(
               d,
               "generateCallLogFromCallSyncRecord: callResult is null from call log record sync",
             ),
           ),
-          z = {
-            id: F,
+          j = {
+            id: A,
             type: o("WAWebMsgType").MSG_TYPE.CALL_LOG,
             kind: o("WAWebMsgType").MsgKind.CallLog,
-            viewMode:
-              !B && (O || i || S)
-                ? o("WAWebViewMode.flow").ViewModeType.HISTORY_SYNCED_CALL_LOG
-                : w,
+            viewMode: F,
             callOutcome:
-              H != null ? o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing : G,
-            finalCallOutcome: H != null ? G : void 0,
+              G != null ? o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing : z,
+            finalCallOutcome: G != null ? z : void 0,
             callSilenceReason:
-              b != null
-                ? o("WAWebCallLogUtils").getCallSilenceReason(b)
+              S != null
+                ? o("WAWebCallLogUtils").getCallSilenceReason(S)
                 : void 0,
-            isVideoCall: C != null ? C : !1,
-            callCreator: T,
+            isVideoCall: v != null ? v : !1,
+            callCreator: k,
             callDuration:
               n.duration == null
                 ? void 0
-                : (V = o("WALongInt").maybeNumber(n.duration)) != null
-                  ? V
+                : (H = o("WALongInt").maybeNumber(n.duration)) != null
+                  ? H
                   : void 0,
             callParticipants: n.participants
               .filter(function (e) {
@@ -299,22 +340,22 @@ __d(
                       : o("WAWebVoipWaCallEnums").CallParticipantState.Invalid,
                 };
               }),
-            from: x,
-            t: A,
-            to: $,
-            isCallLink: S,
+            from: T,
+            t: M,
+            to: D,
+            isCallLink: L,
             callLinkToken: c != null ? c : void 0,
           },
-          j = await o(
+          K = await o(
             "WAWebVoipActionWriteCallLogImpl",
-          ).writeVoipCallLogMessageImpl($, z, !1);
-        q = R(j, i, F, u);
+          ).writeVoipCallLogMessageImpl(D, j, !1);
+        B = q(K, i, A, u);
       } catch (e) {
         i
           ? o("WALogger")
               .ERROR(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "generateCallLogFromCallHistorySyncRecord: failed to generate call log message from history sync",
                   ])),
               )
@@ -323,8 +364,8 @@ __d(
               .sendLogs(l.log)
           : o("WALogger")
               .ERROR(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
                     "generateCallLogFromCallSyncRecord: failed to generate call log message from syncd",
                   ])),
               )
@@ -332,26 +373,272 @@ __d(
               .tags("nexus-voip")
               .sendLogs(l.log);
       } finally {
-        U.release();
+        W.release();
       }
-      L(q, n);
+      U(B, n);
     }
-    function R(e, t, n, r) {
+    async function w(e) {
+      var t = e.callLogMsgKey,
+        n = e.callLogT,
+        r = e.chatId,
+        a = e.fromHistorySync,
+        i = e.isCallLinkCall,
+        l = e.viewMode;
+      return l === o("WAWebViewMode.flow").ViewModeType.HIDDEN ||
+        l === o("WAWebViewMode.flow").ViewModeType.CALL_LOG_AD_HOC_GROUP_CALL
+        ? l
+        : a || i
+          ? o("WAWebViewMode.flow").ViewModeType.HISTORY_SYNCED_CALL_LOG
+          : !t.fromMe &&
+              !r.isGroup() &&
+              !o(
+                "WAWebVoipCallLogPlaceholderTracker",
+              ).isOfflineCallLogOrderingEnabled()
+            ? F(r, t, n, l)
+            : A(r, t, n, l);
+    }
+    async function A(e, t, n, r) {
+      var a =
+          !o("WATimeUtils").happenedWithin(
+            n,
+            o("WATimeUtils").MINUTE_SECONDS,
+          ) && (await G(e, t, n)),
+        i = a
+          ? o("WAWebViewMode.flow").ViewModeType.HISTORY_SYNCED_CALL_LOG
+          : r;
+      return (
+        o("WALogger").LOG(
+          C ||
+            (C = babelHelpers.taggedTemplateLiteralLoose([
+              "[voip-order] source=sync callId=",
+              " reason=legacy view=",
+              "",
+            ])),
+          t.id,
+          i,
+        ),
+        i
+      );
+    }
+    async function F(e, t, n, a) {
+      if (!B())
+        return (
+          o("WALogger").LOG(
+            b ||
+              (b = babelHelpers.taggedTemplateLiteralLoose([
+                "[voip-order] phase=sync-admission callId=",
+                " reason=kill-switch",
+              ])),
+            t.id,
+          ),
+          A(e, t, n, a)
+        );
+      try {
+        var i = await o(
+          "WAWebVoipUnresolvedPlaceholderLoadable",
+        ).loadCallLogOrderingPolicy();
+        if (!B()) return A(e, t, n, a);
+        var l = function (t, n, r, o) {
+            return W(i.getCallLogOrdering, t, n, r, o);
+          },
+          s = babelHelpers.extends({}, i, {
+            getStoredOrderSafeCallLogViewMode: l,
+            recheckStoredCallLogOrdering: async function (t, r) {
+              if (!B()) {
+                o("WALogger").LOG(
+                  v ||
+                    (v = babelHelpers.taggedTemplateLiteralLoose([
+                      "[voip-order] phase=sync-dequeue callId=",
+                      " reason=kill-switch",
+                    ])),
+                  t.id.id,
+                );
+                var e = await A(t.id.remote, t.id, n, a);
+                return {
+                  message: babelHelpers.extends({}, t, { viewMode: e }),
+                };
+              }
+              if (
+                t.viewMode ===
+                  o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OUT_OF_ORDER &&
+                !o(
+                  "WAWebVoipCallLogPlaceholderTracker",
+                ).isOfflineCallLogOrderingEnabled()
+              )
+                return O(t, n, a, l);
+              var s = await i.recheckStoredCallLogOrdering(t, r);
+              return (
+                o("WALogger").LOG(
+                  S ||
+                    (S = babelHelpers.taggedTemplateLiteralLoose([
+                      "[voip-order] phase=sync-dequeue callId=",
+                      " before=",
+                      " after=",
+                      "",
+                    ])),
+                  t.id.id,
+                  t.viewMode,
+                  s.message.viewMode,
+                ),
+                s
+              );
+            },
+          });
+        return (
+          o("WAWebVoipCallLogOrderingAdmission").rememberOrderingPolicyContext(
+            t,
+            s,
+            n,
+            a,
+            null,
+          ),
+          (await l(e, t, n, a)).viewMode
+        );
+      } catch (i) {
+        return (
+          o("WALogger")
+            .WARN(
+              R ||
+                (R = babelHelpers.taggedTemplateLiteralLoose([
+                  "[voip-order] phase=sync-admission callId=",
+                  " reason=policy-error-legacy",
+                ])),
+              t.id,
+            )
+            .catching(r("getErrorSafe")(i)),
+          A(e, t, n, a)
+        );
+      }
+    }
+    async function O(e, t, n, a) {
+      try {
+        var i = await a(e.id.remote, e.id, t, n, null);
+        return (
+          o("WALogger").LOG(
+            L ||
+              (L = babelHelpers.taggedTemplateLiteralLoose([
+                "[voip-order] phase=sync-dequeue callId=",
+                " before=",
+                " after=",
+                " reason=recheck-provisional-hide",
+              ])),
+            e.id.id,
+            e.viewMode,
+            i.viewMode,
+          ),
+          { message: babelHelpers.extends({}, e, { viewMode: i.viewMode }) }
+        );
+      } catch (t) {
+        return (
+          o("WALogger")
+            .WARN(
+              E ||
+                (E = babelHelpers.taggedTemplateLiteralLoose([
+                  "[voip-order] phase=sync-dequeue callId=",
+                  " reason=keep-provisional-hide",
+                ])),
+              e.id.id,
+            )
+            .catching(r("getErrorSafe")(t)),
+          { message: e }
+        );
+      }
+    }
+    function B() {
+      return !r("justknobx")._("8695");
+    }
+    async function W(e, t, n, r, a) {
+      var i,
+        l = o("WAWebSchemaMessage").getMessageTable(),
+        s = await l.get(n.toString(), !1);
+      if (
+        (s == null ? void 0 : s.viewMode) ===
+        o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OUT_OF_ORDER
+      )
+        return (
+          o("WALogger").LOG(
+            k ||
+              (k = babelHelpers.taggedTemplateLiteralLoose([
+                "[voip-order] phase=sync-check callId=",
+                " stored=true storedT=",
+                " reason=durable-hide",
+              ])),
+            n.id,
+            s == null ? void 0 : s.t,
+          ),
+          { viewMode: s.viewMode }
+        );
+      var u = z(n);
+      if (u || j(s == null ? void 0 : s.viewMode))
+        return (
+          o("WALogger").LOG(
+            I ||
+              (I = babelHelpers.taggedTemplateLiteralLoose([
+                "[voip-order] phase=sync-check callId=",
+                " stored=",
+                " storedT=",
+                " reason=",
+                " view=",
+                "",
+              ])),
+            n.id,
+            s != null,
+            s == null ? void 0 : s.t,
+            u ? "live-join" : "reserved-slot",
+            a,
+          ),
+          { viewMode: a }
+        );
+      var c = (i = s == null ? void 0 : s.t) != null ? i : r,
+        d = await e(l, t, s == null ? void 0 : s.internalId, c),
+        m = d.isOutOfOrder,
+        p = d.predecessorT,
+        _ = d.scanLimited,
+        f = d.successorT;
+      return (
+        o("WALogger").LOG(
+          T ||
+            (T = babelHelpers.taggedTemplateLiteralLoose([
+              "[voip-order] phase=sync-check callId=",
+              " stored=",
+              " comparedT=",
+              " predecessorT=",
+              " successorT=",
+              " limited=",
+              " reason=",
+              "",
+            ])),
+          n.id,
+          s != null,
+          c,
+          p,
+          f,
+          _,
+          m ? "new-hide" : "no-inversion-found",
+        ),
+        {
+          viewMode: m
+            ? o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OUT_OF_ORDER
+            : a,
+        }
+      );
+    }
+    function q(e, t, n, r) {
       return e != null && !t && n.id === r ? n : null;
     }
-    function L(e, t) {
+    function U(e, t) {
       e != null &&
         o(
           "WAWebVoipUnresolvedPlaceholderLoadable",
         ).scheduleSyncedRootCallLogRepair(t, e.id, e);
     }
-    function E(e, t, n) {
+    function V(e, t, n) {
       var a,
         i = (a = r("WAWebCallCollection").activeCall) == null ? void 0 : a.id,
         l = o(
           "WAWebVoipTransferredCallRegistry",
         ).getLiveTransferredCallStartTime(i),
-        s = l != null ? k(i, e) : null;
+        s = l != null ? H(i, e) : null;
       return s == null || l == null
         ? !1
         : t.fromMe &&
@@ -360,7 +647,7 @@ __d(
             n >= s.t &&
             n <= l;
     }
-    function k(e, t) {
+    function H(e, t) {
       var n,
         a = (n = r("WAWebCallCollection").activeCall) == null ? void 0 : n.msg;
       if (a != null) return a;
@@ -375,7 +662,7 @@ __d(
             }),
           );
     }
-    async function I(e, t, n) {
+    async function G(e, t, n) {
       try {
         var a = await Promise.all([
             o("WAWebApiChatCommon").getChatRecord(e),
@@ -383,15 +670,15 @@ __d(
           ]),
           i = a[0],
           l = a[1];
-        if (T(t) || D(l == null ? void 0 : l.viewMode)) return !1;
+        if (z(t) || j(l == null ? void 0 : l.viewMode)) return !1;
         var s = i == null ? void 0 : i.t;
         return s != null && s >= n;
       } catch (e) {
         return (
           o("WALogger")
             .WARN(
-              h ||
-                (h = babelHelpers.taggedTemplateLiteralLoose([
+              D ||
+                (D = babelHelpers.taggedTemplateLiteralLoose([
                   "generateCallLogFromCallSyncRecord: stored chat lookup failed",
                 ])),
             )
@@ -400,7 +687,7 @@ __d(
         );
       }
     }
-    function T(e) {
+    function z(e) {
       if (
         o("WAWebABProps").getABPropConfigValue(
           "enable_1on1_call_transfer_entry_point",
@@ -415,14 +702,14 @@ __d(
         t.selfOtherDeviceConnected === !0
       );
     }
-    function D(e) {
+    function j(e) {
       return (
         o("WAWebViewModeUtils").isOfflineResumeCallLogPlaceholderViewMode(e) ||
         e ===
           o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OFFLINE_RESUME_UNCOUNTED
       );
     }
-    l.generateCallLogFromCallSyncRecord = v;
+    l.generateCallLogFromCallSyncRecord = N;
   },
   98,
 );

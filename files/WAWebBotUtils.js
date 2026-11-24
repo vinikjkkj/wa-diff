@@ -2,7 +2,6 @@ __d(
   "WAWebBotUtils",
   [
     "WALogger",
-    "WAWebBizAiHomeChat",
     "WAWebDebugHiddenBotChats",
     "WAWebMsgKey",
     "WAWebWid",
@@ -45,7 +44,7 @@ __d(
         e.isOfficialBizAccount() ||
         e.isSupportAccount() ||
         e.isCAPISupportAccount() ||
-        o("WAWebBizAiHomeChat").isBizAiHomeChat(e)
+        e.isAiHub()
       );
     }
     function k(e) {

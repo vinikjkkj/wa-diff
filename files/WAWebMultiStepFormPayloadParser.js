@@ -3,6 +3,7 @@ __d(
   [
     "WAWebABProps",
     "WAWebMultiStepFormChoiceParser",
+    "WAWebMultiStepFormData",
     "WAWebMultiStepFormInputFieldsParser",
     "WAWebMultiStepFormPillParser",
     "WAWebMultiStepFormTypes",
@@ -10,22 +11,14 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e) {
+      var t = o("WAWebMultiStepFormData").readMultiStepFormData(e);
+      if (t == null) return null;
       try {
-        var t = JSON.parse(e),
-          n = t.payload,
-          r = t.version;
-        if (
-          r !== o("WAWebMultiStepFormTypes").A2UI_FORM_VERSION ||
-          n == null ||
-          typeof n != "object" ||
-          n.type !== o("WAWebMultiStepFormTypes").A2UI_FORM_PAYLOAD_TYPE
-        )
-          return null;
-        var a = n.data;
-        if (a == null || typeof a != "object") return null;
-        var i = a.components,
-          l = a.root;
-        return typeof l != "string" ? null : u(r, l, i);
+        return u(
+          o("WAWebMultiStepFormTypes").A2UI_FORM_VERSION,
+          t.root,
+          t.components,
+        );
       } catch (e) {
         return null;
       }

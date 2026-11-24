@@ -11,18 +11,24 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n) {
-      t === "background"
-        ? c({
-            eventType: "BACKGROUND",
-            screenName: e,
+      if (t === "background")
+        c({
+          eventType: "BACKGROUND",
+          screenName: e,
+          timestampMs: n,
+          heldBackSurface: o("WAWebPathfinderHeldBackScreen").leavingVerdict(e),
+        });
+      else {
+        o("WAWebPathfinderScreenName").updateCurrentScreenName(t);
+        var r = o("WAWebPathfinderHeldBackScreen").claimedLeavingVerdict(t);
+        (r == null && o("WAWebPathfinderHeldBackScreen").noteEnteredScreen(t),
+          c({
+            eventType: "FOREGROUND",
+            screenName: t,
             timestampMs: n,
-            heldBackSurface: o("WAWebPathfinderHeldBackScreen").leavingVerdict(
-              e,
-            ),
-          })
-        : (o("WAWebPathfinderScreenName").updateCurrentScreenName(t),
-          o("WAWebPathfinderHeldBackScreen").noteEnteredScreen(t),
-          c({ eventType: "FOREGROUND", screenName: t, timestampMs: n }));
+            heldBackSurface: r,
+          }));
+      }
     }
     var s = null,
       u = 0;

@@ -1,9 +1,8 @@
 __d(
   "WAWebSwCompanionLogoutReminderNotification",
   [
-    "WAHashStringToNumber",
     "WALogger",
-    "WATimeUtils",
+    "WAWebNoop",
     "WAWebNotificationWorkerBackend",
     "WAWebPushNotificationsGatingUtils",
     "WAWebSwResources",
@@ -25,8 +24,10 @@ __d(
       f,
       g = "web_companion_logout_reminder",
       h = g + ":",
-      y = 2e3;
-    function C(t) {
+      y = 2e3,
+      C = 0,
+      b = Promise.resolve();
+    function v(t) {
       if (t == null || typeof t != "object") return null;
       var n = t.body,
         r = t.category,
@@ -43,7 +44,7 @@ __d(
             null)
           : { title: a, body: n };
     }
-    function b() {
+    function S() {
       try {
         return r("justknobx")._("7538") === !0;
       } catch (e) {
@@ -61,7 +62,13 @@ __d(
         );
       }
     }
-    async function v(e) {
+    function R(e) {
+      var t = b.then(function () {
+        return L(e);
+      });
+      return ((b = t.then(r("WAWebNoop"), r("WAWebNoop"))), t);
+    }
+    async function L(e) {
       var t = e.body,
         n = e.title;
       if (
@@ -75,30 +82,17 @@ __d(
               "[PushNotif] skipped companion logout reminder, notification permission not granted",
             ])),
         ),
-          await E("permission_skipped"));
+          await T("permission_skipped"));
         return;
       }
-      var a = Math.floor(Date.now() / o("WATimeUtils").DAY_MILLISECONDS),
-        i =
-          "" +
-          h +
-          o("WAHashStringToNumber")
-            .hashStringToNumber(
-              n +
-                `
-` +
-                t +
-                `
-` +
-                a,
-            )
-            .toString(36),
-        l = await R(i);
+      C++;
+      var a = "" + h + Date.now().toString(36) + "." + C.toString(36),
+        i = await k();
       try {
         await self.registration.showNotification(n, {
           body: t,
           icon: r("WAWebSwResources").wa_default_notification_icon,
-          tag: i,
+          tag: a,
           data: { type: g },
         });
       } catch (e) {
@@ -111,7 +105,7 @@ __d(
           )
           .catching(r("getErrorSafe")(e))
           .sendLogs("sw-companion-logout-reminder-show-failed"),
-          await E("show_failed"));
+          await T("show_failed"));
         return;
       }
       (o("WALogger").LOG(
@@ -120,20 +114,20 @@ __d(
             "[PushNotif] showed companion logout reminder ",
             "",
           ])),
-        i,
+        a,
       ),
-        await L(l),
-        await E("shown"));
+        await I(i),
+        await T("shown"));
     }
-    async function S(e) {
+    async function E(e) {
       var t = e.data;
-      t == null || typeof t != "object" || t.type !== g || (await E("clicked"));
+      t == null || typeof t != "object" || t.type !== g || (await T("clicked"));
     }
-    async function R(e) {
+    async function k() {
       try {
-        var t = await self.registration.getNotifications();
-        return t.filter(function (t) {
-          return t.tag.startsWith(h) && t.tag !== e;
+        var e = await self.registration.getNotifications();
+        return e.filter(function (e) {
+          return e.tag.startsWith(h);
         });
       } catch (e) {
         return (
@@ -150,7 +144,7 @@ __d(
         );
       }
     }
-    async function L(e) {
+    async function I(e) {
       e.length !== 0 &&
         (o("WAWebNotificationWorkerBackend").closingCanHideNewNotification() &&
           (await new Promise(function (e) {
@@ -168,8 +162,8 @@ __d(
           e.length,
         ));
     }
-    async function E(e) {
-      if (k())
+    async function T(e) {
+      if (D())
         try {
           await o("WAWebWamWorkerInterface").commit(
             new (o("WAWebWebcMinorEventLogWamEvent").WebcMinorEventLogWamEvent)(
@@ -192,7 +186,7 @@ __d(
             .catching(r("getErrorSafe")(e));
         }
     }
-    function k() {
+    function D() {
       try {
         return r("justknobx")._("7828") === !0;
       } catch (e) {
@@ -210,10 +204,10 @@ __d(
       }
     }
     ((l.COMPANION_LOGOUT_REMINDER_TYPE = g),
-      (l.parseCompanionLogoutReminderPushPayload = C),
-      (l.isCompanionLogoutReminderDisabled = b),
-      (l.showCompanionLogoutReminderNotification = v),
-      (l.logCompanionLogoutReminderClick = S));
+      (l.parseCompanionLogoutReminderPushPayload = v),
+      (l.isCompanionLogoutReminderDisabled = S),
+      (l.showCompanionLogoutReminderNotification = R),
+      (l.logCompanionLogoutReminderClick = E));
   },
   98,
 );

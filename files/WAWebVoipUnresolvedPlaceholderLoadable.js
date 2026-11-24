@@ -102,10 +102,10 @@ __d(
         },
       );
     }
-    function E(e, t) {
-      D(e.id, function (n) {
-        var r = n.repairSwitchEntryCallLog;
-        return r(e, t);
+    function E(e, t, n) {
+      D(e.id, function (r) {
+        var o = r.repairSwitchEntryCallLog;
+        return n === !0 ? o(e, t, !0) : o(e, t);
       });
     }
     function k(e, t, n) {
@@ -170,8 +170,8 @@ __d(
             .WARN(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "[voip] call log ",
-                  ": switch entry repair not done",
+                  "[voip-order] phase=repair-failed callId=",
+                  "",
                 ])),
               e,
             )

@@ -551,12 +551,13 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function se() {
+    function se(e) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
-        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
-          .CUSTOMER_MANAGER_LIST,
-        userActionTarget: o("WAWebCustomerManagerSMBUserJourneyTypes")
-          .UserActionTarget.ROW_CHAT_BUTTON,
+        extraAttributes: { operation_source: e.source },
+        surface: o("WAWebCustomerManagerWamLogging").viewSurface(
+          e.source === "profile" ? e.view : "list",
+        ),
+        userActionTarget: "customer_manager_chat_click",
         userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
@@ -833,7 +834,7 @@ __d(
       (l.viewHeaderMenu = ae),
       (l.dismissHeaderMenu = ie),
       (l.clickProfile = le),
-      (l.clickRowChat = se),
+      (l.clickChat = se),
       (l.clickRowSelectCheckbox = ue),
       (l.clickSelectAllCheckbox = ce),
       (l.clickBulkAddToList = de),

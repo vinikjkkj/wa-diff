@@ -4,6 +4,7 @@ __d(
     "WACustomError",
     "WALogger",
     "WAPromiseTimeout",
+    "WAWebBoolFunc",
     "WAWebDBReplayParkedOrphans",
     "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebSchemaMessageOrphans",
@@ -55,12 +56,8 @@ __d(
             getKey: function (t) {
               return t;
             },
-            isWaitingOrphan: function () {
-              return !0;
-            },
-            shouldReplay: function () {
-              return !0;
-            },
+            isWaitingOrphan: o("WAWebBoolFunc").returnTrue,
+            shouldReplay: o("WAWebBoolFunc").returnTrue,
             getReplayableParent: function (t, n) {
               return n;
             },

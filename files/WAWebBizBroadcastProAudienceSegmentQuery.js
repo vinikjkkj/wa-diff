@@ -4,7 +4,7 @@ __d(
     "WATimeUtils",
     "WAWebBizBroadcastProAudienceActivityQuery",
     "WAWebBizBroadcastProAudienceActivityUtils",
-    "WAWebBizBroadcastProLargestListAudienceQuery",
+    "WAWebBizBroadcastProChatListAudienceQuery",
   ],
   function (t, n, r, o, a, i, l) {
     async function e(e) {
@@ -18,7 +18,7 @@ __d(
               ? s(t, "inactive_chats", e.days, n)
               : e.segment === "largest_list"
                 ? o(
-                    "WAWebBizBroadcastProLargestListAudienceQuery",
+                    "WAWebBizBroadcastProChatListAudienceQuery",
                   ).queryProLargestListAudience(t)
                 : (function () {
                     throw Error(

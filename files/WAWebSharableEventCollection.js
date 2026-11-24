@@ -6,6 +6,8 @@ __d(
     "WAWebJidToWid",
     "WAWebSharableEventGetters",
     "WAWebSharableEventModel",
+    "WAWebSharableEventStorageEnums",
+    "WAWebSharableEventTiming",
     "WAWebSharableEventUnseenStore",
   ],
   function (t, n, r, o, a, i, l) {
@@ -50,7 +52,7 @@ __d(
                   e,
                 );
             }),
-            this.updateHasUnseenChanges(),
+            this.updateUnseenChangesEnd(),
             t
           );
         }),
@@ -61,21 +63,22 @@ __d(
             ).clearSharableEventGetterCacheFor(e);
           }),
             e.prototype.reset.call(this),
-            this.updateHasUnseenChanges());
+            this.updateUnseenChangesEnd());
         }),
         (n.addRows = function (t) {
-          var e = this;
-          return this.add(
-            t
-              .filter(function (t) {
-                return !e.isOlderThanShown(t);
-              })
-              .map(u),
-            { merge: !0 },
-          );
+          var e = this,
+            n = this.add(
+              t
+                .filter(function (t) {
+                  return !e.isOlderThanShown(t);
+                })
+                .map(c),
+              { merge: !0 },
+            );
+          return (this.updateUnseenChangesEnd(), n);
         }),
         (n.addLinkPreview = function (t, n) {
-          this.add(babelHelpers.extends({}, u(t), n), { merge: !0 });
+          this.add(babelHelpers.extends({}, c(t), n), { merge: !0 });
         }),
         (n.isOlderThanShown = function (t) {
           var e = this.get(t.eventId);
@@ -106,16 +109,12 @@ __d(
                     lastChangeTsUsec: t.lastChangeTsUsec,
                   });
             }),
-            this.updateHasUnseenChanges());
+            this.updateUnseenChangesEnd());
         }),
-        (n.updateHasUnseenChanges = function () {
+        (n.updateUnseenChangesEnd = function () {
           o(
             "WAWebSharableEventUnseenStore",
-          ).updateSharableEventsHaveUnseenChanges(
-            this.some(function (e) {
-              return e.unseenChangeFlags > 0;
-            }),
-          );
+          ).updateSharableEventsUnseenChangesEnd(u(this.toArray()));
         }),
         t
       );
@@ -123,6 +122,21 @@ __d(
     e.model = o("WAWebSharableEventModel").SharableEvent;
     var s = new e();
     function u(e) {
+      return e.reduce(function (e, t) {
+        if (
+          t.unseenChangeFlags === 0 ||
+          t.status ===
+            o("WAWebSharableEventStorageEnums").SharableEventStoredStatus
+              .Canceled
+        )
+          return e;
+        var n = o(
+          "WAWebSharableEventTiming",
+        ).computeSharableEventEffectiveEndTsSec(t);
+        return e == null ? n : Math.max(e, n);
+      }, null);
+    }
+    function c(e) {
       var t, n, r, a, i, l, s, u, c, d, m, p;
       return {
         id: e.eventId,

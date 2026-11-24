@@ -3,43 +3,57 @@ __d(
   [
     "JSResourceForInteraction",
     "WALogger",
+    "WATimeUtils",
     "WAWebAsISOCountryCode",
     "WAWebMusicGatingUtils",
     "WAWebMusicUserPrefs",
     "compactMap",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = r("JSResourceForInteraction")(
         "WAWebFetchMusicEligibleCountries",
-      ).__setRef("WAWebMusicEligibleCountriesProvider");
-    function u() {
+      ).__setRef("WAWebMusicEligibleCountriesProvider"),
+      u = 10 * o("WATimeUtils").MINUTE_MILLISECONDS,
+      c = null,
+      d = 0;
+    function m() {
       if (
         !o("WAWebMusicGatingUtils").isStatusMusicReceiverEnabled() &&
         !o("WAWebMusicGatingUtils").isMusicOnChatsReceiverEnabled()
       )
         return new Set();
-      var t = o("WAWebMusicUserPrefs").getMusicEligibleCountries();
-      return t != null
-        ? t
-        : (s
-            .load()
-            .then(function (e) {
-              return e.fetchMusicEligibleCountries();
-            })
-            .then(o("WAWebMusicUserPrefs").setMusicEligibleCountries)
-            .catch(function (t) {
-              return o("WALogger").ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "Failed to fetch music eligible countries",
-                  ])),
-              );
-            }),
-          c());
+      var e = o("WAWebMusicUserPrefs").getMusicEligibleCountries();
+      return e != null ? e : (p(), _());
     }
-    var c = function () {
+    function p() {
+      c != null ||
+        o("WATimeUtils").unixTimeMs() < d ||
+        (c = s
+          .load()
+          .then(function (e) {
+            return e.fetchMusicEligibleCountries();
+          })
+          .then(o("WAWebMusicUserPrefs").setMusicEligibleCountries)
+          .catch(function (t) {
+            ((d = o("WATimeUtils").unixTimeMs() + u),
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "Failed to fetch music eligible countries",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("music-eligible-countries-fetch-failed"));
+          })
+          .finally(function () {
+            c = null;
+          }));
+    }
+    var _ = function () {
       return new Set(
         r("compactMap")(
           [
@@ -250,8 +264,8 @@ __d(
         ),
       );
     };
-    ((l.provideMusicEligibleCountries = u),
-      (l.getDefaultMusicEligibleCountries = c));
+    ((l.provideMusicEligibleCountries = m),
+      (l.getDefaultMusicEligibleCountries = _));
   },
   98,
 );

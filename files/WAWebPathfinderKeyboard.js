@@ -1,10 +1,13 @@
 __d(
   "WAWebPathfinderKeyboard",
   [
+    "WAWebPathfinderFieldEmptiness",
+    "WAWebPathfinderHeldBackScreen",
     "WAWebPathfinderHeldBackSurface",
     "WAWebPathfinderLogger",
     "WAWebPathfinderPIIFilter",
     "WAWebPathfinderScreenName",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e = new Set(["INPUT", "TEXTAREA"]);
@@ -53,14 +56,21 @@ __d(
       C = null,
       b = null;
     function v(e) {
-      var t;
-      return (t = o("WAWebPathfinderHeldBackSurface").captureHeldBackSurface(
-        e,
-      )) != null
+      var t,
+        n,
+        r,
+        a = o("WAWebPathfinderScreenName").getCurrentScreenName();
+      return (t =
+        (n =
+          (r = o("WAWebPathfinderHeldBackSurface").captureHeldBackSurface(e)) !=
+          null
+            ? r
+            : o("WAWebPathfinderHeldBackSurface").captureHeldBackScreen(a)) !=
+        null
+          ? n
+          : o("WAWebPathfinderHeldBackScreen").claimedLeavingVerdict(a)) != null
         ? t
-        : o("WAWebPathfinderHeldBackSurface").captureHeldBackScreen(
-            o("WAWebPathfinderScreenName").getCurrentScreenName(),
-          );
+        : null;
     }
     function S(e) {
       var t;
@@ -73,6 +83,7 @@ __d(
         n = e.target;
       !(n instanceof HTMLElement) ||
         !s(n) ||
+        r("justknobx")._("8647") ||
         (b != null && window.clearTimeout(b),
         (y = n),
         (C = (t = h != null && f.get(n) === h ? _ : null) != null ? t : v(n)),
@@ -105,6 +116,9 @@ __d(
           o("WAWebPathfinderLogger").emitPathfinderEvent({
             eventType: "BEGIN_EDITING",
             heldBackSurface: _,
+            isInputEmpty: o("WAWebPathfinderFieldEmptiness").getLoggedIsEmpty(
+              t,
+            ),
             screenName: o("WAWebPathfinderScreenName").getCurrentScreenName(),
             targetTrackingId: n,
             timestampMs: Date.now(),
@@ -127,6 +141,9 @@ __d(
             o("WAWebPathfinderLogger").emitPathfinderEvent({
               eventType: "END_EDITING",
               heldBackSurface: r,
+              isInputEmpty: o("WAWebPathfinderFieldEmptiness").getLoggedIsEmpty(
+                t,
+              ),
               screenName: o("WAWebPathfinderScreenName").getCurrentScreenName(),
               targetTrackingId: n,
               timestampMs: Date.now(),

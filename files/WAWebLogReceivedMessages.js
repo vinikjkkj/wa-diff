@@ -30,6 +30,7 @@ __d(
     "WAWebMessageReceiveWamEvent",
     "WAWebMsgGetters",
     "WAWebMsgType",
+    "WAWebMultiStepFormWamLogger",
     "WAWebOrderDetailsReceivedWamLogger",
     "WAWebPaymentInfoReceivedWamLogger",
     "WAWebPaymentLinkWamLogger",
@@ -713,6 +714,7 @@ __d(
                 "WAWebPaymentInfoReceivedWamLogger",
               ).logPaymentInfoReceivedWAMEvent(t),
               L(t),
+              o("WAWebMultiStepFormWamLogger").logMultiStepFormsReceived(t),
               o("WAWebQbmIncomingMessageLogger").logQbmIncomingMessages(
                 t,
                 n.chatData,

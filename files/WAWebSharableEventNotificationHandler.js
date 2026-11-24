@@ -30,14 +30,16 @@ __d(
       y,
       C,
       b,
-      v = r("WAWebLazyLoadedRetriable")(async function () {
+      v,
+      S,
+      R = r("WAWebLazyLoadedRetriable")(async function () {
         return r("JSResourceForInteraction")(
           "WAWebSharableEventNotificationPersistence",
         )
           .__setRef("WAWebSharableEventNotificationHandler")
           .load();
       }, "WAWebSharableEventNotificationPersistence");
-    function S(e) {
+    function L(e) {
       return e === "DELETED_BY_HOST"
         ? o("WAWebSharableEventNotificationConstants").SharableEventDeleteReason
             .DeletedByHost
@@ -46,7 +48,7 @@ __d(
               .SharableEventDeleteReason.Expired
           : null;
     }
-    function R(e) {
+    function E(e) {
       return e === "EVENT_STARTED"
         ? o("WAWebSharableEventNotificationConstants").SharableEventReminderType
             .EventStarted
@@ -55,7 +57,7 @@ __d(
               .SharableEventReminderType.EventStartingSoon
           : null;
     }
-    function L(t, n, r) {
+    function k(t, n, r) {
       return o("WAWebUserUtils").isMeAccount(n)
         ? (o("WALogger").LOG(
             e ||
@@ -70,7 +72,7 @@ __d(
           !0)
         : !1;
     }
-    async function E(e) {
+    async function I(e) {
       var t = e.body,
         n = e.eventId,
         r = e.senderWid,
@@ -83,13 +85,13 @@ __d(
         i,
       );
     }
-    var k = 60;
-    function I(e) {
+    var T = 60;
+    function D(e) {
       if (e == null) return null;
       var t = e - o("WATimeUtils").unixTime();
-      return t > 0 ? Math.floor(t / k) : null;
+      return t > 0 ? Math.floor(t / T) : null;
     }
-    async function T(e) {
+    async function x(e) {
       var t = e.apply,
         n = e.extract,
         a = e.persist,
@@ -175,12 +177,12 @@ __d(
           .sendLogs("sharable-event-mex-apply-failed");
       }
     }
-    async function D(e, t) {
-      return T({
+    async function $(e, t) {
+      return x({
         scope: "invite",
         response: t,
         persist: async function (t) {
-          var e = await v(),
+          var e = await R(),
             n = e.persistSharableEventInviteNotification;
           await n(t.xwa2_notify_event_on_invite);
         },
@@ -193,12 +195,12 @@ __d(
         apply: async function (t) {},
       });
     }
-    async function x(e, t) {
-      return T({
+    async function P(e, t) {
+      return x({
         scope: "update",
         response: t,
         persist: async function (t) {
-          var e = await v(),
+          var e = await R(),
             n = e.persistSharableEventUpdateNotification;
           await n(t.xwa2_notify_event_on_update);
         },
@@ -244,8 +246,8 @@ __d(
             var n = o(
               "WAWebSharableEventResolveSender",
             ).normalizeSharableEventSenderLid(t.creatorLid);
-            L("update", n, t.eventId) ||
-              (await E({
+            k("update", n, t.eventId) ||
+              (await I({
                 type: o("WAWebSharableEventNotificationConstants")
                   .SharableEventNotificationType.Update,
                 eventId: t.eventId,
@@ -257,14 +259,14 @@ __d(
         },
       });
     }
-    async function $(e, t) {
-      return T({
+    async function N(e, t) {
+      return x({
         scope: "rsvp",
         response: t,
         persist: async function (t) {
           var e = t.xwa2_notify_event_on_rsvp.event_id;
           try {
-            var n = await v(),
+            var n = await R(),
               a = n.refreshSharableEventAfterRsvpNotification;
             a(e);
           } catch (t) {
@@ -286,6 +288,7 @@ __d(
           return {
             eventId: e.event_id,
             eventName: e.event_name,
+            creatorLid: e.creator_lid,
             inviteeLid: e.invitee_lid,
             rsvpStatus: o("WAWebSharableEventServerEnums").toStoredRsvpStatus(
               e.rsvp_status,
@@ -307,34 +310,67 @@ __d(
             var r = o(
               "WAWebSharableEventResolveSender",
             ).normalizeSharableEventSenderLid(t.inviteeLid);
-            L("rsvp", r, t.eventId) ||
-              (await E({
+            if (!k("rsvp", r, t.eventId)) {
+              if (t.creatorLid == null) {
+                o("WALogger").LOG(
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                      "[sharable_event][mex][",
+                      "] missing-creator-skip eventId=",
+                      "",
+                    ])),
+                  "rsvp",
+                  t.eventId,
+                );
+                return;
+              }
+              if (
+                !o("WAWebUserUtils").isMeAccount(
+                  o(
+                    "WAWebSharableEventResolveSender",
+                  ).normalizeSharableEventSenderLid(t.creatorLid),
+                )
+              ) {
+                o("WALogger").LOG(
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                      "[sharable_event][mex][",
+                      "] not-creator-skip eventId=",
+                      "",
+                    ])),
+                  "rsvp",
+                  t.eventId,
+                );
+                return;
+              }
+              await I({
                 type: o("WAWebSharableEventNotificationConstants")
                   .SharableEventNotificationType.Rsvp,
                 eventId: t.eventId,
                 title: e,
                 body: { kind: "rsvp", eventName: e, rsvp: n },
                 senderWid: r,
-              }));
+              });
+            }
           }
         },
       });
     }
-    async function P(e, t) {
-      return T({
+    async function M(e, t) {
+      return x({
         scope: "delete",
         response: t,
         persist: async function (t) {
           var e = t.xwa2_notify_event_on_delete.event_id;
           try {
-            var n = await v(),
+            var n = await R(),
               a = n.persistSharableEventDeleteNotification;
             await a(e);
           } catch (t) {
             o("WALogger")
               .WARN(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
                     "[sharable_event][mex][delete] persist failed eventId=",
                     "",
                   ])),
@@ -350,7 +386,7 @@ __d(
             eventId: e.event_id,
             eventName: e.event_name,
             creatorLid: e.creator_lid,
-            deleteReason: S(e.delete_reason),
+            deleteReason: L(e.delete_reason),
           };
         },
         apply: async function (t) {
@@ -362,8 +398,8 @@ __d(
                 .SharableEventDeleteReason.Expired
             ) {
               o("WALogger").LOG(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
                     "[sharable_event][mex][",
                     "] expired-skip eventId=",
                     "",
@@ -376,8 +412,8 @@ __d(
             var n = o(
               "WAWebSharableEventResolveSender",
             ).normalizeSharableEventSenderLid(t.creatorLid);
-            L("delete", n, t.eventId) ||
-              (await E({
+            k("delete", n, t.eventId) ||
+              (await I({
                 type: o("WAWebSharableEventNotificationConstants")
                   .SharableEventNotificationType.Delete,
                 eventId: t.eventId,
@@ -389,8 +425,8 @@ __d(
         },
       });
     }
-    async function N(e, t) {
-      return T({
+    async function w(e, t) {
+      return x({
         scope: "reminder",
         response: t,
         extract: function (t) {
@@ -402,7 +438,7 @@ __d(
               e.event_status,
             ),
             startTsSec: e.start_ts_sec,
-            reminderType: R(e.reminder_type),
+            reminderType: E(e.reminder_type),
           };
         },
         apply: async function (t) {
@@ -410,8 +446,8 @@ __d(
             n = t.reminderType;
           if (n == null) {
             o("WALogger").LOG(
-              y ||
-                (y = babelHelpers.taggedTemplateLiteralLoose([
+              b ||
+                (b = babelHelpers.taggedTemplateLiteralLoose([
                   "[sharable_event][mex][",
                   "] unknown-type-skip eventId=",
                   "",
@@ -429,7 +465,7 @@ __d(
                   .Active
             )
           ) {
-            var r = I(t.startTsSec);
+            var r = D(t.startTsSec);
             (n ===
               o("WAWebSharableEventNotificationConstants")
                 .SharableEventReminderType.EventStartingSoon &&
@@ -454,12 +490,12 @@ __d(
         },
       });
     }
-    async function M(e, t) {
-      return T({
+    async function A(e, t) {
+      return x({
         scope: "invite-remove",
         response: t,
         persist: async function (t) {
-          var e = await v(),
+          var e = await R(),
             n = e.persistSharableEventInviteRemoveNotification;
           await n(t.xwa2_notify_event_on_invite_remove);
         },
@@ -474,8 +510,8 @@ __d(
         apply: async function (t) {},
       });
     }
-    async function w(e, t) {
-      return T({
+    async function F(e, t) {
+      return x({
         scope: "guest-joined-wa",
         response: t,
         extract: o("WAWebMexSharableEventGuestJoinedWaNotifications")
@@ -483,7 +519,7 @@ __d(
         apply: async function (t) {
           var e;
           t.isUserVisible === !0 &&
-            (await E({
+            (await I({
               type: o("WAWebSharableEventNotificationConstants")
                 .SharableEventNotificationType.GuestJoinedWa,
               eventId: t.eventId,
@@ -496,36 +532,36 @@ __d(
         },
       });
     }
-    async function A(e, t) {
+    async function O(e, t) {
       if (
         (o("WALogger").LOG(
-          C ||
-            (C = babelHelpers.taggedTemplateLiteralLoose([
+          v ||
+            (v = babelHelpers.taggedTemplateLiteralLoose([
               "[sharable_event][mex][host-push-name] received",
             ])),
         ),
         !o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabled())
       ) {
         o("WALogger").LOG(
-          b ||
-            (b = babelHelpers.taggedTemplateLiteralLoose([
+          S ||
+            (S = babelHelpers.taggedTemplateLiteralLoose([
               "[sharable_event][mex][host-push-name] not saved, enable_events_v2_on_companion is off",
             ])),
         );
         return;
       }
-      var n = await v(),
+      var n = await R(),
         r = n.persistSharableEventCreatorPushName;
       await r(t);
     }
-    ((l.mexHandleSharableEventInviteNotification = D),
-      (l.mexHandleSharableEventUpdateNotification = x),
-      (l.mexHandleSharableEventRsvpNotification = $),
-      (l.mexHandleSharableEventDeleteNotification = P),
-      (l.mexHandleSharableEventReminderNotification = N),
-      (l.mexHandleSharableEventInviteRemoveNotification = M),
-      (l.mexHandleSharableEventGuestJoinedWaNotification = w),
-      (l.mexHandleSharableEventHostPushNamePublishNotification = A));
+    ((l.mexHandleSharableEventInviteNotification = $),
+      (l.mexHandleSharableEventUpdateNotification = P),
+      (l.mexHandleSharableEventRsvpNotification = N),
+      (l.mexHandleSharableEventDeleteNotification = M),
+      (l.mexHandleSharableEventReminderNotification = w),
+      (l.mexHandleSharableEventInviteRemoveNotification = A),
+      (l.mexHandleSharableEventGuestJoinedWaNotification = F),
+      (l.mexHandleSharableEventHostPushNamePublishNotification = O));
   },
   98,
 );

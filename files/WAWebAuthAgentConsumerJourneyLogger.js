@@ -169,7 +169,11 @@ __d(
         m(a, r, n),
       );
     }
-    function b(e, t, n, r) {
+    function b(e) {
+      var t = e.businessJid,
+        n = e.offboardingType,
+        r = e.parentCompanyJid,
+        a = e.parentCompanyName;
       d(
         o("WAWebWamEnumConsumerBizActionTypeEnum").CONSUMER_BIZ_ACTION_TYPE_ENUM
           .VIEW,
@@ -178,8 +182,8 @@ __d(
         null,
         o("WAWebWamEnumConsumerBizEntryPointEnum").CONSUMER_BIZ_ENTRY_POINT_ENUM
           .CHAT_THREAD,
-        e,
-        m(t, n, r),
+        t,
+        m(a, r, n),
       );
     }
     ((l.startAuthAgentConsumerSession = u),

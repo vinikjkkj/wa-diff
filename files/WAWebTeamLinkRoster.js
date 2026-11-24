@@ -3,7 +3,7 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     function e(e) {
-      var t = d(l(e));
+      var t = m(s(e));
       return {
         onTeam: t.filter(function (e) {
           return e.status !== "removed";
@@ -11,16 +11,31 @@ __d(
         removed: t.filter(function (e) {
           return e.status === "removed";
         }),
-        counts: p(t),
+        counts: _(t),
       };
     }
-    function l(e) {
-      return e.flatMap(function (e, t) {
-        var n = s(e);
-        return n == null ? [] : [{ key: u(e, t), status: n, invitation: e }];
+    function l(e, t) {
+      var n = new Set(
+        e.onTeam
+          .filter(function (e) {
+            return e.status === "pending";
+          })
+          .map(function (e) {
+            return d(e.invitation);
+          }),
+      );
+      return t.onTeam.filter(function (e) {
+        var t = d(e.invitation);
+        return e.status === "active" && t != null && n.has(t);
       });
     }
     function s(e) {
+      return e.flatMap(function (e, t) {
+        var n = u(e);
+        return n == null ? [] : [{ key: c(e, t), status: n, invitation: e }];
+      });
+    }
+    function u(e) {
       return e.offboardedAt != null
         ? e.invitationStatus === "COMPLETED"
           ? "removed"
@@ -33,30 +48,30 @@ __d(
               ? "expired"
               : null;
     }
-    function u(e, t) {
-      var n = c(e);
+    function c(e, t) {
+      var n = d(e);
       if (n == null) return "position:" + t;
       var r = e.offboardedAt;
       return r == null ? n : n + ":" + r;
     }
-    function c(e) {
+    function d(e) {
       var t = e.employeeLid;
       return t == null || t === "" ? null : t;
     }
-    function d(e) {
+    function m(e) {
       var t = new Map();
       return (
         e.forEach(function (e) {
-          var n = c(e.invitation);
-          n != null && m(e, t.get(n)) && t.set(n, e);
+          var n = d(e.invitation);
+          n != null && p(e, t.get(n)) && t.set(n, e);
         }),
         e.filter(function (e) {
-          var n = c(e.invitation);
+          var n = d(e.invitation);
           return n == null || t.get(n) === e;
         })
       );
     }
-    function m(e, t) {
+    function p(e, t) {
       var n, r;
       return t == null
         ? !0
@@ -66,7 +81,7 @@ __d(
             ((n = e.invitation.offboardedAt) != null ? n : 0) >
               ((r = t.invitation.offboardedAt) != null ? r : 0);
     }
-    function p(e) {
+    function _(e) {
       var t = { active: 0, pending: 0, expired: 0, removed: 0 };
       return (
         e.forEach(function (e) {
@@ -75,7 +90,7 @@ __d(
         t
       );
     }
-    i.classifyTeamLinkRoster = e;
+    ((i.classifyTeamLinkRoster = e), (i.getJoinedTeamLinkRows = l));
   },
   66,
 );

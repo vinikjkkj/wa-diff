@@ -30,7 +30,10 @@ __d(
             var d = t({
               retry: function (t) {
                 if (!(c || a)) {
-                  if (((o = !0), s++, t == null)) return m();
+                  if (((o = !0), s++, t == null)) {
+                    m();
+                    return;
+                  }
                   u = setTimeout(m, t);
                 }
               },

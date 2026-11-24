@@ -1016,7 +1016,15 @@ __d(
             );
           }),
           (a.delete = function () {
-            (t.prototype.delete.call(this),
+            var e = this;
+            (o("WAWebStarredMsgCollection").removeStarredMsgs(
+              o("WAWebStarredMsgCollection").AllStarredMsgsCollection.filter(
+                function (t) {
+                  return o("WAWebFrontendMsgGetters").getMaybeChat(t) === e;
+                },
+              ),
+            ),
+              t.prototype.delete.call(this),
               this.getCollection().remove(this.id),
               this.getAbortController().abort(),
               r("WAWebAlarm").clearTimeout(this.aiHandoffRemovalEvictionTimer),
@@ -1030,8 +1038,8 @@ __d(
               this.productMsgs && this.productMsgs.delete(),
               this.eventMsgs && this.eventMsgs.delete(),
               this.keptMsgs && this.keptMsgs.delete());
-            var e = this.starredMsgs;
-            (e && (e.delete(), e.stopListening(), e.reset()),
+            var n = this.starredMsgs;
+            (n && (n.delete(), n.stopListening(), n.reset()),
               o("WAWebChatGetters").clearChatGetterCacheFor(this),
               o("WAWebFrontendChatGetters").clearFrontendChatGetterCacheFor(
                 this,

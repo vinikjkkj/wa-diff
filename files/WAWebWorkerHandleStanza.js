@@ -7,6 +7,7 @@ __d(
     "WAWebOneQueue",
     "WAWebPassiveModeManager",
     "WAWebRegisterPassiveTasksForConnectWorkerCompatible",
+    "WAWebStanzasInFlight",
     "WAWebVoipBackendSwCallPlaceholderWriter",
     "WAWebWorkerHandleFailureApi",
     "WAWebWorkerHandleInfoBulletin",
@@ -16,8 +17,9 @@ __d(
     var e;
     async function s(e, t, n) {
       n === void 0 && (n = 0);
-      var r = u(e, t, n),
-        a = o("WAWebOneQueue").countOfflineStanzaForPullMode(e);
+      var r = Promise.resolve(u(e, t, n));
+      o("WAWebStanzasInFlight").trackStanzaInFlight(r, e.attrs.offline != null);
+      var a = o("WAWebOneQueue").countOfflineStanzaForPullMode(e);
       try {
         var i;
         return (i = await r) != null ? i : "NO_ACK";

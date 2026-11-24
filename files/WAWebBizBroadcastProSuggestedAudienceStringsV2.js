@@ -93,22 +93,50 @@ __d(
     function _() {
       return s._(/*BTDS*/ "");
     }
-    function f() {
-      return s._(/*BTDS*/ "");
+    function f(e) {
+      return e === "loading"
+        ? s._(/*BTDS*/ "")
+        : e === "history_unavailable"
+          ? s._(/*BTDS*/ "")
+          : e === "activity_error"
+            ? s._(/*BTDS*/ "")
+            : e === "list_error"
+              ? s._(/*BTDS*/ "")
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      e,
+                  );
+                })();
     }
-    function g() {
-      return s._(/*BTDS*/ "");
+    function g(e) {
+      return e === "activity_error"
+        ? s._(/*BTDS*/ "")
+        : e === "list_error"
+          ? s._(/*BTDS*/ "")
+          : (function () {
+              throw Error(
+                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                  e,
+              );
+            })();
     }
     function h() {
       return s._(/*BTDS*/ "");
     }
-    function y(e) {
+    function y() {
       return s._(/*BTDS*/ "");
     }
     function C() {
       return s._(/*BTDS*/ "");
     }
-    function b() {
+    function b(e) {
+      return s._(/*BTDS*/ "");
+    }
+    function v() {
+      return s._(/*BTDS*/ "");
+    }
+    function S() {
       return s._(/*BTDS*/ "");
     }
     ((l.getProSuggestedAudienceDisplayTitle = e),
@@ -118,12 +146,14 @@ __d(
       (l.getProSuggestedAudienceSubtitle = m),
       (l.getProSuggestedAudienceFallbackName = p),
       (l.getProSuggestedAudiencesSectionTitle = _),
-      (l.getProAudienceResolutionError = f),
-      (l.getProAudienceRetryLabel = g),
-      (l.getProAudienceChooseManuallyLabel = h),
-      (l.getProAudienceUnavailableMessage = y),
-      (l.getProAudienceEmptyMessage = C),
-      (l.getProAudienceTooSmallMessage = b));
+      (l.getProSuggestedAudienceStatusMessage = f),
+      (l.getProSuggestedAudienceRetryTitle = g),
+      (l.getProAudienceResolutionError = h),
+      (l.getProAudienceRetryLabel = y),
+      (l.getProAudienceChooseManuallyLabel = C),
+      (l.getProAudienceUnavailableMessage = b),
+      (l.getProAudienceEmptyMessage = v),
+      (l.getProAudienceTooSmallMessage = S));
   },
   226,
 );

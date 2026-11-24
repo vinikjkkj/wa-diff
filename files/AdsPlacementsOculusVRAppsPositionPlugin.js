@@ -77,7 +77,7 @@ __d(
           );
         },
         isInactiveByDefault: function (t) {
-          return (r("vulture")("Z5hNwsaO8ev5DdNEaV1eaUvmhVE="), !0);
+          return !0;
         },
         getPreviews: function (t) {
           var e = [],

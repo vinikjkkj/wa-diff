@@ -264,16 +264,19 @@ __d(
             var e = this,
               n = [];
             o("WAPromiseLoop")
-              .promiseLoop(function (e, r, a) {
-                if (t.length === a) {
-                  e();
-                  return;
-                }
-                var i = t[a];
-                i != null &&
-                  o("WAWebMsgLinks").hasLinkGalleryLinks(i) &&
-                  n.push(i);
-              })
+              .promiseLoop(
+                function (e, r, a) {
+                  if (t.length === a) {
+                    e();
+                    return;
+                  }
+                  var i = t[a];
+                  i != null &&
+                    o("WAWebMsgLinks").hasLinkGalleryLinks(i) &&
+                    n.push(i);
+                },
+                void 0,
+              )
               .then(function () {
                 (e.add(n), e.trigger("query_link_before"));
               });

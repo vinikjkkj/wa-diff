@@ -3,6 +3,7 @@ __d(
   [
     "WAComms",
     "WALogger",
+    "WAPromiseTimeout",
     "WAWebBoolFunc",
     "WAWebInitializeWorkerBackendSw",
     "WAWebMessageProcessorCache",
@@ -33,8 +34,10 @@ __d(
       _,
       f,
       g,
-      h = 75e3,
-      y = (function (t) {
+      h,
+      y = 75e3,
+      C = 85 * 1e3,
+      b = (function (t) {
         function n() {
           for (var n, r = arguments.length, a = new Array(r), i = 0; i < r; i++)
             a[i] = arguments[i];
@@ -50,11 +53,11 @@ __d(
                 r = o(
                   "WAWebPushNotificationsGatingUtils",
                 ).canSupportOfflineNotifications()
-                  ? C(e)
+                  ? v(e)
                   : null,
-                a = b(r);
+                a = S(r);
               if (a != null) {
-                e.waitUntil(v(a));
+                e.waitUntil(R(a));
                 return;
               }
               var i = async function () {
@@ -71,7 +74,7 @@ __d(
                   return o(
                     "WAWebSwCallPushNotification",
                   ).handleParsedCallPushPayload(e);
-                (await R(n.$PushHandler$p_1, t),
+                (await E(n.$PushHandler$p_1, t),
                   await o(
                     "WAWebSwStartupResourcesPrefetch",
                   ).maybePrefetchStartupResources());
@@ -114,7 +117,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(n, t), n);
       })(o("WAWebSwFeature").SWFeature);
-    function C(e) {
+    function v(e) {
       try {
         var t;
         return (t = e.data) == null ? void 0 : t.json();
@@ -122,7 +125,7 @@ __d(
         return null;
       }
     }
-    function b(e) {
+    function S(e) {
       var t = o(
         "WAWebSwCompanionLogoutReminderNotification",
       ).parseCompanionLogoutReminderPushPayload(e);
@@ -140,7 +143,7 @@ __d(
             null)
           : t;
     }
-    async function v(e) {
+    async function R(e) {
       (await o("WAWebSwCallPushNotification")
         .closeExpiredRings()
         .catch(r("WAWebNoop")),
@@ -148,7 +151,7 @@ __d(
           "WAWebSwCompanionLogoutReminderNotification",
         ).showCompanionLogoutReminderNotification(e));
     }
-    async function S(e) {
+    async function L(e) {
       try {
         var t;
         if (
@@ -176,7 +179,7 @@ __d(
         return (e(r("getErrorSafe")(t)), !1);
       }
     }
-    async function R(e, t) {
+    async function E(e, t) {
       var n = o("WAWebSwOfflineResumeState").tryStartOfflineResume();
       if (n != null) {
         var a = null,
@@ -191,8 +194,8 @@ __d(
           };
         n.addEventListener("abort", _);
         try {
-          if (!(await S(e))) return;
-          var f = t + h - self.performance.now();
+          if (!(await L(e))) return;
+          var f = t + y - self.performance.now();
           if (f <= 0) {
             o("WALogger").LOG(
               c ||
@@ -213,7 +216,7 @@ __d(
               o("WAWebWorkerResumeManager").isActiveOfflineWorkerResumeManager(
                 a,
               )
-                ? (i = L())
+                ? (i = I())
                 : u &&
                   a == null &&
                   o(
@@ -227,11 +230,11 @@ __d(
           l = function () {
             return self.clearTimeout(g);
           };
-          var y = await self.clients.matchAll({
+          var h = await self.clients.matchAll({
             type: "window",
             includeUncontrolled: !0,
           });
-          if (n.aborted || (y == null ? void 0 : y.length) > 0) return;
+          if (n.aborted || (h == null ? void 0 : h.length) > 0) return;
           if (o("WAComms").getComms() != null) {
             o("WALogger")
               .LOG(
@@ -251,11 +254,11 @@ __d(
               !0,
             ),
             (s = !0),
-            !(await E(n)))
+            !(await T(n)))
           )
             return;
           u = !0;
-          var C = I();
+          var C = x();
           try {
             await o("WAWebInitializeWorkerBackendSw")
               .handlePushNotification(n, {
@@ -279,7 +282,7 @@ __d(
                 );
               });
           } finally {
-            (k(), await C);
+            (D(), await C);
           }
         } finally {
           (l(),
@@ -292,11 +295,37 @@ __d(
               o(
                 "WAWebMessageProcessorCache",
               ).messageProcessorCache.expireCheckpointHolds()),
-            u || o("WAWebSwOfflineResumeState").resetOfflineResumeState());
+            u
+              ? (o("WAWebMessageProcessorCache").messageProcessorCache.close(),
+                await k(t))
+              : o(
+                    "WAWebMessageProcessorCache",
+                  ).messageProcessorCache.isFailClosed()
+                ? o("WAWebSwOfflineResumeState").blockOfflineResume()
+                : o("WAWebSwOfflineResumeState").resetOfflineResumeState());
         }
       }
     }
-    function L() {
+    async function k(e) {
+      try {
+        await o("WAPromiseTimeout").promiseTimeout(
+          o(
+            "WAWebMessageProcessorCache",
+          ).messageProcessorCache.checkpointQueueWait(),
+          Math.max(e + C - self.performance.now(), 0),
+        );
+      } catch (e) {
+        o("WALogger")
+          .WARN(
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
+                "[push-notification] push event settles before the cut checkpoints finished",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e));
+      }
+    }
+    function I() {
       return o("WAWebSwInterruptOfflineResume")
         .interruptOfflineResume(
           o("WAWebWamEnumOfflineProcessInterruptReasons")
@@ -306,8 +335,8 @@ __d(
         .catch(function (e) {
           o("WALogger")
             .ERROR(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
                   "[push-notification] failed to interrupt offline resume",
                 ])),
             )
@@ -315,10 +344,10 @@ __d(
             .sendLogs("offline-resume-interrupt-failed");
         });
     }
-    async function E(e) {
+    async function T(e) {
       o("WALogger").LOG(
-        f ||
-          (f = babelHelpers.taggedTemplateLiteralLoose([
+        g ||
+          (g = babelHelpers.taggedTemplateLiteralLoose([
             "[PushNotif] Starting backend for push notification",
           ])),
       );
@@ -338,7 +367,7 @@ __d(
             ).showPushNotificationSyncCompleteMessage(!1),
             !1);
     }
-    function k() {
+    function D() {
       o(
         "WAWebWamWorkerOfflineProcessReporter",
       ).WorkerOfflineResumeReporter.logProcessInterrupted(
@@ -346,14 +375,14 @@ __d(
           .OFFLINE_PROCESS_INTERRUPT_REASONS.ENDED_WITHOUT_COMPLETION,
       );
     }
-    function I() {
+    function x() {
       return o("WAWebNotificationWorkerBackend")
         .showPushNotificationSyncStartMessage()
         .catch(function (e) {
           o("WALogger")
             .ERROR(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
                   "[push-notification] failed to show sync-start notification",
                 ])),
             )
@@ -361,7 +390,7 @@ __d(
             .sendLogs("push-notification-sync-start-failed");
         });
     }
-    l.default = y;
+    l.default = b;
   },
   98,
 );

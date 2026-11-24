@@ -4,7 +4,6 @@ __d(
     "WAWebBotBaseGating",
     "WAWebBotUtils",
     "WAWebHatchCvmReadOnlyState",
-    "WAWebHatchFrontendGating",
     "WAWebMobilePlatforms",
   ],
   function (t, n, r, o, a, i, l) {
@@ -18,7 +17,7 @@ __d(
               ? !0
               : !o("WAWebBotBaseGating").isBotEnabled()
           : o("WAWebBotUtils").isHatchBot(e)
-            ? !o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()
+            ? !1
             : !o("WAWebBotBaseGating").isBotEnabled();
     }
     function s(e) {

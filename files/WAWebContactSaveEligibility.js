@@ -1,12 +1,12 @@
 __d(
   "WAWebContactSaveEligibility",
-  ["WAWebBizAiHomeChat", "WAWebUserUtils"],
+  ["WAWebUserUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return (
         e.isRegularUser() &&
         !o("WAWebUserUtils").isMeAccount(e) &&
-        !o("WAWebBizAiHomeChat").isProductionBizAiHub(e) &&
+        !e.isAiHub() &&
         !e.isIAS() &&
         !e.isCAPISupportAccount() &&
         !e.isSupportAccount()

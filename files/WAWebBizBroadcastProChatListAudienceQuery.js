@@ -28,31 +28,32 @@ __d(
       }),
       d = c.isVisibleNamedChatList;
     async function m(e) {
-      var t = await o("WAWebSchemaLabel").getLabelTable().all(),
-        n = t.filter(d),
-        r = Array.from(new Set(e.candidateLids)),
-        a = await _(r, t, n),
-        i = n.map(function (e) {
-          var t, n;
-          return {
-            listId: e.id,
-            name: e.name,
-            eligibleCount:
-              (t = (n = a.get(e.id)) == null ? void 0 : n.size) != null ? t : 0,
-          };
-        });
-      return (
-        i.sort(function (e, t) {
-          return (
-            t.eligibleCount - e.eligibleCount ||
-            e.name.localeCompare(t.name) ||
-            e.listId.localeCompare(t.listId)
-          );
+      var t = Array.from(new Set(e.candidateLids)),
+        n = await f(t);
+      return {
+        lists: n.map(function (e) {
+          var t = e.listId,
+            n = e.members,
+            r = e.name;
+          return { listId: t, name: r, eligibleCount: n.size };
         }),
-        { lists: i }
-      );
+      };
     }
     async function p(e) {
+      var t = Array.from(new Set(e)),
+        n = await f(t),
+        r = n[0];
+      return r == null || r.members.size === 0
+        ? { recipientLids: [], unavailableReason: null }
+        : {
+            recipientLids: t.filter(function (e) {
+              return r.members.has(e);
+            }),
+            listName: r.name,
+            unavailableReason: null,
+          };
+    }
+    async function _(e) {
       var t,
         n = await o("WAWebSchemaLabel").getLabelTable().all(),
         r = n.filter(function (t) {
@@ -65,7 +66,7 @@ __d(
           unavailableReason: "list_unavailable",
         };
       var a = Array.from(new Set(e.candidateLids)),
-        i = await _(a, n, r),
+        i = await g(a, n, r),
         l = (t = i.get(e.listId)) != null ? t : new Set();
       return {
         listId: e.listId,
@@ -75,14 +76,35 @@ __d(
         unavailableReason: null,
       };
     }
-    async function _(e, t, n) {
-      var r = f(t, n),
+    async function f(e) {
+      var t = await o("WAWebSchemaLabel").getLabelTable().all(),
+        n = t.filter(d);
+      if (n.length === 0) return [];
+      var r = await g(e, t, n),
+        a = n.map(function (e) {
+          var t;
+          return {
+            listId: e.id,
+            name: e.name,
+            members: (t = r.get(e.id)) != null ? t : new Set(),
+          };
+        });
+      return a.sort(function (e, t) {
+        return (
+          t.members.size - e.members.size ||
+          e.name.localeCompare(t.name) ||
+          e.listId.localeCompare(t.listId)
+        );
+      });
+    }
+    async function g(e, t, n) {
+      var r = h(t, n),
         a = new Map(
           n.map(function (e) {
             return [e.id, new Set()];
           }),
         ),
-        i = await g(e);
+        i = await y(e);
       return (
         await o("WAWebRunInBatches").runInBatches(
           Array.from(i.keys()),
@@ -114,7 +136,7 @@ __d(
         a
       );
     }
-    function f(e, t) {
+    function h(e, t) {
       var n = new Map(
           t.map(function (e) {
             return [e.id, e.id];
@@ -135,7 +157,7 @@ __d(
         }
       return n;
     }
-    async function g(e) {
+    async function y(e) {
       var t = new Set(e),
         n = new Map(
           e.map(function (e) {
@@ -148,7 +170,7 @@ __d(
           async function (e) {
             var a = await r("WAWebLidAwareContactsDB").bulkGet(e, !1),
               i = a.flatMap(function (e) {
-                var t = h(e);
+                var t = C(e);
                 return t == null ? [] : [t];
               }),
               l = await o(
@@ -165,7 +187,7 @@ __d(
         n
       );
     }
-    function h(t) {
+    function C(t) {
       if ((t == null ? void 0 : t.phoneNumber) == null) return null;
       try {
         var n = o("WAWebWidFactory").createUserWidOrThrow(t.phoneNumber);
@@ -185,7 +207,9 @@ __d(
         );
       }
     }
-    ((l.queryProChatListCatalog = m), (l.queryProChatListAudience = p));
+    ((l.queryProChatListCatalog = m),
+      (l.queryProLargestListAudience = p),
+      (l.queryProChatListAudience = _));
   },
   98,
 );

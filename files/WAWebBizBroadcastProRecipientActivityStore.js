@@ -11,28 +11,29 @@ __d(
       s = 1e3,
       u = 4,
       c = { activity: [], isLoading: !0, error: null },
-      d = new Map(),
-      m = null,
+      d = babelHelpers.extends({}, c, { isHistoryUnavailable: !0 }),
+      m = new Map(),
       p = null,
-      _ = 0;
-    function f(e) {
-      var t = h(
+      _ = null,
+      f = 0;
+    function g(e) {
+      var t = y(
         e,
         o(
           "WAWebBizBroadcastProRecipientActivityEvents",
         ).getProRecipientActivityAccountKey(),
       );
       return (
-        b(),
+        v(),
         (t.keepLoading =
           t.keepLoading || t.request != null || t.completed == null),
-        D(t)
+        x(t)
       );
     }
-    function g(e, t) {
+    function h(e, t) {
       var n = Array.from(new Set(e)).sort(),
         r = n.join(","),
-        a = d.get(r);
+        a = m.get(r);
       return t ===
         o(
           "WAWebBizBroadcastProRecipientActivityEvents",
@@ -40,19 +41,19 @@ __d(
         a != null &&
         a.accountKey === t
         ? a.store
-        : y(n, t, r);
+        : C(n, t, r);
     }
-    function h(e, t) {
-      t !== p &&
-        (d.forEach(function (e) {
-          ((e.context = null), I(e));
+    function y(e, t) {
+      t !== _ &&
+        (m.forEach(function (e) {
+          ((e.context = null), T(e));
         }),
-        d.clear(),
-        (p = t));
+        m.clear(),
+        (_ = t));
       var n = Array.from(new Set(e)).sort(),
         r = n.join(","),
-        o = d.get(r);
-      if (o != null) return ((o.lastAccess = ++_), o);
+        o = m.get(r);
+      if (o != null) return ((o.lastAccess = ++f), o);
       var a = {
         accountKey: t,
         candidateLids: n,
@@ -66,12 +67,12 @@ __d(
         keepLoading: !1,
         hasReceivedClear: !1,
         completedAt: 0,
-        lastAccess: ++_,
-        store: y(n, t, r),
+        lastAccess: ++f,
+        store: C(n, t, r),
       };
-      return (d.set(r, a), C(), a);
+      return (m.set(r, a), b(), a);
     }
-    function y(e, t, n) {
+    function C(e, t, n) {
       var r = function () {
         if (
           t !==
@@ -80,10 +81,10 @@ __d(
           ).getProRecipientActivityAccountKey()
         )
           return null;
-        var r = d.get(n);
+        var r = m.get(n);
         return r != null && r.accountKey === t
-          ? ((r.lastAccess = ++_), r)
-          : h(e, t);
+          ? ((r.lastAccess = ++f), r)
+          : y(e, t);
       };
       return {
         getSnapshot: function () {
@@ -92,27 +93,33 @@ __d(
               "WAWebBizBroadcastProRecipientActivityEvents",
             ).isProRecipientActivityReadAvailable(t)
           )
-            return c;
-          var e = d.get(n);
+            return t !== "" &&
+              t ===
+                o(
+                  "WAWebBizBroadcastProRecipientActivityEvents",
+                ).getProRecipientActivityAccountKey()
+              ? d
+              : c;
+          var e = m.get(n);
           return e != null && e.accountKey === t ? e.state : c;
         },
         subscribe: function (t) {
           var e = r();
-          return e == null ? function () {} : S(e, t);
+          return e == null ? function () {} : R(e, t);
         },
         retry: function () {
           var e = r();
           e != null &&
-            (E(e),
-            I(e),
+            (k(e),
+            T(e),
             e.keepLoading || ((e.context = null), (e.request = null)),
-            R(e),
-            C());
+            L(e),
+            b());
         },
       };
     }
-    function C() {
-      var e = Array.from(d)
+    function b() {
+      var e = Array.from(m)
         .filter(function (e) {
           var t = e[0],
             n = e[1];
@@ -131,59 +138,59 @@ __d(
         ((r.context = null),
           (r.completed = null),
           (r.state = c),
-          I(r),
-          d.delete(n));
+          T(r),
+          m.delete(n));
       }
     }
-    function b() {
-      m == null &&
-        (m = o(
-          "WAWebBizBroadcastProRecipientActivityEvents",
-        ).subscribeProRecipientActivityEvents(k));
-    }
     function v() {
-      var e = m;
+      p == null &&
+        (p = o(
+          "WAWebBizBroadcastProRecipientActivityEvents",
+        ).subscribeProRecipientActivityEvents(I));
+    }
+    function S() {
+      var e = p;
       e == null ||
-        Array.from(d.values()).some(function (e) {
+        Array.from(m.values()).some(function (e) {
           return e.listeners.size > 0 || e.keepLoading;
         }) ||
-        ((m = null),
+        ((p = null),
         e(),
-        d.forEach(function (e) {
-          ((e.context = null), (e.request = null), E(e), I(e));
+        m.forEach(function (e) {
+          ((e.context = null), (e.request = null), k(e), T(e));
         }),
-        C());
+        b());
     }
-    function S(e, t) {
+    function R(e, t) {
       return (
         e.listeners.add(t),
-        b(),
-        R(e),
+        v(),
+        L(e),
         function () {
           (e.listeners.delete(t),
             e.listeners.size === 0 &&
-              (I(e),
+              (T(e),
               e.keepLoading || ((e.context = null), (e.request = null)),
-              C(),
-              v()));
+              b(),
+              S()));
         }
       );
     }
-    function R(e) {
-      e.listeners.size > 0 && D(e).catch(function () {});
+    function L(e) {
+      e.listeners.size > 0 && x(e).catch(function () {});
     }
-    function L(e, t) {
+    function E(e, t) {
       ((e.state = t),
         e.listeners.forEach(function (e) {
           return e();
         }));
     }
-    function E(e) {
-      (e.version++, (e.completed = null), L(e, c));
+    function k(e) {
+      (e.version++, (e.completed = null), E(e, c));
     }
-    function k(e, t) {
+    function I(e, t) {
       var n = e == null ? null : new Set(e);
-      d.forEach(function (e) {
+      m.forEach(function (e) {
         if (
           !(
             n != null &&
@@ -192,24 +199,24 @@ __d(
             })
           )
         ) {
-          E(e);
+          k(e);
           var r =
             t &&
             e.request == null &&
             (!e.hasReceivedClear || Date.now() - e.completedAt >= s);
           if (((e.hasReceivedClear = e.hasReceivedClear || t), r)) {
-            (I(e), R(e));
+            (T(e), L(e));
             return;
           }
-          T(e);
+          D(e);
         }
       });
     }
-    function I(e) {
+    function T(e) {
       var t = e.timer;
       t != null && ((e.timer = null), window.clearTimeout(t.id), t.wake());
     }
-    function T(e) {
+    function D(e) {
       if (
         !(
           e.timer != null ||
@@ -219,12 +226,12 @@ __d(
         )
       ) {
         var t = window.setTimeout(function () {
-          ((e.timer = null), R(e));
+          ((e.timer = null), L(e));
         }, s);
         e.timer = { id: t, wake: function () {} };
       }
     }
-    function D(t) {
+    function x(t) {
       if (t.request != null) return t.request;
       if (
         !o(
@@ -233,14 +240,14 @@ __d(
       )
         return (
           (t.keepLoading = !1),
-          C(),
-          v(),
+          b(),
+          S(),
           (e || (e = n("Promise"))).reject(
             r("err")("Pro recipient activity history unavailable"),
           )
         );
       if (t.completed != null) return t.completed;
-      (I(t), L(t, c));
+      (T(t), E(t, c));
       var a = {};
       t.context = a;
       var i = t.version,
@@ -249,30 +256,30 @@ __d(
             ((i = t.version),
               r.error == null &&
                 (t.completed = (e || (e = n("Promise"))).resolve(r.activity)),
-              L(t, r));
+              E(t, r));
           })
           .finally(function () {
             t.request === l &&
               ((t.context = null),
-              I(t),
+              T(t),
               (t.request = null),
               (t.keepLoading = !1),
               (t.completedAt = Date.now()),
-              (t.lastAccess = ++_),
-              T(t),
-              C());
+              (t.lastAccess = ++f),
+              D(t),
+              b());
             try {
               o(
                 "WAWebBizBroadcastProRecipientActivityRequest",
               ).assertProRecipientActivityResultCurrent(t, i);
             } finally {
-              v();
+              S();
             }
           });
       return ((t.request = l), l);
     }
-    ((l.getProRecipientActivitySnapshot = f),
-      (l.getProRecipientActivityStore = g));
+    ((l.getProRecipientActivitySnapshot = g),
+      (l.getProRecipientActivityStore = h));
   },
   98,
 );

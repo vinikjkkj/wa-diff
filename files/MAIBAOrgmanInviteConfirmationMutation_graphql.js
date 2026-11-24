@@ -5453,7 +5453,7 @@ __d(
           ],
         },
         params: {
-          id: "29523954733955724",
+          id: "29209314122012432",
           metadata: {},
           name: "MAIBAOrgmanInviteConfirmationMutation",
           operationKind: "mutation",

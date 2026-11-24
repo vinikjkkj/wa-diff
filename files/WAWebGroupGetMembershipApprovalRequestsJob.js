@@ -156,7 +156,15 @@ __d(
         )
       );
     }
-    async function h(t, n) {
+    function h(e) {
+      return y(
+        e.id,
+        o(
+          "WAWebGroupMembershipFormAnswersFetchGating",
+        ).shouldFetchGroupMembershipFormAnswersForGroupInfo(e),
+      );
+    }
+    async function y(t, n) {
       var r = n != null ? n : await m(t),
         a = await p(t, r === !0),
         i = a.map(function (t) {
@@ -167,7 +175,7 @@ __d(
             i = babelHelpers.objectWithoutPropertiesLoose(t, e);
           return i;
         }),
-        l = r == null ? await y(t, i) : i,
+        l = r == null ? await C(t, i) : i,
         u = await o(
           "WAWebApiMembershipApprovalRequestStore",
         ).getMembershipApprovalRequests(t),
@@ -261,7 +269,7 @@ __d(
           },
         ));
     }
-    async function y(e, t) {
+    async function C(e, t) {
       var n = await o(
         "WAWebApiMembershipApprovalRequestStore",
       ).getMembershipApprovalRequestsWithFormAnswers(e);
@@ -278,7 +286,8 @@ __d(
           : e;
       });
     }
-    l.queryAndUpdateGroupMembershipApprovalRequests = h;
+    ((l.queryAndUpdateGroupMembershipApprovalRequestsForGroupInfo = h),
+      (l.queryAndUpdateGroupMembershipApprovalRequests = y));
   },
   98,
 );

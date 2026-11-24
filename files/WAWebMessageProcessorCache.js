@@ -11,6 +11,7 @@ __d(
     "WAWebSignalProtocolStore",
     "WAWebSignalSnapshotWriter",
     "err",
+    "justknobx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -185,6 +186,17 @@ __d(
                 error: r("err")("Message cache checkpoint hold expired"),
               }));
           }),
+          (n.close = function () {
+            this.$11 == null &&
+              (this.$6.forEach(function (e) {
+                var t = e.promise;
+                t.catch(r("WAWebNoop"));
+              }),
+              this.$18({
+                reason: "closed",
+                error: r("err")("Message cache closed"),
+              }));
+          }),
           (n.stopCommits = function () {
             var e;
             ((e = this.$11) == null ? void 0 : e.reason) !==
@@ -312,23 +324,25 @@ __d(
                 this.$5.isScheduled() && this.$5.cancel());
               var i = this.$4,
                 l = i + r.length;
-              if (
-                ((this.$4 = l),
-                o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[message-cache] createSnapshot ",
-                      "-",
-                      ": ",
-                      " messages/receipts",
-                    ])),
-                  i,
-                  l,
-                  r.length,
-                ),
-                r.length !== 0)
-              ) {
-                var s =
+              this.$4 = l;
+              var s = S(),
+                u = function () {
+                  o("WALogger").LOG(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "[message-cache] createSnapshot ",
+                        "-",
+                        ": ",
+                        " messages/receipts",
+                      ])),
+                    i,
+                    l,
+                    r.length,
+                  );
+                };
+              if ((R(s, u), r.length !== 0)) {
+                L(s, u);
+                var y =
                     (e =
                       (t = this.$6.get(i)) == null
                         ? void 0
@@ -344,54 +358,60 @@ __d(
                             )
                             .sendLogs("message-cache-missing-doneFn");
                         },
-                  u = o("WAWebSignalProtocolStore")
+                  C = o("WAWebSignalProtocolStore")
                     .getSignalProtocolStore()
                     .generateSnapshot(),
-                  y = o("WAWebMessageBatchWriter").getCheckpointStanzaIds(r);
+                  b = o("WAWebMessageBatchWriter").getCheckpointStanzaIds(r);
                 (this.$3.enqueue(async function () {
                   try {
                     (n.$19(),
                       await o("WAWebMessageBatchWriter").writeMessageBatch(
                         r,
-                        y.all,
+                        b.all,
                       ),
-                      o("WALogger").LOG(
-                        m ||
-                          (m = babelHelpers.taggedTemplateLiteralLoose([
-                            "[message-cache] createSnapshot ",
-                            "-",
-                            ": messages added to table",
-                          ])),
-                        i,
-                        l,
-                      ),
+                      R(s, function () {
+                        o("WALogger").LOG(
+                          m ||
+                            (m = babelHelpers.taggedTemplateLiteralLoose([
+                              "[message-cache] createSnapshot ",
+                              "-",
+                              ": messages added to table",
+                            ])),
+                          i,
+                          l,
+                        );
+                      }),
+                      L(s, function () {}),
                       n.$19(),
-                      u != null &&
+                      C != null &&
                         (o(
                           "WAWebMessageReceiveFlow",
                         ).markMessageReceiveCheckpoint(
-                          y.all,
+                          b.all,
                           "checkpoint_signal_write_start",
                         ),
                         await o(
                           "WAWebSignalSnapshotWriter",
-                        ).writeSignalSnapshot(u, n.$20),
+                        ).writeSignalSnapshot(C, n.$20),
                         o(
                           "WAWebMessageReceiveFlow",
                         ).markMessageReceiveCheckpoint(
-                          y.all,
+                          b.all,
                           "checkpoint_signal_write_end",
                         ),
-                        o("WALogger").LOG(
-                          p ||
-                            (p = babelHelpers.taggedTemplateLiteralLoose([
-                              "[message-cache] createSnapshot ",
-                              "-",
-                              ": signal stores updated",
-                            ])),
-                          i,
-                          l,
-                        )));
+                        R(s, function () {
+                          o("WALogger").LOG(
+                            p ||
+                              (p = babelHelpers.taggedTemplateLiteralLoose([
+                                "[message-cache] createSnapshot ",
+                                "-",
+                                ": signal stores updated",
+                              ])),
+                            i,
+                            l,
+                          );
+                        }),
+                        L(s, function () {})));
                     var e = await o(
                       "WAWebSendOfflineDeliveryReceiptJob",
                     ).sendAggregateOfflineReceipts(r);
@@ -399,21 +419,24 @@ __d(
                       o(
                         "WAWebMessageReceiveFlow",
                       ).endMessageReceiveWithAggregatedReceipt(
-                        y.aggregatedReceipts.filter(function (t) {
+                        b.aggregatedReceipts.filter(function (t) {
                           return !e.includes(t);
                         }),
-                        { batchSize: r.length, signalDirtyCount: v(u) },
+                        { batchSize: r.length, signalDirtyCount: v(C) },
                       ),
-                      o("WALogger").LOG(
-                        _ ||
-                          (_ = babelHelpers.taggedTemplateLiteralLoose([
-                            "[message-cache] createSnapshot ",
-                            "-",
-                            ": aggregated receipts sent",
-                          ])),
-                        i,
-                        l,
-                      ),
+                      R(s, function () {
+                        o("WALogger").LOG(
+                          _ ||
+                            (_ = babelHelpers.taggedTemplateLiteralLoose([
+                              "[message-cache] createSnapshot ",
+                              "-",
+                              ": aggregated receipts sent",
+                            ])),
+                          i,
+                          l,
+                        );
+                      }),
+                      L(s, function () {}),
                       o("WAWebMessageBatchWriter").processMsgAdditionalInfo(a),
                       o("WALogger").LOG(
                         f ||
@@ -439,18 +462,21 @@ __d(
                       e,
                     ),
                       o("WAWebMessageReceiveFlow").failMessageReceiveCheckpoint(
-                        y.all,
+                        b.all,
                       ),
-                      s(e));
+                      y(e));
                     return;
                   }
-                  (o("WALogger").LOG(
-                    h ||
-                      (h = babelHelpers.taggedTemplateLiteralLoose([
-                        "[message-cache] before markCheckpointDone",
-                      ])),
-                  ),
-                    s());
+                  (R(s, function () {
+                    o("WALogger").LOG(
+                      h ||
+                        (h = babelHelpers.taggedTemplateLiteralLoose([
+                          "[message-cache] before markCheckpointDone",
+                        ])),
+                    );
+                  }),
+                    L(s, function () {}),
+                    y());
                 }),
                   o("WAWebMessageBatchWriter").handleChangedAddressingMode(
                     r,
@@ -474,6 +500,19 @@ __d(
             e.preKeyRemove.length +
             e.sessionRemove.length +
             e.identityRemove.length;
+    }
+    function S() {
+      try {
+        return r("justknobx")._("8711");
+      } catch (e) {
+        return !1;
+      }
+    }
+    function R(e, t) {
+      e || t();
+    }
+    function L(e, t) {
+      e && t();
     }
     l.messageProcessorCache = b;
   },

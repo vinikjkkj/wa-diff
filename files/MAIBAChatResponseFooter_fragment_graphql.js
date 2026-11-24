@@ -69,6 +69,13 @@ __d(
               alias: null,
               args: null,
               kind: "ScalarField",
+              name: "entrypoint_qe_universes",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
               name: "is_axon_routed",
               storageKey: null,
             },

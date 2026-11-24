@@ -231,8 +231,8 @@ __d(
             "createOrUpdateGroupMetadataFromQuery",
             { groupInfo: p },
           ),
-          await k(p),
-          l.membershipForm != null && (await E(n, l.membershipForm)));
+          l.membershipForm != null && (await E(n, l.membershipForm)),
+          await k(p));
       }
     }
     async function E(e, t) {
@@ -265,7 +265,7 @@ __d(
         return t
           ? o(
               "WAWebGroupGetMembershipApprovalRequestsJob",
-            ).queryAndUpdateGroupMembershipApprovalRequests(e.id)
+            ).queryAndUpdateGroupMembershipApprovalRequestsForGroupInfo(e)
           : void 0;
       }
     }
