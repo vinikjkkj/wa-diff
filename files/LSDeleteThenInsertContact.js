@@ -3,7 +3,7 @@ __d(
   [
     "LSBase64Decode.nop",
     "LSGetViewerFBID",
-    "LSMinosVerifySingleEpoch.nop",
+    "LSMinosVerifySingleEpochV2.nop",
     "LSQplAnnotateString.nop",
     "LSQplMarkEnd.nop",
     "LSQplMarkPoint.nop",
@@ -147,7 +147,7 @@ __d(
                 r("gkx")("11690") && r("gkx")("16269")
                   ? t.sequence([
                       function (r) {
-                        var a;
+                        var a, i, l;
                         return (
                           (o[17] = t.i64.random()),
                           (o[27] = t.i64.to_string(o[17])),
@@ -160,27 +160,83 @@ __d(
                           t.blobs.eq(o[5], void 0) &&
                           t.blobs.eq(o[0], void 0)
                             ? t.resolve(
-                                ((a = [
-                                  o[0],
-                                  o[2],
-                                  o[1],
-                                  e[51],
-                                  e[54],
-                                  o[3],
-                                  o[4],
-                                  o[5],
-                                  o[6],
+                                ((o[28] = t.createArray()),
+                                (o[41] = (o[28].push(e[0]), o[28])),
+                                (o[29] = new t.Map()),
+                                (o[30] = o[29].get(e[0])),
+                                o[30] ? (o[31] = !1) : (o[31] = !0),
+                                o[31]
+                                  ? ((i = [
+                                      void 0,
+                                      void 0,
+                                      void 0,
+                                      void 0,
+                                      void 0,
+                                      void 0,
+                                      void 0,
+                                      void 0,
+                                      void 0,
+                                    ]),
+                                    (o[32] = i[0]),
+                                    (o[33] = i[1]),
+                                    (o[34] = i[2]),
+                                    (o[35] = i[3]),
+                                    (o[36] = i[4]),
+                                    (o[37] = i[5]),
+                                    (o[38] = i[6]),
+                                    (o[39] = i[7]),
+                                    (o[40] = i[8]))
+                                  : ((o[41] = o[30].get(
+                                      "mailbox_encryption_public_key",
+                                    )),
+                                    (o[42] = o[30].get("epoch_anon_id")),
+                                    (o[43] = o[30].get("epoch_head")),
+                                    (o[44] = o[30].get(
+                                      "epoch_head_creation_time",
+                                    )),
+                                    (o[45] = o[30].get(
+                                      "minos_mailbox_public_keys_fbid",
+                                    )),
+                                    (a = [
+                                      o[41],
+                                      o[42],
+                                      o[43],
+                                      o[44],
+                                      o[45],
+                                      void 0,
+                                      void 0,
+                                      void 0,
+                                      void 0,
+                                    ]),
+                                    (o[32] = a[0]),
+                                    (o[33] = a[1]),
+                                    (o[34] = a[2]),
+                                    (o[35] = a[3]),
+                                    (o[36] = a[4]),
+                                    (o[37] = a[5]),
+                                    (o[38] = a[6]),
+                                    (o[39] = a[7]),
+                                    (o[40] = a[8])),
+                                (l = [
+                                  o[32],
+                                  o[33],
+                                  o[34],
+                                  o[35],
+                                  o[36],
+                                  o[37],
+                                  o[38],
+                                  o[39],
+                                  o[40],
                                 ]),
-                                (o[18] = a[0]),
-                                (o[19] = a[1]),
-                                (o[20] = a[2]),
-                                (o[21] = a[3]),
-                                (o[22] = a[4]),
-                                (o[23] = a[5]),
-                                (o[24] = a[6]),
-                                (o[25] = a[7]),
-                                (o[26] = a[8]),
-                                a),
+                                (o[18] = l[0]),
+                                (o[19] = l[1]),
+                                (o[20] = l[2]),
+                                (o[21] = l[3]),
+                                (o[22] = l[4]),
+                                (o[23] = l[5]),
+                                (o[24] = l[6]),
+                                (o[25] = l[7]),
+                                (o[26] = l[8])),
                               )
                             : t.sequence([
                                 function (e) {
@@ -233,33 +289,56 @@ __d(
                                                                           function (
                                                                             r,
                                                                           ) {
-                                                                            return t
-                                                                              .nativeOperation(
-                                                                                n(
-                                                                                  "LSMinosVerifySingleEpoch.nop",
-                                                                                ),
-                                                                                o[2],
-                                                                                e[0],
-                                                                                o[3],
-                                                                                o[0],
-                                                                                o[4],
-                                                                                o[6],
-                                                                                o[5],
-                                                                              )
-                                                                              .then(
-                                                                                function (
-                                                                                  e,
-                                                                                ) {
-                                                                                  var t;
-                                                                                  return (
-                                                                                    (t =
-                                                                                      e),
-                                                                                    (o[42] =
-                                                                                      t[0]),
-                                                                                    t
-                                                                                  );
-                                                                                },
-                                                                              );
+                                                                            return t.blobs.neq(
+                                                                              o[1],
+                                                                              void 0,
+                                                                            )
+                                                                              ? t.sequence(
+                                                                                  [
+                                                                                    function (
+                                                                                      r,
+                                                                                    ) {
+                                                                                      return t
+                                                                                        .nativeOperation(
+                                                                                          n(
+                                                                                            "LSMinosVerifySingleEpochV2.nop",
+                                                                                          ),
+                                                                                          o[2],
+                                                                                          e[0],
+                                                                                          o[3],
+                                                                                          o[0],
+                                                                                          o[4],
+                                                                                          o[6],
+                                                                                          o[5],
+                                                                                          o[1],
+                                                                                        )
+                                                                                        .then(
+                                                                                          function (
+                                                                                            e,
+                                                                                          ) {
+                                                                                            var t;
+                                                                                            return (
+                                                                                              (t =
+                                                                                                e),
+                                                                                              (o[43] =
+                                                                                                t[0]),
+                                                                                              t
+                                                                                            );
+                                                                                          },
+                                                                                        );
+                                                                                    },
+                                                                                    function (
+                                                                                      e,
+                                                                                    ) {
+                                                                                      return (o[42] =
+                                                                                        o[43]);
+                                                                                    },
+                                                                                  ],
+                                                                                )
+                                                                              : t.resolve(
+                                                                                  (o[42] =
+                                                                                    !1),
+                                                                                );
                                                                           },
                                                                           function (
                                                                             r,

@@ -10,23 +10,26 @@ __d(
         var e = t.accessibilityLabel,
           n = t.nonVideoUrl,
           r = t.previewUrl,
-          a = t.rank,
-          i = t.trending,
-          l = t.url,
-          u = t.width;
-        ((this.rank = a),
+          a = t.provider,
+          i = a === void 0 ? "giphy" : a,
+          l = t.rank,
+          u = t.trending,
+          c = t.url,
+          d = t.width;
+        ((this.rank = l),
           (this.gifId = ++s),
-          (this.url = l),
-          (this.previewUrl = r != null && r !== "" ? r : l),
+          (this.url = c),
+          (this.previewUrl = r != null && r !== "" ? r : c),
           (this.nonVideoUrl = n),
-          (this.width = u),
-          (this.widthStr = u + "px"),
+          (this.width = d),
+          (this.widthStr = d + "px"),
           (this.ratioStr =
             Math.ceil(
-              (100 * o("WAWebGifPanelConstants").TARGET_GIF_HEIGHT) / u,
+              (100 * o("WAWebGifPanelConstants").TARGET_GIF_HEIGHT) / d,
             ) + "%"),
-          (this.trending = i),
-          (this.accessibilityLabel = e));
+          (this.trending = u),
+          (this.accessibilityLabel = e),
+          (this.provider = i));
       },
       c = [
         "en",

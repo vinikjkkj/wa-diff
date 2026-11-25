@@ -8,6 +8,7 @@ __d(
     "WAWebDBBulkGetRootMsgs",
     "WAWebDBChatValidation",
     "WAWebDBMsgUtils",
+    "WAWebDBReadReceiptOriginBindings",
     "WAWebLidMigrationUtils",
     "WAWebLidStatusMigrationKeyUtils",
     "WAWebMarkAddOnsAsReadJob",
@@ -169,30 +170,31 @@ __d(
             s,
             l,
           ));
-      var f = await P(a),
+      var f = await N(a),
         g = f.chatAckUpdates,
         h = f.chatUpdates,
-        y = f.statusAckUpdates,
-        C = await T(a),
-        b = g.concat(y, C),
-        v = new Map(
-          y.map(function (e) {
-            return [e.id, e];
-          }),
-        ),
+        y = f.pendingReadSnapshots,
+        C = f.statusAckUpdates,
+        b = await T(a),
+        v = g.concat(C, b),
         R = new Map(
-          b.map(function (e) {
+          C.map(function (e) {
             return [e.id, e];
           }),
         ),
-        k = A(i);
-      k.forEach(function (e) {
-        var t = R.get(e.id);
+        k = new Map(
+          v.map(function (e) {
+            return [e.id, e];
+          }),
+        ),
+        I = F(i);
+      I.forEach(function (e) {
+        var t = k.get(e.id);
         t == null
-          ? R.set(e.id, e)
-          : R.set(e.id, babelHelpers.extends({}, t, { ack: e.ack }));
+          ? k.set(e.id, e)
+          : k.set(e.id, babelHelpers.extends({}, t, { ack: e.ack }));
       });
-      var I = Array.from(R.values());
+      var D = Array.from(k.values());
       o("WAWebBackendApi").frontendFireAndForget("updateOfflinePeerReceipt", {
         chatUpdates: h.map(function (e) {
           var t;
@@ -202,10 +204,10 @@ __d(
             unreadMentionsOfMe: (t = e.unreadMentionsOfMe) != null ? t : [],
           };
         }),
-        ackUpdates: I.map(function (e) {
+        ackUpdates: D.map(function (e) {
           var t = e.id;
           return (
-            v.has(e.id) &&
+            R.has(e.id) &&
               (t = o("WAWebLidStatusMigrationKeyUtils")
                 .matKeyConvert(r("WAWebMsgKey").fromString(t))
                 .toString()),
@@ -213,7 +215,7 @@ __d(
           );
         }),
       });
-      var D = await S(h);
+      var x = await S(h);
       return (
         o("WALogger")
           .LOG(
@@ -222,7 +224,8 @@ __d(
                 "updatePeerReceipts: bulkCreateOrMerge ",
                 "",
               ])),
-            D.slice(-15)
+            x
+              .slice(-15)
               .map(function (e) {
                 return e.id;
               })
@@ -230,24 +233,24 @@ __d(
           )
           .tags("missing-lid"),
         o("WAWebDBChatValidation").validateAccountLidInChatRows(
-          D,
+          x,
           "updatePeerReceipts",
         ),
         await Promise.all([
           o("WAWebModelStorageUtils")
             .getStorage()
-            .lock(["message", "chat"], function (e) {
+            .lock(["message", "chat"], async function (e) {
               var t = e[0],
                 n = e[1];
               return Promise.all([
-                t.bulkCreateOrMerge(I),
-                n.bulkCreateOrMerge(D),
+                t.bulkCreateOrMerge(await P(t, D, y)),
+                n.bulkCreateOrMerge(x),
               ]);
             })
             .then(function () {}),
           o("WAWebMarkAddOnsAsReadJob")
             .markUnclassifiedAddOnsAsReadJob(
-              Array.from(w(a), function (e) {
+              Array.from(A(a), function (e) {
                 return r("WAWebMsgKey").from(e);
               }),
             )
@@ -441,14 +444,42 @@ __d(
         ((a.msgKeys = t.slice(n, i)), (n = i));
       }
     }
-    async function P(e) {
+    async function P(e, t, n) {
+      var r = t
+        .filter(function (e) {
+          return e.pendingReadReceipt == null;
+        })
+        .map(function (e) {
+          return e.id;
+        })
+        .filter(function (e) {
+          return n.has(e);
+        });
+      if (r.length === 0) return t;
+      var a = await e.bulkGet(r, !1),
+        i = new Set(
+          r.filter(function (e, t) {
+            var r = a[t];
+            return (
+              r != null &&
+              !o(
+                "WAWebDBReadReceiptOriginBindings",
+              ).isPendingReadReceiptTargetUnchanged(r, n.get(e))
+            );
+          }),
+        );
+      return t.map(function (e) {
+        return i.has(e.id) ? { id: e.id, ack: e.ack } : e;
+      });
+    }
+    async function N(e) {
       o("WALogger").LOG(
         C ||
           (C = babelHelpers.taggedTemplateLiteralLoose([
             "getUpdatesForPeerReadReceipts",
           ])),
       );
-      var t = w(e),
+      var t = A(e),
         n = await d(e),
         a = Array.from(n.keys()),
         i = a.reduce(function (e, t) {
@@ -471,7 +502,7 @@ __d(
           return p(n.get(e.from), e);
         }));
       var s = _(),
-        u = await M(t),
+        u = await w(t),
         c = r("compactMap")(a, function (e) {
           var t = n.get(e);
           return t != null && t.lastUnreadMsgRowId != null
@@ -482,14 +513,23 @@ __d(
               }
             : null;
         });
-      return { chatUpdates: c, chatAckUpdates: s, statusAckUpdates: u };
+      return {
+        chatUpdates: c,
+        chatAckUpdates: s,
+        pendingReadSnapshots: new Map(
+          l.map(function (e) {
+            return [e.id, e];
+          }),
+        ),
+        statusAckUpdates: u,
+      };
       async function d(e) {
         return new Map(
           e
             .flatMap(function (e) {
               return e.msgKeys;
             })
-            .map(N)
+            .map(M)
             .filter(function (e) {
               return e !== o("WAJids").STATUS_JID;
             })
@@ -515,14 +555,21 @@ __d(
             (e.lastUnreadMsgRowId = n));
       }
       function p(e, t) {
-        var n = t.rowId;
+        var n,
+          r = t.rowId;
         if (
-          !(e == null || n == null || e.lastUnreadMsgRowId == null) &&
-          n > e.lastUnreadMsgRowId &&
+          !(e == null || r == null || e.lastUnreadMsgRowId == null) &&
+          r > e.lastUnreadMsgRowId &&
+          t.ack !== o("WAWebAck").ACK.READ &&
+          ((n = o(
+            "WAWebDBReadReceiptOriginBindings",
+          ).getCurrentPendingReadReceiptOrigin(t)) == null
+            ? void 0
+            : n.locallyRead) !== !0 &&
           ((e.unreadCount += 1), o("WAWebMsgGetters").getIsImportantMessage(t))
         ) {
-          var r = { id: t.id, timestamp: t.t };
-          e.unreadMentionsOfMe.push(r);
+          var a = { id: t.id, timestamp: t.t };
+          e.unreadMentionsOfMe.push(a);
         }
       }
       function _() {
@@ -540,6 +587,7 @@ __d(
                     id: e.id,
                     ack: o("WAWebAck").ACK.READ,
                     pendingReadReceipt: null,
+                    pendingReadReceiptOrigin: null,
                   }
               : null;
         });
@@ -551,13 +599,13 @@ __d(
         return t.has(e.id) || f(e);
       }
     }
-    function N(e) {
+    function M(e) {
       return r("WAWebMsgKey").fromString(e).remote.toString();
     }
-    async function M(e) {
+    async function w(e) {
       var t = Array.from(e)
           .filter(function (e) {
-            return N(e) === o("WAJids").STATUS_JID;
+            return M(e) === o("WAJids").STATUS_JID;
           })
           .map(function (e) {
             return r("WAWebMsgKey").fromString(e);
@@ -567,14 +615,14 @@ __d(
         return { id: e.toString(), ack: o("WAWebAck").ACK.READ };
       });
     }
-    function w(e) {
+    function A(e) {
       return new Set(
         e.flatMap(function (e) {
           return e.msgKeys;
         }),
       );
     }
-    function A(e) {
+    function F(e) {
       var t = new Set();
       return (
         e.forEach(function (e) {
@@ -588,13 +636,14 @@ __d(
             id: e,
             ack: o("WAWebAck").ACK.PLAYED,
             pendingReadReceipt: null,
+            pendingReadReceiptOrigin: null,
           };
         })
       );
     }
     ((l.addAccountLidToUpdates = S),
       (l.updatePeerReceipts = R),
-      (l.getStatusMsgAckUpdates = M));
+      (l.getStatusMsgAckUpdates = w));
   },
   98,
 );

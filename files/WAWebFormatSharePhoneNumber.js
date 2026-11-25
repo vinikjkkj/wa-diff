@@ -7,8 +7,7 @@ __d(
       if (n) return s._(/*BTDS*/ "");
       var a = o("WAWebContactCollection").ContactCollection.gadd(e),
         i =
-          (r = o("WAWebFrontendContactGetters").getShownOrgMemberName(a)) !=
-          null
+          (r = o("WAWebFrontendContactGetters").getShownMemberName(a)) != null
             ? r
             : o("WAWebFrontendContactGetters").getIsMyContact(a)
               ? o("WAWebFrontendContactGetters").getFormattedName(a)

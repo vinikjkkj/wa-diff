@@ -84,6 +84,7 @@ __d(
         supportNewsletter: [25, e.TYPES.BOOL],
         supportUniversalReachChat: [26, e.TYPES.BOOL],
         supportOmittedConversationMetadata: [28, e.TYPES.BOOL],
+        supportDraftSync: [29, e.TYPES.BOOL],
       }),
       (d.name = "DeviceProps$AppVersion"),
       (d.internalSpec = {

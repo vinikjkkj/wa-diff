@@ -5,8 +5,6 @@ __d(
     "MAWMiActGetThreadLifecycleState__DO_NOT_USE",
     "MAWMiActOnActThreadReadyWithoutValidator",
     "MWInteractionTracing",
-    "Promise",
-    "asyncToGeneratorRuntime",
     "cr:7542",
     "err",
     "promiseDone",
@@ -14,65 +12,54 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s(e, t, a, i, l, s) {
+    function e(e, t, a, i, l, s) {
       return r("MWInteractionTracing").trace(
         s,
         "MAWMiActOnActThreadReady.onActThreadReady",
         void 0,
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var r = yield o(
+        async function () {
+          var r = await o(
               "MAWMiActGetThreadLifecycleState__DO_NOT_USE",
             ).getThreadLifecycleStateByThreadKey(e, t, a),
             s = r.type,
-            u = (function () {
-              var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (r, o) {
-                  return (
-                    n("cr:7542") &&
-                      (yield n("cr:7542")
-                        .load()
-                        .then(function (n) {
-                          var r = n.validateActThreadReady;
-                          return r({
-                            chatJid: o,
-                            description: a,
-                            initialMappingStateType: s,
-                            tables: e,
-                            threadKey: t,
-                          });
-                        })),
-                    i == null ? void 0 : i(r, o)
-                  );
-                },
+            u = async function (o, l) {
+              return (
+                n("cr:7542") &&
+                  (await n("cr:7542")
+                    .load()
+                    .then(function (n) {
+                      var r = n.validateActThreadReady;
+                      return r({
+                        chatJid: l,
+                        description: a,
+                        initialMappingStateType: s,
+                        tables: e,
+                        threadKey: t,
+                      });
+                    })),
+                i == null ? void 0 : i(o, l)
               );
-              return function (t, n) {
-                return r.apply(this, arguments);
-              };
-            })();
+            };
           return o(
             "MAWMiActOnActThreadReadyWithoutValidator",
           ).onActThreadReadyWithoutValidator(e, t, a, u, l, r);
-        }),
+        },
       );
     }
-    function u(t, a, i, l) {
-      return new (e || (e = n("Promise")))(function (u, c) {
-        s(
+    function s(t, n, a, i) {
+      return new Promise(function (l, s) {
+        e(
           t,
+          n,
           a,
-          i,
-          function (t, r) {
-            return (
-              u({ chatJid: r, serverThreadKey: t }),
-              (e || (e = n("Promise"))).resolve()
-            );
+          function (e, t) {
+            return (l({ chatJid: t, serverThreadKey: e }), Promise.resolve());
           },
           function (e) {
-            (c(
+            (s(
               r("err")(
                 "Timed out waiting for ACT thread to be ready in %s. Thread state: %s",
-                i,
+                a,
                 e,
               ),
             ),
@@ -80,19 +67,19 @@ __d(
                 o("MAWMIC")
                   .getState()
                   .then(function (e) {
-                    l != null &&
-                      o("sendToSentQPLLogger").addSendToSentAnnotations(l, {
+                    i != null &&
+                      o("sendToSentQPLLogger").addSendToSentAnnotations(i, {
                         string: { mic_state: e },
                       });
                   }),
               ));
           },
         ).catch(function () {
-          return c();
+          return s();
         });
       });
     }
-    ((l.onActThreadReady = s), (l.waitForACTThreadReady = u));
+    ((l.onActThreadReady = e), (l.waitForACTThreadReady = s));
   },
   98,
 );

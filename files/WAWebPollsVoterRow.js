@@ -105,7 +105,7 @@ __d(
         E = _[6],
         k = _[7],
         I = o("useWAWebContactValues").useContactValues(u.id, [
-          o("WAWebFrontendContactGetters").getShownOrgMemberName,
+          o("WAWebFrontendContactGetters").getShownMemberName,
         ]),
         T = I[0],
         D = r("useWAWebOrgMemberBadge")(u, f),

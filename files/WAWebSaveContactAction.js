@@ -70,7 +70,7 @@ __d(
       if (e.phoneNumber != null) {
         var _ = e.phoneNumber,
           f = e.prevPhoneNumber;
-        (p.push({ type: "add", phoneNumber: _ }),
+        (p.push({ type: "add", internationalPhoneNumber: _ }),
           f != null &&
             f !== _ &&
             p.push({
@@ -297,7 +297,7 @@ __d(
       if (!(e.length === 0 && t.length === 0)) {
         var n = [].concat(
             e.map(function (e) {
-              return { type: "add", phoneNumber: e.phoneNumber };
+              return { type: "add", internationalPhoneNumber: e.phoneNumber };
             }),
             t.map(function (e) {
               return { type: "add_username", lid: e.lid, username: e.username };

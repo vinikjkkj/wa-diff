@@ -17,6 +17,9 @@ __d(
         ADMIN_CHANGE_GROUP_ADMINS: 12,
         ADMIN_SET_GROUP_PARTICIPANT_UPDATE_MODE: 13,
         PAYMENTS_OPG_XMA: 14,
+        ADMIN_LINK_CTA: 15,
+        ADMIN_FRIEND_REQUEST_CONFIRMED: 16,
+        ADMIN_QR_CODE_SCANNED: 17,
       }),
       l = e;
     i.default = l;

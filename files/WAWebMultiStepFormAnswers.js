@@ -1,6 +1,6 @@
 __d(
   "WAWebMultiStepFormAnswers",
-  ["WAWebMultiStepFormButton"],
+  ["WAWebMultiStepFormTypes"],
   function (t, n, r, o, a, i, l) {
     var e = { selectedIds: new Set(), customAnswer: "" };
     function s(t, n) {
@@ -12,7 +12,7 @@ __d(
     function c(e) {
       return (
         e.variant ===
-        o("WAWebMultiStepFormButton").A2UIChoicePickerVariant.MutuallyExclusive
+        o("WAWebMultiStepFormTypes").A2UIChoicePickerVariant.MutuallyExclusive
       );
     }
     function d(e, t) {
@@ -56,7 +56,7 @@ __d(
           ((r = {}),
           (r[t] = n.slice(
             0,
-            o("WAWebMultiStepFormButton").MAX_INPUT_FIELD_LENGTH,
+            o("WAWebMultiStepFormTypes").MAX_INPUT_FIELD_LENGTH,
           )),
           r),
         ),

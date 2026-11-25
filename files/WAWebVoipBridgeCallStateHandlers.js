@@ -19,6 +19,7 @@ __d(
     "WAWebVoipActionWriteCallLogCallStateChanged",
     "WAWebVoipActionWriteCallLogInviteeLoadable",
     "WAWebVoipActivityTracker",
+    "WAWebVoipBridgeMediaStreamHelpers",
     "WAWebVoipBridgeMicSilenceToast",
     "WAWebVoipCallStateUtils",
     "WAWebVoipCameraAutoOffModal.react",
@@ -109,7 +110,8 @@ __d(
             i = n.callState;
           if (
             (o("WAWebVoipCallStateUtils").isCallTerminal(i) &&
-              O(a.callId, a.linkToken, r("WAWebCallCollection").activeCall),
+              (O(a.callId, a.linkToken, r("WAWebCallCollection").activeCall),
+              W(a.callId)),
             (!r("WAWebEnvironment").isWindows ||
               o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()) &&
               o("WAWebVoipUiManager").setupVoipActiveCallChangeListener(),
@@ -882,6 +884,7 @@ __d(
               o(
                 "WAWebInCallWaitingRoomNotificationHelper",
               ).closeInCallWaitingRoomNotification(i.id),
+              o("WAWebVoipBridgeMediaStreamHelpers").clearCameraGrantWindow(),
               r("WAWebCallCollection").setActiveCall(null));
             return;
           }
@@ -1187,7 +1190,7 @@ __d(
     }
     function O(e, t, n) {
       if (r("justknobx")._("5756"))
-        for (var a of W(e, t, n))
+        for (var a of q(e, t, n))
           o(
             "WAWebVoipPermissionCheckCaptureRegistry",
           ).releasePermissionCheckCaptures(a);
@@ -1201,18 +1204,23 @@ __d(
             : null
           : e;
     }
-    function W(e, t, n) {
+    function W(e) {
+      var t = r("WAWebCallCollection").activeCall;
+      (t == null || t.id === e) &&
+        o("WAWebVoipBridgeMediaStreamHelpers").clearCameraGrantWindow();
+    }
+    function q(e, t, n) {
       var r = n != null && n.id === e ? n : null,
         o = n != null && n.id !== e ? n : null,
         a = new Set();
       return (
-        q(a, e, o),
-        q(a, t, o),
-        q(a, r == null ? void 0 : r.callLinkToken, null),
+        U(a, e, o),
+        U(a, t, o),
+        U(a, r == null ? void 0 : r.callLinkToken, null),
         a
       );
     }
-    function q(e, t, n) {
+    function U(e, t, n) {
       t == null ||
         t === "" ||
         (n != null && (n.id === t || n.callLinkToken === t)) ||

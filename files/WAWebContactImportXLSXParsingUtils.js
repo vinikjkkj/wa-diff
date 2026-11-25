@@ -36,12 +36,13 @@ __d(
         );
       }
       try {
-        var a = n.read(t, { type: "array" }),
+        var a = n.read(t, { cellNF: !0, type: "array" }),
           i = a.SheetNames[0],
-          l = a.Sheets[i],
-          d = l["!ref"],
-          m = typeof d == "string" ? n.utils.decode_range(d).s.r : 0,
-          p = n.utils
+          l = a.Sheets[i];
+        m(l);
+        var d = l["!ref"],
+          p = typeof d == "string" ? n.utils.decode_range(d).s.r : 0,
+          _ = n.utils
             .sheet_to_json(l, { header: 1, raw: !1 })
             .map(function (e) {
               return e.map(function (e) {
@@ -56,10 +57,10 @@ __d(
                 ' rows from sheet "',
                 '"',
               ])),
-            p.length,
+            _.length,
             i,
           ),
-          { data: p, rowOffset: m }
+          { data: _, rowOffset: p }
         );
       } catch (e) {
         throw (
@@ -78,6 +79,19 @@ __d(
             }),
           e
         );
+      }
+    }
+    function m(e) {
+      var t = Object.keys(e);
+      for (var n of t) {
+        var r = e[n];
+        r != null &&
+          typeof r == "object" &&
+          r.t === "n" &&
+          r.z === "General" &&
+          typeof r.v == "number" &&
+          Number.isSafeInteger(r.v) &&
+          (e[n] = { t: "n", v: r.v, w: String(r.v), z: "General" });
       }
     }
     l.loadXLSX = d;

@@ -50,6 +50,7 @@ __d(
               ],
               companionDevices: [41, e.TYPES.INTEGER],
               contactType: [1, o("WAWebWamEnumContactType").CONTACT_TYPE],
+              containsFirstMm: [77, e.TYPES.BOOLEAN],
               decisionId: [40, e.TYPES.STRING],
               dedupKey: [60, e.TYPES.INTEGER],
               deltaTime: [2, e.TYPES.INTEGER],

@@ -98,7 +98,6 @@ __d(
       (l.initializeVaultMaterials = C),
       (l.generateNewVaultMaterials = b),
       (l.materialsToString = S),
-      (l.fromMaterialsToString = R),
       (l.fromStringToMaterials = L));
   },
   98,

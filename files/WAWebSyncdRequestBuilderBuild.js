@@ -5,6 +5,7 @@ __d(
     "WAWap",
     "WAWebABProps",
     "WAWebBrokerGlobalAppState",
+    "WAWebCoexV2SyncdIqEnvelope",
     "WAWebGetCollectionVersion",
     "WAWebGetSyncAction",
     "WAWebProtobufSyncAction.pb",
@@ -43,31 +44,35 @@ __d(
         i = n.collectionWithEncryptedMutations,
         l = n.localCollectionVersions,
         s = n.pendingCollectionsInBootstrap,
-        u = f(o("WAWap").wap("sync", null, a)),
-        c = u.iqId,
-        d = u.iqNode;
+        u = await o("WAWebCoexV2SyncdIqEnvelope").maybeBuildCoexV2SyncdIqNode({
+          collectionWithEncryptedMutations: i,
+        }),
+        c = f(o("WAWap").wap("sync", null, a), u),
+        d = c.iqId,
+        m = c.iqNode;
       return {
-        syncIqNode: d,
+        syncIqNode: m,
         collectionWithEncryptedMutations: i,
         localCollectionVersions: l,
         pendingCollectionsInBootstrap: s,
-        iqId: c,
+        iqId: d,
         collectionLtHashes: r,
       };
     }
-    function f(e) {
-      var t = o("WAWap").generateId(),
-        n = o("WAWap").wap(
+    function f(e, t) {
+      var n = o("WAWap").generateId(),
+        r = o("WAWap").wap(
           "iq",
           {
-            id: t,
+            id: n,
             to: o("WAWap").S_WHATSAPP_NET,
             type: "set",
             xmlns: "w:sync:app:state",
           },
           e,
+          t,
         );
-      return { iqNode: n, iqId: t };
+      return { iqNode: r, iqId: n };
     }
     async function g(t, n) {
       o("WALogger").LOG(

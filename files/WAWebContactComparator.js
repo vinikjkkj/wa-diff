@@ -23,7 +23,7 @@ __d(
                 o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.HIGH &&
               e.verifiedName
             ? e.verifiedName
-            : (t = o("WAWebFrontendContactGetters").getShownOrgMemberName(e)) !=
+            : (t = o("WAWebFrontendContactGetters").getShownMemberName(e)) !=
                 null
               ? t
               : void 0;

@@ -1,74 +1,73 @@
 __d(
   "mergeDeepInto",
   ["invariant", "mergeHelpers"],
-  function (t, n, r, o, a, i, l) {
+  function (t, n, r, o, a, i, l, s) {
     "use strict";
-    var e,
-      s = (e = n("mergeHelpers")).ArrayStrategies,
-      u = e.checkArrayStrategy,
-      c = e.checkMergeArrayArgs,
-      d = e.checkMergeLevel,
-      m = e.checkMergeObjectArgs,
-      p = e.isTerminal,
-      _ = e.normalizeMergeArg,
-      f = function (t, n, r, o) {
-        (m(t, n), d(o));
-        for (var e = n ? Object.keys(n) : [], a = 0; a < e.length; a++) {
-          var i = e[a];
-          h(t, n, i, r, o);
+    var e = function (t, n, o, a) {
+        (r("mergeHelpers").checkMergeObjectArgs(t, n),
+          r("mergeHelpers").checkMergeLevel(a));
+        for (var e = n ? Object.keys(n) : [], i = 0; i < e.length; i++) {
+          var l = e[i];
+          c(t, n, l, o, a);
         }
       },
-      g = function (t, n, r, o) {
-        if ((c(t, n), d(o), r === s.Concat)) t.push.apply(t, n);
+      u = function (t, n, o, a) {
+        if (
+          (r("mergeHelpers").checkMergeArrayArgs(t, n),
+          r("mergeHelpers").checkMergeLevel(a),
+          o === r("mergeHelpers").ArrayStrategies.Concat)
+        )
+          t.push.apply(t, n);
         else
-          for (var e = Math.max(t.length, n.length), a = 0; a < e; a++)
-            h(t, n, a, r, o);
+          for (var e = Math.max(t.length, n.length), i = 0; i < e; i++)
+            c(t, n, i, o, a);
       },
-      h = function (t, n, r, o, a) {
-        var e = n[r],
-          i = Object.prototype.hasOwnProperty.call(n, r),
-          u = i && p(e),
-          c = i && Array.isArray(e),
-          d = i && !c && !c,
-          m = t[r],
-          _ = Object.prototype.hasOwnProperty.call(t, r),
-          h = _ && p(m),
-          y = _ && Array.isArray(m),
-          C = _ && !y && !y;
-        h
-          ? u
-            ? (t[r] = e)
-            : c
-              ? ((t[r] = []), g(t[r], e, o, a + 1))
-              : d
-                ? ((t[r] = {}), f(t[r], e, o, a + 1))
-                : i || (t[r] = m)
-          : y
-            ? u
-              ? (t[r] = e)
-              : c
-                ? ((o && s[o]) || l(0, 5117),
-                  o === s.Clobber && (m.length = 0),
-                  g(m, e, o, a + 1))
-                : d && ((t[r] = {}), f(t[r], e, o, a + 1))
-            : C
-              ? u
-                ? (t[r] = e)
-                : c
-                  ? ((t[r] = []), g(t[r], e, o, a + 1))
-                  : d && f(m, e, o, a + 1)
-              : _ ||
-                (u
-                  ? (t[r] = e)
-                  : c
-                    ? ((t[r] = []), g(t[r], e, o, a + 1))
-                    : d && ((t[r] = {}), f(t[r], e, o, a + 1)));
+      c = function (n, o, a, i, l) {
+        var t = o[a],
+          c = Object.prototype.hasOwnProperty.call(o, a),
+          d = c && r("mergeHelpers").isTerminal(t),
+          m = c && Array.isArray(t),
+          p = c && !m && !m,
+          _ = n[a],
+          f = Object.prototype.hasOwnProperty.call(n, a),
+          g = f && r("mergeHelpers").isTerminal(_),
+          h = f && Array.isArray(_),
+          y = f && !h && !h;
+        g
+          ? d
+            ? (n[a] = t)
+            : m
+              ? ((n[a] = []), u(n[a], t, i, l + 1))
+              : p
+                ? ((n[a] = {}), e(n[a], t, i, l + 1))
+                : c || (n[a] = _)
+          : h
+            ? d
+              ? (n[a] = t)
+              : m
+                ? ((i && r("mergeHelpers").ArrayStrategies[i]) || s(0, 5117),
+                  i === r("mergeHelpers").ArrayStrategies.Clobber &&
+                    (_.length = 0),
+                  u(_, t, i, l + 1))
+                : p && ((n[a] = {}), e(n[a], t, i, l + 1))
+            : y
+              ? d
+                ? (n[a] = t)
+                : m
+                  ? ((n[a] = []), u(n[a], t, i, l + 1))
+                  : p && e(_, t, i, l + 1)
+              : f ||
+                (d
+                  ? (n[a] = t)
+                  : m
+                    ? ((n[a] = []), u(n[a], t, i, l + 1))
+                    : p && ((n[a] = {}), e(n[a], t, i, l + 1)));
       };
-    function y(e, t, n) {
-      var r = _(t);
-      (u(n), f(e, r, n, 0));
+    function d(t, n, o) {
+      var a = r("mergeHelpers").normalizeMergeArg(n);
+      (r("mergeHelpers").checkArrayStrategy(o), e(t, a, o, 0));
     }
-    i.default = y;
+    l.default = d;
   },
-  66,
+  98,
 );

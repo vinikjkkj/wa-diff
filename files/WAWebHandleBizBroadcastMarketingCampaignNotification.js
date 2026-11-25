@@ -5,7 +5,20 @@ __d(
     "WAWebBizBroadcastMarketingCampaignNotificationEmitter",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    var e = {
+      matches: function (t) {
+        return t.hasChild("mm_campaign");
+      },
+      parse: function (t, n) {
+        var e = s(t.node());
+        return e == null
+          ? null
+          : function () {
+              return u(babelHelpers.extends({}, e, { ts: n }));
+            };
+      },
+    };
+    function s(e) {
       var t = o(
           "WASmaxSmbMeteredMessagesCampaignCampaignStateChangedNotificationRPC",
         ).receiveCampaignStateChangedNotificationRPC(e),
@@ -21,7 +34,7 @@ __d(
           }
         : null;
     }
-    function s(e) {
+    function u(e) {
       var t = e.adCreativeId,
         n = e.adGroupId,
         r = e.adId,
@@ -38,8 +51,7 @@ __d(
         timestamp: i,
       });
     }
-    ((l.parseMarketingCampaignNotification = e),
-      (l.handleMarketingCampaignNotification = s));
+    l.default = e;
   },
   98,
 );

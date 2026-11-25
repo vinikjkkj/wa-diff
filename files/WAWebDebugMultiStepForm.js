@@ -8,7 +8,7 @@ __d(
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgKey",
     "WAWebMsgType",
-    "WAWebMultiStepFormButton",
+    "WAWebMultiStepFormTypes",
     "WAWebSendMsgChatAction",
     "WAWebUserUtils",
     "WAWebViewMode.flow",
@@ -93,9 +93,9 @@ __d(
       return (
         r("vulture")("c8xnS0TKo0oasAksMGrmS9Gyq10="),
         JSON.stringify({
-          version: o("WAWebMultiStepFormButton").A2UI_FORM_VERSION,
+          version: o("WAWebMultiStepFormTypes").A2UI_FORM_VERSION,
           payload: {
-            type: o("WAWebMultiStepFormButton").A2UI_FORM_PAYLOAD_TYPE,
+            type: o("WAWebMultiStepFormTypes").A2UI_FORM_PAYLOAD_TYPE,
             data: {
               root: "form",
               components: [

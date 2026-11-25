@@ -7,6 +7,7 @@ __d(
     "WAWebCanonicalUtils",
     "WAWebHatchBackendGating",
     "WAWebHatchLinkedStatusManager",
+    "WAWebHatchLinkedStatusWaitLog",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -40,11 +41,14 @@ __d(
     function _() {
       if (!(d || !o("WAWebCanonicalGating").isCanonicalEnabled())) {
         d = !0;
-        var e = self.setTimeout(f, u);
+        var e = o(
+            "WAWebHatchLinkedStatusWaitLog",
+          ).startHatchLinkedStatusWaitClock("prefetch"),
+          t = self.setTimeout(f, u);
         o("WAWebCanonicalUtils")
           .waitForCanonicalPresent()
           .then(function () {
-            (self.clearTimeout(e), (d = !1), p());
+            (e(), self.clearTimeout(t), (d = !1), p());
           });
       }
     }

@@ -4,17 +4,14 @@ __d(
     "$InternalEnum",
     "WADeprecatedWapParser",
     "WALogger",
-    "WASmaxBizCtwaAdAccountNonceNotificationRPC",
     "WAWap",
     "WAWebBackendJobsCommon",
     "WAWebBizSuggestionsGatingUtils",
     "WAWebBusinessNotificationPluginHandlers",
-    "WAWebCTWABizAccessTokenNonceManager",
     "WAWebCTWAGatingUtils",
     "WAWebCTWAParsePrivacy",
     "WAWebCTWAParseSuggestion",
     "WAWebCommonParsersVerifiedName",
-    "WAWebHandleBizBroadcastMarketingCampaignNotification",
     "WAWebHandleBusinessNameChange",
     "WAWebHandleBusinessProductCatalogNotification",
     "WAWebHandleBusinessProfile",
@@ -39,8 +36,6 @@ __d(
         "subscriptions",
         "ctwa_suggestion",
         "privacy",
-        "wa_ad_account_nonce",
-        "mm_campaign",
       ],
       u = new (r("WADeprecatedWapParser"))(
         "businessNotificationParser",
@@ -147,35 +142,13 @@ __d(
           }
           return null;
         }
-        if (e === "wa_ad_account_nonce") {
-          var f = o(
-            "WASmaxBizCtwaAdAccountNonceNotificationRPC",
-          ).receiveNonceNotificationRPC(t.node());
-          return babelHelpers.extends(
-            {
-              type: "wa_ad_account_nonce",
-              nonce: o("WAWebCTWABizAccessTokenNonceManager").castToNonce(
-                f.parsedRequest.waAdAccountNonceElementValue,
-              ),
-            },
-            n,
-          );
-        }
-        if (e === "mm_campaign") {
-          var g = o(
-            "WAWebHandleBizBroadcastMarketingCampaignNotification",
-          ).parseMarketingCampaignNotification(t.node());
-          return g != null
-            ? babelHelpers.extends({ type: "mm_campaign" }, g, n)
-            : null;
-        }
         if (e === "feature") {
-          var h = o(
+          var f = o(
             "WAWebBusinessNotificationPluginHandlers",
-          ).parseBusinessNotificationPluginAction(t);
-          return h == null
+          ).parseBusinessNotificationPluginAction(t, n.ts);
+          return f == null
             ? null
-            : babelHelpers.extends({ type: "feature", apply: h }, n);
+            : babelHelpers.extends({ type: "feature", apply: f }, n);
         }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -411,38 +384,12 @@ __d(
         }
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
-          t.type === "wa_ad_account_nonce"
-        ) {
-          var b = t;
-          return (
-            o(
-              "WAWebCTWABizAccessTokenNonceManager",
-            ).setNonceFromPushNotification(b.nonce),
-            f.Handled
-          );
-          break e;
-        }
-        if (
-          ((typeof t == "object" && t !== null) || typeof t == "function") &&
-          t.type === "mm_campaign"
-        ) {
-          var v = t;
-          return (
-            o(
-              "WAWebHandleBizBroadcastMarketingCampaignNotification",
-            ).handleMarketingCampaignNotification(v),
-            f.Handled
-          );
-          break e;
-        }
-        if (
-          ((typeof t == "object" && t !== null) || typeof t == "function") &&
           t.type === "feature" &&
           "apply" in t
         ) {
-          var S = t.apply,
-            R = S();
-          return (R != null && (await R), f.Handled);
+          var b = t.apply,
+            v = b();
+          return (v != null && (await v), f.Handled);
           break e;
         }
         if (

@@ -4,12 +4,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e, s;
     async function u(t) {
-      if (
-        !(
-          !o("WAWebCanonicalGating").isCanonicalEnabled() ||
-          o("WAWebCanonicalUtils").isCanonicalPresent()
-        )
-      ) {
+      if (c()) {
         var n = o("WATimeUtils").monotonicTime();
         (o("WALogger").LOG(
           e ||
@@ -32,7 +27,14 @@ __d(
           ));
       }
     }
-    l.waitForSharableEventCredentials = u;
+    function c() {
+      return (
+        o("WAWebCanonicalGating").isCanonicalEnabled() &&
+        !o("WAWebCanonicalUtils").isCanonicalPresent()
+      );
+    }
+    ((l.waitForSharableEventCredentials = u),
+      (l.isWaitingForSharableEventCredentials = c));
   },
   98,
 );

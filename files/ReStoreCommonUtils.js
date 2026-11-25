@@ -6,7 +6,7 @@ __d(
     var e;
     function s(t, n) {
       function o(n) {
-        return n.done
+        return n.done === !0
           ? n.value
           : (e || (e = r("isPromise")))(n.value)
             ? n.value.then(function (e) {

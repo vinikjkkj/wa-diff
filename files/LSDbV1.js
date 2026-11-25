@@ -6,7 +6,6 @@ __d(
     "ReStoreDefaultValueMigration",
     "ReStoreIndicesMigration",
     "ReStoreVersionedSchemaProviderUtil",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -6664,2137 +6663,1468 @@ __d(
           },
         }),
       ),
-      Xe = Object.freeze({
+      Xe = Object.freeze(
+        babelHelpers.extends({}, Qe, {
+          ai_agent_info: {
+            autoIncrement: !1,
+            defaults: {},
+            id: 355,
+            indexes: {},
+            primaryKey: { fields: ["agentId"], ignoreNulls: [] },
+          },
+        }),
+      ),
+      Ye = Object.freeze(
+        babelHelpers.extends({}, Xe, {
+          ai_agent_info: {
+            autoIncrement: !1,
+            defaults: {},
+            id: 355,
+            indexes: {},
+            primaryKey: { fields: ["agentId"], ignoreNulls: [] },
+          },
+        }),
+      ),
+      Je = Object.freeze(
+        babelHelpers.extends({}, Ye, {
+          ai_agent_info: {
+            autoIncrement: !1,
+            defaults: {},
+            id: 355,
+            indexes: {},
+            primaryKey: { fields: ["agentId"], ignoreNulls: [] },
+          },
+        }),
+      ),
+      Ze = Object.freeze(
+        babelHelpers.extends({}, Je, {
+          group_invitations_pending: {
+            autoIncrement: !1,
+            defaults: {
+              communityJoinRequestStatus: e.cast([0, 0]),
+              communityParticipationControlRequestStatus: e.cast([0, 0]),
+              communityParticipationControlSetting: e.cast([0, 0]),
+              isContainerHidden: !1,
+            },
+            id: 235,
+            indexes: {},
+            primaryKey: { fields: ["linkHash"], ignoreNulls: [] },
+          },
+        }),
+      ),
+      et = Object.freeze({
         afterUpgrade: o("LSDbV1.upgrade").afterUpgrade,
-        revision: 95,
-        tables: Qe,
+        revision: 99,
+        tables: Ze,
         upgrade: {
-          1: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(u),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          2: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(c),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          3: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(d),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1);
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          4: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(m),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          5: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(p),
-                  n = t.defaults,
-                  r = t.tableData;
-                (yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1),
-                  yield o(
-                    "ReStoreDefaultValueMigration",
-                  ).runMigrationForTableDefaultValuesIfNeeded(
-                    e.transaction,
-                    r,
-                    !1,
-                    n,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          6: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(_),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          7: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(f),
-                  n = t.defaults,
-                  r = t.tableData;
-                (yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1),
-                  yield o(
-                    "ReStoreDefaultValueMigration",
-                  ).runMigrationForTableDefaultValuesIfNeeded(
-                    e.transaction,
-                    r,
-                    !1,
-                    n,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          8: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(g),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          9: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(h),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          10: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(y),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          11: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(C),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          12: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(b),
-                  n = t.defaults,
-                  r = t.tableData;
-                (yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1),
-                  yield o(
-                    "ReStoreDefaultValueMigration",
-                  ).runMigrationForTableDefaultValuesIfNeeded(
-                    e.transaction,
-                    r,
-                    !1,
-                    n,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          13: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(v),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          14: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(S),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          15: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(R),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          16: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(L),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          17: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(E),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          18: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(k),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          19: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(I),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          20: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(T),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          21: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(D),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          22: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(x),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          23: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData($),
-                  n = t.defaults,
-                  r = t.tableData;
-                (yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1),
-                  yield o(
-                    "ReStoreDefaultValueMigration",
-                  ).runMigrationForTableDefaultValuesIfNeeded(
-                    e.transaction,
-                    r,
-                    !1,
-                    n,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          24: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(P),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          25: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(N),
-                  n = t.defaults,
-                  r = t.tableData;
-                (yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1),
-                  yield o(
-                    "ReStoreDefaultValueMigration",
-                  ).runMigrationForTableDefaultValuesIfNeeded(
-                    e.transaction,
-                    r,
-                    !1,
-                    n,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          26: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(M),
-                  n = t.defaults,
-                  r = t.tableData;
-                (yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1),
-                  yield o(
-                    "ReStoreDefaultValueMigration",
-                  ).runMigrationForTableDefaultValuesIfNeeded(
-                    e.transaction,
-                    r,
-                    !1,
-                    n,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          27: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(w),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          28: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(A),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          29: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(F),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          30: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(O),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          31: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(B),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          32: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(W),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1);
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          33: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(q),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          34: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(U),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          35: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(V),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          36: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(H),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          37: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(G),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          38: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(z),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          39: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(j),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          40: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(K),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1);
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          41: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(Q),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          42: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(X),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          43: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(Y),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1);
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          44: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(J),
-                  n = t.defaults,
-                  r = t.tableData;
-                (yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1),
-                  yield o(
-                    "ReStoreDefaultValueMigration",
-                  ).runMigrationForTableDefaultValuesIfNeeded(
-                    e.transaction,
-                    r,
-                    !1,
-                    n,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          45: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(Z),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          46: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    ee,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                (yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1),
-                  yield o(
-                    "ReStoreDefaultValueMigration",
-                  ).runMigrationForTableDefaultValuesIfNeeded(
-                    e.transaction,
-                    r,
-                    !1,
-                    n,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          47: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    te,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          48: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    ne,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          49: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    re,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                (yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1),
-                  yield o(
-                    "ReStoreDefaultValueMigration",
-                  ).runMigrationForTableDefaultValuesIfNeeded(
-                    e.transaction,
-                    r,
-                    !1,
-                    n,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          50: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    oe,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                (yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1),
-                  yield o(
-                    "ReStoreDefaultValueMigration",
-                  ).runMigrationForTableDefaultValuesIfNeeded(
-                    e.transaction,
-                    r,
-                    !1,
-                    n,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          51: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    ae,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                (yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1),
-                  yield o(
-                    "ReStoreDefaultValueMigration",
-                  ).runMigrationForTableDefaultValuesIfNeeded(
-                    e.transaction,
-                    r,
-                    !1,
-                    n,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          52: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    ie,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          53: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    le,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          54: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    se,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          55: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    ue,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                (yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1),
-                  yield o(
-                    "ReStoreDefaultValueMigration",
-                  ).runMigrationForTableDefaultValuesIfNeeded(
-                    e.transaction,
-                    r,
-                    !1,
-                    n,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          56: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    ce,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          57: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    de,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          58: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    me,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1);
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          59: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    pe,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          60: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    _e,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          61: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    fe,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          62: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    ge,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          63: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    he,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          64: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    ye,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          65: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    Ce,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          66: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    be,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                (yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1),
-                  yield o(
-                    "ReStoreDefaultValueMigration",
-                  ).runMigrationForTableDefaultValuesIfNeeded(
-                    e.transaction,
-                    r,
-                    !1,
-                    n,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          67: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    ve,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1);
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          68: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    Se,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1);
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          69: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    Re,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                (yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1),
-                  yield o(
-                    "ReStoreDefaultValueMigration",
-                  ).runMigrationForTableDefaultValuesIfNeeded(
-                    e.transaction,
-                    r,
-                    !1,
-                    n,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          70: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    Le,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          71: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    Ee,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          72: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    ke,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                (yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1),
-                  yield o(
-                    "ReStoreDefaultValueMigration",
-                  ).runMigrationForTableDefaultValuesIfNeeded(
-                    e.transaction,
-                    r,
-                    !1,
-                    n,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          73: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    Ie,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          74: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    Te,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          75: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    De,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          76: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    xe,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                (yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1),
-                  yield o(
-                    "ReStoreDefaultValueMigration",
-                  ).runMigrationForTableDefaultValuesIfNeeded(
-                    e.transaction,
-                    r,
-                    !1,
-                    n,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          77: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    $e,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          78: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    Pe,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          79: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    Ne,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          80: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    Me,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          81: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    we,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          82: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    Ae,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                (yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1),
-                  yield o(
-                    "ReStoreDefaultValueMigration",
-                  ).runMigrationForTableDefaultValuesIfNeeded(
-                    e.transaction,
-                    r,
-                    !1,
-                    n,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          83: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    Fe,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          84: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    Oe,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                (yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1),
-                  yield o(
-                    "ReStoreDefaultValueMigration",
-                  ).runMigrationForTableDefaultValuesIfNeeded(
-                    e.transaction,
-                    r,
-                    !1,
-                    n,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          85: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    Be,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          86: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    We,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          87: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    qe,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          88: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    Ue,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                (yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1),
-                  yield o(
-                    "ReStoreDefaultValueMigration",
-                  ).runMigrationForTableDefaultValuesIfNeeded(
-                    e.transaction,
-                    r,
-                    !1,
-                    n,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          89: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    Ve,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          90: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    He,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                (yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1),
-                  yield o(
-                    "ReStoreDefaultValueMigration",
-                  ).runMigrationForTableDefaultValuesIfNeeded(
-                    e.transaction,
-                    r,
-                    !1,
-                    n,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          91: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    Ge,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          92: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    ze,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          93: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    je,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                (yield o(
-                  "ReStoreIndicesMigration",
-                ).runMigrationForIndicesIfNeeded(e, r, n, !1),
-                  yield o(
-                    "ReStoreDefaultValueMigration",
-                  ).runMigrationForTableDefaultValuesIfNeeded(
-                    e.transaction,
-                    r,
-                    !1,
-                    n,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          94: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    Ke,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          95: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("ReStoreVersionedSchemaProviderUtil").getTableData(
-                    Qe,
-                  ),
-                  n = t.defaults,
-                  r = t.tableData;
-                yield o(
-                  "ReStoreDefaultValueMigration",
-                ).runMigrationForTableDefaultValuesIfNeeded(
-                  e.transaction,
-                  r,
-                  !1,
-                  n,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
+          1: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(u),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          2: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(c),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          3: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(d),
+              n = e.defaults,
+              r = e.tableData;
+            await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            );
+          },
+          4: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(m),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          5: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(p),
+              n = e.defaults,
+              r = e.tableData;
+            (await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            ),
+              await o(
+                "ReStoreDefaultValueMigration",
+              ).runMigrationForTableDefaultValuesIfNeeded(
+                t.transaction,
+                r,
+                !1,
+                n,
+              ));
+          },
+          6: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(_),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          7: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(f),
+              n = e.defaults,
+              r = e.tableData;
+            (await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            ),
+              await o(
+                "ReStoreDefaultValueMigration",
+              ).runMigrationForTableDefaultValuesIfNeeded(
+                t.transaction,
+                r,
+                !1,
+                n,
+              ));
+          },
+          8: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(g),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          9: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(h),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          10: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(y),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          11: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(C),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          12: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(b),
+              n = e.defaults,
+              r = e.tableData;
+            (await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            ),
+              await o(
+                "ReStoreDefaultValueMigration",
+              ).runMigrationForTableDefaultValuesIfNeeded(
+                t.transaction,
+                r,
+                !1,
+                n,
+              ));
+          },
+          13: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(v),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          14: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(S),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          15: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(R),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          16: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(L),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          17: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(E),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          18: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(k),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          19: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(I),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          20: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(T),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          21: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(D),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          22: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(x),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          23: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData($),
+              n = e.defaults,
+              r = e.tableData;
+            (await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            ),
+              await o(
+                "ReStoreDefaultValueMigration",
+              ).runMigrationForTableDefaultValuesIfNeeded(
+                t.transaction,
+                r,
+                !1,
+                n,
+              ));
+          },
+          24: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(P),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          25: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(N),
+              n = e.defaults,
+              r = e.tableData;
+            (await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            ),
+              await o(
+                "ReStoreDefaultValueMigration",
+              ).runMigrationForTableDefaultValuesIfNeeded(
+                t.transaction,
+                r,
+                !1,
+                n,
+              ));
+          },
+          26: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(M),
+              n = e.defaults,
+              r = e.tableData;
+            (await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            ),
+              await o(
+                "ReStoreDefaultValueMigration",
+              ).runMigrationForTableDefaultValuesIfNeeded(
+                t.transaction,
+                r,
+                !1,
+                n,
+              ));
+          },
+          27: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(w),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          28: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(A),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          29: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(F),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          30: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(O),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          31: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(B),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          32: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(W),
+              n = e.defaults,
+              r = e.tableData;
+            await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            );
+          },
+          33: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(q),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          34: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(U),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          35: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(V),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          36: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(H),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          37: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(G),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          38: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(z),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          39: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(j),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          40: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(K),
+              n = e.defaults,
+              r = e.tableData;
+            await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            );
+          },
+          41: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Q),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          42: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(X),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          43: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Y),
+              n = e.defaults,
+              r = e.tableData;
+            await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            );
+          },
+          44: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(J),
+              n = e.defaults,
+              r = e.tableData;
+            (await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            ),
+              await o(
+                "ReStoreDefaultValueMigration",
+              ).runMigrationForTableDefaultValuesIfNeeded(
+                t.transaction,
+                r,
+                !1,
+                n,
+              ));
+          },
+          45: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Z),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          46: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(ee),
+              n = e.defaults,
+              r = e.tableData;
+            (await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            ),
+              await o(
+                "ReStoreDefaultValueMigration",
+              ).runMigrationForTableDefaultValuesIfNeeded(
+                t.transaction,
+                r,
+                !1,
+                n,
+              ));
+          },
+          47: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(te),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          48: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(ne),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          49: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(re),
+              n = e.defaults,
+              r = e.tableData;
+            (await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            ),
+              await o(
+                "ReStoreDefaultValueMigration",
+              ).runMigrationForTableDefaultValuesIfNeeded(
+                t.transaction,
+                r,
+                !1,
+                n,
+              ));
+          },
+          50: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(oe),
+              n = e.defaults,
+              r = e.tableData;
+            (await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            ),
+              await o(
+                "ReStoreDefaultValueMigration",
+              ).runMigrationForTableDefaultValuesIfNeeded(
+                t.transaction,
+                r,
+                !1,
+                n,
+              ));
+          },
+          51: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(ae),
+              n = e.defaults,
+              r = e.tableData;
+            (await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            ),
+              await o(
+                "ReStoreDefaultValueMigration",
+              ).runMigrationForTableDefaultValuesIfNeeded(
+                t.transaction,
+                r,
+                !1,
+                n,
+              ));
+          },
+          52: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(ie),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          53: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(le),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          54: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(se),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          55: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(ue),
+              n = e.defaults,
+              r = e.tableData;
+            (await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            ),
+              await o(
+                "ReStoreDefaultValueMigration",
+              ).runMigrationForTableDefaultValuesIfNeeded(
+                t.transaction,
+                r,
+                !1,
+                n,
+              ));
+          },
+          56: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(ce),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          57: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(de),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          58: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(me),
+              n = e.defaults,
+              r = e.tableData;
+            await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            );
+          },
+          59: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(pe),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          60: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(_e),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          61: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(fe),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          62: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(ge),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          63: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(he),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          64: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(ye),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          65: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Ce),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          66: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(be),
+              n = e.defaults,
+              r = e.tableData;
+            (await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            ),
+              await o(
+                "ReStoreDefaultValueMigration",
+              ).runMigrationForTableDefaultValuesIfNeeded(
+                t.transaction,
+                r,
+                !1,
+                n,
+              ));
+          },
+          67: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(ve),
+              n = e.defaults,
+              r = e.tableData;
+            await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            );
+          },
+          68: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Se),
+              n = e.defaults,
+              r = e.tableData;
+            await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            );
+          },
+          69: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Re),
+              n = e.defaults,
+              r = e.tableData;
+            (await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            ),
+              await o(
+                "ReStoreDefaultValueMigration",
+              ).runMigrationForTableDefaultValuesIfNeeded(
+                t.transaction,
+                r,
+                !1,
+                n,
+              ));
+          },
+          70: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Le),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          71: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Ee),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          72: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(ke),
+              n = e.defaults,
+              r = e.tableData;
+            (await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            ),
+              await o(
+                "ReStoreDefaultValueMigration",
+              ).runMigrationForTableDefaultValuesIfNeeded(
+                t.transaction,
+                r,
+                !1,
+                n,
+              ));
+          },
+          73: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Ie),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          74: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Te),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          75: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(De),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          76: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(xe),
+              n = e.defaults,
+              r = e.tableData;
+            (await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            ),
+              await o(
+                "ReStoreDefaultValueMigration",
+              ).runMigrationForTableDefaultValuesIfNeeded(
+                t.transaction,
+                r,
+                !1,
+                n,
+              ));
+          },
+          77: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData($e),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          78: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Pe),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          79: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Ne),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          80: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Me),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          81: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(we),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          82: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Ae),
+              n = e.defaults,
+              r = e.tableData;
+            (await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            ),
+              await o(
+                "ReStoreDefaultValueMigration",
+              ).runMigrationForTableDefaultValuesIfNeeded(
+                t.transaction,
+                r,
+                !1,
+                n,
+              ));
+          },
+          83: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Fe),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          84: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Oe),
+              n = e.defaults,
+              r = e.tableData;
+            (await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            ),
+              await o(
+                "ReStoreDefaultValueMigration",
+              ).runMigrationForTableDefaultValuesIfNeeded(
+                t.transaction,
+                r,
+                !1,
+                n,
+              ));
+          },
+          85: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Be),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          86: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(We),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          87: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(qe),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          88: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Ue),
+              n = e.defaults,
+              r = e.tableData;
+            (await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            ),
+              await o(
+                "ReStoreDefaultValueMigration",
+              ).runMigrationForTableDefaultValuesIfNeeded(
+                t.transaction,
+                r,
+                !1,
+                n,
+              ));
+          },
+          89: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Ve),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          90: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(He),
+              n = e.defaults,
+              r = e.tableData;
+            (await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            ),
+              await o(
+                "ReStoreDefaultValueMigration",
+              ).runMigrationForTableDefaultValuesIfNeeded(
+                t.transaction,
+                r,
+                !1,
+                n,
+              ));
+          },
+          91: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Ge),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          92: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(ze),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          93: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(je),
+              n = e.defaults,
+              r = e.tableData;
+            (await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            ),
+              await o(
+                "ReStoreDefaultValueMigration",
+              ).runMigrationForTableDefaultValuesIfNeeded(
+                t.transaction,
+                r,
+                !1,
+                n,
+              ));
+          },
+          94: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Ke),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          95: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Qe),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          96: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Xe),
+              n = e.defaults,
+              r = e.tableData;
+            (await o("ReStoreIndicesMigration").runMigrationForIndicesIfNeeded(
+              t,
+              r,
+              n,
+              !1,
+            ),
+              await o(
+                "ReStoreDefaultValueMigration",
+              ).runMigrationForTableDefaultValuesIfNeeded(
+                t.transaction,
+                r,
+                !1,
+                n,
+              ));
+          },
+          97: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Ye),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          98: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Je),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
+          99: async function (t) {
+            var e = o("ReStoreVersionedSchemaProviderUtil").getTableData(Ze),
+              n = e.defaults,
+              r = e.tableData;
+            await o(
+              "ReStoreDefaultValueMigration",
+            ).runMigrationForTableDefaultValuesIfNeeded(
+              t.transaction,
+              r,
+              !1,
+              n,
+            );
+          },
         },
       });
-    l.LSDbV1 = Xe;
+    l.LSDbV1 = et;
   },
   98,
 );

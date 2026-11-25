@@ -8,7 +8,6 @@ __d(
     "MWLogSendToSentFailedError",
     "QPLUserFlow",
     "WAJids",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "getSafeQplErrorMessage",
     "promiseDone",
@@ -32,140 +31,123 @@ __d(
         e.set(t, n - 1);
       }
     }
-    function c(e, t, n, r, o, a) {
-      return d.apply(this, arguments);
+    async function c(e, t, n, a, i, l) {
+      var c = n.qplEventType,
+        m = n.qplInstanceKey,
+        p = s(l);
+      try {
+        (r("QPLUserFlow").addPoint(c, "send_to_worker_start", {
+          instanceKey: m,
+        }),
+          e != null &&
+            r("QPLUserFlow").addAnnotations(
+              c,
+              {
+                bool: {
+                  is_group_thread:
+                    o("WAJids").validateGroupJid(e.chatJid) != null,
+                },
+              },
+              { instanceKey: m },
+            ),
+          p != null &&
+            r("QPLUserFlow").addAnnotations(
+              c,
+              { int: { in_flight_attachment_type_send_count: p } },
+              { instanceKey: m },
+            ));
+        var _ = await t;
+        if (_ == null) return;
+        if (_.success)
+          (_.value != null
+            ? o(
+                "MAWReportSendMessageSuccessResult",
+              ).reportSendMessageSuccessResultFn(_.value, i)
+            : r("QPLUserFlow").addPoint(c, "no-op", { instanceKey: m }),
+            r("QPLUserFlow").endSuccess(c, { instanceKey: m }));
+        else {
+          var f,
+            g,
+            h,
+            y = _.error.isRetriable === !0;
+          (r("MWLogSendToSentFailedError")(
+            { qplEventType: c, qplInstanceKey: m },
+            _.error.type,
+            void 0,
+            _.error.errorCode,
+            _.error.applicationErrorCode,
+          ),
+            r("QPLUserFlow").endFailure(c, _.error.type, {
+              annotations: {
+                bool: {
+                  isRetriable: (f = _.error.isRetriable) != null ? f : !1,
+                  workerTerminatedPermanently: o(
+                    "MAWSetupWorkerAuxStateForLogging",
+                  ).WorkerLifeCycleState.workerTerminatedPermanently,
+                },
+                int: { errorCode: (g = _.error.errorCode) != null ? g : 0 },
+                string: { details: (h = _.error.details) != null ? h : "" },
+                string_array: {
+                  worker_restart_msgs: o("MAWSetupWorkerAuxStateForLogging")
+                    .WorkerLifeCycleState.restartMessageTypes,
+                  worker_restart_reasons: o("MAWSetupWorkerAuxStateForLogging")
+                    .WorkerLifeCycleState.restartReasons,
+                },
+              },
+              instanceKey: m,
+            }),
+            d(e, y, a));
+        }
+      } catch (t) {
+        var C = r("getErrorSafe")(t);
+        if (
+          (r("MWLogSendToSentFailedError")(
+            { qplEventType: c, qplInstanceKey: m },
+            "runtime-failure",
+            C,
+          ),
+          r("QPLUserFlow").endFailure(c, "runtime-failure", {
+            annotations: {
+              bool: {
+                workerTerminatedPermanently: o(
+                  "MAWSetupWorkerAuxStateForLogging",
+                ).WorkerLifeCycleState.workerTerminatedPermanently,
+              },
+              string: {
+                errorDescription: o(
+                  "getSafeQplErrorMessage",
+                ).getSafeQPLErrorMessage(C),
+              },
+              string_array: {
+                worker_restart_msgs: o("MAWSetupWorkerAuxStateForLogging")
+                  .WorkerLifeCycleState.restartMessageTypes,
+                worker_restart_reasons: o("MAWSetupWorkerAuxStateForLogging")
+                  .WorkerLifeCycleState.restartReasons,
+              },
+            },
+            instanceKey: m,
+          }),
+          d(e, !1, a, C),
+          r("FBLogger")("messenger_web")
+            .catching(C)
+            .mustfix("MAWMessageSendReporter"),
+          typeof C == "object")
+        ) {
+          var b = String(C == null ? void 0 : C.message),
+            v = String(C == null ? void 0 : C.messageParams),
+            S = String(C == null ? void 0 : C.stack);
+          r("FBLogger")("messenger_web").mustfix(
+            "Failed to send, e: %s. error params: %s. call stack: %s",
+            b,
+            v,
+            S,
+          );
+        }
+      } finally {
+        u(l);
+      }
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i, l) {
-            var c = n.qplEventType,
-              d = n.qplInstanceKey,
-              p = s(l);
-            try {
-              (r("QPLUserFlow").addPoint(c, "send_to_worker_start", {
-                instanceKey: d,
-              }),
-                e != null &&
-                  r("QPLUserFlow").addAnnotations(
-                    c,
-                    {
-                      bool: {
-                        is_group_thread:
-                          o("WAJids").validateGroupJid(e.chatJid) != null,
-                      },
-                    },
-                    { instanceKey: d },
-                  ),
-                p != null &&
-                  r("QPLUserFlow").addAnnotations(
-                    c,
-                    { int: { in_flight_attachment_type_send_count: p } },
-                    { instanceKey: d },
-                  ));
-              var _ = yield t;
-              if (_ == null) return;
-              if (_.success)
-                (_.value != null
-                  ? o(
-                      "MAWReportSendMessageSuccessResult",
-                    ).reportSendMessageSuccessResultFn(_.value, i)
-                  : r("QPLUserFlow").addPoint(c, "no-op", { instanceKey: d }),
-                  r("QPLUserFlow").endSuccess(c, { instanceKey: d }));
-              else {
-                var f,
-                  g,
-                  h,
-                  y = _.error.isRetriable === !0;
-                (r("MWLogSendToSentFailedError")(
-                  { qplEventType: c, qplInstanceKey: d },
-                  _.error.type,
-                  void 0,
-                  _.error.errorCode,
-                  _.error.applicationErrorCode,
-                ),
-                  r("QPLUserFlow").endFailure(c, _.error.type, {
-                    annotations: {
-                      bool: {
-                        isRetriable: (f = _.error.isRetriable) != null ? f : !1,
-                        workerTerminatedPermanently: o(
-                          "MAWSetupWorkerAuxStateForLogging",
-                        ).WorkerLifeCycleState.workerTerminatedPermanently,
-                      },
-                      int: {
-                        errorCode: (g = _.error.errorCode) != null ? g : 0,
-                      },
-                      string: {
-                        details: (h = _.error.details) != null ? h : "",
-                      },
-                      string_array: {
-                        worker_restart_msgs: o(
-                          "MAWSetupWorkerAuxStateForLogging",
-                        ).WorkerLifeCycleState.restartMessageTypes,
-                        worker_restart_reasons: o(
-                          "MAWSetupWorkerAuxStateForLogging",
-                        ).WorkerLifeCycleState.restartReasons,
-                      },
-                    },
-                    instanceKey: d,
-                  }),
-                  m(e, y, a));
-              }
-            } catch (t) {
-              var C = r("getErrorSafe")(t);
-              if (
-                (r("MWLogSendToSentFailedError")(
-                  { qplEventType: c, qplInstanceKey: d },
-                  "runtime-failure",
-                  C,
-                ),
-                r("QPLUserFlow").endFailure(c, "runtime-failure", {
-                  annotations: {
-                    bool: {
-                      workerTerminatedPermanently: o(
-                        "MAWSetupWorkerAuxStateForLogging",
-                      ).WorkerLifeCycleState.workerTerminatedPermanently,
-                    },
-                    string: {
-                      errorDescription: o(
-                        "getSafeQplErrorMessage",
-                      ).getSafeQPLErrorMessage(C),
-                    },
-                    string_array: {
-                      worker_restart_msgs: o("MAWSetupWorkerAuxStateForLogging")
-                        .WorkerLifeCycleState.restartMessageTypes,
-                      worker_restart_reasons: o(
-                        "MAWSetupWorkerAuxStateForLogging",
-                      ).WorkerLifeCycleState.restartReasons,
-                    },
-                  },
-                  instanceKey: d,
-                }),
-                m(e, !1, a, C),
-                r("FBLogger")("messenger_web")
-                  .catching(C)
-                  .mustfix("MAWMessageSendReporter"),
-                typeof C == "object")
-              ) {
-                var b = String(C == null ? void 0 : C.message),
-                  v = String(C == null ? void 0 : C.messageParams),
-                  S = String(C == null ? void 0 : C.stack);
-                r("FBLogger")("messenger_web").mustfix(
-                  "Failed to send, e: %s. error params: %s. call stack: %s",
-                  b,
-                  v,
-                  S,
-                );
-              }
-            } finally {
-              u(l);
-            }
-          },
-        )),
-        d.apply(this, arguments)
-      );
-    }
-    function m(e, t, n, a) {
+    function d(e, t, n, a) {
       if (e != null) {
         var i = e.chatJid,
           l = e.externalId;

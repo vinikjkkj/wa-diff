@@ -10,15 +10,14 @@ __d(
     "MAWEBSwitch",
     "MAWEncryptedBackupUtils",
     "WAResultOrError",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s;
-    function u(t, n) {
+    function u(t) {
       return o("MAWEncryptedBackupUtils")
-        .getBackupTenancy(t, n)
+        .getBackupTenancy(t)
         .then(function (t) {
           return (
             t != null &&
@@ -43,25 +42,17 @@ __d(
         );
       }
     }
-    function d() {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o(
-            "EBMinosCheckWasmFeatureSupport",
-          ).checkWasmFeatureSupportAndEBInitJK();
-          if (!e)
-            return (
-              r("FBLogger")("wmi_eb").warn("isEBEnabled: WASM not supported"),
-              !1
-            );
-          var t = yield o("EBDeps").getDeps().getLSDB();
-          return u(t.tables);
-        })),
-        m.apply(this, arguments)
-      );
+    async function d() {
+      var e = await o(
+        "EBMinosCheckWasmFeatureSupport",
+      ).checkWasmFeatureSupportAndEBInitJK();
+      if (!e)
+        return (
+          r("FBLogger")("wmi_eb").warn("isEBEnabled: WASM not supported"),
+          !1
+        );
+      var t = await o("EBDeps").getDeps().getLSDB();
+      return u(t.tables);
     }
     ((l.isEbEnabledLS = u), (l.isEbEnabledEbSwitch = c), (l.isEBEnabled = d));
   },

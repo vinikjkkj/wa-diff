@@ -14,27 +14,27 @@ __d(
             (this.$1 = e),
             (this.$2 = t));
         }
-        t.fromSorted = function (t, n, r) {
+        t.fromSorted = function (n, r, o) {
           for (
-            var e = new this(n, r),
-              o =
-                t[
+            var e = new t(r, o),
+              a =
+                n[
                   typeof Symbol == "function" ? Symbol.iterator : "@@iterator"
                 ](),
-              a = o.next();
-            !a.done;
+              i = a.next();
+            i.done !== !0;
           ) {
-            for (var i = [], l = e.$5, s = -1; !l.isLeaf; )
-              (i.push([l, -1]), (s = l.keys.length), (l = l.children[s]));
+            for (var l = [], s = e.$5, u = -1; !s.isLeaf; )
+              (l.push([s, -1]), (u = s.keys.length), (s = s.children[u]));
             for (
-              var u = (e.$2 - 1) * 2, c = u - l.keys.length;
-              !a.done && c > 0;
+              var c = (e.$2 - 1) * 2, d = c - s.keys.length;
+              i.done !== !0 && d > 0;
             )
-              (l.keys.push(a.value[0]),
-                l.children.push(a.value[1]),
-                c--,
-                (a = o.next()));
-            e.$6(l, i, !0);
+              (s.keys.push(i.value[0]),
+                s.children.push(i.value[1]),
+                d--,
+                (i = a.next()));
+            e.$6(s, l, !0);
           }
           return e;
         };

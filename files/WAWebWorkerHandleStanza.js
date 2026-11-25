@@ -19,12 +19,15 @@ __d(
       n === void 0 && (n = 0);
       var r = Promise.resolve(u(e, t, n));
       o("WAWebStanzasInFlight").trackStanzaInFlight(r, e.attrs.offline != null);
-      var a = o("WAWebOneQueue").countOfflineStanzaForPullMode(e);
+      var a = o("WAWebOneQueue").countOfflineStanzaForPullMode(e),
+        i = o("WAWebOfflineHandler").OfflineMessageHandler.countOfflineEnvelope(
+          e,
+        );
       try {
-        var i;
-        return (i = await r) != null ? i : "NO_ACK";
+        var l;
+        return (l = await r) != null ? l : "NO_ACK";
       } finally {
-        a();
+        (a(), i());
       }
     }
     function u(t, n, a) {

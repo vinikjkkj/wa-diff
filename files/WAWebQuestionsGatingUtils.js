@@ -43,7 +43,7 @@ __d(
     function h(e, t, n) {
       var r = e === o("WAWebQuestions.flow").QuestionType.Question ? s : u;
       return o("WAWebABProps")
-        .getABPropConfigValue(D(e, t, n))
+        .getABPropConfigValue(x(e, t, n))
         .split(",")
         .map(function (e) {
           return Number.parseInt(e.trim(), 10);
@@ -113,23 +113,28 @@ __d(
         "channels_question_fetch_responses_page_size",
       );
     }
-    function I(e) {
-      return (
-        C(e) &&
-        g(o("WAWebQuestions.flow").QuestionType.Question, m.Forward, e.type)
+    function I() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "channels_questions_response_composer_persistent_education",
       );
     }
     function T(e) {
       return (
         C(e) &&
+        g(o("WAWebQuestions.flow").QuestionType.Question, m.Forward, e.type)
+      );
+    }
+    function D(e) {
+      return (
+        C(e) &&
         g(o("WAWebQuestions.flow").QuestionType.Reply, m.Forward, e.type)
       );
     }
-    function D(e, t, n) {
+    function x(e, t, n) {
       return n === p.M1
-        ? x(e, t)
+        ? $(e, t)
         : n === p.M2
-          ? $(e, t)
+          ? P(e, t)
           : (function () {
               throw Error(
                 "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -137,7 +142,7 @@ __d(
               );
             })();
     }
-    function x(e, t) {
+    function $(e, t) {
       return e === o("WAWebQuestions.flow").QuestionType.Question
         ? t === m.Send
           ? "channels_question_sender_message_types_m1_enabled"
@@ -164,7 +169,7 @@ __d(
                   );
                 })();
     }
-    function $(e, t) {
+    function P(e, t) {
       return e === o("WAWebQuestions.flow").QuestionType.Question
         ? t === m.Send
           ? "channels_question_sender_message_types_m2_enabled"
@@ -202,8 +207,9 @@ __d(
       (l.getResponsesRateLimitMaxCount = L),
       (l.getEnabledAttachmentTypesForQuestionType = E),
       (l.getQuestionResponsesPageSize = k),
-      (l.isQuestionForwardingEnabledForMsg = I),
-      (l.isQuestionReplyForwardingEnabledForMsg = T));
+      (l.isQuestionResponsePersistentEducationEnabled = I),
+      (l.isQuestionForwardingEnabledForMsg = T),
+      (l.isQuestionReplyForwardingEnabledForMsg = D));
   },
   98,
 );

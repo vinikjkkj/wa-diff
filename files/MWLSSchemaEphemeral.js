@@ -10,6 +10,7 @@ __d(
     "LSReStoreWrapper",
     "MAWLSVaultingHooks",
     "MWConditionallySetupEBStateDB",
+    "MWLSSacThreadRowHooks",
     "MessengerLogHistory",
     "getErrorSafe",
   ],
@@ -33,7 +34,10 @@ __d(
           (n = o("LSReStoreWrapper").createLSReStore(
             i,
             o("LSMetadata").schema,
-            [r("MAWLSVaultingHooks")],
+            [
+              o("MWLSSacThreadRowHooks").MWLSSacThreadRowHooks,
+              r("MAWLSVaultingHooks"),
+            ],
             void 0,
             o("LSPlatformLsInitLog").lsInitLogger,
           )),

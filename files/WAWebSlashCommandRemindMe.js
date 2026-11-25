@@ -4,12 +4,14 @@ __d(
     "fbt",
     "Lexical",
     "WALogger",
+    "WATimeUtils",
     "WAWebModalManager",
     "WAWebScheduleSelfReminderAction",
     "WAWebScheduleTimePickerLoadable",
     "WAWebScheduledMessagesGatingUtils",
     "WAWebSlashCommandScheduling",
     "WAWebSlashCommandsComposer",
+    "WAWebSlashCommandsReminderTime",
     "WAWebSlashCommandsReminderToast",
     "WAWebSlashCommandsUsageLogger",
     "WAWebToast.react",
@@ -41,11 +43,19 @@ __d(
           ).isScheduledMessagesSenderEnabled();
         },
         run: function (t, n) {
+          var e;
           o("WAWebModalManager").ModalManager.open(
             c.jsx(
               o("WAWebScheduleTimePickerLoadable")
                 .WAWebScheduleTimePickerLoadable,
               {
+                initialScheduledTimestampS:
+                  (e = o("WAWebSlashCommandsReminderTime").getTypedReminderTime(
+                    n,
+                    o("WATimeUtils").unixTime(),
+                  )) != null
+                    ? e
+                    : void 0,
                 onCancel: function () {
                   (o("WAWebModalManager").closeModalManager(),
                     t.editor.focus(),

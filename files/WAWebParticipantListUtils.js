@@ -97,9 +97,8 @@ __d(
           }),
           function (e) {
             return (
-              o("WAWebFrontendContactGetters").getShownOrgMemberName(
-                e.contact,
-              ) != null
+              o("WAWebFrontendContactGetters").getShownMemberName(e.contact) !=
+              null
             );
           },
         ),
@@ -145,7 +144,7 @@ __d(
         C = r("WAWebCompactMapString")(u, function (e) {
           var t;
           return o("WAWebMiscGatingUtils").isDropLastNameEnabled()
-            ? (t = o("WAWebFrontendContactGetters").getShownOrgMemberName(
+            ? (t = o("WAWebFrontendContactGetters").getShownMemberName(
                 e.contact,
               )) == null
               ? void 0
@@ -182,9 +181,14 @@ __d(
       return e.id.isBot() ? t : _(t);
     }
     function p(e) {
-      var t = o("WAWebFrontendContactGetters").getShownOrgMemberName(e);
+      var t = o("WAWebFrontendContactGetters").getShownMemberName(e);
       if (t == null) return null;
-      if (r("isStringNullOrEmpty")(e.orgMemberName)) return _(t);
+      if (
+        r("isStringNullOrEmpty")(
+          o("WAWebFrontendContactGetters").getMemberName(e),
+        )
+      )
+        return _(t);
       var n = e.orgMemberFirstName;
       return r("isStringNullOrEmpty")(n) ? t : n;
     }
@@ -293,7 +297,7 @@ __d(
       )
         return r("compactMap")(n, function (e) {
           var n = e.contact,
-            r = o("WAWebFrontendContactGetters").getShownOrgMemberName(n);
+            r = o("WAWebFrontendContactGetters").getShownMemberName(n);
           if (r != null) return r.replace(/\s/g, " ");
           if (t.hasUniqueShortNameMention(n))
             return o(
@@ -429,7 +433,7 @@ __d(
       (l.calculateUnnamedGroupFullParticipantsList = u),
       (l.getUnnamedGroupParticipantNames = c),
       (l.getFirstNameForContact = m),
-      (l.getOrgMemberFirstName = p),
+      (l.getMemberFirstName = p),
       (l.getGroupAgentIndicator = f),
       (l.calculateParticipantsList = v),
       (l.calculateAdminsList = S),

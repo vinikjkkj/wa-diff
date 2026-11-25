@@ -49,6 +49,7 @@ __d(
           (a = c == null ? void 0 : c.description) != null ? a : void 0,
         hqThumbnail: d,
         thumbData: c == null ? void 0 : c.thumb_data,
+        isVideo: (c == null ? void 0 : c.preview_type) === "VIDEO",
       };
     }
     l.mexFetchPlaintextLinkPreview = c;

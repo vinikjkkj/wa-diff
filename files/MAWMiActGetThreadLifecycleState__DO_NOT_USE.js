@@ -10,22 +10,20 @@ __d(
     "MAWMiActMappingTableAPI",
     "MAWMiActThreadLifecycleState__DO_NOT_USE",
     "MAWThreadLoadingState",
-    "Promise",
     "ReQL",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u;
-    function c(e, t, n) {
-      var a = (s || (s = o("LSIntEnum"))).toNumber(e.authorityLevel);
-      if (a === r("LSAuthorityLevel").OPTIMISTIC)
-        return t != null
+    var e, s;
+    function u(t, n, a) {
+      var i = (e || (e = o("LSIntEnum"))).toNumber(t.authorityLevel);
+      if (i === r("LSAuthorityLevel").OPTIMISTIC)
+        return n != null
           ? babelHelpers.extends(
               {},
               r("MAWMiActGetMappingWithMawTypes")(
-                t,
-                o("LSMessagingThreadTypeUtil").isGroup(e.threadType),
+                n,
+                o("LSMessagingThreadTypeUtil").isGroup(t.threadType),
               ),
               {
                 type: o("MAWMiActThreadLifecycleState__DO_NOT_USE")
@@ -33,18 +31,18 @@ __d(
               },
             )
           : {
-              serverThreadKey: e.threadKey,
-              thread: e,
+              serverThreadKey: t.threadKey,
+              thread: t,
               type: o("MAWMiActThreadLifecycleState__DO_NOT_USE")
                 .MiActThreadStatesEnum.OPTIMISTIC_THREAD_NO_ACT,
             };
-      if (a === r("LSAuthorityLevel").CLIENT_PARTIAL)
-        return t != null
+      if (i === r("LSAuthorityLevel").CLIENT_PARTIAL)
+        return n != null
           ? babelHelpers.extends(
               {},
               r("MAWMiActGetMappingWithMawTypes")(
-                t,
-                o("LSMessagingThreadTypeUtil").isGroup(e.threadType),
+                n,
+                o("LSMessagingThreadTypeUtil").isGroup(t.threadType),
               ),
               {
                 type: o("MAWMiActThreadLifecycleState__DO_NOT_USE")
@@ -52,37 +50,37 @@ __d(
               },
             )
           : {
-              serverThreadKey: e.threadKey,
+              serverThreadKey: t.threadKey,
               type: o("MAWMiActThreadLifecycleState__DO_NOT_USE")
                 .MiActThreadStatesEnum.CLIENT_PARTIAL_MI_THREAD,
             };
-      if (a === r("LSAuthorityLevel").SERVER_PARTIAL)
+      if (i === r("LSAuthorityLevel").SERVER_PARTIAL)
         return {
-          serverThreadKey: e.threadKey,
+          serverThreadKey: t.threadKey,
           type: o("MAWMiActThreadLifecycleState__DO_NOT_USE")
             .MiActThreadStatesEnum.SERVER_PARTIAL_MI_THREAD,
         };
-      if (a === r("LSAuthorityLevel").AUTHORITATIVE) {
-        if (t == null)
+      if (i === r("LSAuthorityLevel").AUTHORITATIVE) {
+        if (n == null)
           return {
-            serverThreadKey: e.threadKey,
-            thread: e,
+            serverThreadKey: t.threadKey,
+            thread: t,
             type: o("MAWMiActThreadLifecycleState__DO_NOT_USE")
               .MiActThreadStatesEnum.AUTHORITATIVE_THREAD_MISSING_MAPPING_ROW,
           };
-        var i =
-          o("MAWThreadLoadingState").getActState(t) ===
+        var l =
+          o("MAWThreadLoadingState").getActState(n) ===
           o("MAWThreadLoadingState").ActState.IN_PROGRESS;
-        if (i) {
-          var l = r("MAWMiActGetMappingWithMawTypes")(
-            t,
-            o("LSMessagingThreadTypeUtil").isGroup(e.threadType),
+        if (l) {
+          var u = r("MAWMiActGetMappingWithMawTypes")(
+            n,
+            o("LSMessagingThreadTypeUtil").isGroup(t.threadType),
           );
           return {
-            jid: l.jid,
-            jidInt64: t.jid,
-            serverThreadKey: l.serverThreadKey,
-            thread: e,
+            jid: u.jid,
+            jidInt64: n.jid,
+            serverThreadKey: u.serverThreadKey,
+            thread: t,
             type: o("MAWMiActThreadLifecycleState__DO_NOT_USE")
               .MiActThreadStatesEnum.AUTHORITATIVE_THREAD_ONLY,
           };
@@ -90,8 +88,8 @@ __d(
           return babelHelpers.extends(
             {},
             r("MAWMiActGetMappingWithMawTypes")(
-              t,
-              o("LSMessagingThreadTypeUtil").isGroup(e.threadType),
+              n,
+              o("LSMessagingThreadTypeUtil").isGroup(t.threadType),
             ),
             {
               type: o("MAWMiActThreadLifecycleState__DO_NOT_USE")
@@ -101,97 +99,65 @@ __d(
       }
       throw r("FBLogger")("messenger_web").mustfixThrow(
         "[MiActMapping] Unknown thread lifecycle state for threadKey: %s, authorityLevel: %s, thread action: %s",
-        (u || (u = o("I64"))).to_string(e.threadKey),
+        (s || (s = o("I64"))).to_string(t.threadKey),
+        i,
         a,
-        n,
       );
     }
-    function d(e, t, n) {
-      return m.apply(this, arguments);
+    async function c(e, t, n) {
+      var r = await o("MAWMiActMappingTableAPI").getMappingRowForIntJid(e, t);
+      if (r == null)
+        return {
+          jidInt64: t,
+          type: o("MAWMiActThreadLifecycleState__DO_NOT_USE")
+            .MiActThreadStatesEnum.JID_MISSING_MAPPING_ROW,
+        };
+      var a = await o("ReQL").firstAsync(
+        o("ReQL").fromTableAscending(e.threads).getKeyRange(r.serverThreadKey),
+      );
+      return a == null
+        ? {
+            jidInt64: t,
+            type: o("MAWMiActThreadLifecycleState__DO_NOT_USE")
+              .MiActThreadStatesEnum.JID_MISSING_MI_THREAD,
+          }
+        : u(a, r, n);
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield o("MAWMiActMappingTableAPI").getMappingRowForIntJid(
+    async function d(e, t, n) {
+      var r,
+        a = await Promise.all([
+          (r = o("ReQL")).firstAsync(
+            r.fromTableAscending(e.threads).getKeyRange(t),
+          ),
+          r.firstAsync(
+            r.fromTableAscending(e.mi_act_mapping_table).getKeyRange(t),
+          ),
+        ]),
+        i = a[0],
+        l = a[1];
+      return i == null
+        ? {
+            serverThreadKey: t,
+            type: o("MAWMiActThreadLifecycleState__DO_NOT_USE")
+              .MiActThreadStatesEnum.THREAD_KEY_ONLY,
+          }
+        : u(i, l, n);
+    }
+    async function m(e, t, n, r) {
+      var a = await c(e, t, r);
+      return a.type ===
+        o("MAWMiActThreadLifecycleState__DO_NOT_USE").MiActThreadStatesEnum
+          .JID_MISSING_MAPPING_ROW && n != null
+        ? d(
             e,
-            t,
-          );
-          if (r == null)
-            return {
-              jidInt64: t,
-              type: o("MAWMiActThreadLifecycleState__DO_NOT_USE")
-                .MiActThreadStatesEnum.JID_MISSING_MAPPING_ROW,
-            };
-          var a = yield o("ReQL").firstAsync(
-            o("ReQL")
-              .fromTableAscending(e.threads)
-              .getKeyRange(r.serverThreadKey),
-          );
-          return a == null
-            ? {
-                jidInt64: t,
-                type: o("MAWMiActThreadLifecycleState__DO_NOT_USE")
-                  .MiActThreadStatesEnum.JID_MISSING_MI_THREAD,
-              }
-            : c(a, r, n);
-        })),
-        m.apply(this, arguments)
-      );
+            (s || (s = o("I64"))).of_string(n),
+            "MAWBridgeOccamadilloVerifyThreadExistsHandler",
+          )
+        : a;
     }
-    function p(e, t, n) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, a) {
-          var i = yield (e || (e = n("Promise"))).all([
-              o("ReQL").firstAsync(
-                o("ReQL").fromTableAscending(t.threads).getKeyRange(r),
-              ),
-              o("ReQL").firstAsync(
-                o("ReQL")
-                  .fromTableAscending(t.mi_act_mapping_table)
-                  .getKeyRange(r),
-              ),
-            ]),
-            l = i[0],
-            s = i[1];
-          return l == null
-            ? {
-                serverThreadKey: r,
-                type: o("MAWMiActThreadLifecycleState__DO_NOT_USE")
-                  .MiActThreadStatesEnum.THREAD_KEY_ONLY,
-              }
-            : c(l, s, a);
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e, t, n, r) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield d(e, t, r);
-            return a.type ===
-              o("MAWMiActThreadLifecycleState__DO_NOT_USE")
-                .MiActThreadStatesEnum.JID_MISSING_MAPPING_ROW && n != null
-              ? p(
-                  e,
-                  (u || (u = o("I64"))).of_string(n),
-                  "MAWBridgeOccamadilloVerifyThreadExistsHandler",
-                )
-              : a;
-          },
-        )),
-        g.apply(this, arguments)
-      );
-    }
-    ((l.getThreadLifecycleStateByJid = d),
-      (l.getThreadLifecycleStateByThreadKey = p),
-      (l.getThreadLifecycleStateByJidOrThreadKey = f));
+    ((l.getThreadLifecycleStateByJid = c),
+      (l.getThreadLifecycleStateByThreadKey = d),
+      (l.getThreadLifecycleStateByJidOrThreadKey = m));
   },
   98,
 );

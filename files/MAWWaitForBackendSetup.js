@@ -2,11 +2,8 @@ __d(
   "MAWWaitForBackendSetup",
   [
     "ErrorSerializer",
-    "MAWInit",
     "MAWInitError",
-    "MAWMIC",
     "MAWSetupWorkerAuxStateForLogging",
-    "MAWWebWorkerSingleton",
     "Promise",
     "err",
     "promiseDone",
@@ -81,23 +78,13 @@ __d(
         o("MAWSetupWorkerAuxStateForLogging").resetWorkerCreationTime(),
         (f = e));
     }
-    function I(e) {
-      f == null || f !== e || T();
-    }
-    function T() {
-      ((f = null),
-        o("MAWWebWorkerSingleton").resetWorkerCreation(),
-        b(),
-        o("MAWInit").MAWInit.logPoint("reset_current_worker"),
-        o("MAWMIC").addPoint("reset_current_worker"));
-    }
-    function D() {
+    function I() {
       return f;
     }
-    function x() {
+    function T() {
       p = !0;
     }
-    function $() {
+    function D() {
       return p;
     }
     ((l.waitForBackendSetup = y),
@@ -109,11 +96,9 @@ __d(
       (l.isBackendSetupSettled = L),
       (l.wasBackendSetupReset = E),
       (l.setCurrentWorker = k),
-      (l.resetCurrentWorkerWithId = I),
-      (l.resetCurrentWorkerSkipIdCheck = T),
-      (l.getCurrentWorkerID = D),
-      (l.markBackendSetupStarted = x),
-      (l.isBackendSetupInProgress = $));
+      (l.getCurrentWorkerID = I),
+      (l.markBackendSetupStarted = T),
+      (l.isBackendSetupInProgress = D));
   },
   98,
 );

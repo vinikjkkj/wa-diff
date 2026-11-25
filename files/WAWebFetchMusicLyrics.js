@@ -4,11 +4,9 @@ __d(
     "WALogger",
     "WAWebABProps",
     "WAWebACSTokenConfig",
-    "WAWebAsISOCountryCode",
-    "WAWebL10NCountryCodes",
     "WAWebL10nGetRenderedLocale",
     "WAWebMusicGraphQLRequest",
-    "WAWebUserPrefsMeUser",
+    "WAWebMusicViewerCountry",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -16,23 +14,17 @@ __d(
       u = "24217912891242463",
       c = "40015884884663230";
     async function d(e) {
-      var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-        n =
-          t != null
-            ? o("WAWebAsISOCountryCode").asISOCountryCode(
-                o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(t.user),
-              )
-            : null;
-      if (n == null) return { status: "unavailable" };
-      var r = o("WAWebABProps").getABPropConfigValue(
+      var t = o("WAWebMusicViewerCountry").getMusicViewerCountry();
+      if (t == null) return { status: "unavailable" };
+      var n = o("WAWebABProps").getABPropConfigValue(
           "music_on_chats_lyrics_word_by_word_offsets_enabled",
         ),
-        a = await o("WAWebMusicGraphQLRequest").fetchMusicGraphQL({
-          docId: r ? c : u,
+        r = await o("WAWebMusicGraphQLRequest").fetchMusicGraphQL({
+          docId: n ? c : u,
           project: o("WAWebACSTokenConfig").ACS_PROJECTS.WA_ChatsMusic,
           variables: babelHelpers.extends(
             {
-              available_countries: [n],
+              available_countries: [t],
               id: e,
               params: {
                 locale: o(
@@ -41,18 +33,18 @@ __d(
                 product: "WA_CHATS",
               },
             },
-            r ? { include_word_offsets: !0 } : {},
+            n ? { include_word_offsets: !0 } : {},
           ),
           viaOhai: !1,
         });
-      if (!a.ok) return { status: "failed" };
-      var i = f(a.data, "music_song_batch");
-      if (!Array.isArray(i)) return { status: "failed" };
-      var l = f(i[0], "lyrics"),
-        s = m(l, r);
-      return s != null
-        ? { status: "available", lines: s }
-        : l == null && a.errors.length > 0
+      if (!r.ok) return { status: "failed" };
+      var a = f(r.data, "music_song_batch");
+      if (!Array.isArray(a)) return { status: "failed" };
+      var i = f(a[0], "lyrics"),
+        l = m(i, n);
+      return l != null
+        ? { status: "available", lines: l }
+        : i == null && r.errors.length > 0
           ? { status: "failed" }
           : { status: "unavailable" };
     }

@@ -1,6 +1,7 @@
 __d(
   "WAWebCustomerManagerImportRecordInput",
   [
+    "WAJids",
     "WAWebContactImportFileProcessor",
     "WAWebCustomerManagerImportDateParsingUtils",
     "WAWebCustomerManagerImportEmailWarnings",
@@ -17,33 +18,37 @@ __d(
       if (n == null)
         throw r("err")("Imported contact missing lid; cannot resolve chatJid");
       return {
-        acquisitionSource: m(e),
+        acquisitionSource: p(e),
         address:
           (t = o(
             "WAWebCustomerManagerImportTemplateUtils",
           ).readCustomerManagerImportColumn(e, "address")) != null
             ? t
             : "",
-        birthday: c(e, "birthday"),
+        birthday: d(e, "birthday"),
         chatJid: n,
-        email: u(e),
+        email: c(e),
         firstName: e.firstName,
         lastName: e.lastName,
-        leadStage: d(e),
+        leadStage: m(e),
         lastOrderDescription: o(
           "WAWebCustomerManagerImportTemplateUtils",
         ).readCustomerManagerImportColumn(e, "lastOrder"),
         note: o(
           "WAWebCustomerManagerImportTemplateUtils",
         ).readCustomerManagerImportColumn(e, "note"),
-        phoneNumber: o("WAWebContactImportFileProcessor").normalizePhoneNumber(
-          e.phone,
-        ),
+        phoneNumber: s(e),
         profileWid: o("WAWebJidToWid").lidUserJidToUserLid(n),
         username: null,
       };
     }
     function s(e) {
+      var t = e.verifiedPhoneJid;
+      return t != null
+        ? o("WAJids").phoneNumberFromJid(t)
+        : o("WAWebContactImportFileProcessor").normalizePhoneNumber(e.phone);
+    }
+    function u(e) {
       var t, n;
       return e.isNamePhoneFallback === !0
         ? ""
@@ -55,7 +60,7 @@ __d(
             .trim()
             .replace(/\s+/g, " ");
     }
-    function u(e) {
+    function c(e) {
       var t,
         n =
           (t = o(
@@ -67,7 +72,7 @@ __d(
         ? n
         : "";
     }
-    function c(e, t) {
+    function d(e, t) {
       return o(
         "WAWebCustomerManagerImportDateParsingUtils",
       ).readValidCustomerManagerImportDate(
@@ -77,7 +82,7 @@ __d(
         t,
       );
     }
-    function d(e) {
+    function m(e) {
       var t = o(
         "WAWebCustomerManagerImportTemplateUtils",
       ).readCustomerManagerImportColumn(e, "leadStage");
@@ -85,7 +90,7 @@ __d(
         ? o("WAWebLeadStageNames").getLeadStageFromName(t)
         : null;
     }
-    function m(e) {
+    function p(e) {
       var t = o(
         "WAWebCustomerManagerImportTemplateUtils",
       ).readCustomerManagerImportColumn(e, "acquisitionSource");
@@ -95,7 +100,9 @@ __d(
           ).getProfileAcquisitionSourceIdFromLabel(t)
         : null;
     }
-    ((l.buildCustomerRecordInput = e), (l.getImportedCustomerName = s));
+    ((l.buildCustomerRecordInput = e),
+      (l.getImportedInternationalPhoneNumber = s),
+      (l.getImportedCustomerName = u));
   },
   98,
 );

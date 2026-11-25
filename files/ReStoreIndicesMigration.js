@@ -6,145 +6,106 @@ __d(
     "ReStoreIndexMetadata",
     "ReStoreOperationLock",
     "ReStoreUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
-      return s.apply(this, arguments);
+    async function e(e, t) {
+      var n = {},
+        r = await o("ReStoreUtils").collectIterator(
+          t[o("ReStoreIndexMetadata").indicesTableName].entries(e),
+        );
+      for (var a of r) {
+        var i = a[0],
+          l = a[1];
+        if (i != null) {
+          var s,
+            u = o("ReStoreIndexMetadata").tryParseIndexData(l);
+          if (u == null) continue;
+          var c = u.indexName,
+            d = u.tableName;
+          ((n[d] = (s = n[d]) != null ? s : {}),
+            (n[d][c] = babelHelpers.extends(
+              { index: u.data, key: i },
+              u.predicate == null ? {} : { predicate: u.predicate },
+            )));
+        }
+      }
+      return n;
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = {},
-            r = yield o("ReStoreUtils").collectIterator(
-              t[o("ReStoreIndexMetadata").indicesTableName].entries(e),
+    async function s(t, n, r) {
+      var a = await e(t, n),
+        i = {};
+      for (var l in r.tableNames) {
+        var s = r.tableNames[l];
+        for (var u in s.indexes) {
+          var c,
+            d,
+            m = [
+              s.indexes[u],
+              (c = s.indexPredicates) == null || (c = c[u]) == null
+                ? void 0
+                : c.toString(),
+            ],
+            p = (d = a[l]) == null ? void 0 : d[u];
+          if (
+            o("ReStoreIndexMetadata").indicesDiffer(
+              [p == null ? void 0 : p.index, p == null ? void 0 : p.predicate],
+              m,
+            )
+          ) {
+            var _;
+            ((i[l] = (_ = i[l]) != null ? _ : {}), (i[l][u] = m));
+          }
+        }
+      }
+      var f = {};
+      for (var g in r.tableNames)
+        if (g in a) {
+          var h = a[g];
+          for (var y in h) {
+            var C,
+              b = h[y],
+              v =
+                (C = r.tableNames[g]) == null || (C = C.indexes) == null
+                  ? void 0
+                  : C[y];
+            if (v == null) {
+              var S;
+              ((f[g] = (S = f[g]) != null ? S : {}), (f[g][y] = b));
+            }
+          }
+        }
+      return { toRemove: f, toUpdate: i };
+    }
+    async function u(e, t) {
+      for (var n in t) {
+        var r = t[n];
+        for (var a in r) {
+          var i = r[a],
+            l = i[0],
+            s = i[1],
+            u = babelHelpers.extends(
+              { data: l, indexName: a, tableName: n },
+              s == null ? {} : { predicate: s },
             );
-          for (var a of r) {
-            var i = a[0],
-              l = a[1];
-            if (i != null) {
-              var s,
-                u = o("ReStoreIndexMetadata").tryParseIndexData(l);
-              if (u == null) continue;
-              var c = u.indexName,
-                d = u.tableName;
-              ((n[d] = (s = n[d]) != null ? s : {}),
-                (n[d][c] = babelHelpers.extends(
-                  { index: u.data, key: i },
-                  u.predicate == null ? {} : { predicate: u.predicate },
-                )));
-            }
-          }
-          return n;
-        })),
-        s.apply(this, arguments)
-      );
+          await e[o("ReStoreIndexMetadata").indicesTableName].put(
+            o("ReStoreIndexMetadata").indexDataToValue(u),
+          );
+        }
+      }
     }
-    function u(e, t, n) {
-      return c.apply(this, arguments);
+    async function c(e, t) {
+      for (var n in t) {
+        var r = t[n];
+        for (var a in r) {
+          var i,
+            l = r[a].key;
+          await (i =
+            e[o("ReStoreIndexMetadata").indicesTableName]).delete.apply(i, l);
+        }
+      }
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
-          var a = yield e(t, n),
-            i = {};
-          for (var l in r.tableNames) {
-            var s = r.tableNames[l];
-            for (var u in s.indexes) {
-              var c,
-                d,
-                m = [
-                  s.indexes[u],
-                  (c = s.indexPredicates) == null || (c = c[u]) == null
-                    ? void 0
-                    : c.toString(),
-                ],
-                p = (d = a[l]) == null ? void 0 : d[u];
-              if (
-                o("ReStoreIndexMetadata").indicesDiffer(
-                  [
-                    p == null ? void 0 : p.index,
-                    p == null ? void 0 : p.predicate,
-                  ],
-                  m,
-                )
-              ) {
-                var _;
-                ((i[l] = (_ = i[l]) != null ? _ : {}), (i[l][u] = m));
-              }
-            }
-          }
-          var f = {};
-          for (var g in r.tableNames)
-            if (g in a) {
-              var h = a[g];
-              for (var y in h) {
-                var C,
-                  b = h[y],
-                  v =
-                    (C = r.tableNames[g]) == null || (C = C.indexes) == null
-                      ? void 0
-                      : C[y];
-                if (v == null) {
-                  var S;
-                  ((f[g] = (S = f[g]) != null ? S : {}), (f[g][y] = b));
-                }
-              }
-            }
-          return { toRemove: f, toUpdate: i };
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e, t) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          for (var n in t) {
-            var r = t[n];
-            for (var a in r) {
-              var i = r[a],
-                l = i[0],
-                s = i[1],
-                u = babelHelpers.extends(
-                  { data: l, indexName: a, tableName: n },
-                  s == null ? {} : { predicate: s },
-                );
-              yield e[o("ReStoreIndexMetadata").indicesTableName].put(
-                o("ReStoreIndexMetadata").indexDataToValue(u),
-              );
-            }
-          }
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e, t) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          for (var n in t) {
-            var r = t[n];
-            for (var a in r) {
-              var i,
-                l = r[a].key;
-              yield (i =
-                e[o("ReStoreIndexMetadata").indicesTableName]).delete.apply(
-                i,
-                l,
-              );
-            }
-          }
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e, t, n, r, a) {
+    function d(e, t, n, r, a) {
       return new (o(
         "ReStoreOperationLock",
       ).ReStoreOperationLock)().chainPromiseOrValue(function (i) {
@@ -164,10 +125,10 @@ __d(
         );
       });
     }
-    function g(e, t, r, a) {
-      var i = new WeakMap();
+    function m(e, t, n, r) {
+      var a = new WeakMap();
       o("LSPlatformLsInitLog").addPoint("index_migration_start");
-      var l = function (t, n) {
+      var i = function (t, n) {
         o("LSPlatformLsInitLog").addPoint("index_migration_end_failure", {
           string: {
             index_migration_failure_point: n,
@@ -175,55 +136,48 @@ __d(
           },
         });
       };
-      return u(i, e.transaction, t)
+      return s(a, e.transaction, t)
         .then(
-          (function () {
-            var i = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (n) {
-                var i = n.toRemove,
-                  l = n.toUpdate,
-                  s = Array.from(
-                    new Set([].concat(Object.keys(l), Object.keys(i))),
-                  );
-                if (
-                  (o("LSPlatformLsInitLog").addAnnotations({
-                    int: { index_migration_rebuild_tables_count: s.length },
-                  }),
-                  a === !1)
-                ) {
-                  for (var u of s)
-                    if (t.tableNames[u] != null) {
-                      var c,
-                        m,
-                        _ = Array.from(
-                          new Set(
-                            [].concat(
-                              Object.keys((c = l[u]) != null ? c : {}),
-                              Object.keys((m = i[u]) != null ? m : {}),
-                            ),
-                          ),
-                        );
-                      yield f(e, u, t, r, _);
-                    }
+          async function (a) {
+            var i = a.toRemove,
+              l = a.toUpdate,
+              s = Array.from(
+                new Set([].concat(Object.keys(l), Object.keys(i))),
+              );
+            if (
+              (o("LSPlatformLsInitLog").addAnnotations({
+                int: { index_migration_rebuild_tables_count: s.length },
+              }),
+              r === !1)
+            ) {
+              for (var m of s)
+                if (t.tableNames[m] != null) {
+                  var p,
+                    _,
+                    f = Array.from(
+                      new Set(
+                        [].concat(
+                          Object.keys((p = l[m]) != null ? p : {}),
+                          Object.keys((_ = i[m]) != null ? _ : {}),
+                        ),
+                      ),
+                    );
+                  await d(e, m, t, n, f);
                 }
-                (yield d(e.transaction, l),
-                  yield p(e.transaction, i),
-                  o("LSPlatformLsInitLog").addPoint("index_migration_end"));
-              },
-            );
-            return function (e) {
-              return i.apply(this, arguments);
-            };
-          })(),
+            }
+            (await u(e.transaction, l),
+              await c(e.transaction, i),
+              o("LSPlatformLsInitLog").addPoint("index_migration_end"));
+          },
           function (e) {
-            return l(e, "findIndicesToUpdateOrRemove");
+            return i(e, "findIndicesToUpdateOrRemove");
           },
         )
         .catch(function (e) {
-          return l(e, "rebuildIndices");
+          return i(e, "rebuildIndices");
         });
     }
-    l.runMigrationForIndicesIfNeeded = g;
+    l.runMigrationForIndicesIfNeeded = m;
   },
   98,
 );

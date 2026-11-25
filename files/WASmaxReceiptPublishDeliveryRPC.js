@@ -24,8 +24,9 @@ __d(
       await o("WAComms").castSmaxStanza(t);
     }
     function s(e) {
-      var t = _(o("WASmaxJsx").smax("biz", null), e);
-      return t;
+      var t = e.bizOriginalEnvelopeOrClientReceivedTimestampMixinGroupArgs,
+        n = p(o("WASmaxJsx").smax("biz", null), t);
+      return n;
     }
     function u(e) {
       var t,
@@ -42,11 +43,11 @@ __d(
         ).mergeSenderAggregatedPublishOrSingleMixinGroup(
           m(
             (t = o("WASmaxMixins")).optionalMerge(
-              D,
+              T,
               t.optionalMerge(
-                g,
+                f,
                 t.optionalMerge(
-                  I,
+                  k,
                   t.optionalMerge(
                     o("WASmaxOutReceiptRecipientMixin").mergeRecipientMixin,
                     t.optionalMerge(
@@ -86,66 +87,61 @@ __d(
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
     function m(e, t) {
-      if (t.user) return $(e, t.user);
-      if (t.device) return b(e, t.device);
-      if (t.interopUser) return E(e, t.interopUser);
-      if (t.interopDevice) return R(e, t.interopDevice);
+      if (t.user) return x(e, t.user);
+      if (t.device) return C(e, t.device);
+      if (t.interopUser) return L(e, t.interopUser);
+      if (t.interopDevice) return S(e, t.interopDevice);
       throw new (o(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function p(e) {
-      var t = e.originalEnvelopeElementValue,
-        n = o("WASmaxJsx").smax(
-          "biz",
-          null,
-          o("WASmaxJsx").smax("original_envelope", null, t),
-        );
-      return n;
+    function p(e, t) {
+      if (t.bizOriginalEnvelope) return w(e, t.bizOriginalEnvelope);
+      if (t.bizClientReceivedTimestamp)
+        return N(e, t.bizClientReceivedTimestamp);
+      throw new (o(
+        "WASmaxMixinGroupExhaustiveError",
+      ).SmaxMixinGroupExhaustiveError)();
     }
-    function _(e, t) {
-      var n = p(t);
-      return o("WASmaxMixins").mergeStanzas(e, n);
-    }
-    function f(e) {
+    function _(e) {
       var t = e.botClientMultiThreadIDMixinArgs,
         n = e.botConversationThreadIDMixinArgs,
         r = o("WASmaxJsx").smax(
           "receipt",
           null,
           o("WASmaxMixins").optionalMerge(
-            y,
-            M(o("WASmaxJsx").smax("bot", null), t),
+            h,
+            F(o("WASmaxJsx").smax("bot", null), t),
             n,
           ),
         );
       return r;
     }
-    function g(e, t) {
-      var n = f(t);
+    function f(e, t) {
+      var n = _(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function h(e) {
+    function g(e) {
       var t = e.botConversationThreadId,
         n = o("WASmaxJsx").smax("bot", {
           conversation_thread_id: o("WAWap").CUSTOM_STRING(t),
         });
       return n;
     }
-    function y(e, t) {
-      var n = h(t);
+    function h(e, t) {
+      var n = g(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function C(e) {
+    function y(e) {
       var t = e.deviceMixinsArgs,
-        n = v(o("WASmaxJsx").smax("receipt", null), t);
+        n = b(o("WASmaxJsx").smax("receipt", null), t);
       return n;
     }
-    function b(e, t) {
-      var n = C(t);
+    function C(e, t) {
+      var n = y(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function v(e, t) {
+    function b(e, t) {
       if (t.groupStatusDevice)
         return o(
           "WASmaxOutReceiptGroupStatusDeviceMixin",
@@ -172,33 +168,33 @@ __d(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function S(e) {
+    function v(e) {
       var t = e.receiptTo,
         n = o("WASmaxJsx").smax("receipt", { to: o("WAWap").JID(t) });
       return n;
     }
-    function R(e, t) {
-      var n = S(t);
+    function S(e, t) {
+      var n = v(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function L(e) {
+    function R(e) {
       var t = e.receiptTo,
         n = o("WASmaxJsx").smax("receipt", { to: o("WAWap").JID(t) });
       return n;
     }
-    function E(e, t) {
-      var n = L(t);
+    function L(e, t) {
+      var n = R(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function k() {
+    function E() {
       var e = o("WASmaxJsx").smax("receipt", { privacy_token: "false" });
       return e;
     }
-    function I(e) {
-      var t = k();
+    function k(e) {
+      var t = E();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    function T(e) {
+    function I(e) {
       var t = e.metaPeripheral,
         n = o("WASmaxJsx").smax(
           "receipt",
@@ -209,41 +205,65 @@ __d(
         );
       return n;
     }
-    function D(e, t) {
-      var n = T(t);
+    function T(e, t) {
+      var n = I(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function x(e) {
+    function D(e) {
       var t = e.userMixinsArgs,
-        n = P(o("WASmaxJsx").smax("receipt", null), t);
+        n = $(o("WASmaxJsx").smax("receipt", null), t);
       return n;
     }
-    function $(e, t) {
-      var n = x(t);
+    function x(e, t) {
+      var n = D(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function P(e, t) {
-      if (t.groupStatusUser) return O(e, t.groupStatusUser);
-      if (t.groupUser) return W(e, t.groupUser);
-      if (t.individualUser) return U(e, t.individualUser);
-      if (t.statusUser) return H(e, t.statusUser);
-      if (t.broadcastUser) return A(e, t.broadcastUser);
+    function $(e, t) {
+      if (t.groupStatusUser) return q(e, t.groupStatusUser);
+      if (t.groupUser) return V(e, t.groupUser);
+      if (t.individualUser) return G(e, t.individualUser);
+      if (t.statusUser) return j(e, t.statusUser);
+      if (t.broadcastUser) return B(e, t.broadcastUser);
       throw new (o(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function N(e) {
+    function P(e) {
+      var t = e.bizClientReceivedMs,
+        n = o("WASmaxJsx").smax("biz", {
+          client_received_ms: o("WAWap").INT(t),
+        });
+      return n;
+    }
+    function N(e, t) {
+      var n = P(t);
+      return o("WASmaxMixins").mergeStanzas(e, n);
+    }
+    function M(e) {
+      var t = e.originalEnvelopeElementValue,
+        n = o("WASmaxJsx").smax(
+          "biz",
+          null,
+          o("WASmaxJsx").smax("original_envelope", null, t),
+        );
+      return n;
+    }
+    function w(e, t) {
+      var n = M(t);
+      return o("WASmaxMixins").mergeStanzas(e, n);
+    }
+    function A(e) {
       var t = e.botClientThreadId,
         n = o("WASmaxJsx").smax("bot", {
           client_thread_id: o("WAWap").CUSTOM_STRING(t),
         });
       return n;
     }
-    function M(e, t) {
-      var n = N(t);
+    function F(e, t) {
+      var n = A(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function w(e) {
+    function O(e) {
       var t = e.receiptTo,
         n = e.receiptParticipant,
         r = o("WASmaxJsx").smax("receipt", {
@@ -252,11 +272,11 @@ __d(
         });
       return r;
     }
-    function A(e, t) {
-      var n = w(t);
+    function B(e, t) {
+      var n = O(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function F(e) {
+    function W(e) {
       var t = e.receiptTo,
         n = e.receiptParticipant,
         r = o("WASmaxOutReceiptStatusClassMixin").mergeStatusClassMixin(
@@ -267,11 +287,11 @@ __d(
         );
       return r;
     }
-    function O(e, t) {
-      var n = F(t);
+    function q(e, t) {
+      var n = W(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function B(e) {
+    function U(e) {
       var t = e.receiptTo,
         n = e.receiptParticipant,
         r = o("WASmaxJsx").smax("receipt", {
@@ -280,20 +300,20 @@ __d(
         });
       return r;
     }
-    function W(e, t) {
-      var n = B(t);
+    function V(e, t) {
+      var n = U(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function q(e) {
+    function H(e) {
       var t = e.receiptTo,
         n = o("WASmaxJsx").smax("receipt", { to: o("WAWap").JID(t) });
       return n;
     }
-    function U(e, t) {
-      var n = q(t);
+    function G(e, t) {
+      var n = H(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function V(e) {
+    function z(e) {
       var t = e.receiptTo,
         n = e.receiptParticipant,
         r = e.receiptPeerParticipantPn,
@@ -309,32 +329,11 @@ __d(
         );
       return i;
     }
-    function H(e, t) {
-      var n = V(t);
+    function j(e, t) {
+      var n = z(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    ((l.sendPublishDeliveryRPC = e),
-      (l.makePublishDeliveryRequestBiz = s),
-      (l.makePublishDeliveryRequest = u),
-      (l.mergePublishDeliveryTypeMixin = d),
-      (l.mergeUserOrDeviceOrInteropUserOrInteropDeviceMixinGroup = m),
-      (l.mergeBizOriginalEnvelopeMixin = _),
-      (l.mergeBotClientMultiThreadIDReceiptMixin = g),
-      (l.mergeBotConversationThreadIDMixin = y),
-      (l.mergeDeviceMixin = b),
-      (l.mergeDeviceMixins = v),
-      (l.mergeInteropDeviceMixin = R),
-      (l.mergeInteropUserMixin = E),
-      (l.mergeNeedPrivacyTokenMixin = I),
-      (l.mergePeripheralOriginMixin = D),
-      (l.mergeUserMixin = $),
-      (l.mergeUserMixins = P),
-      (l.mergeBotClientMultiThreadIDMixin = M),
-      (l.mergeBroadcastUserMixin = A),
-      (l.mergeGroupStatusUserMixin = O),
-      (l.mergeGroupUserMixin = W),
-      (l.mergeIndividualUserMixin = U),
-      (l.mergeStatusUserMixin = H));
+    ((l.sendPublishDeliveryRPC = e), (l.makePublishDeliveryRequest = u));
   },
   98,
 );

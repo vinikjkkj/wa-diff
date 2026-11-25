@@ -5,9 +5,11 @@ __d(
     "FBLogger",
     "LSDatascriptJSONEval",
     "LSFactory",
+    "LSServerProgramHardening",
     "MWPBumpEntityKey",
     "cr:8018",
     "getErrorSafe",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -21,7 +23,31 @@ __d(
           t != null ? t : -1,
         );
       };
-    function u(t, o) {
+    function u() {
+      var e, t, n;
+      return o("LSServerProgramHardening").isServerProgramHardeningEnabled()
+        ? {
+            keyReturningSprocs:
+              (e = o("LSServerProgramHardening").getKeyReturningSprocsMode()) !=
+              null
+                ? e
+                : void 0,
+            protectedCalls: r("justknobx")._("8597") ? "enforce" : "log",
+            restrictedOps:
+              (t = o("LSServerProgramHardening").getRestrictedOpsMode()) != null
+                ? t
+                : void 0,
+            restrictedTables: r("justknobx")._("8658") ? "enforce" : "log",
+            secureKeyReturningSprocs:
+              (n = o(
+                "LSServerProgramHardening",
+              ).getSecureKeyReturningSprocsMode()) != null
+                ? n
+                : void 0,
+          }
+        : {};
+    }
+    function c(t, o) {
       var a = JSON.parse(o),
         i = t != null ? t : { gk: {}, iggk: {}, justknob: {}, qe: {} };
       return function (t) {
@@ -37,23 +63,23 @@ __d(
                   string: { dynamic: String(!0) },
                 }),
           s = r("LSFactory")(t, { dynamic: !0, lsRuntimeLogger: o });
-        return new (r("LSDatascriptJSONEval"))(a, s, i)
+        return new (r("LSDatascriptJSONEval"))(a, s, i, [], u())
           .eval()
           .finally(function () {
             return (l == null || l.end(), Promise.resolve());
           });
       };
     }
-    function c(e, t, n) {
+    function d(e, t, n) {
       if (n == null) throw s(n);
       switch (n) {
         case 3:
-          return u(e, t);
+          return c(e, t);
         default:
           throw s(n);
       }
     }
-    function d(e) {
+    function m(e) {
       return function (t) {
         if (t == null)
           throw r("FBLogger")("messenger_web").mustfixThrow(
@@ -64,18 +90,18 @@ __d(
             l = n.priority,
             s = n.syncScript,
             u = n.target,
-            d = n.taskNames,
+            c = n.taskNames,
             m = a != null ? JSON.parse(a) : null;
           try {
-            var p = c(m, s, u);
+            var p = d(m, s, u);
             return t.runInTransaction(
               function (t) {
                 return (e && e(), p(t));
               },
               "readwrite",
               l,
-              { taskNames: d, type: "sync_script" },
-              i.id + ":138",
+              { taskNames: c, type: "sync_script" },
+              i.id + ":168",
             );
           } catch (e) {
             o("MWPBumpEntityKey").bumpEntityKeyWithAppId(
@@ -93,7 +119,7 @@ __d(
         };
       };
     }
-    ((d.__debugModuleName = "LSDatascriptEvaluator"), (l.default = d));
+    ((m.__debugModuleName = "LSDatascriptEvaluator"), (l.default = m));
   },
   98,
 );

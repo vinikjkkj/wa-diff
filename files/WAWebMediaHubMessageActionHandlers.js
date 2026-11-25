@@ -29,6 +29,7 @@ __d(
     "WAWebWamEnumMessageContextMenuOptionType",
     "WAWebWamEnumWebcRmrReasonCode",
     "cr:7565",
+    "getErrorSafe",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -88,7 +89,7 @@ __d(
                   ])),
                 t.length,
               )
-              .catching(e),
+              .catching(r("getErrorSafe")(e)),
               o("WALogger").LOG(
                 m ||
                   (m = babelHelpers.taggedTemplateLiteralLoose([

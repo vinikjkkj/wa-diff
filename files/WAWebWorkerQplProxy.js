@@ -22,7 +22,8 @@ __d(
               annotations: t,
             });
         },
-        addPoint: function (t, r) {
+        addPoint: function (t, r, l) {
+          var e;
           i ||
             n.fireAndForget("qpl", "dispatch", {
               type: "addPoint",
@@ -30,10 +31,25 @@ __d(
               instanceKey: o,
               pointName: t,
               annotations: r != null ? r : null,
-              timestamp: self.performance.now(),
+              timestamp:
+                (e = l == null ? void 0 : l.timestamp) != null ? e : c(),
             });
         },
-        endSuccess: function (t) {
+        addPointLocal: function (t, r, l) {
+          var e;
+          i ||
+            n.fireAndForget("qpl", "dispatch", {
+              type: "addPointLocal",
+              markerId: a,
+              instanceKey: o,
+              pointName: t,
+              annotations: r != null ? r : null,
+              timestamp:
+                (e = l == null ? void 0 : l.timestamp) != null ? e : c(),
+            });
+        },
+        endSuccess: function (t, r) {
+          var e;
           i ||
             ((i = !0),
             n.fireAndForget("qpl", "dispatch", {
@@ -41,10 +57,12 @@ __d(
               markerId: a,
               instanceKey: o,
               annotations: t != null ? t : null,
-              timestamp: self.performance.now(),
+              timestamp:
+                (e = r == null ? void 0 : r.timestamp) != null ? e : c(),
             }));
         },
-        endFail: function (t, r) {
+        endFail: function (t, r, l) {
+          var e;
           i ||
             ((i = !0),
             n.fireAndForget("qpl", "dispatch", {
@@ -53,10 +71,12 @@ __d(
               instanceKey: o,
               errorName: t,
               annotations: r != null ? r : null,
-              timestamp: self.performance.now(),
+              timestamp:
+                (e = l == null ? void 0 : l.timestamp) != null ? e : c(),
             }));
         },
-        endFailWithError: function (t, r, l) {
+        endFailWithError: function (t, r, l, s) {
+          var e;
           i ||
             ((i = !0),
             n.fireAndForget("qpl", "dispatch", {
@@ -66,10 +86,25 @@ __d(
               errorName: t,
               failReason: r != null ? r : null,
               annotations: l != null ? l : null,
-              timestamp: self.performance.now(),
+              timestamp:
+                (e = s == null ? void 0 : s.timestamp) != null ? e : c(),
             }));
         },
-        endCancel: function (t, r) {
+        endTimeout: function (t, r) {
+          var e;
+          i ||
+            ((i = !0),
+            n.fireAndForget("qpl", "dispatch", {
+              type: "endTimeout",
+              markerId: a,
+              instanceKey: o,
+              annotations: t != null ? t : null,
+              timestamp:
+                (e = r == null ? void 0 : r.timestamp) != null ? e : c(),
+            }));
+        },
+        endCancel: function (t, r, l) {
+          var e;
           i ||
             ((i = !0),
             n.fireAndForget("qpl", "dispatch", {
@@ -78,17 +113,24 @@ __d(
               instanceKey: o,
               cancelReason: t != null ? t : null,
               annotations: r != null ? r : null,
-              timestamp: self.performance.now(),
+              timestamp:
+                (e = l == null ? void 0 : l.timestamp) != null ? e : c(),
             }));
         },
         start: function (t) {},
         isActive: function () {
           return !0;
         },
+        hasPassedTimeout: function () {
+          return !1;
+        },
         getQPLAttrs: function () {
           return { instanceKey: o, markerId: a };
         },
       };
+    }
+    function c() {
+      return self.performance.timeOrigin + self.performance.now();
     }
     ((l.initWorkerQplProxy = s), (l.createWorkerQplProxy = u));
   },

@@ -19,12 +19,13 @@ __d(
     var e,
       s,
       u = new AbortController(),
-      c = (function () {
+      c = "lru-media-array-buffer-cache",
+      d = (function () {
         function t() {
           var t = this;
           ((this.$1 = r("once")(async function () {
             try {
-              var t = await d();
+              var t = await m();
               if (t != null) return (await t.open(), t);
             } catch (t) {
               if (r("getErrorSafe")(t).name === "SecurityError")
@@ -132,8 +133,8 @@ __d(
           t
         );
       })();
-    async function d() {
-      var e = m();
+    async function m() {
+      var e = p();
       if (e == null) return null;
       var t = await o(
         "WAWebStoreQuotaManager",
@@ -143,19 +144,19 @@ __d(
         arrayBufferStore: e,
       });
     }
-    function m() {
+    function p() {
       if (r("WAWebIndexedDB") != null) {
         var e = new (r("WAWebMediaArrayBufferIdbStore"))("media_lru_buffer");
         return "caches" in self
-          ? new (r("WAWebMediaArrayBufferCacheStore"))(
-              "lru-media-array-buffer-cache",
-            )
+          ? new (r("WAWebMediaArrayBufferCacheStore"))(c)
           : e;
       }
       return null;
     }
-    var p = new c();
-    ((l.MediaStore = c), (l.LruMediaStore = p));
+    var _ = new d();
+    ((l.LRU_MEDIA_ARRAY_BUFFER_CACHE_NAME = c),
+      (l.MediaStore = d),
+      (l.LruMediaStore = _));
   },
   98,
 );

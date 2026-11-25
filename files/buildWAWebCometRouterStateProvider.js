@@ -7,42 +7,34 @@ __d(
     "WAWebWindowsQueryParams",
     "buildBaseCometRouterStateProvider",
     "buildCometRouter",
-    "deferredLoadComponent",
     "justknobx",
     "react",
-    "requireDeferred",
-    "useCometOnBeforeUnloadDialog",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = e || (e = o("react")),
-      u = r("deferredLoadComponent")(
-        r("requireDeferred")("CometRouteActorToaster.react").__setRef(
-          "buildWAWebCometRouterStateProvider",
-        ),
-      ),
-      c = {
+      u = {
         ErrorRoot: r("CometRouterErrorRoot_MISSING_FIXME"),
         LoadingStates: {},
-        RouteActorToaster: u,
+        RouteActorToaster: null,
         RouterFocusRegion: r("CometRouterFocusRegion.react"),
       },
-      d = -1,
-      m = 36e5;
-    function p() {
+      c = -1,
+      d = 36e5;
+    function m() {
       var e = r("justknobx")._("5792");
-      return !Number.isFinite(e) || e <= 0 ? d : Math.max(m, e);
+      return !Number.isFinite(e) || e <= 0 ? c : Math.max(d, e);
     }
-    function _(e) {
+    function p(e) {
       var t,
         n,
         a = babelHelpers.extends({}, e, {
           cometRouterConstantsOverride: babelHelpers.extends(
             {
-              NAVIGATION_COUNT_THRESHOLD: d,
+              NAVIGATION_COUNT_THRESHOLD: c,
               REFRESH_ON_CLIENT_CONSISTENCY: !1,
-              RELOAD_RESOURCE_THRESHOLD: p(),
+              RELOAD_RESOURCE_THRESHOLD: m(),
             },
             e.cometRouterConstantsOverride,
           ),
@@ -50,16 +42,16 @@ __d(
             o("WAWebWindowsQueryParams").WINDOWS_QUERY_PARAMS,
             (t = e.persistentParameters) != null ? t : [],
           ),
-          uiComponents: (n = e.uiComponents) != null ? n : c,
+          uiComponents: (n = e.uiComponents) != null ? n : u,
         }),
         i = r("buildCometRouter")(a, r("CometRouteStore"));
-      return r("buildBaseCometRouterStateProvider")(
-        i,
-        r("useCometOnBeforeUnloadDialog"),
-        a,
-      );
+      return r("buildBaseCometRouterStateProvider")(i, f, a);
     }
-    l.default = _;
+    var _ = [function () {}, { current: null }];
+    function f() {
+      return _;
+    }
+    l.default = p;
   },
   98,
 );

@@ -5,6 +5,7 @@ __d(
     "WAWebWamEnumAndroidKeystoreStateType",
     "WAWebWamEnumBackupEncryptionMethod",
     "WAWebWamEnumBackupNetworkSetting",
+    "WAWebWamEnumBackupRestoreApi",
     "WAWebWamEnumBackupSchedule",
     "WAWebWamEnumContactsPermissionAuthorizationStatusType",
     "WAWebWamEnumEmailState",
@@ -67,6 +68,10 @@ __d(
               backupNetworkSetting: [
                 10,
                 o("WAWebWamEnumBackupNetworkSetting").BACKUP_NETWORK_SETTING,
+              ],
+              backupRestoreApi: [
+                370,
+                o("WAWebWamEnumBackupRestoreApi").BACKUP_RESTORE_API,
               ],
               backupRestoreEncryptionVersion: [138, e.TYPES.INTEGER],
               backupSchedule: [

@@ -478,7 +478,7 @@ __d(
         b.verifiedName
       )
         return b.verifiedName;
-      var S = o("WAWebFrontendContactGetters").getShownOrgMemberName(b);
+      var S = o("WAWebFrontendContactGetters").getShownMemberName(b);
       if (S != null) return S;
       if (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()) {
         var R = o("WAWebFrontendContactGetters").getFormattedUsernameAndType(b);

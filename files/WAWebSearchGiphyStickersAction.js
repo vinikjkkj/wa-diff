@@ -88,7 +88,7 @@ __d(
                   q: t,
                   limit: s,
                   offset: m,
-                  rating: "g",
+                  rating: "pg-13",
                   lang: d,
                 },
               ),

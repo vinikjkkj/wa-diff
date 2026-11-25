@@ -411,6 +411,8 @@ __d(
         serverDataId: [2, e.FLAGS.REQUIRED | e.TYPES.UINT64],
         companionDeviceBinding: [3, e.FLAGS.REQUIRED | e.TYPES.BYTES],
         historyStartTime: [4, e.TYPES.UINT64],
+        identityBindingBlob: [5, e.TYPES.BYTES],
+        bindingSigByLabyrinthDevice: [6, e.TYPES.BYTES],
       }),
       (ie.name = "CompanionTestMessageThreadIdInput"),
       (ie.internalSpec = {}),

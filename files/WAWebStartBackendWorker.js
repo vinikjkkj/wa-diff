@@ -580,9 +580,7 @@ __d(
                 var e = t.size,
                   n = t.socketId,
                   a = t.stanza,
-                  i = await o("WAWap").decodeStanza(a, function (e) {
-                    return Promise.resolve(e);
-                  }),
+                  i = o("WAWap").decodeDecompressedStanza(a),
                   l = await r("WAWebCommsHandleStanza")(i, n, e);
                 if (l instanceof o("WAWap").WapNode) {
                   var s = o("WAWap").encodeStanza(l);

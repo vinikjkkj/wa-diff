@@ -7,6 +7,7 @@ __d(
     "WATimeUtils",
     "WAWebABProps",
     "WAWebBaseModel",
+    "WAWebDownloadManagerErrors",
     "WAWebMediaData",
     "WAWebMediaStickers",
     "WAWebMediaTypes",
@@ -152,26 +153,33 @@ __d(
                 })
               );
             }
-            return o("WAWebMediaStickers")
-              .downloadStickerOrStickerPackIcon({
-                shouldThrow: a,
-                sticker: this,
-                type: "STICKER",
-              })
-              .catch(function (n) {
-                o("WALogger")
-                  .ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "id: ",
-                        ", error",
-                      ])),
-                    t.id,
-                  )
-                  .catching(r("getErrorSafe")(n))
-                  .tags("non-sad")
-                  .sendLogs("sticker-panel:sticker download failed");
-              });
+            return (
+              this.mediaObject == null &&
+                this.filehash &&
+                o("WAWebMediaStickers").registerSticker(this),
+              o("WAWebMediaStickers")
+                .downloadStickerOrStickerPackIcon({
+                  shouldThrow: a,
+                  sticker: this,
+                  type: "STICKER",
+                })
+                .catch(function (n) {
+                  n instanceof
+                    o("WAWebDownloadManagerErrors").MediaNotOnPhone ||
+                    o("WALogger")
+                      .ERROR(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "id: ",
+                            ", error",
+                          ])),
+                        t.id,
+                      )
+                      .catching(r("getErrorSafe")(n))
+                      .tags("non-sad")
+                      .sendLogs("sticker-panel:sticker download failed");
+                })
+            );
           }),
           (i.toDbData = function () {
             return {

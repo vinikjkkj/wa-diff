@@ -157,13 +157,7 @@ __d(
     }
     ((l.receiveDeliverAppDataPeerRPC = e),
       (l.parseDeliverAppDataPeerRequest = s),
-      (l.parsePeerDeliverAppDataPeerRetryOrDeliverAppDataPeerDeliveryMixinGroup =
-        u),
-      (l.makeDeliverAppDataPeerResponseSuccess = c),
-      (l.parseDeliverAppDataPeerPeerDeliveryMixin = d),
-      (l.parseDeliverAppDataPeerPeerRetryMixin = m),
-      (l.parseAppDataPeerRetryTypeMixin = p),
-      (l.parseAppDataPeerCategoryMixin = _));
+      (l.makeDeliverAppDataPeerResponseSuccess = c));
   },
   98,
 );

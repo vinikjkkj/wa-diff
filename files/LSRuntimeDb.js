@@ -3,24 +3,17 @@ __d(
   ["FBLogger", "LSIterationHelpers"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      return e.name.match(/secure_|inbox(?!_)/i);
-    }
-    function s(t, n, o, a, i, l, s) {
+    function e(e, t, n, r, o, a, i) {
       return {
-        metadata: o,
-        table: function (d) {
-          var c = o.tableNames[o.tableIds[d]];
-          if (n === 0 && e(c))
-            throw r("FBLogger")("messenger_web").mustfixThrow(
-              "cannot access secure table from dynamic mode",
-            );
-          return u(t, c, a, i, l, s);
+        metadata: n,
+        table: function (l) {
+          var t = n.tableNames[n.tableIds[l]];
+          return s(e, t, r, o, a, i);
         },
-        transactionId: t.__internal__transaction_id,
+        transactionId: e.__internal__transaction_id,
       };
     }
-    function u(e, t, n, a, i, l) {
+    function s(e, t, n, a, i, l) {
       var s = e.transactionTable(t.name, a[a.length - 1]);
       return {
         add: function (n) {
@@ -37,15 +30,15 @@ __d(
           (l == null || l.logTableOperation(t.name, "fetch"),
             t.name.includes("encrypted_backups") &&
               (l == null || l.shouldSample()));
-          for (var e = arguments.length, r = new Array(e), u = 0; u < e; u++)
-            r[u] = arguments[u];
+          for (var e = arguments.length, r = new Array(e), c = 0; c < e; c++)
+            r[c] = arguments[c];
           return o("LSIterationHelpers").fetch(
             r.length === 0 ? [[[[]], void 0]] : r,
             "asc",
             t,
             n,
             s,
-            c,
+            u,
             i,
             a.join(", "),
           );
@@ -54,15 +47,15 @@ __d(
           (l == null || l.logTableOperation(t.name, "fetchDesc"),
             t.name.includes("encrypted_backups") &&
               (l == null || l.shouldSample()));
-          for (var e = arguments.length, r = new Array(e), u = 0; u < e; u++)
-            r[u] = arguments[u];
+          for (var e = arguments.length, r = new Array(e), c = 0; c < e; c++)
+            r[c] = arguments[c];
           return o("LSIterationHelpers").fetch(
             r.length === 0 ? [[[[]], void 0]] : r,
             "desc",
             t,
             n,
             s,
-            c,
+            u,
             i,
             a.join(", "),
           );
@@ -105,7 +98,7 @@ __d(
         },
       };
     }
-    function c(e, t) {
+    function u(e, t) {
       if (typeof e == "object" && !Array.isArray(e)) {
         var n = e,
           o,
@@ -157,7 +150,7 @@ __d(
       }
       return { end: [e, 0], start: [e, 0] };
     }
-    ((l.LSRuntimeDb = s), (l.parseConstraint = c));
+    ((l.LSRuntimeDb = e), (l.parseConstraint = u));
   },
   98,
 );

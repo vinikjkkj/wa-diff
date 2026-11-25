@@ -5,7 +5,6 @@ __d(
     "WAWebMentionDisplayUtils",
     "WAWebMentionFormatMutator",
     "WAWebMiscGatingUtils",
-    "WAWebWorkDirectoryMemberName",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -17,17 +16,14 @@ __d(
     ((e.mutates = !0),
       (e.mutate = function (e, t) {
         var n = t.contact,
-          r = t.groupMetadata,
-          a = o("WAWebWorkDirectoryMemberName").getWorkDirectoryMemberName(n);
-        return a != null
-          ? o("WAWebMentionDisplayUtils").addAtPrefixForMention(a)
-          : o("WAWebMiscGatingUtils").isDropLastNameEnabled() &&
-              r &&
-              r.hasUniqueShortNameMention(n)
-            ? o("WAWebMentionDisplayUtils").addAtPrefixForMention(n.shortName)
-            : o("WAWebMentionDisplayUtils").addAtPrefixForMention(
-                o("WAWebFrontendContactGetters").getDisplayName(n),
-              );
+          r = t.groupMetadata;
+        return o("WAWebMiscGatingUtils").isDropLastNameEnabled() &&
+          r &&
+          r.hasUniqueShortNameMention(n)
+          ? o("WAWebMentionDisplayUtils").addAtPrefixForMention(n.shortName)
+          : o("WAWebMentionDisplayUtils").addAtPrefixForMention(
+              o("WAWebFrontendContactGetters").getDisplayName(n),
+            );
       }),
       (l.default = e));
   },

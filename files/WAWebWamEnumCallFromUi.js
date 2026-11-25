@@ -95,6 +95,7 @@ __d(
       CONTACTS_TAB: 90,
       ALEXA_VUI: 91,
       INCOMING_CALL_SCREEN: 92,
+      CUSTOMER_MANAGER: 93,
     });
     i.CALL_FROM_UI = e;
   },

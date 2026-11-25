@@ -4,6 +4,7 @@ __d(
     "LSPlatformLsInitLog",
     "LSReStoreWrapper",
     "MAWLSVaultingHooks",
+    "MWLSSacThreadRowHooks",
     "createLSReStoreEphemeralPersistence",
   ],
   function (t, n, r, o, a, i, l) {
@@ -14,7 +15,10 @@ __d(
           "createLSReStoreEphemeralPersistence",
         ).createLSReStoreEphemeralPersistence(),
         e,
-        [r("MAWLSVaultingHooks")],
+        [
+          o("MWLSSacThreadRowHooks").MWLSSacThreadRowHooks,
+          r("MAWLSVaultingHooks"),
+        ],
         void 0,
         o("LSPlatformLsInitLog").lsInitLogger,
       );

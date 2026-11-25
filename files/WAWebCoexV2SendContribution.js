@@ -401,7 +401,8 @@ __d(
       (l.prepareCoexV2AgentPayload = d),
       (l.genCoexV2AgentSharedEncNode = m),
       (l.genCoexV2InvokedAgentRetryBotNode = p),
-      (l.genCoexV2RelayBotNodeForTargets = _));
+      (l.genCoexV2RelayBotNodeForTargets = _),
+      (l.genCoexV2BotNode = g));
   },
   98,
 );

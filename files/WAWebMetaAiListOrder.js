@@ -5,6 +5,7 @@ __d(
     "WAWebLeadListConstants",
     "WAWebListUtils",
     "WAWebSchemaLabel",
+    "WAWebToYouListGatingUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -25,7 +26,7 @@ __d(
         t.predefinedId !==
           o("WAWebLeadListConstants").LEGACY_LEAD_LIST_PREDEFINED_ID &&
         t.type !== o("WAWebSchemaLabel").ListType.CHANNELS &&
-        !o("WAWebListUtils").isHiddenToYouList(t.type) &&
+        !o("WAWebToYouListGatingUtils").isHiddenToYouList(t.type) &&
         !s(t) &&
         (t.id === o("WAWebListUtils").META_AI_LIST_ID ||
           (t.isActive !== !1 && t.name !== ""))

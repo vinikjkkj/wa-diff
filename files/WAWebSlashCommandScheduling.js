@@ -2,6 +2,7 @@ __d(
   "WAWebSlashCommandScheduling",
   [
     "fbt",
+    "WATimeUtils",
     "WAWebChatGetters",
     "WAWebLexicalUtils",
     "WAWebModalManager",
@@ -11,6 +12,7 @@ __d(
     "WAWebScheduledMsgConstants",
     "WAWebSlashCommandsComposer",
     "WAWebSlashCommandsInput",
+    "WAWebSlashCommandsReminderTime",
     "WAWebSlashCommandsReminderToast",
     "WAWebSlashCommandsUsageLogger",
     "WAWebUserUtils",
@@ -62,6 +64,10 @@ __d(
             o("WAWebSlashCommandsInput").getCommandWord("remindus"),
             h(),
             g,
+            o("WAWebSlashCommandsReminderTime").getTypedReminderTime(
+              n,
+              o("WATimeUtils").unixTime(),
+            ),
           );
         },
         scheduleAt: function (t, n, r) {
@@ -118,36 +124,37 @@ __d(
           });
       }, 0);
     }
-    function C(e, t, n, r) {
-      var a = e.chat,
-        i = e.editor,
-        l = e.onScheduleSend;
-      if (l != null) {
-        var s = i.getEditorState();
-        (o("WAWebSlashCommandsComposer").replaceCommandWord(i, t, n),
-          o("WAWebScheduledMsgActionLogger").logScheduledMsgOpenPicker(a),
+    function C(e, t, n, r, a) {
+      var i = e.chat,
+        l = e.editor,
+        s = e.onScheduleSend;
+      if (s != null) {
+        var c = l.getEditorState();
+        (o("WAWebSlashCommandsComposer").replaceCommandWord(l, t, n),
+          o("WAWebScheduledMsgActionLogger").logScheduledMsgOpenPicker(i),
           o("WAWebModalManager").ModalManager.open(
             u.jsx(b, {
-              chat: a,
+              chat: i,
+              initialScheduledTimestampS: a,
               onClosedWithoutTime: function () {
-                (i.setEditorState(s, {
+                (l.setEditorState(c, {
                   tag: o("WAWebLexicalUtils").PROGRAMMATIC_TEXT_UPDATE_TAG,
                 }),
-                  i.focus(),
+                  l.focus(),
                   o("WAWebSlashCommandsUsageLogger").logSlashCommandUsage({
                     action: "command_cancel",
                     command: t.slice(1),
-                    chat: a,
+                    chat: i,
                   }));
               },
               onSchedule: function (n) {
                 var e = r == null ? void 0 : r(n);
-                l(n, function (n) {
+                s(n, function (n) {
                   (e == null || e(n),
                     o("WAWebSlashCommandsUsageLogger").logSlashCommandUsage({
                       action: "command_done",
                       command: t.slice(1),
-                      chat: a,
+                      chat: i,
                     }));
                 });
               },
@@ -157,16 +164,18 @@ __d(
     }
     function b(e) {
       var t = e.chat,
-        n = e.onClosedWithoutTime,
-        a = e.onSchedule,
-        i = c(!1);
+        n = e.initialScheduledTimestampS,
+        a = e.onClosedWithoutTime,
+        i = e.onSchedule,
+        l = c(!1);
       return (
         r("useWAWebOnUnmount")(function () {
-          i.current || n();
+          l.current || a();
         }),
         u.jsx(
           o("WAWebScheduleTimePickerLoadable").WAWebScheduleTimePickerLoadable,
           {
+            initialScheduledTimestampS: n != null ? n : void 0,
             isGroup: o("WAWebChatGetters").getIsGroup(t),
             onCancel: o("WAWebModalManager").closeModalManager,
             onFirstDateTimeChange: function () {
@@ -175,9 +184,9 @@ __d(
               ).logScheduledMsgSelectDateTime(t);
             },
             onSchedule: function (t) {
-              ((i.current = !0),
+              ((l.current = !0),
                 o("WAWebModalManager").closeModalManager(),
-                a(t));
+                i(t));
             },
           },
         )

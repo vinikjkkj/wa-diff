@@ -37,7 +37,7 @@ __d(
       for (var a of e) {
         var i = a.refs,
           l = a.url,
-          s = n.get(v(l));
+          s = n.get(S(l));
         if (s) {
           ((o.decoded_body_size += s.decodedBodySize),
             (o.encoded_body_size += s.encodedBodySize),
@@ -81,7 +81,7 @@ __d(
       var t = new Map();
       return (
         e.forEach(function (e) {
-          var n = v(e.name);
+          var n = S(e.name);
           t.set(n, e);
         }),
         t
@@ -90,35 +90,49 @@ __d(
     function p(e, t) {
       var n = _(e),
         r = f(),
-        o = new Set();
-      for (var a of t) {
-        var i,
-          l = v(a.name),
-          s = b(l);
-        if (!(s == null || o.has(l) || !n.has(s.host))) {
-          o.add(l);
-          var u = (i = r[y(s.pathname)]) != null ? i : r.other;
-          h(u, a);
+        o = y(),
+        a = new Set();
+      for (var i of t) {
+        var l,
+          s = S(i.name),
+          u = v(s);
+        if (!(u == null || a.has(s) || !n.has(u.host))) {
+          a.add(s);
+          var c =
+            s === o
+              ? r.dictionary
+              : (l = r[C(u.pathname)]) != null
+                ? l
+                : r.other;
+          h(c, i);
         }
       }
-      return C(r);
+      return b(r);
     }
     function _(e) {
       var t = new Set();
       for (var n of e) {
         var r,
           o = n.url,
-          a = (r = b(o)) == null ? void 0 : r.host;
+          a = (r = v(o)) == null ? void 0 : r.host;
         a != null && t.add(a);
       }
       return t;
     }
     function f() {
-      return { css: g(), font: g(), img: g(), js: g(), other: g() };
+      return {
+        css: g(),
+        dictionary: g(),
+        font: g(),
+        img: g(),
+        js: g(),
+        other: g(),
+      };
     }
     function g() {
       return {
         count: 0,
+        dcbCount: 0,
         decodedBodySize: 0,
         encodedBodySize: 0,
         transferSize: 0,
@@ -126,21 +140,30 @@ __d(
     }
     function h(e, t) {
       ((e.count += 1),
+        Reflect.get(t, "contentEncoding") === "dcb" && (e.dcbCount += 1),
         (e.decodedBodySize += t.decodedBodySize),
         (e.encodedBodySize += t.encodedBodySize),
         (e.transferSize += +t.transferSize));
     }
-    function y(e) {
+    function y() {
+      var e = document.querySelector('link[rel="compression-dictionary"]');
+      return e instanceof HTMLLinkElement ? S(e.href) : null;
+    }
+    function C(e) {
       var t,
         n = e.slice(e.lastIndexOf(".") + 1).toLowerCase();
       return (t = s.get(n)) != null ? t : "other";
     }
-    function C(e) {
+    function b(e) {
       return {
         static_css_count: e.css.count,
         static_css_decoded_body_size: e.css.decodedBodySize,
         static_css_encoded_body_size: e.css.encodedBodySize,
         static_css_transfer_size: e.css.transferSize,
+        static_dictionary_count: e.dictionary.count,
+        static_dictionary_decoded_body_size: e.dictionary.decodedBodySize,
+        static_dictionary_encoded_body_size: e.dictionary.encodedBodySize,
+        static_dictionary_transfer_size: e.dictionary.transferSize,
         static_font_count: e.font.count,
         static_font_decoded_body_size: e.font.decodedBodySize,
         static_font_encoded_body_size: e.font.encodedBodySize,
@@ -150,6 +173,7 @@ __d(
         static_img_encoded_body_size: e.img.encodedBodySize,
         static_img_transfer_size: e.img.transferSize,
         static_js_count: e.js.count,
+        static_js_dcb_count: e.js.dcbCount,
         static_js_decoded_body_size: e.js.decodedBodySize,
         static_js_encoded_body_size: e.js.encodedBodySize,
         static_js_transfer_size: e.js.transferSize,
@@ -159,14 +183,14 @@ __d(
         static_other_transfer_size: e.other.transferSize,
       };
     }
-    function b(e) {
+    function v(e) {
       try {
         return new URL(e);
       } catch (e) {
         return null;
       }
     }
-    function v(e) {
+    function S(e) {
       return e.split("#")[0];
     }
     l.getTierStats = u;

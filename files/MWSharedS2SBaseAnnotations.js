@@ -12,7 +12,6 @@ __d(
     "MWVersion",
     "MultipleTabsLogger",
     "ReQL",
-    "asyncToGeneratorRuntime",
     "gkx",
     "isStringNullOrEmpty",
     "shouldUseMAWSharedWorker",
@@ -37,94 +36,80 @@ __d(
       ],
       s = ["db", "threadKey"],
       u;
-    function c(e, t, n, r, o) {
-      return d.apply(this, arguments);
-    }
-    function d() {
+    async function c(t, n, a, i, l) {
+      var s = t.hasAttachment,
+        c = s === void 0 ? !1 : s,
+        m = t.hasAttachmentReaction,
+        p = m === void 0 ? !1 : m,
+        _ = t.hasEphemeralSetting,
+        f = t.hasGroupInvite,
+        g = t.hasReaction,
+        h = t.hasReply,
+        y = t.hasSenderKeyDistribution,
+        C = t.hasStoryReply,
+        b = t.hasText,
+        v = b === void 0 ? !1 : b,
+        S = t.isBump,
+        R = t.isEdit,
+        L = t.isForward,
+        E = t.isRetry,
+        k = t.isUnsend,
+        I = babelHelpers.objectWithoutPropertiesLoose(t, e);
+      l === void 0 && (l = !1);
+      var T = o("MWMsgActionLogUtils").getActionType({
+          hasEphemeralSetting: _,
+          hasGroupInvite: f,
+          hasReaction: g,
+          hasReply: h,
+          hasSenderKeyDistribution: y,
+          hasStoryReply: C,
+          isBump: S,
+          isEdit: R,
+          isForward: L,
+          isRetry: E,
+          isUnsend: k,
+        }),
+        D = o("MWMsgMediaTypeLogUtils").getAttachmentType(I),
+        x = i != null ? parseInt(i, 10) : void 0;
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a, i, l) {
-            var s = t.hasAttachment,
-              c = s === void 0 ? !1 : s,
-              d = t.hasAttachmentReaction,
-              p = d === void 0 ? !1 : d,
-              _ = t.hasEphemeralSetting,
-              f = t.hasGroupInvite,
-              g = t.hasReaction,
-              h = t.hasReply,
-              y = t.hasSenderKeyDistribution,
-              C = t.hasStoryReply,
-              b = t.hasText,
-              v = b === void 0 ? !1 : b,
-              S = t.isBump,
-              R = t.isEdit,
-              L = t.isForward,
-              E = t.isRetry,
-              k = t.isUnsend,
-              I = babelHelpers.objectWithoutPropertiesLoose(t, e);
-            l === void 0 && (l = !1);
-            var T = o("MWMsgActionLogUtils").getActionType({
-                hasEphemeralSetting: _,
-                hasGroupInvite: f,
-                hasReaction: g,
-                hasReply: h,
-                hasSenderKeyDistribution: y,
-                hasStoryReply: C,
-                isBump: S,
-                isEdit: R,
-                isForward: L,
-                isRetry: E,
-                isUnsend: k,
-              }),
-              D = o("MWMsgMediaTypeLogUtils").getAttachmentType(I),
-              x = i != null ? parseInt(i, 10) : void 0;
-            return (
-              isNaN(x) && (x = void 0),
-              {
-                bool: {
-                  has_attachment: c,
-                  has_sticker: I.hasSticker,
-                  has_text: v,
-                  is_attachment_reaction: p,
-                  is_attachments_grouped: I.isAttachmentsGrouped,
-                  is_pwa: l,
-                  is_tlc_public_user: r("gkx")("24028"),
-                  use_maw_shared_worker: o(
-                    "shouldUseMAWSharedWorker",
-                  ).shouldUseMAWSharedWorker(),
-                },
-                int: {
-                  number_of_attachments: I.numberOfAttachments,
-                  number_of_grouped_attachments: I.numberOfGroupedAttachments,
-                  offline_threading_id: x,
-                },
-                string: {
-                  action_type: T,
-                  attachment_type: D,
-                  entrypoint: m(n),
-                  message_type:
-                    v &&
-                    (!D ||
-                      D === o("MWMsgMediaTypeLogUtils").AttachmentType.None)
-                      ? "text"
-                      : "non-text",
-                  multipleTabs:
-                    yield o("MultipleTabsLogger").getMultipleTabsAnnotation(),
-                  mw_version: (u || (u = o("I64"))).to_string(
-                    o("MWVersion").v2,
-                  ),
-                  offline_threading_id: i,
-                  root_component: a,
-                  wa_version: o("MAWAppVersion").getVersionNumber(),
-                },
-              }
-            );
+        isNaN(Number(x)) && (x = void 0),
+        {
+          bool: {
+            has_attachment: c,
+            has_sticker: I.hasSticker,
+            has_text: v,
+            is_attachment_reaction: p,
+            is_attachments_grouped: I.isAttachmentsGrouped,
+            is_pwa: l,
+            is_tlc_public_user: r("gkx")("24028"),
+            use_maw_shared_worker: o(
+              "shouldUseMAWSharedWorker",
+            ).shouldUseMAWSharedWorker(),
           },
-        )),
-        d.apply(this, arguments)
+          int: {
+            number_of_attachments: I.numberOfAttachments,
+            number_of_grouped_attachments: I.numberOfGroupedAttachments,
+            offline_threading_id: x,
+          },
+          string: {
+            action_type: T,
+            attachment_type: D,
+            entrypoint: d(n),
+            message_type:
+              v && (!D || D === o("MWMsgMediaTypeLogUtils").AttachmentType.None)
+                ? "text"
+                : "non-text",
+            multipleTabs:
+              await o("MultipleTabsLogger").getMultipleTabsAnnotation(),
+            mw_version: (u || (u = o("I64"))).to_string(o("MWVersion").v2),
+            offline_threading_id: i,
+            root_component: a,
+            wa_version: o("MAWAppVersion").getVersionNumber(),
+          },
+        }
       );
     }
-    function m(e) {
+    function d(e) {
       var t;
       return (t = Object.keys(r("LSMessagingThreadAttributionType")).find(
         function (t) {
@@ -134,32 +119,22 @@ __d(
         ? t
         : "UNKNOWN";
     }
+    async function m(e) {
+      var t = e.db,
+        n = e.threadKey,
+        r = babelHelpers.objectWithoutPropertiesLoose(e, s),
+        a =
+          t != null && n != null
+            ? await o("ReQL").toArrayAsync(
+                o("MWPreloadableQueries").getMediaStagingQuery(t, n),
+              )
+            : [];
+      return {
+        mediaStagings: a,
+        messageTypeParams: p(babelHelpers.extends({}, r, { mediaStagings: a })),
+      };
+    }
     function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.db,
-            n = e.threadKey,
-            r = babelHelpers.objectWithoutPropertiesLoose(e, s),
-            a =
-              t != null && n != null
-                ? yield o("ReQL").toArrayAsync(
-                    o("MWPreloadableQueries").getMediaStagingQuery(t, n),
-                  )
-                : [];
-          return {
-            mediaStagings: a,
-            messageTypeParams: f(
-              babelHelpers.extends({}, r, { mediaStagings: a }),
-            ),
-          };
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
       var t = e.externalAttachmentUrl,
         n = e.hotEmojiSize,
         a = e.isAttachmentReaction,
@@ -248,9 +223,9 @@ __d(
       };
     }
     ((l.getSendToSentBaseAnnotations = c),
-      (l.getEntrypointAnnotation = m),
-      (l.queryMediaStagingAndGetMessageTypeParams = p),
-      (l.getMessageTypeParams = f));
+      (l.getEntrypointAnnotation = d),
+      (l.queryMediaStagingAndGetMessageTypeParams = m),
+      (l.getMessageTypeParams = p));
   },
   98,
 );

@@ -380,10 +380,13 @@ __d(
                 new (o("WAWebChatSearchModel").ChatSearch)({
                   maxPageLength: 4,
                 }),
-                new (o("WAWebContactSearchModel").ContactSearch)({
-                  maxPageLength: 4,
-                }),
               ].concat(
+                c == null ? [] : [c],
+                [
+                  new (o("WAWebContactSearchModel").ContactSearch)({
+                    maxPageLength: 4,
+                  }),
+                ],
                 o(
                   "WAWebContactSearchGatingUtils",
                 ).isNonContactPushNameSearchEnabled()
@@ -393,7 +396,6 @@ __d(
                       ).getNonContactPushNameSearch(),
                     ]
                   : [],
-                c == null ? [] : [c],
               ),
             );
           },

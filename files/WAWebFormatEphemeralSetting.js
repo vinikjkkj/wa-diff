@@ -312,8 +312,7 @@ __d(
             n.initiatingUser,
           );
         a =
-          (s = o("WAWebFrontendContactGetters").getShownOrgMemberName(c)) !=
-          null
+          (s = o("WAWebFrontendContactGetters").getShownMemberName(c)) != null
             ? s
             : o("WAWebFrontendContactGetters").getIsMyContact(c)
               ? o("WAWebFrontendContactGetters").getFormattedName(c)

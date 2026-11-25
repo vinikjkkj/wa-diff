@@ -3,7 +3,7 @@ __d(
   ["gkx", "justknobx"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return !r("gkx")("26256") && r("justknobx")._("4457");
+      return r("justknobx")._("4457");
     }
     function s() {
       return e() && r("justknobx")._("4994");

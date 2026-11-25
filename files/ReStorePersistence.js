@@ -164,7 +164,7 @@ __d(
             (this.$3(), this.$1.set(t, n));
           }),
           (n.incrementSeed = function* (t, n) {
-            var e = yield* this.$14(t, "seed"),
+            var e = yield* this.$14(t, o("ReStorePersistenceIds").idForSeed),
               r = e != null ? e : 0;
             return n === void 0
               ? (this.$1.set("seed", r + 1), r)

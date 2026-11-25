@@ -7,187 +7,130 @@ __d(
     "MAWJids",
     "MAWMiActMappingTableAPI",
     "MAWThreadMappingQPL",
-    "Promise",
     "ReQL",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s,
-      u,
-      c = {
+      u = {
         MISSING: "MISSING",
         OPTIMISTIC: "OPTIMISTIC",
         PARTIAL: "PARTIAL",
         READY: "READY",
       },
-      d = { IN_PROGRESS: "IN_PROGRESS", MISSING: "MISSING", READY: "READY" };
-    function m(e, t) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("MAWMiActMappingTableAPI").getMappingRowForChatJid(
-            e,
-            t,
-          );
-          if (n == null)
-            return {
-              mappingState: { actState: d.MISSING, miState: c.MISSING },
-              threadKey: null,
-            };
-          var r = yield o("ReQL").firstAsync(
-            o("ReQL")
-              .fromTableAscending(e.threads)
-              .getKeyRange(n.serverThreadKey),
-          );
-          return { mappingState: y(r, n), threadKey: n.serverThreadKey };
-        })),
-        p.apply(this, arguments)
+      c = { IN_PROGRESS: "IN_PROGRESS", MISSING: "MISSING", READY: "READY" };
+    async function d(e, t) {
+      var n = await o("MAWMiActMappingTableAPI").getMappingRowForChatJid(e, t);
+      if (n == null)
+        return {
+          mappingState: { actState: c.MISSING, miState: u.MISSING },
+          threadKey: null,
+        };
+      var r = await o("ReQL").firstAsync(
+        o("ReQL").fromTableAscending(e.threads).getKeyRange(n.serverThreadKey),
       );
+      return { mappingState: _(r, n), threadKey: n.serverThreadKey };
+    }
+    async function m(e, t) {
+      var n = await d(e, t),
+        r = n.mappingState;
+      return r;
+    }
+    async function p(e, t) {
+      var n = await Promise.all([
+          o("ReQL").firstAsync(
+            o("ReQL").fromTableAscending(e.threads).getKeyRange(t),
+          ),
+          o("MAWMiActMappingTableAPI").getMappingRowForThreadKey(e, t),
+        ]),
+        r = n[0],
+        a = n[1];
+      return _(r, a);
     }
     function _(e, t) {
-      return f.apply(this, arguments);
+      return { actState: C(t), miState: b(e) };
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield m(e, t),
-            r = n.mappingState;
-          return r;
-        })),
-        f.apply(this, arguments)
-      );
+    function f(e) {
+      return h(e) && y(e);
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
+    function g(e) {
+      return e.miState === u.OPTIMISTIC;
     }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = yield (u || (u = n("Promise"))).all([
-              o("ReQL").firstAsync(
-                o("ReQL").fromTableAscending(e.threads).getKeyRange(t),
-              ),
-              o("MAWMiActMappingTableAPI").getMappingRowForThreadKey(e, t),
-            ]),
-            a = r[0],
-            i = r[1];
-          return y(a, i);
-        })),
-        h.apply(this, arguments)
-      );
+    function h(e) {
+      return e.miState === u.READY;
     }
-    function y(e, t) {
-      return { actState: R(t), miState: L(e) };
+    function y(e) {
+      return e.actState === c.READY;
     }
     function C(e) {
-      return v(e) && S(e);
-    }
-    function b(e) {
-      return e.miState === c.OPTIMISTIC;
-    }
-    function v(e) {
-      return e.miState === c.READY;
-    }
-    function S(e) {
-      return e.actState === d.READY;
-    }
-    function R(e) {
       return e == null
-        ? d.MISSING
-        : I(e.clientThreadPk)
-          ? d.IN_PROGRESS
-          : d.READY;
+        ? c.MISSING
+        : S(e.clientThreadPk)
+          ? c.IN_PROGRESS
+          : c.READY;
     }
-    function L(t) {
-      if (t == null) return c.MISSING;
+    function b(t) {
+      if (t == null) return u.MISSING;
       var n = (e || (e = o("LSIntEnum"))).toNumber(t.authorityLevel);
       return n === r("LSAuthorityLevel").AUTHORITATIVE
-        ? c.READY
+        ? u.READY
         : n === r("LSAuthorityLevel").OPTIMISTIC
-          ? c.OPTIMISTIC
-          : c.PARTIAL;
+          ? u.OPTIMISTIC
+          : u.PARTIAL;
     }
-    function E(e, t, n) {
-      return k.apply(this, arguments);
-    }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          yield e.mi_act_mapping_table.put({
-            clientThreadPk: (s || (s = o("I64"))).neg(t),
-            jid: n,
-            serverThreadKey: t,
-          });
-        })),
-        k.apply(this, arguments)
-      );
-    }
-    function I(e) {
-      return (s || (s = o("I64"))).lt(e, s.zero);
-    }
-    function T(e, t, n) {
-      return D.apply(this, arguments);
-    }
-    function D() {
-      return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = t.jid,
-            a = t.threadKey;
-          (n === void 0 && (n = null),
-            yield x(
-              e,
-              { intJid: o("MAWJids").convertChatJidToIntJid(r), threadKey: a },
-              n,
-            ));
-        })),
-        D.apply(this, arguments)
-      );
-    }
-    function x(e, t, n) {
-      return $.apply(this, arguments);
-    }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = t.intJid,
-            a = t.threadKey;
-          (n === void 0 && (n = null),
-            n != null &&
-              o("MAWThreadMappingQPL").addPoint("insert_mapping_row", n),
-            yield e.mi_act_mapping_table.put({
-              clientThreadPk: r,
-              jid: r,
-              serverThreadKey: a,
-            }));
-        })),
-        $.apply(this, arguments)
-      );
-    }
-    function P(e, t) {
-      return m(e, t).then(function (e) {
-        var t = e.mappingState,
-          n = e.threadKey;
-        return t.miState === c.MISSING ? null : n;
+    async function v(e, t, n) {
+      await e.mi_act_mapping_table.put({
+        clientThreadPk: (s || (s = o("I64"))).neg(t),
+        jid: n,
+        serverThreadKey: t,
       });
     }
-    ((l.MiState = c),
-      (l.ActState = d),
-      (l.genLoadingStateFromJid = _),
-      (l.genThreadLoadingState = g),
-      (l.getThreadLoadingStateForDbRows = y),
-      (l.isReady = C),
-      (l.isMiOptimistic = b),
-      (l.isMiReady = v),
-      (l.isActReady = S),
-      (l.getActState = R),
-      (l.markActThreadLoadingAsInProgress = E),
-      (l.markActThreadLoadingAsCompletedForJid = T),
-      (l.markActThreadLoadingAsCompleted = x),
-      (l.getThreadKeyIfMiThreadNotMissing = P));
+    function S(e) {
+      return (s || (s = o("I64"))).lt(e, s.zero);
+    }
+    async function R(e, t, n) {
+      var r = t.jid,
+        a = t.threadKey;
+      (n === void 0 && (n = null),
+        await L(
+          e,
+          { intJid: o("MAWJids").convertChatJidToIntJid(r), threadKey: a },
+          n,
+        ));
+    }
+    async function L(e, t, n) {
+      var r = t.intJid,
+        a = t.threadKey;
+      (n === void 0 && (n = null),
+        n != null && o("MAWThreadMappingQPL").addPoint("insert_mapping_row", n),
+        await e.mi_act_mapping_table.put({
+          clientThreadPk: r,
+          jid: r,
+          serverThreadKey: a,
+        }));
+    }
+    function E(e, t) {
+      return d(e, t).then(function (e) {
+        var t = e.mappingState,
+          n = e.threadKey;
+        return t.miState === u.MISSING ? null : n;
+      });
+    }
+    ((l.MiState = u),
+      (l.ActState = c),
+      (l.genLoadingStateFromJid = m),
+      (l.genThreadLoadingState = p),
+      (l.getThreadLoadingStateForDbRows = _),
+      (l.isReady = f),
+      (l.isMiOptimistic = g),
+      (l.isMiReady = h),
+      (l.isActReady = y),
+      (l.getActState = C),
+      (l.markActThreadLoadingAsInProgress = v),
+      (l.markActThreadLoadingAsCompletedForJid = R),
+      (l.markActThreadLoadingAsCompleted = L),
+      (l.getThreadKeyIfMiThreadNotMissing = E));
   },
   98,
 );

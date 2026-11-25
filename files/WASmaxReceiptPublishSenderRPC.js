@@ -133,17 +133,7 @@ __d(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    ((l.sendPublishSenderRPC = e),
-      (l.makePublishSenderRequest = s),
-      (l.mergePublishSenderGroupOrPublishSenderIndividualOrPublishSenderStatusOrPublishSenderBroadcastDeviceSenderTypeMixinGroup =
-        u),
-      (l.mergePublishSenderIndividualDeviceSenderTypeMixin = d),
-      (l.mergePublishSenderStatusDeviceSenderTypeMixin = p),
-      (l.mergePublishSenderBroadcastDeviceSenderTypeMixin = f),
-      (l.mergePublishSenderGroupDeviceSenderTypeMixin = h),
-      (l.mergePublishSenderTypeMixin = C),
-      (l.mergeSenderTypeMixin = v),
-      (l.mergeGroupGroupStatusDeviceOrGroupDeviceDeviceMixinGroup = S));
+    ((l.sendPublishSenderRPC = e), (l.makePublishSenderRequest = s));
   },
   98,
 );

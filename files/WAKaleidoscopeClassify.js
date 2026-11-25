@@ -132,35 +132,36 @@ __d(
         a,
         i,
         l,
-        p = t.allowAv1VideoCodec,
-        _ = t.allowedMimeTypes,
-        f = t.claimedTypeValidationEnabled,
-        h = t.input,
-        y = t.strictAacAdtsValidationEnabled,
-        C = t.strictJpegScanValidationEnabled,
-        b = t.strictMp4ValidationEnabled,
-        v = t.strictOggOpusValidationEnabled,
-        S = t.withEnforceStrictMimetypeMatch,
-        R = t.withMimetypeFuzzyMatch,
-        L = t.withMimetypeIgnoreParameters,
-        E = t.withStreamCheck,
-        k = E === void 0 ? !1 : E,
-        I = t.zipArchiveCheckEnabled,
-        T = o("WASI").createWasi(
+        p,
+        _ = t.allowAv1VideoCodec,
+        f = t.allowedMimeTypes,
+        h = t.claimedTypeValidationEnabled,
+        y = t.input,
+        C = t.strictAacAdtsValidationEnabled,
+        b = t.strictJpegScanValidationEnabled,
+        v = t.strictMp4ValidationEnabled,
+        S = t.strictOggOpusValidationEnabled,
+        R = t.withEnforceStrictMimetypeMatch,
+        L = t.withMimetypeFuzzyMatch,
+        E = t.withMimetypeIgnoreParameters,
+        k = t.withStreamCheck,
+        I = k === void 0 ? !1 : k,
+        T = t.zipArchiveCheckEnabled,
+        D = o("WASI").createWasi(
           x({
-            input: h,
-            mimetypeHints: _,
-            strictJpegScanValidationEnabled: C,
-            strictMp4ValidationEnabled: b,
-            strictOggOpusValidationEnabled: v,
-            zipArchiveCheckEnabled: I,
-            allowAv1VideoCodec: p,
-            claimedTypeValidationEnabled: f,
-            strictAacAdtsValidationEnabled: y,
-            withEnforceStrictMimetypeMatch: S,
-            withMimetypeIgnoreParameters: L,
-            withMimetypeFuzzyMatch: R,
-            withStreamCheck: k,
+            input: y,
+            mimetypeHints: f,
+            strictJpegScanValidationEnabled: b,
+            strictMp4ValidationEnabled: v,
+            strictOggOpusValidationEnabled: S,
+            zipArchiveCheckEnabled: T,
+            allowAv1VideoCodec: _,
+            claimedTypeValidationEnabled: h,
+            strictAacAdtsValidationEnabled: C,
+            withEnforceStrictMimetypeMatch: R,
+            withMimetypeIgnoreParameters: E,
+            withMimetypeFuzzyMatch: L,
+            withStreamCheck: I,
             stderr: function (n) {
               o("WAKaleidoscopeLogger")
                 .ksLogger()
@@ -179,14 +180,14 @@ __d(
             },
           }),
         ),
-        D = T.getImportObject,
-        $ = T.start,
-        P = await o("WAGetKaleidoscopeWasm").getKaleidoscopeWasm(),
-        N = await WebAssembly.instantiate(P, D()),
-        M = $(N),
-        w = M.exitCode,
-        A = M.fs;
-      if (w !== 0)
+        $ = D.getImportObject,
+        P = D.start,
+        N = await o("WAGetKaleidoscopeWasm").getKaleidoscopeWasm(),
+        M = await WebAssembly.instantiate(N, $()),
+        w = P(M),
+        A = w.exitCode,
+        F = w.fs;
+      if (A !== 0)
         return (
           o("WAKaleidoscopeLogger")
             .ksLogger()
@@ -196,12 +197,12 @@ __d(
                   "classifyWithMediaType failed with exit code ",
                   "",
                 ])),
-              w,
+              A,
             ),
           o("WAResultOrError").makeError("wasm-runtime-error")
         );
-      var F = (n = A[g]) == null ? void 0 : n.content;
-      if (typeof F != "string")
+      var O = (n = F[g]) == null ? void 0 : n.content;
+      if (typeof O != "string")
         return (
           o("WAKaleidoscopeLogger")
             .ksLogger()
@@ -213,9 +214,9 @@ __d(
             ),
           o("WAResultOrError").makeError("wasm-result-not-json")
         );
-      var O = {};
+      var B = {};
       try {
-        O = JSON.parse(F);
+        B = JSON.parse(O);
       } catch (e) {
         return (
           o("WAKaleidoscopeLogger")
@@ -230,7 +231,7 @@ __d(
           o("WAResultOrError").makeError("wasm-invalid-json")
         );
       }
-      return typeof ((a = O) == null ? void 0 : a.score) != "number"
+      return typeof ((a = B) == null ? void 0 : a.score) != "number"
         ? (o("WAKaleidoscopeLogger")
             .ksLogger()
             .MUSTFIX(
@@ -242,10 +243,14 @@ __d(
           o("WAResultOrError").makeError("wasm-invalid-json"))
         : o("WAResultOrError").makeResult({
             mimetype:
-              ((i = O) == null ? void 0 : i.mimetype) ||
+              ((i = B) == null ? void 0 : i.mimetype) ||
               "application/octet-stream",
-            extension: ((l = O) == null ? void 0 : l.extension) || null,
-            score: O.score,
+            extension: ((l = B) == null ? void 0 : l.extension) || null,
+            score: B.score,
+            reason:
+              typeof ((p = B) == null ? void 0 : p.reason) == "number"
+                ? B.reason
+                : 0,
           });
     }
     function x(e) {

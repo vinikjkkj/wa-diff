@@ -29,7 +29,6 @@ __d(
     "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidFormat",
-    "WAWebWorkDirectoryMemberName",
     "compactMap",
     "escapeRegex",
     "fbs",
@@ -44,13 +43,8 @@ __d(
       if (r("isEmptyObject")(t)) return e;
       var n = Object.keys(t).map(r("escapeRegex")).join("|");
       return e.replace(new RegExp("(" + n + ")(?!\\d)", "g"), function (e) {
-        var n,
-          r = t[e];
-        return (n = o(
-          "WAWebWorkDirectoryMemberName",
-        ).getWorkDirectoryMemberName(r)) != null
-          ? n
-          : o("WAWebFrontendContactGetters").getDisplayName(r);
+        var n = t[e];
+        return o("WAWebFrontendContactGetters").getDisplayName(n);
       });
     }
     function c(e) {

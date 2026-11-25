@@ -18,15 +18,16 @@ __d(
       s,
       u,
       c,
-      d = o("WATagsLogger").TAGS(["decision tree", "handleReceipt"]);
-    function m(t) {
+      d,
+      m = o("WATagsLogger").TAGS(["decision tree", "handleReceipt"]);
+    function p(t) {
       var r,
         a,
         i,
         l,
-        m,
         p,
-        _ = o(
+        _,
+        f = o(
           "WACreateHandleIndividualReceiptBranch",
         ).createHandleIndividualReceiptBranch({
           handleIndividualReceipt:
@@ -38,7 +39,7 @@ __d(
               ? void 0
               : a.handleIndividualRetryReceipt,
         }),
-        f = o(
+        g = o(
           "WACreateHandleGroupReceiptBranch",
         ).createHandleGroupReceiptBranch({
           handleGroupReceipt:
@@ -46,19 +47,19 @@ __d(
           handleGroupRetryReceipt:
             (l = t.groupMessage) == null ? void 0 : l.handleGroupRetryReceipt,
         }),
-        g = o(
+        h = o(
           "WACreateHandlePeerAppdataReceiptBranch",
         ).createHandlePeerAppdataReceiptBranch({
           handlePeerAppdataReceipt:
-            (m = t.appdataMessage) == null
-              ? void 0
-              : m.handlePeerAppdataReceipt,
-          handlePeerAppdataRetryReceipt:
             (p = t.appdataMessage) == null
               ? void 0
-              : p.handlePeerAppdataRetryReceipt,
+              : p.handlePeerAppdataReceipt,
+          handlePeerAppdataRetryReceipt:
+            (_ = t.appdataMessage) == null
+              ? void 0
+              : _.handlePeerAppdataRetryReceipt,
         });
-      function h(e) {
+      function y(e) {
         var t = e.makeAck,
           r = e.offline,
           a = e.serverTs,
@@ -66,19 +67,19 @@ __d(
           l = e.socketId,
           s = i.deliverBizRolesMixin,
           u = i.deliverPaidConversationAggregatedMixin,
-          d = i.id,
+          c = i.id,
           m = i.recipientMixin,
           p = i.singleStyleChatType,
-          g = i.singleStyleReceiptType;
+          _ = i.singleStyleReceiptType;
         switch (p.name) {
-          case "Individual":
-            return _({
+          case "DeliverSingleIndividual":
+            return f({
               aggregate: {
                 aggregatedType: "none",
-                stanzaId: d,
+                stanzaId: c,
                 receiptSender: p.value.from,
               },
-              receiptType: g,
+              receiptType: _,
               makeAck: t,
               offline: r,
               serverTs: a,
@@ -87,16 +88,16 @@ __d(
             });
           case "Group":
           case "DeliverGroupStatus":
-            return f({
+            return g({
               from: p.value.from,
               aggregate: {
                 aggregatedType: "none",
-                stanzaId: d,
+                stanzaId: c,
                 receiptSender: o("WAJids").unsafeCoerceToDeviceJid(
                   p.value.participant,
                 ),
               },
-              receiptType: g,
+              receiptType: _,
               makeAck: t,
               offline: r,
               serverTs: a,
@@ -112,11 +113,11 @@ __d(
           default:
             p.name;
         }
-        return (c || (c = n("Promise"))).resolve(
+        return (d || (d = n("Promise"))).resolve(
           o("WAResultOrError").makeResult(t()),
         );
       }
-      function y(e) {
+      function C(e) {
         var t = e.aggregateReceiptMixin,
           r = e.makeAck,
           a = e.offline,
@@ -124,22 +125,22 @@ __d(
           l = e.socketId,
           s = t.deliverBizRolesMixin,
           u = t.deliverPaidConversationAggregatedMixin,
-          d = t.id,
+          c = t.id,
           m = t.listItem,
           p = t.recipientMixin,
-          g = t.senderAggregatedStyleChatType,
+          _ = t.senderAggregatedStyleChatType,
           h = t.senderAggregatedStyleReceiptType,
-          y = [d].concat(
+          y = [c].concat(
             m.map(function (e) {
               return e.id;
             }),
           );
-        switch (g.name) {
+        switch (_.name) {
           case "Individual":
-            return _({
+            return f({
               aggregate: {
                 aggregatedType: "sender",
-                receiptSender: g.value.from,
+                receiptSender: _.value.from,
                 stanzaIds: y,
               },
               receiptType: h,
@@ -151,13 +152,13 @@ __d(
             });
           case "Group":
           case "DeliverGroupStatus":
-            return f({
-              from: g.value.from,
+            return g({
+              from: _.value.from,
               aggregate: {
                 aggregatedType: "sender",
                 stanzaIds: y,
                 receiptSender: o("WAJids").unsafeCoerceToDeviceJid(
-                  g.value.participant,
+                  _.value.participant,
                 ),
               },
               receiptType: h,
@@ -172,15 +173,15 @@ __d(
           case "Broadcast":
             break;
           default:
-            g.name;
+            _.name;
         }
-        return (c || (c = n("Promise"))).resolve(
+        return (d || (d = n("Promise"))).resolve(
           o("WAResultOrError").makeResult(r()),
         );
       }
       return function (r, a) {
         if (
-          (d.DEV(
+          (m.DEV(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
                 "start handling...",
@@ -188,7 +189,7 @@ __d(
           ),
           r.attrs.category === "peer")
         ) {
-          d.ERROR(
+          m.ERROR(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
                 '<receipt category="peer"> is not supported yet.',
@@ -196,88 +197,88 @@ __d(
           );
           var t = o("WASmaxReceiptDeliverPeerRPC").receiveDeliverPeerRPC(r),
             i = t.makeDeliverPeerResponseSuccess;
-          return (c || (c = n("Promise"))).resolve(
+          return (d || (d = n("Promise"))).resolve(
             o("WAResultOrError").makeResult(i()),
           );
         }
         var l = r.attrs.category;
-        if (l === "peer_appdata") return g(r, a);
-        var m = o("WASmaxReceiptDeliverRPC").receiveDeliverRPC(r),
-          p = m.makeDeliverResponseSuccess,
-          C = m.parsedRequest,
-          b = C.offlineMixin,
-          v = C.receiptStyles,
-          S = C.t,
-          R = o("WATimeUtils").castToUnixTime(S),
-          L = b == null ? void 0 : b.offline;
-        switch (v.name) {
+        if (l === "peer_appdata") return h(r, a);
+        var p = o("WASmaxReceiptDeliverRPC").receiveDeliverRPC(r),
+          _ = p.makeDeliverResponseSuccess,
+          b = p.parsedRequest,
+          v = b.offlineMixin,
+          S = b.receiptStyles,
+          R = b.t,
+          L = o("WATimeUtils").castToUnixTime(R),
+          E = v == null ? void 0 : v.offline;
+        switch (S.name) {
           case "DeliverMessageAggregatedStyle": {
-            var E = v.value,
-              k = E.from,
-              I = E.id,
-              T = E.messageAggregatedStyleReceiptType,
-              D = E.participantsUser,
-              x = E.recipientMixin,
-              $ = o("WAJids").validateGroupJid(k);
-            if ($ == null) {
-              d.ERROR(
+            var k = S.value,
+              I = k.from,
+              T = k.id,
+              D = k.messageAggregatedStyleReceiptType,
+              x = k.participantsUser,
+              $ = k.recipientMixin,
+              P = o("WAJids").validateGroupJid(I);
+            if (P == null) {
+              m.ERROR(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
                     "",
                     " server aggregated receipt is not supported",
                   ])),
-                k,
+                I,
               );
               break;
             }
-            return f({
+            return g({
               aggregate: {
                 aggregatedType: "server",
-                stanzaId: I,
-                receiptSenders: D.map(function (e) {
+                stanzaId: T,
+                receiptSenders: x.map(function (e) {
                   var t = e.jid,
                     n = e.t;
                   return { device: t, ts: o("WATimeUtils").castToUnixTime(n) };
                 }),
               },
-              from: $,
-              receiptType: T,
-              makeAck: p,
-              offline: L,
-              serverTs: R,
-              recipient: x == null ? void 0 : x.recipient,
+              from: P,
+              receiptType: D,
+              makeAck: _,
+              offline: E,
+              serverTs: L,
+              recipient: $ == null ? void 0 : $.recipient,
               socketId: a,
             });
           }
           case "DeliverSenderAggregatedStyleSenderType": {
-            var P = v.value,
-              N = P.id,
-              M =
-                P.individualWithRecipientOrDeliverGroupStatusOrGroupOrDeliverStatusOrBroadcastMixinGroup,
-              w = P.listItem,
-              A = P.type,
-              F = { value: { type: A }, name: "SenderType" },
-              O = [N].concat(
-                w.map(function (e) {
+            var N = S.value,
+              M = N.id,
+              w =
+                N.individualWithRecipientOrDeliverGroupStatusOrGroupOrDeliverStatusOrBroadcastMixinGroup,
+              A = N.listItem,
+              F = N.type,
+              O = { value: { type: F }, name: "SenderType" },
+              B = [M].concat(
+                A.map(function (e) {
                   return e.id;
                 }),
               );
-            switch (M.name) {
+            switch (w.name) {
               case "Group":
               case "DeliverGroupStatus":
-                return f({
+                return g({
                   aggregate: {
                     aggregatedType: "sender",
-                    stanzaIds: O,
+                    stanzaIds: B,
                     receiptSender: o("WAJids").unsafeCoerceToDeviceJid(
-                      M.value.participant,
+                      w.value.participant,
                     ),
                   },
-                  from: M.value.from,
-                  receiptType: F,
-                  makeAck: p,
-                  offline: L,
-                  serverTs: R,
+                  from: w.value.from,
+                  receiptType: O,
+                  makeAck: _,
+                  offline: E,
+                  serverTs: L,
                   recipient: null,
                   socketId: a,
                 });
@@ -286,68 +287,68 @@ __d(
               case "DeliverStatus":
                 break;
               case "IndividualWithRecipient":
-                return _({
+                return f({
                   aggregate: {
                     aggregatedType: "sender",
-                    receiptSender: M.value.from,
-                    stanzaIds: O,
+                    receiptSender: w.value.from,
+                    stanzaIds: B,
                   },
-                  receiptType: F,
-                  makeAck: p,
-                  offline: L,
-                  serverTs: R,
-                  recipient: M.value.recipient,
+                  receiptType: O,
+                  makeAck: _,
+                  offline: E,
+                  serverTs: L,
+                  recipient: w.value.recipient,
                   socketId: a,
                 });
               default:
-                M.name;
+                w.name;
             }
             break;
           }
           case "DeliverSenderAggregatedStyle":
-            return y({
-              aggregateReceiptMixin: v.value,
-              makeAck: p,
-              serverTs: R,
-              offline: L,
+            return C({
+              aggregateReceiptMixin: S.value,
+              makeAck: _,
+              serverTs: L,
+              offline: E,
               socketId: a,
             });
           case "DeliverSingleStyleWithRecipient": {
-            var B = v.value,
-              W = B.id,
-              q =
-                B.individualWithRecipientOrDeliverGroupStatusOrGroupOrDeliverStatusOrBroadcastMixinGroup,
-              U = B.senderTypeOrRetryMixinGroup;
-            switch (q.name) {
+            var W = S.value,
+              q = W.id,
+              U =
+                W.individualWithRecipientOrDeliverGroupStatusOrGroupOrDeliverStatusOrBroadcastMixinGroup,
+              V = W.senderTypeOrRetryMixinGroup;
+            switch (U.name) {
               case "IndividualWithRecipient":
-                return _({
+                return f({
                   aggregate: {
                     aggregatedType: "none",
-                    receiptSender: q.value.from,
-                    stanzaId: W,
+                    receiptSender: U.value.from,
+                    stanzaId: q,
                   },
-                  receiptType: U,
-                  makeAck: p,
-                  offline: L,
-                  serverTs: R,
-                  recipient: q.value.recipient,
+                  receiptType: V,
+                  makeAck: _,
+                  offline: E,
+                  serverTs: L,
+                  recipient: U.value.recipient,
                   socketId: a,
                 });
               case "Group":
               case "DeliverGroupStatus":
-                return f({
-                  from: q.value.from,
+                return g({
+                  from: U.value.from,
                   aggregate: {
                     aggregatedType: "none",
-                    stanzaId: W,
+                    stanzaId: q,
                     receiptSender: o("WAJids").unsafeCoerceToDeviceJid(
-                      q.value.participant,
+                      U.value.participant,
                     ),
                   },
-                  receiptType: U,
-                  makeAck: p,
-                  offline: L,
-                  serverTs: R,
+                  receiptType: V,
+                  makeAck: _,
+                  offline: E,
+                  serverTs: L,
                   recipient: null,
                   socketId: a,
                 });
@@ -356,25 +357,34 @@ __d(
               case "Broadcast":
                 break;
               default:
-                q.name;
+                U.name;
             }
             break;
           }
           case "DeliverSingleStyle":
-            return h({
-              singleReceiptMixin: v.value,
-              makeAck: p,
-              serverTs: R,
-              offline: L,
+            return y({
+              singleReceiptMixin: S.value,
+              makeAck: _,
+              serverTs: L,
+              offline: E,
               socketId: a,
             });
+          case "DeliverBotUnavailableStyle": {
+            m.WARN(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "bot-unavailable receipt is not handled on Web",
+                ])),
+            );
+            break;
+          }
         }
-        return (c || (c = n("Promise"))).resolve(
-          o("WAResultOrError").makeResult(p()),
+        return (d || (d = n("Promise"))).resolve(
+          o("WAResultOrError").makeResult(_()),
         );
       };
     }
-    l.createHandleReceipt = m;
+    l.createHandleReceipt = p;
   },
   98,
 );

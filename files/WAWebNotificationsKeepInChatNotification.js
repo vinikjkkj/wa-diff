@@ -225,8 +225,7 @@ __d(
           (l =
             (u = c.name) != null
               ? u
-              : o("WAWebFrontendContactGetters").getShownOrgMemberName(c)) !=
-          null
+              : o("WAWebFrontendContactGetters").getShownMemberName(c)) != null
             ? l
             : o("WAWebWidFormat").widToFormattedUser(c.id);
       }

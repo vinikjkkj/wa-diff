@@ -15,6 +15,7 @@ __d(
     "WAWebDBMessageSerialization",
     "WAWebDBMessageUtils",
     "WAWebDBMsgUtils",
+    "WAWebDBReadReceiptOriginBindings",
     "WAWebDBReportingTokenUtils",
     "WAWebDBStoreMessageOrphans",
     "WAWebDBThreadMetadataBulkHelper",
@@ -363,21 +364,26 @@ __d(
               }
             });
             var d = [];
-            if (
-              (s.length &&
-                d.push(
-                  a.bulkCreateOrMerge(
-                    s.map(function (e) {
-                      return A(e);
-                    }),
-                  ),
+            if (s.length) {
+              var m = await a.bulkGet(
+                s.map(function (e) {
+                  return e.id.toString();
+                }),
+                !1,
+              );
+              d.push(
+                a.bulkCreateOrMerge(
+                  s.map(function (e, t) {
+                    return F(A(e), m[t]);
+                  }),
                 ),
-              u.size || c.size)
-            ) {
-              var m = o("WATimeUtils").unixTimeMs();
+              );
+            }
+            if (u.size || c.size) {
+              var p = o("WATimeUtils").unixTimeMs();
               if (u.size) {
-                var p = Array.from(u, function (e) {
-                  return { id: e, unreadEditTimestampMs: m };
+                var f = Array.from(u, function (e) {
+                  return { id: e, unreadEditTimestampMs: p };
                 });
                 (o("WALogger")
                   .LOG(
@@ -387,16 +393,16 @@ __d(
                       ])),
                   )
                   .tags("missing-lid"),
-                  d.push(i.bulkCreateOrMerge(p)));
+                  d.push(i.bulkCreateOrMerge(f)));
               }
               if (c.size) {
-                var f = Array.from(c.values(), function (e) {
-                  return { threadId: e, unreadEditTimestampMs: m };
+                var g = Array.from(c.values(), function (e) {
+                  return { threadId: e, unreadEditTimestampMs: p };
                 });
                 d.push(
                   o(
                     "WAWebThreadMetadataBulkJob",
-                  ).bulkUpdateThreadUnreadEditTimestampWithTable(l, f),
+                  ).bulkUpdateThreadUnreadEditTimestampWithTable(l, g),
                 );
               }
             }
@@ -727,6 +733,14 @@ __d(
         ).shouldIndexGroupAgentRichResponseLink(e, e.id.remote.toString())
         ? t
         : babelHelpers.extends({}, t, { hasLink: n });
+    }
+    function F(e, t) {
+      return t == null ||
+        o(
+          "WAWebDBReadReceiptOriginBindings",
+        ).getCarriedPendingReadReceiptOrigin(t, e) != null
+        ? e
+        : babelHelpers.extends({}, e, { pendingReadReceiptOrigin: null });
     }
     ((l.EditedMentionOfMe = h),
       (l.processEditProtocolMsgs = y),

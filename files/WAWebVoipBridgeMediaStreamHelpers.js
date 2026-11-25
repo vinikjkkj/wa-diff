@@ -74,7 +74,10 @@ __d(
       }
       return c;
     }
-    l.voipAcquireMediaStreamImpl = s;
+    function u() {
+      e = null;
+    }
+    ((l.voipAcquireMediaStreamImpl = s), (l.clearCameraGrantWindow = u));
   },
   98,
 );

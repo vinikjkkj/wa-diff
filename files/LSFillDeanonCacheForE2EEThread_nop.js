@@ -5,7 +5,7 @@ __d(
     "LSShape",
     "LSSynchronousPromise",
     "LSVec",
-    "MAWFetchDeanonMetadataUsingCache",
+    "MAWDeanonLSMetadataCache",
     "PromiseOrValue",
     "ReQL",
     "gkx",
@@ -37,9 +37,10 @@ __d(
           (s || (s = o("PromiseOrValue"))).map(u.next(), function (e) {
             var n;
             ((n = e.value) == null ? void 0 : n[1].jid) != null &&
-              o(
-                "MAWFetchDeanonMetadataUsingCache",
-              ).initDeanonCacheDescForThread(e.value[1].jid, t);
+              o("MAWDeanonLSMetadataCache").initDeanonCacheDescForThread(
+                e.value[1].jid,
+                t,
+              );
           }),
         );
       };

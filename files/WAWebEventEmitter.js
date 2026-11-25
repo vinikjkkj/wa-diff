@@ -127,6 +127,11 @@ __d(
             }
             return r;
           }),
+          (n.isLastListener = function (t, n) {
+            var e,
+              r = (e = this.$1) == null ? void 0 : e[t];
+            return r != null && r.length > 0 && r[r.length - 1].callback === n;
+          }),
           (n.isListening = function (t) {
             var e = this.$1;
             return e

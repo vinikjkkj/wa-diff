@@ -166,8 +166,7 @@ __d(
     function g(e) {
       var t,
         n =
-          (t = o("WAWebFrontendContactGetters").getShownOrgMemberName(e)) !=
-          null
+          (t = o("WAWebFrontendContactGetters").getShownMemberName(e)) != null
             ? t
             : e.pushname;
       return n == null || n.trim() === "" ? null : n;

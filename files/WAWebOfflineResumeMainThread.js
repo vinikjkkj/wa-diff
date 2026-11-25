@@ -1,8 +1,15 @@
 __d(
   "WAWebOfflineResumeMainThread",
-  ["WAWebBlockingOfflineResumeManager", "WAWebNonBlockingOfflineResumeManager"],
+  [
+    "WAWebBlockingOfflineResumeManager",
+    "WAWebNonBlockingOfflineResumeManager",
+    "cr:22575",
+  ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
+    var e,
+      s = (e = n("cr:22575")) != null ? e : {},
+      u = s.maybeRequestPrimarySnapshot;
+    function c(e) {
       e.initState({
         getBlockingStageManager: function () {
           return new (o(
@@ -14,9 +21,10 @@ __d(
             "WAWebNonBlockingOfflineResumeManager",
           ).OfflineNonBlockingResumeStageManager)(t);
         },
+        maybeRequestPrimarySnapshot: u,
       });
     }
-    l.setupMainThreadResume = e;
+    l.setupMainThreadResume = c;
   },
   98,
 );

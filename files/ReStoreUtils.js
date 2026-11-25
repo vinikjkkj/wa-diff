@@ -21,7 +21,7 @@ __d(
       u,
       c = 500;
     async function d(e) {
-      for (var t = [], n = await e.next(); !n.done; )
+      for (var t = [], n = await e.next(); n.done !== !0; )
         (t.push(n.value), (n = await e.next()));
       return t;
     }
@@ -64,14 +64,15 @@ __d(
       return {
         next: function* (t, n) {
           var e = yield* d.next(n);
-          if (e.done) return e;
+          if (e.done === !0) return e;
           var o = e.value[1],
             a =
               s == null
                 ? o
                 : s.afterEntriesNext({ tableName: r.name, value: o }),
-            i = a;
-          return { done: e.done, value: [e.value[0], i] };
+            i = a,
+            l = [e.value[0], i];
+          return { done: e.done, value: l };
         },
       };
     }
@@ -161,7 +162,7 @@ __d(
                 L = _(n, r, u, o, "asc", v),
                 E = [],
                 k = yield* L.next(c);
-              !k.done;
+              k.done !== !0;
             )
               (E.push(k.value), (k = yield* L.next(c)));
             for (var I of E) {
@@ -276,9 +277,9 @@ __d(
           var h = _(n, o, p, void 0, "asc", void 0, a),
             y = [],
             C = yield* h.next(d);
-          !C.done;
+          C.done !== !0;
         ) {
-          for (; !C.done && y.length <= c; )
+          for (; C.done !== !0 && y.length <= c; )
             (y.push(C.value), (C = yield* h.next(d)));
           for (var b of y) {
             var v = b[0],
@@ -352,9 +353,6 @@ __d(
       for (var y of Object.keys(e.tableNames)) g(y);
       return f;
     }
-    function x(e) {
-      return e.types.includes("indexeddb");
-    }
     ((l.collectIterator = d),
       (l.searchKey = m),
       (l.appendDefaultValues = p),
@@ -370,8 +368,7 @@ __d(
       (l.deconflictIndicesLocked = E),
       (l.addIdToIndices = k),
       (l.rebuildIndicesLocked = I),
-      (l.createReStoreTransaction = D),
-      (l.isPDB = x));
+      (l.createReStoreTransaction = D));
   },
   98,
 );

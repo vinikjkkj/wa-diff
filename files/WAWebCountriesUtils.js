@@ -70,15 +70,11 @@ __d(
             r = t[1];
           return String(n).localeCompare(String(r));
         });
-      return (
-        e.prependWith != null &&
-          t.unshift([e.prependWith[0], e.prependWith[1].toJSON()]),
-        t.map(function (e) {
-          var t = e[0],
-            n = e[1];
-          return [t, n];
-        })
-      );
+      return t.map(function (e) {
+        var t = e[0],
+          n = e[1];
+        return [t, n];
+      });
     }
     async function p(e) {
       var t = await o("WAWebLocaleModules").getCountryData();

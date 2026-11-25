@@ -338,9 +338,12 @@ __d(
         }),
         d = C(c);
       if (d == null) return e;
-      o.utils.sheet_add_aoa(l, [[].concat(E(c[d.headerIndex], t))], {
-        origin: { c: u.c, r: u.r + d.headerIndex },
-      });
+      (x(l, function (e) {
+        return o.SSF.format(0, e);
+      }),
+        o.utils.sheet_add_aoa(l, [[].concat(E(c[d.headerIndex], t))], {
+          origin: { c: u.c, r: u.r + d.headerIndex },
+        }));
       var m = o.write(a, { bookType: "xlsx", type: "array" });
       return new File([m], e.name, {
         type:
@@ -348,7 +351,20 @@ __d(
           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       });
     }
-    async function x(e, t) {
+    function x(e, t) {
+      var n = Object.keys(e);
+      for (var r of n) {
+        var o = e[r];
+        o != null &&
+          typeof o == "object" &&
+          o.t === "n" &&
+          typeof o.v == "number" &&
+          typeof o.w == "string" &&
+          o.w !== t(o.v) &&
+          (e[r] = { t: "s", v: o.w, w: o.w });
+      }
+    }
+    async function $(e, t) {
       return u(e) === o("WAWebContactImportFileTypeValidator").FileType.EXCEL
         ? D(e, t)
         : T(e, t);
@@ -364,7 +380,7 @@ __d(
       (l.findCustomerManagerHeaderRowForDelimiterRecovery = v),
       (l.extractImportHeaders = L),
       (l.renameHeaderRow = E),
-      (l.applyMappingToFile = x));
+      (l.applyMappingToFile = $));
   },
   98,
 );

@@ -43,11 +43,17 @@ __d(
       );
     }
     function m() {
+      var e = o("WAWebABProps").getABPropConfigValue(
+        "biz_ai_agent_chat_media_upload_count_limit",
+      );
+      return e > 0 ? e : null;
+    }
+    function p() {
       return o("WAWebABProps").getABPropConfigValue(
         "maiba_meta_ai_fab_nullstate_is_deprecated",
       );
     }
-    function p() {
+    function _() {
       return (
         o(
           "WAWebBizAiWebDataDownloadsGateModel",
@@ -55,106 +61,106 @@ __d(
         o("WAWebABProps").getABPropConfigValue("biz_ai_enable_download")
       );
     }
-    function _() {
+    function f() {
       return r("justknobx")._("5395");
     }
-    function f() {
+    function g() {
       return r("justknobx")._("2083");
     }
-    function g() {
+    function h() {
       return o("WAWebABProps").getABPropConfigValue("biz_ai_auto_save_enabled");
     }
-    function h() {
+    function y() {
       return o(
         "WAWebBizAiWebEditingCoachingGateModel",
       ).isBizAiWebEditingCoachingGateEnabled();
     }
-    function y() {
+    function C() {
       return r("justknobx")._("3531");
     }
-    function C() {
-      return !y() && b();
-    }
     function b() {
+      return !C() && v();
+    }
+    function v() {
       return o(
         "WAWebBizAiSettingsSyncDeviceCapabilityCommon",
       ).getPrimarySupportsBizAiSettingsSync();
     }
-    function v() {
+    function S() {
       return o("WAWebABProps").getABPropConfigValue(
         "biz_ai_priority_list_item_expire_days",
       );
     }
-    var S = 0,
-      R = 1,
-      L = 2;
-    function E() {
+    var R = 0,
+      L = 1,
+      E = 2;
+    function k() {
       return o("WAWebABProps").getABPropConfigValue(
         "biz_ai_agent_3p_store_links_enabled",
       );
     }
-    function k() {
-      return E() !== S;
-    }
     function I() {
+      return k() !== R;
+    }
+    function T() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "ai_maiba_wass_migration_sending",
         ) === !0
       );
     }
-    function T() {
+    function D() {
       return (
         o("WAWebABProps").getABPropConfigValue("biz_ai_web_gdrive_enabled") ===
         !0
       );
     }
-    function D() {
+    function x() {
       return r("justknobx")._("6984");
     }
-    function x() {
+    function $() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "biz_ai_web_integration_hub_enabled",
         ) === !0
       );
     }
-    function $() {
+    function P() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "biz_ai_web_appointments_enabled",
         ) === !0
       );
     }
-    function P() {
+    function N() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "biz_ai_web_checkout_enabled",
         ) === !0
       );
     }
-    function N() {
+    function M() {
       return (
-        P() &&
+        N() &&
         o("WAWebABProps").getABPropConfigValue(
           "biz_ai_web_checkout_partners_enabled",
         ) === !0
       );
     }
-    function M(e) {
-      P() && e();
-    }
-    function w() {
-      return r("justknobx")._("8689");
+    function w(e) {
+      N() && e();
     }
     function A() {
+      return r("justknobx")._("8689");
+    }
+    function F() {
       return (
         o(
           "WAWebBizAiWebOnboardingDeviceCapabilityCommon",
-        ).getPrimarySupportsBizAiWebOnboarding() && F()
+        ).getPrimarySupportsBizAiWebOnboarding() && O()
       );
     }
-    function F() {
+    function O() {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "biz_ai_web_onboarding_notification_dispatch_enabled",
@@ -166,32 +172,33 @@ __d(
       (l.isCompanionThreadSyncAssignmentEnabled = u),
       (l.isSmartComposerFailureCacheEnabled = c),
       (l.isSmartComposerCoachingEnabled = d),
-      (l.isBizAIHubChatNavItemEnabled = m),
-      (l.isBizAIDownloadEnabled = p),
-      (l.isBizAiWebAgentChatDisabled = _),
-      (l.isBizAIQEClientEnabled = f),
-      (l.isAiAgentAutoSaveEnabled = g),
-      (l.isAiAgentMessageEditingEnabled = h),
-      (l.isSmartComposerAiListsEmergencyDisabled = y),
-      (l.isAiListsWebUIEnabled = C),
-      (l.isHandoffRemovalTimingSyncEnabled = b),
-      (l.getHandoffListExpireDays = v),
-      (l.MULTI_WEBSITE_DISABLED = S),
-      (l.MULTI_WEBSITE_BRAZIL = R),
-      (l.MULTI_WEBSITE_LATAM = L),
-      (l.getMultiWebsiteMode = E),
-      (l.isMultiWebsiteEnabled = k),
-      (l.isMaibaWASSSendingEnabled = I),
-      (l.isGoogleDriveEnabled = T),
-      (l.isGoogleDriveReconnectDisabled = D),
-      (l.isIntegrationHubEnabled = x),
-      (l.isAppointmentsEnabled = $),
-      (l.isCheckoutEnabled = P),
-      (l.isCheckoutPartnersEnabled = N),
-      (l.runCheckoutAction = M),
-      (l.isCheckoutSuggestionActionDisabled = w),
-      (l.isWebOnboardingSendToPhoneEnabled = A),
-      (l.isWebOnboardingNotificationDispatchEnabled = F));
+      (l.getBizAiHubMediaUploadCountLimit = m),
+      (l.isBizAIHubChatNavItemEnabled = p),
+      (l.isBizAIDownloadEnabled = _),
+      (l.isBizAiWebAgentChatDisabled = f),
+      (l.isBizAIQEClientEnabled = g),
+      (l.isAiAgentAutoSaveEnabled = h),
+      (l.isAiAgentMessageEditingEnabled = y),
+      (l.isSmartComposerAiListsEmergencyDisabled = C),
+      (l.isAiListsWebUIEnabled = b),
+      (l.isHandoffRemovalTimingSyncEnabled = v),
+      (l.getHandoffListExpireDays = S),
+      (l.MULTI_WEBSITE_DISABLED = R),
+      (l.MULTI_WEBSITE_BRAZIL = L),
+      (l.MULTI_WEBSITE_LATAM = E),
+      (l.getMultiWebsiteMode = k),
+      (l.isMultiWebsiteEnabled = I),
+      (l.isMaibaWASSSendingEnabled = T),
+      (l.isGoogleDriveEnabled = D),
+      (l.isGoogleDriveReconnectDisabled = x),
+      (l.isIntegrationHubEnabled = $),
+      (l.isAppointmentsEnabled = P),
+      (l.isCheckoutEnabled = N),
+      (l.isCheckoutPartnersEnabled = M),
+      (l.runCheckoutAction = w),
+      (l.isCheckoutSuggestionActionDisabled = A),
+      (l.isWebOnboardingSendToPhoneEnabled = F),
+      (l.isWebOnboardingNotificationDispatchEnabled = O));
   },
   98,
 );

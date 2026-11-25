@@ -1,21 +1,22 @@
 __d(
   "WAWebMainThreadQplHandler",
-  ["WALogger", "WAWebWorkerQplTypes"],
+  ["WALogger", "WATimeUtils", "WAWebWorkerQplTypes"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s,
       u,
-      c = new Map();
-    function d(e, t) {
+      c = 2 * o("WATimeUtils").MINUTE_MILLISECONDS,
+      d = new Map();
+    function m(e, t) {
       return e + ":" + t;
     }
-    function m(t) {
+    function p(t) {
       var n = t.getQPLAttrs(),
         r = n.instanceKey,
         a = n.markerId;
       return t.isActive()
-        ? p(t)
+        ? _(t)
         : (o("WALogger").WARN(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -24,18 +25,20 @@ __d(
           ),
           o("WAWebWorkerQplTypes").createSerializableQplHandle(a, r));
     }
-    function p(e) {
+    function _(e) {
+      g();
       var t = e.getQPLAttrs(),
         n = t.instanceKey,
         r = t.markerId,
-        a = d(r, n),
+        a = m(r, n),
         i = function () {
-          return c.delete(a);
+          return d.delete(a);
         },
         l = e.endSuccess,
         s = e.endFail,
         u = e.endFailWithError,
-        m = e.endCancel;
+        c = e.endTimeout,
+        p = e.endCancel;
       return (
         (e.endSuccess = function () {
           return (i(), l.apply(void 0, arguments));
@@ -46,16 +49,20 @@ __d(
         (e.endFailWithError = function () {
           return (i(), u.apply(void 0, arguments));
         }),
-        (e.endCancel = function () {
-          return (i(), m.apply(void 0, arguments));
+        (e.endTimeout = function () {
+          return (i(), c.apply(void 0, arguments));
         }),
-        c.set(a, e),
+        (e.endCancel = function () {
+          return (i(), p.apply(void 0, arguments));
+        }),
+        d.set(a, e),
         o("WAWebWorkerQplTypes").createSerializableQplHandle(r, n)
       );
     }
-    function _(e) {
-      var t = d(e.markerId, e.instanceKey),
-        n = c.get(t);
+    function f(e) {
+      var t = m(e.markerId, e.instanceKey);
+      g({ exceptKey: t });
+      var n = d.get(t);
       if (n == null) {
         o("WALogger").WARN(
           s ||
@@ -76,7 +83,7 @@ __d(
             ])),
           t,
         ),
-          c.delete(t));
+          d.delete(t));
         return;
       }
       e: {
@@ -94,55 +101,38 @@ __d(
           ((typeof r == "object" && r !== null) || typeof r == "function") &&
           r.type === "addPoint" &&
           "pointName" in r &&
-          "annotations" in r
+          "annotations" in r &&
+          "timestamp" in r
         ) {
           var i = r.pointName,
-            l = r.annotations;
-          n.addPoint(i, l != null ? l : void 0);
+            l = r.annotations,
+            c = r.timestamp;
+          n.addPoint(i, l != null ? l : void 0, { timestamp: c });
           break e;
         }
         if (
           ((typeof r == "object" && r !== null) || typeof r == "function") &&
-          r.type === "endSuccess" &&
-          "annotations" in r
+          r.type === "addPointLocal" &&
+          "pointName" in r &&
+          "annotations" in r &&
+          "timestamp" in r
         ) {
-          var m = r.annotations;
-          n.endSuccess(m != null ? m : void 0);
+          var p = r.pointName,
+            _ = r.annotations,
+            f = r.timestamp;
+          n.addPointLocal(p, _ != null ? _ : void 0, { timestamp: f });
           break e;
         }
         if (
           ((typeof r == "object" && r !== null) || typeof r == "function") &&
-          r.type === "endFail" &&
-          "errorName" in r &&
-          "annotations" in r
+          (r.type === "endSuccess" ||
+            r.type === "endFail" ||
+            r.type === "endFailWithError" ||
+            r.type === "endTimeout" ||
+            r.type === "endCancel")
         ) {
-          var p = r.errorName,
-            _ = r.annotations;
-          n.endFail(p, _ != null ? _ : void 0);
-          break e;
-        }
-        if (
-          ((typeof r == "object" && r !== null) || typeof r == "function") &&
-          r.type === "endFailWithError" &&
-          "errorName" in r &&
-          "failReason" in r &&
-          "annotations" in r
-        ) {
-          var f = r.errorName,
-            g = r.failReason,
-            h = r.annotations;
-          n.endFailWithError(f, g != null ? g : void 0, h != null ? h : void 0);
-          break e;
-        }
-        if (
-          ((typeof r == "object" && r !== null) || typeof r == "function") &&
-          r.type === "endCancel" &&
-          "cancelReason" in r &&
-          "annotations" in r
-        ) {
-          var y = r.cancelReason,
-            C = r.annotations;
-          n.endCancel(y != null ? y : void 0, C != null ? C : void 0);
+          var y = r;
+          h(n, y);
           break e;
         }
         throw Error(
@@ -151,7 +141,97 @@ __d(
         );
       }
     }
-    ((l.serializeQplForBridge = m), (l.handleQplBridgeMessage = _));
+    function g(e) {
+      for (var t of d) {
+        var n = t[0],
+          r = t[1];
+        n !== (e == null ? void 0 : e.exceptKey) &&
+          (!r.isActive() || r.hasPassedTimeout({ graceInMs: c })) &&
+          d.delete(n);
+      }
+    }
+    function h(e, t) {
+      e: {
+        var n = t;
+        if (
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "endSuccess" &&
+          "annotations" in n &&
+          "timestamp" in n
+        ) {
+          var r = n.annotations,
+            o = n.timestamp;
+          e.endSuccess(r != null ? r : void 0, { timestamp: o });
+          break e;
+        }
+        if (
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "endFail" &&
+          "errorName" in n &&
+          "annotations" in n &&
+          "timestamp" in n
+        ) {
+          var a = n.errorName,
+            i = n.annotations,
+            l = n.timestamp;
+          e.endFail(a, i != null ? i : void 0, { timestamp: l });
+          break e;
+        }
+        if (
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "endFailWithError" &&
+          "errorName" in n &&
+          "failReason" in n &&
+          "annotations" in n &&
+          "timestamp" in n
+        ) {
+          var s = n.errorName,
+            u = n.failReason,
+            c = n.annotations,
+            d = n.timestamp;
+          e.endFailWithError(
+            s,
+            u != null ? u : void 0,
+            c != null ? c : void 0,
+            { timestamp: d },
+          );
+          break e;
+        }
+        if (
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "endTimeout" &&
+          "annotations" in n &&
+          "timestamp" in n
+        ) {
+          var m = n.annotations,
+            p = n.timestamp;
+          e.endTimeout(m != null ? m : void 0, { timestamp: p });
+          break e;
+        }
+        if (
+          ((typeof n == "object" && n !== null) || typeof n == "function") &&
+          n.type === "endCancel" &&
+          "cancelReason" in n &&
+          "annotations" in n &&
+          "timestamp" in n
+        ) {
+          var _ = n.cancelReason,
+            f = n.annotations,
+            g = n.timestamp;
+          e.endCancel(_ != null ? _ : void 0, f != null ? f : void 0, {
+            timestamp: g,
+          });
+          break e;
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            n,
+        );
+      }
+    }
+    ((l.TIMED_OUT_FLOW_GRACE_MS = c),
+      (l.serializeQplForBridge = p),
+      (l.handleQplBridgeMessage = f));
   },
   98,
 );

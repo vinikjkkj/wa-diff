@@ -23,7 +23,7 @@ __d(
       return (
         t.forEach(function (e) {
           if (e.type === "add") {
-            var t = e.phoneNumber,
+            var t = e.internationalPhoneNumber,
               i = new (o("WAWebUsyncUser").USyncUser)().withPhone(
                 t.startsWith("+") ? t : "+" + t,
               );

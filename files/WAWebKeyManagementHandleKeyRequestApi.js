@@ -2,6 +2,8 @@ __d(
   "WAWebKeyManagementHandleKeyRequestApi",
   [
     "WALogger",
+    "WAWebCoexV2BotWid",
+    "WAWebCoexV2SyncdKeyRequestHandler",
     "WAWebRequestKeyShare",
     "WAWebSyncdCryptoUtils",
     "WAWebSyncdHandleKeyRequest",
@@ -12,6 +14,10 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
     async function d(t, n) {
+      if (n.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID))
+        return o("WAWebCoexV2SyncdKeyRequestHandler").handleCoexV2BotKeyRequest(
+          { keyRequest: t },
+        );
       if (!o("WAWebUserUtils").isMeAccount(n)) {
         o("WALogger")
           .ERROR(

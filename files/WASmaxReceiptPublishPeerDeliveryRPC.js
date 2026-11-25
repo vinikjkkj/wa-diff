@@ -72,8 +72,7 @@ __d(
     }
     ((l.sendPublishPeerDeliveryRPC = e),
       (l.parsePublishPeerDeliveryResponseSuccess = s),
-      (l.makePublishPeerDeliveryRequest = u),
-      (l.mergePeerMessageTypeMixin = d));
+      (l.makePublishPeerDeliveryRequest = u));
   },
   98,
 );

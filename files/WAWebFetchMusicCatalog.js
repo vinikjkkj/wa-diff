@@ -3,12 +3,10 @@ __d(
   [
     "WALogger",
     "WAWebACSTokenConfig",
-    "WAWebAsISOCountryCode",
-    "WAWebL10NCountryCodes",
     "WAWebL10nGetRenderedLocale",
     "WAWebMusicGraphQLRequest",
     "WAWebMusicParsingUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebMusicViewerCountry",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -22,25 +20,19 @@ __d(
       _ = "1490318767758566",
       f = "HIGHLIGHT_TIME_IN_MS";
     async function g(e) {
-      var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-        n =
-          t != null
-            ? o("WAWebAsISOCountryCode").asISOCountryCode(
-                o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(t.user),
-              )
-            : null;
-      if (n == null) return { ok: !1, error: "no_country" };
-      var r = await o("WAWebMusicGraphQLRequest").fetchMusicGraphQL({
+      var t = o("WAWebMusicViewerCountry").getMusicViewerCountry();
+      if (t == null) return { ok: !1, error: "no_country" };
+      var n = await o("WAWebMusicGraphQLRequest").fetchMusicGraphQL({
         docId: d,
         project: o("WAWebACSTokenConfig").ACS_PROJECTS.WA_ChatsMusic,
-        variables: h(e, n),
+        variables: h(e, t),
         viaOhai: !1,
       });
-      if (!r.ok) return { ok: !1, error: r.error.type };
-      var a = D(r.data, "xwa_music_picker");
-      return a == null || typeof a != "object"
+      if (!n.ok) return { ok: !1, error: n.error.type };
+      var r = D(n.data, "xwa_music_picker");
+      return r == null || typeof r != "object"
         ? { ok: !1, error: "invalid_response" }
-        : { ok: !0, page: b(a) };
+        : { ok: !0, page: b(r) };
     }
     function h(e, t) {
       var n = e.artistId,

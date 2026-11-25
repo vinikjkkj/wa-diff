@@ -366,7 +366,10 @@ __d(
         signature: [2, e.FLAGS.REQUIRED | e.TYPES.BYTES],
       }),
       (oe.name = "MinosVerifySingleEpochResult"),
-      (oe.internalSpec = { valid: [1, e.FLAGS.REQUIRED | e.TYPES.BOOL] }),
+      (oe.internalSpec = {
+        valid: [1, e.FLAGS.REQUIRED | e.TYPES.BOOL],
+        epochHead: [2, e.TYPES.BYTES],
+      }),
       (ae.name = "MinosThreadIdFromOneToOneThreadInput"),
       (ae.internalSpec = {
         actThreadId: [1, e.FLAGS.REQUIRED | e.TYPES.STRING],
@@ -466,6 +469,7 @@ __d(
         mek: [1, e.FLAGS.REQUIRED | e.TYPES.MESSAGE, fe],
         recipients: [2, e.FLAGS.REPEATED | e.TYPES.MESSAGE, ue],
         conf: [5, e.TYPES.MESSAGE, u],
+        epochRecipientHeads: [7, e.FLAGS.REPEATED | e.TYPES.BYTES],
         mmkSender: [3, e.TYPES.MESSAGE, Le],
         epochSender: [4, e.TYPES.MESSAGE, Re],
         detachedDeviceSender: [6, e.TYPES.MESSAGE, Se],
@@ -566,6 +570,7 @@ __d(
       }),
       (Ae.name = "MandrakeValidateNewMmkResult"),
       (Ae.internalSpec = {
+        mailboxHeadHash: [3, e.TYPES.BYTES],
         valid: [1, e.TYPES.BOOL],
         errorMessage: [2, e.TYPES.STRING],
         __oneofs__: { result: ["valid", "errorMessage"] },

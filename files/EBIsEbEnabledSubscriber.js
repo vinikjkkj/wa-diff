@@ -6,137 +6,86 @@ __d(
     "I64",
     "LSEncryptedBackupsBackupTenancy",
     "LSIntEnum",
-    "Promise",
     "ReQL",
     "WAPubSub",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s,
-      u,
-      c = (function () {
-        function e(e) {
+      u = (function () {
+        function t(e) {
           ((this.$1 = o("WAPubSub").simplePubSub()),
             (this.$4 = e),
             (this.$2 = !1));
         }
-        var t = e.prototype;
+        var n = t.prototype;
         return (
-          (t.initialize = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              ((this.$2 = yield o("EBIsEbEnabled").isEbEnabledLS(
-                this.$4.tables,
-              )),
-                this.$5(this.$4));
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (t.$6 = function (t) {
+          (n.initialize = async function () {
+            ((this.$2 = await o("EBIsEbEnabled").isEbEnabledLS(this.$4.tables)),
+              this.$5(this.$4));
+          }),
+          (n.$6 = function (t) {
             ((this.$2 = t), this.$1.publish(t));
           }),
-          (t.$5 = function (t) {
-            var e = this;
+          (n.$5 = function (n) {
+            var t = this;
             return (
               this.$3 == null &&
                 (this.$3 = o("ReQL")
                   .fromTableAscending(
-                    t.tables.secure_encrypted_backups_client_state,
+                    n.tables.secure_encrypted_backups_client_state,
                   )
                   .take(1)
-                  .subscribe(function (t, n) {
-                    (n.operation === "delete" && e.$6(!1),
-                      (n.operation === "add" || n.operation === "put") &&
-                        (n.value.backupTenancy != null &&
-                        (s || (s = o("I64"))).equal(
-                          n.value.backupTenancy,
-                          (u || (u = o("LSIntEnum"))).ofNumber(
+                  .subscribe(function (n, a) {
+                    (a.operation === "delete" && t.$6(!1),
+                      (a.operation === "add" || a.operation === "put") &&
+                        (a.value.backupTenancy != null &&
+                        (e || (e = o("I64"))).equal(
+                          a.value.backupTenancy,
+                          (s || (s = o("LSIntEnum"))).ofNumber(
                             r("LSEncryptedBackupsBackupTenancy").PRODUCTION,
                           ),
                         )
-                          ? e.$6(!0)
-                          : e.$6(!1)));
+                          ? t.$6(!0)
+                          : t.$6(!1)));
                   })),
               this.$3
             );
           }),
-          (t.subscribe = function (t) {
+          (n.subscribe = function (t) {
             return this.$1.subscribe(t);
           }),
-          (t.isEnabled = function () {
+          (n.isEnabled = function () {
             return this.$2;
           }),
-          e
+          t
         );
       })(),
-      d;
-    function m(e) {
-      return p.apply(this, arguments);
+      c;
+    async function d(e) {
+      if (c != null) return Promise.resolve();
+      ((c = new u(e)), await c.initialize());
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (d != null) return (e || (e = n("Promise"))).resolve();
-          ((d = new c(t)), yield d.initialize());
-        })),
-        p.apply(this, arguments)
-      );
+    async function m() {
+      if (c == null) {
+        var e = await o("EBDeps").getDeps().getLSDB();
+        await d(e);
+      }
+      return c;
     }
-    function _() {
-      return f.apply(this, arguments);
+    async function p(e) {
+      if (c == null) {
+        var t = await o("EBDeps").getDeps().getLSDB();
+        await d(t);
+      }
+      e(c.isEnabled());
+      var n = c.subscribe(e);
+      return n;
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (d == null) {
-            var e = yield o("EBDeps").getDeps().getLSDB();
-            yield m(e);
-          }
-          return d;
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (d == null) {
-            var t = yield o("EBDeps").getDeps().getLSDB();
-            yield m(t);
-          }
-          e(d.isEnabled());
-          var n = d.subscribe(e);
-          return n;
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y() {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (d == null) {
-            var e = yield o("EBDeps").getDeps().getLSDB();
-            yield m(e);
-          }
-          return d.isEnabled();
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    ((l.initIsEbEnabledPubSub = m),
-      (l.isEbEnabledSubscriber = _),
-      (l.subscribeToEbChanges = g),
-      (l.isEBEnabledValueFromSubscriber = y));
+    ((l.initIsEbEnabledPubSub = d),
+      (l.isEbEnabledSubscriber = m),
+      (l.subscribeToEbChanges = p));
   },
   98,
 );

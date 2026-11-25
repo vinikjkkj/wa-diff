@@ -15,14 +15,24 @@ __d(
       });
       return o("WAWebSchemaPeerMessage").getPeerMessageTable().bulkCreate(n);
     }
-    function u(e) {
+    async function u(e) {
+      var t = await o("WAWebSchemaPeerMessage")
+        .getPeerMessageTable()
+        .get(
+          o("WAWebOutgoingPeerMsgKey").buildOutgoingPeerMsgKey(e).toString(),
+        );
+      return t != null;
+    }
+    function c(e) {
       return o("WAWebSchemaPeerMessage")
         .getPeerMessageTable()
         .remove(
           o("WAWebOutgoingPeerMsgKey").buildOutgoingPeerMsgKey(e).toString(),
         );
     }
-    ((l.storePeerMessages = s), (l.deletePeerMessage = u));
+    ((l.storePeerMessages = s),
+      (l.hasPeerMessage = u),
+      (l.deletePeerMessage = c));
   },
   98,
 );

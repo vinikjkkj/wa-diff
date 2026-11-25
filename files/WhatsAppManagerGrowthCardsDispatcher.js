@@ -18,62 +18,67 @@ __d(
         e
       );
     })();
-    function l(e, t, n) {
-      var r = [],
-        o = new Set(),
-        a = t === "AYMTWhatsAppManagerGrowthCardChannel" ? 2 : 1;
-      for (var i of e) {
-        var l, u, c, d, m, p, _;
-        if (!(i == null || typeof i != "object")) {
-          var f =
-              (l = i.client_side_rendering_spec) == null
+    function l(e, t, n, r) {
+      r === void 0 && (r = !0);
+      var o = [],
+        a = new Set(),
+        i = t === "AYMTWhatsAppManagerGrowthCardChannel" ? 2 : 1;
+      for (var l of e) {
+        var u, c, d, m, p, _, f, g;
+        if (!(l == null || typeof l != "object")) {
+          var h =
+              (u = l.client_side_rendering_spec) == null
                 ? void 0
-                : l.client_side_rendering_params,
-            g = i.aymt_data,
-            h = f == null ? void 0 : f.tip_title,
-            y = f == null ? void 0 : f.tip_body,
-            C = f == null ? void 0 : f.tip_image,
-            b =
-              (u = g == null ? void 0 : g.tip_instance_id) != null
-                ? u
-                : g == null
+                : u.client_side_rendering_params,
+            y = l.aymt_data,
+            C = h == null ? void 0 : h.tip_title,
+            b = h == null ? void 0 : h.tip_body,
+            v = h == null ? void 0 : h.tip_image,
+            S =
+              (c = y == null ? void 0 : y.tip_instance_id) != null
+                ? c
+                : y == null
                   ? void 0
-                  : g.tip_id;
+                  : y.tip_id;
           if (
             !(
-              g == null ||
-              typeof b != "string" ||
-              b === "" ||
-              o.has(b) ||
-              !(h instanceof HTMLElement) ||
-              !(y instanceof HTMLElement) ||
+              y == null ||
+              typeof S != "string" ||
+              S === "" ||
+              a.has(S) ||
               !(C instanceof HTMLElement) ||
-              !((c = h.textContent) != null && c.trim()) ||
-              !((d = y.textContent) != null && d.trim())
+              !(b instanceof HTMLElement) ||
+              !(v instanceof HTMLElement) ||
+              !((d = C.textContent) != null && d.trim()) ||
+              !((m = b.textContent) != null && m.trim())
             ) &&
-            (o.add(b),
-            r.push({
-              aymtData: babelHelpers.extends({}, g, {
-                name: (m = i.name) != null ? m : null,
+            (a.add(S),
+            o.push({
+              aymtData: babelHelpers.extends({}, y, {
+                name: (p = l.name) != null ? p : null,
               }),
-              body: y,
-              image: C,
+              body: b,
+              creativeProps:
+                (_ = l.client_side_rendering_spec) == null
+                  ? void 0
+                  : _.client_side_react_props,
+              image: v,
               primaryAction: s(
-                f == null || (p = f.actions) == null ? void 0 : p.primary,
+                h == null || (f = h.actions) == null ? void 0 : f.primary,
                 n,
               ),
               secondaryAction: s(
-                f == null || (_ = f.actions) == null ? void 0 : _.secondary,
+                h == null || (g = h.actions) == null ? void 0 : g.secondary,
                 n,
               ),
-              title: h,
+              title: C,
             }),
-            r.length === a)
+            r && o.length === i)
           )
             break;
         }
       }
-      return r;
+      return o;
     }
     function s(e, t) {
       var n,

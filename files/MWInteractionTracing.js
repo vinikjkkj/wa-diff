@@ -16,7 +16,7 @@ __d(
     var e,
       s,
       u = r("FBLogger")("msgr_web").tags(["msgr_web_interaction_tracing"]),
-      c = R(),
+      c = L(),
       d = new Map(),
       m = new Set(),
       p = new Map();
@@ -33,9 +33,9 @@ __d(
           (o = n == null ? void 0 : n.traceType) != null ? o : "INTERACTION",
       });
       return (
-        b(i, e),
-        v(i),
-        S(i, n == null ? void 0 : n.annotations),
+        v(i, e),
+        S(i),
+        R(i, n == null ? void 0 : n.annotations),
         d.set(a, i),
         a
       );
@@ -46,25 +46,38 @@ __d(
         i = d.get(a);
       if (i == null)
         return (u.event("withSubspan").warn('missing trace: "%s"', a), o());
-      var l = L({ ui_thread: !0 }, n == null ? void 0 : n.annotations);
+      var l = E({ ui_thread: !0 }, n == null ? void 0 : n.annotations);
       return r("MWInteractionTracingWithCallback")(
         "ui." + t,
         { annotations: l, group: e.group },
         o,
         function (e) {
           var t;
-          r("InteractionTracingMetrics").addSubspan(
+          (r("InteractionTracingMetrics").addSubspan(
             i,
             e.name,
             e.kind,
             e.startTime,
             e.endTime,
             (t = e.annotations) != null ? t : {},
-          );
+          ),
+            g(i, e));
         },
       );
     }
-    function g(t, o) {
+    function g(e, t) {
+      var n;
+      if (t.isError) {
+        var o = r("InteractionTracing").getPendingInteractionById(e);
+        (o == null ||
+        (n = o.getTrace()) == null ||
+        (n = n.annotations.int) == null
+          ? void 0
+          : n.isError) !== 1 &&
+          (o == null || o.failTrace(t.name, !1));
+      }
+    }
+    function h(t, o) {
       var a = t.id;
       return m.has(a)
         ? (e || (e = n("Promise"))).resolve()
@@ -81,7 +94,7 @@ __d(
             t.add(n);
           });
     }
-    function h(e, t) {
+    function y(e, t) {
       var n,
         o = e.id,
         a = d.get(o);
@@ -91,27 +104,28 @@ __d(
       }
       for (var i of t) {
         var l;
-        r("InteractionTracingMetrics").addSubspan(
+        (r("InteractionTracingMetrics").addSubspan(
           a,
           i.name,
           i.kind,
           i.startTime + (i.timeOrigin - self.performance.timeOrigin),
           i.endTime + (i.timeOrigin - self.performance.timeOrigin),
           (l = i.annotations) != null ? l : {},
-        );
+        ),
+          g(a, i));
       }
       m.add(o);
       var s = (n = p.get(o)) != null ? n : new Set();
       for (var c of s) c();
     }
-    function y(e, t) {
+    function C(e, t) {
       (t === void 0 && (t = 3e4),
         e != null &&
-          g(e, t).then(function () {
-            return C(e);
+          h(e, t).then(function () {
+            return b(e);
           }));
     }
-    function C(e, t) {
+    function b(e, t) {
       if (e != null) {
         var n = e.id,
           o = d.get(n);
@@ -119,7 +133,7 @@ __d(
           u.event("complete").warn('missing trace: "%s"', n);
           return;
         }
-        (S(o, t == null ? void 0 : t.annotations),
+        (R(o, t == null ? void 0 : t.annotations),
           r("setTimeout")(function () {
             var e = r("InteractionTracing").getPendingInteractionById(o);
             (e == null || e.forceCompleteTrace(),
@@ -129,22 +143,22 @@ __d(
           }, 15e3));
       }
     }
-    function b(e, t) {
+    function v(e, t) {
       (r("InteractionTracingMetrics").addAnnotation(e, "id", t.id),
         r("InteractionTracingMetrics").addAnnotation(
           e,
           "dashboard_url",
-          "https://wmi.internalmeta.com/mic-trace?id=" + t.id,
+          "https://msgr-web.internalmeta.com/tracing?id=" + t.id,
         ));
     }
-    function v(e) {
+    function S(e) {
       r("InteractionTracingMetrics").addAnnotationInt(
         e,
         "uptime_in_seconds",
-        R() - c,
+        L() - c,
       );
     }
-    function S(e, t) {
+    function R(e, t) {
       if (t != null)
         for (var n of Object.entries(t)) {
           var o = n[0],
@@ -154,20 +168,20 @@ __d(
             : r("InteractionTracingMetrics").addMetadata(e, o, a);
         }
     }
-    function R() {
+    function L() {
       return Math.round((s || (s = r("performanceNow")))() / 1e3);
     }
-    function L(e, t) {
+    function E(e, t) {
       return babelHelpers.extends({}, t, e);
     }
-    var E = {
-      applyRecordedSubspans: h,
-      complete: C,
-      completeAfterWorkerCompletes: y,
+    var k = {
+      applyRecordedSubspans: y,
+      complete: b,
+      completeAfterWorkerCompletes: C,
       start: _,
       trace: f,
     };
-    l.default = E;
+    l.default = k;
   },
   98,
 );

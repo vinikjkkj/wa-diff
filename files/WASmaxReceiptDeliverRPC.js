@@ -54,7 +54,7 @@ __d(
         : l;
     }
     function u(e) {
-      var t = p(e);
+      var t = _(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "DeliverMessageAggregatedStyle",
@@ -66,41 +66,47 @@ __d(
           name: "DeliverAggregatedByMessageIdStyle",
           value: n.value,
         });
-      var r = g(e);
+      var r = h(e);
       if (r.success)
         return o("WAResultOrError").makeResult({
           name: "DeliverSenderAggregatedStyleSenderType",
           value: r.value,
         });
-      var a = h(e);
+      var a = y(e);
       if (a.success)
         return o("WAResultOrError").makeResult({
           name: "DeliverSenderAggregatedStyleViewType",
           value: a.value,
         });
-      var i = f(e);
+      var i = g(e);
       if (i.success)
         return o("WAResultOrError").makeResult({
           name: "DeliverSenderAggregatedStyleNewsletterSelfType",
           value: i.value,
         });
-      var l = _(e);
+      var l = f(e);
       if (l.success)
         return o("WAResultOrError").makeResult({
           name: "DeliverSenderAggregatedStyle",
           value: l.value,
         });
-      var s = C(e);
+      var s = b(e);
       if (s.success)
         return o("WAResultOrError").makeResult({
           name: "DeliverSingleStyleWithRecipient",
           value: s.value,
         });
-      var u = y(e);
-      return u.success
+      var u = p(e);
+      if (u.success)
+        return o("WAResultOrError").makeResult({
+          name: "DeliverBotUnavailableStyle",
+          value: u.value,
+        });
+      var c = C(e);
+      return c.success
         ? o("WAResultOrError").makeResult({
             name: "DeliverSingleStyle",
-            value: u.value,
+            value: c.value,
           })
         : o("WASmaxParseUtils").errorMixinDisjunction(
             e,
@@ -112,9 +118,10 @@ __d(
               "SenderAggregatedStyleNewsletterSelfType",
               "SenderAggregatedStyle",
               "SingleStyleWithRecipient",
+              "BotUnavailableStyle",
               "SingleStyle",
             ],
-            [t, n, r, a, i, l, s, u],
+            [t, n, r, a, i, l, s, u, c],
           );
     }
     function c(e) {
@@ -138,7 +145,7 @@ __d(
         e,
         ["from"],
         o("WASmaxInReceiptEnums")
-          .DEVICEJID_BROADCASTJID_DEVICEJID_GROUPJID_INTEROPDEVICEJID_INTEROPDEVICEJID_NEWSLETTERJID_STATUSJID,
+          .DEVICEJID_BROADCASTJID_DEVICEJID_GROUPJID_INTEROPDEVICEJID_INTEROPDEVICEJID_LIDUSERJID_NEWSLETTERJID_STATUSJID_USERJID,
       );
       if (!n.success)
         throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(n.error);
@@ -185,10 +192,10 @@ __d(
         o("WASmaxInReceiptEnums").BROADCASTJID_GROUPJID_NEWSLETTERJID_STATUSJID,
       );
       if (!n.success) return n;
-      var r = me(e),
-        a = F(e);
+      var r = he(e),
+        a = O(e);
       if (!a.success) return a;
-      var i = ge(e);
+      var i = ve(e);
       return o("WAResultOrError").makeResult(
         babelHelpers.extends(
           { from: n.value, recipientMixin: r.success ? r.value : null },
@@ -203,34 +210,56 @@ __d(
       var n = o("WASmaxParseJid").attrJidEnum(
         e,
         "from",
-        o("WASmaxInReceiptEnums").BROADCASTJID_GROUPJID_NEWSLETTERJID_STATUSJID,
+        o("WASmaxInReceiptEnums").GROUPJID_LIDUSERJID_USERJID,
       );
       if (!n.success) return n;
-      var r = me(e),
-        a = S(e);
-      if (!a.success) return a;
-      var i = R(e);
-      return o("WAResultOrError").makeResult(
-        babelHelpers.extends(
-          { from: n.value, recipientMixin: r.success ? r.value : null },
-          a.value,
-          { messageAggregatedStyleReceiptType: i.success ? i.value : null },
-        ),
-      );
+      var r = o("WASmaxInReceiptSingleMixin").parseSingleMixin(e);
+      if (!r.success) return r;
+      var a = z(e);
+      return a.success
+        ? o("WAResultOrError").makeResult(
+            babelHelpers.extends({ from: n.value }, r.value, a.value),
+          )
+        : a;
     }
     function _(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
-      var n = me(e),
-        r = k(e);
+      var n = o("WASmaxParseJid").attrJidEnum(
+        e,
+        "from",
+        o("WASmaxInReceiptEnums").BROADCASTJID_GROUPJID_NEWSLETTERJID_STATUSJID,
+      );
+      if (!n.success) return n;
+      var r = he(e),
+        a = R(e);
+      if (!a.success) return a;
+      var i = ve(e),
+        l = L(e);
+      return o("WAResultOrError").makeResult(
+        babelHelpers.extends(
+          { from: n.value, recipientMixin: r.success ? r.value : null },
+          a.value,
+          {
+            statusClassMixin: i.success ? i.value : null,
+            messageAggregatedStyleReceiptType: l.success ? l.value : null,
+          },
+        ),
+      );
+    }
+    function f(e) {
+      var t = o("WASmaxParseUtils").assertTag(e, "receipt");
+      if (!t.success) return t;
+      var n = he(e),
+        r = I(e);
       if (!r.success) return r;
-      var a = J(e),
-        i = U(e),
-        l = q(e),
-        s = Z(e),
-        u = D(e);
+      var a = ne(e),
+        i = V(e),
+        l = U(e),
+        s = re(e),
+        u = x(e);
       if (!u.success) return u;
-      var c = x(e);
+      var c = $(e);
       return o("WAResultOrError").makeResult(
         babelHelpers.extends(
           { recipientMixin: n.success ? n.value : null },
@@ -246,14 +275,14 @@ __d(
         ),
       );
     }
-    function f(e) {
+    function g(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
-      var n = le(e);
+      var n = me(e);
       if (!n.success) return n;
-      var r = k(e);
+      var r = I(e);
       if (!r.success) return r;
-      var a = L(e);
+      var a = E(e);
       return a.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, n.value, r.value, {
@@ -262,14 +291,14 @@ __d(
           )
         : a;
     }
-    function g(e) {
+    function h(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
-      var n = k(e);
+      var n = I(e);
       if (!n.success) return n;
-      var r = fe(e);
+      var r = be(e);
       if (!r.success) return r;
-      var a = b(e);
+      var a = v(e);
       return a.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, n.value, r.value, {
@@ -279,34 +308,34 @@ __d(
           )
         : a;
     }
-    function h(e) {
+    function y(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
-      var n = le(e);
+      var n = me(e);
       if (!n.success) return n;
-      var r = T(e);
+      var r = D(e);
       if (!r.success) return r;
-      var a = w(e);
+      var a = A(e);
       return a.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, n.value, r.value, a.value),
           )
         : a;
     }
-    function y(e) {
+    function C(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
-      var n = me(e),
+      var n = he(e),
         r = o("WASmaxInReceiptSingleMixin").parseSingleMixin(e);
       if (!r.success) return r;
-      var a = J(e),
-        i = U(e),
-        l = O(e),
-        s = q(e),
-        u = Z(e),
-        c = P(e);
+      var a = ne(e),
+        i = V(e),
+        l = B(e),
+        s = U(e),
+        u = re(e),
+        c = N(e);
       if (!c.success) return c;
-      var d = N(e);
+      var d = M(e);
       return o("WAResultOrError").makeResult(
         babelHelpers.extends(
           { recipientMixin: n.success ? n.value : null },
@@ -323,16 +352,16 @@ __d(
         ),
       );
     }
-    function C(e) {
+    function b(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxInReceiptSingleMixin").parseSingleMixin(e);
       if (!n.success) return n;
-      var r = J(e),
-        a = Z(e),
-        i = b(e);
+      var r = ne(e),
+        a = re(e),
+        i = v(e);
       if (!i.success) return i;
-      var l = $(e);
+      var l = P(e);
       return l.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, n.value, {
@@ -347,32 +376,32 @@ __d(
           )
         : l;
     }
-    function b(e) {
-      var t = ie(e);
+    function v(e) {
+      var t = de(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "IndividualWithRecipient",
           value: t.value,
         });
-      var n = H(e);
+      var n = j(e);
       if (n.success)
         return o("WAResultOrError").makeResult({
           name: "DeliverGroupStatus",
           value: n.value,
         });
-      var r = re(e);
+      var r = se(e);
       if (r.success)
         return o("WAResultOrError").makeResult({
           name: "Group",
           value: r.value,
         });
-      var a = ee(e);
+      var a = ae(e);
       if (a.success)
         return o("WAResultOrError").makeResult({
           name: "DeliverStatus",
           value: a.value,
         });
-      var i = W(e);
+      var i = q(e);
       return i.success
         ? o("WAResultOrError").makeResult({ name: "Broadcast", value: i.value })
         : o("WASmaxParseUtils").errorMixinDisjunction(
@@ -387,7 +416,7 @@ __d(
             [t, n, r, a, i],
           );
     }
-    function v(e) {
+    function S(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "user");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrDeviceJid(e, "jid");
@@ -414,7 +443,7 @@ __d(
           })
         : i;
     }
-    function S(e) {
+    function R(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "participants");
@@ -428,7 +457,7 @@ __d(
         "user",
         1,
         1024,
-        v,
+        S,
       );
       return i.success
         ? o("WAResultOrError").makeResult({
@@ -438,44 +467,44 @@ __d(
           })
         : i;
     }
-    function R(e) {
-      var t = fe(e);
+    function L(e) {
+      var t = be(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "SenderType",
           value: t.value,
         });
-      var n = oe(e);
+      var n = ue(e);
       if (n.success)
         return o("WAResultOrError").makeResult({
           name: "InactiveType",
           value: n.value,
         });
-      var r = de(e);
+      var r = ge(e);
       if (r.success)
         return o("WAResultOrError").makeResult({
           name: "ReadType",
           value: r.value,
         });
-      var a = ce(e);
+      var a = fe(e);
       if (a.success)
         return o("WAResultOrError").makeResult({
           name: "ReadSelfType",
           value: a.value,
         });
-      var i = ue(e);
+      var i = _e(e);
       if (i.success)
         return o("WAResultOrError").makeResult({
           name: "PlayedType",
           value: i.value,
         });
-      var l = se(e);
+      var l = pe(e);
       if (l.success)
         return o("WAResultOrError").makeResult({
           name: "PlayedSelfType",
           value: l.value,
         });
-      var s = M(e);
+      var s = w(e);
       return s.success
         ? o("WAResultOrError").makeResult({
             name: "UnknownType",
@@ -495,14 +524,14 @@ __d(
             [t, n, r, a, i, l, s],
           );
     }
-    function L(e) {
-      var t = ce(e);
+    function E(e) {
+      var t = fe(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "ReadSelfType",
           value: t.value,
         });
-      var n = se(e);
+      var n = pe(e);
       return n.success
         ? o("WAResultOrError").makeResult({
             name: "PlayedSelfType",
@@ -514,7 +543,7 @@ __d(
             [t, n],
           );
     }
-    function E(e) {
+    function k(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "item");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrStanzaId(e, "id");
@@ -527,7 +556,7 @@ __d(
         deprecatedEditMixin: r.success ? r.value : null,
       });
     }
-    function k(e) {
+    function I(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "list");
@@ -539,13 +568,13 @@ __d(
         "item",
         0,
         128e3,
-        E,
+        k,
       );
       return a.success
         ? o("WAResultOrError").makeResult({ id: r.value, listItem: a.value })
         : a;
     }
-    function I(e) {
+    function T(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "item");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrIntRange(
@@ -558,7 +587,7 @@ __d(
         ? o("WAResultOrError").makeResult({ serverId: n.value })
         : n;
     }
-    function T(e) {
+    function D(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "list");
@@ -570,38 +599,38 @@ __d(
         "item",
         0,
         128e3,
-        I,
+        T,
       );
       return a.success
         ? o("WAResultOrError").makeResult({ id: r.value, listItem: a.value })
         : a;
     }
-    function D(e) {
-      var t = ae(e);
+    function x(e) {
+      var t = ce(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "Individual",
           value: t.value,
         });
-      var n = H(e);
+      var n = j(e);
       if (n.success)
         return o("WAResultOrError").makeResult({
           name: "DeliverGroupStatus",
           value: n.value,
         });
-      var r = re(e);
+      var r = se(e);
       if (r.success)
         return o("WAResultOrError").makeResult({
           name: "Group",
           value: r.value,
         });
-      var a = ee(e);
+      var a = ae(e);
       if (a.success)
         return o("WAResultOrError").makeResult({
           name: "DeliverStatus",
           value: a.value,
         });
-      var i = W(e);
+      var i = q(e);
       return i.success
         ? o("WAResultOrError").makeResult({ name: "Broadcast", value: i.value })
         : o("WASmaxParseUtils").errorMixinDisjunction(
@@ -610,44 +639,44 @@ __d(
             [t, n, r, a, i],
           );
     }
-    function x(e) {
-      var t = oe(e);
+    function $(e) {
+      var t = ue(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "InactiveType",
           value: t.value,
         });
-      var n = de(e);
+      var n = ge(e);
       if (n.success)
         return o("WAResultOrError").makeResult({
           name: "ReadType",
           value: n.value,
         });
-      var r = ce(e);
+      var r = fe(e);
       if (r.success)
         return o("WAResultOrError").makeResult({
           name: "ReadSelfType",
           value: r.value,
         });
-      var a = ue(e);
+      var a = _e(e);
       if (a.success)
         return o("WAResultOrError").makeResult({
           name: "PlayedType",
           value: a.value,
         });
-      var i = se(e);
+      var i = pe(e);
       if (i.success)
         return o("WAResultOrError").makeResult({
           name: "PlayedSelfType",
           value: i.value,
         });
-      var l = te(e);
+      var l = ie(e);
       if (l.success)
         return o("WAResultOrError").makeResult({
           name: "DeprecatedDeliveryType",
           value: l.value,
         });
-      var s = M(e);
+      var s = w(e);
       return s.success
         ? o("WAResultOrError").makeResult({
             name: "UnknownType",
@@ -667,14 +696,14 @@ __d(
             [t, n, r, a, i, l, s],
           );
     }
-    function $(e) {
-      var t = fe(e);
+    function P(e) {
+      var t = be(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "SenderType",
           value: t.value,
         });
-      var n = pe(e);
+      var n = ye(e);
       return n.success
         ? o("WAResultOrError").makeResult({ name: "Retry", value: n.value })
         : o("WASmaxParseUtils").errorMixinDisjunction(
@@ -683,38 +712,38 @@ __d(
             [t, n],
           );
     }
-    function P(e) {
-      var t = ae(e);
+    function N(e) {
+      var t = oe(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
-          name: "Individual",
+          name: "DeliverSingleIndividual",
           value: t.value,
         });
-      var n = H(e);
+      var n = j(e);
       if (n.success)
         return o("WAResultOrError").makeResult({
           name: "DeliverGroupStatus",
           value: n.value,
         });
-      var r = re(e);
+      var r = se(e);
       if (r.success)
         return o("WAResultOrError").makeResult({
           name: "Group",
           value: r.value,
         });
-      var a = ee(e);
+      var a = ae(e);
       if (a.success)
         return o("WAResultOrError").makeResult({
           name: "DeliverStatus",
           value: a.value,
         });
-      var i = W(e);
+      var i = q(e);
       if (i.success)
         return o("WAResultOrError").makeResult({
           name: "Broadcast",
           value: i.value,
         });
-      var l = le(e);
+      var l = me(e);
       return l.success
         ? o("WAResultOrError").makeResult({
             name: "NewsletterDeliver",
@@ -723,7 +752,7 @@ __d(
         : o("WASmaxParseUtils").errorMixinDisjunction(
             e,
             [
-              "Individual",
+              "SingleIndividual",
               "GroupStatus",
               "Group",
               "Status",
@@ -733,7 +762,7 @@ __d(
             [t, n, r, a, i, l],
           );
     }
-    function N(e) {
+    function M(e) {
       var t = o(
         "WASmaxInReceiptServerErrorTypeMixin",
       ).parseServerErrorTypeMixin(e);
@@ -742,65 +771,71 @@ __d(
           name: "ServerErrorType",
           value: t.value,
         });
-      var n = oe(e);
+      var n = ue(e);
       if (n.success)
         return o("WAResultOrError").makeResult({
           name: "InactiveType",
           value: n.value,
         });
-      var r = de(e);
+      var r = ge(e);
       if (r.success)
         return o("WAResultOrError").makeResult({
           name: "ReadType",
           value: r.value,
         });
-      var a = ce(e);
+      var a = fe(e);
       if (a.success)
         return o("WAResultOrError").makeResult({
           name: "ReadSelfType",
           value: a.value,
         });
-      var i = ue(e);
+      var i = _e(e);
       if (i.success)
         return o("WAResultOrError").makeResult({
           name: "PlayedType",
           value: i.value,
         });
-      var l = se(e);
+      var l = pe(e);
       if (l.success)
         return o("WAResultOrError").makeResult({
           name: "PlayedSelfType",
           value: l.value,
         });
-      var s = pe(e);
+      var s = ye(e);
       if (s.success)
         return o("WAResultOrError").makeResult({
           name: "Retry",
           value: s.value,
         });
-      var u = G(e);
+      var u = Q(e);
       if (u.success)
         return o("WAResultOrError").makeResult({
           name: "DeliverLIDFeatureIncapableType",
           value: u.value,
         });
-      var c = V(e);
+      var c = H(e);
       if (c.success)
         return o("WAResultOrError").makeResult({
           name: "DeliverBizType",
           value: c.value,
         });
-      var d = ne(e);
+      var d = le(e);
       if (d.success)
         return o("WAResultOrError").makeResult({
           name: "EngagedType",
           value: d.value,
         });
-      var m = M(e);
-      return m.success
+      var m = K(e);
+      if (m.success)
+        return o("WAResultOrError").makeResult({
+          name: "DeliverIntegrityDropErrorType",
+          value: m.value,
+        });
+      var p = w(e);
+      return p.success
         ? o("WAResultOrError").makeResult({
             name: "UnknownType",
-            value: m.value,
+            value: p.value,
           })
         : o("WASmaxParseUtils").errorMixinDisjunction(
             e,
@@ -815,18 +850,19 @@ __d(
               "LIDFeatureIncapableType",
               "BizType",
               "EngagedType",
+              "IntegrityDropErrorType",
               "UnknownType",
             ],
-            [t, n, r, a, i, l, s, u, c, d, m],
+            [t, n, r, a, i, l, s, u, c, d, m, p],
           );
     }
-    function M(e) {
+    function w(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrString(e, "type");
       return n.success ? o("WAResultOrError").makeResult({ type: n.value }) : n;
     }
-    function w(e) {
+    function A(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -837,7 +873,7 @@ __d(
       );
       return n.success ? o("WAResultOrError").makeResult({ type: n.value }) : n;
     }
-    function A(e) {
+    function F(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "user");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrDeviceJid(e, "jid");
@@ -876,7 +912,7 @@ __d(
           })
         : l;
     }
-    function F(e) {
+    function O(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "participants");
@@ -890,7 +926,7 @@ __d(
         "user",
         1,
         1024,
-        A,
+        F,
       );
       return i.success
         ? o("WAResultOrError").makeResult({
@@ -900,20 +936,20 @@ __d(
           })
         : i;
     }
-    function O(e) {
+    function B(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "bot");
       if (!n.success) return n;
-      var r = ye(n.value);
+      var r = Re(n.value);
       if (!r.success) return r;
-      var a = B(n.value);
+      var a = W(n.value);
       return o("WAResultOrError").makeResult({
         botBotClientMultiThreadIDMixin: r.value,
         botBotConversationThreadIDMixin: a.success ? a.value : null,
       });
     }
-    function B(e) {
+    function W(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "bot");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrString(e, "conversation_thread_id");
@@ -921,7 +957,7 @@ __d(
         ? o("WAResultOrError").makeResult({ conversationThreadId: n.value })
         : n;
     }
-    function W(e) {
+    function q(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrBroadcastJid(e, "from");
@@ -934,7 +970,7 @@ __d(
           })
         : r;
     }
-    function q(e) {
+    function U(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "biz");
@@ -953,7 +989,7 @@ __d(
           })
         : l;
     }
-    function U(e) {
+    function V(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "biz");
@@ -986,15 +1022,70 @@ __d(
           })
         : i;
     }
-    function V(e) {
+    function H(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
-      var n = he(e);
+      var n = Se(e);
       return n.success
         ? o("WAResultOrError").makeResult({ bizErrorType: n.value })
         : n;
     }
-    function H(e) {
+    function G(e) {
+      var t = o("WASmaxParseUtils").assertTag(e, "to");
+      if (!t.success) return t;
+      var n = o("WASmaxParseJid").attrJidEnum(
+        e,
+        "jid",
+        o("WASmaxInReceiptEnums").DEVICEJID_USERJID_DEVICEJID_LIDUSERJID,
+      );
+      return n.success ? o("WAResultOrError").makeResult({ jid: n.value }) : n;
+    }
+    function z(e) {
+      var t = o("WASmaxParseUtils").assertTag(e, "receipt");
+      if (!t.success) return t;
+      var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
+      if (!n.success) return n;
+      var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "bot");
+      if (!r.success) return r;
+      var a = o("WASmaxParseUtils").literal(
+        o("WASmaxParseUtils").attrString,
+        e,
+        "type",
+        "error",
+      );
+      if (!a.success) return a;
+      var i = o("WASmaxParseUtils").literal(
+        o("WASmaxParseUtils").attrString,
+        n.value,
+        "type",
+        "bot-unavailable",
+      );
+      if (!i.success) return i;
+      var l = o("WASmaxParseUtils").optional(
+        o("WASmaxParseUtils").attrIntRange,
+        r.value,
+        "count",
+        1,
+        10,
+      );
+      if (!l.success) return l;
+      var s = o("WASmaxParseUtils").mapChildrenWithTag(
+        r.value,
+        "to",
+        1,
+        1024,
+        G,
+      );
+      return s.success
+        ? o("WAResultOrError").makeResult({
+            type: a.value,
+            errorType: i.value,
+            botCount: l.value,
+            botTo: s.value,
+          })
+        : s;
+    }
+    function j(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrGroupJid(e, "from");
@@ -1007,7 +1098,7 @@ __d(
         "participant_username",
       );
       if (!a.success) return a;
-      var i = ge(e);
+      var i = ve(e);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends(
@@ -1021,7 +1112,29 @@ __d(
           )
         : i;
     }
-    function G(e) {
+    function K(e) {
+      var t = o("WASmaxParseUtils").assertTag(e, "receipt");
+      if (!t.success) return t;
+      var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
+      if (!n.success) return n;
+      var r = o("WASmaxParseUtils").literal(
+        o("WASmaxParseUtils").attrString,
+        e,
+        "type",
+        "error",
+      );
+      if (!r.success) return r;
+      var a = o("WASmaxParseUtils").literal(
+        o("WASmaxParseUtils").attrString,
+        n.value,
+        "type",
+        "integrity-drop",
+      );
+      return a.success
+        ? o("WAResultOrError").makeResult({ type: r.value, errorType: a.value })
+        : a;
+    }
+    function Q(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -1040,7 +1153,7 @@ __d(
         "lid",
       );
       if (!a.success) return a;
-      var i = ve(e);
+      var i = Te(e);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends(
@@ -1050,7 +1163,7 @@ __d(
           )
         : i;
     }
-    function z(e) {
+    function X(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "delivery_context");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrStringEnum(
@@ -1062,7 +1175,7 @@ __d(
         ? o("WAResultOrError").makeResult({ optimizationGoal: n.value })
         : n;
     }
-    function j(e) {
+    function Y(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "source_url");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").contentString(e);
@@ -1070,10 +1183,10 @@ __d(
         ? o("WAResultOrError").makeResult({ elementValue: n.value })
         : n;
     }
-    function K(e) {
+    function J(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "referral");
       if (!t.success) return t;
-      var n = o("WASmaxParseUtils").optionalChildWithTag(e, "source_url", j);
+      var n = o("WASmaxParseUtils").optionalChildWithTag(e, "source_url", Y);
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").optional(
         o("WASmaxParseUtils").attrString,
@@ -1087,17 +1200,17 @@ __d(
           })
         : r;
     }
-    function Q(e) {
+    function Z(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "origin");
       if (!t.success) return t;
-      var n = o("WASmaxParseUtils").optionalChildWithTag(e, "referral", K);
+      var n = o("WASmaxParseUtils").optionalChildWithTag(e, "referral", J);
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").attrString(e, "type");
       return r.success
         ? o("WAResultOrError").makeResult({ type: r.value, referral: n.value })
         : r;
     }
-    function X(e) {
+    function ee(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "pricing");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").optional(
@@ -1118,18 +1231,18 @@ __d(
           })
         : r;
     }
-    function Y(e) {
+    function te(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "item");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").optionalChildWithTag(
         e,
         "delivery_context",
-        z,
+        X,
       );
       if (!n.success) return n;
-      var r = o("WASmaxParseUtils").optionalChildWithTag(e, "origin", Q);
+      var r = o("WASmaxParseUtils").optionalChildWithTag(e, "origin", Z);
       if (!r.success) return r;
-      var a = o("WASmaxParseUtils").optionalChildWithTag(e, "pricing", X);
+      var a = o("WASmaxParseUtils").optionalChildWithTag(e, "pricing", ee);
       if (!a.success) return a;
       var i = o("WASmaxParseUtils").attrStanzaId(e, "id");
       if (!i.success) return i;
@@ -1174,7 +1287,7 @@ __d(
           })
         : d;
     }
-    function J(e) {
+    function ne(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "biz");
@@ -1189,13 +1302,13 @@ __d(
         "item",
         0,
         128e3,
-        Y,
+        te,
       );
       return a.success
         ? o("WAResultOrError").makeResult({ bizPaidMessagingItem: a.value })
         : a;
     }
-    function Z(e) {
+    function re(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrUserJid(e, "sender_pn");
@@ -1203,7 +1316,19 @@ __d(
         ? o("WAResultOrError").makeResult({ senderPn: n.value })
         : n;
     }
-    function ee(e) {
+    function oe(e) {
+      var t = o("WASmaxParseUtils").assertTag(e, "receipt");
+      if (!t.success) return t;
+      var n = ce(e);
+      if (!n.success) return n;
+      var r = ve(e);
+      return o("WAResultOrError").makeResult(
+        babelHelpers.extends({}, n.value, {
+          statusClassMixin: r.success ? r.value : null,
+        }),
+      );
+    }
+    function ae(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrStatusJid(e, "from");
@@ -1222,7 +1347,7 @@ __d(
         "participant_username",
       );
       if (!i.success) return i;
-      var l = ge(e);
+      var l = ve(e);
       return o("WAResultOrError").makeResult({
         from: n.value,
         participant: r.value,
@@ -1231,7 +1356,7 @@ __d(
         statusClassMixin: l.success ? l.value : null,
       });
     }
-    function te(e) {
+    function ie(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrStringEnum(
@@ -1241,7 +1366,7 @@ __d(
       );
       return n.success ? o("WAResultOrError").makeResult({ type: n.value }) : n;
     }
-    function ne(e) {
+    function le(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "biz");
@@ -1255,7 +1380,7 @@ __d(
       if (!r.success) return r;
       var a = o("WASmaxParseUtils").attrString(n.value, "value");
       if (!a.success) return a;
-      var i = _e(n.value);
+      var i = Ce(n.value);
       return i.success
         ? o("WAResultOrError").makeResult({
             type: r.value,
@@ -1264,7 +1389,7 @@ __d(
           })
         : i;
     }
-    function re(e) {
+    function se(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrGroupJid(e, "from");
@@ -1275,14 +1400,14 @@ __d(
         o("WASmaxInReceiptEnums").DEVICEJID_DEVICEJID_USERJID_USERJID,
       );
       if (!r.success) return r;
-      var a = Ce(e);
+      var a = Le(e);
       return o("WAResultOrError").makeResult({
         from: n.value,
         participant: r.value,
         botIsLIDFlagMixin: a.success ? a.value : null,
       });
     }
-    function oe(e) {
+    function ue(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -1293,7 +1418,7 @@ __d(
       );
       return n.success ? o("WAResultOrError").makeResult({ type: n.value }) : n;
     }
-    function ae(e) {
+    function ce(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrJidEnum(
@@ -1310,40 +1435,40 @@ __d(
         o("WASmaxInReceiptEnums").USERJID_USERJID,
       );
       if (!r.success) return r;
-      var a = me(e);
+      var a = he(e);
       return o("WAResultOrError").makeResult({
         from: n.value,
         participant: r.value,
         recipientMixin: a.success ? a.value : null,
       });
     }
-    function ie(e) {
+    function de(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrDeviceJid(e, "from");
       if (!n.success) return n;
-      var r = me(e);
+      var r = he(e);
       return r.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({ from: n.value }, r.value),
           )
         : r;
     }
-    function le(e) {
+    function me(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrNewsletterJid(e, "from");
       if (!n.success) return n;
       var r = o("WASmaxParseJid").attrDeviceJid(e, "participant");
       if (!r.success) return r;
-      var a = ge(e);
+      var a = ve(e);
       return o("WAResultOrError").makeResult({
         from: n.value,
         participant: r.value,
         statusClassMixin: a.success ? a.value : null,
       });
     }
-    function se(e) {
+    function pe(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -1354,7 +1479,7 @@ __d(
       );
       return n.success ? o("WAResultOrError").makeResult({ type: n.value }) : n;
     }
-    function ue(e) {
+    function _e(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -1365,7 +1490,7 @@ __d(
       );
       return n.success ? o("WAResultOrError").makeResult({ type: n.value }) : n;
     }
-    function ce(e) {
+    function fe(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -1382,11 +1507,22 @@ __d(
         15778656e8,
         41024736e8,
       );
-      return r.success
-        ? o("WAResultOrError").makeResult({ type: n.value, sts: r.value })
-        : r;
+      if (!r.success) return r;
+      var a = o("WASmaxParseUtils").optional(
+        o("WASmaxParseUtils").attrStringEnum,
+        e,
+        "subtype",
+        o("WASmaxInReceiptEnums").ENUM_MANUAL_ORGANIC,
+      );
+      return a.success
+        ? o("WAResultOrError").makeResult({
+            type: n.value,
+            sts: r.value,
+            subtype: a.value,
+          })
+        : a;
     }
-    function de(e) {
+    function ge(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -1403,11 +1539,22 @@ __d(
         15778656e8,
         41024736e8,
       );
-      return r.success
-        ? o("WAResultOrError").makeResult({ type: n.value, sts: r.value })
-        : r;
+      if (!r.success) return r;
+      var a = o("WASmaxParseUtils").optional(
+        o("WASmaxParseUtils").attrStringEnum,
+        e,
+        "subtype",
+        o("WASmaxInReceiptEnums").ENUM_MANUAL_ORGANIC,
+      );
+      return a.success
+        ? o("WAResultOrError").makeResult({
+            type: n.value,
+            sts: r.value,
+            subtype: a.value,
+          })
+        : a;
     }
-    function me(e) {
+    function he(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrJidEnum(
@@ -1419,7 +1566,7 @@ __d(
         ? o("WAResultOrError").makeResult({ recipient: n.value })
         : n;
     }
-    function pe(e) {
+    function ye(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxInReceiptRetryTypeMixin").parseRetryTypeMixin(e);
@@ -1435,7 +1582,7 @@ __d(
         }),
       );
     }
-    function _e(e) {
+    function Ce(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "biz");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrStringEnum(
@@ -1448,7 +1595,7 @@ __d(
         ? o("WAResultOrError").makeResult({ source: n.value })
         : n;
     }
-    function fe(e) {
+    function be(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -1459,7 +1606,7 @@ __d(
       );
       return n.success ? o("WAResultOrError").makeResult({ type: n.value }) : n;
     }
-    function ge(e) {
+    function ve(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -1472,43 +1619,50 @@ __d(
         ? o("WAResultOrError").makeResult({ class: n.value })
         : n;
     }
-    function he(e) {
-      var t = be(e);
+    function Se(e) {
+      var t = ke(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
-          name: "DeliverBizFeatureIncapableTypeWithReason",
+          name: "DeliverRestrictedCountryNonMemberErrorType",
           value: t.value,
         });
-      var n = ve(e);
+      var n = Ee(e);
       if (n.success)
         return o("WAResultOrError").makeResult({
-          name: "DeliverFeatureIncapableErrorType",
+          name: "DeliverBizFeatureIncapableTypeWithReason",
           value: n.value,
         });
-      var r = o("WASmaxInReceiptHSMErrorTypeMixin").parseHSMErrorTypeMixin(e);
+      var r = Te(e);
       if (r.success)
         return o("WAResultOrError").makeResult({
-          name: "HSMErrorType",
+          name: "DeliverFeatureIncapableErrorType",
           value: r.value,
         });
-      var a = Se(e);
-      return a.success
+      var a = o("WASmaxInReceiptHSMErrorTypeMixin").parseHSMErrorTypeMixin(e);
+      if (a.success)
+        return o("WAResultOrError").makeResult({
+          name: "HSMErrorType",
+          value: a.value,
+        });
+      var i = Ie(e);
+      return i.success
         ? o("WAResultOrError").makeResult({
             name: "OrderStatusErrorType",
-            value: a.value,
+            value: i.value,
           })
         : o("WASmaxParseUtils").errorMixinDisjunction(
             e,
             [
+              "RestrictedCountryNonMemberErrorType",
               "BizFeatureIncapableTypeWithReason",
               "FeatureIncapableErrorType",
               "HSMErrorType",
               "OrderStatusErrorType",
             ],
-            [t, n, r, a],
+            [t, n, r, a, i],
           );
     }
-    function ye(e) {
+    function Re(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "bot");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrString(e, "client_thread_id");
@@ -1516,7 +1670,7 @@ __d(
         ? o("WAResultOrError").makeResult({ clientThreadId: n.value })
         : n;
     }
-    function Ce(e) {
+    function Le(e) {
       var t = o("WASmaxParseUtils").literal(
         o("WASmaxParseUtils").attrString,
         e,
@@ -1527,43 +1681,40 @@ __d(
         ? o("WAResultOrError").makeResult({ isLid: t.value })
         : t;
     }
-    function be(e) {
+    function Ee(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "biz");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").attrString(n.value, "reason");
       if (!r.success) return r;
-      var a = ve(e);
+      var a = Te(e);
       return a.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({ bizReason: r.value }, a.value),
           )
         : a;
     }
-    function ve(e) {
+    function ke(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
-      var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
+      var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "biz");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").literal(
         o("WASmaxParseUtils").attrString,
-        e,
-        "type",
-        "error",
+        n.value,
+        "reason",
+        "restricted_country_non_member",
       );
       if (!r.success) return r;
-      var a = o("WASmaxParseUtils").literal(
-        o("WASmaxParseUtils").attrString,
-        n.value,
-        "type",
-        "feature-incapable",
-      );
+      var a = Te(e);
       return a.success
-        ? o("WAResultOrError").makeResult({ type: r.value, errorType: a.value })
+        ? o("WAResultOrError").makeResult(
+            babelHelpers.extends({ bizReason: r.value }, a.value),
+          )
         : a;
     }
-    function Se(e) {
+    function Ie(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "receipt");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -1597,80 +1748,31 @@ __d(
           })
         : l;
     }
+    function Te(e) {
+      var t = o("WASmaxParseUtils").assertTag(e, "receipt");
+      if (!t.success) return t;
+      var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
+      if (!n.success) return n;
+      var r = o("WASmaxParseUtils").literal(
+        o("WASmaxParseUtils").attrString,
+        e,
+        "type",
+        "error",
+      );
+      if (!r.success) return r;
+      var a = o("WASmaxParseUtils").literal(
+        o("WASmaxParseUtils").attrString,
+        n.value,
+        "type",
+        "feature-incapable",
+      );
+      return a.success
+        ? o("WAResultOrError").makeResult({ type: r.value, errorType: a.value })
+        : a;
+    }
     ((l.receiveDeliverRPC = e),
       (l.parseDeliverRequest = s),
-      (l.parseReceiptStyles = u),
-      (l.parseToAgentParticipantMixin = c),
-      (l.makeDeliverResponseSuccess = d),
-      (l.parseDeliverAggregatedByMessageIdStyleMixin = m),
-      (l.parseDeliverMessageAggregatedStyleMixin = p),
-      (l.parseDeliverSenderAggregatedStyleMixin = _),
-      (l.parseDeliverSenderAggregatedStyleNewsletterSelfTypeMixin = f),
-      (l.parseDeliverSenderAggregatedStyleSenderTypeMixin = g),
-      (l.parseDeliverSenderAggregatedStyleViewTypeMixin = h),
-      (l.parseDeliverSingleStyleMixin = y),
-      (l.parseDeliverSingleStyleWithRecipientMixin = C),
-      (l.parseIndividualWithRecipientOrDeliverGroupStatusOrGroupOrDeliverStatusOrBroadcastMixinGroup =
-        b),
-      (l.parseMessageAggregatedParticipantsUser = v),
-      (l.parseMessageAggregatedMixin = S),
-      (l.parseMessageAggregatedStyleReceiptType = R),
-      (l.parseReadOrPlayedSelfTypeMixinGroup = L),
-      (l.parseSenderAggregatedDeliverListItem = E),
-      (l.parseSenderAggregatedDeliverMixin = k),
-      (l.parseSenderAggregatedDeliverServerIDListItem = I),
-      (l.parseSenderAggregatedDeliverServerIDMixin = T),
-      (l.parseSenderAggregatedStyleChatType = D),
-      (l.parseSenderAggregatedStyleReceiptType = x),
-      (l.parseSenderTypeOrRetryMixinGroup = $),
-      (l.parseSingleStyleChatType = P),
-      (l.parseSingleStyleReceiptType = N),
-      (l.parseUnknownTypeMixin = M),
-      (l.parseViewTypeMixin = w),
-      (l.parseAggregatedByMessageIdParticipantsUser = A),
-      (l.parseAggregatedByMessageIdMixin = F),
-      (l.parseBotClientMultiThreadIDReceiptMixin = O),
-      (l.parseBotConversationThreadIDMixin = B),
-      (l.parseBroadcastMixin = W),
-      (l.parseDeliverBizBotGatingMixin = q),
-      (l.parseDeliverBizRolesMixin = U),
-      (l.parseDeliverBizTypeMixin = V),
-      (l.parseDeliverGroupStatusMixin = H),
-      (l.parseDeliverLIDFeatureIncapableTypeMixin = G),
-      (l.parseDeliverPaidConversationAggregatedBizPaidMessagingItemDeliveryContext =
-        z),
-      (l.parseDeliverPaidConversationAggregatedBizPaidMessagingItemOriginReferralSourceUrl =
-        j),
-      (l.parseDeliverPaidConversationAggregatedBizPaidMessagingItemOriginReferral =
-        K),
-      (l.parseDeliverPaidConversationAggregatedBizPaidMessagingItemOrigin = Q),
-      (l.parseDeliverPaidConversationAggregatedBizPaidMessagingItemPricing = X),
-      (l.parseDeliverPaidConversationAggregatedBizPaidMessagingItem = Y),
-      (l.parseDeliverPaidConversationAggregatedMixin = J),
-      (l.parseDeliverSenderPNMixin = Z),
-      (l.parseDeliverStatusMixin = ee),
-      (l.parseDeprecatedDeliveryTypeMixin = te),
-      (l.parseEngagedTypeMixin = ne),
-      (l.parseGroupMixin = re),
-      (l.parseInactiveTypeMixin = oe),
-      (l.parseIndividualMixin = ae),
-      (l.parseIndividualWithRecipientMixin = ie),
-      (l.parseNewsletterDeliverMixin = le),
-      (l.parsePlayedSelfTypeMixin = se),
-      (l.parsePlayedTypeMixin = ue),
-      (l.parseReadSelfTypeMixin = ce),
-      (l.parseReadTypeMixin = de),
-      (l.parseRecipientMixin = me),
-      (l.parseRetryMixin = pe),
-      (l.parseRoiTemplateSourceMixin = _e),
-      (l.parseSenderTypeMixin = fe),
-      (l.parseStatusClassMixin = ge),
-      (l.parseBizErrorType = he),
-      (l.parseBotClientMultiThreadIDMixin = ye),
-      (l.parseBotIsLIDFlagMixin = Ce),
-      (l.parseDeliverBizFeatureIncapableTypeWithReasonMixin = be),
-      (l.parseDeliverFeatureIncapableErrorTypeMixin = ve),
-      (l.parseOrderStatusErrorTypeMixin = Se));
+      (l.makeDeliverResponseSuccess = d));
   },
   98,
 );

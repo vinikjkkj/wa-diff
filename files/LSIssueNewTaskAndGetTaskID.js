@@ -1,6 +1,6 @@
 __d(
   "LSIssueNewTaskAndGetTaskID",
-  ["LSIssueNewTask", "LSLogEventAnnotate.nop"],
+  ["LSIssueNewTask"],
   function (t, n, r, o, a, i) {
     function e() {
       var e = arguments,
@@ -27,43 +27,25 @@ __d(
               );
             },
             function (n) {
-              return (
-                (r[3] = t.i64.to_string(e[1])),
-                t
-                  .filter(
-                    t.db.table(2).fetchDesc([[[e[0]]], "queueNameTaskId"]),
-                    function (t) {
-                      return (
-                        t.queueName === e[0] &&
-                        t.context === r[3] &&
-                        t.taskValue === e[2]
-                      );
-                    },
-                  )
-                  .next()
-                  .then(function (e, n) {
-                    var o = e.done,
-                      a = e.value;
-                    return o
-                      ? (r[0] = t.i64.cast([-1, 4294967295]))
-                      : ((n = a.item), (r[0] = n.taskId));
-                  })
-              );
-            },
-            function (o) {
-              return (
-                (r[2] = new t.Map()),
-                r[2].set("task_id", r[0]),
-                r[2].set("task_queue_name", e[0]),
-                r[2].set("task_label", r[3]),
-                t.nativeOperation(
-                  n("LSLogEventAnnotate.nop"),
-                  t.i64.cast([0, 16]),
-                  t.i64.cast([0, 23]),
-                  t.i64.cast([0, 0]),
-                  r[2],
+              return t
+                .filter(
+                  t.db.table(2).fetchDesc([[[e[0]]], "queueNameTaskId"]),
+                  function (n) {
+                    return (
+                      n.queueName === e[0] &&
+                      n.context === t.i64.to_string(e[1]) &&
+                      n.taskValue === e[2]
+                    );
+                  },
                 )
-              );
+                .next()
+                .then(function (e, n) {
+                  var o = e.done,
+                    a = e.value;
+                  return o
+                    ? (r[0] = t.i64.cast([-1, 4294967295]))
+                    : ((n = a.item), (r[0] = n.taskId));
+                });
             },
             function (e) {
               return (o[0] = r[0]);

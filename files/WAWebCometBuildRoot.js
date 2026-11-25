@@ -3,7 +3,7 @@ __d(
   [
     "invariant",
     "Actor",
-    "CometHeroInteractionWithDiv.react",
+    "CometErrorBoundary.react",
     "CometPageContent.react",
     "CometPlaceholder.react",
     "CometRelayEnvironmentFactory",
@@ -40,28 +40,28 @@ __d(
       );
       if (m()) {
         var l = function () {
-            return u.jsxs(
-              o("RelayEnvironmentFactoryProvider")
-                .RelayEnvironmentFactoryProvider,
-              {
-                factory: o("CometRelayEnvironmentFactory")
-                  .CometRelayEnvironmentFactory,
-                children: [
-                  u.jsx(a, {
-                    children: u.jsx(o("Actor").ActorProvider, {
-                      initialActorID: s,
-                      readonly: !0,
-                      children: u.jsx(r("CometHeroInteractionWithDiv.react"), {
-                        interactionDesc: "initial load",
-                        interactionUUID: t,
+            return u.jsx(r("CometErrorBoundary.react"), {
+              context: { project: "comet_platform_root_boundary" },
+              type: "fatal",
+              children: u.jsxs(
+                o("RelayEnvironmentFactoryProvider")
+                  .RelayEnvironmentFactoryProvider,
+                {
+                  factory: o("CometRelayEnvironmentFactory")
+                    .CometRelayEnvironmentFactory,
+                  children: [
+                    u.jsx(a, {
+                      children: u.jsx(o("Actor").ActorProvider, {
+                        initialActorID: s,
+                        readonly: !0,
                         children: u.jsx(_, {}),
                       }),
                     }),
-                  }),
-                  c && u.jsx(r("CometTimeSpentEventListener.react"), {}),
-                ],
-              },
-            );
+                    c && u.jsx(r("CometTimeSpentEventListener.react"), {}),
+                  ],
+                },
+              ),
+            });
           },
           s = r("CurrentUser").getID(),
           c = !n && r("shouldUseNonReactTSListeners") !== !0;

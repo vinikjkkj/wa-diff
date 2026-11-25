@@ -13,24 +13,38 @@ __d(
         "media4.giphy.com",
         "i.giphy.com",
       ]),
-      c = 8,
-      d = 1e4;
-    function m(e) {
+      c = new Set([
+        "static.klipy.com",
+        "static1.klipy.com",
+        "static2.klipy.com",
+      ]),
+      d = 8,
+      m = 1e4;
+    function p(e) {
+      return g(e, u);
+    }
+    function _(e) {
+      return g(e, c);
+    }
+    function f(e) {
+      return p(e) || _(e);
+    }
+    function g(e, t) {
       if (e == null) return !1;
       try {
-        var t = new URL(e);
+        var n = new URL(e);
         return (
-          t.protocol === "https:" &&
-          u.has(t.hostname) &&
-          t.username === "" &&
-          t.password === "" &&
-          t.port === ""
+          n.protocol === "https:" &&
+          t.has(n.hostname) &&
+          n.username === "" &&
+          n.password === "" &&
+          n.port === ""
         );
       } catch (e) {
         return !1;
       }
     }
-    function p(e) {
+    function h(e) {
       if (!o("WAIsWebP").isWebP(new Uint8Array(e)))
         throw r("err")("Invalid external sticker WebP signature");
       var t = new DataView(e);
@@ -50,7 +64,7 @@ __d(
             t.getUint8(a + 20) +
             t.getUint8(a + 21) * 256 +
             t.getUint8(a + 22) * 65536;
-          if (((n += s), s < c || n > d))
+          if (((n += s), s < d || n > m))
             throw new (o(
               "WAWebUnsupportedExternalStickerAnimationError",
             ).UnsupportedExternalStickerAnimationError)(
@@ -62,8 +76,10 @@ __d(
     }
     ((l.MAX_GIPHY_STICKER_SIZE_BYTES = e),
       (l.MAX_STICKER_DIMENSION = s),
-      (l.isGiphyMediaURL = m),
-      (l.validateExternalStickerWebP = p));
+      (l.isGiphyMediaURL = p),
+      (l.isKlipyMediaURL = _),
+      (l.isExternalStickerMediaURL = f),
+      (l.validateExternalStickerWebP = h));
   },
   98,
 );

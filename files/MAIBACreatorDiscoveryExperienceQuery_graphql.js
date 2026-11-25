@@ -461,8 +461,33 @@ __d(
                       kind: "InlineFragment",
                       selections: [
                         {
+                          alias: null,
+                          args: null,
+                          concreteType: "CAMCreatorProfileBulkData",
+                          kind: "LinkedField",
+                          name: "creator_profile_materialized",
+                          plural: !1,
+                          selections: [
+                            {
+                              alias: null,
+                              args: null,
+                              kind: "ScalarField",
+                              name: "followers_number",
+                              storageKey: null,
+                            },
+                          ],
+                          storageKey: null,
+                        },
+                        {
                           kind: "InlineFragment",
                           selections: [
+                            {
+                              alias: null,
+                              args: null,
+                              kind: "ScalarField",
+                              name: "platform",
+                              storageKey: null,
+                            },
                             {
                               alias: null,
                               args: null,
@@ -545,7 +570,7 @@ __d(
           ],
         },
         params: {
-          id: "27571075512570450",
+          id: "29124755863863573",
           metadata: {},
           name: "MAIBACreatorDiscoveryExperienceQuery",
           operationKind: "query",

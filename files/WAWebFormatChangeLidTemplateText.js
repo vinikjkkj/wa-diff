@@ -20,8 +20,7 @@ __d(
       var n,
         r = o("WAWebContactCollection").ContactCollection.gadd(t.from),
         a =
-          (n = o("WAWebFrontendContactGetters").getShownOrgMemberName(r)) !=
-          null
+          (n = o("WAWebFrontendContactGetters").getShownMemberName(r)) != null
             ? n
             : o("WAWebFrontendContactGetters").getFormattedName(r);
       return e(t)

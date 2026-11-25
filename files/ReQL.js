@@ -8,7 +8,6 @@ __d(
     "ReQLBounds",
     "ReQLGlobalQueryContext",
     "ReStoreKeyComparer",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -107,7 +106,7 @@ __d(
                   return (u || (u = o("PromiseOrValue"))).map(
                     a.next(t),
                     function (t) {
-                      if (t.done) return { action: "break", value: t };
+                      if (t.done === !0) return { action: "break", value: t };
                       var a = t.value,
                         i = a[0],
                         l = a[1];
@@ -200,7 +199,7 @@ __d(
                 return (u || (u = o("PromiseOrValue"))).map(
                   e.next(r == null ? r : [].concat(t, r)),
                   function (e) {
-                    return e.done
+                    return e.done === !0
                       ? { done: !0 }
                       : {
                           done: !1,
@@ -235,12 +234,13 @@ __d(
               s = l.next();
             function d(e) {
               return (u || (u = o("PromiseOrValue"))).map(s, function (t) {
-                var n = t.done
-                    ? !0
-                    : (c || (c = o("ReStoreKeyComparer"))).compareKey(
-                        e,
-                        t.value[0],
-                      ) <= 0,
+                var n =
+                    t.done === !0
+                      ? !0
+                      : (c || (c = o("ReStoreKeyComparer"))).compareKey(
+                          e,
+                          t.value[0],
+                        ) <= 0,
                   r = n ? t : l.next(e);
                 return ((s = r), r);
               });
@@ -250,7 +250,7 @@ __d(
                 return (u || (u = o("PromiseOrValue"))).map(
                   n.next(t),
                   function (e) {
-                    if (e.done) return { done: !0, value: void 0 };
+                    if (e.done === !0) return { done: !0, value: void 0 };
                     var t = e.value,
                       n = t[0];
                     return (u || (u = o("PromiseOrValue"))).map(
@@ -259,7 +259,7 @@ __d(
                         var n = e.value,
                           a = n[0],
                           i = n[1];
-                        if (t.done)
+                        if (t.done === !0)
                           return { done: !1, value: [a, [i, void 0]] };
                         var l = t.value,
                           s = l[0],
@@ -313,7 +313,7 @@ __d(
                 return (u || (u = o("PromiseOrValue"))).map(
                   e.iterator(i, { gte: t, lte: t }).next(),
                   function (e) {
-                    if (!(!n || e.done))
+                    if (!(!n || e.done === !0))
                       return r(
                         t,
                         a.operation === "add"
@@ -393,7 +393,7 @@ __d(
                 return (u || (u = o("PromiseOrValue"))).map(
                   r.next(l),
                   function (t) {
-                    if (t.done) return t;
+                    if (t.done === !0) return t;
                     var r = t.value,
                       l = r[0],
                       c = r[1];
@@ -536,15 +536,15 @@ __d(
                         i = t[0],
                         l = t[1];
                       function s(e, t) {
-                        if (e.done) return { done: !0 };
+                        if (e.done === !0) return { done: !0 };
                         var n = {
                           done: !1,
                           value: [[].concat(e.value[0], [t]), e.value[1]],
                         };
                         return (t ? (m = r.next()) : (p = d.next()), n);
                       }
-                      if (i.done) return s(l, !1);
-                      if (l.done) return s(i, !0);
+                      if (i.done === !0) return s(l, !1);
+                      if (l.done === !0) return s(i, !0);
                       var u = e.direction === "asc" ? [i, l] : [l, i],
                         _ = u[0],
                         f = u[1],
@@ -590,7 +590,7 @@ __d(
               return (u || (u = o("PromiseOrValue"))).loop(function (e) {
                 var t = e[0],
                   r = e[1];
-                if (t.done || r.done)
+                if (t.done === !0 || r.done === !0)
                   return { action: "break", value: { done: !0 } };
                 var a = t.value,
                   l = a[0],
@@ -635,7 +635,7 @@ __d(
               return (u || (u = o("PromiseOrValue"))).map(
                 e.iterator(l, { gte: a, lte: a }).next(),
                 function (e) {
-                  if (!(e.done || !n)) {
+                  if (!(e.done === !0 || !n)) {
                     var o = e.value[1],
                       s =
                         i.operation === "add"
@@ -707,7 +707,7 @@ __d(
                       r.next(a),
                       function (t) {
                         return (
-                          t.done ||
+                          t.done !== !0 &&
                             (s || (s = o("ReQLBounds"))).forEachMatchingBounds(
                               n,
                               t.value[0],
@@ -764,7 +764,7 @@ __d(
                         )
                         .next(),
                       function (e) {
-                        if (!e.done && n.has(a))
+                        if (e.done !== !0 && n.has(a))
                           return (
                             m.set(e.value[0], void 0),
                             i(
@@ -813,26 +813,23 @@ __d(
         n
       );
     }
-    function I(e, t, n, a, i) {
+    function I(e, t, n, r, a) {
       if (
-        i == null ||
-        i.length > e.keyFields.length ||
-        i.some(function (t) {
+        a == null ||
+        a.length > e.keyFields.length ||
+        a.some(function (t) {
           return e.keyFields.indexOf(t) === -1;
         })
       )
-        return e.entries(t, n, a);
-      var l = e.keys(t, n, a);
+        return e.entries(t, n, r);
+      var i = e.keys(t, n, r);
       return {
         next: function (n) {
-          return (
-            r("vulture")("LxB7Tspid-6gVjj6nZ9ock4SJqU="),
-            (u || (u = o("PromiseOrValue"))).map(l.next(n), function (t) {
-              return t.done
-                ? { done: !0 }
-                : { done: !1, value: [t.value, k(t.value, e.keyFields)] };
-            })
-          );
+          return (u || (u = o("PromiseOrValue"))).map(i.next(n), function (t) {
+            return t.done === !0
+              ? { done: !0 }
+              : { done: !1, value: [t.value, k(t.value, e.keyFields)] };
+          });
         },
       };
     }
@@ -872,7 +869,7 @@ __d(
       return Promise.resolve(
         (u || (u = o("PromiseOrValue"))).loop(function () {
           return (u || (u = o("PromiseOrValue"))).map(n.next(), function (e) {
-            return e.done
+            return e.done === !0
               ? { action: "break", value: t }
               : (t.push(e.value[1]), { action: "continue", value: void 0 });
           });
@@ -882,12 +879,12 @@ __d(
     async function $(e) {
       var t = e.iterator(new WeakMap()),
         n = await t.next();
-      if (!n.done) return n.value[1];
+      if (n.done !== !0) return n.value[1];
     }
     async function P(e) {
       var t = e.iterator(new WeakMap()),
         n = await t.next();
-      if (n.done)
+      if (n.done === !0)
         throw r("FBLogger")("messenger_web").mustfixThrow("expected result");
       return n.value[1];
     }
@@ -998,7 +995,7 @@ __d(
                 return (u || (u = o("PromiseOrValue"))).map(
                   h.next(r == null ? void 0 : r.slice(1)),
                   function (e) {
-                    if (e.done) return { done: !0 };
+                    if (e.done === !0) return { done: !0 };
                     var r = n.get(e.value[0]);
                     return (
                       r == null &&

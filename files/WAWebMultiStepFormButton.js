@@ -2,8 +2,7 @@ __d(
   "WAWebMultiStepFormButton",
   ["WAWebInteractiveMessagesNativeFlowName", "WAWebMultiStepFormPayloadParser"],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
+    function e(e) {
       var t;
       if (
         e.nativeFlowName !==
@@ -15,22 +14,15 @@ __d(
         ? null
         : o("WAWebMultiStepFormPayloadParser").parseMultiStepFormPayload(n);
     }
-    function u(e) {
+    function s(e) {
       return o("WAWebMultiStepFormPayloadParser").parseMultiStepFormPayload(e);
     }
-    function c(e) {
+    function u(e) {
       return e.isSupportAgentBot();
     }
-    ((l.A2UI_FORM_PAYLOAD_TYPE = (e = o(
-      "WAWebMultiStepFormPayloadParser",
-    )).A2UI_FORM_PAYLOAD_TYPE),
-      (l.A2UI_FORM_VERSION = e.A2UI_FORM_VERSION),
-      (l.A2UIChoicePickerVariant = e.A2UIChoicePickerVariant),
-      (l.A2UIInputFieldType = e.A2UIInputFieldType),
-      (l.MAX_INPUT_FIELD_LENGTH = e.MAX_INPUT_FIELD_LENGTH),
-      (l.getMultiStepFormInfo = s),
-      (l.parseMultiStepFormButton = u),
-      (l.opensMultiStepFormFromButton = c));
+    ((l.getMultiStepFormInfo = e),
+      (l.parseMultiStepFormButton = s),
+      (l.opensMultiStepFormFromButton = u));
   },
   98,
 );

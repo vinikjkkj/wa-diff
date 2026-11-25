@@ -30,16 +30,15 @@ __d(
       _,
       f,
       g,
-      h,
-      y,
-      C = n("$InternalEnum").Mirrored(["Persist", "Memory"]),
-      b = (function () {
+      h = 1e3,
+      y = n("$InternalEnum").Mirrored(["Persist", "Memory"]),
+      C = (function () {
         function t() {
           ((this.Direction = { SENDING: 1, RECEIVING: 2 }),
             (this.$1 = new (o(
               "WAWebSignalProtocolStoreCacheApi",
             ).SignalStoreCache)()),
-            (this.$2 = C.Persist),
+            (this.$2 = y.Persist),
             (this.$3 = 0),
             (this.$4 = new Map()),
             (this.$5 = !1),
@@ -632,13 +631,13 @@ __d(
               );
           }),
           (n.switchToMemMode = function () {
-            this.$2 = C.Memory;
+            this.$2 = y.Memory;
           }),
           (n.switchToPersistMode = function () {
-            this.$2 = C.Persist;
+            this.$2 = y.Persist;
           }),
           (n.generateSnapshot = function () {
-            if (this.$2 === C.Memory)
+            if (this.$2 === y.Memory)
               return this.$23(this.$1.generateCacheUpdate());
           }),
           (n.deleteAllCache = function () {
@@ -655,57 +654,39 @@ __d(
               this.$4.clear());
           }),
           (n.hasPendingPersistWrites = function () {
-            return this.$2 === C.Persist && this.$1.hasDirty();
+            return this.$2 === y.Persist && this.$1.hasDirty();
           }),
           (n.flushBufferToDiskIfNotMemOnlyMode = async function (t) {
-            if ((t === void 0 && (t = r("WAWebNoop")), this.$2 === C.Memory))
-              return (
-                o("WALogger")
-                  .LOG(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "[Signal]flushBufferToDiskIfNotMemOnlyMode: skip mem mode",
-                      ])),
-                  )
-                  .tags("unified-store"),
-                Promise.resolve()
-              );
-            o("WALogger")
-              .LOG(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "[Signal]flushBufferToDiskIfNotMemOnlyMode: start",
-                  ])),
-              )
-              .tags("unified-store");
-            var e = [
-              await this.$1.Mutex.identity.acquire(),
-              await this.$1.Mutex.session.acquire(),
-              await this.$1.Mutex.senderKey.acquire(),
-              await this.$1.Mutex.preKey.acquire(),
-            ];
-            o("WALogger")
-              .LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "[Signal]flushBufferToDiskIfNotMemOnlyMode: lock complete",
-                  ])),
-              )
-              .tags("unified-store");
-            var n = await this.$1.generateCacheUpdateThrottled();
+            if ((t === void 0 && (t = r("WAWebNoop")), this.$2 === y.Memory))
+              return Promise.resolve();
+            var e = self.performance.now(),
+              n = self.setTimeout(v, h),
+              a = [
+                await this.$1.Mutex.identity.acquire(),
+                await this.$1.Mutex.session.acquire(),
+                await this.$1.Mutex.senderKey.acquire(),
+                await this.$1.Mutex.preKey.acquire(),
+              ];
+            self.clearTimeout(n);
+            var i = self.performance.now(),
+              l = await this.$1.generateCacheUpdateThrottled();
             try {
-              (t(), await this.$25(n, n.senderKeyUpdate), this.$1.clearDirty());
+              (t(), await this.$25(l, l.senderKeyUpdate), this.$1.clearDirty());
             } finally {
-              e.forEach(function (e) {
+              a.forEach(function (e) {
                 return e.release();
               });
             }
             o("WALogger")
               .LOG(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
-                    "[Signal]flushBufferToDiskIfNotMemOnlyMode: done",
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "[Signal]flushBufferToDiskIfNotMemOnlyMode: done lock ",
+                    "ms write ",
+                    "ms",
                   ])),
+                Math.round(i - e),
+                Math.round(self.performance.now() - i),
               )
               .tags("unified-store");
           }),
@@ -713,8 +694,8 @@ __d(
             var e = this;
             (o("WALogger")
               .LOG(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
                     "[Signal]updateIdentityRangeAfterEncryption: start",
                   ])),
               )
@@ -738,8 +719,8 @@ __d(
             }),
               o("WALogger")
                 .LOG(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "[Signal]updateIdentityRangeAfterEncryption: ",
                       " updated",
                     ])),
@@ -763,8 +744,8 @@ __d(
                 o("WAWebSignalConvertApi").shouldConvertSession(e.session) &&
                 (o("WALogger")
                   .LOG(
-                    y ||
-                      (y = babelHelpers.taggedTemplateLiteralLoose([
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
                         "[Signal]maybeCleanUpUnconvertedSession: delete unconverted",
                       ])),
                   )
@@ -784,8 +765,20 @@ __d(
           t
         );
       })(),
-      v = new b();
-    l.default = v;
+      b = new C();
+    function v() {
+      o("WALogger")
+        .WARN(
+          g ||
+            (g = babelHelpers.taggedTemplateLiteralLoose([
+              "[Signal]flushBufferToDiskIfNotMemOnlyMode: lock wait over ",
+              "ms",
+            ])),
+          h,
+        )
+        .tags("unified-store");
+    }
+    l.default = b;
   },
   98,
 );

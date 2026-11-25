@@ -18,7 +18,6 @@ __d(
     "WAWebRichResponseCopyTextRegistry",
     "WAWebRichTextInputConst",
     "WAWebUnifiedResponseUtils",
-    "WAWebWorkDirectoryMemberName",
     "getPlainTextFromUnifiedResponse",
   ],
   function (t, n, r, o, a, i, l) {
@@ -85,23 +84,18 @@ __d(
         n = o("WAWebMsgMentionMap").calculateMsgMentionMap(e);
       n != null &&
         Object.entries(n).forEach(function (e) {
-          var n,
-            r = e[0],
-            a = e[1];
+          var n = e[0],
+            r = e[1];
           t.push({
             app:
               "" +
               o("WAWebRichTextInputConst").ZWS +
-              a.id.toString() +
+              r.id.toString() +
               o("WAWebRichTextInputConst").ZWS,
             plain: o("WAWebMentionDisplayUtils").addAtPrefixForMention(
-              (n = o("WAWebWorkDirectoryMemberName").getWorkDirectoryMemberName(
-                a,
-              )) != null
-                ? n
-                : o("WAWebFrontendContactGetters").getDisplayName(a),
+              o("WAWebFrontendContactGetters").getDisplayName(r),
             ),
-            token: r,
+            token: n,
           });
         });
       var r = o("WAWebMsgMentionMap").calculateMsgGroupMentionMap(e);

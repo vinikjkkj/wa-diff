@@ -87,6 +87,7 @@ __d(
         delete h.isEventMsg,
         delete h.typeFlag,
         delete h.pendingReadReceipt,
+        delete h.pendingReadReceiptOrigin,
         g(h),
         r("gkx")("22769") && delete h.msgRowOpaqueData,
         o("WAWebApiHydrateWidsUtil").hydrateWids(h),

@@ -1,6 +1,6 @@
 __d(
   "MAWGetAttachmentTypeForSendWrittenMsg",
-  ["MAWCommonSetupBridge"],
+  ["MAWMediaTypeToAttachmentType"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t, n, r, a, i, l, s, u) {
@@ -13,7 +13,9 @@ __d(
       if (u === !0) return 6;
       var c =
         t != null
-          ? o("MAWCommonSetupBridge").MEDIA_TYPE_TO_ATTACHMENT_TYPE.get(t)
+          ? o("MAWMediaTypeToAttachmentType").MEDIA_TYPE_TO_ATTACHMENT_TYPE.get(
+              t,
+            )
           : null;
       return c != null ? c : 0;
     }

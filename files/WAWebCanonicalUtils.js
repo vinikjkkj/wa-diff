@@ -15,54 +15,62 @@ __d(
         e && (d++, c.resolve()));
     }
     function _() {
-      return s && !C();
+      return s && !v();
     }
     function f() {
       return u;
     }
     function g() {
-      return (r("CurrentUser").isLoggedIn() || s) && !C();
+      return (r("CurrentUser").isLoggedIn() || s) && !v();
     }
     function h() {
       return d;
     }
-    function y(e) {
-      return e !== d ? !1 : ((m = e), !0);
+    function y() {
+      return d > 0;
     }
     function C() {
+      return v();
+    }
+    function b(e) {
+      return e !== d ? !1 : ((m = e), !0);
+    }
+    function v() {
       return m === d;
     }
-    function b() {
+    function S() {
       return g()
         ? (e || (e = n("Promise"))).resolve()
         : (c.resolveWasCalled() && (c = new (o("WAResolvable").Resolvable)()),
           c.promise);
     }
-    var v = !1;
-    function S() {
-      return v;
+    var R = !1;
+    function L() {
+      return R;
     }
-    function R(e) {
-      v = e;
+    function E(e) {
+      R = e;
     }
-    var L = !1;
-    function E() {
-      return L;
+    var k = !1;
+    function I() {
+      return k;
     }
-    function k(e) {
-      L = e;
+    function T(e) {
+      k = e;
     }
     ((l.setCanonicalTokenPresent = p),
       (l.isCanonicalTokenPresent = _),
       (l.getCanonicalTokenUserId = f),
       (l.isCanonicalPresent = g),
       (l.getCanonicalIssuance = h),
-      (l.markCanonicalRejected = y),
-      (l.waitForCanonicalPresent = b),
-      (l.isCanonicalReloadPending = S),
-      (l.setCanonicalReloadPending = R),
-      (l.isDebugForceTokenRefresh = E),
-      (l.setDebugForceTokenRefresh = k));
+      (l.hasCanonicalBeenIssued = y),
+      (l.isCanonicalRejected = C),
+      (l.markCanonicalRejected = b),
+      (l.waitForCanonicalPresent = S),
+      (l.isCanonicalReloadPending = L),
+      (l.setCanonicalReloadPending = E),
+      (l.isDebugForceTokenRefresh = I),
+      (l.setDebugForceTokenRefresh = T));
   },
   98,
 );

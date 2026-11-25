@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebApiPeerMessageStore",
+    "WAWebCoexV2BotWid",
     "WAWebKeyManagementUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
@@ -12,10 +13,15 @@ __d(
     "WAWebSyncdKeyTypes",
     "WAWebUserUtils",
     "WAWebWidFactory",
+    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    async function u(t) {
+    var e,
+      s,
+      u = r("requireDeferred")("WAWebCoexV2SyncdKeyShareMessage").__setRef(
+        "WAWebKeyManagementSendKeyShareApi",
+      );
+    async function c(t) {
       var n, a;
       e: {
         var i = t;
@@ -25,7 +31,7 @@ __d(
           "keys" in i
         ) {
           var l = i.keys;
-          ((n = c(l)),
+          ((n = d(l)),
             (a = await o("WAWebKeyManagementUtils").getPeerDevices()));
           break e;
         }
@@ -36,10 +42,19 @@ __d(
           "orphanKeys" in i &&
           "peerDeviceWid" in i
         ) {
-          var u = i.keys,
-            d = i.orphanKeys,
-            m = i.peerDeviceWid;
-          if (((n = c(u, d)), !o("WAWebUserUtils").isMeAccount(m))) {
+          var c = i.keys,
+            m = i.orphanKeys,
+            p = i.peerDeviceWid;
+          if (
+            ((n = d(c, m)),
+            p.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID))
+          ) {
+            var _ = await u.load(),
+              f = _.sendCoexV2SyncdKeyShare;
+            await f({ keyShare: n });
+            return;
+          }
+          if (!o("WAWebUserUtils").isMeAccount(p)) {
             o("WALogger")
               .ERROR(
                 e ||
@@ -47,17 +62,17 @@ __d(
                     "syncd: send key share to a non-peer device ",
                     "",
                   ])),
-                m.toString(),
+                p.toString(),
               )
               .sendLogs("key-share-non-peer");
             return;
           }
-          var p = o("WAWebUserUtils").getMeDeviceLidOrThrow();
+          var g = o("WAWebUserUtils").getMeDeviceLidOrThrow();
           a = [
             o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
-              p.user,
-              p.server,
-              m.getDeviceId(),
+              g.user,
+              g.server,
+              p.getDeviceId(),
             ),
           ];
           break e;
@@ -67,7 +82,7 @@ __d(
             i,
         );
       }
-      var _ = a.map(function (e) {
+      var h = a.map(function (e) {
           var t = o("WAWebOutgoingPeerMsgKey").buildOutgoingPeerMsgKey(
             r("WAWebMsgKey").newId_DEPRECATED(),
           );
@@ -80,10 +95,10 @@ __d(
             appStateSyncKeyShare: n,
           };
         }),
-        f = a.map(function (e) {
+        y = a.map(function (e) {
           return e.getDeviceId();
         }),
-        g = t.keys.map(function (e) {
+        C = t.keys.map(function (e) {
           return o("WAWebSyncdCryptoUtils").syncKeyIdToHex(e.keyId);
         });
       (o("WALogger").LOG(
@@ -94,20 +109,20 @@ __d(
             " due to ",
             "",
           ])),
-        g,
-        f,
+        C,
+        y,
         t.type,
       ),
-        await o("WAWebApiPeerMessageStore").storePeerMessages(_),
+        await o("WAWebApiPeerMessageStore").storePeerMessages(h),
         await Promise.all(
-          _.map(function (e) {
+          h.map(function (e) {
             return o("WAWebSendAppStateSyncMsgJob").encryptAndSendKeyMsg({
               msg: e,
             });
           }),
         ));
     }
-    function c(e, t) {
+    function d(e, t) {
       var n = e.map(function (e) {
         return {
           keyId: { keyId: o("WAWebSyncdKeyTypes").fromSyncKeyId(e.keyId) },
@@ -133,7 +148,7 @@ __d(
       }
       return { keys: n };
     }
-    l.sendAppStateSyncKeyShare = u;
+    l.sendAppStateSyncKeyShare = c;
   },
   98,
 );

@@ -4,13 +4,11 @@ __d(
     "JSResourceForInteraction",
     "WALogger",
     "WATimeUtils",
-    "WAWebAsISOCountryCode",
     "WAWebBackendApi",
-    "WAWebL10NCountryCodes",
     "WAWebMusicGatingUtils",
     "WAWebMusicParsingUtils",
+    "WAWebMusicViewerCountry",
     "WAWebSchemaMessage",
-    "WAWebUserPrefsMeUser",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -29,52 +27,46 @@ __d(
         )
           return;
       }
-      var l = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+      var l = o("WAWebMusicViewerCountry").getMusicViewerCountry();
       if (l != null) {
-        var u = o("WAWebAsISOCountryCode").asISOCountryCode(
-          o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(l.user),
-        );
-        if (u != null) {
-          var d = n.findIndex(function (e) {
-            var t;
-            return (
-              ((t = e.embeddedContent) == null ? void 0 : t.embeddedMusic) !=
-              null
-            );
-          });
-          if (d !== -1) {
-            var m = n[d],
-              p = (a = m.embeddedContent) == null ? void 0 : a.embeddedMusic;
-            if (p != null) {
-              var _ = p.countryBlocklist,
-                f = p.musicContentMediaId;
-              if (f != null)
-                try {
-                  var g = await s.load(),
-                    h = g.fetchMusicConsumptionAvailability,
-                    y = await h(f, u),
-                    C =
-                      _ != null
-                        ? o("WAWebMusicParsingUtils").mapToCountryCode(_)
-                        : new Set(),
-                    b = C.has(u);
-                  if (y !== b) return;
-                  (y ? C.delete(u) : C.add(u),
-                    await c({
-                      currentAnnotations: n,
-                      embeddedMusicIndex: d,
-                      msgKey: t,
-                      updatedCountryBlocklist: C,
-                    }));
-                } catch (t) {
-                  o("WALogger").ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "Failed to update music consumption availability",
-                      ])),
-                  );
-                }
-            }
+        var u = n.findIndex(function (e) {
+          var t;
+          return (
+            ((t = e.embeddedContent) == null ? void 0 : t.embeddedMusic) != null
+          );
+        });
+        if (u !== -1) {
+          var d = n[u],
+            m = (a = d.embeddedContent) == null ? void 0 : a.embeddedMusic;
+          if (m != null) {
+            var p = m.countryBlocklist,
+              _ = m.musicContentMediaId;
+            if (_ != null)
+              try {
+                var f = await s.load(),
+                  g = f.fetchMusicConsumptionAvailability,
+                  h = await g(_, l),
+                  y =
+                    p != null
+                      ? o("WAWebMusicParsingUtils").mapToCountryCode(p)
+                      : new Set(),
+                  C = y.has(l);
+                if (h !== C) return;
+                (h ? y.delete(l) : y.add(l),
+                  await c({
+                    currentAnnotations: n,
+                    embeddedMusicIndex: u,
+                    msgKey: t,
+                    updatedCountryBlocklist: y,
+                  }));
+              } catch (t) {
+                o("WALogger").ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "Failed to update music consumption availability",
+                    ])),
+                );
+              }
           }
         }
       }

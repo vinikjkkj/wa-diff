@@ -2,49 +2,50 @@ __d(
   "WAWebGiphyStickerUtils",
   ["WAWebExternalStickerUtils"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      if (!e.id || e.is_low_contrast === !0 || e.rating !== "g") return null;
-      var t = e.images;
-      for (var n of [
-        t == null ? void 0 : t.fixed_height,
-        t == null ? void 0 : t.fixed_width,
-        t == null ? void 0 : t.original,
+    var e = new Set(["g", "pg", "pg-13"]);
+    function s(t) {
+      if (!t.id || t.is_low_contrast === !0 || !e.has(t.rating)) return null;
+      var n = t.images;
+      for (var r of [
+        n == null ? void 0 : n.fixed_height,
+        n == null ? void 0 : n.fixed_width,
+        n == null ? void 0 : n.original,
       ]) {
-        var r;
-        if (n != null) {
-          var a = Number(n.width),
-            i = Number(n.height),
-            l = Number(n.webp_size);
+        var a;
+        if (r != null) {
+          var i = Number(r.width),
+            l = Number(r.height),
+            s = Number(r.webp_size);
           if (
             !(
-              !Number.isInteger(a) ||
-              a <= 0 ||
-              a !== i ||
-              a > o("WAWebExternalStickerUtils").MAX_STICKER_DIMENSION ||
-              !Number.isFinite(l) ||
-              l <= 0 ||
-              l >=
+              !Number.isInteger(i) ||
+              i <= 0 ||
+              i !== l ||
+              i > o("WAWebExternalStickerUtils").MAX_STICKER_DIMENSION ||
+              !Number.isFinite(s) ||
+              s <= 0 ||
+              s >=
                 o("WAWebExternalStickerUtils").MAX_GIPHY_STICKER_SIZE_BYTES ||
-              !o("WAWebExternalStickerUtils").isGiphyMediaURL(n.webp)
+              !o("WAWebExternalStickerUtils").isGiphyMediaURL(r.webp)
             )
           )
             return {
-              id: e.id,
-              url: n.webp,
-              width: a,
-              height: i,
+              id: t.id,
+              url: r.webp,
+              width: i,
+              height: l,
               accessibilityLabel:
-                e.alt_text != null && e.alt_text !== ""
-                  ? e.alt_text
-                  : (r = e.title) != null
-                    ? r
+                t.alt_text != null && t.alt_text !== ""
+                  ? t.alt_text
+                  : (a = t.title) != null
+                    ? a
                     : null,
             };
         }
       }
       return null;
     }
-    l.parseGiphyStickerAsset = e;
+    l.parseGiphyStickerAsset = s;
   },
   98,
 );

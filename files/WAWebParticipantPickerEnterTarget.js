@@ -20,16 +20,16 @@ __d(
         s = o("WAWebWorkDirectory.react").getWorkDirectoryContactToOpenOnEnter(
           e.directoryContacts,
         );
-      return n != null
-        ? { kind: "contact", contact: n }
-        : l != null
-          ? { kind: "person", row: l }
-          : a != null && !(a instanceof r("WAWebOutContactModel"))
-            ? { kind: "contact", contact: a }
-            : i instanceof r("WAWebOutContactModel")
-              ? { kind: "out", contact: i }
-              : s != null
-                ? { kind: "directory", contact: s }
+      return s != null
+        ? { kind: "directory", contact: s }
+        : n != null
+          ? { kind: "contact", contact: n }
+          : l != null
+            ? { kind: "person", row: l }
+            : a != null && !(a instanceof r("WAWebOutContactModel"))
+              ? { kind: "contact", contact: a }
+              : i instanceof r("WAWebOutContactModel")
+                ? { kind: "out", contact: i }
                 : e.canSelectUnknown
                   ? { kind: "unknown" }
                   : { kind: "none" };

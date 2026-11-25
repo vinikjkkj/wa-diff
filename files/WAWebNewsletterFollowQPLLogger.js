@@ -54,6 +54,12 @@ __d(
             var e;
             (e = this.$1) == null || e.addPoint("accept_pdfn_start_end");
           }),
+          (n.endFailNoConnection = function () {
+            var e, t;
+            ((e = this.$1) == null ||
+              e.annotate({ string: { failure_reason: "no_connection" } }),
+              (t = this.$1) == null || t.end(3));
+          }),
           (n.end = function (t) {
             var e;
             (e = this.$1) == null || e.end(t);

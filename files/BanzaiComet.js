@@ -474,6 +474,13 @@ __d(
           f[t] !== null && (r("clearTimeout")(f[t]), (f[t] = null)),
           E._sendWithCallbacks(t, n, o));
       },
+      flushViaBeacon: function () {
+        (s || (s = r("ExecutionEnvironment"))).canUseDOM &&
+          (E._flushLazyQueue(),
+          E._flushBatchMap(),
+          E._sendBeacon((c || (c = r("BanzaiConsts"))).VITAL),
+          E._sendBeacon(c.BASIC));
+      },
       isEnabled: function (t) {
         return !!(
           r("BanzaiAdapterComet").config.gks &&

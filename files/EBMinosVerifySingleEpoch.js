@@ -1,35 +1,38 @@
 __d(
   "EBMinosVerifySingleEpoch",
-  ["EBAPIMinosVerifySingleEpoch", "Promise", "asyncToGeneratorRuntime"],
+  ["EBAPIMinosVerifySingleEpoch"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s(e, t, n, r, o, a, i, l) {
-      return u.apply(this, arguments);
+    async function e(e, t, n, r, a, i, l, s) {
+      var u = await o("EBAPIMinosVerifySingleEpoch").minosVerifySingleEpoch({
+        minosEpochAnonId: e,
+        minosMailboxAuthPublicKey: a,
+        minosMailboxEncryptionPublicKey: r,
+        minosMailboxSigningPublicKey: n,
+        previousEpochHead: i,
+        qplFlow: s,
+        selfEpochSignature: l,
+        userId: t,
+      });
+      return Promise.resolve([u]);
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, r, a, i, l, s, u, c) {
-            var d = yield o(
-              "EBAPIMinosVerifySingleEpoch",
-            ).minosVerifySingleEpoch({
-              minosEpochAnonId: t,
-              minosMailboxAuthPublicKey: l,
-              minosMailboxEncryptionPublicKey: i,
-              minosMailboxSigningPublicKey: a,
-              previousEpochHead: s,
-              qplFlow: c,
-              selfEpochSignature: u,
-              userId: r,
-            });
-            return (e || (e = n("Promise"))).resolve([d]);
-          },
-        )),
-        u.apply(this, arguments)
-      );
+    async function s(e, t, n, r, a, i, l, s, u) {
+      var c = await o(
+        "EBAPIMinosVerifySingleEpoch",
+      ).minosVerifySingleEpochWithEpochHead({
+        epochHead: s,
+        minosEpochAnonId: e,
+        minosMailboxAuthPublicKey: a,
+        minosMailboxEncryptionPublicKey: r,
+        minosMailboxSigningPublicKey: n,
+        previousEpochHead: i,
+        qplFlow: u,
+        selfEpochSignature: l,
+        userId: t,
+      });
+      return [c];
     }
-    l.minosVerifySingleEpoch = s;
+    ((l.minosVerifySingleEpoch = e), (l.minosVerifySingleEpochV2 = s));
   },
   98,
 );

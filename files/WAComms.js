@@ -97,25 +97,25 @@ __d(
                 i.$1.promise
               );
             }),
-            (this.handleStanza = function (t, n, r) {
-              var a = o("WASmaxParseUtils").attrString(t, "id");
-              if (a.success && t.tag !== "receipt") {
-                var l = a.value,
-                  u = i.pendingSmaxStanzas.get(l);
-                if (u)
+            (this.handleStanza = function (t, n, r, a) {
+              var l = o("WASmaxParseUtils").attrString(t, "id");
+              if (l.success && t.tag !== "receipt") {
+                var u = l.value,
+                  c = i.pendingSmaxStanzas.get(u);
+                if (c)
                   return (
-                    i.pendingSmaxStanzas.delete(l),
-                    u.resolve(t),
+                    i.pendingSmaxStanzas.delete(u),
+                    c.resolve(t),
                     i.maybeScheduleHealthCheck(),
                     Promise.resolve("NO_ACK")
                   );
               }
-              var c = Ce(t);
-              if (c != null) {
-                var d = i.pendingIqs.get(c);
-                d
-                  ? (i.pendingIqs.delete(c),
-                    d.resolve(t),
+              var d = Ce(t);
+              if (d != null) {
+                var m = i.pendingIqs.get(d);
+                m
+                  ? (i.pendingIqs.delete(d),
+                    m.resolve(t),
                     i.maybeScheduleHealthCheck())
                   : (o("WALogger").WARN(
                       e ||
@@ -123,7 +123,7 @@ __d(
                           "handleIq no handler for iq with id ",
                           "",
                         ])),
-                      c,
+                      d,
                     ),
                     o("WALogger").ERROR(
                       s ||
@@ -135,9 +135,9 @@ __d(
               else
                 return t.tag === "failure" &&
                   i.config.shouldBlockReceivingUntilSuccess
-                  ? i.$3(t, n, r)
+                  ? i.$3(t, n, r, a)
                   : i.$4.promise.then(function () {
-                      return i.$3(t, n, r);
+                      return i.$3(t, n, r, a);
                     });
               return Promise.resolve("NO_ACK");
             }),
@@ -722,64 +722,68 @@ __d(
               (this.deadSocketTimer.cancel(),
               (this.$6 = self.performance.now()),
               this.$1 && (this.$1.resolve(), (this.$1 = null)));
-            var r = o("WAWap")
-              .decodeStanza(n, this.gzipInflate)
-              .catch(function (e) {
-                throw (
-                  o("WALogger").ERROR(
-                    M ||
-                      (M = babelHelpers.taggedTemplateLiteralLoose([
-                        "Failure parsing stanza!",
-                      ])),
-                  ),
-                  e
-                );
-              })
-              .then(function (r) {
-                (o("WALogger").DEV_XMPP(
-                  w ||
-                    (w = babelHelpers.taggedTemplateLiteralLoose(
-                      [
-                        `--- Receiving ---
-`,
-                        "",
-                      ],
-                      ["--- Receiving ---\\n", ""],
-                    )),
-                  r,
-                ),
-                  e.config.handlers.onHandleStanza == null ||
-                    e.config.handlers.onHandleStanza(r, t, n.byteLength));
-                var a = e.activePing;
-                return a && a.socketId === t && a.stanzaId === Ce(r)
-                  ? ((e.activePing = null),
-                    a.handler.resolve(r),
-                    e.maybeScheduleHealthCheck(),
-                    "NO_ACK")
-                  : e.handleStanza(r, t, n.byteLength);
-              })
-              .then(function (n) {
-                if (t === e.socketId) {
-                  if (n === "CLOSE_SOCKET") {
-                    o("WALogger").LOG(
-                      A ||
-                        (A = babelHelpers.taggedTemplateLiteralLoose([
-                          "[comms] job response is CLOSE_SOCKET",
+            var r,
+              a = o("WAWap")
+                .decompress(n, this.gzipInflate)
+                .then(function (e) {
+                  return ((r = e), o("WAWap").decodeDecompressedStanza(e));
+                })
+                .catch(function (e) {
+                  throw (
+                    o("WALogger").ERROR(
+                      M ||
+                        (M = babelHelpers.taggedTemplateLiteralLoose([
+                          "Failure parsing stanza!",
                         ])),
-                    );
-                    var r = e.socket;
-                    r &&
-                      r.close(
-                        o("WASocketCloseReason").CommsCloseReason
-                          .StanzaHandlerRequested,
+                    ),
+                    e
+                  );
+                })
+                .then(function (a) {
+                  (o("WALogger").DEV_XMPP(
+                    w ||
+                      (w = babelHelpers.taggedTemplateLiteralLoose(
+                        [
+                          `--- Receiving ---
+`,
+                          "",
+                        ],
+                        ["--- Receiving ---\\n", ""],
+                      )),
+                    a,
+                  ),
+                    e.config.handlers.onHandleStanza == null ||
+                      e.config.handlers.onHandleStanza(a, t, n.byteLength));
+                  var i = e.activePing;
+                  return i && i.socketId === t && i.stanzaId === Ce(a)
+                    ? ((e.activePing = null),
+                      i.handler.resolve(a),
+                      e.maybeScheduleHealthCheck(),
+                      "NO_ACK")
+                    : e.handleStanza(a, t, n.byteLength, r);
+                })
+                .then(function (n) {
+                  if (t === e.socketId) {
+                    if (n === "CLOSE_SOCKET") {
+                      o("WALogger").LOG(
+                        A ||
+                          (A = babelHelpers.taggedTemplateLiteralLoose([
+                            "[comms] job response is CLOSE_SOCKET",
+                          ])),
                       );
-                  } else n === "NO_ACK" || e.castStanza(n);
-                  return "NO_ACK";
-                }
-              });
-            (this.$5.add(r),
-              r.finally(function () {
-                return void e.$5.delete(r);
+                      var r = e.socket;
+                      r &&
+                        r.close(
+                          o("WASocketCloseReason").CommsCloseReason
+                            .StanzaHandlerRequested,
+                        );
+                    } else n === "NO_ACK" || e.castStanza(n);
+                    return "NO_ACK";
+                  }
+                });
+            (this.$5.add(a),
+              a.finally(function () {
+                return void e.$5.delete(a);
               }));
           }),
           (n.handleAck = function (t) {

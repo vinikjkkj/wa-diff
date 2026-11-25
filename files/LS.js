@@ -29,7 +29,6 @@ __d(
     "isPromise",
     "qpl",
     "setTimeout",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -161,11 +160,11 @@ __d(
       })(),
       L = "Native operation timeout; transaction blocked",
       E = 30 * 1e3;
-    function k(t, n, a, i, l, g, I, T) {
+    function k(t, n, a, i, l, g, I, T, D) {
       (l === void 0 && (l = {}), g === void 0 && (g = void 0));
-      var D = [],
-        x = o("LSRuntimeDb").LSRuntimeDb(i, t, n, l, D, I, T),
-        $ = function (n, l) {
+      var x = D != null ? D : [],
+        $ = o("LSRuntimeDb").LSRuntimeDb(i, t, n, l, x, I, T),
+        P = function (n, l) {
           for (
             var e = arguments.length, s = new Array(e > 2 ? e - 2 : 0), u = 2;
             u < e;
@@ -193,14 +192,13 @@ __d(
               return e.call.apply(e, [i, t].concat(s));
             });
         },
-        P = function (n) {
+        N = function (n) {
           for (
             var e = arguments.length, l = new Array(e > 1 ? e - 1 : 0), s = 1;
             s < e;
             s++
           )
             l[s - 1] = arguments[s];
-          r("vulture")("PbJ5di8ImxNZraVK-98rYbdGwK0=");
           var u;
           if (typeof n == "string") {
             if (((u = a[n + ".bs"] || a[n + ".nop"]), u == null))
@@ -267,7 +265,22 @@ __d(
               },
             );
         },
-        N = function (t) {
+        M = null,
+        w = function () {
+          var e;
+          switch (t) {
+            case 0:
+              e = 2;
+              break;
+            case 2:
+              e = 1;
+              break;
+            default:
+              return null;
+          }
+          return (M == null && (M = k(e, n, a, i, l, g, I, T, x)), M);
+        },
+        A = function (t) {
           return t.slice(1).reduce(function (e, n) {
             return typeof n != "function"
               ? (r("FBLogger")("messenger_web").mustfix(
@@ -284,10 +297,10 @@ __d(
               : e.then(n);
           }, t[0]());
         },
-        M = function (t, n) {
+        F = function (t, n) {
           return t.slice(n);
         },
-        w = {
+        O = {
           Map: r("LSDict"),
           blob: C,
           blobs: b,
@@ -301,7 +314,7 @@ __d(
               t[n] = arguments[n];
             return r("LSVec").ofArray(t);
           },
-          db: x,
+          db: $,
           filter: o("LSIterationOperations").filter,
           forEach: o("LSIterationOperations").forEach,
           groupBy: o("LSIterationOperations").groupBy,
@@ -440,8 +453,8 @@ __d(
               : l;
           },
           n: v,
-          nativeOperation: P,
-          nativeTypeOperation: $,
+          nativeOperation: N,
+          nativeTypeOperation: P,
           notnull: function (t) {
             if (t === null)
               throw r("FBLogger")("messenger_web").mustfixThrow(
@@ -462,92 +475,90 @@ __d(
             );
           },
           rm: r("LSInt64Lite").of_int32(t),
-          sequence: N,
-          slice: M,
+          sequence: A,
+          slice: F,
           sortBy: o("LSIterationOperations").sortBy,
-          storedProcedure: function (s) {
+          storedProcedure: function (t) {
             for (
-              var e = arguments.length, u = new Array(e > 1 ? e - 1 : 0), c = 1;
-              c < e;
-              c++
+              var e,
+                n = arguments.length,
+                l = new Array(n > 1 ? n - 1 : 0),
+                s = 1;
+              s < n;
+              s++
             )
-              u[c - 1] = arguments[c];
-            var d;
-            if (typeof s == "string") {
-              if (((d = a[s]), d == null))
+              l[s - 1] = arguments[s];
+            var u;
+            if (typeof t == "string") {
+              if (((u = a[t]), u == null))
                 throw r("FBLogger")("messenger_web").mustfixThrow(
                   "Attempted to call unimplemented stored procedure with id: %s",
-                  s,
+                  t,
                 );
-              if (d === o("LSDynamicDependencies").TOMBSTONE)
+              if (u === o("LSDynamicDependencies").TOMBSTONE)
                 throw r("err")(
                   "Concurrent sproc loading failed for: %s (retryable)",
-                  s,
+                  t,
                 );
-              d.load && (d = d.load());
-            } else d = s;
-            var m = w;
-            switch (t) {
-              case 0:
-                m = k(2, n, a, i, l, g, I);
-                break;
-              case 2:
-                m = k(1, n, a, i, l, g, I);
-                break;
-            }
-            var p, _, f, y;
+              u.load && (u = u.load());
+            } else u = t;
+            var c = (e = w()) != null ? e : O,
+              d,
+              m,
+              p,
+              _;
             return o("LSSynchronousPromise")
-              .wrapInSyncPromiseIfNotPromise(d)
+              .wrapInSyncPromiseIfNotPromise(u)
               .then(function (e) {
                 return (
-                  (_ = S(e)),
-                  (f = R.shouldLogSproc(_)),
-                  D.push(_),
-                  (p = R.call({ args: u, shouldLog: f, sprocName: _ })),
-                  (y =
+                  (m = S(e)),
+                  (p = R.shouldLogSproc(m)),
+                  x.push(m),
+                  (d = R.call({ args: l, shouldLog: p, sprocName: m })),
+                  (_ =
                     T == null
                       ? void 0
                       : T.logSprocCallStart(
-                          _,
+                          m,
                           o("LSDatascriptRuntimeTypes").TopLevelCallOrigin.UI,
                         )),
                   i.reportUsedTablesForSyncAccess(e.__tables__),
-                  e.apply(void 0, u.concat([m]))
+                  e.apply(void 0, l.concat([c]))
                 );
               })
               .then(
                 function (e) {
                   var t;
                   return (
-                    D.pop(),
+                    x.pop(),
                     R.logSprocDone(
-                      { args: u, shouldLog: f, sprocName: _ },
-                      p,
+                      { args: l, shouldLog: p, sprocName: m },
+                      d,
                       2,
                     ),
-                    (t = y) == null || t.end(),
+                    (t = _) == null || t.end(),
                     e
                   );
                 },
                 function (e) {
                   var t;
                   throw (
-                    D.pop(),
+                    x.pop(),
                     R.logSprocDone(
-                      { args: u, shouldLog: f, sprocName: _ },
-                      p,
+                      { args: l, shouldLog: p, sprocName: m },
+                      d,
                       3,
                     ),
-                    (t = y) == null || t.end(),
+                    (t = _) == null || t.end(),
                     r("FBLogger")("messenger_web")
                       .catching(e)
                       .addMetadata(
                         h,
                         "SPROC_STACK",
-                        D.join(`
+                        x.join(`
 `),
                       )
-                      .warn("Sproc %s failed", _),
+                      .warn("Sproc %s failed", m),
                     e
                   );
                 },
@@ -561,7 +572,7 @@ __d(
             return o("LSJson").stringify(t);
           },
         };
-      return w;
+      return O;
     }
     ((k.n = v), (l.default = k));
   },

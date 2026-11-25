@@ -15,12 +15,15 @@ __d(
     async function u(t, n, a) {
       a === void 0 && (a = 0);
       var i = c(t, n, a),
-        l = o("WAWebOneQueue").countOfflineStanzaForPullMode(t);
+        l = o("WAWebOneQueue").countOfflineStanzaForPullMode(t),
+        u = o("WAWebOfflineHandler").OfflineMessageHandler.countOfflineEnvelope(
+          t,
+        );
       try {
-        var u = await i;
-        if (u != null) return u;
+        var d = await i;
+        if (d != null) return d;
       } catch (n) {
-        var d, m;
+        var m, p;
         (o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -30,8 +33,8 @@ __d(
               "",
             ])),
           t.tag,
-          (d = t.attrs) == null ? void 0 : d.type,
-          (m = t.attrs) == null ? void 0 : m.id,
+          (m = t.attrs) == null ? void 0 : m.type,
+          (p = t.attrs) == null ? void 0 : p.id,
         ),
           o("WALogger")
             .ERROR(
@@ -44,7 +47,7 @@ __d(
             )
             .sendLogs("handle-stanza"));
       } finally {
-        l();
+        (l(), u());
       }
       return "NO_ACK";
     }

@@ -745,21 +745,22 @@ __d(
       if (d.success) {
         var m = d.value,
           p = m.mimetype,
-          _ = m.score;
+          _ = m.reason,
+          f = m.score;
         t.addPoint("kaleidoscope_classify_end", {
           string: { ksMimeType: p },
-          int: { ksScore: _ },
+          int: { ksReason: _, ksScore: f },
         });
-        var f = F({ ksScore: _, ksMimeType: p, rawMimeType: l, mediaType: s });
-        if (f === o("WAWebSuspiciousContent").WAWebSuspiciousContent.YES)
+        var g = F({ ksScore: f, ksMimeType: p, rawMimeType: l, mediaType: s });
+        if (g === o("WAWebSuspiciousContent").WAWebSuspiciousContent.YES)
           throw new (o("WAWebMediaFileErrors").InvalidMediaFileType)(
-            "Kaleidoscope dangerous score " + _ + " for media type " + s,
+            "Kaleidoscope dangerous score " + f + " for media type " + s,
             s,
             l,
           );
-        i == null || i(f);
+        i == null || i(g);
       } else {
-        var g;
+        var h;
         if (
           (o("WALogger").WARN(
             b ||
@@ -774,7 +775,7 @@ __d(
           t.addPoint(d.error.errorName, {
             string: {
               ksFailReason:
-                (g = d.error.errorMessage) != null ? g : d.error.errorName,
+                (h = d.error.errorMessage) != null ? h : d.error.errorName,
             },
           }),
           t.addPoint("kaleidoscope_classify_fail"),

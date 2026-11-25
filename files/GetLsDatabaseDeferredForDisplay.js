@@ -1,22 +1,14 @@
 __d(
   "GetLsDatabaseDeferredForDisplay",
-  ["asyncToGeneratorRuntime", "requireDeferredForDisplay"],
+  ["requireDeferredForDisplay"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = r("requireDeferredForDisplay")("GetLsDatabase").__setRef(
       "GetLsDatabaseDeferredForDisplay",
     );
-    function s() {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield e.load();
-          return t.get();
-        })),
-        u.apply(this, arguments)
-      );
+    async function s() {
+      var t = await e.load();
+      return t.get();
     }
     l.get = s;
   },

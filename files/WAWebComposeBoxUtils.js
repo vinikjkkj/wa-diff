@@ -146,6 +146,13 @@ __d(
     }
     g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
+      var t = e.chat,
+        n = e.questionType;
+      if (o("WAWebChatGetters").getIsBot(t)) return s._(/*BTDS*/ "");
+      if (!(n == null || !o("WAWebChatGetters").getIsNewsletter(t)))
+        return g({ chat: t, questionType: n });
+    }
+    function y(e) {
       var t = o("WAWebChatGetters").getIsGroup(e);
       return t
         ? s._(/*BTDS*/ "", [s._param("chatName", e.formattedTitle)])
@@ -156,7 +163,8 @@ __d(
       (l.handleMaxPasteExceeded = p),
       (l.editLastMessage = f),
       (l.getComposeBoxPlaceholderText = g),
-      (l.getComposeBoxAriaLabelText = h));
+      (l.getMediaCaptionPlaceholderText = h),
+      (l.getComposeBoxAriaLabelText = y));
   },
   226,
 );

@@ -5,16 +5,25 @@ __d(
     "LS",
     "LSDynamicDependencies",
     "LSMetadata",
+    "LSServerProgramHardening",
     "cr:8709",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = { dynamic: !1 };
-    function u(t, a) {
+    function u(e) {
+      return e.dynamic &&
+        o("LSServerProgramHardening").isServerProgramHardeningEnabled() &&
+        r("justknobx")._("8592")
+        ? 0
+        : 1;
+    }
+    function c(t, a) {
       a === void 0 && (a = s);
       var i = r("LS")(
-        1,
+        u(a),
         o("LSMetadata").schema,
         o("LSDynamicDependencies").cachedModules,
         t,
@@ -28,7 +37,7 @@ __d(
         ? n("cr:8709").wrapSprocInvocationWithProfiler(i)
         : i;
     }
-    l.default = u;
+    l.default = c;
   },
   98,
 );

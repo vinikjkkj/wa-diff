@@ -13,7 +13,9 @@ __d(
     function u() {
       e.clear();
     }
-    ((i.setSyncError = l), (i.getLastSyncError = s), (i.clearSyncErrors = u));
+    ((i.recordSyncError = l),
+      (i.getLastSyncError = s),
+      (i.clearSyncErrors = u));
   },
   66,
 );

@@ -3,13 +3,13 @@ __d(
   ["justknobx"],
   function (t, n, r, o, a, i, l) {
     var e = /^\u200B*$/,
-      s = new Set(["email", "number", "search", "tel", "text", "url"]);
+      s = new Set(["email", "search", "tel", "text", "url"]);
     function u(e) {
       return r("justknobx")._("8647") ? c(e) : null;
     }
     function c(t) {
       var n;
-      if (R(t) || (t instanceof HTMLInputElement && !s.has(t.type)))
+      if (v(t) || (t instanceof HTMLInputElement && !s.has(t.type)))
         return null;
       var r =
         t instanceof HTMLInputElement || t instanceof HTMLTextAreaElement
@@ -25,58 +25,36 @@ __d(
         "password-input-confirm",
         "pdf-password-input",
         "wa_privacy_unlock_password",
+        "ad-account-recovery-code-input",
       ]),
-      p = [
-        "name",
-        "id",
-        "data-testid",
-        "aria-label",
-        "title",
-        "autocomplete",
-        "placeholder",
-      ],
-      _ = new Set([
-        "conversation-compose-box-input",
-        "edit-message-composer",
-        "media-caption-input-container",
-        "instant-viewer-reply-input",
-      ]),
-      f = ["name", "id", "data-testid", "autocomplete"],
-      g =
+      p = ["name", "id", "data-testid", "autocomplete"],
+      _ =
         /passcode|password|passwd|passphrase|passkey|apikey|usernamekey|twofactor|twostep|securitycode|verificationcode|backupcode|upipin|otpcode|secretcode/,
-      h = new Set(["2step", "onetime", "pincode"]),
-      y =
+      f = new Set(["2step", "onetime", "pincode"]),
+      g =
         /^(?:new|old|confirm|current|user|my|account|login|app|lock|access|auth|refresh|session|m)?(?:pin|otp|secret|token|recovery|verification)$/,
-      C = /^2fa(?:code|auth|pin|otp|token|key)?$/,
-      b = "-webkit-text-security",
-      v = new Set(["", "none"]),
-      S = Symbol("pathfinderSecretField");
-    function R(e) {
-      return Reflect.get(e, S) === !0
+      h = /^2fa(?:code|auth|pin|otp|token|key)?$/,
+      y = "-webkit-text-security",
+      C = new Set(["", "none"]),
+      b = Symbol("pathfinderSecretField");
+    function v(e) {
+      return Reflect.get(e, b) === !0
         ? !0
-        : L(e)
-          ? (Reflect.set(e, S, !0), !0)
+        : S(e)
+          ? (Reflect.set(e, b, !0), !0)
           : !1;
     }
-    function L(e) {
-      return E(e) || k(e);
+    function S(e) {
+      return R(e) || L(e);
     }
-    function E(e) {
+    function R(e) {
       var t, n;
-      if (
-        (e instanceof HTMLInputElement && e.type === "password") ||
-        m.has((t = e.getAttribute("data-testid")) != null ? t : "")
-      )
-        return !0;
-      var r = _.has(String(e.getAttribute("data-testid")))
-          ? [f, []]
-          : [p, I(e)],
-        o = r[0],
-        a = r[1];
-      return o.some(function (t) {
-        var n;
-        return T((n = e.getAttribute(t)) != null ? n : "");
-      }) || a.some(T)
+      return (e instanceof HTMLInputElement && e.type === "password") ||
+        m.has((t = e.getAttribute("data-testid")) != null ? t : "") ||
+        p.some(function (t) {
+          var n;
+          return E((n = e.getAttribute(t)) != null ? n : "");
+        })
         ? !0
         : ((n = e.getAttribute("autocomplete")) != null ? n : "")
             .toLowerCase()
@@ -85,56 +63,39 @@ __d(
               return d.has(e);
             });
     }
-    function k(e) {
-      if (e.style.getPropertyValue(b) !== "") return !0;
-      var t = window.getComputedStyle(e).getPropertyValue(b);
-      return !v.has(t);
+    function L(e) {
+      if (e.style.getPropertyValue(y) !== "") return !0;
+      var t = window.getComputedStyle(e).getPropertyValue(y);
+      return !C.has(t);
     }
-    function I(e) {
-      var t,
-        n,
-        r =
-          e instanceof HTMLInputElement || e instanceof HTMLTextAreaElement
-            ? Array.from((t = e.labels) != null ? t : [])
-            : [],
-        o = ((n = e.getAttribute("aria-labelledby")) != null ? n : "")
-          .split(/\s+/)
-          .map(function (e) {
-            return e !== "" ? document.getElementById(e) : null;
-          });
-      return [].concat(r, o).map(function (e) {
-        var t;
-        return (t = e == null ? void 0 : e.textContent) != null ? t : "";
-      });
-    }
-    function T(e) {
+    function E(e) {
       if (
-        x(e).some(function (e) {
-          return C.test(e);
+        I(e).some(function (e) {
+          return h.test(e);
         })
       )
         return !0;
-      var t = D(e);
+      var t = k(e);
       return (
-        g.test(t.join("")) ||
+        _.test(t.join("")) ||
         t.some(function (e, n) {
           var r;
           return (
-            y.test(e) ||
-            h.has(e) ||
-            h.has(e + ((r = t[n + 1]) != null ? r : ""))
+            g.test(e) ||
+            f.has(e) ||
+            f.has(e + ((r = t[n + 1]) != null ? r : ""))
           );
         })
       );
     }
-    function D(e) {
-      return x(
+    function k(e) {
+      return I(
         e
           .replace(/([A-Za-z])([0-9])/g, "$1 $2")
           .replace(/([0-9])([A-Za-z])/g, "$1 $2"),
       );
     }
-    function x(e) {
+    function I(e) {
       return e
         .replace(/([a-z])([A-Z])/g, "$1 $2")
         .replace(/([A-Z])([A-Z][a-z])/g, "$1 $2")

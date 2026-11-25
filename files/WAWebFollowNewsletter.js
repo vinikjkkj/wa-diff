@@ -2,11 +2,13 @@ __d(
   "WAWebFollowNewsletter",
   [
     "fbt",
+    "WAErrors",
     "WAWebBackendErrors",
     "WAWebCommonNewsletterIntegrityStrings",
     "WAWebModalManager",
     "WAWebName.react",
     "WAWebNewsletterFollowQPLLogger",
+    "WAWebNewsletterMembershipOffline",
     "WAWebNewsletterMetadataGetters",
     "WAWebNewsletterPullMessagesFromServerAction",
     "WAWebNewsletterSubscribeAction",
@@ -46,40 +48,46 @@ __d(
     }
     async function m(e, t) {
       var n = new (o(
-          "WAWebNewsletterFollowQPLLogger",
-        ).WAWebNewsletterFollowQPLLogger)({
-          markerId: 1026960759,
-          eventSurface: t.eventSurface,
-          discoverySurface: t.discoverySurface,
-          eventUnit: t.eventUnit,
-        }),
-        r = async function () {
-          try {
-            (await o(
-              "WAWebNewsletterSubscribeAction",
-            ).subscribeToNewsletterAction(e, t, n),
-              n.end(2),
-              d(
-                s._(/*BTDS*/ "", [
-                  s._implicitParam(
-                    "=m0",
-                    u.jsx("div", {
-                      children: s._(/*BTDS*/ "", [
-                        s._param(
-                          "channel_name",
-                          u.jsx(o("WAWebName.react").ChatName, {
-                            chatId: e.id,
-                          }),
-                        ),
-                      ]),
-                    }),
-                  ),
-                ]),
-              ));
-          } catch (e) {
-            await _(e, n);
-          }
-        };
+        "WAWebNewsletterFollowQPLLogger",
+      ).WAWebNewsletterFollowQPLLogger)({
+        markerId: 1026960759,
+        eventSurface: t.eventSurface,
+        discoverySurface: t.discoverySurface,
+        eventUnit: t.eventUnit,
+      });
+      if (
+        o(
+          "WAWebNewsletterMembershipOffline",
+        ).failNewsletterMembershipChangeIfOffline(n)
+      ) {
+        o("WAWebNewsletterMembershipOffline").showNoConnectionToast();
+        return;
+      }
+      var r = async function () {
+        try {
+          (await o(
+            "WAWebNewsletterSubscribeAction",
+          ).subscribeToNewsletterAction(e, t, n),
+            n.end(2),
+            d(
+              s._(/*BTDS*/ "", [
+                s._implicitParam(
+                  "=m0",
+                  u.jsx("div", {
+                    children: s._(/*BTDS*/ "", [
+                      s._param(
+                        "channel_name",
+                        u.jsx(o("WAWebName.react").ChatName, { chatId: e.id }),
+                      ),
+                    ]),
+                  }),
+                ),
+              ]),
+            ));
+        } catch (e) {
+          await _(e, n);
+        }
+      };
       return c(r, n);
     }
     async function p(e, t) {
@@ -93,6 +101,15 @@ __d(
         }),
         r = e.newsletterMetadata;
       if (r != null && o("WAWebNewsletterMetadataGetters").getIsPreview(r)) {
+        if (
+          o(
+            "WAWebNewsletterMembershipOffline",
+          ).failNewsletterMembershipChangeIfOffline(n)
+        )
+          throw (
+            o("WAWebNewsletterMembershipOffline").showNoConnectionToast(),
+            new (o("WAErrors").Offline)()
+          );
         var a = async function () {
           try {
             (e.msgs.length === 0 &&

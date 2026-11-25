@@ -3,10 +3,10 @@ __d(
   ["fbt", "WAWebCommunityActivityModel"],
   function (t, n, r, o, a, i, l, s) {
     var e = "...",
-      u = 37,
-      c = function (n) {
-        return n.length > u ? n.substr(0, u) + e : n;
-      };
+      u = 37;
+    function c(t) {
+      return t.length > u ? t.substr(0, u) + e : t;
+    }
     function d(e) {
       if (e.length === 0) return null;
       var t = e.filter(function (e) {

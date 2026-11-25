@@ -23,7 +23,9 @@ __d(
       m = 3e4,
       p = {
         msg: null,
+        pauseReason: "user_initiated",
         playId: 0,
+        playRequestedAtMs: null,
         positionMs: 0,
         resumePositionMs: 0,
         status: "idle",
@@ -71,6 +73,8 @@ __d(
                   (a === "loading" || a === "playing")
                 )
               ) {
+                var i =
+                  this.$MusicMsgPlayerStore$p_1.msg === t && a === "paused";
                 if (!r("WAWebNetworkStatus").online) {
                   g(s._(/*BTDS*/ ""));
                   return;
@@ -82,20 +86,23 @@ __d(
                   (this.$MusicMsgPlayerStore$p_3 = o(
                     "WAWebPttAudioChannels",
                   ).MainAudioChannel.claim(this, function () {
-                    return e.pause();
+                    return e.pause("product_initiated");
                   })),
                   o("WAWebMsgCollection").MsgCollection.on(
                     "remove",
                     this.$MusicMsgPlayerStore$p_8,
                   ),
                   t.on("change:type", this.$MusicMsgPlayerStore$p_9));
-                var i =
+                var l =
                   (n = this.$MusicMsgPlayerStore$p_2.get(t)) != null ? n : 0;
                 (this.$MusicMsgPlayerStore$p_10({
                   msg: t,
-                  playId: this.$MusicMsgPlayerStore$p_1.playId + 1,
-                  positionMs: i,
-                  resumePositionMs: i,
+                  playId: i
+                    ? this.$MusicMsgPlayerStore$p_1.playId
+                    : this.$MusicMsgPlayerStore$p_1.playId + 1,
+                  playRequestedAtMs: Date.now(),
+                  positionMs: l,
+                  resumePositionMs: l,
                   status: "loading",
                   volume: 1,
                 }),
@@ -106,6 +113,10 @@ __d(
           (n.onError = function (t) {
             var e = this;
             if (this.$MusicMsgPlayerStore$p_1.msg === t) {
+              if (this.$MusicMsgPlayerStore$p_1.status === "paused") {
+                this.$MusicMsgPlayerStore$p_12(t);
+                return;
+              }
               if ((this.stop(), this.$MusicMsgPlayerStore$p_6.has(t))) {
                 (this.$MusicMsgPlayerStore$p_6.delete(t), f());
                 return;
@@ -131,8 +142,16 @@ __d(
             }
           }),
           (n.onPlayerLoadError = function (t) {
-            this.$MusicMsgPlayerStore$p_1.msg === t &&
+            if (this.$MusicMsgPlayerStore$p_1.msg === t) {
+              if (this.$MusicMsgPlayerStore$p_1.status === "paused") {
+                this.$MusicMsgPlayerStore$p_12(t);
+                return;
+              }
               (this.stop(), this.$MusicMsgPlayerStore$p_6.delete(t), f());
+            }
+          }),
+          (n.$MusicMsgPlayerStore$p_12 = function (t) {
+            (this.stop(), this.$MusicMsgPlayerStore$p_6.delete(t));
           }),
           (n.onPlayRequestFailed = function (t) {
             this.$MusicMsgPlayerStore$p_1.status === "loading" &&
@@ -141,7 +160,7 @@ __d(
           (n.onPlaying = function (t) {
             this.$MusicMsgPlayerStore$p_1.msg === t &&
               this.$MusicMsgPlayerStore$p_1.status === "loading" &&
-              (this.$MusicMsgPlayerStore$p_12(),
+              (this.$MusicMsgPlayerStore$p_13(),
               this.$MusicMsgPlayerStore$p_6.delete(t),
               this.$MusicMsgPlayerStore$p_10({ status: "playing" }),
               o("WAWebMusicPlaybackLogger").logMusicPlayback(t));
@@ -174,28 +193,33 @@ __d(
             this.$MusicMsgPlayerStore$p_1.msg === t &&
               (this.$MusicMsgPlayerStore$p_2.delete(t), this.stop());
           }),
-          (n.pause = function () {
-            var e = this,
-              t = this.$MusicMsgPlayerStore$p_1,
-              n = t.msg,
-              r = t.status;
-            n == null ||
-              (r !== "playing" && r !== "loading") ||
-              this.$MusicMsgPlayerStore$p_13(function () {
-                (e.$MusicMsgPlayerStore$p_14(),
-                  e.$MusicMsgPlayerStore$p_10({ status: "paused", volume: 1 }));
+          (n.pause = function (t) {
+            var e = this;
+            t === void 0 && (t = "user_initiated");
+            var n = this.$MusicMsgPlayerStore$p_1,
+              r = n.msg,
+              o = n.status;
+            r == null ||
+              (o !== "playing" && o !== "loading") ||
+              this.$MusicMsgPlayerStore$p_14(function () {
+                (e.$MusicMsgPlayerStore$p_15(),
+                  e.$MusicMsgPlayerStore$p_10({
+                    pauseReason: t,
+                    status: "paused",
+                    volume: 1,
+                  }));
               });
           }),
           (n.stop = function () {
             (this.$MusicMsgPlayerStore$p_7(),
-              this.$MusicMsgPlayerStore$p_14(),
+              this.$MusicMsgPlayerStore$p_15(),
               this.$MusicMsgPlayerStore$p_10(
                 babelHelpers.extends({}, p, {
                   playId: this.$MusicMsgPlayerStore$p_1.playId,
                 }),
               ));
           }),
-          (n.$MusicMsgPlayerStore$p_13 = function (t) {
+          (n.$MusicMsgPlayerStore$p_14 = function (t) {
             var e = this;
             this.$MusicMsgPlayerStore$p_7();
             var n = 0,
@@ -216,7 +240,7 @@ __d(
           }),
           (n.$MusicMsgPlayerStore$p_11 = function () {
             var e = this;
-            this.$MusicMsgPlayerStore$p_12();
+            this.$MusicMsgPlayerStore$p_13();
             var t = this.$MusicMsgPlayerStore$p_1,
               n = t.msg,
               r = t.playId;
@@ -228,14 +252,14 @@ __d(
                   e.onPlayerLoadError(n));
             }, m);
           }),
-          (n.$MusicMsgPlayerStore$p_12 = function () {
+          (n.$MusicMsgPlayerStore$p_13 = function () {
             this.$MusicMsgPlayerStore$p_5 != null &&
               (self.clearTimeout(this.$MusicMsgPlayerStore$p_5),
               (this.$MusicMsgPlayerStore$p_5 = null));
           }),
-          (n.$MusicMsgPlayerStore$p_14 = function () {
+          (n.$MusicMsgPlayerStore$p_15 = function () {
             var e, t;
-            (this.$MusicMsgPlayerStore$p_12(),
+            (this.$MusicMsgPlayerStore$p_13(),
               (e = this.$MusicMsgPlayerStore$p_3) == null || e.call(this),
               (this.$MusicMsgPlayerStore$p_3 = null),
               o("WAWebMsgCollection").MsgCollection.off(

@@ -18,7 +18,6 @@ __d(
     "MultipleTabsLogger",
     "URLMatcher",
     "WAOdsEnums",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "justknobx",
     "promiseDone",
@@ -33,44 +32,36 @@ __d(
         key: "maw_report_send_message_success_result.him_enabled." + e,
       });
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
+    async function d(e, t) {
+      try {
+        var n = await o("MAWChatJid").toThreadKey(
+          e.tables,
+          t,
+          "MAWCommonSetupBridge::sendWrittenMsg",
+        );
+        return n;
+      } catch (e) {
+        throw (c("getThreadKeyFromChatJid"), r("getErrorSafe")(e));
+      }
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          try {
-            var n = yield o("MAWChatJid").toThreadKey(
-              e.tables,
-              t,
-              "MAWCommonSetupBridge::sendWrittenMsg",
-            );
-            return n;
-          } catch (e) {
-            throw (c("getThreadKeyFromChatJid"), r("getErrorSafe")(e));
-          }
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(t, a) {
-      var i,
-        l = t.externalId,
-        c = null,
-        m = !1,
-        p = !1;
+    function m(t, n) {
+      var a,
+        i = t.externalId,
+        l = null,
+        c = !1,
+        m = !1;
       switch (t.messageType) {
         case "editMsg":
-          m = !0;
+          c = !0;
           break;
         case "revokeMsg":
-          l = t.referencedExternalId;
+          i = t.referencedExternalId;
           break;
         case "sendMsg":
-          p = t.specialTextSize != null;
+          m = t.specialTextSize != null;
           break;
         case "reactionMsg":
-          c = t.reaction != null ? 20 : 27;
+          l = t.reaction != null ? 20 : 27;
           break;
         case "bumpMsg":
           break;
@@ -85,90 +76,83 @@ __d(
         default:
           t.messageType;
       }
-      var _ = null,
-        f = t.isVideoGif;
+      var p = null,
+        _ = t.isVideoGif;
       t.fileType != null &&
-        (_ = o("MAWFrontendMediaUtils").getMediaTypeAndServerMediaTypeFromBlob(
+        (p = o("MAWFrontendMediaUtils").getMediaTypeAndServerMediaTypeFromBlob(
           t.fileType,
           void 0,
           void 0,
-          f,
+          _,
         ).mediaType);
-      var g = t.xmaMessageType != null,
-        h =
+      var f = t.xmaMessageType != null,
+        g =
           t.quote != null || o("MAWXMAUtils").isXMAStoryReply(t.xmaMessageType),
-        y = r("URLMatcher").match(
-          o("MAWVault").unvault((i = t.content) != null ? i : ""),
+        h = r("URLMatcher").match(
+          o("MAWVault").unvault((a = t.content) != null ? a : ""),
         ),
-        C = y != null && y.length > 0,
-        b = o(
+        y = h != null && h.length > 0,
+        C = o(
           "MAWGetAttachmentTypeForSendWrittenMsg",
         ).getAttachmentTypeForSendWrittenMsg(
           t.messageType,
-          _,
           p,
-          g,
           m,
-          c,
-          h,
-          C,
           f,
+          c,
+          l,
+          g,
+          y,
+          _,
         ),
-        v = o("MAWGetLSThreadTypeUtil").getLSThreadTypeFromJid(t.chatJid);
+        b = o("MAWGetLSThreadTypeUtil").getLSThreadTypeFromJid(t.chatJid);
       r("promiseDone")(
         (e || (e = o("LSDatabaseSingleton"))).LSDatabaseSingleton.then(
-          (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var n,
-                  i =
-                    (t == null ? void 0 : t.source) != null
-                      ? t.source
-                      : (s || (s = o("LSIntEnum"))).ofNumber(
-                          r("LSMessagingThreadAttributionType").UNKNOWN,
-                        ),
-                  c = yield d(e, t.chatJid);
-                o("MWLogSend").log(e, {
-                  actor: (u || (u = o("I64"))).of_string(
-                    o("MAWCurrentUser").getID(),
-                  ),
-                  attachmentFbids: [],
-                  attachmentType: b,
-                  backend: 1,
-                  chatJid: t.chatJid,
-                  hasReply: h,
-                  initatingSource: t == null ? void 0 : t.initiatingSource,
-                  messageSendDataclass: a,
-                  messagingThreadId: u.to_string(c),
-                  msgTtl:
-                    (n = t.ephemeralSetting) == null
-                      ? void 0
-                      : n.ephemeralExpirationInSec,
-                  offlineThreadingId: l,
-                  sendType: 1,
-                  source: i,
-                  threadKey: c,
-                  threadType: v,
-                  waGroupJid: void 0,
-                });
-              },
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })(),
+          async function (e) {
+            var a,
+              l =
+                (t == null ? void 0 : t.source) != null
+                  ? t.source
+                  : (s || (s = o("LSIntEnum"))).ofNumber(
+                      r("LSMessagingThreadAttributionType").UNKNOWN,
+                    ),
+              c = await d(e, t.chatJid);
+            o("MWLogSend").log(e, {
+              actor: (u || (u = o("I64"))).of_string(
+                o("MAWCurrentUser").getID(),
+              ),
+              attachmentFbids: [],
+              attachmentType: C,
+              backend: 1,
+              chatJid: t.chatJid,
+              hasReply: g,
+              initatingSource: t == null ? void 0 : t.initiatingSource,
+              messageSendDataclass: n,
+              messagingThreadId: u.to_string(c),
+              msgTtl:
+                (a = t.ephemeralSetting) == null
+                  ? void 0
+                  : a.ephemeralExpirationInSec,
+              offlineThreadingId: i,
+              sendType: 1,
+              source: l,
+              threadKey: c,
+              threadType: b,
+              waGroupJid: void 0,
+            });
+          },
         ),
       );
     }
-    function _(e) {
+    function p(e) {
       (r("justknobx")._("154") &&
         o("shouldUseMAWSharedWorker").shouldUseMAWSharedWorker() &&
         r("BrowserLockManager") != null &&
         !o("MultipleTabsLogger").hasUniqueLock()) ||
-        p(e);
+        m(e);
     }
-    ((l.reportSendMessageSuccessResultFn = p),
-      (l.reportSendMessageSuccessResult = _));
+    ((l.reportSendMessageSuccessResultFn = m),
+      (l.reportSendMessageSuccessResult = p));
   },
   98,
 );

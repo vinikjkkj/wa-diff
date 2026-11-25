@@ -8,6 +8,7 @@ __d(
     "WAWebMediaTypes",
     "WAWebMessageAssociation.flow",
     "WAWebMessageAssociationUIUtils",
+    "WAWebMsgGetters",
     "WAWebMsgType",
   ],
   function (t, n, r, o, a, i, l) {
@@ -29,6 +30,7 @@ __d(
           {
             associationType: o("WAWebMessageAssociation.flow")
               .MessageAssociationType.AV1_VIDEO_DUAL_UPLOAD,
+            excludesStatus: !0,
             isEnabled: o("WAWebMediaGatingUtils")
               .isAv1VideoDualUploadConsumptionEnabled,
             supportSource: o("WAWebMediaAv1Support").av1SupportSource,
@@ -36,6 +38,7 @@ __d(
           {
             associationType: o("WAWebMessageAssociation.flow")
               .MessageAssociationType.HEVC_VIDEO_DUAL_UPLOAD,
+            excludesStatus: !0,
             isEnabled: o("WAWebMediaGatingUtils")
               .isHevcVideoDualUploadConsumptionEnabled,
           },
@@ -93,7 +96,7 @@ __d(
     function d(t, n) {
       var r = function (n) {
           var e = t.find(function (e) {
-            return e.associationType === n.associationType;
+            return p(e, n);
           });
           if (e != null && n.isEnabled()) return { v: e };
         },
@@ -107,7 +110,7 @@ __d(
     function m(t, n) {
       var r = function (n) {
           var e = t.find(function (e) {
-            return e.associationType === n.associationType;
+            return p(e, n);
           });
           if (e != null)
             return {
@@ -124,6 +127,12 @@ __d(
         if (((o = r(a)), o)) return o.v;
       }
       return null;
+    }
+    function p(e, t) {
+      return (
+        e.associationType === t.associationType &&
+        !(t.excludesStatus === !0 && o("WAWebMsgGetters").getIsStatus(e))
+      );
     }
     ((l.getPreferredMediaMsgs = s),
       (l.getPreferredMediaMsg = u),

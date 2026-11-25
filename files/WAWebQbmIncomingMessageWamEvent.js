@@ -50,6 +50,7 @@ __d(
               isBizMetaVerified: [68, e.TYPES.BOOLEAN],
               isBroadcastMessage: [38, e.TYPES.BOOLEAN],
               isCoex: [56, e.TYPES.BOOLEAN],
+              isFirstMm: [69, e.TYPES.BOOLEAN],
               isFromAdsManagerMm: [15, e.TYPES.BOOLEAN],
               isFromCapi: [16, e.TYPES.BOOLEAN],
               isFromPill: [63, e.TYPES.BOOLEAN],

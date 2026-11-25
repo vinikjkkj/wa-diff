@@ -1,6 +1,6 @@
 __d(
   "WAWebMessageListAlbums",
-  ["WAWebMsgGetters", "WAWebMsgType", "WAWebWid"],
+  ["WAWebMsgGetters", "WAWebMsgType", "WAWebNewsletterGatingUtils", "WAWebWid"],
   function (t, n, r, o, a, i, l) {
     var e = 4,
       s = 102,
@@ -11,7 +11,7 @@ __d(
       p = [o("WAWebMsgType").MSG_TYPE.CALL_LOG];
     function _(e, t) {
       var n, a;
-      return y(e, t) || !f(e, t)
+      return C(e, t) || !f(e, t)
         ? !1
         : (o("WAWebMsgGetters").getIsGroupMsg(e)
             ? r("WAWebWid").equals(e.author, t.author)
@@ -47,17 +47,31 @@ __d(
         : e.forwardedNewsletterMessageInfo != null
           ? t.forwardedNewsletterMessageInfo == null
             ? !1
-            : e.forwardedNewsletterMessageInfo.newsletterId ===
-              t.forwardedNewsletterMessageInfo.newsletterId
+            : y(e, t)
           : o("WAWebMsgGetters").getIsGroupMsg(e)
             ? r("WAWebWid").equals(e.author, t.author) &&
               o("WAWebMsgGetters").getIsSentByMe(e) ===
                 o("WAWebMsgGetters").getIsSentByMe(t)
-            : y(e, t)
+            : C(e, t)
               ? !1
               : r("WAWebWid").equals(e.from, t.from);
     }
     function y(e, t) {
+      var n, r;
+      return e.id.remote.isNewsletter() &&
+        C(e, t) &&
+        o(
+          "WAWebNewsletterGatingUtils",
+        ).isNewsletterAdminProfilesReceiverEnabled()
+        ? !1
+        : ((n = e.forwardedNewsletterMessageInfo) == null
+            ? void 0
+            : n.newsletterId) ===
+            ((r = t.forwardedNewsletterMessageInfo) == null
+              ? void 0
+              : r.newsletterId);
+    }
+    function C(e, t) {
       var n = o("WAWebMsgGetters").getNewsletterAdminProfile(e),
         r = o("WAWebMsgGetters").getNewsletterAdminProfile(t);
       return (

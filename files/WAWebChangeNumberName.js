@@ -7,7 +7,7 @@ __d(
         r = o("WAWebContactCollection").ContactCollection.gadd(t);
       return o("WAWebFrontendContactGetters").getIsMyContact(r)
         ? o("WAWebFrontendContactGetters").getFormattedName(r)
-        : (n = o("WAWebFrontendContactGetters").getShownOrgMemberName(
+        : (n = o("WAWebFrontendContactGetters").getShownMemberName(
               e.contact,
             )) != null
           ? n

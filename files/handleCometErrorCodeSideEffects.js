@@ -30,7 +30,7 @@ __d(
       var i = n,
         l = t;
       ((i = c.jsx(r("ServerHTML.react"), { blob: i })),
-        m(l) && (l = u._(/*BTDS*/ "Something went wrong.")),
+        m(l) && (l = u._(/*BTDS*/ "")),
         o("CometErrorOverlay").injectComponent(function (t) {
           return c.jsx(r("CometExceptionDialog.react"), {
             debugInfo: a,

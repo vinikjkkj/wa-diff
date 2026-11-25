@@ -1,22 +1,22 @@
 __d(
   "WAWebSendMessageToMediaWorker",
-  ["Promise", "WALogger", "WAWebMediaWorkerResource", "WebWorker"],
+  ["Promise", "WALogger", "WAWebMediaWorkerResource", "WebWorker", "err"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
       c = m();
     function d(t) {
-      var r;
-      return new (u || (u = n("Promise")))(function (n, a) {
+      var a;
+      return new (u || (u = n("Promise")))(function (n, i) {
         (o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
               "MediaAnalyzer:sendMessageToMediaWorker",
             ])),
         ),
-          (r = c && p(c) ? m() : c),
-          r
+          (a = c && p(c) ? m() : c),
+          a
             .setMessageHandler(function (e) {
               try {
                 e.type === "log"
@@ -30,20 +30,21 @@ __d(
                     )
                   : n(e);
               } catch (e) {
-                a(e);
+                i(e);
               }
             })
             .setErrorHandler(function (e) {
-              var t = new Error(
-                "Milan.onerror = " + (e != null && e.message ? e.message : e),
+              i(
+                r("err")(
+                  "Milan.onerror = " + (e != null && e.message ? e.message : e),
+                ),
               );
-              (t.stack, a(t));
             })
             .execute(),
-          r.postMessage(t));
+          a.postMessage(t));
       }).finally(function () {
-        r &&
-          (r.terminate(),
+        a &&
+          (a.terminate(),
           (!c || !c.isCurrentState("constructed")) && (c = m()));
       });
     }

@@ -12,24 +12,27 @@ __d(
     function c(t, n, r) {
       r === void 0 && (r = e);
       var o = t.height * r,
-        a = f(n, t.top - o),
-        i = g(n, t.top + t.height + o);
+        a = g(n, t.top - o),
+        i = h(n, t.top + t.height + o);
       return { end: Math.max(a, i), start: a };
     }
-    function d(e, t, n) {
+    function d(e, t) {
+      return Math.min(g(e, t), e.length - 2);
+    }
+    function m(e, t, n) {
       var r = t.height * l,
         o = n.length - 1,
         a = e.start === 0 || n[e.start] <= t.top - r,
         i = e.end >= o || n[e.end] >= t.top + t.height + r;
       return a && i;
     }
-    function m(e, t) {
+    function p(e, t) {
       return t != null && Math.abs(e - t) <= s;
     }
-    function p(e, t, n) {
-      var r = _(e.start, e.end);
+    function _(e, t, n) {
+      var r = f(e.start, e.end);
       if (n == null) return r;
-      var o = _(Math.max(n - s, 0), Math.min(n + s + 1, t)).filter(
+      var o = f(Math.max(n - s, 0), Math.min(n + s + 1, t)).filter(
         function (t) {
           return t < e.start || t >= e.end;
         },
@@ -38,19 +41,19 @@ __d(
         return e - t;
       });
     }
-    function _(e, t) {
+    function f(e, t) {
       return Array.from({ length: Math.max(t - e, 0) }, function (t, n) {
         return e + n;
       });
     }
-    function f(e, t) {
+    function g(e, t) {
       for (var n = 0, r = e.length - 1; n < r; ) {
         var o = Math.ceil((n + r) / 2);
         e[o] <= t ? (n = o) : (r = o - 1);
       }
       return n;
     }
-    function g(e, t) {
+    function h(e, t) {
       for (var n = 0, r = e.length - 1; n < r; ) {
         var o = Math.floor((n + r) / 2);
         e[o] >= t ? (r = o) : (n = o + 1);
@@ -60,9 +63,10 @@ __d(
     ((i.OVERSCAN_VIEWPORTS = e),
       (i.getRowOffsets = u),
       (i.getRowRange = c),
-      (i.isViewportCovered = d),
-      (i.isNextToFocusedRow = m),
-      (i.getRenderedRowIndexes = p));
+      (i.getRowAt = d),
+      (i.isViewportCovered = m),
+      (i.isNextToFocusedRow = p),
+      (i.getRenderedRowIndexes = _));
   },
   66,
 );

@@ -202,20 +202,20 @@ __d(
             ));
           var s = n({ passive: i, pull: l });
           o("WAComms").startComms(
-            async function (t, n, a) {
-              var i = o("WAWap").encodeStanza(t),
-                l = await e.sendAndReceive(
+            async function (t, n, a, i) {
+              var l = i != null ? i : o("WAWap").encodeStanzaWithoutHeader(t),
+                s = await e.sendAndReceive(
                   "mainthread_comms",
                   "handleStanza",
-                  { stanza: i, socketId: n, size: a },
+                  { stanza: l, socketId: n, size: a },
                   !0,
                   void 0,
                   void 0,
-                  [i.buffer],
+                  [l.buffer],
                 );
-              return l instanceof Uint8Array
-                ? o("WAWap").decodeStanza(l, r)
-                : l;
+              return s instanceof Uint8Array
+                ? o("WAWap").decodeStanza(s, r)
+                : s;
             },
             s,
             function (e) {

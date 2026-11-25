@@ -1,6 +1,7 @@
 __d(
   "WAWebNewsletterUnsubscribeAction",
   [
+    "WAErrors",
     "WAJids",
     "WALogger",
     "WAWebChatGetters",
@@ -13,6 +14,7 @@ __d(
     "WAWebNewsletterFollowQPLLogger",
     "WAWebNewsletterGatingUtils",
     "WAWebNewsletterMembershipActionLogger",
+    "WAWebNewsletterMembershipOffline",
     "WAWebNewsletterMetadataJob",
     "WAWebNewsletterQplGatingUtils",
     "WAWebNewsletterStorageUtils",
@@ -62,9 +64,17 @@ __d(
             .sendLogs("unsubscribe-from-not-a-newsletter"));
         return;
       }
-      var d = o("WAJids").toNewsletterJid(t.id.toJid()),
-        m = n.deleteLocalModels,
-        p = babelHelpers.objectWithoutPropertiesLoose(n, e);
+      if (
+        o(
+          "WAWebNewsletterMembershipOffline",
+        ).failNewsletterMembershipChangeIfOffline(i)
+      ) {
+        var d;
+        throw ((d = a) == null || d.end(3), new (o("WAErrors").Offline)());
+      }
+      var m = o("WAJids").toNewsletterJid(t.id.toJid()),
+        p = n.deleteLocalModels,
+        _ = babelHelpers.objectWithoutPropertiesLoose(n, e);
       o("WAWebNewsletterAttributionLogging").NewsletterCoreEventLogger.log(
         babelHelpers.extends(
           {
@@ -72,32 +82,32 @@ __d(
             channelCoreEventType: o("WAWebWamEnumChannelEventType")
               .CHANNEL_EVENT_TYPE.UNFOLLOW,
           },
-          p,
+          _,
         ),
       );
-      var _ = o(
+      var f = o(
         "WAWebNewsletterAttributionLogging",
       ).NewsletterCoreEventLogger.getSimilarChannelsSessionId();
       o(
         "WAWebNewsletterAttributionLogging",
       ).NewsletterCoreEventLogger.getIsSimilarUnitMountedForChat(t.id) &&
-        _ != null &&
+        f != null &&
         o("WAWebSimilarNewsletterLogging").logSimilarNewsletterDismiss({
           chat: t,
           reason: o("WAWebWamEnumBannerStatusReason").BANNER_STATUS_REASON
             .UNFOLLOW_TAP,
-          sessionId: _,
+          sessionId: f,
         });
       try {
-        var f, g;
+        var g, h;
         if (
-          ((f = t.newsletterMetadata) == null || f.resetRecentlyFollowedFrom(),
+          ((g = t.newsletterMetadata) == null || g.resetRecentlyFollowedFrom(),
           i.markFetchStart(),
-          await o("WAWebNewsletterUnsubscribeJob").unsubscribeFromNewsletter(d),
+          await o("WAWebNewsletterUnsubscribeJob").unsubscribeFromNewsletter(m),
           i.markFetchEnd(),
-          m == null || m)
+          p == null || p)
         )
-          (await o("WAWebNewsletterMetadataJob").deleteNewsletterMetadata(d),
+          (await o("WAWebNewsletterMetadataJob").deleteNewsletterMetadata(m),
             await o(
               "WAWebNewsletterDeleteMessageAddOns",
             ).deleteNewsletterMessageAddOns(t.id),
@@ -108,14 +118,14 @@ __d(
               newsletterDeleted: !1,
             }));
         else {
-          var h,
-            y,
+          var y,
             C,
-            b =
-              (h = (y = t.newsletterMetadata) == null ? void 0 : y.size) != null
-                ? h
+            b,
+            v =
+              (y = (C = t.newsletterMetadata) == null ? void 0 : C.size) != null
+                ? y
                 : 0,
-            v = Math.max(0, b - 1);
+            S = Math.max(0, v - 1);
           (await o("WAWebNewsletterMetadataJob").updateNewsletterMetadata(
             o(
               "WAWebNewsletterStorageUtils",
@@ -123,18 +133,18 @@ __d(
               id: t.id,
               membershipType: o("WAWebCommonNewsletterEnums")
                 .NewsletterMembershipType.Guest,
-              size: v,
+              size: S,
             }),
           ),
-            (C = t.newsletterMetadata) == null ||
-              C.set({
+            (b = t.newsletterMetadata) == null ||
+              b.set({
                 membershipType: o("WAWebCommonNewsletterEnums")
                   .NewsletterMembershipType.Guest,
-                size: v,
+                size: S,
               }));
         }
         (o("WAWebDeleteStatusAction").clearStatusForRemovedContact(),
-          (g = a) == null || g.end(2),
+          (h = a) == null || h.end(2),
           i.end(2),
           o(
             "WAWebNewsletterMembershipActionLogger",
@@ -144,9 +154,9 @@ __d(
               .CHANNEL_MEMBERSHIP_ACTION_RESULT.UNFOLLOW_SUCCESS,
           }));
       } catch (e) {
-        var S;
+        var R;
         throw (
-          (S = a) == null || S.end(3),
+          (R = a) == null || R.end(3),
           i.end(3),
           o("WALogger")
             .ERROR(

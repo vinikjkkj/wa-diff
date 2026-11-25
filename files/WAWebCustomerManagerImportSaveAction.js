@@ -304,9 +304,9 @@ __d(
             await o("WAWebSyncContactJob").syncContactListJob(
               e.map(function (e) {
                 return o("WAWebWidFactory").createUserWidOrThrow(
-                  o("WAWebContactImportFileProcessor").normalizePhoneNumber(
-                    e.phone,
-                  ) + "@c.us",
+                  o(
+                    "WAWebCustomerManagerImportRecordInput",
+                  ).getImportedInternationalPhoneNumber(e) + "@c.us",
                 );
               }),
               !1,

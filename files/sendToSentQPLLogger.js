@@ -6,6 +6,7 @@ __d(
     "MAWMIC",
     "MAWSetupWorkerAuxStateForLogging",
     "MAWWaitForBackendSetup",
+    "MAWWorkerHealthStatus",
     "MWLogSendToSentFailedError",
     "MWMsgMediaTypeLogUtils",
     "MWSharedMsgLogUtils",
@@ -18,7 +19,6 @@ __d(
     "ReQL",
     "WAExceededStorageQuota",
     "WAGetStorageQplAnnotations",
-    "asyncToGeneratorRuntime",
     "getSafeQplErrorMessage",
     "gkx",
     "interaction-tracing",
@@ -28,7 +28,6 @@ __d(
     "performance",
     "promiseDone",
     "qpl",
-    "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -37,25 +36,22 @@ __d(
       u,
       c,
       d,
-      m = r("requireDeferred")("MAWWebWorkerSingleton").__setRef(
-        "sendToSentQPLLogger",
-      ),
-      p = r("qpl")._(25313175, "1551"),
-      _ = new Map();
-    function f(e, t) {
-      r("QPLUserFlow").addAnnotations(p, t, { instanceKey: e });
+      m = r("qpl")._(25313175, "1551"),
+      p = new Map();
+    function _(e, t) {
+      r("QPLUserFlow").addAnnotations(m, t, { instanceKey: e });
     }
-    function g(e, t) {
-      (r("QPLUserFlow").endCancel(p, {
+    function f(e, t) {
+      (r("QPLUserFlow").endCancel(m, {
         annotations: t != null ? t : {},
         instanceKey: e,
       }),
-        S(e));
+        v(e));
     }
-    function h(e, t, n, a) {
+    function g(e, t, n, a) {
       var i = a != null ? a.type : t;
       r("MWLogSendToSentFailedError")(
-        { qplEventType: p, qplInstanceKey: e },
+        { qplEventType: m, qplInstanceKey: e },
         i,
         n,
         a == null ? void 0 : a.errorCode,
@@ -73,10 +69,10 @@ __d(
       if (r("Network").containsNetworkInformation()) {
         var d = r("Network").getRTT();
         d != null && (u.network_rtt_at_failure = d);
-        var m = r("Network").getEffectiveType();
-        m != null && (c.network_effective_type_at_failure = String(m));
+        var p = r("Network").getEffectiveType();
+        p != null && (c.network_effective_type_at_failure = String(p));
       }
-      (r("QPLUserFlow").endFailure(p, i, {
+      (r("QPLUserFlow").endFailure(m, i, {
         annotations: {
           bool: {
             exceededStorageQuota: o(
@@ -102,61 +98,61 @@ __d(
         error: n,
         instanceKey: e,
       }),
-        S(e));
+        v(e));
     }
-    function y(e, t, n, o) {
+    function h(e, t, n, o) {
       e != null &&
-        r("QPLUserFlow").addPoint(p, t, {
+        r("QPLUserFlow").addPoint(m, t, {
           data: o,
           debugInfo: n,
           instanceKey: e,
         });
     }
-    function C(e) {
-      ((c || (c = r("QuickPerformanceLogger"))).markerEnd(p, 160, e), S(e));
+    function y(e) {
+      ((c || (c = r("QuickPerformanceLogger"))).markerEnd(m, 160, e), v(e));
     }
-    function b(e, t) {
-      (y(e, t ? "network_connection_online" : "network_connection_offline"),
-        t || C(e));
+    function C(e, t) {
+      (h(e, t ? "network_connection_online" : "network_connection_offline"),
+        t || y(e));
     }
-    function v(e) {
+    function b(e) {
       var t = r("interaction-tracing").NetworkStatusTracker.onChange(
         function (t) {
           var n = t.online;
-          b(e, n);
+          C(e, n);
         },
       );
       if (
-        (_.set(e, t),
-        b(e, r("interaction-tracing").NetworkStatusTracker.isOnline()),
+        (p.set(e, t),
+        C(e, r("interaction-tracing").NetworkStatusTracker.isOnline()),
         r("Network").containsNetworkInformation())
       ) {
         var n = r("Network").getRTT();
-        n != null && f(e, { int: { network_rtt: n } });
+        n != null && _(e, { int: { network_rtt: n } });
         var o = r("Network").getEffectiveType();
-        o != null && f(e, { string: { network_effective_type: String(o) } });
+        o != null && _(e, { string: { network_effective_type: String(o) } });
         var a = r("Network").getBandwidth();
-        a != null && f(e, { int: { network_bandwidth: a } });
+        a != null && _(e, { int: { network_bandwidth: a } });
         var i = r("Network").getType();
-        i != null && f(e, { string: { network_connectivity_type: String(i) } });
+        i != null && _(e, { string: { network_connectivity_type: String(i) } });
       }
     }
-    function S(e) {
+    function v(e) {
       var t;
-      ((t = _.get(e)) == null || t.remove(), _.delete(e));
+      ((t = p.get(e)) == null || t.remove(), p.delete(e));
     }
-    function R(e) {
+    function S(e) {
       window.navigator &&
         window.navigator.hardwareConcurrency &&
-        f(e, {
+        _(e, {
           int: { hardware_concurrency: window.navigator.hardwareConcurrency },
         });
     }
-    function L(t, n) {
+    function R(t, n, a) {
       t === void 0 && (t = !0);
-      var a = Date.now() + (Math.round(o("Random").random() * 1e4) + 1e4);
+      var i = Date.now() + (Math.round(o("Random").random() * 1e4) + 1e4);
       return (
-        r("QPLUserFlow").start(E(n), {
+        r("QPLUserFlow").start(L(n), {
           annotations: {
             bool: {
               backendSetupReady: o(
@@ -186,13 +182,14 @@ __d(
                 .WorkerLifeCycleState.restartReasons,
             },
           },
-          instanceKey: a,
+          instanceKey: i,
         }),
+        a != null && _(i, a),
         r("promiseDone")(
           o("MAWMIC")
             .getState()
             .then(function (e) {
-              f(a, { string: { mic_state: e } });
+              _(i, { string: { mic_state: e } });
             }),
         ),
         t &&
@@ -200,7 +197,7 @@ __d(
             o("WAGetStorageQplAnnotations")
               .getStorageQplAnnotations()
               .then(function (e) {
-                f(a, e);
+                _(i, e);
               }),
           ),
         r("promiseDone")(
@@ -212,7 +209,7 @@ __d(
                 )
                 .then(function (e) {
                   e &&
-                    f(a, {
+                    _(i, {
                       int: {
                         connection_state_ls_transport: (
                           s || (s = o("LSIntEnum"))
@@ -224,27 +221,27 @@ __d(
           ),
         ),
         r("promiseDone")(
-          m.load().then(function (e) {
-            return e.getWorkerHealthStatus().then(function (e) {
-              f(a, { string: { workerHealthStatusOnStart: e.tag } });
-            });
-          }),
+          o("MAWWorkerHealthStatus")
+            .getWorkerHealthStatus()
+            .then(function (e) {
+              _(i, { string: { workerHealthStatusOnStart: e.tag } });
+            }),
         ),
-        v(a),
-        R(a),
-        a
+        b(i),
+        S(i),
+        i
       );
     }
-    function E(e) {
-      if ((u || (u = o("QPLEvent"))).getSamplingMethod(p) !== 1 || !I(e))
-        return p;
-      var t = (u || (u = o("QPLEvent"))).getSampleRate(p),
+    function L(e) {
+      if ((u || (u = o("QPLEvent"))).getSamplingMethod(m) !== 1 || !k(e))
+        return m;
+      var t = (u || (u = o("QPLEvent"))).getSampleRate(m),
         n = r("justknobx")._("3946"),
-        a = Math.ceil(n / k(e)),
+        a = Math.ceil(n / E(e)),
         i = Math.max(1, Math.min(a, t));
-      return { i: u.getMarkerId(p), m: u.getSamplingMethod(p), r: i };
+      return { i: u.getMarkerId(m), m: u.getSamplingMethod(m), r: i };
     }
-    function k(e) {
+    function E(e) {
       return e === o("MWMsgMediaTypeLogUtils").AttachmentType.Audio ||
         e === o("MWMsgMediaTypeLogUtils").AttachmentType.Gif ||
         e === o("MWMsgMediaTypeLogUtils").AttachmentType.Sticker ||
@@ -252,7 +249,7 @@ __d(
         ? 4
         : 1;
     }
-    function I(e) {
+    function k(e) {
       return (
         e === o("MWMsgMediaTypeLogUtils").AttachmentType.Application ||
         e === o("MWMsgMediaTypeLogUtils").AttachmentType.Audio ||
@@ -265,8 +262,8 @@ __d(
         e === o("MWMsgMediaTypeLogUtils").AttachmentType.Share
       );
     }
-    function T(e) {
-      (r("QPLUserFlow").endSuccess(p, {
+    function I(e) {
+      (r("QPLUserFlow").endSuccess(m, {
         annotations: {
           bool: {
             exceededStorageQuota: o(
@@ -276,11 +273,11 @@ __d(
         },
         instanceKey: e,
       }),
-        S(e));
+        v(e));
     }
-    function D(e, t, n, a, i, l) {
+    function T(e, t, n, a, i, l) {
       i === void 0 && (i = !0);
-      var s = L(i);
+      var s = R(i, void 0, a);
       if (e == null) return s;
       var u = o("MWSharedS2SBaseAnnotations").getMessageTypeParams(
         babelHelpers.extends({}, t, { threadType: e.threadType }),
@@ -295,34 +292,27 @@ __d(
           }),
           function (e) {
             var t = r("mergeDeep")(e, a);
-            f(s, t);
+            _(s, t);
           },
         ),
         s
       );
     }
-    var x = (function () {
-      var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-        function* (e, t, n) {
-          var o = e + "_start",
-            a = e + "_end";
-          r("QPLUserFlow").addPoint(p, o, { instanceKey: t });
-          var i = yield n();
-          return (r("QPLUserFlow").addPoint(p, a, { instanceKey: t }), i);
-        },
-      );
-      return function (n, r, o) {
-        return e.apply(this, arguments);
-      };
-    })();
-    ((l.addSendToSentAnnotations = f),
-      (l.markSendToSentCancel = g),
-      (l.markSendToSentFail = h),
-      (l.markSendToSentPoint = y),
-      (l.markSendToSentStart = L),
-      (l.markSendToSentSuccess = T),
-      (l.markSendToSentStartWithAnnotation = D),
-      (l.measureSendToSentPerformance = x));
+    var D = async function (t, n, o) {
+      var e = t + "_start",
+        a = t + "_end";
+      r("QPLUserFlow").addPoint(m, e, { instanceKey: n });
+      var i = await o();
+      return (r("QPLUserFlow").addPoint(m, a, { instanceKey: n }), i);
+    };
+    ((l.addSendToSentAnnotations = _),
+      (l.markSendToSentCancel = f),
+      (l.markSendToSentFail = g),
+      (l.markSendToSentPoint = h),
+      (l.markSendToSentStart = R),
+      (l.markSendToSentSuccess = I),
+      (l.markSendToSentStartWithAnnotation = T),
+      (l.measureSendToSentPerformance = D));
   },
   98,
 );

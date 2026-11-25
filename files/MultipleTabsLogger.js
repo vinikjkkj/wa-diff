@@ -3,45 +3,34 @@ __d(
   [
     "BrowserLockManager",
     "LockManager",
-    "Promise",
     "QPLUserFlow",
-    "asyncToGeneratorRuntime",
     "hasMultipleTabs",
     "ifRequireable",
     "memoizeOneWithArgs",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = !1,
-      u = !1;
+    var e = !1,
+      s = !1;
+    function u() {
+      return e;
+    }
     function c() {
-      return s;
+      return o("hasMultipleTabs").hasMultipleTabs(s);
     }
-    function d() {
-      return o("hasMultipleTabs").hasMultipleTabs(u);
+    async function d() {
+      var e = await c();
+      return e != null ? e.toString() : "undefined";
     }
-    function m() {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield d();
-          return e != null ? e.toString() : "undefined";
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e) {
+    function m(e) {
       r("ifRequireable")("InteractionTracingMetrics", function (t) {
-        m().then(function (n) {
+        d().then(function (n) {
           return t.addMetadata(e, "multipleTabs", n);
         });
       });
     }
-    function f(e, t) {
-      m().then(function (n) {
+    function p(e, t) {
+      d().then(function (n) {
         t !== null
           ? r("QPLUserFlow").addAnnotations(
               e,
@@ -51,29 +40,29 @@ __d(
           : r("QPLUserFlow").addAnnotations(e, { string: { multipleTabs: n } });
       });
     }
-    var g = r("memoizeOneWithArgs")(function (a) {
+    var _ = r("memoizeOneWithArgs")(function (n) {
       r("BrowserLockManager") &&
-        ((u = !0),
+        ((s = !0),
         r("BrowserLockManager").request(
           o("hasMultipleTabs").MULTIPLE_TAB_LOCK_NAME,
           { mode: o("LockManager").LockMode.Exclusive },
           function (t) {
             if (t)
               return (
-                (s = !0),
-                new (e || (e = n("Promise")))(function (e) {
-                  if (a) return e(a());
+                (e = !0),
+                new Promise(function (e) {
+                  if (n) return e(n());
                 })
               );
           },
         ));
     });
-    ((l.hasUniqueLock = c),
-      (l.hasMultipleTabs = d),
-      (l.getMultipleTabsAnnotation = m),
-      (l.addAnnotationWithInteractionUuid = _),
-      (l.addAnnotationToQPLEvent = f),
-      (l.init = g));
+    ((l.hasUniqueLock = u),
+      (l.hasMultipleTabs = c),
+      (l.getMultipleTabsAnnotation = d),
+      (l.addAnnotationWithInteractionUuid = m),
+      (l.addAnnotationToQPLEvent = p),
+      (l.init = _));
   },
   98,
 );

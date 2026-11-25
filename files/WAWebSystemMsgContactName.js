@@ -15,9 +15,7 @@ __d(
         formattedName: o("WAWebFrontendContactGetters").getFormattedName(t),
         isMyContact: o("WAWebFrontendContactGetters").getIsMyContact(t),
         notifyName: o("WAWebContactGetters").getNotifyName(t),
-        orgMemberName: o("WAWebFrontendContactGetters").getShownOrgMemberName(
-          t,
-        ),
+        orgMemberName: o("WAWebFrontendContactGetters").getShownMemberName(t),
       });
     }
     function u(t) {

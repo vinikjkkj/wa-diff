@@ -5,20 +5,17 @@ __d(
     "use strict";
     var e;
     function s(e, t) {
-      return new m(e, t);
+      return new d(e, t);
     }
     function u(e) {
-      if (!(e instanceof m)) return e;
+      if (!(e instanceof d)) return e;
       if (e.maybeErr != null) throw e.maybeErr.err;
       return e.val;
     }
-    function c(e) {
-      return e instanceof m;
-    }
-    function d(t) {
+    function c(t) {
       return (e || (e = r("isPromise")))(t) ? t : s(t);
     }
-    var m = (function () {
+    var d = (function () {
       function e(e, t) {
         ((this.val = e), (this.maybeErr = t));
       }
@@ -36,11 +33,11 @@ __d(
         }),
         (t.then = function (t, n) {
           if (this.maybeErr != null) {
-            if (n) return d(n(this.maybeErr.err));
+            if (n) return c(n(this.maybeErr.err));
             throw this.maybeErr.err;
           }
           try {
-            return d(t(this.val));
+            return c(t(this.val));
           } catch (e) {
             return s(void 0, { err: e });
           }
@@ -50,8 +47,7 @@ __d(
     })();
     ((l.makeSynchronousPromise = s),
       (l.maybeExtractValueIfSynchronousPromise = u),
-      (l.isSynchronousPromise = c),
-      (l.wrapInSyncPromiseIfNotPromise = d));
+      (l.wrapInSyncPromiseIfNotPromise = c));
   },
   98,
 );

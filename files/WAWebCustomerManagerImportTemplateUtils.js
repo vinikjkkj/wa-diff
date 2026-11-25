@@ -29,36 +29,27 @@ __d(
         leadStage: ["Lead stage", p],
         note: ["Notes", f],
         username: ["Username", c],
-      },
-      C = {
-        acquisitionSource: [
-          _,
-          "Source",
-          "source",
-          "Acquisition source",
-          "acquisition source",
-        ],
-        leadStage: [p, "Lead stage", "lead stage"],
-        note: [f, "Notes", "notes"],
-        username: [c, "Username", "username"],
       };
-    function b(e, t) {
-      return v(e.rawRow, t);
+    function C(e, t) {
+      return b(e.rawRow, t);
     }
-    function v(e, t) {
+    function b(e, t) {
       return o("WAWebContactImportTemplateParsingUtils").readRawRowColumn(
         e,
         y[t],
       );
     }
-    function S(e, t) {
-      for (var n of C[t]) {
-        var r = e[n];
-        if (typeof r == "string" && r.length > 0) return r;
+    function v(e, t) {
+      var n,
+        r = {};
+      for (var o of Object.entries(e)) {
+        var a = o[0],
+          i = o[1];
+        typeof i == "string" && (r[a] = i);
       }
-      return "";
+      return (n = b(r, t)) != null ? n : "";
     }
-    function R() {
+    function S() {
       return s
         ._(/*BTDS*/ "", [
           s._param("Birthday column header", g),
@@ -80,7 +71,7 @@ __d(
         ])
         .toString();
     }
-    function L() {
+    function R() {
       return s
         ._(/*BTDS*/ "", [
           s._param("Birthday column header", g),
@@ -97,36 +88,36 @@ __d(
         ])
         .toString();
     }
-    var E = [
+    var L = [
       s._(/*BTDS*/ "").toString(),
       s._(/*BTDS*/ "").toString(),
       s._(/*BTDS*/ "").toString(),
       s._(/*BTDS*/ "").toString(),
       s._(/*BTDS*/ "").toString(),
-      s._(/*BTDS*/ "", [s._param("lead stage values", $())]).toString(),
-      s._(/*BTDS*/ "", [s._param("source values", P())]).toString(),
+      s._(/*BTDS*/ "", [s._param("lead stage values", x())]).toString(),
+      s._(/*BTDS*/ "", [s._param("source values", $())]).toString(),
       s._(/*BTDS*/ "").toString(),
       s._(/*BTDS*/ "").toString(),
+      S(),
       R(),
-      L(),
       s._(/*BTDS*/ "").toString(),
       s._(/*BTDS*/ "").toString(),
     ];
-    function k(e) {
+    function E(e) {
       return '"' + e.replace(/\"/g, '""') + '"';
     }
-    var I = [
+    var k = [
         "Ada Lovelace",
         "4155550123",
         "ada",
         "ada@example.com",
-        k("12 Baker St, London"),
-        k(
+        E("12 Baker St, London"),
+        E(
           o("WAWebLeadStageNames")
             .getLeadStageName(o("WAWebLeadStage").LeadStage.QUALIFIED)
             .toString(),
         ),
-        k(
+        E(
           (e =
             (u = o(
               "WAWebCustomerProfileAcquisitionSourceNames",
@@ -143,7 +134,7 @@ __d(
         "04/15/1990",
         "Two pizzas on Oct 3",
       ].join(","),
-      T = [
+      I = [
         o("WAWebContactImportTemplateParsingUtils").FBT_NAME,
         o("WAWebContactImportTemplateParsingUtils").FBT_PHONE,
         c,
@@ -155,23 +146,23 @@ __d(
         g,
         h,
       ]
-        .map(k)
+        .map(E)
         .join(","),
-      D = E.map(k).join("\n") + "\n" + I + "\n\n" + T + "\n";
-    function x() {
+      T = L.map(E).join("\n") + "\n" + k + "\n\n" + I + "\n";
+    function D() {
       return {
         download: "customer_manager_import_template.csv",
-        href: "data:application/csv," + encodeURI(D),
+        href: "data:application/csv," + encodeURI(T),
       };
     }
-    function $() {
+    function x() {
       return o("WAWebLeadStage")
         .ALL_LEAD_STAGES.map(function (e) {
           return o("WAWebLeadStageNames").getLeadStageName(e).toString();
         })
         .join(", ");
     }
-    function P() {
+    function $() {
       return o("WAWebCustomerProfileAcquisitionSource")
         .PROFILE_ACQUISITION_SOURCE_ORDER.map(function (e) {
           var t;
@@ -194,12 +185,12 @@ __d(
       (l.FBT_NOTES = f),
       (l.FBT_BIRTHDAY = g),
       (l.FBT_LAST_ORDER = h),
-      (l.readCustomerManagerImportColumn = b),
-      (l.readCustomerManagerImportRawRowColumn = v),
-      (l.readCustomerManagerImportDisplayColumn = S),
-      (l.getCustomerManagerImportDateFormatInstruction = R),
-      (l.getCustomerManagerImportBirthdayFormatInstruction = L),
-      (l.getTemplateLinkProps = x));
+      (l.readCustomerManagerImportColumn = C),
+      (l.readCustomerManagerImportRawRowColumn = b),
+      (l.readCustomerManagerImportDisplayColumn = v),
+      (l.getCustomerManagerImportDateFormatInstruction = S),
+      (l.getCustomerManagerImportBirthdayFormatInstruction = R),
+      (l.getTemplateLinkProps = D));
   },
   226,
 );

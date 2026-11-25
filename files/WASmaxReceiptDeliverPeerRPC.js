@@ -260,18 +260,7 @@ __d(
     }
     ((l.receiveDeliverPeerRPC = e),
       (l.parseDeliverPeerRequest = s),
-      (l.makeDeliverPeerResponseSuccess = u),
-      (l.parseDeliverPeerReceiptType = c),
-      (l.parseDeliverPeerServerErrorMixin = d),
-      (l.parsePeerServerErrorTypeMixin = m),
-      (l.parseDeliverPeerDeliveryMixin = p),
-      (l.parseDeliverPeerErrorMixin = _),
-      (l.parseDeliverPeerPeerRetryMixin = f),
-      (l.parseDeliverPeerReadMixin = g),
-      (l.parseHistorySyncTypeMixin = h),
-      (l.parsePeerMessageTypeMixin = y),
-      (l.parsePeerRetryTypeMixin = C),
-      (l.parsePeerCategoryMixin = b));
+      (l.makeDeliverPeerResponseSuccess = u));
   },
   98,
 );

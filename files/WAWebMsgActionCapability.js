@@ -434,6 +434,7 @@ __d(
             [
               o("WAWebMsgType").MSG_TYPE.VCARD,
               o("WAWebMsgType").MSG_TYPE.MULTI_VCARD,
+              o("WAWebMsgType").MSG_TYPE.MUSIC,
             ].includes(t.type) ||
             t.type === o("WAWebMsgType").MSG_TYPE.LOCATION ||
             t.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION ||

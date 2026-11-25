@@ -6,6 +6,7 @@ __d(
       MetaAI: 0,
       MuseAfterLinking: 1,
       MuseAlways: 2,
+      MuseSeparate: 5,
     });
     function s() {
       var t;

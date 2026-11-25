@@ -626,15 +626,18 @@ __d(
             { body: b({}) },
           );
         }),
-        (n.openEventSubscription = function (t, n) {
-          return this.$1.openStream(
-            {
-              accept: "application/x-ndjson",
-              body: b({}),
-              method: "POST",
-              path: t,
-            },
-            n,
+        (n.openEventSubscription = function (t, n, r) {
+          return (
+            r === void 0 && (r = {}),
+            this.$1.openStream(
+              {
+                accept: "application/x-ndjson",
+                body: b(r),
+                method: "POST",
+                path: t,
+              },
+              n,
+            )
           );
         }),
         (n.browserTaskPost = function (t, n) {

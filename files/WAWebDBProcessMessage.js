@@ -9,6 +9,8 @@ __d(
     "WAWebDBDeleteAssociatedMsgsByMsgKey",
     "WAWebDBMessageBulkHelper",
     "WAWebDBMessageSerialization",
+    "WAWebDBMsgUtils",
+    "WAWebDBReadReceiptOriginBindings",
     "WAWebDBStoreMessage",
     "WAWebDbEncryptionKey",
     "WAWebHandlePlaceholderWam",
@@ -194,12 +196,21 @@ __d(
                 hasLink: o("WAWebLinkify").hasHttpLink(i),
                 rowId: void 0,
                 inChatMsgId: void 0,
-                pendingReadReceipt: a.pendingReadReceipt,
+                pendingReadReceipt: !1,
               });
               if (
                 ((l.rowId = a.rowId),
                 (l.internalId = a.internalId),
                 v(l, a),
+                (l.pendingReadReceipt =
+                  a.pendingReadReceipt ===
+                    o("WAWebDBMsgUtils").PendingReadReceiptType.MessageEdit &&
+                  l.latestEditMsgKey == null
+                    ? o("WAWebDBMsgUtils").PendingReadReceiptType.Message
+                    : a.pendingReadReceipt),
+                (l.pendingReadReceiptOrigin = o(
+                  "WAWebDBReadReceiptOriginBindings",
+                ).getCarriedPendingReadReceiptOrigin(a, l)),
                 l.rowId == null || l.internalId == null)
               )
                 throw r("err")(

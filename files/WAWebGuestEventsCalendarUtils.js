@@ -151,7 +151,9 @@ __d(
     ((l.getGuestEventCalendarDetails = e),
       (l.getGoogleCalendarUrl = m),
       (l.getGuestEventCalendarICSFile = p),
-      (l.downloadGuestEventCalendarICSFile = _));
+      (l.downloadGuestEventCalendarICSFile = _),
+      (l.getStartDate = h),
+      (l.getEndDate = y));
   },
   98,
 );

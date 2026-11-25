@@ -12,7 +12,6 @@ __d(
     "Random",
     "ReQL",
     "WAJids",
-    "asyncToGeneratorRuntime",
     "promiseDone",
     "qpl",
     "sendToSentQPLLogger",
@@ -92,7 +91,7 @@ __d(
           void 0,
           { string: { thread_state: t.threadState } },
         ),
-        r("QPLUserFlow").start(g, { annotations: A(i), instanceKey: n }),
+        r("QPLUserFlow").start(g, { annotations: M(i), instanceKey: n }),
         r("promiseDone")(f.load(), function (e) {
           var t = e.runAfterBackendSetup;
           t(function () {
@@ -104,7 +103,7 @@ __d(
       var t = e.instanceKey,
         n = e.s2sInstanceKey,
         r = babelHelpers.objectWithoutPropertiesLoose(e, s);
-      o("MAWQplProxy").startQplUserFlow(g, A(r), { providedInstanceKey: t });
+      o("MAWQplProxy").startQplUserFlow(g, M(r), { providedInstanceKey: t });
     }
     function L(e, t) {
       (r("QPLUserFlow").addPoint(g, e, { instanceKey: t }),
@@ -131,20 +130,13 @@ __d(
     function k(e, t) {
       r("QPLUserFlow").addAnnotations(g, e, { instanceKey: t });
     }
-    var I = (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n) {
-            var o = e + "_start",
-              a = e + "_end";
-            r("QPLUserFlow").addPoint(g, o, { instanceKey: t });
-            var i = yield n();
-            return (r("QPLUserFlow").addPoint(g, a, { instanceKey: t }), i);
-          },
-        );
-        return function (n, r, o) {
-          return e.apply(this, arguments);
-        };
-      })(),
+    var I = async function (t, n, o) {
+        var e = t + "_start",
+          a = t + "_end";
+        r("QPLUserFlow").addPoint(g, e, { instanceKey: n });
+        var i = await o();
+        return (r("QPLUserFlow").addPoint(g, a, { instanceKey: n }), i);
+      },
       T = function (t, n, r) {
         return n == null ? r() : I(t, n, r);
       };
@@ -162,43 +154,32 @@ __d(
         o("sendToSentQPLLogger").markSendToSentPoint(y, "thread_mapping_end"),
         o("MAWThreadLoadingState").isReady(t) || _(t, e)
           ? r("QPLUserFlow").endSuccess(g, { instanceKey: e })
-          : P("thread_state_not_ready", e));
+          : $("thread_state_not_ready", e));
     }
-    function x(e) {
-      return $.apply(this, arguments);
-    }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = e.instanceKey,
-            r = e.intJid,
-            a = e.tables,
-            i = e.threadKey;
-          if (i == null && r == null) {
-            P("no_thread_key_nor_jid", n);
-            return;
-          }
-          var l = yield F(a, { intJid: r, threadKey: i }),
-            s = (t = l == null ? void 0 : l.serverThreadKey) != null ? t : i,
-            u =
-              s == null
-                ? null
-                : yield o("ReQL").firstAsync(
-                    o("ReQL").fromTableAscending(a.threads).getKeyRange(s),
-                  );
-          D(
-            n,
-            yield o("MAWThreadLoadingState").getThreadLoadingStateForDbRows(
-              u,
-              l,
-            ),
-          );
-        })),
-        $.apply(this, arguments)
+    async function x(e) {
+      var t,
+        n = e.instanceKey,
+        r = e.intJid,
+        a = e.tables,
+        i = e.threadKey;
+      if (i == null && r == null) {
+        $("no_thread_key_nor_jid", n);
+        return;
+      }
+      var l = await w(a, { intJid: r, threadKey: i }),
+        s = (t = l == null ? void 0 : l.serverThreadKey) != null ? t : i,
+        u =
+          s == null
+            ? null
+            : await o("ReQL").firstAsync(
+                o("ReQL").fromTableAscending(a.threads).getKeyRange(s),
+              );
+      D(
+        n,
+        await o("MAWThreadLoadingState").getThreadLoadingStateForDbRows(u, l),
       );
     }
-    function P(e, t) {
+    function $(e, t) {
       (o("sendToSentQPLLogger").markSendToSentPoint(
         y,
         "thread_mapping_fail",
@@ -207,7 +188,7 @@ __d(
       ),
         r("QPLUserFlow").endFailure(g, e, { instanceKey: t }));
     }
-    function N(e, t) {
+    function P(e, t) {
       (o("sendToSentQPLLogger").markSendToSentPoint(
         y,
         "thread_mapping_fail",
@@ -219,13 +200,10 @@ __d(
           instanceKey: t,
         }));
     }
-    function M(e, t, n) {
-      o("MAWQplProxy").sendQPLFailThroughBridge(g, e, n, t);
-    }
-    function w(e, t) {
+    function N(e, t) {
       (L(e, t), r("QPLUserFlow").endCancel(g, { instanceKey: t }));
     }
-    function A(e) {
+    function M(e) {
       var t = e.hasMappingRowAlready,
         n = e.hasPlaceholderRowInserted,
         r = e.isExistingRowPlaceholder,
@@ -249,24 +227,13 @@ __d(
         },
       };
     }
-    function F(e, t) {
-      return O.apply(this, arguments);
-    }
-    function O() {
-      return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = t.intJid,
-            r = t.threadKey,
-            a = yield o("MAWMiActMappingTableAPI").getMappingRowForThreadKey(
-              e,
-              r,
-            );
-          return a != null
-            ? a
-            : o("MAWMiActMappingTableAPI").getMappingRowForIntJid(e, n);
-        })),
-        O.apply(this, arguments)
-      );
+    async function w(e, t) {
+      var n = t.intJid,
+        r = t.threadKey,
+        a = await o("MAWMiActMappingTableAPI").getMappingRowForThreadKey(e, r);
+      return a != null
+        ? a
+        : o("MAWMiActMappingTableAPI").getMappingRowForIntJid(e, n);
     }
     ((l.pendingThreadCreationOnServer = d),
       (l.allowToSkipUpgradingOptimisticThreadInMI = p),
@@ -282,10 +249,9 @@ __d(
       (l.measurePerformanceForNullableInstanceKey = T),
       (l.endForThreadState = D),
       (l.end = x),
-      (l.endFailure = P),
-      (l.endFailureError = N),
-      (l.endFailureInWorker = M),
-      (l.endCancel = w));
+      (l.endFailure = $),
+      (l.endFailureError = P),
+      (l.endCancel = N));
   },
   98,
 );

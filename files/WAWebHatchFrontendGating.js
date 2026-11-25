@@ -32,13 +32,13 @@ __d(
       );
     }
     function u() {
-      return q({
+      return U({
         abProp: "ai_hatch_approval_history_enabled",
         primaryFeature: "ai_hatch_approval_history_enabled",
       });
     }
     function c() {
-      return q({
+      return U({
         abProp: "ai_hatch_approval_notification_enabled",
         primaryFeature: "ai_hatch_approval_notification_enabled",
       });
@@ -49,7 +49,7 @@ __d(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        q({
+        U({
           abProp: "ai_hatch_connectors_enabled",
           primaryFeature: "ai_hatch_connectors_enabled",
         })
@@ -71,7 +71,7 @@ __d(
       );
     }
     function _() {
-      return q({
+      return U({
         abProp: "ai_hatch_response_ux_parity_enabled",
         primaryFeature: "ai_hatch_response_ux_parity_enabled",
       });
@@ -106,22 +106,22 @@ __d(
       }
     }
     function C() {
-      return q({
+      return U({
         abProp: "ai_hatch_vm_capability_sync_enabled",
         primaryFeature: "ai_hatch_vm_capability_sync_enabled",
       });
     }
     function b() {
-      return q({ abProp: "ai_hatch_cvm_enabled" });
+      return U({ abProp: "ai_hatch_cvm_enabled" });
     }
     function v() {
-      return q({
+      return U({
         abProp: "ai_hatch_ideas_enabled",
         primaryFeature: "ai_hatch_ideas_enabled",
       });
     }
     function S() {
-      return q({
+      return U({
         abProp: "ai_hatch_identity_enabled",
         primaryFeature: "ai_hatch_identity_enabled",
       });
@@ -134,7 +134,7 @@ __d(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        q({
+        U({
           abProp: "ai_hatch_browser_enabled",
           primaryFeature: "ai_hatch_browser_enabled",
         })
@@ -144,7 +144,7 @@ __d(
       return (
         e != null &&
         o("WAWebBotUtils").isHatchBot(e) &&
-        q({
+        U({
           abProp: "ai_hatch_theme_enabled",
           primaryFeature: "ai_hatch_theme_enabled",
         })
@@ -154,7 +154,7 @@ __d(
       return (
         e != null &&
         o("WAWebBotUtils").isHatchBot(e) &&
-        q({
+        U({
           abProp: "ai_hatch_avatar_working_video_enabled",
           primaryFeature: "ai_hatch_avatar_working_video_enabled",
         })
@@ -166,7 +166,7 @@ __d(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        q({
+        U({
           abProp: "ai_hatch_secure_credentials_enabled",
           primaryFeature: "ai_hatch_secure_credentials_enabled",
         })
@@ -184,7 +184,7 @@ __d(
       );
     }
     function T() {
-      return q({
+      return U({
         abProp: "ai_hatch_permission_enable",
         primaryFeature: "ai_hatch_permission_enable",
       });
@@ -195,26 +195,26 @@ __d(
           o("WAWebHatchMinPrimaryVersions")
             .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
         ) &&
-        q({
+        U({
           abProp: "ai_hatch_space_enabled",
           primaryFeature: "ai_hatch_space_enabled",
         })
       );
     }
     function x() {
-      return q({
+      return U({
         abProp: "ai_hatch_media_enabled",
         primaryFeature: "ai_hatch_media_enabled",
       });
     }
     function $() {
-      return q({
+      return U({
         abProp: "ai_hatch_revoke_enabled",
         primaryFeature: "ai_hatch_revoke_enabled",
       });
     }
     function P() {
-      return q({
+      return U({
         abProp: "ai_hatch_data_controls_enabled",
         primaryFeature: "ai_hatch_data_controls_enabled",
       });
@@ -242,13 +242,13 @@ __d(
       );
     }
     function w() {
-      return q({
+      return U({
         abProp: "ai_hatch_scheduled_tasks_enabled",
         primaryFeature: "ai_hatch_scheduled_tasks_enabled",
       });
     }
     function A() {
-      return q({
+      return U({
         abProp: "ai_hatch_activity_enabled",
         primaryFeature: "ai_hatch_activity_enabled",
       });
@@ -257,7 +257,7 @@ __d(
       return A() && r("gkx")("16539");
     }
     function O() {
-      return q({
+      return U({
         abProp: "ai_hatch_video_avatars_enabled",
         primaryFeature: "ai_hatch_video_avatars_enabled",
       });
@@ -298,7 +298,34 @@ __d(
                 "ai_hatch_web_fab_sign_up_enabled",
               ));
     }
-    function W(e) {
+    function W() {
+      if (
+        o("WAWebMuseDefaultAssistantVariant").MuseDefaultAssistantVariant.cast(
+          o(
+            "WAWebMuseDefaultAssistantVariantSource",
+          ).readMuseDefaultAssistantVariantSource(),
+        ) !==
+        o("WAWebMuseDefaultAssistantVariant").MuseDefaultAssistantVariant
+          .MuseSeparate
+      )
+        return !1;
+      var e =
+        r(
+          "WAWebHatchLinkedStatusManager",
+        ).getKnownConfirmedLinkedStatusState() === "linked";
+      return (
+        o("WAWebBotGating").isBotShortcutEntryPointEnabled() &&
+        (e ||
+          (o("WAWebHatchUrl").getHatchJoinUrl() != null &&
+            !o("WAWebMuseCtaLinkOverride").isTryMuseKillSwitchOn())) &&
+        o("WAWebABProps").getABPropConfigValue("ai_hatch_fab_enabled") &&
+        (e ||
+          o("WAWebABProps").getABPropConfigValue(
+            "ai_hatch_web_fab_sign_up_enabled",
+          ))
+      );
+    }
+    function q(e) {
       return e || !O()
         ? "static"
         : (function (e) {
@@ -309,7 +336,7 @@ __d(
             ),
           );
     }
-    function q(t) {
+    function U(t) {
       var n = t.abProp,
         r = t.primaryFeature;
       return (
@@ -350,7 +377,8 @@ __d(
       (l.isHatchGoalsEnabled = F),
       (l.isHatchVideoAvatarsEnabled = O),
       (l.isMuseNavBarEntryPointSelected = B),
-      (l.getHatchNavBarAnimationMode = W));
+      (l.isMuseDualNavBarEntryPointSelected = W),
+      (l.getHatchNavBarAnimationMode = q));
   },
   98,
 );

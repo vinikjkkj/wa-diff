@@ -15,7 +15,7 @@ __d(
     function e(e) {
       if (o("WAWebFrontendContactGetters").getIsMyContact(e))
         return o("WAWebFrontendContactGetters").getFormattedName(e);
-      var t = o("WAWebFrontendContactGetters").getShownOrgMemberName(e);
+      var t = o("WAWebFrontendContactGetters").getShownMemberName(e);
       if (t != null) return t;
       var n = o("WAWebContactGetters").getNotifyName(e);
       return n != null

@@ -2,22 +2,20 @@ __d(
   "WAWebMusicPlaybackUtils",
   [
     "WAWebABProps",
-    "WAWebAsISOCountryCode",
-    "WAWebL10NCountryCodes",
     "WAWebMusicEligibleCountriesProvider",
     "WAWebMusicParsingUtils",
-    "WAWebUserPrefsMeUser",
+    "WAWebMusicViewerCountry",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
-      var n = u();
+      var n = o("WAWebMusicViewerCountry").getMusicViewerCountry();
       return n != null && t.has(n) && !e.has(n);
     }
     function s(e) {
       var t = e.countryBlocklist,
         n = e.isAvailableForConsumption,
-        r = u();
+        r = o("WAWebMusicViewerCountry").getMusicViewerCountry();
       return !o("WAWebABProps").getABPropConfigValue(
         "music_on_chats_geogating_enabled",
       ) ||
@@ -35,15 +33,7 @@ __d(
             : null;
     }
     function u() {
-      var e = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-      return e == null
-        ? null
-        : o("WAWebAsISOCountryCode").asISOCountryCode(
-            o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(e.user),
-          );
-    }
-    function c() {
-      var e = u();
+      var e = o("WAWebMusicViewerCountry").getMusicViewerCountry();
       if (e == null) return null;
       switch (e) {
         case "AC":
@@ -54,8 +44,7 @@ __d(
     }
     ((l.canPlaybackMusic = e),
       (l.getMusicMessageUnplayableReason = s),
-      (l.getUserCountryCode = u),
-      (l.getUserCountryCodeForSNAPL = c));
+      (l.getUserCountryCodeForSNAPL = u));
   },
   98,
 );

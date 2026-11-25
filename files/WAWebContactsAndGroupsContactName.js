@@ -30,7 +30,7 @@ __d(
       var t = o("WAWebFrontendContactGetters").getIsMyContact(e);
       if (
         !o("WAWebContactGetters").getIsBusiness(e) &&
-        (t || o("WAWebFrontendContactGetters").getShownOrgMemberName(e) != null)
+        (t || o("WAWebFrontendContactGetters").getShownMemberName(e) != null)
       )
         return o("WAWebFrontendContactGetters").getFormattedShortName(e);
       var n = u({

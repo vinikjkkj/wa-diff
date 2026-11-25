@@ -101,6 +101,7 @@ __d(
             case "DeliverLIDFeatureIncapableType":
             case "EngagedType":
             case "DeprecatedDeliveryType":
+            case "DeliverIntegrityDropErrorType":
             case "UnknownType": {
               c.ERROR(
                 s ||

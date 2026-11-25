@@ -33,6 +33,7 @@ __d(
         end: c,
         fieldNumber: s(i.value),
         tagBytes: t.subarray(n, i.end),
+        tagValue: i.value,
         valueEnd: c,
         valueStart: u,
         wireType: l,

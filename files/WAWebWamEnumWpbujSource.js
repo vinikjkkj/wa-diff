@@ -25,6 +25,9 @@ __d(
       LIST_EDIT: 20,
       LIST_CREATE: 21,
       LIST_SCHEDULE: 22,
+      MEDIA_EDITOR: 23,
+      MEDIA_PICKER: 24,
+      FORWARD: 25,
     });
     i.WPBUJ_SOURCE = e;
   },

@@ -6,7 +6,6 @@ __d(
     "WAWebReportingTokenConfig",
     "WAWebReportingTokenConstants",
     "WAWebReportingTokenProtobufUtils",
-    "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e = new Map([
@@ -24,56 +23,24 @@ __d(
         [o("WAWebReportingTokenConstants").REPORTING_TOKEN_VERSION.V3, e],
       ]),
       u = Math.max.apply(Math, Array.from(s.keys())),
-      c = function (t) {
-        this.value = t;
-        var e = o("WAWebReportingTokenProtobufUtils").convertToVarInt(t);
-        this.size = e.length;
+      c = function (t, n) {
+        ((this.value = n), (this.size = t));
       },
       d = (function () {
         function e(e, t) {
-          this.valLengthSize = 0;
-          var n = new (o("WABinary").Binary)(e);
-          n.advance(t);
-          var a = n.readVarInt(o("WABinary").parseInt64OrThrow);
-          if (a < 0 || a >= 4294967296)
-            throw r("err")("Invalid tag value, out of bound: " + a);
-          var i = o("WAWebReportingTokenProtobufUtils").getWireTypeFromTag(a);
-          this.tag = new c(a);
-          var l = 0,
-            s = new (o("WABinary").Binary)();
-          switch ((s.writeVarInt(a), i)) {
-            case o("WAProtoConst").ENC.VARINT: {
-              var u = n.readVarInt(o("WABinary").parseUint64OrThrow);
-              s.writeVarInt(u);
-              break;
-            }
-            case o("WAProtoConst").ENC.BINARY: {
-              var d = n.readVarInt(o("WABinary").parseUint64OrThrow),
-                m = n.readByteArrayView(d);
-              ((l += o("WAWebReportingTokenProtobufUtils").convertToVarInt(
-                d,
-              ).length),
-                s.writeVarInt(d),
-                s.writeByteArray(m),
-                (this.valLengthSize = l));
-              break;
-            }
-            case o("WAProtoConst").ENC.BIT64: {
-              var p = n.readByteArrayView(8);
-              s.writeByteArray(p);
-              break;
-            }
-            case o("WAProtoConst").ENC.BIT32: {
-              var _ = n.readByteArrayView(4);
-              s.writeByteArray(_);
-              break;
-            }
-            default:
-              throw r("err")("Unsupported wire type " + i);
-          }
-          ((this.bytes = s.readByteArrayView()),
+          var n = o("WAWebReportingTokenProtobufUtils").parseRawProtobufField(
+            e,
+            t,
+            e.length,
+          );
+          ((this.tag = new c(n.tagBytes.length, n.tagValue)),
+            (this.valLengthSize =
+              n.wireType === o("WAProtoConst").ENC.BINARY
+                ? n.valueStart - t - n.tagBytes.length
+                : 0),
+            (this.bytes = n.bytes),
             (this.start = t),
-            (this.end = t + this.bytes.length));
+            (this.end = n.end));
         }
         var t = e.prototype;
         return (
@@ -120,7 +87,9 @@ __d(
           }),
           (t.getTotalSize = function () {
             return (
-              this.tag.size +
+              o("WAWebReportingTokenProtobufUtils").convertToVarInt(
+                this.tag.value,
+              ).length +
               this.partsLengthInBytes.length +
               this.parts.getTotalSize()
             );

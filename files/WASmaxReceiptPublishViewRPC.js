@@ -111,11 +111,7 @@ __d(
     ((l.sendPublishViewRPC = e),
       (l.parsePublishViewResponseServerError = s),
       (l.parsePublishViewResponseSuccess = u),
-      (l.makePublishViewRequest = c),
-      (l.makeSenderAggregatedViewPublishListItem = d),
-      (l.mergeSenderAggregatedViewPublishMixin = p),
-      (l.mergeViewTypeMixin = f),
-      (l.mergeNewsletterMixin = h));
+      (l.makePublishViewRequest = c));
   },
   98,
 );

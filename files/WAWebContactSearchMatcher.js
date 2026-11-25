@@ -101,7 +101,7 @@ __d(
     }
     function f(e, t, n, a, i) {
       var l = o("WAWebFrontendContactGetters").getSearchName(e),
-        u = o("WAWebFrontendContactGetters").getShownOrgMemberName(e);
+        u = o("WAWebFrontendContactGetters").getShownMemberName(e);
       if (!r("isStringNullOrEmpty")(a))
         return g({
           contact: e,
@@ -204,7 +204,7 @@ __d(
     function C(e, t) {
       var n = t.split(/\s+/).filter(Boolean);
       if (n.length === 0) return null;
-      var r = o("WAWebFrontendContactGetters").getShownOrgMemberName(e),
+      var r = o("WAWebFrontendContactGetters").getShownMemberName(e),
         a = [
           r == null ? null : o("WAWebL10NAccentFold").accentFold(r),
           o("WAWebFrontendContactGetters").getSearchName(e),

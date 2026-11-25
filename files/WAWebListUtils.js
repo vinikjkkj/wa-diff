@@ -12,7 +12,6 @@ __d(
     "WAWebConnModel",
     "WAWebCustomerManagerGating",
     "WAWebFrontendChatGetters",
-    "WAWebInboxFiltersGatingUtils",
     "WAWebLabelCollection",
     "WAWebLabelConstants",
     "WAWebLabelPillColors",
@@ -119,7 +118,7 @@ __d(
         C(e == null ? void 0 : e.type) ||
         v(e == null ? void 0 : e.type) ||
         S(e) ||
-        K(e)
+        j(e)
       );
     }
     function L(e) {
@@ -128,13 +127,7 @@ __d(
         e.listId == null
       );
     }
-    function E(e) {
-      return (
-        e === o("WAWebSchemaLabel").ListType.MENTIONS_AND_REPLIES &&
-        !o("WAWebInboxFiltersGatingUtils").inboxToYouFilterEnabled()
-      );
-    }
-    function k(e, t) {
+    function E(e, t) {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         (e === o("WAWebSchemaLabel").ListType.CUSTOM ||
@@ -142,14 +135,14 @@ __d(
         t != null
       );
     }
-    function I(e) {
+    function k(e) {
       return (
         (C(e) && e !== o("WAWebSchemaLabel").ListType.FAVORITES) ||
         v(e) ||
         e === o("WAWebSchemaLabel").ListType.META_AI_THREAD
       );
     }
-    function T(e) {
+    function I(e) {
       return e === o("WAWebSchemaLabel").ListType.UNREAD
         ? s._(/*BTDS*/ "")
         : e === o("WAWebSchemaLabel").ListType.GROUPS
@@ -168,12 +161,12 @@ __d(
                       ? s._(/*BTDS*/ "")
                       : null;
     }
-    function D(e) {
+    function T(e) {
       return e === o("WAWebSchemaLabel").ListType.MENTIONS_AND_REPLIES
         ? s._(/*BTDS*/ "")
         : null;
     }
-    function x(e) {
+    function D(e) {
       return e === o("WAWebSchemaLabel").ListType.UNREAD
         ? s._(/*BTDS*/ "")
         : e === o("WAWebSchemaLabel").ListType.GROUPS
@@ -192,53 +185,53 @@ __d(
                       ? s._(/*BTDS*/ "")
                       : null;
     }
-    function $(e, t) {
-      if (I(t)) {
+    function x(e, t) {
+      if (k(t)) {
         var n;
         return s._(/*BTDS*/ "", [
-          s._param("listName", (n = T(t)) != null ? n : e),
+          s._param("listName", (n = I(t)) != null ? n : e),
         ]);
       }
       return e;
     }
-    function P(e) {
+    function $(e) {
       return e === "AI_HANDOFF"
         ? s._(/*BTDS*/ "").toString()
         : s._(/*BTDS*/ "").toString();
     }
-    function N() {
+    function P() {
       return o(
         "WAWebLabelCollection",
       ).LabelCollection.getServerAssignedLabelIdMap().size > 0
         ? m
         : d;
     }
-    function M() {
+    function N() {
       var e = o("WAWebLabelCollection").LabelCollection.countWhere(
         function (e) {
           return e.type === o("WAWebSchemaLabel").ListType.CUSTOM;
         },
       );
-      return e >= N();
+      return e >= P();
     }
-    function w() {
-      var e = N();
+    function M() {
+      var e = P();
       return s._(/*BTDS*/ "", [s._param("max_count", e)]);
     }
-    function A() {
+    function w() {
       return s._(/*BTDS*/ "");
     }
-    function F(e) {
+    function A(e) {
       return typeof e == "function" ? e() : e;
     }
-    function O(e, t) {
+    function F(e, t) {
       if (!t) {
-        var n = D(e.listType);
+        var n = T(e.listType);
         if (n != null) return n;
       }
-      return F(e.getLabel);
+      return A(e.getLabel);
     }
-    function B(e, t) {
+    function O(e, t) {
       var n, r, a, i;
       return e.filter === o("WAWebChatSearchFilters").SearchFilters.UNREAD ||
         e.filter === o("WAWebChatSearchFilters").SearchFilters.GROUP ||
@@ -251,19 +244,19 @@ __d(
           ? n
           : 0
         : e.filter === o("WAWebChatSearchFilters").SearchFilters.NETWORK
-          ? (r = t.get(W((a = e.orgId) != null ? a : ""))) != null
+          ? (r = t.get(B((a = e.orgId) != null ? a : ""))) != null
             ? r
             : 0
           : (i = t.get(String(e.listId))) != null
             ? i
             : 0;
     }
-    function W(e) {
+    function B(e) {
       return "network:" + e;
     }
-    var q = { channelsPillCount: 0, unreadPillCount: 0 };
-    function U(e, t) {
-      (e === void 0 && (e = q), t === void 0 && (t = []));
+    var W = { channelsPillCount: 0, unreadPillCount: 0 };
+    function q(e, t) {
+      (e === void 0 && (e = W), t === void 0 && (t = []));
       var n = o("WAWebLabelCollection").LabelCollection.toArray(),
         r = new Map(),
         a = 0,
@@ -278,7 +271,7 @@ __d(
           r.set(e.id, 0);
         }),
         t.forEach(function (e) {
-          r.set(W(e), 0);
+          r.set(B(e), 0);
         }),
         o("WAWebChatCollection").ChatCollection.forEach(function (e) {
           e.archive ||
@@ -310,7 +303,7 @@ __d(
                   })
                 ) {
                   var n,
-                    a = W(t);
+                    a = B(t);
                   r.set(a, ((n = r.get(a)) != null ? n : 0) + 1);
                 }
               }),
@@ -335,7 +328,7 @@ __d(
         r
       );
     }
-    function V(e) {
+    function U(e) {
       if (e != null)
         switch (e) {
           case o("WAWebChatSearchFilters").SearchFilters.UNREAD:
@@ -354,7 +347,7 @@ __d(
             return null;
         }
     }
-    function H(e) {
+    function V(e) {
       var t;
       if (
         (e.label != null
@@ -369,7 +362,7 @@ __d(
         t != null && t.name != null)
       ) {
         var n,
-          r = T(t.type);
+          r = I(t.type);
         return {
           listId: t.id,
           listName:
@@ -378,27 +371,27 @@ __d(
       }
       return null;
     }
+    function H() {
+      return s._(/*BTDS*/ "");
+    }
     function G() {
       return s._(/*BTDS*/ "");
     }
-    function z() {
-      return s._(/*BTDS*/ "");
-    }
-    var j = "-1004";
-    function K(e) {
+    var z = "-1004";
+    function j(e) {
       return (
         e != null &&
-        (e.type === o("WAWebSchemaLabel").ListType.META_AI_THREAD || e.id === j)
+        (e.type === o("WAWebSchemaLabel").ListType.META_AI_THREAD || e.id === z)
       );
     }
-    function Q() {
+    function K() {
       return r("justknobx")._("7781");
     }
-    var X = r("JSResourceForInteraction")(
+    var Q = r("JSResourceForInteraction")(
       "WAWebMetaAiListActionsImpl",
     ).__setRef("WAWebListUtils");
-    function Y() {
-      return X.load().catch(function () {
+    function X() {
+      return Q.load().catch(function () {
         return (
           o("WALogger")
             .WARN(
@@ -422,29 +415,28 @@ __d(
       (l.isLeadList = S),
       (l.hasFixedIdentity = R),
       (l.isOverflowOnlyToYouPill = L),
-      (l.isHiddenToYouList = E),
-      (l.shouldShowListIcon = k),
-      (l.isDisableablePresetList = I),
-      (l.getPresetListLocalizedName = T),
-      (l.getPresetListShortName = D),
-      (l.getPresetListHelperText = x),
-      (l.getListDisplayName = $),
-      (l.getExpectedAiLabelName = P),
-      (l.isListFlowMaxListsCountReached = M),
-      (l.getReachMaxLabelCountTextForBizLabelDrawer = w),
-      (l.getReachMaxLabelCountText = A),
-      (l.resolvePillLabel = F),
-      (l.resolvePillLabelForState = O),
-      (l.getUnreadChatsCountForFilter = B),
-      (l.getListsUnreadChatCountMap = U),
-      (l.getListTypeFromFilter = V),
-      (l.getManageListInfo = H),
-      (l.getLeadStageListName = G),
-      (l.getLeadListManagerDisplayName = z),
-      (l.META_AI_LIST_ID = j),
-      (l.isDeviceLocalList = K),
-      (l.isMetaAiListEnabled = Q),
-      (l.loadMetaAiList = Y));
+      (l.shouldShowListIcon = E),
+      (l.isDisableablePresetList = k),
+      (l.getPresetListLocalizedName = I),
+      (l.getPresetListShortName = T),
+      (l.getPresetListHelperText = D),
+      (l.getListDisplayName = x),
+      (l.getExpectedAiLabelName = $),
+      (l.isListFlowMaxListsCountReached = N),
+      (l.getReachMaxLabelCountTextForBizLabelDrawer = M),
+      (l.getReachMaxLabelCountText = w),
+      (l.resolvePillLabel = A),
+      (l.resolvePillLabelForState = F),
+      (l.getUnreadChatsCountForFilter = O),
+      (l.getListsUnreadChatCountMap = q),
+      (l.getListTypeFromFilter = U),
+      (l.getManageListInfo = V),
+      (l.getLeadStageListName = H),
+      (l.getLeadListManagerDisplayName = G),
+      (l.META_AI_LIST_ID = z),
+      (l.isDeviceLocalList = j),
+      (l.isMetaAiListEnabled = K),
+      (l.loadMetaAiList = X));
   },
   226,
 );

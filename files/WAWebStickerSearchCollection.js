@@ -7,6 +7,7 @@ __d(
     "WAWebBaseCollection",
     "WAWebEmoji",
     "WAWebEmojiKeywordToUnicode",
+    "WAWebGifProvider",
     "WAWebInterlaceStickerSearchResults",
     "WAWebSearchFirstPartyStickersAction",
     "WAWebStickerGetters",
@@ -20,7 +21,10 @@ __d(
       c = r("JSResourceForInteraction")(
         "WAWebSearchGiphyStickersAction",
       ).__setRef("WAWebStickerSearchCollection"),
-      d = {
+      d = r("JSResourceForInteraction")(
+        "WAWebSearchKlipyStickersAction",
+      ).__setRef("WAWebStickerSearchCollection"),
+      m = {
         HAPPY: [
           "\u{1F602}",
           "\u{1F923}",
@@ -118,10 +122,10 @@ __d(
           "\u{1F389}",
         ],
       };
-    function m(e, t) {
+    function p(e, t) {
       var n,
         r = e.toUpperCase(),
-        a = d[r],
+        a = m[r],
         i =
           a != null
             ? o("WAWebEmoji").EmojiUtil.splitEmojis(a.join(""))
@@ -147,11 +151,11 @@ __d(
         ? n
         : [];
     }
-    function p(e) {
+    function _(e) {
       (o("WAWebStickerGetters").clearStickerGetterCacheFor(e),
         e.externalUrl != null && e.delete());
     }
-    var _ = (function (t) {
+    var f = (function (t) {
       function n() {
         for (var e, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
           r[o] = arguments[o];
@@ -183,7 +187,7 @@ __d(
           var e;
           ((e = this.$StickerSearchCollectionImpl$p_4) == null || e.abort(),
             (this.$StickerSearchCollectionImpl$p_4 = null),
-            this.$StickerSearchCollectionImpl$p_2.forEach(p),
+            this.$StickerSearchCollectionImpl$p_2.forEach(_),
             (this.$StickerSearchCollectionImpl$p_2 = []),
             this.forEach(function (e) {
               return o("WAWebStickerGetters").clearStickerGetterCacheFor(e);
@@ -217,28 +221,29 @@ __d(
           var u = o("WAWebABProps").getABPropConfigValue(
               "web_giphy_sticker_search_enabled",
             ),
-            d = (u ? "giphy" : "1p") + ":" + l,
-            _ = this.$StickerSearchCollectionImpl$p_1.get(d);
-          if (_ != null) {
-            (this.add(_),
+            c = o("WAWebGifProvider").getStickerSearchProvider(),
+            d = (u ? c : "1p") + ":" + l,
+            m = this.$StickerSearchCollectionImpl$p_1.get(d);
+          if (m != null) {
+            (this.add(m),
               (this.$StickerSearchCollectionImpl$p_3 = !0),
               this.setStopFetching());
             return;
           }
-          var f = m(l, u);
+          var f = p(l, u);
           if (!u && f.length === 0) {
             this.setStopFetching();
             return;
           }
           this.setStartFetching();
-          var g = !1,
-            h =
+          var h = !1,
+            y =
               f.length > 0
                 ? o("WAWebSearchFirstPartyStickersAction")
                     .searchFirstPartyStickers(f, { signal: i })
                     .catch(function (t) {
                       return (
-                        (g = !0),
+                        (h = !0),
                         i.aborted ||
                           o("WALogger")
                             .WARN(
@@ -253,45 +258,52 @@ __d(
                       );
                     })
                 : Promise.resolve([]),
-            y = await Promise.all([
-              h,
+            C = await Promise.all([
+              y,
               u
-                ? c
-                    .load()
-                    .then(function (e) {
-                      var t = e.searchGiphyStickers;
-                      return t(l, i, function () {
-                        g = !0;
-                      });
-                    })
-                    .catch(function (e) {
-                      return (
-                        (g = !0),
-                        i.aborted ||
-                          o("WALogger")
-                            .WARN(
-                              s ||
-                                (s = babelHelpers.taggedTemplateLiteralLoose([
-                                  "Giphy sticker search unavailable",
-                                ])),
-                            )
-                            .catching(r("getErrorSafe")(e))
-                            .sendLogs("giphy-sticker-search-unavailable"),
-                        []
-                      );
-                    })
+                ? g(c, l, i, function () {
+                    h = !0;
+                  }).catch(function (e) {
+                    return (
+                      (h = !0),
+                      i.aborted ||
+                        o("WALogger")
+                          .WARN(
+                            s ||
+                              (s = babelHelpers.taggedTemplateLiteralLoose([
+                                "",
+                                " sticker search unavailable",
+                              ])),
+                            c,
+                          )
+                          .catching(r("getErrorSafe")(e))
+                          .sendLogs(
+                            c === "giphy"
+                              ? "giphy-sticker-search-unavailable"
+                              : c === "klipy"
+                                ? "klipy-sticker-search-unavailable"
+                                : (function () {
+                                    throw Error(
+                                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                        c,
+                                    );
+                                  })(),
+                          ),
+                      []
+                    );
+                  })
                 : Promise.resolve([]),
             ]),
-            C = y[0],
-            b = y[1],
-            v = r("WAWebInterlaceStickerSearchResults")(C, b);
+            b = C[0],
+            v = C[1],
+            S = r("WAWebInterlaceStickerSearchResults")(b, v);
           if (i.aborted) {
-            v.forEach(p);
+            S.forEach(_);
             return;
           }
-          (this.$StickerSearchCollectionImpl$p_6(d, v, g),
+          (this.$StickerSearchCollectionImpl$p_6(d, S, h),
             (this.$StickerSearchCollectionImpl$p_3 = !0),
-            this.add(v),
+            this.add(S),
             this.setStopFetching());
         }),
         (a.searchMood = function (t) {
@@ -299,7 +311,7 @@ __d(
         }),
         (a.delete = function () {
           (this.$StickerSearchCollectionImpl$p_1.forEach(function (e) {
-            e.forEach(p);
+            e.forEach(_);
           }),
             t.prototype.delete.call(this),
             this.$StickerSearchCollectionImpl$p_1.clear(),
@@ -314,7 +326,7 @@ __d(
               if (e != null) {
                 var o;
                 ((o = this.$StickerSearchCollectionImpl$p_1.get(e)) == null ||
-                  o.forEach(p),
+                  o.forEach(_),
                   this.$StickerSearchCollectionImpl$p_1.delete(e));
               }
             }
@@ -324,9 +336,27 @@ __d(
         n
       );
     })(o("WAWebBaseCollection").BaseCollection);
-    _.model = o("WAWebStickerModel").StickerModel;
-    var f = new _();
-    l.StickerSearchCollection = f;
+    f.model = o("WAWebStickerModel").StickerModel;
+    function g(e, t, n, r) {
+      return e === "giphy"
+        ? c.load().then(function (e) {
+            var o = e.searchGiphyStickers;
+            return o(t, n, r);
+          })
+        : e === "klipy"
+          ? d.load().then(function (e) {
+              var o = e.searchKlipyStickers;
+              return o(t, n, r);
+            })
+          : (function () {
+              throw Error(
+                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                  e,
+              );
+            })();
+    }
+    var h = new f();
+    l.StickerSearchCollection = h;
   },
   98,
 );

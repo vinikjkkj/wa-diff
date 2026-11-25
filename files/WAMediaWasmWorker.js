@@ -389,6 +389,7 @@ __d(
                   mimetype: f.value.mimetype,
                   extension: f.value.extension,
                   score: f.value.score,
+                  reason: f.value.reason,
                 })
               : f,
             input: r,

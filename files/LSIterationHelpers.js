@@ -3,11 +3,11 @@ __d(
   [
     "FBLogger",
     "LSMaybeSyncIteration",
+    "LSServerProgramColumnMasking",
     "LSSynchronousPromise",
     "ReStoreKeyComparer",
     "ReStoreVaulting",
     "isNativeTask",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -19,7 +19,6 @@ __d(
     }
     function d(e, t, n) {
       return (
-        r("vulture")("XAbHNYyjKYHVy_Y7wf_OFU8cD24="),
         e && t.name === "pending_tasks" && n != null && r("isNativeTask")(n)
       );
     }
@@ -40,7 +39,7 @@ __d(
               : "@@asyncIterator"
           ] = a),
           (e.next = function () {
-            var e = { done: !0 },
+            var e = { done: !0, value: void 0 },
               a = 0,
               i = "start",
               l = [],
@@ -121,7 +120,10 @@ __d(
                   a < t.length;
                 )
                   if (((c = r()), c)) return c.v;
-                return ((e = u), o("LSMaybeSyncIteration").STOP_ITERATION);
+                return (
+                  (e = { done: !1, value: u.value }),
+                  o("LSMaybeSyncIteration").STOP_ITERATION
+                );
               };
             return o("LSMaybeSyncIteration")
               .iteratorLoop(r, u)
@@ -134,20 +136,21 @@ __d(
       }
       return a();
     }
-    function _(e, t, n, o, a) {
+    function _(e, t, n, o, a, i) {
       return {
         delete: function () {
           return n.delete.apply(n, e);
         },
-        item: t,
-        update: function (l) {
-          var i = a && c(o.name) ? { transportKey: "FBBroker" } : {},
-            s = babelHelpers.extends({}, t, l, i);
-          if (d(a, o, s))
+        item: i != null ? i.maskRow(t) : t,
+        update: function (s) {
+          var l = a && c(o.name) ? { transportKey: "FBBroker" } : {},
+            u = babelHelpers.extends({}, t, s, l),
+            p = i != null ? i.restrictUpdate(t, s, u) : u;
+          if (d(a, o, p))
             throw r("FBLogger")("messenger_web").mustfixThrow(
               "cannot insert native task in dynamic mode",
             );
-          return n.upsert(e, m(s));
+          return n.upsert(e, m(p));
         },
       };
     }
@@ -161,14 +164,18 @@ __d(
           return f(e, t);
         }),
         (n.next = function () {
-          var n = { done: !0 },
+          var n = { done: !0, value: void 0 },
             r = function (t) {
-              return ((n = t), o("LSMaybeSyncIteration").STOP_ITERATION);
+              return (
+                (n = { done: !1, value: t.value }),
+                o("LSMaybeSyncIteration").STOP_ITERATION
+              );
             };
           return o("LSMaybeSyncIteration")
             .iteratorLoop(e, r)
             .then(function () {
-              if (n.done) return o("LSMaybeSyncIteration").iteratorLoop(t, r);
+              if (n.done === !0)
+                return o("LSMaybeSyncIteration").iteratorLoop(t, r);
             })
             .then(function () {
               return n;
@@ -179,10 +186,13 @@ __d(
     }
     function g(e, t, n) {
       var r,
-        a = [{ done: !0 }, { done: !0 }],
+        a = [
+          { done: !0, value: void 0 },
+          { done: !0, value: void 0 },
+        ],
         i = function (t) {
           var e = a[t];
-          return ((a[t] = { done: !0 }), e);
+          return ((a[t] = { done: !0, value: void 0 }), e);
         };
       return (
         (r = {}),
@@ -195,25 +205,28 @@ __d(
           var r = function (t) {
               return function (e) {
                 return (
-                  t === "a" ? (a[0] = e) : (a[1] = e),
+                  t === "a"
+                    ? (a[0] = { done: !1, value: e.value })
+                    : (a[1] = { done: !1, value: e.value }),
                   o("LSMaybeSyncIteration").STOP_ITERATION
                 );
               };
             },
             l = o("LSSynchronousPromise").makeSynchronousPromise();
           return (
-            a[0].done &&
+            a[0].done === !0 &&
               (l = l.then(function () {
                 return o("LSMaybeSyncIteration").iteratorLoop(e, r("a"));
               })),
-            a[1].done &&
+            a[1].done === !0 &&
               (l = l.then(function () {
                 return o("LSMaybeSyncIteration").iteratorLoop(t, r("b"));
               })),
             l.then(function () {
-              if (a[0].done && a[1].done) return { done: !0 };
-              if (a[0].done) return i(1);
-              if (a[1].done) return i(0);
+              if (a[0].done === !0 && a[1].done === !0)
+                return { done: !0, value: void 0 };
+              if (a[0].done === !0) return i(1);
+              if (a[1].done === !0) return i(0);
               var e = (s || (s = o("ReStoreKeyComparer"))).compareKey(
                 a[0].value[0],
                 a[1].value[0],
@@ -233,14 +246,23 @@ __d(
         return h;
       }),
       (e.next = function () {
-        return o("LSSynchronousPromise").makeSynchronousPromise({ done: !0 });
+        return o("LSSynchronousPromise").makeSynchronousPromise({
+          done: !0,
+          value: void 0,
+        });
       }),
       e);
     function y(e, t, n, a, i, l, s, u) {
       var m = new Set(),
         y = e.length > 1,
         C = e.length === 1 && e[0][1] == null,
-        b = e
+        b = s
+          ? o("LSServerProgramColumnMasking").getServerProgramColumnMasking(
+              n.name,
+              u,
+            )
+          : null,
+        v = e
           .map(function (e) {
             var s = e[0],
               u = e[1];
@@ -282,7 +304,7 @@ __d(
                       var e;
                       if (t)
                         return o("LSSynchronousPromise").makeSynchronousPromise(
-                          { done: !0 },
+                          { done: !0, value: void 0 },
                         );
                       t = !0;
                       var r = s.map(function (e) {
@@ -292,7 +314,7 @@ __d(
                       return (e = u == null ? i : i.index(u)).get
                         .apply(e, r)
                         .then(function (e) {
-                          if (!e) return { done: !0 };
+                          if (!e) return { done: !0, value: void 0 };
                           var t = o("ReStoreVaulting").maybeUnvaultDbRow(
                             e,
                             n.name,
@@ -313,7 +335,7 @@ __d(
             var a = o === 0 && n == null ? h : n;
             return e.length > 1 ? f(a, r) : g(a, r, t);
           });
-      function v() {
+      function S() {
         var e;
         return (
           (e = {}),
@@ -321,7 +343,7 @@ __d(
             typeof Symbol == "function"
               ? Symbol.asyncIterator
               : "@@asyncIterator"
-          ] = v),
+          ] = S),
           (e.next = function () {
             var e = !0,
               t,
@@ -364,7 +386,7 @@ __d(
                 return o("LSMaybeSyncIteration").STOP_ITERATION;
               };
             return o("LSMaybeSyncIteration")
-              .iteratorLoop(b, f)
+              .iteratorLoop(v, f)
               .then(function () {
                 if (p != null) {
                   var o = p.value[1].transportKey;
@@ -375,8 +397,8 @@ __d(
                   );
                 }
                 return e || t == null || l == null
-                  ? { done: !0 }
-                  : { done: !1, value: _(t, l, i, n, s) };
+                  ? { done: !0, value: void 0 }
+                  : { done: !1, value: _(t, l, i, n, s, b) };
               });
           }),
           (e.return = function () {
@@ -388,7 +410,7 @@ __d(
           e
         );
       }
-      return v();
+      return S();
     }
     ((l.isTranportKeyEnforcedTable = c),
       (l.isNativePendingTaskViolation = d),

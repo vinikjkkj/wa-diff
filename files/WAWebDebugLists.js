@@ -158,10 +158,7 @@ __d(
       "\u{1F3BB}",
     ];
     function f() {
-      return (
-        r("vulture")("8K9l5iBHe-O6-NQciyvzBsolj_Q="),
-        _[Math.floor(Math.random() * _.length)]
-      );
+      return _[Math.floor(Math.random() * _.length)];
     }
     async function g(e) {
       r("vulture")("ZJMthr-noHrFDv-hBfIl01IB5lY=");

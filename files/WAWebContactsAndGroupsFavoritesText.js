@@ -44,12 +44,20 @@ __d(
         ? s._(/*BTDS*/ "")
         : s._(/*BTDS*/ "");
     }
+    function _() {
+      return o(
+        "WAWebL10NIsUsingSupportedBritishEnglishLocale",
+      ).isUsingSupportedBritishEnglishLocale()
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
+    }
     ((l.getFavoritesText = e),
       (l.getAddToFavoritesText = u),
       (l.getRemoveFromFavoritesText = c),
       (l.getAddedToFavoritesText = d),
       (l.getRemovedFromFavoritesText = m),
-      (l.getFavoritesUpdateFailedText = p));
+      (l.getFavoritesUpdateFailedText = p),
+      (l.getNoFavoritesFoundText = _));
   },
   226,
 );

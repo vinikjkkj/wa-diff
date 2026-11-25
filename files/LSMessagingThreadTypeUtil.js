@@ -217,7 +217,7 @@ __d(
           (e || (e = o("I64"))).equal(
             t.threadType,
             (s || (s = o("LSIntEnum"))).ofNumber(1),
-          ) && !Q(t);
+          ) && !K(t);
       return !I(t.threadSubtype) && !v(t.threadSubtype) && (n || r);
     }
     function L(e) {
@@ -297,12 +297,6 @@ __d(
       );
     }
     function B(t) {
-      return (e || (e = o("I64"))).equal(
-        t,
-        (s || (s = o("LSIntEnum"))).ofNumber(19),
-      );
-    }
-    function W(t) {
       return t == null
         ? !1
         : (e || (e = o("I64"))).equal(
@@ -314,10 +308,10 @@ __d(
               (s || (s = o("LSIntEnum"))).ofNumber(155),
             );
     }
-    function q(e) {
-      return e == null ? !1 : W(e) || P(e);
+    function W(e) {
+      return e == null ? !1 : B(e) || P(e);
     }
-    function U(t) {
+    function q(t) {
       return t == null
         ? !1
         : (e || (e = o("I64"))).equal(
@@ -325,7 +319,7 @@ __d(
             (s || (s = o("LSIntEnum"))).ofNumber(201),
           );
     }
-    function V(t) {
+    function U(t) {
       return t == null
         ? !1
         : (e || (e = o("I64"))).equal(
@@ -337,7 +331,7 @@ __d(
               (s || (s = o("LSIntEnum"))).ofNumber(207),
             );
     }
-    function H(t) {
+    function V(t) {
       return t == null
         ? !1
         : (e || (e = o("I64"))).equal(
@@ -345,13 +339,13 @@ __d(
             (s || (s = o("LSIntEnum"))).ofNumber(228),
           );
     }
-    function G(e) {
+    function H(e) {
       return o("LSThreadBitOffset").has(183, e);
     }
-    function z(e, t) {
-      return G(e) && !t;
+    function G(e, t) {
+      return H(e) && !t;
     }
-    function j(t) {
+    function z(t) {
       return (
         m(t) ||
         (e || (e = o("I64"))).equal(
@@ -385,10 +379,10 @@ __d(
         (e || (e = o("I64"))).equal(t, (s || (s = o("LSIntEnum"))).ofNumber(11))
       );
     }
-    function K(t) {
+    function j(t) {
       return (
         A(t) ||
-        W(t) ||
+        B(t) ||
         P(t) ||
         r("mwCMIsAnyCMThread")(t) ||
         (e || (e = o("I64"))).equal(
@@ -398,7 +392,7 @@ __d(
         F(t)
       );
     }
-    function Q(t) {
+    function K(t) {
       return (
         (e || (e = o("I64"))).equal(
           t.threadType,
@@ -413,7 +407,7 @@ __d(
         )
       );
     }
-    function X(t) {
+    function Q(t) {
       return (
         t != null &&
         ((e || (e = o("I64"))).equal(
@@ -436,25 +430,14 @@ __d(
           ))
       );
     }
-    function Y(e) {
+    function X(e) {
       if (c(e)) return (s || (s = o("LSIntEnum"))).ofNumber(15);
       if (S(e)) return (s || (s = o("LSIntEnum"))).ofNumber(16);
       throw r("FBLogger")("messenger_web").mustfixThrow(
         "Expected either open 1:1 or open group thread",
       );
     }
-    function J(t) {
-      return (
-        t != null &&
-        (e || (e = o("I64"))).equal(
-          t,
-          (s || (s = o("LSIntEnum"))).ofNumber(
-            r("MessagingThreadSubtype").IGD_GROUP,
-          ),
-        )
-      );
-    }
-    function Z(t) {
+    function Y(t) {
       return (e || (e = o("I64"))).equal(
         t,
         (s || (s = o("LSIntEnum"))).ofNumber(5),
@@ -490,21 +473,19 @@ __d(
       (l.isDiscoverableChannel = A),
       (l.isCMSubthread = F),
       (l.isCMFolder = O),
-      (l.isCMGroupUnjoined = B),
-      (l.isSocialChannelUnjoined = W),
-      (l.isChannelPreview = q),
-      (l.isAiBot = U),
-      (l.isAiAgent = V),
-      (l.isMuse = H),
-      (l.isAiBotSummoning = G),
-      (l.isAiBotSummoningAllowed = z),
-      (l.isPrivateThread = j),
-      (l.isPublicCMThread = K),
-      (l.isThreadForPage = Q),
-      (l.isWorkThread = X),
-      (l.mapOpenToSecureThreadType = Y),
-      (l.isSubThreadTypeIGDGroup = J),
-      (l.isMarketplaceThread = Z));
+      (l.isSocialChannelUnjoined = B),
+      (l.isChannelPreview = W),
+      (l.isAiBot = q),
+      (l.isAiAgent = U),
+      (l.isMuse = V),
+      (l.isAiBotSummoning = H),
+      (l.isAiBotSummoningAllowed = G),
+      (l.isPrivateThread = z),
+      (l.isPublicCMThread = j),
+      (l.isThreadForPage = K),
+      (l.isWorkThread = Q),
+      (l.mapOpenToSecureThreadType = X),
+      (l.isMarketplaceThread = Y));
   },
   98,
 );

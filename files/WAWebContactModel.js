@@ -101,6 +101,7 @@ __d(
             (e.orgMemberFirstName = o("WAWebBaseModel").session()),
             (e.orgPrimaryId = o("WAWebBaseModel").session()),
             (e.orgPrimaryTag = o("WAWebBaseModel").session()),
+            (e.directoryName = o("WAWebBaseModel").session()),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );

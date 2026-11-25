@@ -5,7 +5,6 @@ __d(
     "MAWCurrentUser",
     "MAWErrorObject",
     "MAWIndexedDbMetadata",
-    "MAWQplProxy",
     "MAWTransactionMode",
     "Promise",
     "WAExceededStorageQuota",
@@ -46,16 +45,16 @@ __d(
         n.createIndex("date", "date", { unique: !1 });
       },
     ];
-    function _(t) {
-      var r;
+    function _() {
+      var t;
       if (u != null) return u;
       if (s != null) return (e || (e = n("Promise"))).resolve();
-      var a = o("MAWCurrentUser").getID(),
-        i = o("MAWIndexedDbMetadata").logDbName(a),
-        l = (r = t != null ? t : c()) != null ? r : p.length;
+      var r = o("MAWCurrentUser").getID(),
+        a = o("MAWIndexedDbMetadata").logDbName(r),
+        i = (t = c()) != null ? t : p.length;
       return (
         (u = new (e || (e = n("Promise")))(function (e, t) {
-          var n = indexedDB.open(i, l);
+          var n = indexedDB.open(a, i);
           ((n.onupgradeneeded = function (e) {
             for (var t = 0; t < p.length; t++) {
               var n = p[t];
@@ -85,17 +84,16 @@ __d(
     function g(e) {
       return e === o("MAWTransactionMode").READWRITE ? "readwrite" : "readonly";
     }
-    function h(e, t, n) {
-      var a = g(t);
+    function h(e, t) {
+      var n = g(t);
       return function (t) {
         return function () {
-          for (var i = arguments.length, l = new Array(i), s = 0; s < i; s++)
-            l[s] = arguments[s];
-          var u = n != null ? o("MAWQplProxy").startQplUserFlow(n) : null;
+          for (var a = arguments.length, i = new Array(a), l = 0; l < a; l++)
+            i[l] = arguments[l];
           return m()
-            .then(function (n) {
-              var r = function (r) {
-                var t = n.transaction(e, r != null ? g(r) : a, {
+            .then(function (r) {
+              var a = function (a) {
+                var t = r.transaction(e, a != null ? g(a) : n, {
                   durability: "relaxed",
                 });
                 return (
@@ -103,13 +101,9 @@ __d(
                   t.objectStore(e)
                 );
               };
-              return t.apply(void 0, [r].concat(l));
-            })
-            .then(function (e) {
-              return (u == null || u.endSuccess(), e);
+              return t.apply(void 0, [a].concat(i));
             })
             .catch(function (e) {
-              u == null || u.endFail("transaction_fail");
               var t = o("MAWErrorObject").getErrorObject(e),
                 n = r("FBLogger")("maw_db");
               throw t instanceof Error

@@ -2,6 +2,8 @@ __d(
   "WAWebHandlePreviousLogout",
   [
     "WALogger",
+    "WAPromiseTimeout",
+    "WAWebDeleteAllCacheStorage",
     "WAWebIndexedDBPurge",
     "WAWebLocalStorage",
     "WAWebLocalStorageUtils",
@@ -9,11 +11,18 @@ __d(
     "WAWebReloadAfterLogout",
     "WAWebReloadCrashAnnotations",
     "WAWebURLUtils",
+    "WAWebUserPrefsCacheStorage",
+    "WAWebUserPrefsKeys",
     "WAWebWAWCInit",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u() {
+    var e,
+      s,
+      u,
+      c = "WAWebCacheStorageCleanupPending",
+      d = 7e3;
+    function m() {
       var e,
         t = new URLSearchParams((e = window.location.search) != null ? e : ""),
         n = t.get("logout_reason");
@@ -37,7 +46,7 @@ __d(
         window.history.replaceState({}, document.title, c);
       }
     }
-    async function c() {
+    async function p() {
       var t = o("WAWebLocalStorageUtils").isLogoutDirtyBitSet(),
         n = o("WAWebLocalStorageUtils").isUserLoggedOut();
       if (t || n)
@@ -56,13 +65,17 @@ __d(
             )
             .tags("app-wrapper");
         }
-      if (t) {
+      if (
+        (t &&
+          (r("WAWebLocalStorage") == null || r("WAWebLocalStorage").clear()),
+        await _(t),
+        t)
+      ) {
         var a,
           i = new URLSearchParams(
             (a = window.location.search) != null ? a : "",
           );
-        (r("WAWebLocalStorage") == null || r("WAWebLocalStorage").clear(),
-          i.set("post_logout", "1"),
+        (i.set("post_logout", "1"),
           o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -75,10 +88,53 @@ __d(
           (window.location.href =
             window.location.pathname + "?" + i.toString()));
       }
-      u();
+      m();
     }
-    ((l.processLogoutReasonAndCleanupUrl = u),
-      (l.handlePreviousLogoutFailures = c));
+    async function _(e) {
+      if (e)
+        r("WAWebLocalStorage") == null ||
+          r("WAWebLocalStorage").setItem(c, "1");
+      else if (
+        (r("WAWebLocalStorage") == null
+          ? void 0
+          : r("WAWebLocalStorage").getItem(c)) !== "1"
+      )
+        return;
+      var t =
+          (r("WAWebLocalStorage") == null
+            ? void 0
+            : r("WAWebLocalStorage").getItem(
+                o("WAWebUserPrefsKeys").MD_NOISE_KEYS.NOISE_INFO,
+              )) != null,
+        n = new AbortController();
+      try {
+        (await o("WAPromiseTimeout").promiseTimeout(
+          r("WAWebDeleteAllCacheStorage")(
+            t
+              ? [o("WAWebUserPrefsCacheStorage").USER_PREFS_STORE_CACHE_NAME]
+              : [],
+            n.signal,
+          ),
+          d,
+        ),
+          r("WAWebLocalStorage") == null ||
+            r("WAWebLocalStorage").removeItem(c));
+      } catch (e) {
+        (n.abort(),
+          o("WALogger")
+            .ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[logout] cache storage delete after interrupted logout failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .tags("logout"));
+      }
+    }
+    ((l.processLogoutReasonAndCleanupUrl = m),
+      (l.handlePreviousLogoutFailures = p),
+      (l.deleteCacheStorageIfLogoutInterrupted = _));
   },
   98,
 );

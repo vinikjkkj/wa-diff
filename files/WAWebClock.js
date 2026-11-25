@@ -12,6 +12,7 @@ __d(
     "WAWebL10NConstants",
     "WAWebL10nGetRenderedLocale",
     "WAWebUserPrefsLocales",
+    "cr:22555",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -174,10 +175,8 @@ __d(
               ? s._(/*BTDS*/ "")
               : e >= r("WAWeb-moment")().startOf("year").unix() &&
                   e <= r("WAWeb-moment")().endOf("year").unix()
-                ? Intl.DateTimeFormat(r("WAWeb-moment").locale(), {
-                    month: "long",
-                  }).format(n)
-                : Intl.DateTimeFormat(r("WAWeb-moment").locale(), {
+                ? S(r("WAWeb-moment").locale(), { month: "long" }).format(n)
+                : S(r("WAWeb-moment").locale(), {
                     month: "long",
                     year: "numeric",
                   }).format(n);
@@ -185,7 +184,7 @@ __d(
           (a.monthYearStr = function (t) {
             var e = t + this.skew,
               n = e * 1e3;
-            return Intl.DateTimeFormat(r("WAWeb-moment").locale(), {
+            return S(r("WAWeb-moment").locale(), {
               month: "short",
               year: "numeric",
             }).format(n);
@@ -193,7 +192,7 @@ __d(
           (a.monthYearLongStr = function (t) {
             var e = t + this.skew,
               n = e * 1e3;
-            return Intl.DateTimeFormat(r("WAWeb-moment").locale(), {
+            return S(r("WAWeb-moment").locale(), {
               month: "long",
               year: "numeric",
             }).format(n);
@@ -211,12 +210,8 @@ __d(
                 (a = babelHelpers.extends({}, a, {
                   timeZone: this.timeZoneHardCode,
                 })));
-              var i = Intl.DateTimeFormat(r("WAWeb-moment").locale(), o).format(
-                  n,
-                ),
-                l = Intl.DateTimeFormat(r("WAWeb-moment").locale(), a).format(
-                  n,
-                );
+              var i = S(r("WAWeb-moment").locale(), o).format(n),
+                l = S(r("WAWeb-moment").locale(), a).format(n);
               return i + ", " + l;
             }
             return r("WAWeb-moment")
@@ -586,9 +581,7 @@ __d(
             if (this.shouldUseIntlDateTimeFormat()) {
               var e = (t + this.skew) * 1e3,
                 n = { year: "numeric", month: "short", day: "numeric" };
-              return Intl.DateTimeFormat(r("WAWeb-moment").locale(), n).format(
-                e,
-              );
+              return S(r("WAWeb-moment").locale(), n).format(e);
             }
             return r("WAWeb-moment")
               .unix(t + this.skew)
@@ -625,9 +618,7 @@ __d(
                 (n = babelHelpers.extends({}, n, {
                   timeZone: this.timeZoneHardCode,
                 }));
-              var o = Intl.DateTimeFormat(r("WAWeb-moment").locale(), n).format(
-                t * 1e3,
-              );
+              var o = S(r("WAWeb-moment").locale(), n).format(t * 1e3);
               return e ? o.replace(/^24/, "00") : o.replace(/^0/, "12");
             }
             return r("WAWeb-moment").unix(t).format(this.timestampStrFormat());
@@ -639,9 +630,7 @@ __d(
                 (e = babelHelpers.extends({}, e, {
                   timeZone: this.timeZoneHardCode,
                 }));
-              var n = Intl.DateTimeFormat(r("WAWeb-moment").locale(), e).format(
-                t * 1e3,
-              );
+              var n = S(r("WAWeb-moment").locale(), e).format(t * 1e3);
               return n;
             }
             return r("WAWeb-moment").unix(t).format("l");
@@ -655,9 +644,7 @@ __d(
                   (e = babelHelpers.extends({}, e, {
                     timeZone: this.timeZoneHardCode,
                   })),
-                Intl.DateTimeFormat(r("WAWeb-moment").locale(), e).format(
-                  t * 1e3,
-                )
+                S(r("WAWeb-moment").locale(), e).format(t * 1e3)
               );
             }
             return r("WAWeb-moment")
@@ -679,9 +666,7 @@ __d(
                   (n = babelHelpers.extends({}, n, {
                     timeZone: this.timeZoneHardCode,
                   })),
-                Intl.DateTimeFormat(r("WAWeb-moment").locale(), n).format(
-                  t * 1e3,
-                )
+                S(r("WAWeb-moment").locale(), n).format(t * 1e3)
               );
             }
             return r("WAWeb-moment")
@@ -730,6 +715,11 @@ __d(
         );
       })(r("WAWebEventEmitter")),
       v = new b();
+    function S(e, t) {
+      return n("cr:22555") != null
+        ? n("cr:22555").getCachedDateTimeFormat(e, t)
+        : Intl.DateTimeFormat(e, t);
+    }
     ((l.SKEW_CHANGE_EVENT = g),
       (l.HOUR24_FORMAT_CHANGE_EVENT = h),
       (l.MUTE_ALWAYS_EXPIRATION_SENTINEL = y),

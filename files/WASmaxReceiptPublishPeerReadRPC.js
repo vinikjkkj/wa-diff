@@ -55,8 +55,7 @@ __d(
     }
     ((l.sendPublishPeerReadRPC = e),
       (l.parsePublishPeerReadResponseSuccess = s),
-      (l.makePublishPeerReadRequest = u),
-      (l.mergeHistorySyncTypeMixin = d));
+      (l.makePublishPeerReadRequest = u));
   },
   98,
 );

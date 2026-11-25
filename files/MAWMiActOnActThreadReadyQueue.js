@@ -11,7 +11,6 @@ __d(
     "MAWVerifyThreadExistsUtils",
     "MWChatInteraction",
     "MWFBLogger",
-    "asyncToGeneratorRuntime",
     "clearTimeout",
     "getErrorSafe",
     "setTimeout",
@@ -133,83 +132,65 @@ __d(
           o("MAWThreadMappingQPL").addPoint("flush_awaiting_callbacks", n));
       }
     }
-    function h(e, t, n, r) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a) {
-            var i = (c || (c = o("I64"))).to_string(e),
-              l = p.get(i);
-            if (!(l == null || l.length === 0)) {
-              for (; l.length !== 0; ) {
-                var d = l.shift();
-                if (d != null) {
-                  var _ = d.callback,
-                    f = d.description,
-                    g = d.telemetryInstanceKey,
-                    h = d.threadState,
-                    y = d.timeoutId;
-                  (o("MAWMiActOnActThreadReadyInstrumentation").addPointQPL(
-                    g,
-                    "enqueue_by_thread_key_end",
-                  ),
-                    o(
-                      "MAWMiActOnActThreadReadyInstrumentation",
-                    ).addAnnotationsQPL(g, {
-                      string: {
-                        caller_identifier: n,
-                        processed_based_on_key: a,
-                      },
-                    }));
-                  try {
-                    (m.DEBUG(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "Executing queued ",
-                          " for threadKey: ",
-                          "",
-                        ])),
-                      f,
-                      i,
-                    ),
-                      o(
-                        "MAWMiActOnActThreadReadyInstrumentation",
-                      ).endSuccessQPL(g),
-                      yield _(e, t),
-                      r("clearTimeout")(y));
-                  } catch (e) {
-                    (r("clearTimeout")(y),
-                      o(
-                        "MAWMiActOnActThreadReadyInstrumentation",
-                      ).endFailureQPL(
-                        g,
-                        "process_queue_on_act_thread_ready_failure",
-                      ),
-                      m
-                        .catching(r("getErrorSafe")(e))
-                        .MUSTFIX(
-                          u ||
-                            (u = babelHelpers.taggedTemplateLiteralLoose([
-                              "Error executing callback on ACT thread ready: ",
-                              ", original threadState: ",
-                              ", threadKey: ",
-                              "",
-                            ])),
-                          f,
-                          h,
-                          i,
-                        ));
-                  }
-                }
-              }
-              p.delete(i);
+    async function h(e, t, n, a) {
+      var i = (c || (c = o("I64"))).to_string(e),
+        l = p.get(i);
+      if (!(l == null || l.length === 0)) {
+        for (; l.length !== 0; ) {
+          var d = l.shift();
+          if (d != null) {
+            var _ = d.callback,
+              f = d.description,
+              g = d.telemetryInstanceKey,
+              h = d.threadState,
+              y = d.timeoutId;
+            (o("MAWMiActOnActThreadReadyInstrumentation").addPointQPL(
+              g,
+              "enqueue_by_thread_key_end",
+            ),
+              o("MAWMiActOnActThreadReadyInstrumentation").addAnnotationsQPL(
+                g,
+                { string: { caller_identifier: n, processed_based_on_key: a } },
+              ));
+            try {
+              (m.DEBUG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "Executing queued ",
+                    " for threadKey: ",
+                    "",
+                  ])),
+                f,
+                i,
+              ),
+                o("MAWMiActOnActThreadReadyInstrumentation").endSuccessQPL(g),
+                await _(e, t),
+                r("clearTimeout")(y));
+            } catch (e) {
+              (r("clearTimeout")(y),
+                o("MAWMiActOnActThreadReadyInstrumentation").endFailureQPL(
+                  g,
+                  "process_queue_on_act_thread_ready_failure",
+                ),
+                m
+                  .catching(r("getErrorSafe")(e))
+                  .MUSTFIX(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "Error executing callback on ACT thread ready: ",
+                        ", original threadState: ",
+                        ", threadKey: ",
+                        "",
+                      ])),
+                    f,
+                    h,
+                    i,
+                  ));
             }
-          },
-        )),
-        y.apply(this, arguments)
-      );
+          }
+        }
+        p.delete(i);
+      }
     }
     ((l.enqueueByThreadKey = f),
       (l.logOnFlushQueue = g),

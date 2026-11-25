@@ -31,7 +31,7 @@ __d(
       var r = n.value,
         a = await o(
           "WAWebLabyrinthDebugDeviceStateStore",
-        ).saveLabyrinthDebugBackup(p(t.value, r));
+        ).saveLabyrinthDebugBackup(_(t.value, r));
       return a.success
         ? (await o(
             "WAWebLabyrinthReportedHistoryStart",
@@ -97,7 +97,7 @@ __d(
       }
     }
     async function d(e) {
-      var t = _();
+      var t = f();
       if (!t.success) return t;
       var n = await u();
       if (!n.success) return n;
@@ -128,7 +128,7 @@ __d(
       try {
         p = await o(
           "WAWebCryptoCurve25519CalculateSignature",
-        ).calculateSignature(s, m.value.companionDeviceBinding);
+        ).calculateSignature(s, m.value.identityBindingBlob);
       } catch (e) {
         return o("WAResultOrError").makeError({
           error: r("getErrorSafe")(e),
@@ -137,9 +137,10 @@ __d(
       }
       return o("WAResultOrError").makeResult({
         activeEpochId: i,
-        bindingSignature: o(
+        bindingSigByLabyrinthDevice: m.value.bindingSigByLabyrinthDevice,
+        bindingSigByWaIdentity: o(
           "WAWebLabyrinthOpaqueTypes",
-        ).makeCompanionDeviceBindingSignature(p),
+        ).makeBindingSigByWaIdentity(p),
         enrollment: m.value.enrollment,
         identityPublicKey: d,
         localDeviceId: c.localDeviceId,
@@ -150,7 +151,7 @@ __d(
       });
     }
     async function m(e) {
-      var t = _();
+      var t = f();
       if (!t.success) return t;
       if (!o("WAWebLabyrinthLocalIdentity").isCurrentLabyrinthIdentity(e))
         return o("WAResultOrError").makeError({
@@ -164,11 +165,9 @@ __d(
             enrollment: e.enrollment,
             localDeviceId: e.localDeviceId,
           }),
+          p(e),
           {
             server_data_id: e.serverDataId,
-            wa_identity_key_signature: o("WABase64").encodeB64(
-              e.bindingSignature,
-            ),
             wa_identity_public_key: o("WABase64").encodeB64(
               e.identityPublicKey,
             ),
@@ -188,7 +187,20 @@ __d(
             registeredDevice: r,
           });
     }
-    function p(e, t) {
+    function p(e) {
+      var t = e.bindingSigByLabyrinthDevice,
+        n = e.bindingSigByWaIdentity,
+        r = e.bindingSignature;
+      return n != null && t != null
+        ? {
+            binding_sig_by_labyrinth_device: o("WABase64").encodeB64(t),
+            binding_sig_by_wa_identity: o("WABase64").encodeB64(n),
+          }
+        : r == null
+          ? {}
+          : { wa_identity_key_signature: o("WABase64").encodeB64(r) };
+    }
+    function _(e, t) {
       var n = e.localDeviceId,
         r = e.localState;
       return {
@@ -206,7 +218,7 @@ __d(
         waLabyrinthAccountId: null,
       };
     }
-    function _() {
+    function f() {
       return e()
         ? o("WAResultOrError").makeResult(void 0)
         : o("WAResultOrError").makeError({ kind: "onboarding-disabled" });
@@ -215,7 +227,7 @@ __d(
       (l.registerLabyrinthCompanion = s),
       (l.prepareLabyrinthCompanion = d),
       (l.enrolLabyrinthCompanion = m),
-      (l.labyrinthCompanionBackup = p));
+      (l.labyrinthCompanionBackup = _));
   },
   98,
 );

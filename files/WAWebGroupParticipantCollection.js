@@ -106,7 +106,11 @@ __d(
           }),
           a.listenTo(
             a,
-            ["change:contact.name", "change:contact.orgMemberName"],
+            [
+              "change:contact.name",
+              "change:contact.orgMemberName",
+              "change:contact.directoryName",
+            ],
             a.$ParticipantCollection$p_1,
           ),
           a.listenTo(

@@ -4,8 +4,6 @@ __d(
     "Deferred",
     "MAWLogIndexedDb",
     "MAWTransactionMode",
-    "Promise",
-    "asyncToGeneratorRuntime",
     "justknobx",
     "pageID",
     "promiseDone",
@@ -13,11 +11,10 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = r("justknobx")._("1403"),
-      u = r("justknobx")._("1404"),
-      c = r("justknobx")._("1401");
-    function d(e) {
+    var e = r("justknobx")._("1403"),
+      s = r("justknobx")._("1404"),
+      u = r("justknobx")._("1401");
+    function c(e) {
       if (Number.isInteger(e)) return e;
       if (typeof e == "string") return (e || "").replace(/\n/g, "");
       try {
@@ -26,13 +23,13 @@ __d(
         return "Data could not be serialized";
       }
     }
-    function m(e, t) {
+    function d(e, t) {
       return (
         t === void 0 && (t = ""),
         e.length > 0 ? "[" + e.join("|") + "]" : t
       );
     }
-    function p(e) {
+    function m(e) {
       switch (e) {
         case "logRestricted":
           return "warn";
@@ -45,87 +42,79 @@ __d(
           return e;
       }
     }
-    function _(e) {
+    function p(e) {
       return {
         args: e.logString,
         date: e.date,
-        event: m(e.tags, "[]"),
-        level: p(e.logLevel),
+        event: d(e.tags, "[]"),
+        level: m(e.logLevel),
       };
     }
-    function f(e, t, n, r, o, a) {
+    function _(e, t, n, r, o, a) {
       return {
         args: e + "; ERROR=" + n.message + ";",
         data: { entriesToReport: o, error: n, framesToPop: r, stack: a },
         date: Date.now(),
-        event: m(t, "[]"),
+        event: d(t, "[]"),
         level: "error",
       };
     }
-    var g = [],
-      h = [],
-      y = 5,
-      C = 0,
-      b = !1,
-      v = function () {
-        g.length = 0;
+    var f = [],
+      g = [],
+      h = 5,
+      y = 0,
+      C = !1,
+      b = function () {
+        f.length = 0;
+      },
+      v = function (t) {
+        var e = k(t);
+        (g.length < h ? g.push(e) : (g[y % h] = e), (y = (y + 1) % h));
       },
       S = function (t) {
-        var e = I(t);
-        (h.length < y ? h.push(e) : (h[C % y] = e), (C = (C + 1) % y));
-      },
-      R = function (r) {
-        for (var t = [], o = 0; o < r; ) {
-          var a = (((C - o - 1) % y) + y) % y,
-            i = h[a];
-          (t.push(i), o++);
+        for (var e = [], n = 0; n < t; ) {
+          var r = (((y - n - 1) % h) + h) % h,
+            o = g[r];
+          (e.push(o), n++);
         }
-        return (e || (e = n("Promise"))).resolve(t);
+        return Promise.resolve(e);
       },
-      L = function (t, n) {
-        (g.push({ context: t, logEntry: n }),
-          S({ context: t, logEntry: n }),
-          g.length > s ? r("promiseDone")(E()) : k());
+      R = function (n, o) {
+        (f.push({ context: n, logEntry: o }),
+          v({ context: n, logEntry: o }),
+          f.length > e ? r("promiseDone")(L()) : E());
       },
-      E = (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          b = !0;
+      L = async function () {
+        C = !0;
+        try {
+          var e = [].concat(f);
+          (b(), await I(e));
+        } catch (e) {}
+        C = !1;
+      },
+      E = r("throttle")(async function () {
+        if (!C) {
+          C = !0;
           try {
-            var e = [].concat(g);
-            (v(), yield T(e));
+            var e = [].concat(f);
+            (b(), await I(e));
           } catch (e) {}
-          b = !1;
-        });
-        return function () {
-          return e.apply(this, arguments);
-        };
-      })(),
-      k = r("throttle")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!b) {
-            b = !0;
-            try {
-              var e = [].concat(g);
-              (v(), yield T(e));
-            } catch (e) {}
-            b = !1;
-          }
-        }),
-        u,
-      ),
-      I = function (t) {
+          C = !1;
+        }
+      }, s),
+      k = function (t) {
         var e = t.context,
           n = t.logEntry;
         return Object.entries(n).reduce(
           function (e, t) {
             var n = t[0],
               r = t[1];
-            return ((e[n] = d(r)), e);
+            return ((e[n] = c(r)), e);
           },
           babelHelpers.extends({}, n, { category: e + "-" + r("pageID") }),
         );
       },
-      T = o("MAWLogIndexedDb").makeLogMsgrTransactor(
+      I = o("MAWLogIndexedDb").makeLogMsgrTransactor(
         "logs",
         o("MAWTransactionMode").READWRITE,
       )(function (e, t) {
@@ -133,7 +122,7 @@ __d(
           o = e();
         return (
           t.forEach(function (e) {
-            o.add(I(e));
+            o.add(k(e));
           }),
           (o.transaction.oncomplete = function () {
             return n.resolve();
@@ -144,7 +133,7 @@ __d(
           n.getPromise()
         );
       }),
-      D = o("MAWLogIndexedDb").makeLogMsgrTransactor(
+      T = o("MAWLogIndexedDb").makeLogMsgrTransactor(
         "logs",
         o("MAWTransactionMode").READONLY,
       )(function (e) {
@@ -154,7 +143,7 @@ __d(
         return (
           (o.onsuccess = function () {
             var e = o.result,
-              n = e.slice(Math.max(0, e.length - c));
+              n = e.slice(Math.max(0, e.length - u));
             t.resolve(n);
           }),
           (o.onerror = function (e) {
@@ -163,18 +152,18 @@ __d(
           t.getPromise()
         );
       }),
-      x = function () {
-        return D().catch(function (e) {
+      D = function () {
+        return T().catch(function (e) {
           return [];
         });
       },
-      $ = function (t) {
-        var e = t <= h.length ? R(t) : P(t);
+      x = function (t) {
+        var e = t <= g.length ? S(t) : $(t);
         return e.catch(function (e) {
           return [];
         });
       },
-      P = o("MAWLogIndexedDb").makeLogMsgrTransactor(
+      $ = o("MAWLogIndexedDb").makeLogMsgrTransactor(
         "logs",
         o("MAWTransactionMode").READONLY,
       )(function (e, t) {
@@ -202,14 +191,14 @@ __d(
           n.getPromise()
         );
       });
-    ((l.joinTags = m),
-      (l.formatLog = _),
-      (l.formatErrorForLogging = f),
-      (l.clearLogEntryCache = v),
-      (l.saveLogEntry = L),
-      (l.forceCachedLogEntryPersist = E),
-      (l.getEntriesFromDb = x),
-      (l.getLastNEntries = $));
+    ((l.joinTags = d),
+      (l.formatLog = p),
+      (l.formatErrorForLogging = _),
+      (l.clearLogEntryCache = b),
+      (l.saveLogEntry = R),
+      (l.forceCachedLogEntryPersist = L),
+      (l.getEntriesFromDb = D),
+      (l.getLastNEntries = x));
   },
   98,
 );

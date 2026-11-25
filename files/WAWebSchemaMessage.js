@@ -394,6 +394,7 @@ __d(
             a("pollNameHashHistory"),
             a("pollUpdateMessageMetadata"),
             a("instantPlayedSelf"),
+            a("pendingReadReceiptOrigin"),
           ])
           .version(n.messageAddForwardReachScoreColumn(), [
             a("forwardReachScore"),

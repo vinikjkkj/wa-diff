@@ -53,22 +53,32 @@ __d(
         });
       if (n == null)
         return o("WAResultOrError").makeError({ kind: "missing-output" });
-      var r = o("WAWebLabyrinthWasmAddDevice").validatePreparedAddDevice(
+      var r = n.bindingSigByLabyrinthDevice,
+        a = n.identityBindingBlob;
+      if (a == null || r == null)
+        return o("WAResultOrError").makeError({ kind: "missing-output" });
+      var i = o("WAWebLabyrinthWasmAddDevice").validatePreparedAddDevice(
         n.enrolment,
       );
-      return r.success
+      return i.success
         ? o("WAResultOrError").makeResult(
-            babelHelpers.extends({}, r.value, {
+            babelHelpers.extends({}, i.value, {
               serverDataId: o("WAWebLabyrinthOpaqueTypes").makeServerDataId(
                 o("WALongInt").longIntToDecimalString(n.serverDataId),
               ),
               companionDeviceBinding: o(
                 "WAWebLabyrinthOpaqueTypes",
               ).makeCompanionDeviceBinding(n.companionDeviceBinding),
+              identityBindingBlob: o(
+                "WAWebLabyrinthOpaqueTypes",
+              ).makeIdentityBindingBlob(a),
+              bindingSigByLabyrinthDevice: o(
+                "WAWebLabyrinthOpaqueTypes",
+              ).makeBindingSigByLabyrinthDevice(r),
               reportedHistoryStartSec: u(n.historyStartTime),
             }),
           )
-        : r;
+        : i;
     }
     function u(e) {
       var t = o("WALongInt").maybeNumber(e);

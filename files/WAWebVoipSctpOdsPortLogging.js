@@ -20,7 +20,9 @@ __d(
         function () {
           return r("WAWebODS").incr("web.call.dtls.failed.pc_failed.port_3478");
         },
-        o("WAWebCoreActionsODS").logCallDtlsFailedPcFailedPort3480,
+        function () {
+          return r("WAWebODS").incr("web.call.dtls.failed.pc_failed.port_3480");
+        },
       );
     }
     function u(e) {
@@ -37,7 +39,9 @@ __d(
     function c(e) {
       g(
         e,
-        o("WAWebCoreActionsODS").logCallDtlsStartedPort3478,
+        function () {
+          return r("WAWebODS").incr("web.call.dtls.started.port_3478");
+        },
         o("WAWebCoreActionsODS").logCallDtlsStartedPort3480,
       );
     }

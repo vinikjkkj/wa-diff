@@ -39,7 +39,7 @@ __d(
           o("WAWebFrontendContactGetters").getFormattedName,
           o("WAWebFrontendContactGetters").getIsMyContact,
           o("WAWebContactGetters").getNotifyName,
-          o("WAWebFrontendContactGetters").getShownOrgMemberName,
+          o("WAWebFrontendContactGetters").getShownMemberName,
         ]),
         l = i[0],
         c = i[1],

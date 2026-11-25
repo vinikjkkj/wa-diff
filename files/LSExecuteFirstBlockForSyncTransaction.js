@@ -1,6 +1,6 @@
 __d(
   "LSExecuteFirstBlockForSyncTransaction",
-  ["LSAppendDataTraceAddon", "LSArrayGetObjectAt", "LSLogEventAnnotate.nop"],
+  ["LSAppendDataTraceAddon", "LSOnSyncTransactionRejected.nop"],
   function (t, n, r, o, a, i) {
     function e() {
       var e = arguments,
@@ -71,59 +71,11 @@ __d(
                                 r[2] == null ? "null" : r[2],
                               ].join(""),
                             ),
-                            (r[5] = new t.Map()),
-                            r[5].set("database_id", e[0]),
-                            r[5].set("epoch_id", e[1]),
-                            r[5].set("sync_status", e[4]),
-                            r[5].set("next_cursor", e[3]),
-                            r[5].set("error_msg", "epoch mismatch"),
-                            e[9] ? (r[6] = !1) : (r[6] = !0),
-                            r[6]
-                              ? t.resolve()
-                              : ((r[7] = e[9].keys()),
-                                (r[8] = t.i64.of_int32(r[7].length)),
-                                t.i64.gt(r[8], t.i64.cast([0, 0]))
-                                  ? t.loopAsync(r[8], function (o) {
-                                      return (
-                                        (r[9] = o),
-                                        t.sequence([
-                                          function (e) {
-                                            return t
-                                              .nativeTypeOperation(
-                                                "Array",
-                                                n("LSArrayGetObjectAt"),
-                                                r[7],
-                                                r[9],
-                                              )
-                                              .then(function (e) {
-                                                var t;
-                                                return (
-                                                  (t = e),
-                                                  (r[10] = t[0]),
-                                                  (r[11] = t[1]),
-                                                  t
-                                                );
-                                              });
-                                          },
-                                          function (t) {
-                                            return (
-                                              (r[12] = e[9].get(r[10])),
-                                              r[5].set(r[10], r[12])
-                                            );
-                                          },
-                                        ])
-                                      );
-                                    })
-                                  : t.resolve())
-                          );
-                        },
-                        function (e) {
-                          return t.nativeOperation(
-                            n("LSLogEventAnnotate.nop"),
-                            t.i64.cast([0, 16]),
-                            t.i64.cast([0, 35]),
-                            t.i64.cast([0, 0]),
-                            r[5],
+                            t.nativeOperation(
+                              n("LSOnSyncTransactionRejected.nop"),
+                              e[0],
+                              "epoch mismatch",
+                            )
                           );
                         },
                         function (e) {
@@ -193,74 +145,11 @@ __d(
                                             r[4] == null ? "null" : r[4],
                                           ].join(""),
                                         ),
-                                        (r[7] = new t.Map()),
-                                        r[7].set("database_id", e[0]),
-                                        r[7].set("epoch_id", e[1]),
-                                        r[7].set("sync_status", e[4]),
-                                        r[7].set("next_cursor", e[3]),
-                                        r[7].set(
-                                          "error_msg",
+                                        t.nativeOperation(
+                                          n("LSOnSyncTransactionRejected.nop"),
+                                          e[0],
                                           "cursor mismatch",
-                                        ),
-                                        e[9] ? (r[8] = !1) : (r[8] = !0),
-                                        r[8]
-                                          ? t.resolve()
-                                          : ((r[9] = e[9].keys()),
-                                            (r[10] = t.i64.of_int32(
-                                              r[9].length,
-                                            )),
-                                            t.i64.gt(r[10], t.i64.cast([0, 0]))
-                                              ? t.loopAsync(
-                                                  r[10],
-                                                  function (o) {
-                                                    return (
-                                                      (r[11] = o),
-                                                      t.sequence([
-                                                        function (e) {
-                                                          return t
-                                                            .nativeTypeOperation(
-                                                              "Array",
-                                                              n(
-                                                                "LSArrayGetObjectAt",
-                                                              ),
-                                                              r[9],
-                                                              r[11],
-                                                            )
-                                                            .then(function (e) {
-                                                              var t;
-                                                              return (
-                                                                (t = e),
-                                                                (r[12] = t[0]),
-                                                                (r[13] = t[1]),
-                                                                t
-                                                              );
-                                                            });
-                                                        },
-                                                        function (t) {
-                                                          return (
-                                                            (r[14] = e[9].get(
-                                                              r[12],
-                                                            )),
-                                                            r[7].set(
-                                                              r[12],
-                                                              r[14],
-                                                            )
-                                                          );
-                                                        },
-                                                      ])
-                                                    );
-                                                  },
-                                                )
-                                              : t.resolve())
-                                      );
-                                    },
-                                    function (e) {
-                                      return t.nativeOperation(
-                                        n("LSLogEventAnnotate.nop"),
-                                        t.i64.cast([0, 16]),
-                                        t.i64.cast([0, 35]),
-                                        t.i64.cast([0, 0]),
-                                        r[7],
+                                        )
                                       );
                                     },
                                     function (e) {
@@ -273,8 +162,8 @@ __d(
                                       return t.sequence([
                                         function (n) {
                                           return (
-                                            (r[6] = t.i64.of_float(Date.now())),
-                                            (r[7] = t.i64.of_float(Date.now())),
+                                            (r[4] = t.i64.of_float(Date.now())),
+                                            (r[5] = t.i64.of_float(Date.now())),
                                             t.forEach(
                                               t.db.table(1).fetch([[[e[0]]]]),
                                               function (n) {
@@ -290,11 +179,11 @@ __d(
                                                       t.i64.cast([0, 0]),
                                                     )
                                                       ? t.i64.cast([0, 0])
-                                                      : t.i64.add(r[6], e[6]),
+                                                      : t.i64.add(r[4], e[6]),
                                                   canIgnoreTimestamp: e[7],
                                                   syncChannel: e[8],
                                                   lastSyncCompletedTimestampMs:
-                                                    r[7],
+                                                    r[5],
                                                 });
                                               },
                                             )
@@ -315,68 +204,6 @@ __d(
                                           );
                                         },
                                       ]);
-                                    },
-                                    function (o) {
-                                      return (
-                                        (r[4] = new t.Map()),
-                                        r[4].set("database_id", e[0]),
-                                        r[4].set("epoch_id", e[1]),
-                                        r[4].set("sync_status", e[4]),
-                                        r[4].set("next_cursor", e[3]),
-                                        e[9] ? (r[5] = !1) : (r[5] = !0),
-                                        r[5]
-                                          ? t.resolve()
-                                          : ((r[6] = e[9].keys()),
-                                            (r[7] = t.i64.of_int32(
-                                              r[6].length,
-                                            )),
-                                            t.i64.gt(r[7], t.i64.cast([0, 0]))
-                                              ? t.loopAsync(r[7], function (o) {
-                                                  return (
-                                                    (r[8] = o),
-                                                    t.sequence([
-                                                      function (e) {
-                                                        return t
-                                                          .nativeTypeOperation(
-                                                            "Array",
-                                                            n(
-                                                              "LSArrayGetObjectAt",
-                                                            ),
-                                                            r[6],
-                                                            r[8],
-                                                          )
-                                                          .then(function (e) {
-                                                            var t;
-                                                            return (
-                                                              (t = e),
-                                                              (r[9] = t[0]),
-                                                              (r[10] = t[1]),
-                                                              t
-                                                            );
-                                                          });
-                                                      },
-                                                      function (t) {
-                                                        return (
-                                                          (r[11] = e[9].get(
-                                                            r[9],
-                                                          )),
-                                                          r[4].set(r[9], r[11])
-                                                        );
-                                                      },
-                                                    ])
-                                                  );
-                                                })
-                                              : t.resolve())
-                                      );
-                                    },
-                                    function (e) {
-                                      return t.nativeOperation(
-                                        n("LSLogEventAnnotate.nop"),
-                                        t.i64.cast([0, 16]),
-                                        t.i64.cast([0, 35]),
-                                        t.i64.cast([0, 0]),
-                                        r[4],
-                                      );
                                     },
                                     function (e) {
                                       return (r[2] = !0);

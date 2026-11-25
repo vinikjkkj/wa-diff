@@ -127,7 +127,7 @@ __d(
         (n = o("WAWebContactGetters").getNotifyName(e)) != null ? n : "",
         (r = e.verifiedName) != null ? r : "",
         String((a = e.verifiedLevel) != null ? a : ""),
-        (i = o("WAWebFrontendContactGetters").getShownOrgMemberName(e)) != null
+        (i = o("WAWebFrontendContactGetters").getShownMemberName(e)) != null
           ? i
           : "",
       ].join("");

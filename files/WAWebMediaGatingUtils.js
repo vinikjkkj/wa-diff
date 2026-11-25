@@ -2,6 +2,7 @@ __d(
   "WAWebMediaGatingUtils",
   [
     "WAWebABProps",
+    "WAWebBizAiAgentGating",
     "WAWebBotGating",
     "WAWebBotUtils",
     "WAWebChatGetters",
@@ -21,13 +22,17 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n) {
+      if (t.isAiHub()) {
+        var r = o("WAWebBizAiAgentGating").getBizAiHubMediaUploadCountLimit();
+        if (r != null) return r;
+      }
       if (o("WAWebBotUtils").isHatchBot(t))
         return o("WAWebHatchGating").getHatchMediaUploadCountLimit();
-      var r = o("WAWebBotUtils").isBusinessAssistantBot(t);
-      if (o("WAWebBotUtils").isMetaAiBot(t) || r) {
-        var a = C(n);
-        if (a != null) return a;
-        if (r) return o("WAWebBotGating").getMetaAiImageSendLimit();
+      var a = o("WAWebBotUtils").isBusinessAssistantBot(t);
+      if (o("WAWebBotUtils").isMetaAiBot(t) || a) {
+        var i = C(n);
+        if (i != null) return i;
+        if (a) return o("WAWebBotGating").getMetaAiImageSendLimit();
       }
       if (
         t.isNewsletter() &&
@@ -37,21 +42,28 @@ __d(
         !o("WAWebNewsletterGatingUtils").isNewsletterAlbumsV2SenderEnabled()
       )
         return 1;
-      var i = o("WAWebABProps").getABPropConfigValue(
+      var l = o("WAWebABProps").getABPropConfigValue(
         "media_picker_select_limit",
       );
-      return e <= i
-        ? i
+      return e <= l
+        ? l
         : o("WAWebABProps").getABPropConfigValue(
             "media_picker_select_limit_new",
           );
     }
     function s(e) {
       return (
-        o("WAWebBotUtils").isMetaAiBot(e) || o("WAWebBotUtils").isHatchBot(e)
+        o("WAWebBotUtils").isMetaAiBot(e) ||
+        o("WAWebBotUtils").isHatchBot(e) ||
+        (e.isAiHub() &&
+          o("WAWebBizAiAgentGating").getBizAiHubMediaUploadCountLimit() != null)
       );
     }
     function u(e, t) {
+      if (e.isAiHub()) {
+        var n = o("WAWebBizAiAgentGating").getBizAiHubMediaUploadCountLimit();
+        return n == null || n > 1;
+      }
       return o("WAWebBotUtils").isHatchBot(e)
         ? o("WAWebHatchGating").getHatchMediaUploadCountLimit() > 1
         : o("WAWebBotUtils").isMetaAiBot(e) ||

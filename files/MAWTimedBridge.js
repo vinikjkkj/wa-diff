@@ -5,7 +5,7 @@ __d(
     "MAWBridgeLoggingUtils",
     "MAWMaybeWithTimeout",
     "MAWWaitForBackendSetup",
-    "MAWWebWorkerSingleton",
+    "MAWWorkerHealthStatus",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -20,7 +20,7 @@ __d(
               t(),
               i,
               function () {
-                return o("MAWWebWorkerSingleton")
+                return o("MAWWorkerHealthStatus")
                   .getWorkerHealthStatus()
                   .then(function (e) {
                     throw (

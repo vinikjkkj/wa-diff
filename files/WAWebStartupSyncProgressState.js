@@ -2,7 +2,8 @@ __d(
   "WAWebStartupSyncProgressState",
   ["WAWebCmd", "WAWebOfflineHandler", "WAWebOfflineResumeProgress"],
   function (t, n, r, o, a, i, l) {
-    function e() {
+    var e = 5e3;
+    function s() {
       return o("WAWebCmd").Cmd.isOfflineDeliveryEnd ||
         (o(
           "WAWebOfflineHandler",
@@ -13,15 +14,16 @@ __d(
         ? null
         : o("WAWebOfflineResumeProgress").getOfflineResumeProgress();
     }
-    function s(e) {
+    function u(e) {
       return e != null && e.total !== 0;
     }
-    function u(e, t) {
-      return s(e) && !t.isNewsletter();
+    function c(e, t) {
+      return u(e) && !t.isNewsletter();
     }
-    ((l.readStartupSyncProgress = e),
-      (l.hasStartupSyncBacklog = s),
-      (l.isConversationSyncChipVisible = u));
+    ((l.LONG_LOAD_TOAST_DELAY_MS = e),
+      (l.readStartupSyncProgress = s),
+      (l.hasStartupSyncBacklog = u),
+      (l.isConversationSyncChipVisible = c));
   },
   98,
 );

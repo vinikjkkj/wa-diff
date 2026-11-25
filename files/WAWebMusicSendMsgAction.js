@@ -20,6 +20,7 @@ __d(
     "WAWebMusicParsingUtils",
     "WAWebMusicSendLogger",
     "WAWebMusicSongUnavailableAlert.react",
+    "WAWebNetworkStatus",
     "WAWebNoop",
     "WAWebProtobufsE2E.pb",
     "WAWebSchemaMessage",
@@ -47,14 +48,21 @@ __d(
       _,
       f,
       g,
-      h = 15e3;
-    async function y(e, t, n) {
-      var a = await R(e, t, n);
-      if (a != null) {
-        var i = o("WAWebSendMsgChatAction").addAndSendMsgToChat(e, a, C),
-          l = i[0],
-          d = i[1];
-        l.catch(function (e) {
+      h,
+      y,
+      C = 15e3,
+      b = 6e4,
+      v = new Map(),
+      S = new Map();
+    async function R(e, t, n) {
+      var a = e.composeQuotedMsg,
+        i = await N(e, t, n, a);
+      if (i != null) {
+        e.composeQuotedMsg === a && (e.composeQuotedMsg = null);
+        var l = o("WAWebSendMsgChatAction").addAndSendMsgToChat(e, i, L),
+          d = l[0],
+          m = l[1];
+        d.catch(function (e) {
           o("WALogger")
             .WARN(
               s ||
@@ -65,7 +73,7 @@ __d(
             .catching(r("getErrorSafe")(e))
             .sendLogs("music-send-add-failed");
         });
-        var m = await d.catch(function (e) {
+        var p = await m.catch(function (e) {
           return (
             o("WALogger").WARN(
               u ||
@@ -79,11 +87,11 @@ __d(
           );
         });
         if (
-          (m == null ? void 0 : m.messageSendResult) ===
+          (p == null ? void 0 : p.messageSendResult) ===
           o("WAWebSendMsgResultAction").SendMsgResult.OK
         )
           try {
-            await b(a.id);
+            await E(i.id);
           } catch (e) {
             o("WALogger")
               .WARN(
@@ -97,8 +105,8 @@ __d(
           }
       }
     }
-    async function C(e) {
-      var t = await v(e).catch(function (e) {
+    async function L(e) {
+      var t = await k(e).catch(function (e) {
         return (
           o("WALogger").WARN(
             d ||
@@ -134,15 +142,14 @@ __d(
       }
       throw r("err")("music creation report: %s", t);
     }
-    function b(e) {
+    function E(e) {
       return o("WAWebDBUpdateMessageTable").updateMessageTable(e, {
         isSendFailure: !1,
       });
     }
-    async function v(e) {
-      var t,
-        n = e.musicData;
-      if (n == null)
+    async function k(e) {
+      var t = e.musicData;
+      if (t == null)
         return (
           o("WALogger").WARN(
             m ||
@@ -152,44 +159,75 @@ __d(
           ),
           "failed"
         );
-      await o("WAWebDBUpdateMessageTable").updateMessageTable(e.id, {
+      (await o("WAWebDBUpdateMessageTable").updateMessageTable(e.id, {
         isSendFailure: !0,
-      });
-      var r = await S(n);
-      if (r == null || r.type === "failed") return "failed";
-      if (r.type === "song_unavailable") return "song_unavailable";
-      var a = await o("WAWebSchemaMessage")
+      }),
+        await r("WAWebNetworkStatus").waitIfOffline());
+      var n = await I(e);
+      if (n != null) return n;
+      var a = await x(e, t);
+      return a == null || a.type === "failed"
+        ? "failed"
+        : a.type === "song_unavailable"
+          ? "song_unavailable"
+          : T(e, t, a);
+    }
+    async function I(e) {
+      var t = await o("WAWebSchemaMessage")
         .getMessageTable()
         .get(e.id.toString());
-      if (a == null) return "deleted";
-      var i = babelHelpers.extends({}, n, {
-          musicContentMediaId: r.mediaId,
+      if (t == null) return (v.delete(e.id.toString()), "deleted");
+      var n = o("WAWebDBMessageSerialization").messageFromDbRow(t).musicData;
+      return (n == null ? void 0 : n.musicContentMediaId) == null
+        ? null
+        : (e.set({ musicData: n }), "saved");
+    }
+    function T(e, t, n) {
+      var r = e.id.toString(),
+        o = S.get(r);
+      if (o != null) return o;
+      var a = D(e, t, n).finally(function () {
+        S.delete(r);
+      });
+      return (S.set(r, a), a);
+    }
+    async function D(e, t, n) {
+      var r,
+        a = await o("WAWebSchemaMessage")
+          .getMessageTable()
+          .get(e.id.toString());
+      if (a == null) return (v.delete(e.id.toString()), "deleted");
+      var i = o("WAWebDBMessageSerialization").messageFromDbRow(a).musicData;
+      if ((i == null ? void 0 : i.musicContentMediaId) != null)
+        return (e.set({ musicData: i }), v.delete(e.id.toString()), "saved");
+      var l = babelHelpers.extends({}, t, {
+          musicContentMediaId: n.mediaId,
           countryBlocklist: o("WAWebMusicParsingUtils").countryCodeSetToBuffer(
-            new Set(r.countryBlocklist),
+            new Set(n.countryBlocklist),
           ),
         }),
-        l = o("WAWebDBMessageSerialization").dbRowFromMessage(
+        s = o("WAWebDBMessageSerialization").dbRowFromMessage(
           babelHelpers.extends(
             {},
             o("WAWebDBMessageSerialization").messageFromDbRow(a),
-            { musicData: i },
+            { musicData: l },
           ),
           { storeReportingInfo: !0 },
         ),
-        s = l.msgRowOpaqueData;
+        u = s.msgRowOpaqueData;
       await o("WAWebDBUpdateMessageTable").updateMessageTable(e.id, {
-        msgRowOpaqueData: s,
+        msgRowOpaqueData: u,
       });
-      var u = await o("WAWebSchemaMessage")
+      var c = await o("WAWebSchemaMessage")
         .getMessageTable()
         .get(e.id.toString());
-      return u == null
-        ? "deleted"
-        : ((t = o("WAWebDBMessageSerialization").messageFromDbRow(
-              u,
+      return c == null
+        ? (v.delete(e.id.toString()), "deleted")
+        : ((r = o("WAWebDBMessageSerialization").messageFromDbRow(
+              c,
             ).musicData) == null
               ? void 0
-              : t.musicContentMediaId) !== r.mediaId
+              : r.musicContentMediaId) !== n.mediaId
           ? (o("WALogger").WARN(
               p ||
                 (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -197,26 +235,14 @@ __d(
                 ])),
             ),
             "failed")
-          : (e.set({ musicData: i }),
+          : (e.set({ musicData: l }),
+            v.delete(e.id.toString()),
             o("WAWebMusicSendLogger").logMusicSend(e.id),
             "saved");
     }
-    async function S(e) {
+    async function x(e, t) {
       try {
-        var t, n, r;
-        return await o("WAPromiseTimeout").promiseTimeout(
-          o("WAWebMusicCreationReporterLoadable").reportMusicCreationLoadable({
-            songId: e.songId,
-            songStartTimeMs: (t = e.songStartTimeMs) != null ? t : 0,
-            clipDurationMs: (n = e.clipDurationMs) != null ? n : 0,
-            style:
-              (r = e.style) != null
-                ? r
-                : o("WAWebProtobufsE2E.pb")
-                    .Message$MusicMessage$MusicMessageStyle.VINYL,
-          }),
-          h,
-        );
+        return await o("WAPromiseTimeout").promiseTimeout($(e, t), C);
       } catch (e) {
         return (
           o("WALogger").WARN(
@@ -231,13 +257,80 @@ __d(
         );
       }
     }
-    async function R(e, t, n) {
+    function $(e, t) {
+      var n,
+        a,
+        i,
+        l = e.id.toString(),
+        s = v.get(l);
+      if (s != null && (s.isSettled || Date.now() - s.startedAtMs < b))
+        return s.report;
+      var u = o(
+          "WAWebMusicCreationReporterLoadable",
+        ).reportMusicCreationLoadable({
+          songId: t.songId,
+          songStartTimeMs: (n = t.songStartTimeMs) != null ? n : 0,
+          clipDurationMs: (a = t.clipDurationMs) != null ? a : 0,
+          style:
+            (i = t.style) != null
+              ? i
+              : o("WAWebProtobufsE2E.pb").Message$MusicMessage$MusicMessageStyle
+                  .VINYL,
+        }),
+        c = { report: u, startedAtMs: Date.now(), isSettled: !1 };
+      return (
+        v.set(l, c),
+        u.then(
+          function (n) {
+            ((c.isSettled = !0),
+              n.type === "reported"
+                ? P(e, t, n)
+                : v.get(l) === c && v.delete(l));
+          },
+          function (e) {
+            (o("WALogger")
+              .WARN(
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                    "[music] creation report failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e)),
+              v.get(l) === c && v.delete(l));
+          },
+        ),
+        u
+      );
+    }
+    async function P(e, t, n) {
+      var a;
+      if (
+        !(
+          n.type !== "reported" ||
+          ((a = e.musicData) == null ? void 0 : a.musicContentMediaId) != null
+        )
+      )
+        try {
+          await T(e, t, n);
+        } catch (e) {
+          o("WALogger")
+            .WARN(
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
+                  "[music] couldn't keep a late media id",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("music-late-media-id-save-failed");
+        }
+    }
+    async function N(e, t, n, a) {
       if (!o("WAWebMusicGatingUtils").canSendMusicTo(e.id))
         return (
           o("WALogger")
             .WARN(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
                   "[music] send refused: music can't be sent to this chat",
                 ])),
             )
@@ -248,44 +341,45 @@ __d(
         return (
           o("WALogger")
             .WARN(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
+              y ||
+                (y = babelHelpers.taggedTemplateLiteralLoose([
                   "[music] send refused: song shorter than the shortest clip",
                 ])),
             )
             .sendLogs("music-send-refused"),
           null
         );
-      var a = o("WAWebLidMeUserForChat").getMeUserLidOrJidForChat(
+      var i = o("WAWebLidMeUserForChat").getMeUserLidOrJidForChat(
           e,
           o("WAWebMsgKeyUtils").TranslateMsgKeyType.Message,
         ),
-        i = o("WAWebChatGetters").getIsGroup(e) ? a : void 0,
-        l = o("WATimeUtils").unixTime();
+        l = o("WAWebChatGetters").getIsGroup(e) ? i : void 0,
+        s = o("WATimeUtils").unixTime();
       return babelHelpers.extends(
         {
           id: new (r("WAWebMsgKey"))({
             fromMe: !0,
             remote: e.id,
             id: await r("WAWebMsgKey").newId(),
-            participant: i,
+            participant: l,
           }),
           type: o("WAWebMsgType").MSG_TYPE.MUSIC,
           kind: "music",
           viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-          t: l,
-          from: a,
+          t: s,
+          from: i,
           to: e.id,
-          author: i,
+          author: l,
           isNewMsg: !0,
           local: !0,
           ack: o("WAWebAck").ACK.CLOCK,
-          musicData: L(t, n, l),
+          musicData: M(t, n, s),
         },
+        a == null ? void 0 : a.msgContextInfo(e.id),
         o("WAWebGetEphemeralFieldsMsgActionsUtils").getEphemeralFields(e),
       );
     }
-    function L(t, n, r) {
+    function M(t, n, r) {
       var a,
         i = n.clipDurationMs,
         l = n.lyrics,
@@ -329,10 +423,10 @@ __d(
           : {},
       );
     }
-    ((l.sendMusicMsg = y),
-      (l.reportMusicCreationBeforeSend = C),
-      (l.clearPendingSendFailure = b),
-      (l.createMusicMsgData = R));
+    ((l.sendMusicMsg = R),
+      (l.reportMusicCreationBeforeSend = L),
+      (l.clearPendingSendFailure = E),
+      (l.createMusicMsgData = N));
   },
   98,
 );

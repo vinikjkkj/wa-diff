@@ -12,7 +12,6 @@ __d(
     "MWMsgMediaTypeLogUtils",
     "MWSharedS2SBaseAnnotations",
     "MultipleTabsLogger",
-    "asyncToGeneratorRuntime",
     "cr:39974",
     "isArmadillo",
     "promiseDone",
@@ -23,64 +22,60 @@ __d(
     var e,
       s,
       u = n("$InternalEnum")({ Text: "text", NonText: "non-text" });
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = t.attachmentTypeParams,
-            i = t.composerEntrypoint,
-            l = t.isPwa,
-            s = t.messageOfflineThreadingId,
-            u = t.source,
-            c = t.thread,
-            d =
-              n("cr:39974") != null
-                ? yield n("cr:39974").isCutoverThreadKey(c.threadKey)
-                : !1,
-            m = yield o(
-              "MWSharedS2SBaseAnnotations",
-            ).getSendToSentBaseAnnotations(a, u, i, s, l);
-          return {
-            bool: babelHelpers.extends(
-              {},
-              m.bool,
-              o(
-                "IGDInteractionTraceAnnotations",
-              ).getInstamadilloBooleanAnnotations(c),
-              {
-                is_community_event: c.eventStartTimestampMs != null,
-                is_cutover: r("isArmadillo")() && d,
-                is_message_request: o(
-                  "LSMessagingThreadTypeUtil",
-                ).isMessageRequest(c),
-                is_secure: o("LSMessagingThreadTypeUtil").isArmadilloSecure(
-                  c.threadType,
-                ),
-              },
+    async function c(t) {
+      var a = t.attachmentTypeParams,
+        i = t.composerEntrypoint,
+        l = t.isPwa,
+        s = t.messageOfflineThreadingId,
+        u = t.source,
+        c = t.thread,
+        d =
+          n("cr:39974") != null
+            ? await n("cr:39974").isCutoverThreadKey(c.threadKey)
+            : !1,
+        m = await o("MWSharedS2SBaseAnnotations").getSendToSentBaseAnnotations(
+          a,
+          u,
+          i,
+          s,
+          l,
+        );
+      return {
+        bool: babelHelpers.extends(
+          {},
+          m.bool,
+          o("IGDInteractionTraceAnnotations").getInstamadilloBooleanAnnotations(
+            c,
+          ),
+          {
+            is_community_event: c.eventStartTimestampMs != null,
+            is_cutover: r("isArmadillo")() && d,
+            is_message_request: o("LSMessagingThreadTypeUtil").isMessageRequest(
+              c,
             ),
-            int: babelHelpers.extends({}, m.int),
-            string: babelHelpers.extends({}, m.string, {
-              consistent_thread_fbid:
-                c.consistentThreadFbid != null
-                  ? (e || (e = o("I64"))).to_string(c.consistentThreadFbid)
-                  : null,
-              original_entrypoint: r("MWGetOriginalEntrypoint")(c.threadKey),
-              thread_id: (e || (e = o("I64"))).to_string(c.threadKey),
-              thread_subtype:
-                c.threadSubtype != null
-                  ? (e || (e = o("I64"))).to_string(c.threadSubtype)
-                  : null,
-              thread_type: e.to_string(c.threadType),
-            }),
-          };
-        })),
-        d.apply(this, arguments)
-      );
+            is_secure: o("LSMessagingThreadTypeUtil").isArmadilloSecure(
+              c.threadType,
+            ),
+          },
+        ),
+        int: babelHelpers.extends({}, m.int),
+        string: babelHelpers.extends({}, m.string, {
+          consistent_thread_fbid:
+            c.consistentThreadFbid != null
+              ? (e || (e = o("I64"))).to_string(c.consistentThreadFbid)
+              : null,
+          original_entrypoint: r("MWGetOriginalEntrypoint")(c.threadKey),
+          thread_id: (e || (e = o("I64"))).to_string(c.threadKey),
+          thread_subtype:
+            c.threadSubtype != null
+              ? (e || (e = o("I64"))).to_string(c.threadSubtype)
+              : null,
+          thread_type: e.to_string(c.threadType),
+        }),
+      };
     }
-    function m(e, t, n, a, i) {
-      (p(
+    function d(e, t, n, a, i) {
+      (m(
         e,
         t,
         r("MWGetOriginalEntrypoint")(n.threadKey),
@@ -95,7 +90,7 @@ __d(
           "IGDInteractionTraceAnnotations",
         ).addInstamadilloAnnotationsToInteractionTrace(n, e));
     }
-    function p(t, a, i, l, s, c, d, m, p) {
+    function m(t, a, i, l, s, c, d, m, p) {
       var _ = a.hasEphemeralSetting,
         f = _ === void 0 ? !1 : _,
         g = a.hasFile,
@@ -208,7 +203,7 @@ __d(
             o("shouldUseMAWSharedWorker").shouldUseMAWSharedWorker(),
           )));
     }
-    function _(t) {
+    function p(t) {
       return (e || (e = o("I64"))).equal(
         t,
         (s || (s = o("LSIntEnum"))).ofNumber(2),
@@ -256,9 +251,9 @@ __d(
     }
     ((l.MsgType = u),
       (l.getSendToSentAnnotations = c),
-      (l.addSendMessageMetadataForInteractionTrace = m),
-      (l.addSendMessageMetadataForInteractionTraceWithThreadMetadata = p),
-      (l.getMessageTypeFromDisplayedContentType = _));
+      (l.addSendMessageMetadataForInteractionTrace = d),
+      (l.addSendMessageMetadataForInteractionTraceWithThreadMetadata = m),
+      (l.getMessageTypeFromDisplayedContentType = p));
   },
   98,
 );

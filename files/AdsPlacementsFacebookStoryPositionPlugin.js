@@ -87,7 +87,39 @@ __d(
         ? o("AdsPlacementIneligibilityReason").createOptimizationGoalReason()
         : null;
     }
-    var f = {
+    function f(e, t) {
+      return o(
+        "AdsUnifiedProfileVisitUtils",
+      ).getIsFBPositionConditionallyDisabledForProfileVisits(
+        t,
+        e.promotedObjectType,
+        e.destinationType,
+        "story",
+      )
+        ? o(
+            "AdsUnifiedProfileVisitUtils",
+          ).getUnifiedProfileVisitsAdsPlacementIneligibilityReason(
+            e.destinationType,
+          )
+        : e.promotedObjectType === r("AdsPromotedObjectTypes").GROUP
+          ? o("AdsPlacementIneligibilityReason").createGroupPromotionReason()
+          : e.promotedObjectType === r("AdsPromotedObjectTypes").IMAGINATION
+            ? o("AdsPlacementIneligibilityReason").createImaginationReason()
+            : e.promotedObjectType === r("AdsPromotedObjectTypes").REMINDER
+              ? o(
+                  "AdsPlacementIneligibilityReason",
+                ).createReminderPromotionReason()
+              : e.destinationType === r("AdCampaignDestination").FACEBOOK_LIVE
+                ? o(
+                    "AdsPlacementIneligibilityReason",
+                  ).createFacebookLiveReason()
+                : e.objective === r("AdsAPIObjectives").APP_INSTALLS &&
+                    e.promotedObjectType ===
+                      r("AdsPromotedObjectTypes").CANVAS_APP
+                  ? o("AdsPlacementIneligibilityReason").createCanvasAppReason()
+                  : null;
+    }
+    var g = {
         type: "placements/position",
         key: "facebook/stories",
         name: r("AdsPlacementPositionLabelConstant").story,
@@ -107,7 +139,7 @@ __d(
         getIneligibilityReason: function (t) {
           var e = o(
             "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
-          ).getSOOBundleParentIneligibilityReason(f, t);
+          ).getSOOBundleParentIneligibilityReason(g, t);
           if (e != null) return e;
           var n = o("AdsODAXUtils").maybeTranslateObjective(
             t.objective,
@@ -226,79 +258,46 @@ __d(
             t.spec,
             r("AdsAPIDevicePlatform").MOBILE,
           );
-          return o("AdsWhatsAppPlacementUtils").isIneligibleForFBStory(
-            babelHelpers.extends({}, t, { objective: n }),
-            u,
+          if (
+            o("AdsWhatsAppPlacementUtils").isIneligibleForFBStory(
+              babelHelpers.extends({}, t, { objective: n }),
+              u,
+            )
           )
-            ? o("AdsPlacementIneligibilityReason").createWhatsAppReason(
-                t.objective,
-              )
-            : o(
-                  "AdsInstagramPlacementUtils",
-                ).isInstagramDestinationEnabledAndSelected(
-                  babelHelpers.extends({}, t, { objective: n }),
-                ) &&
-                !o(
-                  "ClickToMessageCTDFeatureGating",
-                ).isFBPlacementsEnabledForCTD()
-              ? o(
-                  "AdsPlacementIneligibilityReason",
-                ).createInstagramDirectReason(t.objective)
-              : o(
-                    "AdsInstagramLeadGenPlacementUtils",
-                  ).isInstagramLeadGenDestinationSelected(
-                    babelHelpers.extends({}, t, { objective: n }),
-                  )
-                ? o(
-                    "AdsPlacementIneligibilityReason",
-                  ).createInstagramLeadGenReason(t.objective)
-                : t.promotedObjectType === r("AdsPromotedObjectTypes").DONATION
-                  ? o("AdsPlacementIneligibilityReason").createDonationReason()
-                  : o(
-                        "adsIGLoginPlacementUtils",
-                      ).getShouldDisableFBPlacementForIGLoginUsers(t.account)
-                    ? o("AdsPlacementIneligibilityReason").createIGLoginReason()
-                    : o(
-                          "AdsUnifiedProfileVisitUtils",
-                        ).getIsFBPositionConditionallyDisabledForProfileVisits(
-                          n,
-                          t.promotedObjectType,
-                          t.destinationType,
-                          "story",
-                        )
-                      ? o(
-                          "AdsUnifiedProfileVisitUtils",
-                        ).getUnifiedProfileVisitsAdsPlacementIneligibilityReason(
-                          t.destinationType,
-                        )
-                      : t.promotedObjectType ===
-                          r("AdsPromotedObjectTypes").GROUP
-                        ? o(
-                            "AdsPlacementIneligibilityReason",
-                          ).createGroupPromotionReason()
-                        : t.promotedObjectType ===
-                            r("AdsPromotedObjectTypes").IMAGINATION
-                          ? o(
-                              "AdsPlacementIneligibilityReason",
-                            ).createImaginationReason()
-                          : t.promotedObjectType ===
-                              r("AdsPromotedObjectTypes").REMINDER
-                            ? o(
-                                "AdsPlacementIneligibilityReason",
-                              ).createReminderPromotionReason()
-                            : t.destinationType ===
-                                r("AdCampaignDestination").FACEBOOK_LIVE
-                              ? o(
-                                  "AdsPlacementIneligibilityReason",
-                                ).createFacebookLiveReason()
-                              : t.objective ===
-                                    r("AdsAPIObjectives").APP_INSTALLS &&
-                                  t.promotedObjectType ===
-                                    r("AdsPromotedObjectTypes").CANVAS_APP
-                                ? o(
-                                    "AdsPlacementIneligibilityReason",
-                                  ).createCanvasAppReason()
-                                : null;
+            return o("AdsPlacementIneligibilityReason").createWhatsAppReason(
+              t.objective,
+            );
+          if (
+            o(
+              "AdsInstagramPlacementUtils",
+            ).isInstagramDestinationEnabledAndSelected(
+              babelHelpers.extends({}, t, { objective: n }),
+            ) &&
+            !o("ClickToMessageCTDFeatureGating").isFBPlacementsEnabledForCTD()
+          )
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createInstagramDirectReason(t.objective);
+          if (
+            o(
+              "AdsInstagramLeadGenPlacementUtils",
+            ).isInstagramLeadGenDestinationSelected(
+              babelHelpers.extends({}, t, { objective: n }),
+            )
+          )
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createInstagramLeadGenReason(t.objective);
+          if (t.promotedObjectType === r("AdsPromotedObjectTypes").DONATION)
+            return o("AdsPlacementIneligibilityReason").createDonationReason();
+          if (
+            o(
+              "adsIGLoginPlacementUtils",
+            ).getShouldDisableFBPlacementForIGLoginUsers(t.account)
+          )
+            return o("AdsPlacementIneligibilityReason").createIGLoginReason();
+          var c = f(t, n);
+          return c != null ? c : null;
         },
         isActive: function (t) {
           return r("adsPlacementAPISpecReaderIsActiveFacebookPosition")(
@@ -332,7 +331,7 @@ __d(
         adsetValidators: [r("AdsCampaignFacebookStoryPositionValidator")],
         adsetReducer: function (t, n) {
           var e = n.action;
-          if (!f.isEnabled(e.eligibilityInformation.capabilities)) return t;
+          if (!g.isEnabled(e.eligibilityInformation.capabilities)) return t;
           switch (e.type) {
             case o("AdsUEditorCampaignPlacementSetActionFlux").actionType:
               return e.removeGroups.includes("facebook/stories")
@@ -384,8 +383,8 @@ __d(
           return t;
         },
       },
-      g = f;
-    l.default = g;
+      h = g;
+    l.default = h;
   },
   226,
 );

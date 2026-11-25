@@ -8,6 +8,7 @@ __d(
     "WAWebListUtils",
     "WAWebListsGatingUtils",
     "WAWebMobilePlatforms",
+    "WAWebToYouListGatingUtils",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -22,7 +23,7 @@ __d(
           .filter(function (e) {
             return o("WAWebListUtils").isDeviceLocalList(e)
               ? o("WAWebCanManageDeviceLocalList").canManageDeviceLocalList()
-              : o("WAWebListUtils").isHiddenToYouList(e.type)
+              : o("WAWebToYouListGatingUtils").isHiddenToYouList(e.type)
                 ? !1
                 : t || !o("WAWebListUtils").isAiList(e.type);
           });

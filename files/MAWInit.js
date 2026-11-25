@@ -9,7 +9,6 @@ __d(
     "QPLUserFlow",
     "QuickPerformanceLogger",
     "WAGetStorageQplAnnotations",
-    "asyncToGeneratorRuntime",
     "gkx",
     "qpl",
     "shouldUseMAWSharedWorker",
@@ -205,27 +204,19 @@ __d(
         r("QPLUserFlow").endSuccess(s),
         o("MAWMIC").addPoint("maw_init_end"));
     }
-    function T(e, t) {
-      return D.apply(this, arguments);
+    async function T(e, t) {
+      var n = e + "_start",
+        r = e + "_end";
+      y(n);
+      var o = await t();
+      return (y(r), o);
     }
-    function D() {
-      return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e + "_start",
-            r = e + "_end";
-          y(n);
-          var o = yield t();
-          return (y(r), o);
-        })),
-        D.apply(this, arguments)
-      );
-    }
-    var x = {
+    var D = {
         isCompleted: function () {
           return u;
         },
       },
-      $ = {
+      x = {
         addBoolAnnotation: C,
         addIntAnnotation: S,
         addStringAnnotation: b,
@@ -238,7 +229,7 @@ __d(
         measurePerformance: T,
         start: h,
       };
-    ((l.MAWInitState = x), (l.MAWInit = $));
+    ((l.MAWInitState = D), (l.MAWInit = x));
   },
   98,
 );

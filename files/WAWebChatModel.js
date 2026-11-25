@@ -383,6 +383,11 @@ __d(
               ),
               this.listenTo(
                 this.contact,
+                "change:directoryName",
+                this.$ChatImpl$p_10,
+              ),
+              this.listenTo(
+                this.contact,
                 "change:isContactBlocked",
                 this.$ChatImpl$p_11,
               ),

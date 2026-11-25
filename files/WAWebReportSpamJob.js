@@ -21,6 +21,7 @@ __d(
     "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
+    "WAWebWid",
     "WAWebWidToJid",
     "err",
   ],
@@ -77,14 +78,16 @@ __d(
             (r.push.apply(r, u), (i += u.length));
           } else r.push(s);
       }
-      return E(r.slice(0, i));
+      return I(r.slice(0, i));
     }
     function _(e) {
-      var t, n;
+      var t,
+        n,
+        r = g(e);
       return (
-        ((t = e.buttonsMessage) == null ? void 0 : t.buttons) != null &&
-          (e.buttonsMessage = babelHelpers.extends({}, e.buttonsMessage, {
-            buttons: e.buttonsMessage.buttons.map(function (e) {
+        ((t = r.buttonsMessage) == null ? void 0 : t.buttons) != null &&
+          (r.buttonsMessage = babelHelpers.extends({}, r.buttonsMessage, {
+            buttons: r.buttonsMessage.buttons.map(function (e) {
               if (e.nativeFlowInfo) {
                 var t,
                   n = JSON.parse(
@@ -103,17 +106,43 @@ __d(
               return e;
             }),
           })),
-        ((n = e.messageContextInfo) == null ? void 0 : n.messageSecret) !=
+        ((n = r.messageContextInfo) == null ? void 0 : n.messageSecret) !=
           null &&
-          (e.messageContextInfo = babelHelpers.extends(
+          (r.messageContextInfo = babelHelpers.extends(
             {},
-            e.messageContextInfo,
+            r.messageContextInfo,
             { messageSecret: null },
           )),
-        e
+        r
       );
     }
-    async function f(t, n, a) {
+    function f(e) {
+      return e instanceof r("WAWebWid")
+        ? e.toJid()
+        : Array.isArray(e)
+          ? e.map(f)
+          : e != null &&
+              typeof e == "object" &&
+              Object.getPrototypeOf(e) === Object.prototype
+            ? Object.fromEntries(
+                Object.entries(e).map(function (e) {
+                  var t = e[0],
+                    n = e[1];
+                  return [t, f(n)];
+                }),
+              )
+            : e;
+    }
+    function g(e) {
+      var t = babelHelpers.extends({}, e);
+      for (var n of Object.entries(e)) {
+        var r = n[0],
+          o = n[1];
+        Reflect.set(t, r, f(o));
+      }
+      return t;
+    }
+    async function h(t, n, a) {
       var i = await o("WAWebReportUtils").getMessageMixinArgs(n);
       if (i == null)
         throw (
@@ -158,8 +187,8 @@ __d(
             String(n.subtype),
           )
         );
-      var c = [g({ msg: n, msgMixin: i, sender: l })],
-        d = await h(n, l);
+      var c = [y({ msg: n, msgMixin: i, sender: l })],
+        d = await C(n, l);
       d != null && c.push(d);
       var m = {
           spamListSpamFlow: t,
@@ -176,8 +205,8 @@ __d(
           "value" in _
         ) {
           var f = _.value,
-            y = parseInt(String(f.errorSpamIqErrors.value.code), 10),
-            C = f.errorSpamIqErrors.value.text;
+            g = parseInt(String(f.errorSpamIqErrors.value.code), 10),
+            h = f.errorSpamIqErrors.value.text;
           return (
             o("WALogger").WARN(
               u ||
@@ -186,10 +215,10 @@ __d(
                   ", ",
                   "",
                 ])),
-              y,
-              C,
+              g,
+              h,
             ),
-            { errorCode: y, errorText: C }
+            { errorCode: g, errorText: h }
           );
           break e;
         }
@@ -207,7 +236,7 @@ __d(
         );
       }
     }
-    function g(e) {
+    function y(e) {
       var t = e.msg,
         n = e.msgMixin,
         r = e.sender;
@@ -220,21 +249,21 @@ __d(
         },
       });
     }
-    async function h(e, t) {
+    async function C(e, t) {
       var n,
-        r = R(e),
+        r = E(e),
         a = r[0];
       if (a == null) return null;
-      var i = await y(a);
+      var i = await b(a);
       return i != null
-        ? g({
+        ? y({
             msg: a,
             msgMixin: i,
             sender: (n = o("WAWebMsgGetters").getSender(a)) != null ? n : t,
           })
         : null;
     }
-    async function y(e) {
+    async function b(e) {
       try {
         return await o("WAWebReportUtils").getMessageMixinArgs(e, {
           allowAssociatedMessage: !0,
@@ -257,7 +286,7 @@ __d(
         );
       }
     }
-    function C(e) {
+    function v(e) {
       return (
         e.associationType ===
           o("WAWebMessageAssociation.flow").MessageAssociationType
@@ -267,21 +296,21 @@ __d(
         )
       );
     }
-    function b(e) {
-      return C(e)
-        ? y(e)
+    function S(e) {
+      return v(e)
+        ? b(e)
         : o("WAWebReportUtils").getMessageMixinArgs(e, {
             allowAssociatedMessage: o(
               "WAWebSpamUtils",
             ).isSpamSupportedForAssociatedMessageType(e.type),
           });
     }
-    async function v(e, t, n) {
+    async function R(e, t, n) {
       var a = await o("WAWebReportUtils").getMessageMixinArgs(e),
-        i = a != null ? await L(e) : [],
+        i = a != null ? await k(e) : [],
         l = await Promise.all(
           i.map(async function (e) {
-            var t = await y(e);
+            var t = await b(e);
             return t != null
               ? babelHelpers.extends(
                   {
@@ -325,7 +354,7 @@ __d(
         d = await o("WASmaxSpamIndividualReportRPC").sendIndividualReportRPC(c);
       return o("WAWebParseReportResponse").parseIndividualReportResponse(d);
     }
-    async function S(e) {
+    async function L(e) {
       var t;
       if (e.type !== o("WAWebMsgType").MSG_TYPE.POLL_CREATION) return [];
       if (!o("WAWebSpamUtils").isSpamSupportedForMessageType(e.type)) return [];
@@ -346,7 +375,7 @@ __d(
         );
       });
     }
-    function R(e) {
+    function E(e) {
       return o("WAWebMessageAssociationUIUtils")
         .getHiddenAssociatedMessages(e.id)
         .filter(function (e) {
@@ -355,15 +384,15 @@ __d(
           ).isDualUploadAssociationType(e.associationType);
         });
     }
-    async function L(e) {
-      var t = await S(e);
-      return [].concat(t, R(e));
+    async function k(e) {
+      var t = await L(e);
+      return [].concat(t, E(e));
     }
-    async function E(e) {
-      var t = await Promise.all(e.map(L));
+    async function I(e) {
+      var t = await Promise.all(e.map(k));
       return [].concat(e, t.flat());
     }
-    async function k(e, t, n) {
+    async function T(e, t, n) {
       var r = {
           spamListJid: o("WAWebWidToJid").widToGroupJid(e.id),
           spamListSpamFlow: t,
@@ -373,21 +402,21 @@ __d(
         a = await o("WASmaxSpamGroupReportRPC").sendGroupReportRPC(r);
       return o("WAWebParseReportResponse").parseGroupReportResponse(a);
     }
-    async function I(e, t, n, r) {
+    async function D(e, t, n, r) {
       var a = [];
       t != null
         ? (a = o("WAWebSpamUtils").isSpamSupportedForMessageType(t.type)
-            ? await E([t])
+            ? await I([t])
             : [])
         : (a = await p(e, m, null));
       var i = await Promise.all(
           a.map(async function (t) {
-            var n = await b(t);
+            var n = await S(t);
             if (n == null) return null;
             var r = o(
                 "WAWebGroupHistoryUtils",
               ).shouldReportGroupHistoryBundleSender(t),
-              a = await x(t, r);
+              a = await P(t, r);
             return babelHelpers.extends(
               { messageFrom: o("WAWebWidToJid").widToGroupJid(e.id) },
               n,
@@ -412,16 +441,16 @@ __d(
         s = await o("WASmaxSpamGroupReportRPC").sendGroupReportRPC(l);
       return o("WAWebParseReportResponse").parseGroupReportResponse(s);
     }
-    async function T(e, t, n, r) {
+    async function x(e, t, n, r) {
       var a = [];
       t != null
         ? (a = o("WAWebSpamUtils").isSpamSupportedForMessageType(t.type)
-            ? await E([t])
+            ? await I([t])
             : [])
         : (a = await p(e, m, e.id));
       var i = await Promise.all(
           a.map(async function (e) {
-            var t = await b(e);
+            var t = await S(e);
             return t != null
               ? babelHelpers.extends(
                   {
@@ -445,7 +474,7 @@ __d(
         s = await o("WASmaxSpamIndividualReportRPC").sendIndividualReportRPC(l);
       return o("WAWebParseReportResponse").parseIndividualReportResponse(s);
     }
-    async function D(e, t, n, r) {
+    async function $(e, t, n, r) {
       var a;
       return (
         o("WAWebChatGetters").getIsNewsletter(e)
@@ -463,16 +492,16 @@ __d(
                     r,
                   )))
           : n != null && !o("WAWebChatGetters").getIsGroup(e)
-            ? (a = await v(n, t, r))
+            ? (a = await R(n, t, r))
             : e.isParentGroup === !0
-              ? (a = await k(e, t, r))
+              ? (a = await T(e, t, r))
               : o("WAWebChatGetters").getIsGroup(e)
-                ? (a = await I(e, n, t, r))
-                : (a = await T(e, n, t, r)),
+                ? (a = await D(e, n, t, r))
+                : (a = await x(e, n, t, r)),
         a
       );
     }
-    async function x(e, t) {
+    async function P(e, t) {
       if (t) {
         var n = o("WAWebMsgGetters").getGroupHistoryBundleSender(e);
         return n != null
@@ -494,8 +523,8 @@ __d(
     ((l.SPAM_REPORT_MESSAGE_COUNT = m),
       (l.loadMsgsForSpamReport = p),
       (l.getSpamMessageProtobuf = _),
-      (l.reportStatus = f),
-      (l.reportSpam = D));
+      (l.reportStatus = h),
+      (l.reportSpam = $));
   },
   98,
 );

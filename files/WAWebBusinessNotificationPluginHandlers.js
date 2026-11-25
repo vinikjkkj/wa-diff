@@ -2,20 +2,17 @@ __d(
   "WAWebBusinessNotificationPluginHandlers",
   ["WAWebBusinessNotificationPluginHandlerRegistry"],
   function (t, n, r, o, a, i, l) {
-    var e = []
-      .concat(r("WAWebBusinessNotificationPluginHandlerRegistry"))
-      .sort(function (e, t) {
-        return e.priority - t.priority;
-      });
-    function s(t) {
+    function e(e, t) {
       var n;
-      return (n = e.find(function (e) {
-        return e.matches(t);
-      })) == null
+      return (n = r("WAWebBusinessNotificationPluginHandlerRegistry").find(
+        function (t) {
+          return t.matches(e);
+        },
+      )) == null
         ? void 0
-        : n.parse(t);
+        : n.parse(e, t);
     }
-    l.parseBusinessNotificationPluginAction = s;
+    l.parseBusinessNotificationPluginAction = e;
   },
   98,
 );

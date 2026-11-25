@@ -11,14 +11,13 @@ __d(
       );
     }
     function u(e, t) {
-      return p(e, { asc: t.maxTimestampMs, desc: t.minTimestampMs });
+      return m(e, { asc: t.maxTimestampMs, desc: t.minTimestampMs });
     }
     function c(e, t) {
-      return p(e, { asc: t.maxMessageId, desc: t.minMessageId });
+      return m(e, { asc: t.maxMessageId, desc: t.minMessageId });
     }
-    function d(t, n) {
+    function d(t) {
       return (
-        n === "desc" &&
         (e || (e = o("I64"))).equal(
           t.maxTimestampMs,
           (e || (e = o("I64"))).max_int,
@@ -28,10 +27,7 @@ __d(
         !t.hasMoreAfter
       );
     }
-    function m(e) {
-      return p(e, { asc: "after", desc: "before" });
-    }
-    function p(e, t) {
+    function m(e, t) {
       var n = t.asc,
         r = t.desc;
       switch (e) {
@@ -46,8 +42,7 @@ __d(
     ((l.getI64RangeTimestampForDirection = u),
       (l.getRangeMsgIdForDirection = c),
       (l.isFirstPageRange = d),
-      (l.translateMwpDirectionToMawDirection = m),
-      (l.switchOnMWPMessagesDirection = p));
+      (l.switchOnMWPMessagesDirection = m));
   },
   98,
 );

@@ -97,7 +97,13 @@ __d(
       if (s.length > 0) {
         await o("WAWebSchemaMessage")
           .getMessageTable()
-          .bulkCreateOrReplace_ALREADY_ENCRYPTED_RECORDS_ONLY(s);
+          .bulkMergeOnly(
+            s.map(function (e) {
+              var t = e.id,
+                n = e.viewMode;
+              return { id: t, viewMode: n };
+            }),
+          );
         var u = new Map();
         (s.forEach(function (e) {
           var t = r("nullthrows")(e.viewMode);

@@ -25,7 +25,7 @@ __d(
         )
       ) {
         var a = e.externalUrl;
-        if (!o("WAWebExternalStickerUtils").isGiphyMediaURL(a))
+        if (!o("WAWebExternalStickerUtils").isExternalStickerMediaURL(a))
           throw r("err")("Invalid external sticker URL");
         e.mediaData.mediaStage = o("WAWebMediaTypes").MediaDataStage.FETCHING;
         var i = await r("WAWebPonyfillsFetch")(a, {

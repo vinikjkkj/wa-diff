@@ -288,14 +288,15 @@ __d(
     function E(e, t) {
       if (e == null) return [];
       var n = new Set(),
-        r = 0,
+        r = new Set(),
         a = 0,
-        i = e
+        i = 0,
+        l = e
           .map(function (e) {
             var t = e.echo_document,
-              i = e.otid,
-              l = e.protobuf_stanzas;
-            if (i == null)
+              l = e.otid,
+              s = e.protobuf_stanzas;
+            if (l == null)
               return (
                 o("EBMinosLogger").minosLogger.ERROR(
                   _ ||
@@ -305,7 +306,7 @@ __d(
                 ),
                 null
               );
-            if (l == null)
+            if (s == null)
               return (
                 t == null &&
                   o("EBMinosLogger").minosLogger.ERROR(
@@ -316,20 +317,23 @@ __d(
                   ),
                 null
               );
-            var s = l.message_tags,
-              u = l.supplemental_protobufs_v2,
-              c = u === void 0 ? [] : u,
-              d = l.top_level_protobuf_v2;
-            if (d == null) return null;
-            var m = o("EBMinosServerOriginGating").classifyServerOriginContent(
-                d.server_origin_content_type,
+            var u = s.message_tags,
+              c = s.supplemental_protobufs_v2,
+              d = c === void 0 ? [] : c,
+              m = s.top_level_protobuf_v2;
+            if (m == null) return null;
+            var p = o(
+                "EBMinosServerOriginGating",
+              ).classifyServerOriginContentWithReason(
+                m.server_origin_content_type,
               ),
-              p = o("EBMinosServerOriginGating").serverOriginContentTypeName(
-                d.server_origin_content_type,
+              b = o("EBMinosServerOriginGating").serverOriginContentTypeName(
+                m.server_origin_content_type,
               );
-            if ((p != null && n.add(p), m === "unsupported"))
+            if ((b != null && n.add(b), p.verdict === "unsupported"))
               return (
-                a++,
+                i++,
+                r.add(p.reason),
                 o("EBMinosLogger").minosLogger.ERROR(
                   g ||
                     (g = babelHelpers.taggedTemplateLiteralLoose([
@@ -338,9 +342,8 @@ __d(
                 ),
                 null
               );
-            m === "supported" && r++;
-            var b = v(d);
-            if (!b.success)
+            var S = v(m);
+            if (!S.success)
               return (
                 o("EBMinosLogger").minosLogger.ERROR(
                   h ||
@@ -350,7 +353,8 @@ __d(
                 ),
                 null
               );
-            var S = c
+            p.verdict === "supported" && a++;
+            var E = d
                 .map(function (e) {
                   var t = e == null ? void 0 : e.supplemental_key,
                     n = L(e);
@@ -375,12 +379,12 @@ __d(
                   return n;
                 })
                 .filter(Boolean),
-              E = o("MpsTypes").toMessageId(i);
+              k = o("MpsTypes").toMessageId(l);
             return {
-              messageTags: R(s),
-              otid: E,
-              supplementalProtobufsV2: S,
-              topLevelProtobufV2: b.value,
+              messageTags: R(u),
+              otid: k,
+              supplementalProtobufsV2: E,
+              topLevelProtobufV2: S.value,
             };
           })
           .filter(Boolean);
@@ -392,19 +396,22 @@ __d(
           n.size > 0 &&
             t.addAnnotations({
               int: {
-                server_origin_content_accepted: r,
-                server_origin_content_dropped: a,
+                server_origin_content_accepted: a,
+                server_origin_content_dropped: i,
               },
-              string_array: { server_origin_content_types: Array.from(n) },
+              string_array: {
+                server_origin_content_types: Array.from(n),
+                server_origin_drop_reasons: Array.from(r),
+              },
             })),
-        i
+        l
       );
     }
     function k(e, t, n) {
       return t ===
         o("EBMinosMessageMetadataVersion").MinosMessageMetadataVersion.V1
         ? e
-        : isNaN(n)
+        : isNaN(Number(n))
           ? (o("EBMinosLogger").minosLogger.ERROR(
               b ||
                 (b = babelHelpers.taggedTemplateLiteralLoose([

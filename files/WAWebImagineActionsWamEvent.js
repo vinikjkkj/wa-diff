@@ -24,6 +24,7 @@ __d(
               aiSubSessionId: [25, e.TYPES.STRING],
               componentId: [24, e.TYPES.STRING],
               dedupKey: [19, e.TYPES.INTEGER],
+              imagePositionShown: [32, e.TYPES.STRING],
               imagineAction: [1, o("WAWebWamEnumImagineAction").IMAGINE_ACTION],
               imagineActionDuration: [8, e.TYPES.TIMER],
               imagineActionSource: [

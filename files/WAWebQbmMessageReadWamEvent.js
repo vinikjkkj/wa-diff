@@ -52,6 +52,7 @@ __d(
               isBroadcastMessage: [38, e.TYPES.BOOLEAN],
               isBulkAction: [14, e.TYPES.BOOLEAN],
               isCoex: [55, e.TYPES.BOOLEAN],
+              isFirstMm: [66, e.TYPES.BOOLEAN],
               isFromAdsManagerMm: [10, e.TYPES.BOOLEAN],
               isFromCapi: [11, e.TYPES.BOOLEAN],
               isFromPill: [60, e.TYPES.BOOLEAN],

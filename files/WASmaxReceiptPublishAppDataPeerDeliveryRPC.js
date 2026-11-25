@@ -33,8 +33,7 @@ __d(
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
     ((l.sendPublishAppDataPeerDeliveryRPC = e),
-      (l.makePublishAppDataPeerDeliveryRequest = s),
-      (l.mergeAppDataPeerCategoryMixin = c));
+      (l.makePublishAppDataPeerDeliveryRequest = s));
   },
   98,
 );

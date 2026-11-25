@@ -60,7 +60,7 @@ __d(
         );
       })(),
       _ = new p();
-    l.userPrefsCacheStorage = _;
+    ((l.USER_PREFS_STORE_CACHE_NAME = d), (l.userPrefsCacheStorage = _));
   },
   98,
 );

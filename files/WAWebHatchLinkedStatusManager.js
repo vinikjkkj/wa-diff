@@ -8,7 +8,9 @@ __d(
     "WAWebCanonicalGating",
     "WAWebCanonicalUtils",
     "WAWebHatchLinkedStatusFetchFailure",
+    "WAWebHatchLinkedStatusWaitLog",
     "WAWebLocalStorage",
+    "WAWebNoop",
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumMuseChannelStatus",
     "justknobx",
@@ -40,7 +42,8 @@ __d(
             (this.$12 = null),
             (this.$13 = new (o("WAResolvable").Resolvable)()),
             (this.$14 = !1),
-            (this.$15 = null));
+            (this.$15 = null),
+            (this.$16 = r("WAWebNoop")));
         }
         var n = t.prototype;
         return (
@@ -52,7 +55,7 @@ __d(
               var e = this.$9 != null || this.$15 != null;
               ((this.$6 = t),
                 (this.$7 = n),
-                this.$16(),
+                this.$17(),
                 e && this.fetchAndUpdateStatus());
             }
           }),
@@ -118,15 +121,15 @@ __d(
               var r;
               (r = this.$12) == null || r.resolve();
             }
-            return this.$17();
+            return this.$18();
           }),
           (n.markUnlinked = function () {
             ((this.$1 = null),
               (this.$2 = "unlinked"),
               (this.$3 = "unlinked"),
               C("unlinked"),
-              this.$16(),
-              this.$18());
+              this.$17(),
+              this.$19());
           }),
           (n.resetForTests = function () {
             var e;
@@ -140,7 +143,7 @@ __d(
               (this.$10 = null),
               (this.$11 = null),
               (e = this.$12) == null || e.resolve(),
-              this.$16(),
+              this.$17(),
               b());
           }),
           (n.fetchAndUpdateStatus = function (n) {
@@ -155,7 +158,7 @@ __d(
                   : i.toString())
               )
                 return ((this.$14 = !0), !0);
-              this.$16();
+              this.$17();
             }
             var l = this.$6;
             if (l == null)
@@ -175,8 +178,8 @@ __d(
               !o("WAWebCanonicalUtils").isCanonicalPresent() &&
               o("WAWebCanonicalGating").isCanonicalEnabled()
             )
-              return (this.$19(), !0);
-            this.$15 = null;
+              return (this.$20(), !0);
+            this.$21();
             var u = this.$8,
               c =
                 (t = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) == null
@@ -192,21 +195,21 @@ __d(
                 );
               },
               m = new (o("WAResolvable").Resolvable)(),
-              p = this.$20(l, d, s ? _ : [], function () {
+              p = this.$22(l, d, s ? _ : [], function () {
                 var e = m;
                 ((m = new (o("WAResolvable").Resolvable)()),
                   a.$11 === e.promise && (a.$11 = m.promise),
                   e.resolve());
               })
                 .then(function (e) {
-                  e.kind === "dropped" || !d() || a.$21(e.status);
+                  e.kind === "dropped" || !d() || a.$23(e.status);
                 })
                 .catch(function (e) {
                   d() &&
                     (o(
                       "WAWebHatchLinkedStatusFetchFailure",
                     ).logHatchLinkedStatusFetchFailure(e),
-                    a.$22());
+                    a.$24());
                 });
             ((this.$9 = p), (this.$10 = c), (this.$11 = m.promise));
             var f = function () {
@@ -216,7 +219,7 @@ __d(
             };
             return (p.then(f, f), !0);
           }),
-          (n.$19 = function () {
+          (n.$20 = function () {
             var e,
               t = this,
               n = this.$15,
@@ -232,13 +235,17 @@ __d(
               )
             ) {
               var i = { generation: r, owner: a };
-              ((this.$15 = i),
+              (this.$21(),
+                (this.$15 = i),
+                (this.$16 = o(
+                  "WAWebHatchLinkedStatusWaitLog",
+                ).startHatchLinkedStatusWaitClock("fetch")),
                 o("WAWebCanonicalUtils")
                   .waitForCanonicalPresent()
                   .then(function () {
                     var e;
                     t.$15 === i &&
-                      ((t.$15 = null),
+                      (t.$21(),
                       r === t.$8 &&
                         ((e = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) ==
                         null
@@ -248,24 +255,27 @@ __d(
                   }));
             }
           }),
-          (n.$20 = async function (t, n, r, o, a) {
+          (n.$21 = function () {
+            ((this.$15 = null), this.$16(), (this.$16 = r("WAWebNoop")));
+          }),
+          (n.$22 = async function (t, n, r, o, a) {
             a === void 0 && (a = 0);
             try {
               return { kind: "fetched", status: await t() };
             } catch (t) {
               var e = r[a];
               if (e == null || !this.$7(t)) throw t;
-              (await Promise.resolve(), o(), await this.$23(h(e), n));
+              (await Promise.resolve(), o(), await this.$25(h(e), n));
             }
-            return n() ? this.$20(t, n, r, o, a + 1) : { kind: "dropped" };
+            return n() ? this.$22(t, n, r, o, a + 1) : { kind: "dropped" };
           }),
-          (n.$23 = async function (t, n) {
+          (n.$25 = async function (t, n) {
             var e = new (o("WAResolvable").Resolvable)();
             (n() && (this.$12 = e),
               await Promise.race([o("WAPromiseDelays").delayMs(t), e.promise]),
               this.$12 === e && (this.$12 = null));
           }),
-          (n.$17 = async function () {
+          (n.$18 = async function () {
             var e = this.$9,
               t = this.$11;
             if (e == null || t == null || this.$3 != null) return this.$3;
@@ -274,9 +284,9 @@ __d(
               this.$13.promise.then(o("WAWebBoolFunc").returnFalse),
               t.then(o("WAWebBoolFunc").returnTrue),
             ]);
-            return n && this.$9 === e ? this.$3 : this.$17();
+            return n && this.$9 === e ? this.$3 : this.$18();
           }),
-          (n.$21 = function (t) {
+          (n.$23 = function (t) {
             var e = t != null && y(t) ? "linked" : "unlinked";
             ((this.$1 = t),
               (this.$2 = e),
@@ -289,21 +299,24 @@ __d(
                     "[HatchLinkedStatusManager] fetched linked status",
                   ])),
               ),
-              this.$18());
+              this.$19());
           }),
-          (n.$22 = function () {
-            ((this.$2 = "failed"), this.$18());
+          (n.$24 = function () {
+            ((this.$2 = "failed"), this.$19());
           }),
-          (n.$16 = function () {
+          (n.$17 = function () {
             ((this.$8 += 1),
               (this.$9 = null),
               (this.$14 = !1),
-              (this.$15 = null),
+              this.$21(),
+              o(
+                "WAWebHatchLinkedStatusWaitLog",
+              ).endHatchLinkedStatusWaitClocks(),
               (this.$12 = null),
               this.$13.resolve(),
               (this.$13 = new (o("WAResolvable").Resolvable)()));
           }),
-          (n.$18 = function () {
+          (n.$19 = function () {
             for (var e of [].concat(this.$5))
               try {
                 e(this.$1);

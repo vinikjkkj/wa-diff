@@ -15,7 +15,8 @@ __d(
     }
     function d(t, n, a) {
       for (var i = m(t, a); !(e || (e = r("isPromise")))(i); ) {
-        if (i.done) return o("LSSynchronousPromise").makeSynchronousPromise(i);
+        if (i.done === !0)
+          return o("LSSynchronousPromise").makeSynchronousPromise(i);
         var l = o("LSSynchronousPromise").maybeExtractValueIfSynchronousPromise(
           n(i),
         );
@@ -31,7 +32,7 @@ __d(
       }
       var _ = p(n);
       return i.then(function (e) {
-        return e.done
+        return e.done === !0
           ? e
           : _(e).then(function (r) {
               if (r === s) return e;

@@ -20,7 +20,7 @@ __d(
           return u(e, t);
         }),
         (n.next = function () {
-          var n = { done: !0 },
+          var n = { done: !0, value: void 0 },
             r = function (r) {
               return o("LSSynchronousPromise")
                 .wrapInSyncPromiseIfNotPromise(t(r.value.item))
@@ -52,8 +52,9 @@ __d(
           if (a >= n)
             return o("LSSynchronousPromise").makeSynchronousPromise({
               done: !0,
+              value: void 0,
             });
-          var r = { done: !0 },
+          var r = { done: !0, value: void 0 },
             i = function (n) {
               if (!(a++ < t))
                 return ((r = n), o("LSMaybeSyncIteration").STOP_ITERATION);
@@ -160,7 +161,9 @@ __d(
             .then(function () {
               return (
                 !c.length && u.length && m(),
-                c.length ? { done: !1, value: c.shift() } : { done: !0 }
+                c.length
+                  ? { done: !1, value: c.shift() }
+                  : { done: !0, value: void 0 }
               );
             });
         }),

@@ -54,9 +54,8 @@ __d(
             u,
             d =
               (s =
-                (u = o("WAWebFrontendContactGetters").getShownOrgMemberName(
-                  e,
-                )) != null
+                (u = o("WAWebFrontendContactGetters").getShownMemberName(e)) !=
+                null
                   ? u
                   : e.pushname) != null
                 ? s

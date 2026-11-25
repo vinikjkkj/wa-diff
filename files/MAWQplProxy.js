@@ -8,7 +8,6 @@ __d(
     "MAWSendQplToServer",
     "QPLEvent",
     "WAErrorMessage",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "gkx",
     "justknobx",
@@ -61,20 +60,17 @@ __d(
     }
     function v(e, t, n, r, o) {
       var a;
-      E(e, { bool: ((a = {}), (a[t] = n), a) }, r, o);
+      L(e, { bool: ((a = {}), (a[t] = n), a) }, r, o);
     }
     function S(e, t, n, r, o) {
       var a;
-      E(e, { string: ((a = {}), (a[t] = n), a) }, r, o);
+      L(e, { string: ((a = {}), (a[t] = n), a) }, r, o);
     }
     function R(e, t, n, r, o) {
       var a;
-      E(e, { int: ((a = {}), (a[t] = n), a) }, r, o);
+      L(e, { int: ((a = {}), (a[t] = n), a) }, r, o);
     }
-    function L(e, t, n, r) {
-      E(e, { double: t }, n, r);
-    }
-    function E(e, t, n, a) {
+    function L(e, t, n, a) {
       r("promiseDone")(y.getPromise(), function () {
         return o("MAWBridge")
           .getBridge()
@@ -93,7 +89,7 @@ __d(
           );
       });
     }
-    function k(e, t, n, a, i, l) {
+    function E(e, t, n, a, i, l) {
       i === void 0 && (i = !1);
       var s = h();
       r("promiseDone")(y.getPromise(), function () {
@@ -115,7 +111,7 @@ __d(
           );
       });
     }
-    function I(e, t, n, a, i) {
+    function k(e, t, n, a, i) {
       a === void 0 && (a = !1);
       var l = h();
       r("promiseDone")(y.getPromise(), function () {
@@ -137,7 +133,7 @@ __d(
           );
       });
     }
-    function T(e, t, n, a, i, l) {
+    function I(e, t, n, a, i, l) {
       i === void 0 && (i = !1);
       var s = h();
       r("promiseDone")(y.getPromise(), function () {
@@ -159,7 +155,7 @@ __d(
           );
       });
     }
-    function D(e, t, n, a) {
+    function T(e, t, n, a) {
       r("promiseDone")(y.getPromise(), function () {
         return o("MAWBridge")
           .getBridge()
@@ -179,82 +175,63 @@ __d(
           );
       });
     }
-    function x(e, t, n, r, o) {
-      return $.apply(this, arguments);
+    async function D(e, t, n, a, i) {
+      b(e, t + "_start", { annotations: a, instanceKey: i });
+      try {
+        var l = await n();
+        return (b(e, t + "_end", { instanceKey: i }), l);
+      } catch (n) {
+        throw (
+          r("FBLogger")("messenger_web")
+            .catching(r("getErrorSafe")(n))
+            .MUSTFIX(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "Caught exception for ",
+                  " during measurePerf",
+                ])),
+              t,
+            ),
+          b(e, t + "_fail", {
+            annotations: {
+              string: {
+                caughtError: o("WAErrorMessage").maybeGetMessageFromError(n),
+              },
+            },
+            instanceKey: i,
+          }),
+          n
+        );
+      }
     }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i) {
-            b(e, t + "_start", { annotations: a, instanceKey: i });
-            try {
-              var l = yield n();
-              return (b(e, t + "_end", { instanceKey: i }), l);
-            } catch (n) {
-              throw (
-                r("FBLogger")("messenger_web")
-                  .catching(r("getErrorSafe")(n))
-                  .MUSTFIX(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "Caught exception for ",
-                        " during measurePerf",
-                      ])),
-                    t,
-                  ),
-                b(e, t + "_fail", {
-                  annotations: {
-                    string: {
-                      caughtError:
-                        o("WAErrorMessage").maybeGetMessageFromError(n),
-                    },
-                  },
-                  instanceKey: i,
-                }),
-                n
-              );
-            }
-          },
-        )),
-        $.apply(this, arguments)
-      );
+    async function x(e, t, n) {
+      e.addPoint(t + "_start");
+      try {
+        var a = await n;
+        return (e.addPoint(t + "_end"), a);
+      } catch (n) {
+        throw (
+          r("FBLogger")("messenger_web")
+            .catching(r("getErrorSafe")(n))
+            .MUSTFIX(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "Caught exception for ",
+                  " during measurePerf",
+                ])),
+              t,
+            ),
+          e.addPoint(t + "_fail", {
+            string: {
+              caughtError: o("WAErrorMessage").maybeGetMessageFromError(n),
+            },
+          }),
+          n
+        );
+      }
     }
+    var $ = r("justknobx")._("2596");
     function P(e, t, n) {
-      return N.apply(this, arguments);
-    }
-    function N() {
-      return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          e.addPoint(t + "_start");
-          try {
-            var a = yield n;
-            return (e.addPoint(t + "_end"), a);
-          } catch (n) {
-            throw (
-              r("FBLogger")("messenger_web")
-                .catching(r("getErrorSafe")(n))
-                .MUSTFIX(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "Caught exception for ",
-                      " during measurePerf",
-                    ])),
-                  t,
-                ),
-              e.addPoint(t + "_fail", {
-                string: {
-                  caughtError: o("WAErrorMessage").maybeGetMessageFromError(n),
-                },
-              }),
-              n
-            );
-          }
-        })),
-        N.apply(this, arguments)
-      );
-    }
-    var M = r("justknobx")._("2596");
-    function w(e, t, n) {
       n === void 0 && (n = {});
       var a = n,
         i = a.callBridgeWithTimestamp,
@@ -265,9 +242,9 @@ __d(
         d = c === void 0 ? !1 : c;
       s == null && f++;
       var p = s != null ? s : f,
-        _ = u != null ? u : M,
+        _ = u != null ? u : $,
         g = !(m || (m = r("ExecutionEnvironment"))).isInWorker,
-        C = d || F(e);
+        C = d || N(e);
       if (g || !C) return o("MAWSendQplToServer").startQplUserFlow(e, t, p, _);
       var v = d ? { toLastActiveClient: !0 } : void 0;
       return (
@@ -297,76 +274,52 @@ __d(
         }),
         {
           addAnnotations: function (n) {
-            return E(e, n, p, v);
+            return L(e, n, p, v);
           },
           addPoint: function (n, r) {
             return b(e, n, { annotations: r, instanceKey: p }, void 0, v);
           },
           endCancel: function (n) {
-            return T(e, void 0, n, p, void 0, v);
+            return I(e, void 0, n, p, void 0, v);
           },
           endFail: function (n, r) {
-            return k(e, n, r, p, void 0, v);
+            return E(e, n, r, p, void 0, v);
           },
           endSuccess: function (n) {
-            return I(e, n, p, void 0, v);
+            return k(e, n, p, void 0, v);
           },
           markError: function (n, r, o) {
-            return D(e, n, { debugInfo: r, error: o, instanceKey: p }, v);
+            return T(e, n, { debugInfo: r, error: o, instanceKey: p }, v);
           },
         }
       );
     }
-    function A(e, t) {
-      return !(m || (m = r("ExecutionEnvironment"))).isInWorker || !F(e)
-        ? o("MAWSendQplToServer").makeMAWQPLProxyForExistingQPLUserFlow(e, t)
-        : {
-            addAnnotations: function (r) {
-              return E(e, r, t);
-            },
-            addPoint: function (r, o) {
-              return b(e, r, { annotations: o, instanceKey: t });
-            },
-            endCancel: function (r) {
-              return T(e, void 0, r, t);
-            },
-            endFail: function (r, o) {
-              return k(e, r, o, t);
-            },
-            endSuccess: function (r) {
-              return I(e, r, t);
-            },
-            markError: function (r, o, a) {
-              return D(e, r, { debugInfo: o, error: a, instanceKey: t });
-            },
-          };
-    }
-    function F(e) {
+    function N(e) {
       return p || _.has((c || (c = o("QPLEvent"))).getMarkerId(e));
     }
-    function O(e, t) {
-      return W(e, t);
+    function M(e, t) {
+      return A(e, t);
     }
-    var B = 0;
-    function W(e, t) {
+    var w = 0;
+    function A(e, t) {
       var n,
-        o = (n = t == null ? void 0 : t.instanceKey) != null ? n : B++,
+        o = (n = t == null ? void 0 : t.instanceKey) != null ? n : w++,
         a = !0;
       return {
         addAnnotations: function (n) {
-          E(e, n, o);
+          L(e, n, o);
         },
         addPoint: function (n, r) {
           b(e, n, { annotations: r, instanceKey: o });
         },
         endCancel: function (n, r) {
-          (T(e, n, r, o), (a = !1));
+          (I(e, n, r, o), (a = !1));
         },
         endFail: function (n, r) {
-          (k(e, n, r, o), (a = !1));
+          (E(e, n, r, o), (a = !1));
         },
         endSuccess: function (n) {
-          (I(e, n, o), (a = !1));
+          (k(e, n, o), (a = !1));
         },
         getQPLAttrs: function () {
           return { instanceKey: o };
@@ -388,18 +341,14 @@ __d(
       (l.sendQPLBoolAnnotationThroughBridge = v),
       (l.sendQPLStringAnnotationThroughBridge = S),
       (l.sendQPLIntAnnotationThroughBridge = R),
-      (l.sendQPLDoubleAnnotationsThroughBridge = L),
-      (l.sendQPLAnnotationsThroughBridge = E),
-      (l.sendQPLFailThroughBridge = k),
-      (l.sendQPLSuccessThroughBridge = I),
-      (l.sendQPLCancelThroughBridge = T),
-      (l.sendQPLErrorThroughBridge = D),
-      (l.measurePerfInQPL_USE_WITH_CARE = x),
-      (l.measurePerfInQPL = P),
-      (l.DEFAULT_WORKER_QPL_TIMEOUT_MS = M),
-      (l.startQplUserFlow = w),
-      (l.makeQplUserFlowFromExistedInstance = A),
-      (l.continueQplAsCrossBridgeQplFlow = O));
+      (l.sendQPLAnnotationsThroughBridge = L),
+      (l.sendQPLFailThroughBridge = E),
+      (l.sendQPLSuccessThroughBridge = k),
+      (l.measurePerfInQPL_USE_WITH_CARE = D),
+      (l.measurePerfInQPL = x),
+      (l.DEFAULT_WORKER_QPL_TIMEOUT_MS = $),
+      (l.startQplUserFlow = P),
+      (l.continueQplAsCrossBridgeQplFlow = M));
   },
   98,
 );

@@ -3,6 +3,7 @@ __d(
   [
     "WAWebCanonicalGating",
     "WAWebCanonicalUtils",
+    "WAWebWorkDirectoryContactNames",
     "WAWebWorkDirectoryFetchMembersJob",
     "WAWebWorkFeaturePolicy",
   ],
@@ -14,7 +15,8 @@ __d(
         };
       return (
         o("WAWebWorkFeaturePolicy").isWork() &&
-          (o("WAWebCanonicalUtils").isCanonicalPresent()
+          (o("WAWebWorkDirectoryContactNames").startWorkDirectoryContactNames(),
+          o("WAWebCanonicalUtils").isCanonicalPresent()
             ? o(
                 "WAWebWorkDirectoryFetchMembersJob",
               ).requestWorkDirectoryMembersOnce()

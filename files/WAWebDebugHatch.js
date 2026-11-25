@@ -523,6 +523,7 @@ Returns the version now stored.`),
       ai_meta_ai_muse_default_assistant_variant_1: !0,
       ai_meta_ai_muse_default_assistant_variant_2: !0,
       ai_meta_ai_muse_default_assistant_variant_3: !0,
+      ai_meta_ai_muse_default_assistant_variant_5: !0,
     };
     async function q(e, t) {
       var n;

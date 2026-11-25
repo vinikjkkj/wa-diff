@@ -3,7 +3,9 @@ __d(
   [
     "Base64Utils",
     "IgnitionE2EEMpsCompareChecker",
+    "MAWBridgeParticipants",
     "MAWExternalId",
+    "MAWInMemoryParticipantStore",
     "MAWJids",
     "MAWP2pPaymentCardSaveLogger",
     "MAWP2pPaymentMessage",
@@ -77,6 +79,56 @@ __d(
       };
     }
     var m = {
+      mpsApplyGroupParticipantRolesFromSnapshot: function (t) {
+        var e = t.chatJid,
+          n = t.demotedIds,
+          r = t.participants,
+          a = t.promotedAdmins;
+        o("MAWInMemoryParticipantStore").hydrateParticipantsStoreFromSnapshot(
+          e,
+          r,
+        );
+        var i = new Set(
+            r.map(function (e) {
+              return o("WAJids").extractUserId(e.userJid);
+            }),
+          ),
+          l = a
+            .filter(function (e) {
+              var t = e.fbid;
+              return i.has(t);
+            })
+            .flatMap(function (t) {
+              var n = t.fbid,
+                r = t.type;
+              return o(
+                "MAWInMemoryParticipantStore",
+              ).updateInMemoryParticipantTypes(
+                e,
+                [o("WAJids").toMsgrUserJid(n)],
+                r,
+              );
+            });
+        return (
+          l.push.apply(
+            l,
+            o("MAWInMemoryParticipantStore").updateInMemoryParticipantTypes(
+              e,
+              n
+                .filter(function (e) {
+                  return i.has(e);
+                })
+                .map(function (e) {
+                  return o("WAJids").toMsgrUserJid(e);
+                }),
+              "participant",
+            ),
+          ),
+          Promise.resolve(
+            o("MAWBridgeParticipants").createBridgeParticipants(l),
+          )
+        );
+      },
       mpsBatchLoadMessage: function (r) {
         return o("WmiWireRoute").wmiWireRoute(
           o("MpsErrors").MpsErrors,

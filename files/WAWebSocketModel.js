@@ -33,6 +33,8 @@ __d(
     "WAWebSubscribePushManagerAction",
     "WAWebSyncBootstrap",
     "WAWebUserPrefsAppStateSync",
+    "WAWebUserPrefsCacheStorage",
+    "WAWebUserPrefsKeys",
     "WAWebUserPrefsMeUser",
     "WAWebUserPrefsStore",
     "WAWebUserUtils",
@@ -79,17 +81,23 @@ __d(
       F,
       O,
       B,
-      W = r("requireDeferred")("WAWebClearAppStates").__setRef(
+      W,
+      q,
+      U = r("requireDeferred")("WAWebClearAppStates").__setRef(
         "WAWebSocketModel",
       ),
-      q = [
-        (B = o("WAWebLogoutReasonConstants")).LogoutReason.WebFailAddChat,
-        B.LogoutReason.WebFailEncSalt,
-        B.LogoutReason.WebFailOfflineResume,
-        B.LogoutReason.WebFailStorageInitialization,
+      V = [
+        (q = o("WAWebLogoutReasonConstants")).LogoutReason.WebFailAddChat,
+        q.LogoutReason.WebFailEncSalt,
+        q.LogoutReason.WebFailOfflineResume,
+        q.LogoutReason.WebFailStorageInitialization,
       ],
-      U = 5e3,
-      V = (function (t) {
+      H = 5e3,
+      G = [
+        o("WAWebMediaStore").LRU_MEDIA_ARRAY_BUFFER_CACHE_NAME,
+        o("WAWebUserPrefsCacheStorage").USER_PREFS_STORE_CACHE_NAME,
+      ],
+      z = (function (t) {
         function a() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -117,7 +125,7 @@ __d(
           (i.initialize = function () {
             var t = this,
               n;
-            ((this.clearAppStatesDeferred = W.load()),
+            ((this.clearAppStatesDeferred = U.load()),
               o("WAWebLogStorageSizeForCrash").initStorageSizeCrashLogging(),
               this.listenTo(this, "change:state", function () {
                 return t.$SocketImpl$p_1();
@@ -269,9 +277,9 @@ __d(
                     .sendLogs("native-clear-credentials-failed");
                 }
             }
-            (t != null && q.includes(t) && (e = !0),
+            (t != null && V.includes(t) && (e = !0),
               o("WAWebSocketLogoutUtils").setLogoutDirtyBit());
-            var s = z("clear_credentials", t);
+            var s = Q("clear_credentials", t);
             try {
               e = await this.clearCredentials();
             } finally {
@@ -295,7 +303,7 @@ __d(
                 { forceUnregister: !0 },
               ),
               o("WAWebSocketLogoutUtils").setLogoutDirtyBit());
-            var c = z("destroy_storage", t);
+            var c = Q("destroy_storage", t);
             try {
               await o("WAWebSocketLogoutStorageUtils").destroyStorage();
             } catch (t) {
@@ -336,10 +344,8 @@ __d(
                   .UserInitiated),
               o("WAWebCanonicalUtils").setCanonicalReloadPending(!1),
               n("cr:18917") != null && n("cr:18917").endCanonicalAuthSession(),
-              r("WAWebLocalStorage") == null ||
-                r("WAWebLocalStorage").removeItem("WebEncKeySalt"),
-              r("WAWebLocalStorage") == null ||
-                r("WAWebLocalStorage").removeItem("WANoiseInfo"),
+              Y(),
+              X(),
               o("WAWebNotifyWorkerUnregistered").notifyWorkerUnregistered(),
               o("WAWebInvocationInterface")
                 .get()
@@ -604,7 +610,7 @@ __d(
                     .sendLogs("clear_session_app_state");
             }
             try {
-              await j();
+              await Z();
             } catch (t) {
               e = !0;
               var n = r("getErrorSafe")(t);
@@ -632,9 +638,9 @@ __d(
           a
         );
       })(o("WAWebBaseModel").BaseModel),
-      H = o("WAWebBaseModel").defineModel(V),
-      G = new H();
-    function z(e, t) {
+      j = o("WAWebBaseModel").defineModel(z),
+      K = new j();
+    function Q(e, t) {
       return self.setTimeout(function () {
         var n = o("WALogger")
           .ERROR(
@@ -647,13 +653,66 @@ __d(
               ])),
             e,
             t != null ? t : "unknown",
-            U,
+            H,
           )
           .tags("logout");
         r("gkx")("26258") || n.sendLogs("logout-cleanup-stalled");
-      }, U);
+      }, H);
     }
-    async function j() {
+    function X() {
+      try {
+        o("WAWebSocketLogoutUtils").setLogoutDirtyBit();
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            B ||
+              (B = babelHelpers.taggedTemplateLiteralLoose([
+                "[logout] failed to set the logout dirty bit",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e))
+          .tags("logout");
+      }
+    }
+    function Y() {
+      (r("WAWebLocalStorage") == null ||
+        r("WAWebLocalStorage").removeItem(
+          o("WAWebUserPrefsKeys").MD_KEYS.WEB_ENC_SALT,
+        ),
+        r("WAWebLocalStorage") == null ||
+          r("WAWebLocalStorage").removeItem(
+            o("WAWebUserPrefsKeys").MD_NOISE_KEYS.WEB_ENC_SALT,
+          ),
+        r("WAWebLocalStorage") == null ||
+          r("WAWebLocalStorage").removeItem(
+            o("WAWebUserPrefsKeys").MD_NOISE_KEYS.NOISE_INFO,
+          ),
+        r("WAWebLocalStorage") == null ||
+          r("WAWebLocalStorage").removeItem(
+            o("WAWebUserPrefsKeys").MD_NOISE_KEYS.NOISE_INFO_IV,
+          ),
+        J().catch(function (e) {
+          o("WALogger")
+            .ERROR(
+              W ||
+                (W = babelHelpers.taggedTemplateLiteralLoose([
+                  "[logout] early cache storage delete failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .tags("logout");
+        }));
+    }
+    async function J() {
+      var e = window.caches;
+      if (e != null) {
+        var t = G.map(function (t) {
+          return e.delete(t);
+        });
+        await Promise.all([].concat(t, [r("WAWebDeleteAllCacheStorage")()]));
+      }
+    }
+    async function Z() {
       var e = await Promise.allSettled([
         r("WAWebDeleteAllCacheStorage")(),
         o("WAWebMediaStore").LruMediaStore.clear(),
@@ -665,7 +724,7 @@ __d(
             : r("err")(String(e.reason));
       });
     }
-    l.Socket = G;
+    l.Socket = K;
   },
   98,
 );

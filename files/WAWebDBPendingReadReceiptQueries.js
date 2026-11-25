@@ -1,13 +1,134 @@
 __d(
   "WAWebDBPendingReadReceiptQueries",
   [
+    "WALogger",
     "WAWebDBMessageUtils",
     "WAWebDBMsgUtils",
+    "WAWebDBReadReceiptOriginBindings",
+    "WAWebModelStorageUtils",
     "WAWebMsgType",
     "WAWebSchemaMessage",
   ],
   function (t, n, r, o, a, i, l) {
-    async function e(e) {
+    var e,
+      s = new Set([
+        o("WAWebMsgType").MSG_TYPE.UNKNOWN,
+        o("WAWebMsgType").MSG_TYPE.CIPHERTEXT,
+        o("WAWebMsgType").MSG_TYPE.CALL_LOG,
+      ]);
+    function u(t) {
+      var n = t.chatId,
+        r = t.origin,
+        a = t.targets;
+      return o("WAWebModelStorageUtils")
+        .getStorage()
+        .lock(["message"], async function (t) {
+          var i = t[0],
+            l = new Map();
+          if (a.length === 0) return l;
+          var s = await i.bulkGet(
+              a.map(function (e) {
+                return e.msgId;
+              }),
+              !1,
+            ),
+            u = [];
+          return (
+            a.forEach(function (e, t) {
+              var a = s[t];
+              if (!(a == null || l.has(a.id) || !m(a, n, e))) {
+                var i = o(
+                  "WAWebDBReadReceiptOriginBindings",
+                ).getCurrentPendingReadReceiptOrigin(a);
+                if (i != null) {
+                  l.set(a.id, i.origin);
+                  return;
+                }
+                (l.set(a.id, r),
+                  u.push({
+                    id: a.id,
+                    pendingReadReceiptOrigin: {
+                      origin: r,
+                      pendingType: e.pendingType,
+                      latestEditMsgKey: o(
+                        "WAWebDBReadReceiptOriginBindings",
+                      ).getBoundLatestEditMsgKey(a),
+                    },
+                  }));
+              }
+            }),
+            u.length > 0 &&
+              (o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "claimPendingReadReceiptOrigins: ",
+                    " new claims, origin: ",
+                    "",
+                  ])),
+                u.length,
+                r != null ? r : "unknown",
+              ),
+              await i.bulkMergeOnly(u)),
+            l
+          );
+        });
+    }
+    function c(e, t, n) {
+      var r,
+        a = o(
+          "WAWebDBReadReceiptOriginBindings",
+        ).getCurrentPendingReadReceiptOrigin(e);
+      return t && a != null
+        ? {
+            pendingReadReceiptOrigin: babelHelpers.extends({}, a, {
+              locallyRead: !0,
+              locallyReadAtMs: (r = a.locallyReadAtMs) != null ? r : n,
+            }),
+          }
+        : { pendingReadReceipt: null, pendingReadReceiptOrigin: null };
+    }
+    function d(e) {
+      return o("WAWebModelStorageUtils")
+        .getStorage()
+        .lock(["message"], async function (t) {
+          var n = t[0],
+            r = await n.bulkGet(
+              e.map(function (e) {
+                return e.id;
+              }),
+              !1,
+            ),
+            a = [];
+          (r.forEach(function (t, n) {
+            var r;
+            t != null &&
+              ((r = o(
+                "WAWebDBReadReceiptOriginBindings",
+              ).getCurrentPendingReadReceiptOrigin(t)) == null
+                ? void 0
+                : r.locallyRead) === !0 &&
+              o(
+                "WAWebDBReadReceiptOriginBindings",
+              ).isPendingReadReceiptTargetUnchanged(t, e[n]) &&
+              a.push({
+                id: t.id,
+                pendingReadReceipt: null,
+                pendingReadReceiptOrigin: null,
+              });
+          }),
+            a.length > 0 && (await n.bulkMergeOnly(a)));
+        });
+    }
+    function m(e, t, n) {
+      return e.from !== t || e.pendingReadReceipt !== n.pendingType
+        ? !1
+        : n.pendingType ===
+            o("WAWebDBMsgUtils").PendingReadReceiptType.MessageEdit
+          ? e.latestEditMsgKey != null &&
+            e.latestEditMsgKey === n.latestEditMsgKey
+          : !s.has(e.type);
+    }
+    async function p(e) {
       var t = e.MessageTable,
         n = e.chatId,
         r = e.pendingReadReceiptType,
@@ -24,31 +145,31 @@ __d(
             : o("WAWebDBMessageUtils").messageHasThreadId(e, a);
       });
     }
-    function s(t, n, r) {
-      return e({
-        MessageTable: t,
-        chatId: n,
+    function _(e, t, n) {
+      return p({
+        MessageTable: e,
+        chatId: t,
         pendingReadReceiptType:
           o("WAWebDBMsgUtils").PendingReadReceiptType.Message,
-        threadId: r,
+        threadId: n,
       });
     }
-    function u(e, t) {
-      return s(o("WAWebSchemaMessage").getMessageTable(), e, t);
+    function f(e, t) {
+      return _(o("WAWebSchemaMessage").getMessageTable(), e, t);
     }
-    function c(t, n, r) {
-      return e({
-        MessageTable: t,
-        chatId: n,
+    function g(e, t, n) {
+      return p({
+        MessageTable: e,
+        chatId: t,
         pendingReadReceiptType:
           o("WAWebDBMsgUtils").PendingReadReceiptType.MessageEdit,
-        threadId: r,
+        threadId: n,
       });
     }
-    function d(e, t) {
-      return c(o("WAWebSchemaMessage").getMessageTable(), e, t);
+    function h(e, t) {
+      return g(o("WAWebSchemaMessage").getMessageTable(), e, t);
     }
-    async function m(e, t, n) {
+    async function y(e, t, n) {
       var r,
         o,
         a,
@@ -83,11 +204,23 @@ __d(
         }
       );
     }
-    ((l.queryPendingReadReceiptMsgRowsWithTable = s),
-      (l.queryPendingReadReceiptMsgRows = u),
-      (l.queryUnreadEditedMsgRowsWithTable = c),
-      (l.queryUnreadEditedMsgRows = d),
-      (l.updateChatUnreadCountForReadMessages = m));
+    ((l.getCarriedPendingReadReceiptOrigin = o(
+      "WAWebDBReadReceiptOriginBindings",
+    ).getCarriedPendingReadReceiptOrigin),
+      (l.getCurrentPendingReadReceiptOrigin = o(
+        "WAWebDBReadReceiptOriginBindings",
+      ).getCurrentPendingReadReceiptOrigin),
+      (l.isPendingReadReceiptTargetUnchanged = o(
+        "WAWebDBReadReceiptOriginBindings",
+      ).isPendingReadReceiptTargetUnchanged),
+      (l.claimPendingReadReceiptOrigins = u),
+      (l.getLocallyReadPendingReceiptUpdate = c),
+      (l.clearSentPendingReadReceipts = d),
+      (l.queryPendingReadReceiptMsgRowsWithTable = _),
+      (l.queryPendingReadReceiptMsgRows = f),
+      (l.queryUnreadEditedMsgRowsWithTable = g),
+      (l.queryUnreadEditedMsgRows = h),
+      (l.updateChatUnreadCountForReadMessages = y));
   },
   98,
 );

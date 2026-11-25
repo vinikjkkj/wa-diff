@@ -3,17 +3,15 @@ __d(
   [
     "WALongInt",
     "WATimeUtils",
-    "WAWebAsISOCountryCode",
     "WAWebBackendApi",
     "WAWebDBMessageSerialization",
     "WAWebFetchMusicChatsConsumption",
-    "WAWebL10NCountryCodes",
     "WAWebMsgType",
     "WAWebMusicLyricsUtils",
     "WAWebMusicParsingUtils",
+    "WAWebMusicViewerCountry",
     "WAWebProtobufsE2E.pb",
     "WAWebSchemaMessage",
-    "WAWebUserPrefsMeUser",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["msgRowOpaqueData"],
@@ -21,23 +19,17 @@ __d(
       u = 60,
       c = new Map();
     async function d(t, n) {
-      var r = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-        a =
-          r != null
-            ? o("WAWebAsISOCountryCode").asISOCountryCode(
-                o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(r.user),
-              )
-            : null;
-      if (a == null) return !1;
-      var i = o("WATimeUtils").unixTime(),
-        l = (await m(t, (n == null ? void 0 : n.force) === !0, i)).filter(
+      var r = o("WAWebMusicViewerCountry").getMusicViewerCountry();
+      if (r == null) return !1;
+      var a = o("WATimeUtils").unixTime(),
+        i = (await m(t, (n == null ? void 0 : n.force) === !0, a)).filter(
           function (e) {
             var t = e.mediaId;
-            return (n == null ? void 0 : n.force) === !0 || !_(t, i);
+            return (n == null ? void 0 : n.force) === !0 || !_(t, a);
           },
         );
-      if (l.length === 0) return !1;
-      var s = l.some(function (e) {
+      if (i.length === 0) return !1;
+      var l = i.some(function (e) {
           var t = e.musicData;
           return (
             t.style ===
@@ -45,48 +37,48 @@ __d(
               .LYRICS
           );
         }),
-        u = await o(
+        s = await o(
           "WAWebFetchMusicChatsConsumption",
         ).fetchMusicChatsConsumption(
-          l.map(function (e) {
+          i.map(function (e) {
             var t = e.mediaId;
             return t;
           }),
-          a,
-          s,
+          r,
+          l,
         ),
-        c = new Map(
-          (u != null ? u : []).map(function (e) {
+        u = new Map(
+          (s != null ? s : []).map(function (e) {
             return [e.mediaId, e];
           }),
         );
       if (
-        (l.forEach(function (e) {
+        (i.forEach(function (e) {
           var t = e.mediaId;
-          return f(t, c.has(t), i);
+          return f(t, u.has(t), a);
         }),
-        u == null)
+        s == null)
       )
         return !1;
-      var d = await m(
-          l.map(function (e) {
+      var c = await m(
+          i.map(function (e) {
             var t = e.msg;
             return t.id.toString();
           }),
           (n == null ? void 0 : n.force) === !0,
-          i,
+          a,
         ),
-        p = d
+        d = c
           .map(function (e) {
-            return g(e, c.get(e.mediaId), i);
+            return g(e, u.get(e.mediaId), a);
           })
           .filter(Boolean);
-      return p.length === 0
+      return d.length === 0
         ? !1
         : (await o("WAWebSchemaMessage")
             .getMessageTable()
             .bulkMergeOnly(
-              p.map(function (e) {
+              d.map(function (e) {
                 var t = e.msgKey,
                   n = e.msgRowOpaqueData;
                 return { id: t, msgRowOpaqueData: n };
@@ -95,7 +87,7 @@ __d(
           o("WAWebBackendApi").frontendFireAndForget(
             "updateMusicMsgConsumption",
             {
-              updates: p.map(function (t) {
+              updates: d.map(function (t) {
                 var n = t.msgRowOpaqueData,
                   r = babelHelpers.objectWithoutPropertiesLoose(t, e);
                 return r;
