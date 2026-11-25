@@ -273,6 +273,7 @@ __d(
                 targetWindow: a.targetWindow,
                 isAVUpgrade: a.isAVUpgrade,
                 facingMode: a.facingMode,
+                preferSelectedDevice: a.preferSelectedDevice,
               });
             }
             if (
@@ -705,46 +706,47 @@ __d(
         n = e.facingMode,
         r = e.isAVUpgrade,
         a = e.params,
-        i = e.selectedDeviceId,
-        l = e.targetWindow;
+        i = e.preferSelectedDevice,
+        l = e.selectedDeviceId,
+        s = e.targetWindow;
       if (o("WAWebVoipMediaPermissionChecks").isVirtualVideoCaptureEnabled())
         return null;
-      var s = await o(
+      var u = await o(
         "WAWebVoipMediaPermissionChecks",
       ).queryCameraPermissionStrict();
-      if (s === "denied") {
+      if (u === "denied") {
         o("WALogger").LOG(
           x ||
             (x = babelHelpers.taggedTemplateLiteralLoose([
               "voip: [AV:acquireCameraStream] camera permission denied, skipping camera acquisition",
             ])),
         );
-        var u = await o("WAWebVoipCameraPrewarm").consumePrewarmedStream();
+        var c = await o("WAWebVoipCameraPrewarm").consumePrewarmedStream();
         return (
-          u != null &&
-            u.getTracks().forEach(function (e) {
+          c != null &&
+            c.getTracks().forEach(function (e) {
               return e.stop();
             }),
           null
         );
       }
-      var c = await he({
-        selectedDeviceId: i,
+      var d = await he({
+        selectedDeviceId: l,
         params: a,
-        targetWindow: l,
+        targetWindow: s,
         facingMode: n,
       });
-      if (c != null) return c;
-      var d =
+      if (d != null) return d;
+      var m =
           r === !0
             ? o("WAWebGuidePopup.react").FeatureSurface.VOIP_VIDEO_UPGRADE
             : o("WAWebGuidePopup.react").FeatureSurface.VOIP,
-        m =
-          l != null
+        p =
+          s != null
             ? o("WAWebVoipPopoutModalManager").VoipPopoutModalManager
             : o("WAWebModalManager").ModalManager,
-        p = ne(),
-        _ = Date.now();
+        _ = ne(),
+        f = Date.now();
       o("WALogger").LOG(
         $ ||
           ($ = babelHelpers.taggedTemplateLiteralLoose([
@@ -753,57 +755,58 @@ __d(
             ", isAVUpgrade=",
             "",
           ])),
-        (t = i == null ? void 0 : i.slice(0, 8)) != null ? t : "none",
-        String(l != null),
+        (t = l == null ? void 0 : l.slice(0, 8)) != null ? t : "none",
+        String(s != null),
         String(r != null ? r : !1),
       );
-      var f = await o("WAWebMediaCapture").start({
+      var g = await o("WAWebMediaCapture").start({
           type: o("WAWebMediaCaptureStreamType").WAWebMediaCaptureStreamType
             .CAMERA,
-          featureSurface: d,
+          featureSurface: m,
           timeoutLimit: o(
             "WAWebVoipMediaPermissionChecks",
           ).hasPermissionAlreadyBeenChecked(!0)
             ? Number.POSITIVE_INFINITY
             : void 0,
-          targetWindow: l,
+          targetWindow: s,
           mediaConstraints: Re({
             facingMode: n,
             params: a,
-            selectedDeviceId: i,
+            preferSelectedDevice: i,
+            selectedDeviceId: l,
           }),
         }),
-        g = f.asyncStream,
-        h = f.disposeStream,
-        y = o("WAWebVoipMediaPermissionChecks").getActiveCallCameraTimeoutMs(
-          s,
-          p,
+        h = g.asyncStream,
+        y = g.disposeStream,
+        C = o("WAWebVoipMediaPermissionChecks").getActiveCallCameraTimeoutMs(
+          u,
+          _,
         ),
-        C =
-          y != null
+        b =
+          C != null
             ? o(
                 "WAWebVoipMediaPermissionChecks",
               ).raceStreamWithActiveCallTimeout(
-                g,
                 h,
                 y,
+                C,
                 "acquireCameraStream",
                 function () {
-                  s === "prompt" && ie(p);
+                  u === "prompt" && ie(_);
                 },
               )
-            : g;
-      return Ce(C, {
+            : h;
+      return Ce(b, {
         facingMode: n,
-        featureSurface: d,
+        featureSurface: m,
         params: a,
-        scheduledCallId: p.scheduledCallId,
-        selectedDeviceId: i,
-        targetWindow: l,
-        timeoutMs: y,
+        scheduledCallId: _.scheduledCallId,
+        selectedDeviceId: l,
+        targetWindow: s,
+        timeoutMs: C,
       })
         .then(function (e) {
-          var t = Date.now() - _;
+          var t = Date.now() - f;
           if (e != null) {
             var n,
               r,
@@ -845,7 +848,7 @@ __d(
             o("WAWebGetUserMediaErrors").NotAllowedError,
             function (e) {
               o("WAWebCoreActionsODS").logCallMediaCameraError();
-              var t = Date.now() - _;
+              var t = Date.now() - f;
               (o("WALogger").LOG(
                 M ||
                   (M = babelHelpers.taggedTemplateLiteralLoose([
@@ -856,7 +859,7 @@ __d(
                 t,
                 e.message,
               ),
-                m.open(
+                p.open(
                   G.jsx(o("WAWebGuidePopup.react").GuidePopup, {
                     messaging: o(
                       "WAWebVoipMediaPermissionChecks",
@@ -866,12 +869,12 @@ __d(
                       : o("WAWebGuidePopup.react").Messaging.CAMERA_FAIL,
                     type: o("WAWebGuidePopup.react").GuidePopupType
                       .GUIDE_UNBLOCK,
-                    featureSurface: d,
+                    featureSurface: m,
                     hideReloadHint: o(
                       "WAWebVoipDeviceAccessRecoveryGating",
                     ).canAllowBlockedDeviceDuringCall(),
                     onConfirm: function () {
-                      return m.close();
+                      return p.close();
                     },
                   }),
                 ));
@@ -886,7 +889,7 @@ __d(
             ],
             function (e) {
               o("WAWebCoreActionsODS").logCallMediaCameraError();
-              var t = Date.now() - _;
+              var t = Date.now() - f;
               (o("WALogger").LOG(
                 w ||
                   (w = babelHelpers.taggedTemplateLiteralLoose([
@@ -897,14 +900,14 @@ __d(
                 t,
                 e,
               ),
-                m.open(
+                p.open(
                   G.jsx(o("WAWebGuidePopup.react").GuidePopup, {
                     messaging: o("WAWebGuidePopup.react").Messaging
                       .CAMERA_UNAVAILABLE,
                     type: o("WAWebGuidePopup.react").GuidePopupType.GUIDE_NONE,
-                    featureSurface: d,
+                    featureSurface: m,
                     onConfirm: function () {
-                      return m.close();
+                      return p.close();
                     },
                   }),
                 ));
@@ -916,7 +919,7 @@ __d(
             o("WAWebGetUserMediaErrors").GetUserMediaError,
             function (e) {
               o("WAWebCoreActionsODS").logCallMediaCameraError();
-              var t = Date.now() - _;
+              var t = Date.now() - f;
               (o("WALogger").LOG(
                 A ||
                   (A = babelHelpers.taggedTemplateLiteralLoose([
@@ -927,14 +930,14 @@ __d(
                 t,
                 e,
               ),
-                m.open(
+                p.open(
                   G.jsx(o("WAWebGuidePopup.react").GuidePopup, {
                     messaging: o("WAWebGuidePopup.react").Messaging
                       .CAMERA_MISSING,
                     type: o("WAWebGuidePopup.react").GuidePopupType.GUIDE_NONE,
-                    featureSurface: d,
+                    featureSurface: m,
                     onConfirm: function () {
-                      return m.close();
+                      return p.close();
                     },
                   }),
                 ));
@@ -1085,24 +1088,21 @@ __d(
     function Re(e) {
       var t = e.facingMode,
         n = e.params,
-        r = e.selectedDeviceId;
-      if (n != null)
-        return t != null
-          ? [
-              Le({ facing: { mode: t, constraintType: z.Ideal }, params: n }),
-              Le({ params: n }),
-            ]
-          : [
-              Le({
-                device: { deviceId: r, constraintType: z.Exact },
-                params: n,
-              }),
-              Le({
-                device: { deviceId: r, constraintType: z.Ideal },
-                params: n,
-              }),
-              Le({ params: n }),
-            ];
+        r = e.preferSelectedDevice,
+        o = e.selectedDeviceId;
+      if (n != null) {
+        if (t != null)
+          return [
+            Le({ facing: { mode: t, constraintType: z.Ideal }, params: n }),
+            Le({ params: n }),
+          ];
+        var a = [
+          Le({ device: { deviceId: o, constraintType: z.Exact }, params: n }),
+          Le({ device: { deviceId: o, constraintType: z.Ideal }, params: n }),
+          Le({ params: n }),
+        ];
+        return r === !0 ? a.slice(1) : a;
+      }
     }
     function Le(e) {
       var t,

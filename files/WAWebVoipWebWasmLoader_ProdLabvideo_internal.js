@@ -13,9 +13,9 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = ["type", "__name"],
       s,
-      u = "0e3ea86412781c0c934d40404898b5c85e41d8cca541d539d3bbe0a95ecbd3ea",
+      u = "f242b8b8a616bb1fb4c73f725088d9c3e0d496dc04e6262e6fe7a35e1d62ddec",
       c = null,
-      d = r("bx").getURL(r("bx")("78865"), { cacheBreaker: "1795509550581" }),
+      d = r("bx").getURL(r("bx")("78865"), { cacheBreaker: "1795590579985" }),
       m = (function () {
         var t =
           typeof document != "undefined" && document.currentScript
@@ -767,7 +767,7 @@ __d(
             console.warn.apply(console, arguments);
           }
           var Ke = {
-            1518370: function (t, n) {
+            1509182: function (t, n) {
               var e =
                 "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
                 t.toFixed(1) +
@@ -781,10 +781,10 @@ __d(
                 message: e,
               });
             },
-            1518657: function () {
+            1509469: function () {
               return Date.now();
             },
-            1518680: function () {
+            1509492: function () {
               typeof Xt != "undefined" &&
                 Xt.syncfs &&
                 Xt.syncfs(!1, function (e) {});
@@ -7662,13 +7662,13 @@ __d(
               invoke_iiiiii: Al,
               invoke_iiiiiii: xl,
               invoke_iiiiiiiddiiid: ju,
-              invoke_iiiiiiii: ql,
+              invoke_iiiiiiii: Wl,
               invoke_iiiiiiiidi: Qu,
               invoke_iiiiiiiifii: au,
               invoke_iiiiiiiii: wl,
               invoke_iiiiiiiiii: Fl,
               invoke_iiiiiiiiiiffiii: Ss,
-              invoke_iiiiiiiiiii: Bl,
+              invoke_iiiiiiiiiii: Vl,
               invoke_iiiiiiiiiiii: Ol,
               invoke_iiiiiiiiiiiiffiii: Es,
               invoke_iiiiiiiiiiiii: xs,
@@ -7742,13 +7742,13 @@ __d(
               invoke_viif: Xs,
               invoke_viii: El,
               invoke_viiii: Pl,
-              invoke_viiiii: Ul,
-              invoke_viiiiii: Wl,
+              invoke_viiiii: ql,
+              invoke_viiiiii: Bl,
               invoke_viiiiiidiii: os,
               invoke_viiiiiii: Gl,
               invoke_viiiiiiiddiii: es,
               invoke_viiiiiiii: Hl,
-              invoke_viiiiiiiii: Vl,
+              invoke_viiiiiiiii: Ul,
               invoke_viiiiiiiiii: rs,
               invoke_viiiiiiiiiiii: zs,
               invoke_viiiiiiiiiiiii: cu,
@@ -7857,8 +7857,8 @@ __d(
             Cl = (C.___get_exception_message = $e("__get_exception_message")),
             bl = $e("__cxa_can_catch"),
             vl = $e("__cxa_is_pointer_type"),
-            Sl = (C.___start_em_js = 1512428),
-            Rl = (C.___stop_em_js = 1518370);
+            Sl = (C.___start_em_js = 1503276),
+            Rl = (C.___stop_em_js = 1509182);
           function Ll(e, t, n, r) {
             var o = fl();
             try {
@@ -7994,16 +7994,7 @@ __d(
               cl(1, 0);
             }
           }
-          function Bl(e, t, n, r, o, a, i, l, s, u, c) {
-            var d = fl();
-            try {
-              return mn(e)(t, n, r, o, a, i, l, s, u, c);
-            } catch (e) {
-              if ((gl(d), !(e instanceof Pe))) throw e;
-              cl(1, 0);
-            }
-          }
-          function Wl(e, t, n, r, o, a, i) {
+          function Bl(e, t, n, r, o, a, i) {
             var l = fl();
             try {
               mn(e)(t, n, r, o, a, i);
@@ -8012,7 +8003,7 @@ __d(
               cl(1, 0);
             }
           }
-          function ql(e, t, n, r, o, a, i, l) {
+          function Wl(e, t, n, r, o, a, i, l) {
             var s = fl();
             try {
               return mn(e)(t, n, r, o, a, i, l);
@@ -8021,7 +8012,7 @@ __d(
               cl(1, 0);
             }
           }
-          function Ul(e, t, n, r, o, a) {
+          function ql(e, t, n, r, o, a) {
             var i = fl();
             try {
               mn(e)(t, n, r, o, a);
@@ -8030,12 +8021,21 @@ __d(
               cl(1, 0);
             }
           }
-          function Vl(e, t, n, r, o, a, i, l, s, u) {
+          function Ul(e, t, n, r, o, a, i, l, s, u) {
             var c = fl();
             try {
               mn(e)(t, n, r, o, a, i, l, s, u);
             } catch (e) {
               if ((gl(c), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function Vl(e, t, n, r, o, a, i, l, s, u, c) {
+            var d = fl();
+            try {
+              return mn(e)(t, n, r, o, a, i, l, s, u, c);
+            } catch (e) {
+              if ((gl(d), !(e instanceof Pe))) throw e;
               cl(1, 0);
             }
           }
@@ -9475,8 +9475,6 @@ __d(
           }
           ((C.keepRuntimeAlive = pe),
             (C.wasmMemory = q),
-            (C.GROWABLE_HEAP_U8 = m),
-            (C.GROWABLE_HEAP_F32 = h),
             (C.ExitStatus = ht),
             (C.FS = Xt),
             (C.PThread = on),
@@ -9663,10 +9661,12 @@ __d(
             "getTempRet0",
             "setTempRet0",
             "GROWABLE_HEAP_I8",
+            "GROWABLE_HEAP_U8",
             "GROWABLE_HEAP_I16",
             "GROWABLE_HEAP_U16",
             "GROWABLE_HEAP_I32",
             "GROWABLE_HEAP_U32",
+            "GROWABLE_HEAP_F32",
             "GROWABLE_HEAP_F64",
             "writeStackCookie",
             "checkStackCookie",
@@ -9958,7 +9958,31 @@ __d(
               C.preInit.length > 0;
             )
               C.preInit.pop()();
-          return (mc(), a.ready);
+          mc();
+          for (var _c of [
+            [
+              "GROWABLE_HEAP_U8",
+              function () {
+                return m();
+              },
+            ],
+            [
+              "GROWABLE_HEAP_F32",
+              function () {
+                return h();
+              },
+            ],
+          ]) {
+            var fc = _c[0],
+              gc = _c[1];
+            Object.defineProperty(C, fc, {
+              configurable: !0,
+              enumerable: !0,
+              writable: !0,
+              value: gc,
+            });
+          }
+          return a.ready;
         };
       })();
     ((m.BUILD_SHA = u),

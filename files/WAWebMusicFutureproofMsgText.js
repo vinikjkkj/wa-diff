@@ -1,11 +1,12 @@
 __d(
   "WAWebMusicFutureproofMsgText",
-  ["fbt"],
-  function (t, n, r, o, a, i, l, s) {
+  ["WAWebFormatUnknownMsg"],
+  function (t, n, r, o, a, i, l) {
     function e(e) {
-      return s._(/*BTDS*/ "");
+      var t = e.msg;
+      return o("WAWebFormatUnknownMsg").defaultFutureproofMsgText(t);
     }
     l.default = e;
   },
-  226,
+  98,
 );

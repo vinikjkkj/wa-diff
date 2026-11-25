@@ -168,11 +168,10 @@ __d(
         2,
       ]));
     var ue = function (t) {
-      (r("vulture")("tZKjoyDmLsfMAfQ8CVCi4UTSQCo="),
-        o("WAWebCTWADataSharingModel").CTWADataSharingModel.setValue(
-          o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.notset,
-          t,
-        ),
+      (o("WAWebCTWADataSharingModel").CTWADataSharingModel.setValue(
+        o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.notset,
+        t,
+      ),
         o("WALogger").LOG(
           d ||
             (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -402,10 +401,10 @@ __d(
       "DFS - Mocks an INBOUND CTWA payload (fromMe=false) \u2014 customer-replied-to-our-ad scenario."),
       (he.paramsToExecute = []));
     var ye = function (t) {
-      var e, n;
-      r("vulture")("vGP2Bbm3XNLrOD1CPYZTRZRhLAA=");
-      var a =
-        (t == null ? void 0 : t.chatId) || ((e = ae) == null ? void 0 : e.id);
+      var e,
+        n,
+        a =
+          (t == null ? void 0 : t.chatId) || ((e = ae) == null ? void 0 : e.id);
       if (a == null) {
         o("WALogger").ERROR(
           E ||
@@ -833,8 +832,7 @@ __d(
       "DFS - Reset the CTWA Data Sharing Disclosure Shown Count to 0. This allows opted-out users to see the disclosure again."),
       (we.paramsToExecute = []));
     var Ae = function (t) {
-      (r("vulture")("t0-Rw81RzbCXTRKyinxtN118yIU="),
-        o("WAWebUserPrefsGeneral").setCTWADataSharingDisclosureShownCount(t),
+      (o("WAWebUserPrefsGeneral").setCTWADataSharingDisclosureShownCount(t),
         o("WALogger").LOG(
           B ||
             (B = babelHelpers.taggedTemplateLiteralLoose([

@@ -3,7 +3,7 @@ __d(
   ["WAWebLocalStorage"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = "WAWebMusicDirectCreationReporting";
+    var e = "WAWebMusicStubbedCreationReporting";
     function s() {
       return (
         (r("WAWebLocalStorage") == null
@@ -18,8 +18,8 @@ __d(
         : r("WAWebLocalStorage") == null ||
           r("WAWebLocalStorage").removeItem(e);
     }
-    ((l.isDirectCreationReportingEnabled = s),
-      (l.enableDirectCreationReporting = u));
+    ((l.isStubbedCreationReportingEnabled = s),
+      (l.enableStubbedCreationReporting = u));
   },
   98,
 );

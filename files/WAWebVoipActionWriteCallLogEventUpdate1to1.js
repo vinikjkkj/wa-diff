@@ -4,6 +4,7 @@ __d(
     "WALogger",
     "WAWebCallLogMsgData.flow",
     "WAWebCallLogUtils",
+    "WAWebCallNotificationBus",
     "WAWebMsgKey",
     "WAWebVoipActionWriteCallLogImpl",
     "WAWebVoipWaCallEnums",
@@ -28,8 +29,10 @@ __d(
       try {
         var n = t.CallId,
           a = t.PeerJid,
-          i = t.Result,
-          l = await o("WAWebCallLogUtils").getCallLogTargetDetails({
+          i = t.Result;
+        i === o("WAWebVoipWaCallEnums").CallLogResult.AcceptedElsewhere &&
+          r("WAWebCallNotificationBus").trigger("screened_call_accepted", n);
+        var l = await o("WAWebCallLogUtils").getCallLogTargetDetails({
             callId: n,
             peerWid: a,
             groupJid: null,

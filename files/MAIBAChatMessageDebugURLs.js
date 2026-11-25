@@ -134,6 +134,51 @@ __d(
         o
       );
     }
+    var y =
+      "Debug this MAIBA (Meta AI business assistant) conversation turn. Read the conversation and its trace, find where and why the agent went wrong, and name the code, prompt, skill or config responsible, with evidence.";
+    function C(e, t) {
+      var n = e
+          .filter(function (e) {
+            var t = e[1];
+            return t != null && t !== "";
+          })
+          .map(function (e) {
+            var t = e[0],
+              n = e[1];
+            return t + ": " + (n != null ? n : "");
+          }),
+        r = [y, ""].concat(n, [""], b(t)).join("\n");
+      return (
+        "https://agentcloud.internalmeta.com/new?model=claude-opus-5-5&prompt=" +
+        encodeURIComponent(r)
+      );
+    }
+    function b(e) {
+      var t = e.botResponseId,
+        n = e.externalConversationId,
+        r = e.isSandbox,
+        o = n != null ? n : "<external conversation ID>",
+        a = r ? "omnibot_chat_app/sandbox" : "omnibot_chat_app";
+      return [
+        "Logging and telemetry for this error (Scuba):",
+        "- Tool calls: maiba_mcp_www_scuba, conversation_id = " +
+          o +
+          ", event_type = mcp_call_tool; entity_name is the tool, with exception_type, exception_code and exception_message.",
+        "- Agent spans: maiba_agent_platform_metrics, trajectory_session_id = " +
+          o +
+          "; tool_name, tool_error, std_error_json, gen_ai_error_type.",
+        "- Chat errors: " +
+          a +
+          ", conversation_fbid = " +
+          o +
+          "; error_type, error_msg, error_stacktrace.",
+        "- LLM calls: mgp3p_llm_inference_logs, app_request_uuid = " +
+          (t != null ? t : "<bot response ID>") +
+          ".",
+        "- Reach & Frequency forecasts (Reach Planner tools): reach_frequency_prediction, by account_id and time; error_code and exception_message hold the real exception behind an ads API error.",
+        "Report: the error class (tool input validation, tool or backend exception, forecast failure, auth or permission, LLM provider error, skill or routing, or agent reasoning with no error logged); how often that class occurred in the last 7 days in these datasets, excluding shadow and eval traffic (traffic_mode, run_type), and whether it is new or rising; and any telemetry gap: a failure that was not logged, or was logged without enough detail to diagnose, with the logging change that would close it.",
+      ];
+    }
     ((i.isMAIBASandboxHostname = l),
       (i.getOmnibotMessageLogsURL = s),
       (i.getOmnibotConversationDebuggerURL = u),
@@ -144,7 +189,8 @@ __d(
       (i.getPBCMessageScubaURI = _),
       (i.getPBCConversationDebuggerURL = f),
       (i.getLLMInferenceLogsURL = g),
-      (i.getOmnibotChatExceptionsByConversationURL = h));
+      (i.getOmnibotChatExceptionsByConversationURL = h),
+      (i.getAgentcloudDebugURL = C));
   },
   66,
 );

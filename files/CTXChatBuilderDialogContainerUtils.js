@@ -696,22 +696,23 @@ __d(
               if (_ === !0) e.onHide();
               else {
                 var b, v;
-                (r(
-                  "AdsMessengerPageWelcomeMessageDataManager",
-                ).createCustomTemplate(
-                  e.adgroupIDs,
-                  String(e.pageID),
-                  C,
-                  e.templateName,
-                  r("AdsUEditorHostIDs").EDITING,
-                  e.accountID,
-                  e.isEditTemplate,
-                  e.isExistingPost,
-                  e.onHide(),
-                  r("emptyFunction"),
-                  e.destinationType,
-                  e.loggingData,
-                ),
+                (e.onHide(),
+                  r(
+                    "AdsMessengerPageWelcomeMessageDataManager",
+                  ).createCustomTemplate(
+                    e.adgroupIDs,
+                    String(e.pageID),
+                    C,
+                    e.templateName,
+                    r("AdsUEditorHostIDs").EDITING,
+                    e.accountID,
+                    e.isEditTemplate,
+                    e.isExistingPost,
+                    void 0,
+                    r("emptyFunction"),
+                    e.destinationType,
+                    e.loggingData,
+                  ),
                   o("CTXChatBuilderEntSyncUtils").fireEntSyncMutation(
                     h,
                     e.pageID,
@@ -807,7 +808,7 @@ __d(
                       hostID: r("AdsUEditorHostIDs").EDITING,
                     },
                     {
-                      line: "1114",
+                      line: "1115",
                       module: "CTXChatBuilderDialogContainerUtils.js",
                       moduleID: i.id,
                     },

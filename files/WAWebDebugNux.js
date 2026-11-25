@@ -101,10 +101,7 @@ __d(
       "Clear all data in local storage on NUX that acts based on cool-offs."),
       (p.paramsToExecute = []));
     function _(e) {
-      return (
-        r("vulture")("AoT3-9gY27kFK46JtaTy3FtfVh0="),
-        r("WAWebNuxSync").acknowledgeNux(e).then(r("WAWebNoop"))
-      );
+      return r("WAWebNuxSync").acknowledgeNux(e).then(r("WAWebNoop"));
     }
     function f(e) {
       return (
@@ -119,10 +116,7 @@ __d(
       );
     }
     function h() {
-      return (
-        r("vulture")("wIk_YRbjM1UHICo1PFRAb07e74o="),
-        o("WAWebNux").NuxSyncKey
-      );
+      return o("WAWebNux").NuxSyncKey;
     }
     ((h.doc = "return NuxSyncKey enum"), (h.paramsToExecute = []));
     var y = {

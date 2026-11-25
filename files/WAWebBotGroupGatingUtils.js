@@ -31,21 +31,28 @@ __d(
         ) === !0
       );
     }
-    function m(e) {
+    function m() {
+      return (
+        o("WAWebABProps").getABPropConfigValue(
+          "ai_group_agent_mutual_exclusion_enabled",
+        ) === !0
+      );
+    }
+    function p(e) {
       return (
         o("WAWebBotProduct").botProductFromServerValue(e) ===
         o("WAWebBotProduct").BotProduct.MUSE
       );
     }
-    function p(t, n) {
+    function _(t, n) {
       return n !== e.GROUP ||
         (t == null ? void 0 : t.isDeprecated) === !0 ||
         (t == null ? void 0 : t.isDeleted) === !0 ||
-        !m(t == null ? void 0 : t.product)
+        !p(t == null ? void 0 : t.product)
         ? !1
         : s();
     }
-    function _(e, t) {
+    function f(e, t) {
       return t
         ? !1
         : o("WAWebBotUtils").isMetaAiBot(e) ||
@@ -53,7 +60,7 @@ __d(
           ? !0
           : s();
     }
-    function f() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_ai_group_open_support",
       ) !== !0
@@ -62,7 +69,7 @@ __d(
             "ai_group_participation_enabled",
           ) === !0;
     }
-    function g() {
+    function h() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_ai_group_open_support",
       ) !== !0
@@ -71,49 +78,49 @@ __d(
             "ai_group_participation_add_tee_enabled",
           ) === !0;
     }
-    function h(e) {
+    function y(e) {
       return o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(e)
-        ? f()
+        ? g()
         : o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)
           ? !0
           : s();
     }
-    function y(e) {
+    function C(e) {
       return e == null
         ? !1
         : o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(e)
-          ? b()
+          ? v()
           : o("WAWebBotUtils").isWidTeeGroupMetaBotFbidWid(e)
-            ? g()
+            ? h()
             : o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e) && s();
     }
-    function C(e) {
+    function b(e) {
       var t = e.authorWid,
         n = e.botGroupParticipant,
         r = e.chatWid,
         a = e.isBotInvoke;
-      return (r == null ? void 0 : r.isGroup()) !== !0 || n == null || !y(n)
+      return (r == null ? void 0 : r.isGroup()) !== !0 || n == null || !C(n)
         ? !1
         : !o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(n) ||
             a ||
             (t == null ? void 0 : t.equals(n)) === !0;
     }
-    function b() {
+    function v() {
       return (
         o("WAWebABProps").getABPropConfigValue("web_ai_group_open_support") ===
         !0
       );
     }
-    function v(e) {
-      return b() && (e == null ? void 0 : e.isOpenBotGroup) === !0
+    function S(e) {
+      return v() && (e == null ? void 0 : e.isOpenBotGroup) === !0
         ? o("WAWebBotUtils").META_BOT_FBID_WID
-        : g() && (e == null ? void 0 : e.isTeeBotGroup) === !0
+        : h() && (e == null ? void 0 : e.isTeeBotGroup) === !0
           ? o("WAWebBotUtils").META_BOT_TEE_FBID_WID
           : null;
     }
-    function S(e) {
+    function R(e) {
       return o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(e)
-        ? b()
+        ? v()
         : o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e) && s();
     }
     ((l.BotGroupContext = e),
@@ -121,17 +128,18 @@ __d(
       (l.isMuseGroupAgentRenderingEnabled = u),
       (l.isMuseProductSupported = c),
       (l.isMuseGroupAddEnabled = d),
-      (l.isGroupAgentProduct = m),
-      (l.isGroupAgent = p),
-      (l.isGroupBotInvokeAllowed = _),
-      (l.isOpenGroupBotParticipantAddEnabled = f),
-      (l.isTEEGroupBotParticipantAddEnabled = g),
-      (l.isAgentListedInGroupInfoResponse = h),
-      (l.isGroupBotParticipantEnabled = y),
-      (l.isGroupBotMessage = C),
-      (l.isOpenGroupBotSendEnabled = b),
-      (l.getSendGroupBotParticipant = v),
-      (l.isGroupRevokeAgentTarget = S));
+      (l.isGroupAgentMutualExclusionEnabled = m),
+      (l.isGroupAgentProduct = p),
+      (l.isGroupAgent = _),
+      (l.isGroupBotInvokeAllowed = f),
+      (l.isOpenGroupBotParticipantAddEnabled = g),
+      (l.isTEEGroupBotParticipantAddEnabled = h),
+      (l.isAgentListedInGroupInfoResponse = y),
+      (l.isGroupBotParticipantEnabled = C),
+      (l.isGroupBotMessage = b),
+      (l.isOpenGroupBotSendEnabled = v),
+      (l.getSendGroupBotParticipant = S),
+      (l.isGroupRevokeAgentTarget = R));
   },
   98,
 );

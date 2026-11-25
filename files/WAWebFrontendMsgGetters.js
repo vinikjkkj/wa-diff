@@ -480,10 +480,19 @@ __d(
       le = m(
         function (e) {
           var t = e[0],
-            n = e[1];
-          return t > 0 && n !== o("WAWebMsgType").MSG_TYPE.REVOKED;
+            n = e[1],
+            r = e[2];
+          return (
+            t > 0 &&
+            n !== o("WAWebMsgType").MSG_TYPE.REVOKED &&
+            (n !== o("WAWebMsgType").MSG_TYPE.MUSIC || r != null)
+          );
         },
-        [u.getNumTimesForwarded, u.getType],
+        [
+          u.getNumTimesForwarded,
+          u.getType,
+          u.getForwardedNewsletterMessageInfo,
+        ],
       ),
       se = p("associationType"),
       ue = m(

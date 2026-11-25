@@ -1,6 +1,7 @@
 __d(
   "WAWebMessageListStableGroupKeys",
   [
+    "WAWebBoolFunc",
     "WAWebMessageListGenerateMsgListRows",
     "WAWebMessageListRowRenderers",
     "WAWebMsgGetters",
@@ -117,20 +118,17 @@ __d(
     function C() {
       return { assignment: new Map(), firstMsgIds: new Map(), used: new Set() };
     }
-    function b(e, t, n, r, o) {
+    function b(e, t, n, r, a) {
       (r === void 0 && (r = !1),
-        o === void 0 &&
-          (o = function () {
-            return !0;
-          }));
-      var a = n[0],
-        i = v(e, t, n, o);
-      (i != null && r && e.committedFirstMsgIds.get(i) !== a && (i = null),
-        i == null && ((i = c + String(e.nextKeyNumber)), e.nextKeyNumber++),
-        t.used.add(i),
-        t.firstMsgIds.set(i, a));
-      for (var l of n) t.assignment.set(l, i);
-      return i;
+        a === void 0 && (a = o("WAWebBoolFunc").returnTrue));
+      var i = n[0],
+        l = v(e, t, n, a);
+      (l != null && r && e.committedFirstMsgIds.get(l) !== i && (l = null),
+        l == null && ((l = c + String(e.nextKeyNumber)), e.nextKeyNumber++),
+        t.used.add(l),
+        t.firstMsgIds.set(l, i));
+      for (var s of n) t.assignment.set(s, l);
+      return l;
     }
     function v(e, t, n, r) {
       for (var o of n) {

@@ -20,20 +20,21 @@ __d(
       s = o("WAWebMessageSendService").MessageSendService.make(function* () {
         var e = yield* o("WAWebMessageStoreService").MessageStoreService,
           t = {
-            storeAndSend: function (n, r, a) {
+            storeAndSend: function (n, r, a, i) {
+              var t = i.pathfinderAccountToken;
               return o("WebDi.Gen").gen(function* () {
-                var t, i;
-                ((t = n.wamMessageSendPerfReporter) == null ||
-                  t.startSavedStage(),
+                var i, l;
+                ((i = n.wamMessageSendPerfReporter) == null ||
+                  i.startSavedStage(),
                   yield* u(e.storeMessages(r, a)),
-                  (i = n.wamMessageSendPerfReporter) == null ||
-                    i.postSavedStage(),
+                  (l = n.wamMessageSendPerfReporter) == null ||
+                    l.postSavedStage(),
                   o(
                     "WAWebPathfinderMessageSent",
-                  ).recordPathfinderMessageSentAfterCommit(n));
-                var l = r.filter(o("WAWebThreadMsgUtils").isThreadMsg);
+                  ).recordPathfinderMessageSentAfterCommit(n, t));
+                var s = r.filter(o("WAWebThreadMsgUtils").isThreadMsg);
                 return (
-                  l.length > 0 && (yield* e.persistThreadMetadata(l)),
+                  s.length > 0 && (yield* e.persistThreadMetadata(s)),
                   yield* o("WebDi.Async").fromPromise(function () {
                     return o("WAWebSendMsgRecordAction").sendMsgRecord(n);
                   })

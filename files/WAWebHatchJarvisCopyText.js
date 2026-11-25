@@ -4,6 +4,7 @@ __d(
     "WAWebHatchJarvisPayload",
     "WAWebHatchJarvisRender",
     "WAWebHatchJarvisReplyGate",
+    "WAWebHatchShoppingData",
     "WAWebMsgGetters",
     "WAWebMuseResponsePlainText",
     "WAWebRichResponseCopyTextRegistry",
@@ -12,81 +13,85 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = { readOnly: !0 };
-    function s() {
+    function e() {
       return (
-        o("WAWebRichResponseCopyTextRegistry").registerRichResponseCopyText(u),
+        o("WAWebRichResponseCopyTextRegistry").registerRichResponseCopyText(s),
         function () {
           return o(
             "WAWebRichResponseCopyTextRegistry",
-          ).unregisterRichResponseCopyText(u);
+          ).unregisterRichResponseCopyText(s);
         }
       );
     }
-    function u(t) {
-      var n = t.unifiedResponse;
-      if (n == null) return null;
-      var r = o("WAWebHatchJarvisReplyGate").getHatchJarvisDrawMode({
-        chatId: t.id.remote,
+    function s(e) {
+      var t = e.unifiedResponse;
+      if (t == null) return null;
+      var n = o("WAWebHatchJarvisReplyGate").getHatchJarvisDrawMode({
+        chatId: e.id.remote,
         hasForwardedAttribution:
-          o("WAWebMsgGetters").getForwardedAiBotMessageInfo(t) != null,
-        isForwarded: o("WAWebMsgGetters").getIsForwarded(t),
-        isFromMe: t.id.fromMe,
-        unifiedResponse: n,
+          o("WAWebMsgGetters").getForwardedAiBotMessageInfo(e) != null,
+        isForwarded: o("WAWebMsgGetters").getIsForwarded(e),
+        isFromMe: e.id.fromMe,
+        unifiedResponse: t,
       });
-      if (r === "none") return null;
-      var a = o("WAWebHatchJarvisPayload").getHatchJarvisPayload(n);
-      if (a == null) return null;
-      var i = o("WAWebHatchJarvisRender").buildHatchJarvisRender(
-          a,
-          n.response_id,
-          r === "forwarded" ? e : void 0,
+      if (n === "none") return null;
+      var r = o("WAWebHatchJarvisPayload").getHatchJarvisPayload(t);
+      if (r == null) return null;
+      var a = o("WAWebHatchJarvisRender").isHatchShoppingRenderable(
+          r,
+          e.id,
+          n === "forwarded",
+        ),
+        i = o("WAWebHatchJarvisRender").buildHatchJarvisRender(
+          r,
+          t.response_id,
+          { readOnly: n === "forwarded", shoppingEnabled: a },
         ),
         l = i.items,
         s = i.unifiedResponse;
       return o("WAWebMuseResponsePlainText").getResponsePlainText(
         s,
         function (e) {
-          return c(l.get(e));
+          return u(l.get(e), a);
         },
       );
     }
-    function c(e) {
+    function u(e, t) {
       return e == null
         ? null
-        : (function (e) {
+        : (function (n) {
             if (
-              ((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-              e.type === "buttons" &&
-              "buttons" in e
+              ((typeof n == "object" && n !== null) ||
+                typeof n == "function") &&
+              n.type === "buttons" &&
+              "buttons" in n
             ) {
-              var t = e.buttons;
-              return t
+              var a = n.buttons;
+              return a
                 .map(function (e) {
                   return e.label;
                 })
                 .join("\n");
             }
             if (
-              ((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-              e.type === "options" &&
-              "options" in e
+              ((typeof n == "object" && n !== null) ||
+                typeof n == "function") &&
+              n.type === "options" &&
+              "options" in n
             ) {
-              var n = e.options;
-              return n.join("\n");
+              var i = n.options;
+              return i.join("\n");
             }
             if (
-              ((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-              e.type === "list" &&
-              "list" in e
+              ((typeof n == "object" && n !== null) ||
+                typeof n == "function") &&
+              n.type === "list" &&
+              "list" in n
             ) {
-              var o = e.list;
-              return [o.title, o.subtitle]
+              var l = n.list;
+              return [l.title, l.subtitle]
                 .concat(
-                  o.rows.flatMap(function (e) {
+                  l.rows.flatMap(function (e) {
                     return [e.title, e.body, e.metaText];
                   }),
                 )
@@ -94,13 +99,22 @@ __d(
                 .join("\n");
             }
             if (
-              ((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-              e.type === "products" &&
-              "products" in e
+              ((typeof n == "object" && n !== null) ||
+                typeof n == "function") &&
+              n.type === "products" &&
+              "products" in n
             ) {
-              var a = e.products;
-              return a
+              var s = n.products;
+              return (
+                t && e.shoppingData != null
+                  ? o("WAWebHatchShoppingData")
+                      .decodeShoppingResults(e.shoppingData, e.fileMetadata)
+                      .products.slice(0, 5)
+                      .map(function (e) {
+                        return e.product;
+                      })
+                  : s
+              )
                 .flatMap(function (e) {
                   return [e.brand, e.title, e.price];
                 })
@@ -108,39 +122,39 @@ __d(
                 .join("\n");
             }
             if (
-              ((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-              e.type === "link_card" &&
-              "card" in e
+              ((typeof n == "object" && n !== null) ||
+                typeof n == "function") &&
+              n.type === "link_card" &&
+              "card" in n
             ) {
-              var i,
-                l = e.card;
-              return (i = l.title) != null
-                ? i
-                : r("WAWebURLUtils").hostname(l.url);
+              var u,
+                c = n.card;
+              return (u = c.title) != null
+                ? u
+                : r("WAWebURLUtils").hostname(c.url);
             }
             if (
-              ((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-              e.type === "pairing_share" &&
-              "card" in e
+              ((typeof n == "object" && n !== null) ||
+                typeof n == "function") &&
+              n.type === "pairing_share" &&
+              "card" in n
             ) {
-              var s = e.card;
-              return [s.title, s.body].filter(Boolean).join("\n");
+              var d = n.card;
+              return [d.title, d.body].filter(Boolean).join("\n");
             }
             if (
-              ((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-              e.type === "pairing_launcher" &&
-              "card" in e
+              ((typeof n == "object" && n !== null) ||
+                typeof n == "function") &&
+              n.type === "pairing_launcher" &&
+              "card" in n
             ) {
-              var u = e.card;
-              return u.body;
+              var m = n.card;
+              return m.body;
             }
             return "";
           })(e);
     }
-    ((l.registerHatchJarvisCopyText = s), (l.getHatchJarvisCopyText = u));
+    ((l.registerHatchJarvisCopyText = e), (l.getHatchJarvisCopyText = s));
   },
   98,
 );

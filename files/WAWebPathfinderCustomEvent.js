@@ -19,6 +19,10 @@ __d(
           (r = e.capturedAt) == null ? void 0 : r.unifiedSessionId,
         heldBackSurface:
           (a = e.capturedAt) == null ? void 0 : a.heldBackSurface,
+        accountTokenAtCapture:
+          e.capturedAt != null
+            ? e.capturedAt.accountToken
+            : e.accountTokenAtCapture,
         targetType: e.targetType,
         targetTrackingId: e.targetTrackingId,
         customMetadata: e.customMetadata,

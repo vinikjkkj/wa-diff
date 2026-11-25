@@ -97,23 +97,23 @@ __d(
         l = (i = o("WAWebHatchJsonReaders")).readField(e, "display"),
         u = i.readField(e, "payload"),
         c = i.readStringOrEmpty(u, "type"),
-        d = U(c),
+        d = V(c),
         p = i.readStringOrEmpty(l, "presentation_kind") === m,
         _ = babelHelpers.extends(
           {},
-          I(p ? u : null, d),
-          k(
+          T(p ? u : null, d),
+          I(
             p && d === "shopify_checkout" ? u : null,
             o("WAWebHatchJsonReaders").readStringOrEmpty(l, "icon_url"),
           ),
-          E(p && d === "browser_task_confirmation" ? u : null),
+          k(p && d === "browser_task_confirmation" ? u : null),
         ),
-        f = W(o("WAWebHatchJsonReaders").readArray(e, "decision_options")),
+        f = q(o("WAWebHatchJsonReaders").readArray(e, "decision_options")),
         h = o(
           "WAWebHatchCredentialSelection",
         ).readHatchCredentialSelectionMarker(u),
-        y = v(c, d, p, _, n),
-        C = b(f, R(h, y));
+        y = S(c, d, p, _, n),
+        C = v(f, L(h, y));
       return C.length === 0
         ? (o("WALogger")
             .WARN(
@@ -202,7 +202,7 @@ __d(
                 l,
                 "rich_explanation",
               ),
-              detailRows: q(
+              detailRows: U(
                 o("WAWebHatchJsonReaders").readArray(l, "detail_rows"),
               ),
               requestPreview: o(
@@ -233,27 +233,46 @@ __d(
               decisionOptions: C,
             },
             _,
-            L(h, f, y),
+            b(e, u),
+            E(h, f, y),
             { secureMedia: n },
           );
     }
     function b(e, t) {
+      var n = o("WAWebHatchJsonReaders")
+          .readStringOrEmpty(e, "checkout_provider")
+          .trim(),
+        r =
+          n !== ""
+            ? n
+            : o("WAWebHatchJsonReaders")
+                .readStringOrEmpty(
+                  o("WAWebHatchJsonReaders").readObject(
+                    t,
+                    "shopify_checkout_payload",
+                  ),
+                  "checkout_provider",
+                )
+                .trim();
+      return r !== "" ? { checkoutProvider: r } : {};
+    }
+    function v(e, t) {
       return t
         ? e
         : e.filter(function (e) {
             return e.kind === f;
           });
     }
-    function v(e, t, n, r, o) {
+    function S(e, t, n, r, o) {
       return e === p
         ? !1
         : !n ||
             _.has(t) ||
             r.browserCheckout != null ||
             r.shopifyCheckout != null ||
-            S(r.browserTaskConfirmation, o);
+            R(r.browserTaskConfirmation, o);
     }
-    function S(e, t) {
+    function R(e, t) {
       var n,
         r,
         o = e == null || (n = e.screenshot) == null ? void 0 : n.url;
@@ -261,15 +280,15 @@ __d(
         o != null && ((r = t.get(o)) == null ? void 0 : r.mediaType) === "image"
       );
     }
-    function R(e, t) {
+    function L(e, t) {
       return e !== "required" && t;
     }
-    function L(e, t, n) {
+    function E(e, t, n) {
       return e == null
         ? {}
-        : { credentialSelection: { marker: e, decisionOptions: b(t, n) } };
+        : { credentialSelection: { marker: e, decisionOptions: v(t, n) } };
     }
-    function E(e) {
+    function k(e) {
       var t = o("WAWebHatchJsonReaders").readObject(
         e,
         "browser_task_confirmation_payload",
@@ -284,21 +303,21 @@ __d(
                 t,
                 "browser_action_label",
               ),
-              screenshot: B(
+              screenshot: W(
                 o("WAWebHatchJsonReaders").readField(t, "screenshot"),
               ),
             },
           };
     }
-    function k(e, t) {
-      var n = e != null ? T(e, t) : null;
+    function I(e, t) {
+      var n = e != null ? D(e, t) : null;
       return n != null ? { shopifyCheckout: n } : {};
     }
-    function I(e, t) {
-      var n = e != null ? A(e, t) : null;
+    function T(e, t) {
+      var n = e != null ? F(e, t) : null;
       return n != null ? { browserCheckout: n } : {};
     }
-    function T(e, t) {
+    function D(e, t) {
       var n,
         r = o("WAWebHatchJsonReaders").readObject(
           e,
@@ -311,20 +330,20 @@ __d(
       return {
         merchantName: o("WAWebHatchJsonReaders").readStringOrEmpty(a, "name"),
         merchantUrl: o("WAWebHatchJsonReaders").readStringOrEmpty(a, "url"),
-        merchantIconUrl: w(
+        merchantIconUrl: A(
           o("WAWebHatchJsonReaders").readStringOrEmpty(a, "icon_url"),
           t,
         ),
-        items: D(o("WAWebHatchJsonReaders").readArray(r, "items")),
+        items: x(o("WAWebHatchJsonReaders").readArray(r, "items")),
         deliveryLabel: o("WAWebHatchJsonReaders").readStringOrEmpty(i, "label"),
         estimatedDelivery: o("WAWebHatchJsonReaders").readStringOrEmpty(
           i,
           "estimated_delivery",
         ),
-        recipientName: P(
+        recipientName: N(
           o("WAWebHatchJsonReaders").readField(r, "shipping_address"),
         ),
-        shippingAddress: N(
+        shippingAddress: M(
           o("WAWebHatchJsonReaders").readField(r, "shipping_address"),
         ),
         contactEmail: o("WAWebHatchJsonReaders").readStringOrEmpty(l, "email"),
@@ -346,7 +365,7 @@ __d(
         ),
         amount: o("WAWebHatchJsonReaders").readStringOrEmpty(r, "amount"),
         currency: o("WAWebHatchJsonReaders").readStringOrEmpty(r, "currency"),
-        totals: x(o("WAWebHatchJsonReaders").readArray(r, "totals")),
+        totals: $(o("WAWebHatchJsonReaders").readArray(r, "totals")),
         cardExpiresInMs:
           (n = o("WAWebHatchJsonReaders").readNumber(
             r,
@@ -354,14 +373,14 @@ __d(
           )) != null
             ? n
             : 0,
-        paymentId: F(r),
-        paymentOptions: O(
+        paymentId: O(r),
+        paymentOptions: B(
           o("WAWebHatchJsonReaders").readArray(r, "payment_options"),
         ),
-        legalLinks: $(o("WAWebHatchJsonReaders").readArray(r, "legal_links")),
+        legalLinks: P(o("WAWebHatchJsonReaders").readArray(r, "legal_links")),
       };
     }
-    function D(e) {
+    function x(e) {
       if (e == null) return [];
       var t = [];
       for (var n of e) {
@@ -385,7 +404,7 @@ __d(
       }
       return t;
     }
-    function x(e) {
+    function $(e) {
       if (e == null) return [];
       var t = [];
       for (var n of e) {
@@ -408,7 +427,7 @@ __d(
       }
       return t;
     }
-    function $(e) {
+    function P(e) {
       if (e == null) return [];
       var t = [];
       for (var n of e) {
@@ -420,8 +439,8 @@ __d(
       }
       return t;
     }
-    function P(e) {
-      return M(
+    function N(e) {
+      return w(
         [
           o("WAWebHatchJsonReaders").readStringOrEmpty(e, "first_name"),
           o("WAWebHatchJsonReaders").readStringOrEmpty(e, "last_name"),
@@ -429,9 +448,9 @@ __d(
         " ",
       );
     }
-    function N(e) {
+    function M(e) {
       var t,
-        n = M(
+        n = w(
           [
             (t = o("WAWebHatchJsonReaders")).readStringOrEmpty(e, "city"),
             t.readStringOrEmpty(e, "state"),
@@ -439,7 +458,7 @@ __d(
           ],
           " ",
         );
-      return M(
+      return w(
         [
           t.readStringOrEmpty(e, "street1"),
           t.readStringOrEmpty(e, "street2"),
@@ -449,7 +468,7 @@ __d(
         ", ",
       );
     }
-    function M(e, t) {
+    function w(e, t) {
       return e
         .map(function (e) {
           return e.trim();
@@ -459,10 +478,10 @@ __d(
         })
         .join(t);
     }
-    function w(e, t) {
+    function A(e, t) {
       return o("WAWebHatchJsonReaders").isBlankText(e) ? t : e;
     }
-    function A(e, t) {
+    function F(e, t) {
       var n,
         r =
           t === "browser_checkout"
@@ -506,14 +525,14 @@ __d(
         ),
         tabTitle: o("WAWebHatchJsonReaders").readStringOrEmpty(i, "title"),
         tabDomain: o("WAWebHatchJsonReaders").readStringOrEmpty(i, "domain"),
-        screenshot: B(o("WAWebHatchJsonReaders").readField(a, "screenshot")),
-        paymentId: F(a),
-        paymentOptions: O(
+        screenshot: W(o("WAWebHatchJsonReaders").readField(a, "screenshot")),
+        paymentId: O(a),
+        paymentOptions: B(
           o("WAWebHatchJsonReaders").readArray(a, "payment_options"),
         ),
       };
     }
-    function F(e) {
+    function O(e) {
       var t = o("WAWebHatchJsonReaders")
         .readStringOrEmpty(
           o("WAWebHatchJsonReaders").readField(e, "payment_selection"),
@@ -524,7 +543,7 @@ __d(
         ? t
         : o("WAWebHatchJsonReaders").readStringOrEmpty(e, "payment_id").trim();
     }
-    function O(e) {
+    function B(e) {
       if (e == null) return [];
       var t = [];
       for (var n of e) {
@@ -552,7 +571,7 @@ __d(
       }
       return t;
     }
-    function B(e) {
+    function W(e) {
       var t,
         n,
         r = o("WAWebHatchJsonReaders").readStringOrEmpty(e, "url");
@@ -568,7 +587,7 @@ __d(
         l = a > 0 && i > 0;
       return { url: r, width: l ? a : c, height: l ? i : d };
     }
-    function W(e) {
+    function q(e) {
       if (e == null) return [];
       var t = [];
       for (var n of e) {
@@ -587,7 +606,7 @@ __d(
       }
       return t;
     }
-    function q(e) {
+    function U(e) {
       if (e == null) return [];
       var t = [];
       for (var n of e) {
@@ -599,7 +618,7 @@ __d(
       }
       return t;
     }
-    function U(e) {
+    function V(e) {
       return e === "connector"
         ? "connector"
         : e === "network"

@@ -23,7 +23,6 @@ __d(
     "XFBAutoLoggingToolTabEnumUtils.facebook",
     "XFBCASSegmentEnumUtils.facebook",
     "gkx",
-    "justknobx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -397,7 +396,7 @@ __d(
           l === "Advertising Settings" ||
           l === "Account Overview" ||
           l === "Audiences" ||
-          (l === "Commerce Manager" && r("justknobx")._("6841")) ||
+          l === "Commerce Manager" ||
           l === "DIRECT_SUPPORT") &&
         (n.business_id = a);
       var c = o("AdsAIContextPathUtils").getURLParams(),

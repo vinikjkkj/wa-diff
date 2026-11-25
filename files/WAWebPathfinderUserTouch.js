@@ -1,6 +1,7 @@
 __d(
   "WAWebPathfinderUserTouch",
   [
+    "WAWebPathfinderAccountToken",
     "WAWebPathfinderHeldBackScreen",
     "WAWebPathfinderHeldBackSurface",
     "WAWebPathfinderLogger",
@@ -56,34 +57,36 @@ __d(
       return b;
     }
     function k(e) {
-      var t = e.duplicateCount,
-        n = e.eventType,
-        r = e.heldBackSurface,
-        a = e.isTriggerless,
-        i = e.targetType,
-        l = e.timestampMs,
-        s = e.trackingId,
-        u = o("WAWebPathfinderScreenName").getCurrentScreenName();
+      var t = e.accountTokenAtCapture,
+        n = e.duplicateCount,
+        r = e.eventType,
+        a = e.heldBackSurface,
+        i = e.isTriggerless,
+        l = e.targetType,
+        s = e.timestampMs,
+        u = e.trackingId,
+        c = o("WAWebPathfinderScreenName").getCurrentScreenName();
       if (
         o("WAWebPathfinderHeldBackSurface").isHeldBackEvent({
-          heldBackSurface: r,
-          screenName: u,
+          heldBackSurface: a,
+          screenName: c,
         }) ||
-        o("WAWebPathfinderHeldBackScreen").claimedLeavingVerdict(u) != null
+        o("WAWebPathfinderHeldBackScreen").claimedLeavingVerdict(c) != null
       ) {
-        I(n) && (g = null);
+        I(r) && (g = null);
         return;
       }
-      var c = o("WAWebPathfinderLogger").emitPathfinderEvent({
-        eventType: n,
-        debounceCount: t > 0 ? t : void 0,
-        heldBackSurface: r,
-        screenName: u,
-        targetTrackingId: s,
-        targetType: i,
-        timestampMs: l,
+      var d = o("WAWebPathfinderLogger").emitPathfinderEvent({
+        accountTokenAtCapture: t,
+        eventType: r,
+        debounceCount: n > 0 ? n : void 0,
+        heldBackSurface: a,
+        screenName: c,
+        targetTrackingId: u,
+        targetType: l,
+        timestampMs: s,
       });
-      I(n) && (g = c && !a ? s : null);
+      I(r) && (g = d && !i ? u : null);
     }
     function I(e) {
       return e === "TAP" || e === "DOUBLE_TAP";
@@ -114,20 +117,34 @@ __d(
         gestureDirection: r,
       });
     }
-    function P(e, t, n, r, a) {
+    function P(e) {
+      var t = e.accountTokenAtCapture,
+        n = e.heldBackSurface,
+        r = e.pressKind,
+        a = e.targetType,
+        i = e.timestampMs,
+        l = e.trackingId;
       o("WAWebPathfinderLogger").emitPathfinderEvent({
+        accountTokenAtCapture: t,
         eventType: "LONG_PRESS",
-        heldBackSurface: a,
+        heldBackSurface: n,
         pressKind: r,
         screenName: o("WAWebPathfinderScreenName").getCurrentScreenName(),
-        targetTrackingId: e,
-        targetType: t,
-        timestampMs: n,
+        targetTrackingId: l,
+        targetType: a,
+        timestampMs: i,
       });
     }
     function N(e, t) {
       var n = O(e);
-      n != null && P(n, w(e), Date.now(), t, L(e, n));
+      n != null &&
+        P({
+          trackingId: n,
+          targetType: w(e),
+          timestampMs: Date.now(),
+          pressKind: t,
+          heldBackSurface: L(e, n),
+        });
     }
     function M(e) {
       var t;
@@ -187,14 +204,15 @@ __d(
             T();
             return;
           }
-          var o = w(t),
-            a = q(t);
+          var a = w(t),
+            i = q(t);
           U(t, n);
-          var i = window.setTimeout(function () {
+          var l = window.setTimeout(function () {
             var e = f;
             e != null &&
-              e.timer === i &&
+              e.timer === l &&
               (k({
+                accountTokenAtCapture: e.accountToken,
                 duplicateCount: e.duplicateCount,
                 eventType: "TAP",
                 heldBackSurface: e.heldBackSurface,
@@ -206,16 +224,19 @@ __d(
               (f = null));
           }, d);
           f = {
-            timer: i,
+            timer: l,
             target: t,
             trackingId: r,
-            targetType: o,
+            targetType: a,
             timestampMs: n,
             heldBackSurface: L(t, r),
             isTriggerless: !1,
             nativeTimeStamp: e.timeStamp,
             duplicateCount: 0,
-            replacedDuplicateCount: a,
+            replacedDuplicateCount: i,
+            accountToken: o(
+              "WAWebPathfinderAccountToken",
+            ).getPathfinderCaptureAccountToken(),
           };
         }
       }
@@ -230,6 +251,7 @@ __d(
         (window.clearTimeout(n.timer),
         n.target !== e && t - n.timestampMs >= c
           ? k({
+              accountTokenAtCapture: n.accountToken,
               duplicateCount: n.duplicateCount,
               eventType: "TAP",
               heldBackSurface: n.heldBackSurface,
@@ -269,6 +291,7 @@ __d(
           (window.clearTimeout(n.timer),
             (f = null),
             k({
+              accountTokenAtCapture: n.accountToken,
               duplicateCount: n.duplicateCount + n.replacedDuplicateCount,
               eventType: "DOUBLE_TAP",
               heldBackSurface: n.heldBackSurface,
@@ -342,10 +365,22 @@ __d(
           var n = O(t);
           if (n != null) {
             var r = w(t),
-              o = Date.now(),
-              a = L(t, n);
+              a = Date.now(),
+              i = L(t, n),
+              l = o(
+                "WAWebPathfinderAccountToken",
+              ).getPathfinderCaptureAccountToken();
             y = window.setTimeout(function () {
-              ((y = null), (C = t), P(n, r, o, "long_hold", a));
+              ((y = null),
+                (C = t),
+                P({
+                  trackingId: n,
+                  targetType: r,
+                  timestampMs: a,
+                  pressKind: "long_hold",
+                  heldBackSurface: i,
+                  accountTokenAtCapture: l,
+                }));
             }, p);
           }
         }

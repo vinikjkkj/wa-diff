@@ -57,7 +57,25 @@ __d(
         userActionTarget: t.UserActionTarget.BUSINESS_BROADCASTS_BUTTON,
       });
     }
-    function p(e, t, n, r) {
+    function p(e) {
+      var t;
+      e({
+        action: (t = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
+        entryPoint: t.ENTRY_POINT.NAV_BAR,
+        surface: t.SURFACE_TYPE.CHATLIST,
+        userActionTarget: t.UserActionTarget.BUSINESS_BROADCASTS_BUTTON,
+      });
+    }
+    function _(e) {
+      var t;
+      e({
+        action: (t = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.CLICK,
+        entryPoint: t.ENTRY_POINT.NAV_BAR,
+        surface: t.SURFACE_TYPE.CHATLIST,
+        userActionTarget: t.UserActionTarget.BUSINESS_BROADCASTS_BUTTON,
+      });
+    }
+    function f(e, t, n, r) {
       (n === void 0 && (n = o("WAWebBBLoggerTypes").ENTRY_POINT.CHAT_BANNER),
         r === void 0 && (r = o("WAWebBBLoggerTypes").SURFACE_TYPE.CHATLIST),
         e({
@@ -69,7 +87,7 @@ __d(
           userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.QP_BANNER,
         }));
     }
-    function _(e, t, n, r) {
+    function g(e, t, n, r) {
       (n === void 0 && (n = o("WAWebBBLoggerTypes").ENTRY_POINT.CHAT_BANNER),
         r === void 0 && (r = o("WAWebBBLoggerTypes").SURFACE_TYPE.CHATLIST),
         e({
@@ -81,7 +99,7 @@ __d(
           userActionTarget: o("WAWebBBLoggerTypes").UserActionTarget.QP_BANNER,
         }));
     }
-    function f(e, t) {
+    function h(e, t) {
       var n;
       e({
         action: (n = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.VIEW,
@@ -91,7 +109,7 @@ __d(
         userActionTarget: n.UserActionTarget.SEND_MSG_MULTI_MODAL,
       });
     }
-    function g(e, t) {
+    function y(e, t) {
       var n;
       e({
         action: (n = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.CLICK,
@@ -101,7 +119,7 @@ __d(
         userActionTarget: n.UserActionTarget.SEND_MSG_MULTI_MODAL,
       });
     }
-    function h(e) {
+    function C(e) {
       var t;
       e({
         action: (t = o("WAWebBBLoggerTypes")).SMB_USER_ACTION_TYPE_ENUM.CLICK,
@@ -116,11 +134,13 @@ __d(
       (l.toolsEntryPointClicked = c),
       (l.newChatEntryPointViewed = d),
       (l.newChatEntryPointClicked = m),
-      (l.qpBannerViewed = p),
-      (l.qpBannerDismissed = _),
-      (l.sendMsgMultiModalViewed = f),
-      (l.sendMsgMultiModalConfirmed = g),
-      (l.bbThreadSystemMessageCtaClicked = h));
+      (l.navBarEntryPointViewed = p),
+      (l.navBarEntryPointClicked = _),
+      (l.qpBannerViewed = f),
+      (l.qpBannerDismissed = g),
+      (l.sendMsgMultiModalViewed = h),
+      (l.sendMsgMultiModalConfirmed = y),
+      (l.bbThreadSystemMessageCtaClicked = C));
   },
   98,
 );

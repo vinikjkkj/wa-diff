@@ -33,6 +33,7 @@ __d(
       return Math.floor(t / e) * e;
     }
     ((i.MIN_CLIP_MS = l),
+      (i.MAX_CLIP_MS = u),
       (i.canClipSong = c),
       (i.getDefaultClipDurationMs = d),
       (i.getMaxClipDurationMs = m),

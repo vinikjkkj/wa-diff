@@ -151,9 +151,7 @@ __d(
       (l.focusParticipantPickerSearchAfterClear = u),
       (l.getParticipantPickerSearchEnterHandler = c),
       (l.getParticipantPickerSearchKeyHandlers = d),
-      (l.getParticipantPickerSearchKeyAction = m),
-      (l.isParticipantPickerRecipientSelected = p),
-      (l.getSelectedParticipantPickerMatches = _));
+      (l.getParticipantPickerSearchKeyAction = m));
   },
   98,
 );

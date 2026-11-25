@@ -4,11 +4,11 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return {
-        storeAndSend: function (n, r, a) {
+        storeAndSend: function (n, r, a, i) {
           return e(
             o("WAWebMessageSendService").MessageSendService,
             function (e) {
-              return e.storeAndSend(n, r, a);
+              return e.storeAndSend(n, r, a, i);
             },
           );
         },

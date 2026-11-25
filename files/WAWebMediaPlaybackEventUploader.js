@@ -17,17 +17,18 @@ __d(
     "use strict";
     var e,
       s,
-      u = 100,
-      c = 3e3,
-      d = new (o("WAWebPromiseQueue").PromiseQueue)(),
-      m = o("WAThrottle").throttle(p, c);
-    async function p() {
-      var t = await d.enqueue(async function () {
+      u,
+      c = 100,
+      d = 3e3,
+      m = new (o("WAWebPromiseQueue").PromiseQueue)(),
+      p = o("WAThrottle").throttle(_, d);
+    async function _() {
+      var t = await m.enqueue(async function () {
           var t = await o(
             "WAWebCRUDOperationsMediaPlaybackEvent",
           ).getRowCount();
           if (t === 0) return { success: !0, leftover: 0 };
-          var n = await h(),
+          var n = await y(),
             a = n.droppedCount,
             i = n.events,
             l = n.ids,
@@ -35,7 +36,7 @@ __d(
             u = i.length;
           if (u === 0) return { success: !0, leftover: a > 0 ? t - a : 0 };
           try {
-            var c = await _(i, s);
+            var c = await f(i, s);
             if (!c.ok) throw r("err")("upload failed");
           } catch (n) {
             return (
@@ -57,9 +58,9 @@ __d(
         }),
         n = t.leftover,
         a = t.success;
-      if (a && n > 0) return m();
+      if (a && n > 0) return p();
     }
-    function _(e, t) {
+    function f(e, t) {
       var n = new AbortController(),
         a = n.signal;
       return o("WAExponentialBackoff").exponentialBackoff(
@@ -71,16 +72,16 @@ __d(
           ).uploadMusicConsumptionLogs(e, t);
           if (i == null) throw r("err")("upload failed");
           if (i.ok) return i;
-          if (f(i))
+          if (g(i))
             return n(r("err")("upload failed with status code: " + i.status));
           throw r("err")("upload failed");
         },
       );
     }
-    function f(e) {
+    function g(e) {
       return e.status >= 500;
     }
-    function g() {
+    function h() {
       return (
         Math.max(
           o("WAWebABProps").getABPropConfigValue("ohai_request_kb_size") - 1,
@@ -88,39 +89,38 @@ __d(
         ) * 1e3
       );
     }
-    async function h() {
+    async function y() {
       var e = 0,
-        t = await o("WAWebCRUDOperationsMediaPlaybackEvent").getOldestEvents(u),
-        n = await y(t),
-        r = new TextEncoder(),
-        a = n[0] != null && C(n[0].event),
-        i = a
+        t = await o("WAWebCRUDOperationsMediaPlaybackEvent").getOldestEvents(c),
+        n = await b(await C(t)),
+        r = n[0] != null && S(n[0].event),
+        a = r
           ? o("WAWebMusicOnChatsAcsProject").getMusicOnChatsAcsProject(
               o("WAWebACSTokenConfig").ACS_PROJECTS.WA_ChatsMusicReporting,
             )
           : o("WAWebACSTokenConfig").ACS_PROJECTS.WA_StatusMusicReporting,
-        l = n.reduce(
+        i = n.reduce(
           function (t, n) {
-            if (C(n.event) !== a) return t;
-            var o = r.encode(JSON.stringify(n.event)).length;
+            if (S(n.event) !== r) return t;
+            var o = v(n.event);
             return (
-              e + o > g() ||
+              e + o > h() ||
                 ((e += o), t.events.push(n.event), t.ids.push(n.id)),
               t
             );
           },
           { events: [], ids: [] },
         ),
-        s = l.events,
-        c = l.ids;
+        l = i.events,
+        s = i.ids;
       return {
         droppedCount: t.length - n.length,
-        events: s,
-        ids: c,
-        project: i,
+        events: l,
+        ids: s,
+        project: a,
       };
     }
-    async function y(e) {
+    async function C(e) {
       var t = e
         .filter(function (e) {
           return e.event == null;
@@ -145,7 +145,38 @@ __d(
             return e.event != null;
           }));
     }
-    function C(e) {
+    async function b(e) {
+      var t = h(),
+        n = e
+          .filter(function (e) {
+            return v(e.event) > t;
+          })
+          .map(function (e) {
+            return e.id;
+          });
+      return n.length === 0
+        ? e
+        : (o("WALogger")
+            .WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[MediaPlaybackEventUploader] dropping ",
+                  " rows larger than ",
+                  " bytes",
+                ])),
+              n.length,
+              t,
+            )
+            .sendLogs("media-playback-event-oversized-row-dropped"),
+          await o("WAWebCRUDOperationsMediaPlaybackEvent").deleteEvents(n),
+          e.filter(function (e) {
+            return !n.includes(e.id);
+          }));
+    }
+    function v(e) {
+      return new TextEncoder().encode(JSON.stringify(e)).length;
+    }
+    function S(e) {
       var t;
       return (
         ((t = e.required_metadata) == null
@@ -153,10 +184,10 @@ __d(
           : t.current_watching_module) === "whatsapp_chats"
       );
     }
-    ((l.MAX_BATCH_SIZE = u),
-      (l.UPLOAD_THROTTLE_INTERVAL = c),
-      (l.uploadQueue = d),
-      (l.requestUpload = m));
+    ((l.MAX_BATCH_SIZE = c),
+      (l.UPLOAD_THROTTLE_INTERVAL = d),
+      (l.uploadQueue = m),
+      (l.requestUpload = p));
   },
   98,
 );

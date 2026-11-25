@@ -11,7 +11,7 @@ __d(
     "WAWebDBMessageStoreUtils",
     "WAWebDBMessageUtils",
     "WAWebLidMigrationUtils",
-    "WAWebMessageAssociation.flow",
+    "WAWebMessageAssociationConfig",
     "WAWebModelStorageUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
@@ -150,7 +150,7 @@ __d(
       var i = n.sort(f).slice(0, t),
         l = i[i.length - 1];
       return (
-        E(l.timestamp, "smallestTimestampMessage"),
+        L(l.timestamp, "smallestTimestampMessage"),
         {
           messages: i.concat(a),
           newLastMessageTimestamp: o("WALongInt").numberOrThrowIfTooLarge(
@@ -364,10 +364,7 @@ __d(
           );
         });
     }
-    function b(e) {
-      return v(e);
-    }
-    async function v(e) {
+    async function b(e) {
       var t = e.chatId,
         n = e.msgKeys,
         r = e.options;
@@ -378,14 +375,14 @@ __d(
           : r.forceDeleteAllMessagesExceptInitialEncryption) === !0
       )
         return n;
-      var o = await S(t);
+      var o = await v(t);
       return o.size === 0
         ? n
         : n.filter(function (e) {
             return !o.has(e);
           });
     }
-    async function S(e) {
+    async function v(e) {
       var t = await o("WAWebSchemaMessage")
           .getMessageTable()
           .between(
@@ -394,31 +391,36 @@ __d(
             [o("WAWebDBMessageUtils").endOfChat(e), 1 / 0],
             { lowerInclusive: !1, upperInclusive: !1, shouldDecrypt: !1 },
           ),
-        n = t
-          .filter(function (e) {
-            return e.type === o("WAWebMsgType").MSG_TYPE.ALBUM;
-          })
-          .map(function (e) {
-            return r("WAWebMsgKey").fromString(e.id);
-          });
-      if (n.length === 0) return new Set();
-      var a = await o(
+        n = new Map();
+      for (var a of t) {
+        var i = o(
+          "WAWebMessageAssociationConfig",
+        ).getStarredMessageAssociationPolicy(a.type);
+        i != null && n.set(a.id, i);
+      }
+      if (n.size === 0) return new Set();
+      var l = await o(
           "WAWebDBGetAssociatedMsgsByParentMsgKey",
-        ).bulkGetMessagesByParentMsgKey(n),
-        i = a
+        ).bulkGetMessagesByParentMsgKey(
+          Array.from(n.keys(), function (e) {
+            return r("WAWebMsgKey").fromString(e);
+          }),
+        ),
+        s = l
           .filter(function (e) {
+            var t;
             return (
-              e.associationType ===
-              o("WAWebMessageAssociation.flow").MessageAssociationType
-                .MEDIA_ALBUM
+              ((t = n.get(e.parentMsgKey)) == null
+                ? void 0
+                : t.preserveSubtreesFor.has(e.associationType)) === !0
             );
           })
           .map(function (e) {
             return e.msgKey;
           });
-      return R(i);
+      return S(s);
     }
-    async function R(e, t) {
+    async function S(e, t) {
       t === void 0 && (t = new Set());
       var n = e.filter(function (e) {
           return !t.has(e);
@@ -438,14 +440,14 @@ __d(
           return r("WAWebMsgKey").fromString(e);
         }),
       );
-      return R(
+      return S(
         i.map(function (e) {
           return e.msgKey;
         }),
         a,
       );
     }
-    function L(t) {
+    function R(t) {
       var n,
         r,
         a = t.messages,
@@ -466,7 +468,7 @@ __d(
           u = l.newLastMessageTimestamp;
         (u != null &&
           ((i.lastMessageTimestamp = u),
-          E(i.lastMessageTimestamp, "resultantRange")),
+          L(i.lastMessageTimestamp, "resultantRange")),
           (i.messages = s));
       }
       return (
@@ -479,7 +481,7 @@ __d(
         i
       );
     }
-    function E(e, t) {
+    function L(e, t) {
       try {
         o("WALongInt").numberOrThrowIfTooLarge(e != null ? e : 0) /
           o("WATimeUtils").unixTime() >
@@ -509,7 +511,7 @@ __d(
         );
       }
     }
-    var k = { limitAdditionalMessages: _ };
+    var E = { limitAdditionalMessages: _ };
     ((l.getLastMessageTimestamp = o(
       "WAWebDBMessageRangeBounds",
     ).getLastMessageTimestamp),
@@ -518,9 +520,9 @@ __d(
       (l.getAdditionalMessages = p),
       (l.timestampComparison = f),
       (l.deleteMessagesInMessageRange = C),
-      (l.fixMessageRange = L),
-      (l.logMaybeMillisecondTimestamp = E),
-      (l._test = k));
+      (l.fixMessageRange = R),
+      (l.logMaybeMillisecondTimestamp = L),
+      (l._test = E));
   },
   98,
 );

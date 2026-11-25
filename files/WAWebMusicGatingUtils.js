@@ -1,6 +1,6 @@
 __d(
   "WAWebMusicGatingUtils",
-  ["WAWebABProps"],
+  ["WAWebABProps", "cr:18770", "gkx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
@@ -47,8 +47,17 @@ __d(
         "music_on_chats_geogating_enabled",
       );
     }
-    var g = 6e4,
-      h = 600;
+    function g() {
+      return (
+        r("gkx")("26256") ||
+        (n("cr:18770") == null
+          ? void 0
+          : n("cr:18770").isStubbedCreationReportingEnabled()) === !0
+      );
+    }
+    var h = "123456",
+      y = 6e4,
+      C = 600;
     ((l.isStatusMusicReceiverEnabled = e),
       (l.isStatusMusicSaveToDiskEnabled = s),
       (l.isStatusMusicReceiverEnabledForNewsletter = u),
@@ -57,8 +66,10 @@ __d(
       (l.canSendMusicTo = m),
       (l.isMusicOnChatsReceiverEnabled = _),
       (l.isMusicOnChatsGeogatingEnabled = f),
-      (l.MAX_MUSIC_DOWNLOAD_EMBED_DURATION_MS = g),
-      (l.MIN_SECONDS_BETWEEN_MUSIC_CONSUMPTION_AVAILABILITY_CHECK = h));
+      (l.isMusicReportingStubbed = g),
+      (l.MUSIC_REPORTING_STUB_MEDIA_ID = h),
+      (l.MAX_MUSIC_DOWNLOAD_EMBED_DURATION_MS = y),
+      (l.MIN_SECONDS_BETWEEN_MUSIC_CONSUMPTION_AVAILABILITY_CHECK = C));
   },
   98,
 );

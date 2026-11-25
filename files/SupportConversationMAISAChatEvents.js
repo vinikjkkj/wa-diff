@@ -18,6 +18,7 @@ __d(
       "send_message_button_clicked",
       "maisa_chat_message_thumbs_up_click",
       "maisa_chat_message_thumbs_down_click",
+      "maisa_chat_message_thumbs_impression",
       "agentic_card_action_failure",
       "agentic_card_action_success",
       "agentic_card_button_click",

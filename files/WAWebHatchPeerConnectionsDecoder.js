@@ -315,17 +315,18 @@ __d(
           (t = o("WAWebHatchJsonReaders").readArray(e, "allowed_operations")) !=
           null
             ? t
-            : [];
-      return {
-        availability: n,
-        canAccept:
+            : [],
+        a =
           n === "enabled" &&
           o("WAWebHatchJsonReaders").readBool(e, "supported") === !0 &&
           o("WAWebHatchJsonReaders").readBool(
             o("WAWebHatchJsonReaders").readObject(e, "features"),
             "pairing",
-          ) === !0 &&
-          r.includes("accept_invitation"),
+          ) === !0;
+      return {
+        availability: n,
+        canAccept: a && r.includes("accept_invitation"),
+        canInvite: a && r.includes("create_invitation"),
       };
     }
     function T(e) {

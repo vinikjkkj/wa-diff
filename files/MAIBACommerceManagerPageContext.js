@@ -1,6 +1,6 @@
 __d(
   "MAIBACommerceManagerPageContext",
-  ["AdsAIContextPathUtils", "CatalogURLUtils", "justknobx"],
+  ["AdsAIContextPathUtils", "CatalogURLUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "maiba:commerce_manager_page",
@@ -60,32 +60,33 @@ __d(
         : null;
     }
     function b() {
-      var e, t, n;
-      if (!r("justknobx")._("6841")) return null;
-      var a = o("AdsAIContextPathUtils").getURLParams(),
-        i = a.pathname,
-        l = a.searchParams,
-        s = h(i);
-      if (s == null) return null;
-      var u = y(s),
-        c =
-          (e = f(u == null ? void 0 : u.catalog_id)) != null
+      var e,
+        t,
+        n,
+        r = o("AdsAIContextPathUtils").getURLParams(),
+        a = r.pathname,
+        i = r.searchParams,
+        l = h(a);
+      if (l == null) return null;
+      var s = y(l),
+        u =
+          (e = f(s == null ? void 0 : s.catalog_id)) != null
             ? e
-            : s.isCatalogID
-              ? s.id
+            : l.isCatalogID
+              ? l.id
               : null;
-      return c == null
+      return u == null
         ? null
         : {
             business_id:
               (t =
-                (n = f(u == null ? void 0 : u.business_id)) != null
+                (n = f(s == null ? void 0 : s.business_id)) != null
                   ? n
-                  : f(l.get("business_id"))) != null
+                  : f(i.get("business_id"))) != null
                 ? t
-                : f(l.get("global_scope_id")),
-            catalog_id: c,
-            product_set_id: C(i, l),
+                : f(i.get("global_scope_id")),
+            catalog_id: u,
+            product_set_id: C(a, i),
           };
     }
     ((l.COMMERCE_MANAGER_PAGE_METADATA_KEY = e),

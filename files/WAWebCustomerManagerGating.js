@@ -5,11 +5,13 @@ __d(
     "WAWebContactGetters",
     "WAWebMetaOneGating",
     "WAWebMobilePlatforms",
+    "WAWebPrimaryVersionGating",
     "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = 3;
-    function s() {
+    var e = 3,
+      s = { smba: "2.26.47.2", smbi: "2.26.47.11" };
+    function u() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         (o("WAWebABProps").getABPropConfigValue(
@@ -23,68 +25,83 @@ __d(
           ))
       );
     }
-    function u(e) {
+    function c(e) {
       return (
         e === void 0 && (e = o("WAWebMetaOneGating").getMetaOneEligibility()),
-        s() && o("WAWebMetaOneGating").isMetaOneEligible(e)
+        u() &&
+          o("WAWebMetaOneGating").isMetaOneEligible(e) &&
+          (o("WAWebABProps").getABPropConfigValue(
+            "contact_manager_mvp_enabled",
+          ) ||
+            o("WAWebABProps").getABPropConfigValue(
+              "smb_web_customer_management_enabled",
+            ) ||
+            d())
       );
     }
-    function c() {
+    function d() {
+      var e = o("WAWebMobilePlatforms").getMaybeMobilePlatform(),
+        t = e == null ? null : s[e];
       return (
-        s() &&
+        t != null && o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(t)
+      );
+    }
+    function m() {
+      return (
+        u() &&
         o("WAWebABProps").getABPropConfigValue(
           "smb_web_customer_manager_date_range_filter_enabled",
         )
       );
     }
-    function d() {
+    function p() {
       return (
-        s() &&
+        u() &&
         o("WAWebABProps").getABPropConfigValue(
           "smb_web_customer_manager_export_enabled",
         )
       );
     }
-    function m() {
+    function _() {
       return (
-        s() &&
+        u() &&
         o("WAWebABProps").getABPropConfigValue(
           "smb_web_customer_management_import_export",
         )
       );
     }
-    function p() {
+    function f() {
       return (
-        s() &&
+        u() &&
         o("WAWebABProps").getABPropConfigValue(
           "smb_web_customer_management_custom_fields",
         )
       );
     }
-    function _() {
+    function g() {
       return (
-        s() &&
+        u() &&
         o("WAWebABProps").getABPropConfigValue(
           "smb_web_customer_manager_nux_debug_tools_enabled",
         )
       );
     }
-    function f() {
+    function h() {
       return (
-        s() &&
+        u() &&
         o("WAWebABProps").getABPropConfigValue(
           "smb_web_customer_manager_bulk_edit_enabled",
         )
       );
     }
-    function g() {
+    function y() {
       return e;
     }
-    function h(e) {
+    function C(e) {
       var t = e.id;
-      return t != null && !o("WAWebContactGetters").getIsMe(e) && y(t);
+      return t != null && !o("WAWebContactGetters").getIsMe(e) && b(t);
     }
-    function y(e) {
+    function b(e) {
       return (
         e.isUser() &&
         !o("WAWebUserUtils").isMeAccount(e) &&
@@ -97,17 +114,17 @@ __d(
         !e.isBot()
       );
     }
-    ((l.customerManagerEnabled = s),
-      (l.customerManagerPanelEnabled = u),
-      (l.customerManagerDateRangeFilterEnabled = c),
-      (l.customerManagerExportEnabled = d),
-      (l.customerManagerImportExportEnabled = m),
-      (l.customerManagerCustomFieldsEnabled = p),
-      (l.customerManagerNuxDebugToolsEnabled = _),
-      (l.customerManagerBulkEditEnabled = f),
-      (l.customerManagerEducationBannerMaxViewDays = g),
-      (l.isEligibleForCustomerFields = h),
-      (l.isWidEligibleForCustomerFields = y));
+    ((l.customerManagerEnabled = u),
+      (l.customerManagerPanelEnabled = c),
+      (l.customerManagerDateRangeFilterEnabled = m),
+      (l.customerManagerExportEnabled = p),
+      (l.customerManagerImportExportEnabled = _),
+      (l.customerManagerCustomFieldsEnabled = f),
+      (l.customerManagerNuxDebugToolsEnabled = g),
+      (l.customerManagerBulkEditEnabled = h),
+      (l.customerManagerEducationBannerMaxViewDays = y),
+      (l.isEligibleForCustomerFields = C),
+      (l.isWidEligibleForCustomerFields = b));
   },
   98,
 );

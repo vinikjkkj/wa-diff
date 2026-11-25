@@ -12,6 +12,11 @@ __d(
         minWidth: "xeuugli",
         $$css: !0,
       },
+      redesignedFullscreenRoot: {
+        maxWidth: "x14wsyef",
+        position: "x1n2onr6",
+        $$css: !0,
+      },
       rightDrawerClosed: { width: "xnalus7", $$css: !0 },
       rightDrawerOpen: {
         borderInlineStartColor: "x1vb5itz",

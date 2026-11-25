@@ -22,8 +22,8 @@ __d(
       getSNAPLPersistentId: o("WAWebSNAPLUserPrefs").getSNAPLPersistentId,
       fetchOHAI: o("WAWebOHAIClient").fetchOHAI,
       fetchWithACSCredential: o("WAWebACSNetwork").fetchWithACSCredential,
-      enableDirectMusicCreationReporting: o("WAWebMusicCreationReportingDebug")
-        .enableDirectCreationReporting,
+      enableStubbedMusicCreationReporting: o("WAWebMusicCreationReportingDebug")
+        .enableStubbedCreationReporting,
     };
     l.default = e;
   },

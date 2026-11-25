@@ -19,21 +19,15 @@ __d(
       p = { daysLeft: null, stage: "trial_start" },
       _ = { daysLeft: null, stage: "locked" };
     function f(e, t) {
-      var n = c.get(e);
-      return n == null
-        ? null
-        : {
-            state: n,
-            trialEndTime: t == null ? null : o("WATimeUtils").castToUnixTime(t),
-          };
-    }
-    function g(e, t) {
-      var n = typeof e == "string" ? f(e, t) : null;
+      var n = typeof e == "string" ? c.get(e) : null;
       if (n == null)
         throw r("err")("[CustomerManager] unrecognized access state response");
-      return n;
+      return {
+        state: n,
+        trialEndTime: t == null ? null : o("WATimeUtils").castToUnixTime(t),
+      };
     }
-    function h(e, t) {
+    function g(e, t) {
       return e == null ||
         e.state === "ACCESS_NOT_REQUIRED" ||
         e.state === "PAID_ACCESS" ||
@@ -44,7 +38,7 @@ __d(
           : e.state === "TRIAL_EXPIRED" || e.state === "TRIAL_UNAVAILABLE"
             ? _
             : e.state === "TRIAL_ACTIVE"
-              ? L(e.trialEndTime, t)
+              ? R(e.trialEndTime, t)
               : (function () {
                   throw Error(
                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -52,16 +46,16 @@ __d(
                   );
                 })();
     }
-    function y(e, t) {
-      return e == null || C(e) ? !1 : !b(h(e, t));
+    function h(e, t) {
+      return e == null || y(e) ? !1 : !C(g(e, t));
     }
-    function C(e) {
+    function y(e) {
       return (e == null ? void 0 : e.state) === "CM_UNAVAILABLE";
     }
-    function b(e) {
+    function C(e) {
       return e.stage === "trial_start" || e.stage === "locked";
     }
-    function v(e, t, n) {
+    function b(e, t, n) {
       return (function (e) {
         return e === "ACCESS_NOT_REQUIRED"
           ? !0
@@ -70,18 +64,18 @@ __d(
             : !1;
       })(e == null ? void 0 : e.state);
     }
-    function S(t, n) {
+    function v(t, n) {
       return Math.max(1, Math.ceil((t - n) / e));
     }
-    function R(t, n) {
+    function S(t, n) {
       return t <= n
         ? null
-        : o("WATimeUtils").castToUnixTime(t - (S(t, n) - 1) * e);
+        : o("WATimeUtils").castToUnixTime(t - (v(t, n) - 1) * e);
     }
-    function L(e, t) {
+    function R(e, t) {
       if (e == null) return m;
       if (e <= t) return _;
-      var n = S(e, t);
+      var n = v(e, t);
       return n <= u
         ? { daysLeft: n, stage: "trial_ending" }
         : n <= s
@@ -90,14 +84,13 @@ __d(
     }
     ((l.ACCESS_NOT_REQUIRED = d),
       (l.NO_CUSTOMER_MANAGER_UPSELL = m),
-      (l.decodeCustomerManagerAccessState = f),
-      (l.decodeCustomerManagerAccessStateOrThrow = g),
-      (l.getCustomerManagerUpsell = h),
-      (l.isCustomerManagerAccessAllowedByState = y),
-      (l.isCustomerManagerUnavailable = C),
-      (l.isCustomerManagerPanelBlocked = b),
-      (l.isCustomerManagerOnboardingWindow = v),
-      (l.getNextTrialDayChangeTime = R));
+      (l.decodeCustomerManagerAccessStateOrThrow = f),
+      (l.getCustomerManagerUpsell = g),
+      (l.isCustomerManagerAccessAllowedByState = h),
+      (l.isCustomerManagerUnavailable = y),
+      (l.isCustomerManagerPanelBlocked = C),
+      (l.isCustomerManagerOnboardingWindow = b),
+      (l.getNextTrialDayChangeTime = S));
   },
   98,
 );

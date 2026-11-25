@@ -580,14 +580,13 @@ __d(
     Q.doc =
       "Set the WebTP sharer skip confirmation preference (debug override)";
     async function X(e) {
-      r("vulture")("5OQp4EISyaUr1Z6AqrxjP89Kgs4=");
       var t = 0,
         n = 0x7048860ddf79,
-        a = await o("WAWebCanonicalTokenExchange").storeCanonicalCredentials(
+        r = await o("WAWebCanonicalTokenExchange").storeCanonicalCredentials(
           { userId: n, deviceId: t, accessToken: e },
           "recovery",
         );
-      return a === o("WAWebCanonicalTokenExchange").TokenExchangeResult.SUCCESS
+      return r === o("WAWebCanonicalTokenExchange").TokenExchangeResult.SUCCESS
         ? "success"
         : "failed";
     }

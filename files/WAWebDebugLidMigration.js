@@ -389,10 +389,8 @@ __d(
       }
     }
     async function X() {
-      r("vulture")("IAJwFe49KfrCaIQhcjOmcMRz75Q=");
       var e = await o("WAWebSchemaChat").getChatTable().all(),
         t = r("compactMap")(e, function (e) {
-          r("vulture")("TslWSxB3SU98zT4Rn0DtVaRA0uY=");
           var t = o("WAWebWidFactory").createWid(e.id);
           if (t.isUser() && !t.isLid()) {
             var n = o("WAWebApiContact").getCurrentLid(t);

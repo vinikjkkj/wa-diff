@@ -21,7 +21,8 @@ __d(
       s,
       u,
       c,
-      d = new (r("WADeprecatedWapParser"))("identityKeysParser", function (e) {
+      d,
+      m = new (r("WADeprecatedWapParser"))("identityKeysParser", function (e) {
         return e.child("list").mapChildren(function (e) {
           if (e.hasChild("error")) {
             var t = e.child("error"),
@@ -47,7 +48,7 @@ __d(
           }
         });
       });
-    async function m(t) {
+    async function p(t) {
       var n = await o("WAWebSignalProtocolStore")
           .getPersistSignalProtocolStore()
           .bulkLoadIdentityKey(
@@ -77,7 +78,7 @@ __d(
         r.length,
         t.length,
       );
-      var a = await p(r),
+      var a = _(r, await f(r)),
         i = a.map(function (e) {
           var t = e.identity,
             n = o("WAWebCryptoCurve25519").toSignalCurvePubKey(
@@ -98,9 +99,35 @@ __d(
       (await o("WAWebSignalProtocolStore")
         .getPersistSignalProtocolStore()
         .bulkCreateIdentity(i),
-        await _(l));
+        await g(l));
     }
-    async function p(e) {
+    function _(e, t) {
+      var n = new Set(
+          e.map(function (e) {
+            return o("WAWebSignalCommonUtils").createSignalAddress(e);
+          }),
+        ),
+        r = t.filter(function (e) {
+          var t = e.user;
+          return n.has(o("WAWebSignalCommonUtils").createSignalAddress(t));
+        }),
+        a = t.length - r.length;
+      return (
+        a > 0 &&
+          o("WALogger")
+            .WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "getAndStoreIdentityKeys: dropped ",
+                  " unrequested identity keys",
+                ])),
+              a,
+            )
+            .sendLogs("get-identity-keys-unrequested"),
+        r
+      );
+    }
+    async function f(e) {
       var t,
         n = e.map(function (e) {
           return o("WAWap").wap("user", {
@@ -117,12 +144,12 @@ __d(
           },
           t.wap("identity", null, n),
         ),
-        i = await o("WADeprecatedSendIq").deprecatedSendIq(a, d);
+        i = await o("WADeprecatedSendIq").deprecatedSendIq(a, m);
       if (!i.success)
         throw r("err")("getIdentityKeys bad response " + String(i));
       return i.result;
     }
-    async function _(e) {
+    async function g(e) {
       var t = n("cr:510");
       if (
         !(
@@ -140,8 +167,8 @@ __d(
               } catch (e) {
                 o("WALogger")
                   .WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "[aea] failed to store identity response result",
                       ])),
                   )
@@ -157,8 +184,8 @@ __d(
         } catch (e) {
           o("WALogger")
             .WARN(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "[aea] failed to flush identity response results",
                 ])),
             )
@@ -167,7 +194,7 @@ __d(
         }
       }
     }
-    l.getAndStoreIdentityKeys = m;
+    l.getAndStoreIdentityKeys = p;
   },
   98,
 );

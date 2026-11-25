@@ -465,9 +465,11 @@ __d(
       },
       PEERS_INBOX: "/api/peers/inbox",
       PEERS_INBOX_DECLINE: "/api/peers/inbox/decline",
+      PEERS_INVITES: "/api/peers/invites",
       PEERS_INVITES_ACCEPT: "/api/peers/invites/accept",
       PEERS_INVITES_OPEN: "/api/peers/invites/open",
       PEERS_INVITES_OPENED: "/api/peers/invites/opened",
+      PEERS_MAILBOX_SEND: "/api/peers/mailbox/send",
       PEERS_RECOMMENDATIONS: "/api/peers/recommendations",
       PEERS_REQUEST_BANNER: "/api/peers/request_banner",
       PEERS_STATUS: "/api/peers/status",
@@ -475,6 +477,10 @@ __d(
       SCHEDULED_TASK_RUNS: V,
       SCHEDULED_TASKS: "/api/tasks",
       SCHEDULED_TASKS_SUBSCRIBE: "/api/tasks/subscribe",
+      SHOPPING: function (t, n, r) {
+        return l("/api/shopping", { type: n, product_id: t, connector: r });
+      },
+      SHOPPING_EVENTS: "/api/shopping/events",
       SPACE_CVM: s,
       SPACE_DELETE: function (n) {
         return "/spaces/v2/" + n + "?source=space";

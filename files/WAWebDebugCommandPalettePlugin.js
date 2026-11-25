@@ -31,7 +31,6 @@ __d(
         l = i[0],
         s = i[1],
         d = async function () {
-          r("vulture")("nIW11uK5LRU3yrO-BbBVGmnK_bo=");
           var t = a.input.trim(),
             i = t.split(","),
             l = i
@@ -184,7 +183,6 @@ __d(
     }
     d.displayName = d.name + " [from " + i.id + "]";
     function m() {
-      r("vulture")("Mt4mag4Yt0IA8ijyFfln9YRGuxg=");
       var e = o("WAWebCommandPaletteController").useCommandPalette(),
         t = 8,
         n = o("useWAWebLexicalSearchModelQuery").useLexicalSearchModelQuery(
@@ -194,8 +192,8 @@ __d(
             });
           },
         ),
-        a = n.results,
-        i = function (n) {
+        r = n.results,
+        a = function (n) {
           e.pushPlugin({
             id: "DebugCommandActionsMenu",
             shortName: n.id,
@@ -206,9 +204,9 @@ __d(
           });
         };
       return (
-        a != null &&
+        r != null &&
         u.jsx(o("WAWebLexicalWAWebMenu.react").LexicalWAWebMenu, {
-          children: a.results.map(function (e) {
+          children: r.results.map(function (e) {
             return u.jsx(
               o("WAWebMenuItems.react").ActionMenuItem,
               {
@@ -216,7 +214,7 @@ __d(
                 primary: e.data.id,
                 secondary: e.data.doc,
                 onSelect: function () {
-                  return i(e.data);
+                  return a(e.data);
                 },
               },
               e.id,

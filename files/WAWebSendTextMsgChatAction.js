@@ -40,6 +40,7 @@ __d(
     "WAWebNewsletterGatingUtils",
     "WAWebNonJidMentionType",
     "WAWebOrchestratorNonPersistedJob",
+    "WAWebPathfinderAccountToken",
     "WAWebPathfinderMessageSent",
     "WAWebPresenceChatAction",
     "WAWebPrivacyMode_WORKER_INCOMPATIBLE",
@@ -77,17 +78,19 @@ __d(
     async function f(e, t, n) {
       n === void 0 && (n = {});
       var r = o("WAWebStateUtils").unproxy(e),
-        a = await g(r, t, n);
-      if (a) {
+        a = o("WAWebPathfinderAccountToken").getPathfinderCaptureAccountToken(),
+        i = await g(r, t, n);
+      if (i) {
         await o("WAWebBizBotTosUtils").maybeShowBizBot1pTos(r);
-        var i = await o(
+        var l = await o(
             "WAWebSendMsgChatActionUtils",
-          ).maybeDisableEphemeralityForMsg(r, a),
-          l = i.msgData,
-          s = i.systemMsgs;
-        return h(r, l, s, {
+          ).maybeDisableEphemeralityForMsg(r, i),
+          s = l.msgData,
+          u = l.systemMsgs;
+        return h(r, s, u, {
           skipRichTextFormatLogging: n.skipRichTextFormatLogging,
           onMsgKeyCreated: n.onMsgKeyCreated,
+          pathfinderAccountToken: a,
         });
       }
     }
@@ -384,101 +387,104 @@ __d(
               "",
             ])),
           e.id.toLogString(),
-        ),
-        await o("WAWebLidMigrationFrontendUtils").validateMissingAccountLid(
-          e,
-          t,
-          "addAndSendTextMsg",
         ));
-      var c = new (o("WAWebMsgModel").Msg)(t);
-      b(a.onMsgKeyCreated, c.id);
-      var m =
+      var c = o(
+        "WAWebPathfinderAccountToken",
+      ).resolvePathfinderCaptureAccountToken(a.pathfinderAccountToken);
+      await o("WAWebLidMigrationFrontendUtils").validateMissingAccountLid(
+        e,
+        t,
+        "addAndSendTextMsg",
+      );
+      var m = new (o("WAWebMsgModel").Msg)(t);
+      b(a.onMsgKeyCreated, m.id);
+      var p =
           a.skipRichTextFormatLogging === !0
             ? null
             : o(
                 "WAWebRichTextFormatMessageSendLogger",
-              ).maybeCreateRichTextFormatMessageSendCommit(c, e.id),
-        p = o("WAWebSendMsgChatActionUtils").maybeGetOpusSystemMsg(
+              ).maybeCreateRichTextFormatMessageSendCommit(m, e.id),
+        _ = o("WAWebSendMsgChatActionUtils").maybeGetOpusSystemMsg(
           e,
           "opus-send-text-fail",
         ),
-        _ = []
+        f = []
           .concat(
-            p ? [p] : [],
-            (i = await r("WAWebEmptyChatSystemMsg")(c, e)) != null ? i : [],
+            _ ? [_] : [],
+            (i = await r("WAWebEmptyChatSystemMsg")(m, e)) != null ? i : [],
             n != null ? n : [],
           )
           .filter(Boolean),
-        f = !!((l = e.groupMetadata) != null && l.isLidAddressingMode),
-        g = o("WAWebMsgInfoUtils").getGroupMessageSendReporterOptions(
+        g = !!((l = e.groupMetadata) != null && l.isLidAddressingMode),
+        h = o("WAWebMsgInfoUtils").getGroupMessageSendReporterOptions(
           e.id,
-          o("WAWebWamMsgUtils").msgIsLid(t, e.id, f),
+          o("WAWebWamMsgUtils").msgIsLid(t, e.id, g),
         );
-      ((c.wamMessageSendReporter = new (o(
+      ((m.wamMessageSendReporter = new (o(
         "WAWebMessageSendReporter",
       ).MessageSendReporter)(
-        c,
-        babelHelpers.extends({}, g, {
+        m,
+        babelHelpers.extends({}, h, {
           frontendDeps: o("WAWebMessageSendReporterFrontendDeps")
             .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
         }),
       )),
-        (c.wamMessageSendPerfReporter = new (o(
+        (m.wamMessageSendPerfReporter = new (o(
           "WAWebMessageSendPerfReporter",
         ).MessageSendPerfReporter)({
-          chatWid: c.to,
-          mediaType: o("WAWebWamMsgUtils").getWamMediaType(c),
-          messageType: o("WAWebWamMsgUtils").getWamMessageType(c),
+          chatWid: m.to,
+          mediaType: o("WAWebWamMsgUtils").getWamMediaType(m),
+          messageType: o("WAWebWamMsgUtils").getWamMessageType(m),
         })),
         o("WAWebAppTracker").AppTracker.start(
           o("WAWebAppTracker").AppTrackerType.SendMessage,
         ),
-        (s = c.wamMessageSendPerfReporter) == null || s.startRenderedStage(),
-        _.length > 0 && e.msgs.add(_),
-        e.msgs.add(c),
-        o("WAWebThreadWriteThroughAction").writeThroughToLiveThreads(e, [c]),
-        (u = c.wamMessageSendPerfReporter) == null || u.postRenderedStage(),
+        (s = m.wamMessageSendPerfReporter) == null || s.startRenderedStage(),
+        f.length > 0 && e.msgs.add(f),
+        e.msgs.add(m),
+        o("WAWebThreadWriteThroughAction").writeThroughToLiveThreads(e, [m]),
+        (u = m.wamMessageSendPerfReporter) == null || u.postRenderedStage(),
         o("WAWebQbmMessageReplyLogEventLazy").logQbmMessageReply({
           chat: e,
-          replyMessageType: c.type,
-          replyMsg: c,
+          replyMessageType: m.type,
+          replyMsg: m,
         }),
         (e.createdLocally = !1));
-      var h = _.length > 0 ? [].concat(_, [t]) : [t],
-        y = await o("WAWebOrchestratorNonPersistedJob")
+      var y = f.length > 0 ? [].concat(f, [t]) : [t],
+        C = await o("WAWebOrchestratorNonPersistedJob")
           .createNonPersistedJob(
             "sendMessage",
             o("WAWebBackendRuntime").isWebDiBackendEnabled()
               ? function () {
                   return o("WAWebBackendRuntime")
                     .runtime(o("WAWebMessageSendService").MessageSendService)
-                    .storeAndSend(c, h, e.id);
+                    .storeAndSend(m, y, e.id, { pathfinderAccountToken: c });
                 }
               : async function () {
                   var n, r;
-                  ((n = c.wamMessageSendPerfReporter) == null ||
+                  ((n = m.wamMessageSendPerfReporter) == null ||
                     n.startSavedStage(),
-                    await o("WAWebDBProcessMessage").storeMessages(h, e.id),
-                    (r = c.wamMessageSendPerfReporter) == null ||
+                    await o("WAWebDBProcessMessage").storeMessages(y, e.id),
+                    (r = m.wamMessageSendPerfReporter) == null ||
                       r.postSavedStage(),
                     o(
                       "WAWebPathfinderMessageSent",
-                    ).recordPathfinderMessageSentAfterCommit(c),
+                    ).recordPathfinderMessageSentAfterCommit(m, c),
                     o("WAWebThreadMsgUtils").isThreadMsg(t) &&
                       (await o(
                         "WAWebDBThreadMetadataBulkHelper",
                       ).persistNewMessagesThreadMetadataInBulk([t])));
-                  var a = await o("WAWebSendMsgRecordAction").sendMsgRecord(c);
+                  var a = await o("WAWebSendMsgRecordAction").sendMsgRecord(m);
                   return a;
                 },
             { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
           )
           .waitUntilCompleted();
       return (
-        (y == null ? void 0 : y.messageSendResult) ===
+        (C == null ? void 0 : C.messageSendResult) ===
           o("WAWebSendMsgResultAction").SendMsgResult.OK &&
-          (m == null || m()),
-        y
+          (p == null || p()),
+        C
       );
     }
     function y(e, t) {

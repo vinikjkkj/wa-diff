@@ -1,6 +1,7 @@
 __d(
   "WAWebPathfinderKeyboard",
   [
+    "WAWebPathfinderAccountToken",
     "WAWebPathfinderFieldEmptiness",
     "WAWebPathfinderHeldBackScreen",
     "WAWebPathfinderHeldBackSurface",
@@ -54,8 +55,9 @@ __d(
       h = null,
       y = null,
       C = null,
-      b = null;
-    function v(e) {
+      b = null,
+      v = null;
+    function S(e) {
       var t,
         n,
         r,
@@ -72,30 +74,35 @@ __d(
         ? t
         : null;
     }
-    function S(e) {
+    function R(e) {
       var t;
       return e instanceof HTMLInputElement || e instanceof HTMLTextAreaElement
         ? e.value === ""
         : ((t = e.textContent) != null ? t : "") === "";
     }
-    function R(e) {
+    function L(e) {
       var t,
         n = e.target;
       !(n instanceof HTMLElement) ||
         !s(n) ||
         r("justknobx")._("8647") ||
-        (b != null && window.clearTimeout(b),
+        (v != null && window.clearTimeout(v),
         (y = n),
-        (C = (t = h != null && f.get(n) === h ? _ : null) != null ? t : v(n)),
-        (b = window.setTimeout(function () {
-          b = null;
+        (C = (t = h != null && f.get(n) === h ? _ : null) != null ? t : S(n)),
+        (b = o(
+          "WAWebPathfinderAccountToken",
+        ).getPathfinderCaptureAccountToken()),
+        (v = window.setTimeout(function () {
+          v = null;
           var e = y,
-            t = C;
-          if (((y = null), (C = null), e != null)) {
-            var n = S(e);
+            t = C,
+            n = b;
+          if (((y = null), (C = null), (b = null), e != null)) {
+            var r = R(e);
             o("WAWebPathfinderLogger").emitPathfinderEvent({
+              accountTokenAtCapture: n,
               eventType: "CONTENT_CHANGED",
-              context: JSON.stringify({ is_empty: String(n) }),
+              context: JSON.stringify({ is_empty: String(r) }),
               heldBackSurface: t,
               screenName: o("WAWebPathfinderScreenName").getCurrentScreenName(),
               timestampMs: Date.now(),
@@ -103,7 +110,7 @@ __d(
           }
         }, u)));
     }
-    function L(e) {
+    function E(e) {
       var t = e.target;
       if (!(!(t instanceof HTMLElement) || !s(t))) {
         var n = d(t);
@@ -112,7 +119,7 @@ __d(
           ((p = n),
           (h = g++),
           f.set(t, h),
-          (_ = v(t)),
+          (_ = S(t)),
           o("WAWebPathfinderLogger").emitPathfinderEvent({
             eventType: "BEGIN_EDITING",
             heldBackSurface: _,
@@ -125,7 +132,7 @@ __d(
           }));
       }
     }
-    function E(e) {
+    function k(e) {
       var t = e.target;
       if (!(!(t instanceof HTMLElement) || !s(t))) {
         var n = d(t);
@@ -151,7 +158,7 @@ __d(
         }
       }
     }
-    ((l.handleInput = R), (l.handleFocusIn = L), (l.handleFocusOut = E));
+    ((l.handleInput = L), (l.handleFocusIn = E), (l.handleFocusOut = k));
   },
   98,
 );

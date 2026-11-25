@@ -8,29 +8,32 @@ __d(
       u = null,
       c = null,
       d = null,
-      m = null;
-    function p(e, t) {
+      m = 0,
+      p = null,
+      _ = null;
+    function f(e, t) {
       var n = { onClose: t };
       try {
-        f(e, n);
+        h(e, n);
       } catch (e) {
-        throw (m === n && (m = null), e);
+        throw (_ === n && (_ = null), e);
       }
       return {
         close: function () {
-          return m !== n ? !1 : (g(), !0);
+          return _ !== n ? !1 : (y(), !0);
         },
         isCurrent: function () {
-          return m === n;
+          return _ === n;
         },
       };
     }
-    function _(e) {
-      f(e, null);
+    function g(e) {
+      h(e, null);
     }
-    function f(e, t) {
-      var n = m;
-      m = t;
+    function h(e, t) {
+      m += 1;
+      var n = _;
+      _ = t;
       try {
         ((d = o("WDSPresentationObservers").captureWDSPresentationContext()),
           s != null ? s(e) : (c = e));
@@ -38,36 +41,54 @@ __d(
         n == null || n.onClose();
       }
     }
-    function g() {
-      var e = m;
-      ((m = null),
+    function y() {
+      S();
+      var e = _;
+      ((_ = null),
         o("WDSDialogDismissRegistry").clearDialogDismissHandler(),
         u != null ? u() : c != null && ((c = null), (d = null)),
         e == null || e.onClose());
     }
-    function h(e, t) {
+    function C() {
+      return m;
+    }
+    function b(t, n) {
+      m !== t ||
+        p === t ||
+        (y(),
+        self.setTimeout(function () {
+          m === t && n();
+        }, e));
+    }
+    function v(e, t) {
       if (((s = e), (u = t), c != null)) {
         var n = c;
         ((c = null), e(n));
       }
       return function () {
         if (!(s !== e || u !== t)) {
-          ((s = null), (u = null));
-          var n = m;
-          ((m = null), n == null || n.onClose());
+          ((s = null), (u = null), S());
+          var n = _;
+          ((_ = null), n == null || n.onClose());
         }
       };
     }
-    function y() {
+    function S() {
+      p = m;
+    }
+    function R() {
       var e = d;
       return ((d = null), e);
     }
     ((l.DIALOG_EXIT_ANIMATION_DURATION = e),
-      (l.openWDSDialogWithLifetime = p),
-      (l.openWDSDialog = _),
-      (l.closeWDSDialog = g),
-      (l.registerDialogManager = h),
-      (l.takeOpenedDialogPresentationContext = y));
+      (l.openWDSDialogWithLifetime = f),
+      (l.openWDSDialog = g),
+      (l.closeWDSDialog = y),
+      (l.getWDSDialogOpenCount = C),
+      (l.closeWDSDialogThen = b),
+      (l.registerDialogManager = v),
+      (l.noteDialogClosed = S),
+      (l.takeOpenedDialogPresentationContext = R));
   },
   98,
 );

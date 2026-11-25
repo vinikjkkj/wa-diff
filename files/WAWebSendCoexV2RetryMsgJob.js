@@ -157,7 +157,10 @@ __d(
       var C = o("WAWebSendMsgMetaNode").genMetaNode({
         chatId: a.id.remote,
         groupData: null,
-        includeAttributes: { appendHostedSenderIntent: !0 },
+        includeAttributes: {
+          appendHostedSenderIntent: !0,
+          omitEngagementOrigin: !0,
+        },
         msgProtobuf: f,
         msgRecord: e,
       });
@@ -256,7 +259,10 @@ __d(
           E = o("WAWebSendMsgMetaNode").genMetaNode({
             chatId: s.id.remote,
             groupData: null,
-            includeAttributes: { appendHostedSenderIntent: y.length > 0 },
+            includeAttributes: {
+              appendHostedSenderIntent: y.length > 0,
+              omitEngagementOrigin: !0,
+            },
             msgProtobuf: C,
             msgRecord: a,
           });

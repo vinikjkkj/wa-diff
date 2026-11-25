@@ -87,13 +87,12 @@ __d(
       u(a);
     }
     async function m() {
-      (r("vulture")("jXREDXiSPUfgS8AbFeKMlC8bUoo="),
-        await o(
-          "WAWebQueryAndUpdateAllNewslettersMetadataAction",
-        ).queryAndUpdateAllNewsletterMetadataAction(
-          o("WAWebCommonNewsletterEnums").NewsletterMetadataUpdateEntryPoint
-            .Debug,
-        ));
+      await o(
+        "WAWebQueryAndUpdateAllNewslettersMetadataAction",
+      ).queryAndUpdateAllNewsletterMetadataAction(
+        o("WAWebCommonNewsletterEnums").NewsletterMetadataUpdateEntryPoint
+          .Debug,
+      );
     }
     function p() {
       return (
@@ -547,9 +546,8 @@ __d(
         return n;
       },
       getLastChannelMessageId: function () {
-        var e;
-        r("vulture")("nDtihl4DCXRhwSDWbG8GsS5ZyFA=");
-        var t = o("WAWebDebugUtils").getSelectedChat();
+        var e,
+          t = o("WAWebDebugUtils").getSelectedChat();
         if (t == null)
           throw r("err")("getLastChannelMessageId: no selected chat");
         var n = (e = t.msgs.last()) == null ? void 0 : e.id.id;
@@ -558,9 +556,8 @@ __d(
         return n;
       },
       getLastChannelMessageT: function () {
-        var e;
-        r("vulture")("C5-j7FaDhYMxhRV-lSk8FF1ZD4U=");
-        var t = o("WAWebDebugUtils").getSelectedChat();
+        var e,
+          t = o("WAWebDebugUtils").getSelectedChat();
         if (t == null)
           throw r("err")("getLastChannelMessageT: no selected chat");
         var n = (e = t.msgs.last()) == null ? void 0 : e.t;
@@ -569,7 +566,6 @@ __d(
         return n;
       },
       addProfilePictureDeletionAlertForSelectedChat: async function () {
-        r("vulture")("dwD0Dgh9S3zpLVvxLOJIHJBBLVw=");
         var e = o("WAWebDebugUtils").getSelectedChat();
         if (e == null)
           throw r("err")(

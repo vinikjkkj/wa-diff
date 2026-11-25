@@ -10,9 +10,9 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = ["type", "__name"],
       s,
-      u = "fdfc37eab5074a0f36acb420da40cf80670a8719dc656dc452233b86d29f36b8",
+      u = "cc5518730274036d1f4735df7374c8b3bc7f4996a81dcdd170a9f204a2670b3c",
       c = null,
-      d = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1795509534550" }),
+      d = r("bx").getURL(r("bx")("32180"), { cacheBreaker: "1795590562901" }),
       m = (function () {
         var t =
           typeof document != "undefined" && document.currentScript
@@ -758,7 +758,7 @@ __d(
             console.warn.apply(console, arguments);
           }
           var je = {
-            1459410: function (t, n) {
+            1450190: function (t, n) {
               var e =
                 "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
                 t.toFixed(1) +
@@ -772,7 +772,7 @@ __d(
                 message: e,
               });
             },
-            1459697: function () {
+            1450477: function () {
               return Date.now();
             },
           };
@@ -7619,13 +7619,13 @@ __d(
               invoke_iiiiii: Nl,
               invoke_iiiiiii: Il,
               invoke_iiiiiiiddiiid: Vu,
-              invoke_iiiiiiii: Ol,
+              invoke_iiiiiiii: Fl,
               invoke_iiiiiiiidi: Hu,
               invoke_iiiiiiiifii: nu,
               invoke_iiiiiiiii: Pl,
               invoke_iiiiiiiiii: Ml,
               invoke_iiiiiiiiiiffiii: Cs,
-              invoke_iiiiiiiiiii: Al,
+              invoke_iiiiiiiiiii: Wl,
               invoke_iiiiiiiiiiii: wl,
               invoke_iiiiiiiiiiiiffiii: Ss,
               invoke_iiiiiiiiiiiii: Is,
@@ -7698,13 +7698,13 @@ __d(
               invoke_viif: js,
               invoke_viii: Sl,
               invoke_viiii: Dl,
-              invoke_viiiii: Bl,
-              invoke_viiiiii: Fl,
+              invoke_viiiii: Ol,
+              invoke_viiiiii: Al,
               invoke_viiiiiidiii: ts,
               invoke_viiiiiii: Ul,
               invoke_viiiiiiiddiii: Yl,
               invoke_viiiiiiii: ql,
-              invoke_viiiiiiiii: Wl,
+              invoke_viiiiiiiii: Bl,
               invoke_viiiiiiiiii: es,
               invoke_viiiiiiiiiiii: Vs,
               invoke_viiiiiiiiiiiii: lu,
@@ -7813,8 +7813,8 @@ __d(
             gl = (y.___get_exception_message = xe("__get_exception_message")),
             hl = xe("__cxa_can_catch"),
             yl = xe("__cxa_is_pointer_type"),
-            Cl = (y.___start_em_js = 1453468),
-            bl = (y.___stop_em_js = 1459410);
+            Cl = (y.___start_em_js = 1444284),
+            bl = (y.___stop_em_js = 1450190);
           function vl(e, t, n, r) {
             var o = ml();
             try {
@@ -7950,16 +7950,7 @@ __d(
               ll(1, 0);
             }
           }
-          function Al(e, t, n, r, o, a, i, l, s, u, c) {
-            var d = ml();
-            try {
-              return dn(e)(t, n, r, o, a, i, l, s, u, c);
-            } catch (e) {
-              if ((pl(d), !(e instanceof $e))) throw e;
-              ll(1, 0);
-            }
-          }
-          function Fl(e, t, n, r, o, a, i) {
+          function Al(e, t, n, r, o, a, i) {
             var l = ml();
             try {
               dn(e)(t, n, r, o, a, i);
@@ -7968,7 +7959,7 @@ __d(
               ll(1, 0);
             }
           }
-          function Ol(e, t, n, r, o, a, i, l) {
+          function Fl(e, t, n, r, o, a, i, l) {
             var s = ml();
             try {
               return dn(e)(t, n, r, o, a, i, l);
@@ -7977,7 +7968,7 @@ __d(
               ll(1, 0);
             }
           }
-          function Bl(e, t, n, r, o, a) {
+          function Ol(e, t, n, r, o, a) {
             var i = ml();
             try {
               dn(e)(t, n, r, o, a);
@@ -7986,12 +7977,21 @@ __d(
               ll(1, 0);
             }
           }
-          function Wl(e, t, n, r, o, a, i, l, s, u) {
+          function Bl(e, t, n, r, o, a, i, l, s, u) {
             var c = ml();
             try {
               dn(e)(t, n, r, o, a, i, l, s, u);
             } catch (e) {
               if ((pl(c), !(e instanceof $e))) throw e;
+              ll(1, 0);
+            }
+          }
+          function Wl(e, t, n, r, o, a, i, l, s, u, c) {
+            var d = ml();
+            try {
+              return dn(e)(t, n, r, o, a, i, l, s, u, c);
+            } catch (e) {
+              if ((pl(d), !(e instanceof $e))) throw e;
               ll(1, 0);
             }
           }
@@ -9413,8 +9413,6 @@ __d(
           }
           ((y.keepRuntimeAlive = me),
             (y.wasmMemory = W),
-            (y.GROWABLE_HEAP_U8 = l),
-            (y.GROWABLE_HEAP_F32 = g),
             (y.ExitStatus = gt),
             (y.FS = Qt),
             (y.PThread = rn),
@@ -9602,10 +9600,12 @@ __d(
             "getTempRet0",
             "setTempRet0",
             "GROWABLE_HEAP_I8",
+            "GROWABLE_HEAP_U8",
             "GROWABLE_HEAP_I16",
             "GROWABLE_HEAP_U16",
             "GROWABLE_HEAP_I32",
             "GROWABLE_HEAP_U32",
+            "GROWABLE_HEAP_F32",
             "GROWABLE_HEAP_F64",
             "writeStackCookie",
             "checkStackCookie",
@@ -9896,7 +9896,31 @@ __d(
               y.preInit.length > 0;
             )
               y.preInit.pop()();
-          return (lc(), r.ready);
+          lc();
+          for (var uc of [
+            [
+              "GROWABLE_HEAP_U8",
+              function () {
+                return l();
+              },
+            ],
+            [
+              "GROWABLE_HEAP_F32",
+              function () {
+                return g();
+              },
+            ],
+          ]) {
+            var cc = uc[0],
+              dc = uc[1];
+            Object.defineProperty(y, cc, {
+              configurable: !0,
+              enumerable: !0,
+              writable: !0,
+              value: dc,
+            });
+          }
+          return r.ready;
         };
       })();
     ((m.BUILD_SHA = u),

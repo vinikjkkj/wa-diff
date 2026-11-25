@@ -62,9 +62,10 @@ __d(
         a = t.initialTab,
         i = t.onClose,
         l = t.openBroadcastSettings,
-        s = t.openContactImport,
-        u = t.openCustomerBasePanel,
-        c = t.openDataSharingPanel;
+        s = t.openComposer,
+        u = t.openContactImport,
+        c = t.openCustomerBasePanel,
+        m = t.openDataSharingPanel;
       y(
         function () {
           return (
@@ -80,10 +81,19 @@ __d(
         },
         [n],
       );
-      var m = r("useWAWebAsync")(
+      var _ = r("useWAWebAsync")(
           async function (t) {
             try {
-              var d = await k(n, a, i, u === !0, c === !0, l === !0, s === !0);
+              var d = await k(
+                n,
+                a,
+                i,
+                c === !0,
+                m === !0,
+                l === !0,
+                u === !0,
+                s === !0,
+              );
               return (t.aborted && d.dispose(), d);
             } catch (n) {
               throw (
@@ -106,80 +116,81 @@ __d(
               );
             }
           },
-          [n, a, i, l, u, c, s],
+          [n, a, i, l, c, m, u, s],
         ),
-        _ = m.value;
+        f = _.value;
       h(
         function () {
-          if (_ != null) return _.dispose;
+          if (f != null) return f.dispose;
         },
-        [_],
+        [f],
       );
-      var f = d.jsx(r("WAWebLoadingDrawer.react"), {
+      var g = d.jsx(r("WAWebLoadingDrawer.react"), {
         error: !1,
         testid: "business-broadcast-pro-home-loading-drawer",
       });
-      return _ == null ? f : d.jsx(p, { fallback: f, children: _.content });
+      return f == null ? g : d.jsx(p, { fallback: g, children: f.content });
     }
     E.displayName = E.name + " [from " + i.id + "]";
-    async function k(e, t, n, a, i, l, s) {
-      var u;
-      (u = o(
+    async function k(e, t, n, a, i, l, s, u) {
+      var c;
+      (c = o(
         "WAWebBusinessBroadcastHomeQPLLogger",
       )).BusinessBroadcastHomeQPLLogger.pointOnce(
-        u.BusinessBroadcastHomeQPLPoints.PRO_RELAY_ENVIRONMENT_FETCH_START,
+        c.BusinessBroadcastHomeQPLPoints.PRO_RELAY_ENVIRONMENT_FETCH_START,
       );
-      var c = await r("WAWebBizBroadcastProRelayEnvironment")();
-      (u.BusinessBroadcastHomeQPLLogger.pointOnce(
-        u.BusinessBroadcastHomeQPLPoints.PRO_RELAY_ENVIRONMENT_FETCH_END,
+      var m = await r("WAWebBizBroadcastProRelayEnvironment")();
+      (c.BusinessBroadcastHomeQPLLogger.pointOnce(
+        c.BusinessBroadcastHomeQPLPoints.PRO_RELAY_ENVIRONMENT_FETCH_END,
       ),
-        u.BusinessBroadcastHomeQPLLogger.pointOnce(
-          u.BusinessBroadcastHomeQPLPoints.CAMPAIGNS_FETCH_START,
+        c.BusinessBroadcastHomeQPLLogger.pointOnce(
+          c.BusinessBroadcastHomeQPLPoints.CAMPAIGNS_FETCH_START,
         ));
-      var m = o(
+      var p = o(
           "WAWebBizBroadcastProCampaignQueryLoader",
-        ).preloadProCampaignQuery(c),
-        p;
-      try {
-        p = o(
-          "WAWebBizBroadcastProAudienceQueryLoader",
-        ).preloadProAudienceQuery(c);
-      } catch (e) {
-        throw (m.dispose(), e);
-      }
-      var _;
+        ).preloadProCampaignQuery(m),
+        _;
       try {
         _ = o(
-          "WAWebBizBroadcastProSubscriberPoolStateQuery",
-        ).preloadSubscriberPoolStateQuery(c);
+          "WAWebBizBroadcastProAudienceQueryLoader",
+        ).preloadProAudienceQuery(m);
       } catch (e) {
-        throw (m.dispose(), p.dispose(), e);
+        throw (p.dispose(), e);
       }
-      var f = !1,
-        g = function () {
-          f || ((f = !0), m.dispose(), p.dispose(), _.dispose());
+      var f;
+      try {
+        f = o(
+          "WAWebBizBroadcastProSubscriberPoolStateQuery",
+        ).preloadSubscriberPoolStateQuery(m);
+      } catch (e) {
+        throw (p.dispose(), _.dispose(), e);
+      }
+      var g = !1,
+        h = function () {
+          g || ((g = !0), p.dispose(), _.dispose(), f.dispose());
         },
-        h = w(p);
+        y = w(_);
       return {
         content: d.jsx(o("CometRelay").RelayEnvironmentProvider, {
-          environment: c,
+          environment: m,
           children: d.jsx(I, {
-            ProAudienceTable: h,
-            dispose: g,
+            ProAudienceTable: y,
+            dispose: h,
             entryPoint: e,
-            environment: c,
-            initialAudienceQueryRef: p,
-            initialQueryRef: m,
-            initialSubscriberPoolQueryRef: _,
+            environment: m,
+            initialAudienceQueryRef: _,
+            initialQueryRef: p,
+            initialSubscriberPoolQueryRef: f,
             initialTab: t,
             onClose: n,
             openBroadcastSettings: l,
             openCustomerBasePanel: a,
             openDataSharingPanel: i,
             openContactImport: s,
+            openComposer: u,
           }),
         }),
-        dispose: g,
+        dispose: h,
       };
     }
     function I(e) {
@@ -195,23 +206,24 @@ __d(
         h = e.initialTab,
         y = e.onClose,
         L = e.openBroadcastSettings,
-        E = e.openContactImport,
-        k = e.openCustomerBasePanel,
-        I = e.openDataSharingPanel,
-        D = b(new Map());
+        E = e.openComposer,
+        k = e.openContactImport,
+        I = e.openCustomerBasePanel,
+        D = e.openDataSharingPanel,
+        x = b(new Map());
       r("useWAWebOnUnmount")(function () {
-        (D.current.forEach(function (e) {
+        (x.current.forEach(function (e) {
           e.unsubscribe();
         }),
-          D.current.clear(),
+          x.current.clear(),
           i());
       });
-      var x = r("useWAWebStableCallback")(function (e) {
-        var t = D.current.get(e);
+      var P = r("useWAWebStableCallback")(function (e) {
+        var t = x.current.get(e);
         t == null || t.unsubscribe();
         var n,
           a = function () {
-            n != null && D.current.get(e) === n && D.current.delete(e);
+            n != null && x.current.get(e) === n && x.current.delete(e);
           };
         o("WAWebBizBroadcastProCampaignStatusRefreshQuery")
           .fetchProCampaignStatusRefresh(c, e)
@@ -230,7 +242,7 @@ __d(
                   .sendLogs("bb-pro-campaign-refresh-failed"));
             },
             start: function (r) {
-              ((n = r), D.current.set(e, r));
+              ((n = r), x.current.set(e, r));
             },
             unsubscribe: a,
           });
@@ -238,9 +250,9 @@ __d(
       o("useWAWebListener").useListener(
         o("WAWebCmd").Cmd,
         "biz_broadcast_pro_campaign_invalidated",
-        x,
+        P,
       );
-      var P = f(
+      var w = f(
           function () {
             return o(
               "WAWebBizBroadcastProAudienceQueryLoader",
@@ -248,41 +260,41 @@ __d(
           },
           [c],
         ),
-        w = o("CometRelay").useQueryLoader(
+        A = o("CometRelay").useQueryLoader(
           o("WAWebBizBroadcastProCampaignTableQuery").proCampaignTableQuery,
           _,
         ),
-        A = w[0],
-        F = w[1],
-        O = o("CometRelay").useQueryLoader(
+        F = A[0],
+        O = A[1],
+        B = o("CometRelay").useQueryLoader(
           o("WAWebBizBroadcastProSubscriberPoolStateQuery")
             .subscriberPoolStateQuery,
           g,
         ),
-        B = O[0],
-        W = O[1],
-        q = v(null),
-        U = q[0],
-        V = q[1],
-        H = v("unavailable"),
-        G = H[0],
-        z = H[1],
-        j = v(0),
-        K = j[0],
-        Q = j[1],
-        X = v(0),
-        Y = X[0],
-        J = X[1],
-        Z = S(),
-        ee = Z[1],
-        te = f(
+        W = B[0],
+        q = B[1],
+        U = v(null),
+        V = U[0],
+        H = U[1],
+        G = v("unavailable"),
+        z = G[0],
+        j = G[1],
+        K = v(0),
+        Q = K[0],
+        X = K[1],
+        Y = v(0),
+        J = Y[0],
+        Z = Y[1],
+        ee = S(),
+        te = ee[1],
+        ne = f(
           function (e) {
-            ee(function () {
+            te(function () {
               (e &&
-                Q(function (e) {
+                X(function (e) {
                   return e + 1;
                 }),
-                F(
+                O(
                   {
                     after: null,
                     first: o("WAWebBizBroadcastProCampaignQueryLoader")
@@ -292,52 +304,52 @@ __d(
                 ));
             });
           },
-          [F, ee],
+          [O, te],
         ),
-        ne = f(
+        re = f(
           function () {
-            return te(!1);
+            return ne(!1);
           },
-          [te],
+          [ne],
         );
       o("useWAWebListener").useListener(
         o("WAWebCmd").Cmd,
         o("WAWebBroadcastConsts").BIZ_BROADCAST_CAMPAIGN_UPDATED_EVENT,
-        ne,
+        re,
       );
-      var re = f(
+      var oe = f(
           function () {
-            return te(!0);
+            return ne(!0);
           },
-          [te],
+          [ne],
         ),
-        oe = f(
+        ae = f(
           function () {
-            (J(function (e) {
+            (Z(function (e) {
               return e + 1;
             }),
-              W({}, { fetchPolicy: "network-only" }));
+              q({}, { fetchPolicy: "network-only" }));
+          },
+          [q],
+        ),
+        ie = f(
+          function (e, t, n) {
+            e === W && H({ queryRef: e, retryKey: t, subscriberPoolState: n });
           },
           [W],
         ),
-        ae = f(
-          function (e, t, n) {
-            e === B && V({ queryRef: e, retryKey: t, subscriberPoolState: n });
-          },
-          [B],
-        ),
-        ie = f(
+        le = f(
           function (e, t) {
-            e === B &&
-              V({
+            e === W &&
+              H({
                 queryRef: e,
                 retryKey: t,
                 subscriberPoolState: { status: "error" },
               });
           },
-          [B],
+          [W],
         ),
-        le = f(function (e) {
+        se = f(function (e) {
           (o("WALogger")
             .ERROR(
               u ||
@@ -347,81 +359,82 @@ __d(
             )
             .catching(e)
             .sendLogs("bb-pro-home-audience-state-read-failed"),
-            z("unavailable"));
+            j("unavailable"));
         }, []),
-        se = C(
+        ue = C(
           function () {
-            return A == null
+            return F == null
               ? null
-              : { errorBoundaryResetKey: K, onRetry: re, queryRef: A };
+              : { errorBoundaryResetKey: Q, onRetry: oe, queryRef: F };
           },
-          [K, A, re],
+          [Q, F, oe],
         ),
-        ue = {
+        ce = {
           entryPoint: l,
           initialTab: h,
           onClose: y,
-          onProCampaignsRefresh: ne,
-          onRefreshProAudiences: P,
+          onProCampaignsRefresh: re,
+          onRefreshProAudiences: w,
           openBroadcastSettings: L,
-          openCustomerBasePanel: k,
-          openDataSharingPanel: I,
-          openContactImport: E,
+          openCustomerBasePanel: I,
+          openDataSharingPanel: D,
+          openContactImport: k,
+          openComposer: E,
           proAudienceTable: a,
-          proAudienceTableEmptyState: G,
-          proBroadcastTable: A == null ? null : M,
+          proAudienceTableEmptyState: z,
+          proBroadcastTable: F == null ? null : M,
         },
-        ce = function (t, n, r) {
+        de = function (t, n, r) {
           return d.jsx(
             N,
-            babelHelpers.extends({}, ue, {
+            babelHelpers.extends({}, ce, {
               isSubscriberPoolRefreshing: t,
-              onRetrySubscriberPool: oe,
-              queryRef: A,
+              onRetrySubscriberPool: ae,
+              queryRef: F,
               subscriberPoolRetryKey: n,
               subscriberPoolState: r,
             }),
           );
         },
-        de = U != null && U.queryRef === B,
-        me = (t = U == null ? void 0 : U.retryKey) != null ? t : 0;
+        me = V != null && V.queryRef === W,
+        pe = (t = V == null ? void 0 : V.retryKey) != null ? t : 0;
       return d.jsxs(R.Provider, {
-        value: se,
+        value: ue,
         children: [
-          B != null && !de
+          W != null && !me
             ? d.jsx(
                 o("WAWebErrorBoundary.react").ErrorBoundary,
                 {
                   fallback: o("WAWebNullFunc").returnNull,
                   name: "biz-broadcast-pro-home-subscriber-pool",
                   onError: function () {
-                    return ie(B, Y);
+                    return le(W, J);
                   },
                   children: d.jsx(p, {
                     fallback: null,
                     children: d.jsx($, {
-                      onResolve: ae,
-                      queryRef: B,
-                      retryKey: Y,
+                      onResolve: ie,
+                      queryRef: W,
+                      retryKey: J,
                     }),
                   }),
                 },
-                Y,
+                J,
               )
             : null,
           d.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
             fallback: o("WAWebNullFunc").returnNull,
             name: "biz-broadcast-pro-home-audience-state",
-            onError: le,
+            onError: se,
             children: d.jsx(p, {
               fallback: null,
-              children: d.jsx(T, { onResolve: z, queryRef: m }),
+              children: d.jsx(T, { onResolve: j, queryRef: m }),
             }),
           }),
-          ce(
-            B != null && !de,
-            me,
-            (n = U == null ? void 0 : U.subscriberPoolState) != null ? n : null,
+          de(
+            W != null && !me,
+            pe,
+            (n = V == null ? void 0 : V.subscriberPoolState) != null ? n : null,
           ),
         ],
       });
@@ -509,60 +522,62 @@ __d(
         s = e.onRefreshProAudiences,
         u = e.onRetrySubscriberPool,
         c = e.openBroadcastSettings,
-        m = e.openContactImport,
-        p = e.openCustomerBasePanel,
-        _ = e.openDataSharingPanel,
-        f = e.proAudienceTable,
-        g = e.proAudienceTableEmptyState,
-        h = e.proBroadcastTable,
-        y = e.queryRef,
-        C = e.subscriberPoolRetryKey,
-        b = e.subscriberPoolState,
-        S = v(null),
-        R = S[0],
-        L = S[1],
-        E = r("useWAWebBizBroadcastProSubscriberPoolSetup")({
+        m = e.openComposer,
+        p = e.openContactImport,
+        _ = e.openCustomerBasePanel,
+        f = e.openDataSharingPanel,
+        g = e.proAudienceTable,
+        h = e.proAudienceTableEmptyState,
+        y = e.proBroadcastTable,
+        C = e.queryRef,
+        b = e.subscriberPoolRetryKey,
+        S = e.subscriberPoolState,
+        R = v(null),
+        L = R[0],
+        E = R[1],
+        k = r("useWAWebBizBroadcastProSubscriberPoolSetup")({
           isRefreshing: a,
           onRetry: u,
-          retryKey: C,
-          subscriberPoolState: b,
+          retryKey: b,
+          subscriberPoolState: S,
         }),
-        k = E.setupCard,
-        I = E.subscriberPoolID,
-        T = {
+        I = k.setupCard,
+        T = k.subscriberPoolID,
+        D = {
           entryPoint: t,
           initialTab: n,
           onClose: i,
           onProCampaignsRefresh: l,
           onRefreshProAudiences: s,
           openBroadcastSettings: c,
-          openCustomerBasePanel: p,
-          openDataSharingPanel: _,
-          openContactImport: m,
+          openCustomerBasePanel: _,
+          openDataSharingPanel: f,
+          openContactImport: p,
+          openComposer: m,
           proAudienceManagementConfig: {
-            subscriberPoolID: I,
-            subscriberPoolSetupCard: k,
+            subscriberPoolID: T,
+            subscriberPoolSetupCard: I,
           },
-          proAudienceTable: f,
-          proAudienceTableEmptyState: g,
-          proBroadcastTable: h,
+          proAudienceTable: g,
+          proAudienceTableEmptyState: h,
+          proBroadcastTable: y,
         };
-      return y == null || y === R
+      return C == null || C === L
         ? d.jsx(
             o("WAWebBusinessBroadcastProHomeFlowBoundary")
               .WAWebBusinessBroadcastProHomeFlowBoundary,
-            babelHelpers.extends({}, T, { proHomeQueryRef: null }),
+            babelHelpers.extends({}, D, { proHomeQueryRef: null }),
           )
         : d.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
             fallback: o("WAWebNullFunc").returnNull,
             name: "biz-broadcast-pro-home-query",
             onError: function () {
-              return L(y);
+              return E(C);
             },
             children: d.jsx(
               o("WAWebBizBroadcastProCampaignTableQuery")
                 .WAWebBizBroadcastProHomeQueryReader,
-              babelHelpers.extends({}, T, { queryRef: y }),
+              babelHelpers.extends({}, D, { queryRef: C }),
             ),
           });
     }

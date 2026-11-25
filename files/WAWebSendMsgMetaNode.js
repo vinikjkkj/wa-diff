@@ -17,6 +17,7 @@ __d(
     "WAWebSessionScope",
     "WAWebUsernameTypes",
     "WAWebVerifyProtobufMsgObjectKeys",
+    "isStringNullOrEmpty",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -30,18 +31,31 @@ __d(
         : null;
     }
     function u(t) {
-      var n = t.botMetricsOrigin,
-        r = t.chatId,
-        a = t.includeAttributes,
-        i = t.msgRecord;
-      if (n != null && (o("WAWebBotUtils").isMetaAiBot(r) || r.isFbidBot()))
-        return n;
-      var l =
-        i.data.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE &&
-        i.data.isForwarded === !0;
-      return l ? e : s(r, a);
+      var n,
+        r = t.botMetricsOrigin,
+        a = t.chatId,
+        i = t.includeAttributes,
+        l = t.msgRecord;
+      if (r != null && (o("WAWebBotUtils").isMetaAiBot(a) || a.isFbidBot()))
+        return r;
+      var u =
+        l.data.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE &&
+        l.data.isForwarded === !0;
+      return u ? e : (n = s(a, i)) != null ? n : c(l, i);
     }
-    function c(e) {
+    function c(t, n) {
+      return (n == null ? void 0 : n.omitEngagementOrigin) === !0 ||
+        t.data.kind === "peerMessage" ||
+        !r("justknobx")._("8733")
+        ? null
+        : r("isStringNullOrEmpty")(t.data.quotedStanzaID)
+          ? t.data.isForwarded === !0 &&
+            t.data.forwardedNewsletterMessageInfo == null
+            ? e
+            : null
+          : "reply";
+    }
+    function d(e) {
       var t,
         n,
         r,
@@ -50,33 +64,33 @@ __d(
         l = e.groupData,
         s = e.includeAttributes,
         c = e.msgProtobuf,
-        m = e.msgRecord,
-        _ = e.scheduledMsgMetadata,
-        v =
+        d = e.msgRecord,
+        p = e.scheduledMsgMetadata,
+        f =
           (t = o(
             "WAWebVerifyProtobufMsgObjectKeys",
           ).getUnwrappedProtobufMessage(c)) != null
             ? t
             : c,
-        S = d(i, m, c),
-        R = f(v),
-        L = p(
-          (_ == null ? void 0 : _.kind) === "schedule"
-            ? _.originalMessageAssociationType
+        S = m(i, d, c),
+        R = g(f),
+        L = _(
+          (p == null ? void 0 : p.kind) === "schedule"
+            ? p.originalMessageAssociationType
             : (n = c.messageContextInfo) == null ||
                 (n = n.messageAssociation) == null
               ? void 0
               : n.associationType,
         ),
-        E = h(v),
-        k = v.eventInviteMessage != null ? g : null,
-        I = C(s),
+        E = y(f),
+        k = f.eventInviteMessage != null ? h : null,
+        I = b(s),
         T;
-      m.type === "addon" &&
+      d.type === "addon" &&
         (T = o("WAWebE2EProtoUtils").extractCommentTargetIdAndSenderLid(
-          m.data,
+          d.data,
         ));
-      var D = m.data.botMetricsMetadata,
+      var D = d.data.botMetricsMetadata,
         x =
           D != null
             ? o("WAWebBotLoggingUtils").getBotOriginFromBotMetricsEntryPoint(
@@ -88,21 +102,21 @@ __d(
           botMetricsOrigin: x,
           chatId: i,
           includeAttributes: s,
-          msgRecord: m,
+          msgRecord: d,
         }),
-        N = y(m, s),
-        M = b(m),
-        w = ((a = m.data.mediaData) == null ? void 0 : a.isViewOnce) === !0,
-        A = m.data.isGroupStatus === !0,
+        N = C(d, s),
+        M = v(d),
+        w = ((a = d.data.mediaData) == null ? void 0 : a.isViewOnce) === !0,
+        A = d.data.isGroupStatus === !0,
         F =
           A &&
           (s == null ? void 0 : s.hasPairwisePayload) === !0 &&
           s.sessionScope === o("WAWebSessionScope").SessionScope.STATUS,
         O =
-          _ != null
+          p != null
             ? o(
                 "WAWebScheduledMsgStanzaContributor",
-              ).genScheduledMsgMetaContribution(_)
+              ).genScheduledMsgMetaContribution(p)
             : null,
         B = [
           O != null,
@@ -176,8 +190,8 @@ __d(
         );
       }
     }
-    function d(e, t, n) {
-      return e.isStatus() && m(n)
+    function m(e, t, n) {
+      return e.isStatus() && p(n)
         ? "status_notify"
         : !r("justknobx")._("6915") || e.isNewsletter()
           ? null
@@ -186,7 +200,7 @@ __d(
             ? "add_on"
             : null;
     }
-    function m(e) {
+    function p(e) {
       var t,
         n =
           (t = o(
@@ -196,18 +210,18 @@ __d(
             : e;
       return n.statusNotificationMessage != null;
     }
-    function p(e) {
+    function _(e) {
       var t;
-      return e == null ? null : (t = _.get(e)) != null ? t : null;
+      return e == null ? null : (t = f.get(e)) != null ? t : null;
     }
-    var _ = new Map([
+    var f = new Map([
       [
         o("WAWebProtobufsE2E.pb").MessageAssociation$AssociationType
           .HD_IMAGE_DUAL_UPLOAD,
         "hd_image_dual_upload",
       ],
     ]);
-    function f(e) {
+    function g(e) {
       var t, n;
       return e.pollCreationMessage != null ||
         e.pollCreationMessageV2 != null ||
@@ -229,8 +243,8 @@ __d(
               ? o("WAWebHandleMsgCommon").POLL_TYPES.edit
               : null;
     }
-    var g = "event_invitation";
-    function h(e) {
+    var h = "event_invitation";
+    function y(e) {
       var t;
       return e.eventMessage != null
         ? o("WAWebHandleMsgCommon").EVENT_TYPES.creation
@@ -244,7 +258,7 @@ __d(
             ? o("WAWebHandleMsgCommon").EVENT_TYPES.edit
             : null;
     }
-    function y(e, t) {
+    function C(e, t) {
       var n =
         e.data.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
         e.data.subtype === "member_label";
@@ -260,12 +274,12 @@ __d(
           ? "group_history"
           : null;
     }
-    function C(e) {
+    function b(e) {
       var t = e != null ? e : {},
         n = t.hashedAiThreadId;
       return n != null ? n : null;
     }
-    function b(e) {
+    function v(e) {
       var t,
         n =
           e.data.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
@@ -276,9 +290,9 @@ __d(
     }
     ((l.getOriginAttribute = s),
       (l.getMetaOrigin = u),
-      (l.genMetaNode = c),
-      (l.getStatusContentType = d),
-      (l.isStatusNotificationPayload = m));
+      (l.genMetaNode = d),
+      (l.getStatusContentType = m),
+      (l.isStatusNotificationPayload = p));
   },
   98,
 );

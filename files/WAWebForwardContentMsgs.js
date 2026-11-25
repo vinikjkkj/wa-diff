@@ -3,7 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebForwardAssociatedChildren",
-    "WAWebForwardAssociationConfig",
+    "WAWebMessageAssociationConfig",
     "WAWebMessageAssociationUIUtils",
     "WAWebMsgActionCapability",
     "WAWebMsgType",
@@ -14,7 +14,7 @@ __d(
     var e;
     function s(e) {
       return e.flatMap(function (e) {
-        return o("WAWebForwardAssociationConfig").isForwardContainerMsgType(
+        return o("WAWebMessageAssociationConfig").isForwardContainerMsgType(
           e.type,
         )
           ? c(e)
@@ -24,7 +24,7 @@ __d(
     function u(e, t) {
       return e.flatMap(function (e) {
         if (
-          !o("WAWebForwardAssociationConfig").isForwardContainerMsgType(e.type)
+          !o("WAWebMessageAssociationConfig").isForwardContainerMsgType(e.type)
         )
           return [e];
         var n = c(e);

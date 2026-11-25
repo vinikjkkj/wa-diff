@@ -12,8 +12,9 @@ __d(
     var e,
       s,
       u = "24217912891242463",
-      c = "40015884884663230";
-    async function d(e) {
+      c = "26910955861935466",
+      d = "PROVIDER";
+    async function m(e) {
       var t = o("WAWebMusicViewerCountry").getMusicViewerCountry();
       if (t == null) return { status: "unavailable" };
       var n = o("WAWebABProps").getABPropConfigValue(
@@ -38,21 +39,21 @@ __d(
           viaOhai: !1,
         });
       if (!r.ok) return { status: "failed" };
-      var a = f(r.data, "music_song_batch");
+      var a = g(r.data, "music_song_batch");
       if (!Array.isArray(a)) return { status: "failed" };
-      var i = f(a[0], "lyrics"),
-        l = m(i, n);
+      var i = g(a[0], "lyrics"),
+        l = p(i, n && g(i, "word_timing_source") === d);
       return l != null
         ? { status: "available", lines: l }
         : i == null && r.errors.length > 0
           ? { status: "failed" }
           : { status: "unavailable" };
     }
-    function m(t, n) {
-      var r = f(t, "lines");
-      if (f(t, "available") !== !0 || !Array.isArray(r)) return null;
+    function p(t, n) {
+      var r = g(t, "lines");
+      if (g(t, "available") !== !0 || !Array.isArray(r)) return null;
       var a = r.map(function (e) {
-        return p(e, n);
+        return _(e, n);
       });
       return a.length === 0
         ? null
@@ -70,10 +71,10 @@ __d(
             null)
           : a.filter(Boolean);
     }
-    function p(e, t) {
-      var n = f(e, "start_time_in_ms"),
-        r = f(e, "end_time_in_ms"),
-        o = f(f(e, "line"), "text");
+    function _(e, t) {
+      var n = g(e, "start_time_in_ms"),
+        r = g(e, "end_time_in_ms"),
+        o = g(g(e, "line"), "text");
       return typeof n != "number" ||
         typeof r != "number" ||
         typeof o != "string"
@@ -82,16 +83,16 @@ __d(
             startTimeMs: n,
             endTimeMs: r,
             text: o,
-            wordOffsets: t ? _(f(e, "word_offsets")) : [],
+            wordOffsets: t ? f(g(e, "word_offsets")) : [],
           };
     }
-    function _(e) {
+    function f(e) {
       if (!Array.isArray(e)) return [];
       var t = e.map(function (e) {
-        var t = f(e, "start_index"),
-          n = f(e, "end_index"),
-          r = f(e, "start_offset_ms"),
-          o = f(e, "end_offset_ms");
+        var t = g(e, "start_index"),
+          n = g(e, "end_index"),
+          r = g(e, "start_offset_ms"),
+          o = g(e, "end_offset_ms");
         return typeof t == "number" &&
           typeof n == "number" &&
           typeof r == "number" &&
@@ -111,12 +112,12 @@ __d(
           [])
         : t.filter(Boolean);
     }
-    function f(e, t) {
+    function g(e, t) {
       return e != null && typeof e == "object" && !Array.isArray(e)
         ? e[t]
         : void 0;
     }
-    l.fetchMusicLyrics = d;
+    l.fetchMusicLyrics = m;
   },
   98,
 );

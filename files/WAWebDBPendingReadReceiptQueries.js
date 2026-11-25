@@ -36,7 +36,7 @@ __d(
           return (
             a.forEach(function (e, t) {
               var a = s[t];
-              if (!(a == null || l.has(a.id) || !m(a, n, e))) {
+              if (!(a == null || l.has(a.id) || !p(a, n, e))) {
                 var i = o(
                   "WAWebDBReadReceiptOriginBindings",
                 ).getCurrentPendingReadReceiptOrigin(a);
@@ -119,16 +119,19 @@ __d(
             a.length > 0 && (await n.bulkMergeOnly(a)));
         });
     }
-    function m(e, t, n) {
+    function m(e) {
+      return s.has(e.type);
+    }
+    function p(e, t, n) {
       return e.from !== t || e.pendingReadReceipt !== n.pendingType
         ? !1
         : n.pendingType ===
             o("WAWebDBMsgUtils").PendingReadReceiptType.MessageEdit
           ? e.latestEditMsgKey != null &&
             e.latestEditMsgKey === n.latestEditMsgKey
-          : !s.has(e.type);
+          : !m(e);
     }
-    async function p(e) {
+    async function _(e) {
       var t = e.MessageTable,
         n = e.chatId,
         r = e.pendingReadReceiptType,
@@ -145,8 +148,8 @@ __d(
             : o("WAWebDBMessageUtils").messageHasThreadId(e, a);
       });
     }
-    function _(e, t, n) {
-      return p({
+    function f(e, t, n) {
+      return _({
         MessageTable: e,
         chatId: t,
         pendingReadReceiptType:
@@ -154,11 +157,11 @@ __d(
         threadId: n,
       });
     }
-    function f(e, t) {
-      return _(o("WAWebSchemaMessage").getMessageTable(), e, t);
+    function g(e, t) {
+      return f(o("WAWebSchemaMessage").getMessageTable(), e, t);
     }
-    function g(e, t, n) {
-      return p({
+    function h(e, t, n) {
+      return _({
         MessageTable: e,
         chatId: t,
         pendingReadReceiptType:
@@ -166,41 +169,40 @@ __d(
         threadId: n,
       });
     }
-    function h(e, t) {
-      return g(o("WAWebSchemaMessage").getMessageTable(), e, t);
+    function y(e, t) {
+      return h(o("WAWebSchemaMessage").getMessageTable(), e, t);
     }
-    async function y(e, t, n) {
-      var r,
-        o,
-        a,
-        i = n.size;
-      if (i === 0) return null;
-      var l = await e.get(t);
-      if (l == null) return null;
-      var s = l.unreadCount,
-        u = Math.max(s - i, 0),
-        c = (r = l.unreadDividerOffset) != null ? r : 0,
-        d = c + i,
-        m = (o = l.unreadMentionsOfMe) != null ? o : [],
-        p = m.filter(function (e) {
-          return !n.has(e.id);
+    async function C(e, t, n, r) {
+      var o, a, i;
+      r === void 0 && (r = n);
+      var l = n.size;
+      if (l === 0 && r.size === 0) return null;
+      var s = await e.get(t);
+      if (s == null) return null;
+      var u = s.unreadCount,
+        c = Math.max(u - l, 0),
+        d = (o = s.unreadDividerOffset) != null ? o : 0,
+        m = d + l,
+        p = (a = s.unreadMentionsOfMe) != null ? a : [],
+        _ = p.filter(function (e) {
+          return !r.has(e.id);
         }),
-        _ = m.length - p.length,
-        f = (a = l.unreadMentionCount) != null ? a : 0,
-        g = Math.max(f - _, 0);
+        f = p.length - _.length,
+        g = (i = s.unreadMentionCount) != null ? i : 0,
+        h = Math.max(g - f, 0);
       return (
         await e.merge(t, {
           id: t,
-          unreadCount: u,
-          unreadDividerOffset: d,
-          unreadMentionsOfMe: p,
-          unreadMentionCount: g,
+          unreadCount: c,
+          unreadDividerOffset: m,
+          unreadMentionsOfMe: _,
+          unreadMentionCount: h,
         }),
         {
-          unreadCount: u,
-          unreadDividerOffset: d,
-          unreadMentionCount: g,
-          markedAsReadCount: i,
+          unreadCount: c,
+          unreadDividerOffset: m,
+          unreadMentionCount: h,
+          markedAsReadCount: l,
         }
       );
     }
@@ -216,11 +218,12 @@ __d(
       (l.claimPendingReadReceiptOrigins = u),
       (l.getLocallyReadPendingReceiptUpdate = c),
       (l.clearSentPendingReadReceipts = d),
-      (l.queryPendingReadReceiptMsgRowsWithTable = _),
-      (l.queryPendingReadReceiptMsgRows = f),
-      (l.queryUnreadEditedMsgRowsWithTable = g),
-      (l.queryUnreadEditedMsgRows = h),
-      (l.updateChatUnreadCountForReadMessages = y));
+      (l.isUnreceiptedMessageRow = m),
+      (l.queryPendingReadReceiptMsgRowsWithTable = f),
+      (l.queryPendingReadReceiptMsgRows = g),
+      (l.queryUnreadEditedMsgRowsWithTable = h),
+      (l.queryUnreadEditedMsgRows = y),
+      (l.updateChatUnreadCountForReadMessages = C));
   },
   98,
 );

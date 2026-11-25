@@ -169,30 +169,8 @@ __d(
             ).getUnifiedProfileVisitsAdsPlacementIneligibilityReason(
               t.destinationType,
             );
-          if (t.promotedObjectType === r("AdsPromotedObjectTypes").GROUP)
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createGroupPromotionReason();
-          if (t.promotedObjectType === r("AdsPromotedObjectTypes").IMAGINATION)
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createImaginationReason();
-          if (t.destinationType === r("AdCampaignDestination").INSTAGRAM_LIVE)
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createInstagramLiveReason();
-          if (t.promotedObjectType === r("AdsPromotedObjectTypes").REMINDER)
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createReminderPromotionReason();
-          if (t.promotedObjectType === r("AdsPromotedObjectTypes").INSTAGRAM)
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createInstagramDirectReason(t.objective);
-          if (t.destinationType === r("AdCampaignDestination").FACEBOOK_LIVE)
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createFacebookLiveReason();
+          var d = p(t);
+          if (d != null) return d;
           if (
             o(
               "AdsInstagramLeadGenPlacementUtils",
@@ -220,14 +198,14 @@ __d(
               t.spec,
               r("AdsAPIDevicePlatform").DESKTOP,
             ) &&
-            !_(a)
+            !f(a)
           )
             return o(
               "AdsPlacementIneligibilityReason",
             ).createDevicePlatformReason(r("AdsAPIDevicePlatform").DESKTOP);
-          var d = p(t, a, l);
-          return d != null
-            ? d
+          var g = _(t, a, l);
+          return g != null
+            ? g
             : (a === r("AdsAPIObjectives").PRODUCT_CATALOG_SALES &&
                   (t.optimizationGoal ===
                     r("AdsAPIOptimizationGoals").REPLIES ||
@@ -283,7 +261,7 @@ __d(
               (e.push("previews/search_serp_ads_mobile"),
               e.push("previews/marketplace_search_ads_mobile")),
             a &&
-              _(t.objective) &&
+              f(t.objective) &&
               (e.push("previews/search_serp_ads_desktop"),
               e.push("previews/marketplace_search_ads_desktop")),
             r("immutable").OrderedSet(e)
@@ -299,7 +277,7 @@ __d(
             : o("AdsPlacementAPISpecReaderUtils").isOnlyActiveDevicePlatform(
                   t.spec,
                   r("AdsAPIDevicePlatform").DESKTOP,
-                ) && _(t.objective)
+                ) && f(t.objective)
               ? "previews/search_serp_ads_desktop"
               : "previews/search_serp_ads_mobile";
         },
@@ -358,7 +336,28 @@ __d(
         parentPlacements: r("immutable").OrderedSet(["facebook/feed"]),
         childPlacements: r("immutable").OrderedSet([]),
       };
-    function p(e, t, n) {
+    function p(e) {
+      return e.promotedObjectType === r("AdsPromotedObjectTypes").GROUP
+        ? o("AdsPlacementIneligibilityReason").createGroupPromotionReason()
+        : e.promotedObjectType === r("AdsPromotedObjectTypes").IMAGINATION
+          ? o("AdsPlacementIneligibilityReason").createImaginationReason()
+          : e.destinationType === r("AdCampaignDestination").INSTAGRAM_LIVE
+            ? o("AdsPlacementIneligibilityReason").createInstagramLiveReason()
+            : e.promotedObjectType === r("AdsPromotedObjectTypes").REMINDER
+              ? o(
+                  "AdsPlacementIneligibilityReason",
+                ).createReminderPromotionReason()
+              : e.promotedObjectType === r("AdsPromotedObjectTypes").INSTAGRAM
+                ? o(
+                    "AdsPlacementIneligibilityReason",
+                  ).createInstagramDirectReason(e.objective)
+                : e.destinationType === r("AdCampaignDestination").FACEBOOK_LIVE
+                  ? o(
+                      "AdsPlacementIneligibilityReason",
+                    ).createFacebookLiveReason()
+                  : null;
+    }
+    function _(e, t, n) {
       return o(
         "AdsClickToCallAdsUtils",
       ).getIsClickToCallAdsUnderLeadGenObjective(
@@ -386,11 +385,11 @@ __d(
               ).createPhoneCallConversionsOrSalesReason()
             : null;
     }
-    function _(e) {
+    function f(e) {
       return d.includes(e);
     }
-    var f = m;
-    l.default = f;
+    var g = m;
+    l.default = g;
   },
   226,
 );

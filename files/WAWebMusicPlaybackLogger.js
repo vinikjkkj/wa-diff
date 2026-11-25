@@ -5,6 +5,7 @@ __d(
     "WAWebFrontendMsgGetters",
     "WAWebLidMigrationUtils",
     "WAWebMsgGetters",
+    "WAWebMusicGatingUtils",
     "WAWebUserThreadIdHmac",
     "WAWebWamEnumMusicProduct",
     "WamMusicPlaybackFalcoEvent",
@@ -15,9 +16,9 @@ __d(
     async function u(t) {
       var n,
         a = (n = t.musicData) == null ? void 0 : n.musicContentMediaId;
-      if (a != null) {
+      if (!(a == null || c(a))) {
         var i = t.id.fromMe,
-          l = c(t);
+          l = d(t);
         if (l == null) {
           o("WALogger")
             .WARN(
@@ -29,7 +30,7 @@ __d(
             .sendLogs("music-playback-missing-author-lid");
           return;
         }
-        var s = await m(l, a);
+        var s = await p(l, a);
         s != null &&
           r("WamMusicPlaybackFalcoEvent").log(function () {
             return {
@@ -41,16 +42,22 @@ __d(
       }
     }
     function c(e) {
-      if (d(e)) return o("WAWebFrontendMsgGetters").getChat(e).accountLid;
+      return (
+        o("WAWebMusicGatingUtils").isMusicReportingStubbed() ||
+        e === o("WAWebMusicGatingUtils").MUSIC_REPORTING_STUB_MEDIA_ID
+      );
+    }
+    function d(e) {
+      if (m(e)) return o("WAWebFrontendMsgGetters").getChat(e).accountLid;
       var t = o("WAWebMsgGetters").getSender(e);
       return t == null || !t.isUser()
         ? null
         : o("WAWebLidMigrationUtils").toUserLid(t);
     }
-    function d(e) {
+    function m(e) {
       return !e.id.fromMe && !o("WAWebMsgGetters").getIsGroupMsg(e);
     }
-    async function m(e, t) {
+    async function p(e, t) {
       try {
         return await o("WAWebUserThreadIdHmac").generateUserThreadIDHMAC(
           e.toString(),

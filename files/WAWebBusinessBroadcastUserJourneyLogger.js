@@ -104,6 +104,12 @@ __d(
           (t.newChatEntryPointClicked = function () {
             o("WAWebBBEntryPointLogs").newChatEntryPointClicked(this.$1);
           }),
+          (t.navBarEntryPointViewed = function () {
+            o("WAWebBBEntryPointLogs").navBarEntryPointViewed(this.$1);
+          }),
+          (t.navBarEntryPointClicked = function () {
+            o("WAWebBBEntryPointLogs").navBarEntryPointClicked(this.$1);
+          }),
           (t.sendMsgMultiModalViewed = function (t) {
             o("WAWebBBEntryPointLogs").sendMsgMultiModalViewed(this.$1, t);
           }),

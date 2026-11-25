@@ -15,7 +15,6 @@ __d(
     function g(t) {
       return (
         t === void 0 && (t = !0),
-        r("vulture")("99MOd1H0UBSc8pE4Dclxa6UFLlA="),
         t
           ? o("WAWebNonAddressBookContactsJob")
               .getAndUpdateNonAddressBookContacts()

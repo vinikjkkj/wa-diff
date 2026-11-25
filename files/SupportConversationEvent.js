@@ -209,6 +209,8 @@ __d(
         MAISA_CALL_UPSELL_CARD_IMPRESSION: "maisa_call_upsell_card_impression",
         MAISA_CHAT_MESSAGE_THUMBS_DOWN_CLICK:
           "maisa_chat_message_thumbs_down_click",
+        MAISA_CHAT_MESSAGE_THUMBS_IMPRESSION:
+          "maisa_chat_message_thumbs_impression",
         MAISA_CHAT_MESSAGE_THUMBS_UP_CLICK:
           "maisa_chat_message_thumbs_up_click",
         MAISA_DISCLAIMER_NUX_CONTINUE_CLICK:

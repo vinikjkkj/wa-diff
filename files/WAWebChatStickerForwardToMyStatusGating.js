@@ -7,7 +7,13 @@ __d(
         "chat_sticker_forward_to_my_status_web_enabled",
       );
     }
-    l.isChatStickerForwardToMyStatusEnabled = e;
+    function s() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "status_chat_sticker_forward_page_color_enabled",
+      );
+    }
+    ((l.isChatStickerForwardToMyStatusEnabled = e),
+      (l.isChatStickerStatusPageColorEnabled = s));
   },
   98,
 );

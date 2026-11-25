@@ -158,14 +158,8 @@ __d(
           e === r("AdsAPIObjectives").OUTCOME_ENGAGEMENT &&
           n === r("AdsPromotedObjectTypes").POST &&
           a === r("AdsEditorPostEditMode").INLINE &&
-          r("AdsInstagramApplicabilityUtils").hasInstagramPlacement(i),
-        y =
-          s &&
-          n === r("AdsPromotedObjectTypes").WEB_AND_APP &&
-          i != null &&
-          r("AdsInstagramApplicabilityUtils").hasInstagramPlacement(i) &&
-          o("ClickToMessageCTDFeatureGating").isIGCTAEnabledForSalesWebsite();
-      return g || h || y;
+          r("AdsInstagramApplicabilityUtils").hasInstagramPlacement(i);
+      return g || h;
     }
     ((l.DEFAULT_INSTAGRAM_LINK = u),
       (l.getIgUserIDFromActorID = c),

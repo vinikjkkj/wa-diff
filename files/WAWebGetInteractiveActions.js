@@ -211,7 +211,8 @@ __d(
         ? !1
         : n ||
             t.nativeFlowName ===
-              r("WAWebInteractiveMessagesNativeFlowName").CTA_URL
+              r("WAWebInteractiveMessagesNativeFlowName").CTA_URL ||
+            o("WAWebGetMultiStepFormAction").isOutgoingBizBotForm(t)
           ? !0
           : f(e, t);
     }

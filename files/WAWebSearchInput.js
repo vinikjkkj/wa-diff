@@ -243,7 +243,7 @@ __d(
         }),
         ne = x
           ? u.jsxs("button", {
-              "aria-label": s._(/*BTDS*/ ""),
+              "aria-label": String(s._(/*BTDS*/ "")),
               onClick: Y,
               children: [
                 u.jsx(

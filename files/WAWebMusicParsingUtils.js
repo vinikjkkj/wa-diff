@@ -6,6 +6,7 @@ __d(
     "WALongInt",
     "WAWebABProps",
     "WAWebAsISOCountryCode",
+    "WAWebMusicClip",
     "WAWebMusicGatingUtils",
     "WAWebProtobufsE2E.pb",
   ],
@@ -18,14 +19,15 @@ __d(
       d,
       m,
       p,
-      _ = 2147483647,
-      f = [".fbcdn.net", ".whatsapp.net"];
-    function g(e) {
+      _,
+      f = 2147483647,
+      g = [".fbcdn.net", ".whatsapp.net"];
+    function h(e) {
       var t = [];
       for (var n of e) t.push(n.charCodeAt(0), n.charCodeAt(1));
       return new Uint8Array(t).buffer;
     }
-    function h(t) {
+    function y(t) {
       for (
         var n = Array.from(new Uint8Array(t)).map(function (e) {
             return String.fromCharCode(e);
@@ -53,7 +55,7 @@ __d(
         r
       );
     }
-    function y(e) {
+    function C(e) {
       var t = e.artistAttribution,
         n = e.artworkDirectPath,
         r = e.artworkEncSha256,
@@ -78,10 +80,10 @@ __d(
             artworkMediaKey: a != null ? o("WABase64").encodeB64(a) : void 0,
             isExplicit: !!u,
             artistAttribution: t,
-            countryBlocklist: s != null ? h(s) : new Set(),
+            countryBlocklist: s != null ? y(s) : new Set(),
           };
     }
-    function C(e) {
+    function b(e) {
       var t,
         n,
         r = e.artworkUri,
@@ -117,22 +119,22 @@ __d(
                 "[music] music message has no artwork uri",
               ])),
           ));
-      var k = L(C);
+      var R = E(C);
       return {
         musicContentMediaId: y,
         songId: v,
         author: f,
         title: S,
-        songUri: R(i, "song"),
-        artworkUri: R(r, "artwork"),
+        songUri: L(i, "song"),
+        artworkUri: L(r, "artwork"),
         style:
           (t = o(
             "WAWebProtobufsE2E.pb",
           ).Message$MusicMessage$MusicMessageStyle.cast(l)) != null
             ? t
             : void 0,
-        songStartTimeMs: k != null ? k : void 0,
-        clipDurationMs: (n = E(k, b)) != null ? n : void 0,
+        songStartTimeMs: R != null ? R : void 0,
+        clipDurationMs: (n = k(R, b)) != null ? n : void 0,
         isExplicit: h,
         countryBlocklist: g,
         artistAttribution: c,
@@ -142,15 +144,15 @@ __d(
         artworkMediaKey: p,
       };
     }
-    function b(e) {
+    function v(e) {
       return (
         e != null &&
         e.songUri != null &&
         o("WAWebMusicGatingUtils").isMusicOnChatsReceiverEnabled() &&
-        v(e.style) != null
+        S(e.style) != null
       );
     }
-    function v(e) {
+    function S(e) {
       return e ===
         o("WAWebProtobufsE2E.pb").Message$MusicMessage$MusicMessageStyle.VINYL
         ? o("WAWebProtobufsE2E.pb").Message$MusicMessage$MusicMessageStyle.VINYL
@@ -173,12 +175,12 @@ __d(
                 .LYRICS
             : null;
     }
-    function S(e) {
+    function R(e) {
       var t = [
         o("WAWebProtobufsE2E.pb").Message$MusicMessage$MusicMessageStyle.VINYL,
       ];
       return (
-        v(
+        S(
           o("WAWebProtobufsE2E.pb").Message$MusicMessage$MusicMessageStyle
             .MESSAGE_BUBBLE,
         ) != null &&
@@ -190,7 +192,7 @@ __d(
               .MESSAGE_BUBBLE,
           ),
         e &&
-          v(
+          S(
             o("WAWebProtobufsE2E.pb").Message$MusicMessage$MusicMessageStyle
               .LYRICS,
           ) != null &&
@@ -204,7 +206,7 @@ __d(
         t
       );
     }
-    function R(e, t) {
+    function L(e, t) {
       if (e != null) {
         var n;
         try {
@@ -227,7 +229,7 @@ __d(
           i = r.protocol;
         if (
           i !== "https:" ||
-          !f.some(function (e) {
+          !g.some(function (e) {
             return a.endsWith(e);
           })
         ) {
@@ -250,10 +252,10 @@ __d(
         return e;
       }
     }
-    function L(e) {
+    function E(e) {
       if (e == null) return 0;
       var t = o("WALongInt").maybeNumber(e);
-      return t == null || t < 0 || t > _
+      return t == null || t < 0 || t > f
         ? (o("WALogger").WARN(
             m ||
               (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -265,10 +267,10 @@ __d(
           null)
         : t;
     }
-    function E(e, t) {
+    function k(e, t) {
       if (e == null || t == null) return null;
-      var n = o("WALongInt").maybeNumber(t);
-      return n == null || n <= 0 || n > _ - e
+      var n = I(o("WALongInt").maybeNumber(t));
+      return n == null || n <= 0 || n > f - e
         ? (o("WALogger").WARN(
             p ||
               (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -280,14 +282,27 @@ __d(
           null)
         : n;
     }
-    ((l.countryCodeSetToBuffer = g),
-      (l.mapToCountryCode = h),
-      (l.toMusicMetadata = y),
-      (l.toMusicData = C),
-      (l.canRenderMusicMessage = b),
-      (l.renderableMusicStyle = v),
-      (l.getProducibleStyles = S),
-      (l.toAllowedUri = R));
+    function I(e) {
+      return e == null || e <= o("WAWebMusicClip").MAX_CLIP_MS
+        ? e
+        : (o("WALogger").WARN(
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
+                "[music] clip duration clamped: ",
+                "",
+              ])),
+            String(e),
+          ),
+          o("WAWebMusicClip").MAX_CLIP_MS);
+    }
+    ((l.countryCodeSetToBuffer = h),
+      (l.mapToCountryCode = y),
+      (l.toMusicMetadata = C),
+      (l.toMusicData = b),
+      (l.canRenderMusicMessage = v),
+      (l.renderableMusicStyle = S),
+      (l.getProducibleStyles = R),
+      (l.toAllowedUri = L));
   },
   98,
 );

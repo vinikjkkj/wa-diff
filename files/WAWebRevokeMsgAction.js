@@ -241,6 +241,7 @@ __d(
                         $,
                         [I],
                         o("WAWebFrontendMsgGetters").getChat(p).id,
+                        { pathfinderAccountToken: null },
                       )
                   : v($, I, o("WAWebFrontendMsgGetters").getChat(p).id)),
                 t = e.messageSendResult;

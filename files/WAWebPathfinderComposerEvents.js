@@ -4,6 +4,7 @@ __d(
     "JSResourceForInteraction",
     "WALogger",
     "WAWebLexicalUtils",
+    "WAWebPathfinderAccountToken",
     "WAWebPathfinderDeferredEmitter",
     "WAWebPathfinderHeldBackScreen",
     "WAWebPathfinderHeldBackSurface",
@@ -71,6 +72,9 @@ __d(
             screenName: n,
             unifiedSessionId: y(),
             heldBackSurface: null,
+            accountToken: o(
+              "WAWebPathfinderAccountToken",
+            ).getPathfinderCaptureAccountToken(),
           },
         };
         _(r);

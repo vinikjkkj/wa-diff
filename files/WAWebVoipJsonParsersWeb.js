@@ -679,6 +679,7 @@ __d(
             ),
             isVideoCall: e.is_video_call,
             enabled: e.enabled,
+            callId: e.call_id,
           };
         },
         parseCallTransferFailedData: function (t) {

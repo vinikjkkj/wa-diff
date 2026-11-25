@@ -11,34 +11,36 @@ __d(
   function (t, n, r, o, a, i, l) {
     async function e(e) {
       var t = e.chat,
-        n = e.key,
-        a = e.threadId,
-        i = e.unreadDelta,
-        l = o("WATimeUtils").unixTimeMs();
-      if (i === -1) {
-        var s = await r("WAWebMarkChatAsReadSync").getMarkChatAsReadMutation(
-            l,
+        n = e.claimNewOrigins,
+        a = e.key,
+        i = e.readOrigin,
+        l = e.threadId,
+        s = e.unreadDelta,
+        u = o("WATimeUtils").unixTimeMs();
+      if (s === -1) {
+        var c = await r("WAWebMarkChatAsReadSync").getMarkChatAsReadMutation(
+            u,
             !0,
             t.id,
           ),
-          u = t.id.toString();
+          d = t.id.toString();
         return (
           await o("WAWebMessageRangeUtils").lockForMessageRangeSync(
             [],
-            [s],
+            [c],
             function () {
               return o("WAWebApiAddActiveMessageRange").addActiveMessageRange(
                 t.id.toString(),
                 "markChatAsRead",
-                s.binarySyncAction,
+                c.binarySyncAction,
               );
             },
           ),
-          await o("WAWebApiChat").updateChatForMarkAsReadSync(u),
+          await o("WAWebApiChat").updateChatForMarkAsReadSync(d),
           { fullyReadThreadIds: [] }
         );
       }
-      return await o("WAWebSendReadReceiptJob").markChatRead(t, n, a);
+      return await o("WAWebSendReadReceiptJob").markChatRead(t, a, l, i, n);
     }
     l.sendConversationSeen = e;
   },

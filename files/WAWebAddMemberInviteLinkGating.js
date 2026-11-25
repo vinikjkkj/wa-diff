@@ -54,7 +54,6 @@ __d(
       );
     }
     ((l.getAddMemberInviteChatId = e),
-      (l.getAddMemberInviteVariant = s),
       (l.getAddMemberInviteVariantFor = u),
       (l.shouldShowAddMemberInviteTiles = c));
   },

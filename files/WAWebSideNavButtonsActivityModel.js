@@ -90,6 +90,7 @@ __d(
           case o("WAWebNavBarTypes").NavBarItems.Beta:
           case o("WAWebNavBarTypes").NavBarItems.BizTools:
           case o("WAWebNavBarTypes").NavBarItems.AdCreation:
+          case o("WAWebNavBarTypes").NavBarItems.BusinessBroadcast:
           case o("WAWebNavBarTypes").NavBarItems.Calls:
           case o("WAWebNavBarTypes").NavBarItems.Contacts:
           case o("WAWebNavBarTypes").NavBarItems.Orders:

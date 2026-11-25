@@ -162,33 +162,35 @@ __d(
         n = e.initialTab,
         a = e.onClose,
         i = e.openBroadcastSettings,
-        l = e.openContactImport,
-        s = e.openCustomerBasePanel,
-        u = e.openDataSharingPanel,
-        c = o(
+        l = e.openComposer,
+        s = e.openContactImport,
+        u = e.openCustomerBasePanel,
+        c = e.openDataSharingPanel,
+        d = o(
           "useWAWebBizBroadcastProEligibilityState",
         ).useWAWebBizBroadcastProEligibilityState(),
-        d = c.onboardingStatus,
-        p = {
+        p = d.onboardingStatus,
+        _ = {
           entryPoint: t,
           initialTab: n,
           onClose: a,
           openBroadcastSettings: i,
-          openCustomerBasePanel: s,
-          openDataSharingPanel: u,
-          openContactImport: l,
+          openCustomerBasePanel: u,
+          openDataSharingPanel: c,
+          openContactImport: s,
+          openComposer: l,
         };
       return o(
         "WAWebBusinessBroadcastsGatingUtils",
-      ).isBizBroadcastProEnabled() && d == null
+      ).isBizBroadcastProEnabled() && p == null
         ? m.jsx(r("WAWebLoadingDrawer.react"), { error: !1 })
         : o("WAWebBusinessBroadcastsGatingUtils").isBizBroadcastProEnabled() &&
             o("WAWebBusinessBroadcastsGatingUtils").isBizBroadcastProUser()
-          ? m.jsx(g, babelHelpers.extends({}, p))
+          ? m.jsx(g, babelHelpers.extends({}, _))
           : m.jsx(
               o("WAWebBusinessBroadcastHomeFlowLoadable")
                 .WAWebBusinessBroadcastCoreHomeFlowLoadable,
-              babelHelpers.extends({}, p),
+              babelHelpers.extends({}, _),
             );
     }
     ((b.displayName = b.name + " [from " + i.id + "]"),

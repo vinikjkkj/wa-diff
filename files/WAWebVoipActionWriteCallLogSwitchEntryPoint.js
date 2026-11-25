@@ -12,7 +12,10 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebUserUtils",
+    "WAWebViewMode.flow",
     "WAWebVoipActionWriteCallLogImpl",
+    "WAWebVoipCallLogWriteMutex",
+    "WAWebVoipOngoingCallCollection",
     "WAWebVoipTransferredCallRegistry",
     "WAWebVoipUnresolvedPlaceholderLoadable",
     "WAWebVoipWaCallEnums",
@@ -47,7 +50,7 @@ __d(
     }
     async function m(t) {
       try {
-        t.enabled ? await p(t) : f(t.rootCallId) || (await _(t));
+        t.enabled ? await p(t) : await _(t);
       } catch (t) {
         o("WALogger")
           .ERROR(
@@ -62,7 +65,7 @@ __d(
       }
     }
     async function p(e) {
-      var t = await h(e),
+      var t = await v(e),
         n = t.callCreatorUserWid,
         r = t.chatId,
         a = t.id,
@@ -117,7 +120,69 @@ __d(
         }));
     }
     async function _(e) {
-      var t = await h(e),
+      await o(
+        "WAWebVoipOngoingCallCollection",
+      ).WAWebVoipOngoingCallCollection.waitUntilLoaded();
+      var t = await o(
+        "WAWebVoipCallLogWriteMutex",
+      ).WACallLogWriteMutex.acquire();
+      try {
+        !C(e.rootCallId) &&
+          o(
+            "WAWebVoipOngoingCallCollection",
+          ).WAWebVoipOngoingCallCollection.getByCallId(e.rootCallId) == null &&
+          (await y(e));
+      } finally {
+        t.release();
+      }
+    }
+    async function f(e) {
+      var t,
+        n = await o("WAWebModelStorageUtils")
+          .getStorage()
+          .lock(["message"], async function (t) {
+            var n = t[0],
+              r = await n.get(e.toString(), !1);
+            return r == null
+              ? null
+              : (await n.merge(r.id, g(r)),
+                {
+                  switchEntryEnded: r.switchEntryEnded,
+                  finalCallOutcome: r.finalCallOutcome,
+                  viewMode: r.viewMode,
+                });
+          });
+      return n == null
+        ? function () {
+            return Promise.resolve();
+          }
+        : ((t = o("WAWebMsgCollection").MsgCollection.get(e)) == null ||
+            t.set(g(n)),
+          function () {
+            return h(e, n);
+          });
+    }
+    function g(e) {
+      return babelHelpers.extends(
+        { switchEntryEnded: void 0, finalCallOutcome: void 0 },
+        e.viewMode ===
+          o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OUT_OF_ORDER
+          ? { viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE }
+          : null,
+      );
+    }
+    async function h(e, t) {
+      var n;
+      (await o("WAWebModelStorageUtils")
+        .getStorage()
+        .lock(["message"], async function (n) {
+          var r = n[0];
+          await r.merge(e.toString(), t);
+        }),
+        (n = o("WAWebMsgCollection").MsgCollection.get(e)) == null || n.set(t));
+    }
+    async function y(e) {
+      var t = await v(e),
         n = t.chatId,
         r = t.id;
       (o("WALogger").LOG(
@@ -138,12 +203,12 @@ __d(
             },
           },
         ),
-        await g(r),
+        await b(r),
         o(
           "WAWebVoipUnresolvedPlaceholderLoadable",
         ).scheduleSwitchEntryCallLogRepair(r, null));
     }
-    function f(e) {
+    function C(e) {
       var t;
       return (
         o("WAWebVoipTransferredCallRegistry").getLiveTransferredCallRootId(
@@ -151,14 +216,14 @@ __d(
         ) === e
       );
     }
-    async function g(e) {
+    async function b(e) {
       var t = await o("WAWebModelStorageUtils")
         .getStorage()
         .lock(["message"], async function (t) {
           var n = t[0],
             r = await n.get(e.toString(), !1);
           return (r == null ? void 0 : r.switchEntryCallLogTime) == null ||
-            f(e.id)
+            C(e.id)
             ? !1
             : (r.switchEntryEnded !== !0 &&
                 (await n.merge(r.id, { switchEntryEnded: !0 })),
@@ -170,7 +235,7 @@ __d(
           n.set({ switchEntryEnded: !0 });
       }
     }
-    async function h(e) {
+    async function v(e) {
       var t = e.peerWid,
         n = e.rootCallCreatorJid,
         a = e.rootCallId,
@@ -201,8 +266,10 @@ __d(
       };
     }
     ((l.writeCallLogForSwitchEntryPoint = d),
-      (l.isSwitchEntryRootCallLiveHere = f),
-      (l.markSwitchEntryCallLogEnded = g));
+      (l.reopenSwitchEntryCallLog = f),
+      (l.isSwitchEntryRootCallLiveHere = C),
+      (l.markSwitchEntryCallLogEnded = b),
+      (l.resolveRootCallLogTarget = v));
   },
   98,
 );

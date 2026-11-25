@@ -14,8 +14,16 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = ["type", "__name"],
       s,
-      u = "fdfc37eab5074a0f36acb420da40cf80670a8719dc656dc452233b86d29f36b8",
+      u = "cc5518730274036d1f4735df7374c8b3bc7f4996a81dcdd170a9f204a2670b3c",
       c = {
+        cc5518730274036d1f4735df7374c8b3bc7f4996a81dcdd170a9f204a2670b3c:
+          function () {
+            return r("bx")("111379");
+          },
+        "4cd9662970e40d5a16ee4e8ac776d62d03b9d1b7a65fb15bb81c2412818e66dd":
+          function () {
+            return r("bx")("111371");
+          },
         fdfc37eab5074a0f36acb420da40cf80670a8719dc656dc452233b86d29f36b8:
           function () {
             return r("bx")("111362");
@@ -72,16 +80,8 @@ __d(
           function () {
             return r("bx")("110938");
           },
-        e170c01ca2d47ec61a0969ffff1c08157667de3020a5d541e00f0ab19291641a:
-          function () {
-            return r("bx")("110930");
-          },
-        "9c4a873ad10d07e6b3257b30ef2237239e2f1111306bcf32cb06a493120e5beb":
-          function () {
-            return r("bx")("110810");
-          },
       },
-      d = c.fdfc37eab5074a0f36acb420da40cf80670a8719dc656dc452233b86d29f36b8,
+      d = c.cc5518730274036d1f4735df7374c8b3bc7f4996a81dcdd170a9f204a2670b3c,
       m = null,
       p = null;
     try {
@@ -90,6 +90,14 @@ __d(
       m = e;
     }
     var _ = {
+        cc5518730274036d1f4735df7374c8b3bc7f4996a81dcdd170a9f204a2670b3c:
+          function () {
+            return r("bx")("111378");
+          },
+        "4cd9662970e40d5a16ee4e8ac776d62d03b9d1b7a65fb15bb81c2412818e66dd":
+          function () {
+            return r("bx")("111370");
+          },
         fdfc37eab5074a0f36acb420da40cf80670a8719dc656dc452233b86d29f36b8:
           function () {
             return r("bx")("111361");
@@ -146,20 +154,12 @@ __d(
           function () {
             return r("bx")("110937");
           },
-        e170c01ca2d47ec61a0969ffff1c08157667de3020a5d541e00f0ab19291641a:
-          function () {
-            return r("bx")("110929");
-          },
-        "9c4a873ad10d07e6b3257b30ef2237239e2f1111306bcf32cb06a493120e5beb":
-          function () {
-            return r("bx")("110809");
-          },
       },
-      f = _.fdfc37eab5074a0f36acb420da40cf80670a8719dc656dc452233b86d29f36b8,
+      f = _.cc5518730274036d1f4735df7374c8b3bc7f4996a81dcdd170a9f204a2670b3c,
       g = null,
       h;
     try {
-      h = r("bx").getURL(f(), { cacheBreaker: "1795509534550" });
+      h = r("bx").getURL(f(), { cacheBreaker: "1795590562901" });
     } catch (e) {
       g = e;
     }
@@ -198,7 +198,7 @@ __d(
         var b = a;
         if (
           (o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(
-            "/wasm/whatsapp/versioned/fdfc37eab5074a0f36acb420da40cf80670a8719dc656dc452233b86d29f36b8/wa_voip_shared.wasm",
+            "/wasm/whatsapp/versioned/cc5518730274036d1f4735df7374c8b3bc7f4996a81dcdd170a9f204a2670b3c/wa_voip_shared.wasm",
           ),
           g != null)
         )
@@ -922,7 +922,7 @@ __d(
           console.warn.apply(console, arguments);
         }
         var Qe = {
-          1459410: function (t, n) {
+          1450190: function (t, n) {
             var e =
               "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
               t.toFixed(1) +
@@ -936,7 +936,7 @@ __d(
               message: e,
             });
           },
-          1459697: function () {
+          1450477: function () {
             return Date.now();
           },
         };
@@ -7732,13 +7732,13 @@ __d(
             invoke_iiiiii: wl,
             invoke_iiiiiii: Dl,
             invoke_iiiiiiiddiiid: Gu,
-            invoke_iiiiiiii: Wl,
+            invoke_iiiiiiii: Bl,
             invoke_iiiiiiiidi: zu,
             invoke_iiiiiiiifii: ou,
             invoke_iiiiiiiii: Ml,
             invoke_iiiiiiiiii: Al,
             invoke_iiiiiiiiiiffiii: vs,
-            invoke_iiiiiiiiiii: Ol,
+            invoke_iiiiiiiiiii: Ul,
             invoke_iiiiiiiiiiii: Fl,
             invoke_iiiiiiiiiiiiffiii: Ls,
             invoke_iiiiiiiiiiiii: Ds,
@@ -7811,13 +7811,13 @@ __d(
             invoke_viif: Qs,
             invoke_viii: Ll,
             invoke_viiii: $l,
-            invoke_viiiii: ql,
-            invoke_viiiiii: Bl,
+            invoke_viiiii: Wl,
+            invoke_viiiiii: Ol,
             invoke_viiiiiidiii: rs,
             invoke_viiiiiii: Hl,
             invoke_viiiiiiiddiii: Zl,
             invoke_viiiiiiii: Vl,
-            invoke_viiiiiiiii: Ul,
+            invoke_viiiiiiiii: ql,
             invoke_viiiiiiiiii: ns,
             invoke_viiiiiiiiiiii: Gs,
             invoke_viiiiiiiiiiiii: uu,
@@ -7924,8 +7924,8 @@ __d(
           yl = (b.___get_exception_message = Pe("__get_exception_message")),
           Cl = Pe("__cxa_can_catch"),
           bl = Pe("__cxa_is_pointer_type"),
-          vl = (b.___start_em_js = 1453468),
-          Sl = (b.___stop_em_js = 1459410);
+          vl = (b.___start_em_js = 1444284),
+          Sl = (b.___stop_em_js = 1450190);
         function Rl(e, t, n, r) {
           var o = _l();
           try {
@@ -8061,16 +8061,7 @@ __d(
             ul(1, 0);
           }
         }
-        function Ol(e, t, n, r, o, a, i, l, s, u, c) {
-          var d = _l();
-          try {
-            return pn(e)(t, n, r, o, a, i, l, s, u, c);
-          } catch (e) {
-            if ((fl(d), !(e instanceof Ne))) throw e;
-            ul(1, 0);
-          }
-        }
-        function Bl(e, t, n, r, o, a, i) {
+        function Ol(e, t, n, r, o, a, i) {
           var l = _l();
           try {
             pn(e)(t, n, r, o, a, i);
@@ -8079,7 +8070,7 @@ __d(
             ul(1, 0);
           }
         }
-        function Wl(e, t, n, r, o, a, i, l) {
+        function Bl(e, t, n, r, o, a, i, l) {
           var s = _l();
           try {
             return pn(e)(t, n, r, o, a, i, l);
@@ -8088,7 +8079,7 @@ __d(
             ul(1, 0);
           }
         }
-        function ql(e, t, n, r, o, a) {
+        function Wl(e, t, n, r, o, a) {
           var i = _l();
           try {
             pn(e)(t, n, r, o, a);
@@ -8097,12 +8088,21 @@ __d(
             ul(1, 0);
           }
         }
-        function Ul(e, t, n, r, o, a, i, l, s, u) {
+        function ql(e, t, n, r, o, a, i, l, s, u) {
           var c = _l();
           try {
             pn(e)(t, n, r, o, a, i, l, s, u);
           } catch (e) {
             if ((fl(c), !(e instanceof Ne))) throw e;
+            ul(1, 0);
+          }
+        }
+        function Ul(e, t, n, r, o, a, i, l, s, u, c) {
+          var d = _l();
+          try {
+            return pn(e)(t, n, r, o, a, i, l, s, u, c);
+          } catch (e) {
+            if ((fl(d), !(e instanceof Ne))) throw e;
             ul(1, 0);
           }
         }
@@ -9524,8 +9524,6 @@ __d(
         }
         ((b.keepRuntimeAlive = _e),
           (b.wasmMemory = U),
-          (b.GROWABLE_HEAP_U8 = c),
-          (b.GROWABLE_HEAP_F32 = y),
           (b.ExitStatus = yt),
           (b.FS = Yt),
           (b.PThread = an),
@@ -9713,10 +9711,12 @@ __d(
           "getTempRet0",
           "setTempRet0",
           "GROWABLE_HEAP_I8",
+          "GROWABLE_HEAP_U8",
           "GROWABLE_HEAP_I16",
           "GROWABLE_HEAP_U16",
           "GROWABLE_HEAP_I32",
           "GROWABLE_HEAP_U32",
+          "GROWABLE_HEAP_F32",
           "GROWABLE_HEAP_F64",
           "writeStackCookie",
           "checkStackCookie",
@@ -10007,7 +10007,31 @@ __d(
             b.preInit.length > 0;
           )
             b.preInit.pop()();
-        return (uc(), a.ready);
+        uc();
+        for (var dc of [
+          [
+            "GROWABLE_HEAP_U8",
+            function () {
+              return c();
+            },
+          ],
+          [
+            "GROWABLE_HEAP_F32",
+            function () {
+              return y();
+            },
+          ],
+        ]) {
+          var mc = dc[0],
+            pc = dc[1];
+          Object.defineProperty(b, mc, {
+            configurable: !0,
+            enumerable: !0,
+            writable: !0,
+            value: pc,
+          });
+        }
+        return a.ready;
       };
     })();
     ((y.BUILD_SHA = u),
@@ -10024,7 +10048,7 @@ __d(
         if (g == null && m == null) return { hadError: !1, wasm: !0, glue: !0 };
         if (g != null)
           try {
-            ((h = r("bx").getURL(f(), { cacheBreaker: "1795509534550" })),
+            ((h = r("bx").getURL(f(), { cacheBreaker: "1795590562901" })),
               (g = null));
           } catch (e) {
             return ((g = e), { hadError: !0, wasm: !1, glue: m == null });

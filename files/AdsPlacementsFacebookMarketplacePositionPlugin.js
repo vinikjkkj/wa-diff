@@ -76,7 +76,24 @@ __d(
                   ).createPhoneCallConversionsOrSalesReason()
                 : null;
     }
-    var d = {
+    function d(e) {
+      return e.promotedObjectType === r("AdsPromotedObjectTypes").DONATION
+        ? o("AdsPlacementIneligibilityReason").createDonationReason()
+        : e.promotedObjectType === r("AdsPromotedObjectTypes").GROUP
+          ? o("AdsPlacementIneligibilityReason").createGroupPromotionReason()
+          : e.promotedObjectType === r("AdsPromotedObjectTypes").IMAGINATION
+            ? o("AdsPlacementIneligibilityReason").createImaginationReason()
+            : e.promotedObjectType === r("AdsPromotedObjectTypes").REMINDER
+              ? o(
+                  "AdsPlacementIneligibilityReason",
+                ).createReminderPromotionReason()
+              : e.destinationType === r("AdCampaignDestination").FACEBOOK_LIVE
+                ? o(
+                    "AdsPlacementIneligibilityReason",
+                  ).createFacebookLiveReason()
+                : null;
+    }
+    var m = {
         type: "placements/position",
         key: "facebook/marketplace",
         name: r("AdsPlacementPositionLabelConstant").marketplace,
@@ -100,7 +117,7 @@ __d(
         getIneligibilityReason: function (n) {
           var t = o(
             "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
-          ).getSOOBundleParentIneligibilityReason(d, n);
+          ).getSOOBundleParentIneligibilityReason(m, n);
           if (t != null) return t;
           if (
             o("ASAPlacementControlsStoreUtils").hasAccountPlacementExclusions(
@@ -188,10 +205,10 @@ __d(
               n.spec,
               r("AdsAPIDevicePlatform").MOBILE,
             ),
-            m = r("AdsAccountStore").getSelectedAccount().getValue();
+            p = r("AdsAccountStore").getSelectedAccount().getValue();
           if (
             o("AdsWhatsAppPlacementUtils").isIneligibleForMarketplacePlacement(
-              m,
+              p,
               babelHelpers.extends({}, n, { objective: l }),
               u,
             )
@@ -203,8 +220,8 @@ __d(
             return o(
               "AdsPlacementIneligibilityReason",
             ).createInstagramLiveReason();
-          var p = c(n, l, u);
-          if (p != null) return p;
+          var _ = c(n, l, u);
+          if (_ != null) return _;
           if (
             o(
               "adsIGLoginPlacementUtils",
@@ -266,25 +283,9 @@ __d(
             return o(
               "AdsPlacementIneligibilityReason",
             ).createInstantGameReason();
-          if (n.promotedObjectType === r("AdsPromotedObjectTypes").DONATION)
-            return o("AdsPlacementIneligibilityReason").createDonationReason();
-          if (n.promotedObjectType === r("AdsPromotedObjectTypes").GROUP)
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createGroupPromotionReason();
-          if (n.promotedObjectType === r("AdsPromotedObjectTypes").IMAGINATION)
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createImaginationReason();
-          if (n.promotedObjectType === r("AdsPromotedObjectTypes").REMINDER)
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createReminderPromotionReason();
-          if (n.destinationType === r("AdCampaignDestination").FACEBOOK_LIVE)
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createFacebookLiveReason();
-          var _ = r("AdsAccountUtils").hasCapabilityFromList(
+          var f = d(n);
+          if (f != null) return f;
+          var g = r("AdsAccountUtils").hasCapabilityFromList(
             n.capabilities,
             "CAN_USE_MARKETPLACE_DESKTOP",
           );
@@ -298,19 +299,19 @@ __d(
               n.spec,
               r("AdsAPIDevicePlatform").DESKTOP,
             ) &&
-            !_
+            !g
           )
             return o(
               "AdsPlacementIneligibilityReason",
             ).createDevicePlatformReason(r("AdsAPIDevicePlatform").DESKTOP);
-          var f = o(
+          var h = o(
             "AdsReachFrequencyPlacementUtils",
           ).getReachFrequencyDisabledReason(
             "facebook/marketplace",
             babelHelpers.extends({}, n, { objective: l }),
           );
-          return f !== null
-            ? f
+          return h !== null
+            ? h
             : o(
                   "AdsVideoBuyingStoreUtils",
                 ).checkIfPlacementPositionValidForBuyingOption(
@@ -445,8 +446,8 @@ __d(
         parentPlacements: r("immutable").OrderedSet(["facebook/feed"]),
         childPlacements: r("immutable").OrderedSet([]),
       },
-      m = d;
-    l.default = m;
+      p = m;
+    l.default = p;
   },
   226,
 );

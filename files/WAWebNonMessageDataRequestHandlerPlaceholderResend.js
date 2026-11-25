@@ -21,6 +21,7 @@ __d(
     "WAWebWidFactory",
     "decodeProtobuf",
     "err",
+    "filterNulls",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f, g, h, y;
@@ -194,13 +195,15 @@ __d(
           n = (
             await o("WAWebSchemaMessage")
               .getMessageTable()
-              .bulkGet([
-                e.id.toString(),
-                (t = o("WAWebLidMigrationUtils").getAlternateMsgKey(e.id)) ==
-                null
-                  ? void 0
-                  : t.toString(),
-              ])
+              .bulkGet(
+                r("filterNulls")([
+                  e.id.toString(),
+                  (t = o("WAWebLidMigrationUtils").getAlternateMsgKey(e.id)) ==
+                  null
+                    ? void 0
+                    : t.toString(),
+                ]),
+              )
           ).find(Boolean);
         return n
           ? babelHelpers.extends({}, e, {

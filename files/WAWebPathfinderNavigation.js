@@ -10,23 +10,38 @@ __d(
     "WAWebTimeSpentLoggingNavigation",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n) {
-      if (t === "background")
+    function e(e, t, n, r) {
+      if (t === "background") {
+        var a,
+          i,
+          l = o("WAWebPathfinderHeldBackScreen").getOccurrenceVerdict(
+            r,
+            r.realDestination,
+          );
         c({
           eventType: "BACKGROUND",
           screenName: e,
           timestampMs: n,
-          heldBackSurface: o("WAWebPathfinderHeldBackScreen").leavingVerdict(e),
+          heldBackSurface:
+            (a =
+              (i = o("WAWebPathfinderHeldBackScreen").leavingVerdict(e)) != null
+                ? i
+                : l) != null
+              ? a
+              : void 0,
         });
-      else {
+      } else {
+        var s,
+          u = o("WAWebPathfinderHeldBackScreen").getOccurrenceVerdict(r, t);
         o("WAWebPathfinderScreenName").updateCurrentScreenName(t);
-        var r = o("WAWebPathfinderHeldBackScreen").claimedLeavingVerdict(t);
-        (r == null && o("WAWebPathfinderHeldBackScreen").noteEnteredScreen(t),
+        var d = o("WAWebPathfinderHeldBackScreen").claimedLeavingVerdict(t);
+        (d == null &&
+          o("WAWebPathfinderHeldBackScreen").noteEnteredScreen(t, u),
           c({
             eventType: "FOREGROUND",
             screenName: t,
             timestampMs: n,
-            heldBackSurface: r,
+            heldBackSurface: (s = d != null ? d : u) != null ? s : void 0,
           }));
       }
     }
@@ -46,19 +61,25 @@ __d(
         (s = e.eventType),
         o("WAWebPathfinderLogger").emitPathfinderEvent(e));
     }
-    function d(t, n, r, o) {
-      var a = Date.now();
-      if (n === "background" || t === "background") {
-        e(t, n, a);
-        return;
+    function d(t, n, r, a) {
+      var i = Date.now();
+      try {
+        if (n === "background" || t === "background") {
+          e(t, n, i, a);
+          return;
+        }
+        m(t, n, r, a.destinationChannelWid, i, a);
+      } finally {
+        o("WAWebPathfinderHeldBackScreen").settleNavigationDelivery(a);
       }
-      m(t, n, r, o.destinationChannelWid, a);
     }
-    function m(e, t, n, r, a) {
-      var i = _(e, t);
-      (o("WAWebPathfinderHeldBackScreen").noteEnteredScreen(t),
+    function m(e, t, n, r, a, i) {
+      var l,
+        s = o("WAWebPathfinderHeldBackScreen").getOccurrenceVerdict(i, t),
+        u = (l = _(e, t)) != null ? l : s;
+      (o("WAWebPathfinderHeldBackScreen").noteEnteredScreen(t, s),
         o("WAWebPathfinderScreenName").updateCurrentScreenName(t));
-      var l =
+      var c =
         t === n
           ? o("WAWebPathfinderChatInfo").getActiveChatInfoMetadata(n, r)
           : void 0;
@@ -70,12 +91,18 @@ __d(
         triggeringTestId: o(
           "WAWebPathfinderUserTouch",
         ).consumeLastTapTrackingId(),
-        customMetadata: l,
-        heldBackSurface: i,
+        customMetadata: c,
+        heldBackSurface: u,
       });
     }
     function p() {
-      return o("WAWebTimeSpentLoggingNavigation").addNavigationListener(d);
+      var e = o("WAWebTimeSpentLoggingNavigation").addNavigationEnqueueListener(
+          o("WAWebPathfinderHeldBackScreen").captureNavigationStep,
+        ),
+        t = o("WAWebTimeSpentLoggingNavigation").addNavigationListener(d);
+      return function () {
+        (e(), t());
+      };
     }
     function _(e, t) {
       var n,

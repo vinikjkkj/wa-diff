@@ -1,8 +1,10 @@
 __d(
   "WAWebChatStickerStatusPage",
   [
+    "WABase64",
     "WALogger",
     "WAWebCanvasUtils",
+    "WAWebChatStickerForwardToMyStatusGating",
     "WAWebChatStickerStatusPageBackground",
     "WAWebFeatureDetectionDetectWebpSupport",
     "WAWebFileUtils",
@@ -23,37 +25,30 @@ __d(
       d = 0.5,
       m = 4,
       p = 128,
-      _ = "#0A1014",
-      f = 0.25,
-      g = [
-        [0, 0.65],
-        [0.25, 0.55],
-        [0.5, 0.33],
-        [0.75, 0.1],
-        [1, 0],
-      ];
-    async function h(e) {
-      var t = await b(e, await y(e));
+      _ = 4,
+      f = "#0A1014";
+    async function g(e) {
+      var t = await C(e, await h(e));
       try {
-        return await R(t);
+        return await S(t, e.mediaData.filehash);
       } finally {
         t.close();
       }
     }
-    async function y(e) {
-      C(e) == null &&
+    async function h(e) {
+      y(e) == null &&
         (await e.downloadMedia({
           downloadEvenIfExpensive: !0,
           rmrReason: o("WAWebWamEnumWebcRmrReasonCode").WEBC_RMR_REASON_CODE
             .SEND_TO_CHAT,
           isUserInitiated: !0,
         }));
-      var t = C(e);
+      var t = y(e);
       if (t == null)
         throw r("err")("renderChatStickerStatusPage: the sticker has no media");
       return t;
     }
-    function C(e) {
+    function y(e) {
       var t,
         n,
         a = (t = e.mediaData) == null ? void 0 : t.mediaBlob;
@@ -64,7 +59,7 @@ __d(
         ? o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(i)
         : null;
     }
-    async function b(e, t) {
+    async function C(e, t) {
       return o("WAWebStickerUtils").getStickerFileType(e.mimetype) ===
         o("WAWebStickerUtils").StickerFileType.LOTTIE
         ? createImageBitmap(await r("WAWebLottieStickerFirstFrame")(e, t))
@@ -72,9 +67,9 @@ __d(
               "WAWebFeatureDetectionDetectWebpSupport",
             ).detectWebpSupport())
           ? createImageBitmap(t)
-          : createImageBitmap(S(await v(e, t)));
+          : createImageBitmap(v(await b(e, t)));
     }
-    async function v(e, t) {
+    async function b(e, t) {
       var n = e.mediaData,
         a = n.rgbaBuffer,
         i = n.rgbaHeight,
@@ -93,7 +88,7 @@ __d(
         );
       return { height: c, rgbaBuffer: m.rgbaBuffer, width: d };
     }
-    function S(e) {
+    function v(e) {
       var t = e.height,
         n = e.rgbaBuffer,
         a = e.width;
@@ -108,38 +103,32 @@ __d(
       var s = l.createImageData(a, t);
       return (s.data.set(new Uint8Array(n)), l.putImageData(s, 0, 0), i);
     }
-    async function R(e) {
+    async function S(e, t) {
       if (e.width === 0 || e.height === 0)
         throw r("err")(
           "renderChatStickerStatusPage: the sticker's first frame is empty",
         );
-      var t = o("WAWebCanvasUtils").createCanvas(s, u),
-        n = t.getContext("2d");
-      if (n == null)
+      var n = o("WAWebCanvasUtils").createCanvas(s, u),
+        a = n.getContext("2d");
+      if (a == null)
         throw r("err")("renderChatStickerStatusPage: no 2D canvas context");
-      ((n.fillStyle = E(e)), n.fillRect(0, 0, s, u), L(n));
-      var a = Math.min((s * d) / e.width, u / e.height),
-        i = e.width * a,
-        l = e.height * a;
+      ((a.fillStyle = o(
+        "WAWebChatStickerForwardToMyStatusGating",
+      ).isChatStickerStatusPageColorEnabled()
+        ? R(e, t)
+        : f),
+        a.fillRect(0, 0, s, u));
+      var i = Math.min((s * d) / e.width, u / e.height),
+        l = e.width * i,
+        m = e.height * i;
       return (
-        n.drawImage(e, (s - i) / 2, (u - l) / 2, i, l),
-        o("WAWebCanvasUtils").canvasToBlob(t, c)
+        a.drawImage(e, (s - l) / 2, (u - m) / 2, l, m),
+        o("WAWebCanvasUtils").canvasToBlob(n, c)
       );
     }
-    function L(e) {
-      var t = u * f,
-        n = e.createLinearGradient(0, 0, 0, t);
-      (g.forEach(function (e) {
-        var t = e[0],
-          r = e[1];
-        n.addColorStop(t, "rgba(0, 0, 0, " + r + ")");
-      }),
-        (e.fillStyle = n),
-        e.fillRect(0, 0, s, t));
-    }
-    function E(t) {
+    function R(t, n) {
       try {
-        return r("WAWebChatStickerStatusPageBackground")(k(t));
+        return r("WAWebChatStickerStatusPageBackground")(E(t), L(n));
       } catch (t) {
         return (
           o("WALogger")
@@ -151,11 +140,16 @@ __d(
             )
             .catching(r("getErrorSafe")(t))
             .sendLogs("chat-sticker-status-page-color-failed"),
-          _
+          f
         );
       }
     }
-    function k(e) {
+    function L(e) {
+      if (e == null) return 0;
+      var t = o("WABase64").decodeB64(e);
+      return t.byteLength < _ ? 0 : new DataView(t).getUint32(0);
+    }
+    function E(e) {
       var t = Math.min(1, p / Math.max(e.width, e.height)),
         n = Math.max(1, Math.round(e.width * t)),
         a = Math.max(1, Math.round(e.height * t)),
@@ -165,7 +159,7 @@ __d(
         throw r("err")("renderChatStickerStatusPage: no 2D canvas context");
       return (l.drawImage(e, 0, 0, n, a), l.getImageData(0, 0, n, a));
     }
-    l.default = h;
+    l.default = g;
   },
   98,
 );

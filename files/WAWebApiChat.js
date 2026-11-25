@@ -224,10 +224,20 @@ __d(
             D = null,
             x = m && c != null;
           if (x)
-            E.size > 0 &&
+            b.length > 0 &&
               (D = await o(
                 "WAWebDBPendingReadReceiptQueries",
-              ).updateChatUnreadCountForReadMessages(d, t, E));
+              ).updateChatUnreadCountForReadMessages(
+                d,
+                t,
+                E,
+                new Set(
+                  b.flatMap(function (e) {
+                    var t;
+                    return (t = e.id) != null ? t : [];
+                  }),
+                ),
+              ));
           else {
             var $ = k === 0 && n ? -1 : k;
             T.push(
@@ -364,10 +374,19 @@ __d(
           if (
             (c &&
               l != null &&
-              y.size > 0 &&
+              h.length > 0 &&
               (C = await o(
                 "WAWebDBPendingReadReceiptQueries",
-              ).updateChatUnreadCountForReadMessages(n, s, y)),
+              ).updateChatUnreadCountForReadMessages(
+                n,
+                s,
+                y,
+                new Set(
+                  h.map(function (e) {
+                    return e.id;
+                  }),
+                ),
+              )),
             c && l != null && p.add(l.toString()),
             z(d, u, c, l, p),
             p.size === 0)

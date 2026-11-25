@@ -3,57 +3,75 @@ __d(
   ["WAWebChatCollection", "WAWebEventEmitter", "WAWebNoop"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = (function (e) {
-        function t() {
-          for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
+    var e = 8,
+      s = (function (t) {
+        function n() {
+          for (var e, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
           return (
-            (t = e.call.apply(e, [this].concat(r)) || this),
-            (t.$CallTransferEntryPointStore$p_1 = new Map()),
-            (t.$CallTransferEntryPointStore$p_2 = []),
-            babelHelpers.assertThisInitialized(t) ||
-              babelHelpers.assertThisInitialized(t)
+            (e = t.call.apply(t, [this].concat(r)) || this),
+            (e.$CallTransferEntryPointStore$p_1 = new Map()),
+            (e.$CallTransferEntryPointStore$p_2 = []),
+            (e.$CallTransferEntryPointStore$p_3 = new Map()),
+            babelHelpers.assertThisInitialized(e) ||
+              babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(t, e);
-        var n = t.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (n.applyChange = function (t) {
-            var e = t.enabled,
-              n = t.isVideoCall,
-              r = t.peerActiveDeviceJid,
-              o = t.peerWid,
-              a = t.rootCallCreatorJid,
-              i = t.rootCallId;
-            if (!e) {
-              this.remove(i, a);
+          (a.applyChange = function (t) {
+            var e = t.callId,
+              n = t.enabled,
+              r = t.isVideoCall,
+              o = t.peerActiveDeviceJid,
+              a = t.peerWid,
+              i = t.rootCallCreatorJid,
+              l = t.rootCallId,
+              s = {
+                rootCallId: l,
+                rootCallCreatorJid: i,
+                peerActiveDeviceJid: o,
+                peerWid: a,
+                isVideoCall: r,
+              };
+            if ((this.$CallTransferEntryPointStore$p_4(e, s), !n)) {
+              this.remove(l, i);
               return;
             }
-            var l = i + "|" + a;
-            (this.$CallTransferEntryPointStore$p_1.delete(l),
-              this.$CallTransferEntryPointStore$p_1.set(l, {
-                rootCallId: i,
-                rootCallCreatorJid: a,
-                peerActiveDeviceJid: r,
-                peerWid: o,
-                isVideoCall: n,
-              }),
-              this.$CallTransferEntryPointStore$p_3());
+            var u = l + "|" + i;
+            (this.$CallTransferEntryPointStore$p_1.delete(u),
+              this.$CallTransferEntryPointStore$p_1.set(u, s),
+              this.$CallTransferEntryPointStore$p_5());
           }),
-          (n.remove = function (t, n) {
+          (a.$CallTransferEntryPointStore$p_4 = function (n, r) {
+            if (
+              !(n == null || n === "") &&
+              (this.$CallTransferEntryPointStore$p_3.delete(n),
+              this.$CallTransferEntryPointStore$p_3.set(n, r),
+              this.$CallTransferEntryPointStore$p_3.size > e)
+            ) {
+              var t = this.$CallTransferEntryPointStore$p_3.keys().next().value;
+              t != null && this.$CallTransferEntryPointStore$p_3.delete(t);
+            }
+          }),
+          (a.getForSegmentCallId = function (t) {
+            return this.$CallTransferEntryPointStore$p_3.get(t);
+          }),
+          (a.remove = function (t, n) {
             this.$CallTransferEntryPointStore$p_1.delete(t + "|" + n) &&
-              this.$CallTransferEntryPointStore$p_3();
+              this.$CallTransferEntryPointStore$p_5();
           }),
-          (n.$CallTransferEntryPointStore$p_3 = function () {
+          (a.$CallTransferEntryPointStore$p_5 = function () {
             ((this.$CallTransferEntryPointStore$p_2 = Array.from(
               this.$CallTransferEntryPointStore$p_1.values(),
             )),
               this.trigger("change"));
           }),
-          (n.getEntryPoints = function () {
+          (a.getEntryPoints = function () {
             return this.$CallTransferEntryPointStore$p_2;
           }),
-          (n.getForChatId = function (t) {
+          (a.getForChatId = function (t) {
             for (var e of this.$CallTransferEntryPointStore$p_1.values()) {
               var n;
               if (
@@ -67,12 +85,12 @@ __d(
             }
             return null;
           }),
-          (n.getForRootCallId = function (t) {
+          (a.getForRootCallId = function (t) {
             for (var e of this.$CallTransferEntryPointStore$p_1.values())
               if (e.rootCallId === t) return e;
             return null;
           }),
-          (n.waitForEntryPoint = async function (t) {
+          (a.waitForEntryPoint = async function (t) {
             var e = this,
               n = this.$CallTransferEntryPointStore$p_2.at(-1);
             if (n != null) return n;
@@ -93,11 +111,11 @@ __d(
               (self.clearTimeout(a), this.off("change", o));
             }
           }),
-          t
+          n
         );
       })(r("WAWebEventEmitter")),
-      s = new e();
-    l.WAWebVoipCallTransferEntryPointStore = s;
+      u = new s();
+    l.WAWebVoipCallTransferEntryPointStore = u;
   },
   98,
 );

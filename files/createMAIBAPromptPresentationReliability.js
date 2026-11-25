@@ -28,7 +28,10 @@ __d(
           : a > 0 && i === 0 && n("presentations_static_only_observed"),
         i > 0 && n("presentations_unknown_observed"));
     }
-    function d(e, t) {
+    function d(e, t, n) {
+      return e ? "valid_empty" : t ? "failed" : n ? "mismatch" : "incomplete";
+    }
+    function m(e, t) {
       var n = u(e.renderedKeys),
         r = n == null ? "unobserved" : e.coverage,
         o = n != null ? n : new Set(),
@@ -43,7 +46,7 @@ __d(
         rendered: o,
       };
     }
-    function m(e, t, n) {
+    function p(e, t, n) {
       var r = new Set(),
         a = o(
           "MAIBAPromptReliabilityCounters",
@@ -62,92 +65,85 @@ __d(
             l("presentations_started");
           } catch (e) {}
         },
-        m = !1,
         p = !1,
-        _ = 0,
-        f = !1,
+        _ = !1,
+        f = 0,
         g = !1,
-        h = -1,
+        h = !1,
         y = -1,
-        C = "pending",
-        b = null,
-        v = "pending",
-        S = "not_committed",
-        R = null,
-        L = new Set(),
-        E = !1,
-        k = null,
-        I = function () {
-          ((f = !0), (g = !0), (h = ++_));
+        C = -1,
+        b = "pending",
+        v = null,
+        S = "pending",
+        R = "not_committed",
+        L = null,
+        E = new Set(),
+        k = !1,
+        I = null,
+        T = function () {
+          ((g = !0), (h = !0), (y = ++f));
         },
-        T = function (t) {
+        D = function (t) {
           try {
-            y = ++_;
-            var e = d(t, g);
-            ((S = e.renderCoverage),
-              (L = e.rendered),
-              (E = e.capped),
-              (k = e.displayLimit),
-              (g = e.currentBlocker));
+            C = ++f;
+            var e = m(t, h);
+            ((R = e.renderCoverage),
+              (E = e.rendered),
+              (k = e.capped),
+              (I = e.displayLimit),
+              (h = e.currentBlocker));
           } catch (e) {
-            ((S = "unobserved"), (L = new Set()), (k = null));
+            ((R = "unobserved"), (E = new Set()), (I = null));
           }
         },
-        D = function () {
+        x = function () {
           var e,
             t,
-            n = (e = (t = R) == null ? void 0 : t.size) != null ? e : 0,
-            r = C === "success" && v === "complete" && R != null,
-            o = S === "complete" || S === "not_committed",
-            a = Array.from(L).every(function (e) {
+            n = (e = (t = L) == null ? void 0 : t.size) != null ? e : 0,
+            r = b === "success" && S === "complete" && L != null,
+            o = R === "complete" || R === "not_committed",
+            a = Array.from(E).every(function (e) {
               var t;
-              return ((t = R) == null ? void 0 : t.has(e)) === !0;
+              return ((t = L) == null ? void 0 : t.has(e)) === !0;
             }),
-            i = E && k != null && S === "complete" && L.size === Math.min(n, k),
-            l = Array.from(R != null ? R : []).every(function (e) {
-              return L.has(e);
+            i = k && I != null && R === "complete" && E.size === Math.min(n, I),
+            l = Array.from(L != null ? L : []).every(function (e) {
+              return E.has(e);
             }),
             s = r && o && a && (i || l);
-          return s && n > 0 && !g
-            ? f && y > h
-              ? "recovered"
-              : l
-                ? "correct"
-                : "capped"
-            : r && S === "complete" && n === 0 && L.size === 0 && !g
-              ? "valid_empty"
-              : g || C === "failure" || (f && !s)
-                ? "failed"
-                : r && o && (n > 0 || L.size > 0)
-                  ? "mismatch"
-                  : "incomplete";
+          if (s && n > 0 && !h)
+            return g && C > y ? "recovered" : l ? "correct" : "capped";
+          var u = r && R === "complete" && n === 0 && E.size === 0 && !h,
+            c = h || b === "failure" || (g && !s),
+            m = r && o && (n > 0 || E.size > 0);
+          return d(u, c, m);
         },
-        x = function (r) {
+        $ = function (r) {
           try {
             var e, i;
-            if (m || n == null || a == null) return null;
-            m = !0;
-            var l = D(),
-              s = S === "complete" || S === "not_committed",
+            if (p || n == null || a == null) return null;
+            p = !0;
+            var l = x(),
+              s = R === "complete" || R === "not_committed",
               u = {
-                authority: b,
-                capped: E,
+                authority: v,
+                capped: k,
                 closeReason: r,
                 expectedCount:
-                  v === "complete" &&
-                  (e = (i = R) == null ? void 0 : i.size) != null
+                  S === "complete" &&
+                  (e = (i = L) == null ? void 0 : i.size) != null
                     ? e
                     : null,
-                hadBlocker: f,
+                hadBlocker: g,
                 outcome: l,
-                renderCoverage: S,
-                renderedCount: s ? L.size : null,
-                sourceCoverage: v,
-                terminal: C,
+                renderCoverage: R,
+                renderedCount: s ? E.size : null,
+                sourceCoverage: S,
+                terminal: b,
               };
             return (
-              (R = null),
-              (L = new Set()),
+              (L = null),
+              (E = new Set()),
               o("MAIBAPromptReliabilityCounters").bumpMAIBAPromptAttemptOutcome(
                 a,
                 t,
@@ -163,30 +159,30 @@ __d(
             return null;
           }
         },
-        $ = function () {
+        P = function () {
           try {
-            if (m || n == null) return;
-            var e = D();
+            if (p || n == null) return;
+            var e = x();
             (e === "correct" ||
               e === "capped" ||
               e === "valid_empty" ||
               e === "recovered") &&
-              x("settled");
+              $("settled");
           } catch (e) {}
         };
       return {
         onStart: s,
         onRender: function (t, n) {
-          if (!p) {
+          if (!_) {
             try {
               (s(), c(t, i, l));
             } catch (e) {}
-            n != null && !m && (T(n), $());
+            n != null && !p && (D(n), P());
           }
         },
         onBlocked: function (t) {
-          if (!p) {
-            ((i = !0), I());
+          if (!_) {
+            ((i = !0), T());
             try {
               (s(),
                 l(
@@ -210,30 +206,30 @@ __d(
         },
         onResult: function (t) {
           try {
-            if (m || p || t.selectedAuthority !== !0) return;
-            (_++, (C = t.terminal), (b = t.authority), C === "failure" && I());
+            if (p || _ || t.selectedAuthority !== !0) return;
+            (f++, (b = t.terminal), (v = t.authority), b === "failure" && T());
             var e = u(t.expectedKeys);
-            ((v = e == null ? "unobserved" : t.coverage), (R = e));
+            ((S = e == null ? "unobserved" : t.coverage), (L = e));
           } catch (e) {
-            ((v = "unobserved"), (R = null));
+            ((S = "unobserved"), (L = null));
           }
         },
         onEnd: function (t) {
           try {
-            return p ||
+            return _ ||
               n == null ||
               a == null ||
               t.kind === "effect_cleanup" ||
-              (t.kind === "visibility_hidden" && D() === "incomplete")
+              (t.kind === "visibility_hidden" && x() === "incomplete")
               ? null
-              : (t.kind === "retire" && (p = !0), x(t.reason));
+              : (t.kind === "retire" && (_ = !0), $(t.reason));
           } catch (e) {
             return null;
           }
         },
       };
     }
-    l.createMAIBAPromptPresentationReliability = m;
+    l.createMAIBAPromptPresentationReliability = p;
   },
   98,
 );

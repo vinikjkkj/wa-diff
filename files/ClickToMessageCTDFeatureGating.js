@@ -142,13 +142,9 @@ __d(
     }
     function E() {
       var e;
-      return (e = r("qex")._("3764")) != null ? e : !1;
-    }
-    function k() {
-      var e;
       return (e = r("qex")._("1815")) != null ? e : !1;
     }
-    function I() {
+    function k() {
       var e = r("gkx")("11835");
       if (e) return !0;
       var t = r("gkx")("21216") === !0;
@@ -166,7 +162,7 @@ __d(
         t
       );
     }
-    function T() {
+    function I() {
       var e = r("gkx")("11155") === !0;
       if (!e) return !1;
       var t = r("gkx")("11835") === !0;
@@ -186,7 +182,7 @@ __d(
         n
       );
     }
-    function D(e, t) {
+    function T(e, t) {
       t === void 0 && (t = {});
       var n = t,
         o = n.shouldLogExposure,
@@ -216,11 +212,10 @@ __d(
         "ClickToMessageCTDAdPreviewGating",
       ).shouldApplyCTDAdPreviewFixes),
       (l.isMTMLIGPostCTADefaultingEnabled = L),
-      (l.isIGCTAEnabledForSalesWebsite = E),
-      (l.isLeadsIGExistingPostCTAFilterFixEnabled = k),
-      (l.isCTADefaultingEnabled = I),
-      (l.isExistingPostCTAGuidanceCardRemovalEnabled = T),
-      (l.enableCTDProductExtensionsIGPlacement = D));
+      (l.isLeadsIGExistingPostCTAFilterFixEnabled = E),
+      (l.isCTADefaultingEnabled = k),
+      (l.isExistingPostCTAGuidanceCardRemovalEnabled = I),
+      (l.enableCTDProductExtensionsIGPlacement = T));
   },
   98,
 );

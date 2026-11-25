@@ -5,7 +5,6 @@ __d(
     "WAWebBusinessCategoriesResultModel",
     "WAWebBusinessProfileModel",
     "WAWebChatListSearch.react",
-    "WAWebCheckBox.react",
     "WAWebChipSelectorFooter.react",
     "WAWebFlatList.react",
     "WAWebFlatListContainer.react",
@@ -17,6 +16,7 @@ __d(
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebUtilsLogQplEvents",
+    "WDSBaseCheckbox.react",
     "WDSPaddings.stylex",
     "justknobx",
     "react",
@@ -242,10 +242,10 @@ __d(
                 o("WDSPaddings.stylex").wdsPaddings.paddingHor24,
               ),
               {
-                children: c.jsx(o("WAWebCheckBox.react").CheckBox, {
+                children: c.jsx(r("WDSBaseCheckbox.react"), {
                   id: "" + n.id,
                   onChange: i,
-                  checked: n.selected,
+                  value: n.selected,
                   disabled: n.disabled,
                 }),
               },

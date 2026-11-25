@@ -11,12 +11,17 @@ __d(
         r = e.lyricsConfirmedAtS;
       return r == null ? n != null && n.length > 0 : t - r >= c;
     }
-    function m(e, t) {
+    function m(e) {
+      var t = e.consumptionCheckedAtS,
+        n = e.lyrics;
+      return n == null && t == null;
+    }
+    function p(e, t) {
       return { startTimeMs: e, endTimeMs: t, text: "", wordOffsets: [] };
     }
-    var p = 64,
-      _ = 256;
-    function f(t, n, r) {
+    var _ = 64,
+      f = 256;
+    function g(t, n, r) {
       var a,
         i = (a = t == null ? void 0 : t.lines) != null ? a : [];
       if (i.length === 0) return null;
@@ -30,8 +35,8 @@ __d(
           ),
           null
         );
-      var l = i.map(g),
-        c = h(l, n, n + r);
+      var l = i.map(h),
+        c = y(l, n, n + r);
       if (c != null)
         return (
           o("WALogger").WARN(
@@ -47,7 +52,7 @@ __d(
           null
         );
       var d = l.filter(Boolean),
-        m = d.map(C);
+        m = d.map(b);
       return (
         m.some(function (e) {
           return e == null;
@@ -69,7 +74,7 @@ __d(
         })
       );
     }
-    function g(e) {
+    function h(e) {
       var t,
         n = o("WALongInt").maybeNumber(e.startTimeInMs),
         r = o("WALongInt").maybeNumber(e.endTimeInMs);
@@ -82,19 +87,19 @@ __d(
             wordOffsets: e.wordOffsets,
           };
     }
-    function h(e, t, n) {
-      if (e.length > p) return "too many lines";
+    function y(e, t, n) {
+      if (e.length > _) return "too many lines";
       var r = -1 / 0;
       for (var o of e) {
         if (o == null) return "line without times";
-        var a = y(o, r, t, n);
+        var a = C(o, r, t, n);
         if (a != null) return a;
         r = o.startTimeMs;
       }
       return null;
     }
-    function y(e, t, n, r) {
-      return e.text.length > _
+    function C(e, t, n, r) {
+      return e.text.length > f
         ? "line too long"
         : e.startTimeMs < t
           ? "lines out of order"
@@ -104,7 +109,7 @@ __d(
               ? "line outside the clip"
               : null;
     }
-    function C(e) {
+    function b(e) {
       var t = Array.from(e.text),
         n = e.endTimeMs - e.startTimeMs,
         r = [],
@@ -135,8 +140,9 @@ __d(
     }
     ((l.LYRICS_TTL_S = c),
       (l.areLyricsExpired = d),
-      (l.getNoLyricsLine = m),
-      (l.toMusicLyrics = f));
+      (l.areLyricsUnknown = m),
+      (l.getNoLyricsLine = p),
+      (l.toMusicLyrics = g));
   },
   98,
 );

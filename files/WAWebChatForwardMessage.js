@@ -11,7 +11,6 @@ __d(
     "WAWebContactGetters",
     "WAWebCryptoRandomMediaKey",
     "WAWebForwardAssociatedChildren",
-    "WAWebForwardAssociationConfig",
     "WAWebForwardMediaUtils",
     "WAWebForwardMessagePluginForwardMedia",
     "WAWebForwardMuseGroupGeneratedMediaAction",
@@ -31,6 +30,7 @@ __d(
     "WAWebMediaGetUploadOriginForChat",
     "WAWebMediaOpaqueData",
     "WAWebMediaUploadMmsThumbnail",
+    "WAWebMessageAssociationConfig",
     "WAWebMessagingGatingUtils",
     "WAWebMetaAiForwardedText",
     "WAWebMmsMediaTypes",
@@ -449,7 +449,7 @@ __d(
     function R(e) {
       return (
         p(e) ||
-        o("WAWebForwardAssociationConfig").isForwardContainerMsgType(e.type) ||
+        o("WAWebMessageAssociationConfig").isForwardContainerMsgType(e.type) ||
         L(e) ||
         o("WAWebPaymentRequestForwardPolicy").isPaymentRequestMsgModel(e) ||
         o("WAWebIsAccountBoundAiRichResponse").isAccountBoundAiRichResponse(e)

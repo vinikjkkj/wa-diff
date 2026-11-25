@@ -3,6 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebChatThreadLogging",
+    "WAWebMusicGatingUtils",
     "WAWebWamEnumMusicProduct",
     "WamMusicSendFalcoEvent",
     "getErrorSafe",
@@ -10,26 +11,29 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e, s;
     async function u(t) {
-      var n = await c(t);
-      if (n != null)
-        try {
-          r("WamMusicSendFalcoEvent").log(function () {
-            return {
-              message_key_hash: n,
-              music_product: o("WAWebWamEnumMusicProduct").MUSIC_PRODUCT.CHATS,
-            };
-          });
-        } catch (t) {
-          o("WALogger")
-            .WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[music] send not logged: Falco log failed",
-                ])),
-            )
-            .catching(r("getErrorSafe")(t))
-            .sendLogs("music-send-log-failed");
-        }
+      if (!o("WAWebMusicGatingUtils").isMusicReportingStubbed()) {
+        var n = await c(t);
+        if (n != null)
+          try {
+            r("WamMusicSendFalcoEvent").log(function () {
+              return {
+                message_key_hash: n,
+                music_product: o("WAWebWamEnumMusicProduct").MUSIC_PRODUCT
+                  .CHATS,
+              };
+            });
+          } catch (t) {
+            o("WALogger")
+              .WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[music] send not logged: Falco log failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t))
+              .sendLogs("music-send-log-failed");
+          }
+      }
     }
     async function c(e) {
       try {

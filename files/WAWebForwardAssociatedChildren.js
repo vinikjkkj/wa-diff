@@ -3,7 +3,7 @@ __d(
   [
     "WALogger",
     "WAWebDualUploadsAssociationTypes",
-    "WAWebForwardAssociationConfig",
+    "WAWebMessageAssociationConfig",
     "WAWebMessageAssociationUIUtils",
     "WAWebViewMode.flow",
     "justknobx",
@@ -22,7 +22,7 @@ __d(
         var i = a.associationType;
         if (i != null) {
           var l = o(
-            "WAWebForwardAssociationConfig",
+            "WAWebMessageAssociationConfig",
           ).getForwardAssociationConfig(i, e);
           if (l == null) {
             o("WAWebDualUploadsAssociationTypes").isDualUploadAssociationType(

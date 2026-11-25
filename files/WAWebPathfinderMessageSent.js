@@ -6,6 +6,7 @@ __d(
     "WAWebBoolFunc",
     "WAWebMsgType",
     "WAWebNullFunc",
+    "WAWebPathfinderAccountToken",
     "WAWebPathfinderDeferredEmitter",
     "WAWebPathfinderMessageSentFields",
     "WAWebPathfinderScreenName",
@@ -36,8 +37,8 @@ __d(
         m,
       ),
       _ = { isCounted: y, takeSendMethod: k, isHiddenPayment: S, emit: d };
-    function f(e) {
-      h(e, _);
+    function f(e, t) {
+      h(e, t, _);
     }
     function g(t) {
       try {
@@ -46,7 +47,12 @@ __d(
         p(
           babelHelpers.extends({}, t, {
             sendMethod: void 0,
-            capturedAt: C(n),
+            capturedAt: C(
+              n,
+              o(
+                "WAWebPathfinderAccountToken",
+              ).getPathfinderCaptureAccountToken(),
+            ),
             hiddenPayment: !1,
           }),
         );
@@ -62,13 +68,13 @@ __d(
           .sendLogs("pathfinder-message-sent-record-failed");
       }
     }
-    function h(e, t) {
+    function h(e, t, n) {
       try {
-        var n = t.takeSendMethod(e.id);
-        if (!t.isCounted(e)) return;
-        var a = o("WAWebPathfinderScreenName").getCurrentScreenName();
-        if (v(a)) return;
-        var i = {
+        var a = n.takeSendMethod(e.id);
+        if (!n.isCounted(e)) return;
+        var i = o("WAWebPathfinderScreenName").getCurrentScreenName();
+        if (v(i)) return;
+        var l = {
           type: e.type,
           subtype: e.subtype,
           chatKind: o("WAWebPathfinderMessageSentFields").getChatKind(e),
@@ -77,11 +83,11 @@ __d(
           mediaType: o(
             "WAWebPathfinderMessageSentFields",
           ).getPathfinderMessageSentMediaType(e),
-          sendMethod: n,
-          capturedAt: C(a),
-          hiddenPayment: t.isHiddenPayment(e),
+          sendMethod: a,
+          capturedAt: C(i, t),
+          hiddenPayment: n.isHiddenPayment(e),
         };
-        t.emit(i);
+        n.emit(l);
       } catch (e) {
         o("WALogger")
           .WARN(
@@ -101,12 +107,13 @@ __d(
         o("WAWebPathfinderMessageSentFields").isUserSend(e)
       );
     }
-    function C(e) {
+    function C(e, t) {
       return {
         timestampMs: Date.now(),
         screenName: e,
         unifiedSessionId: b(),
         heldBackSurface: null,
+        accountToken: t,
       };
     }
     function b() {

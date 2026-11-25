@@ -222,25 +222,35 @@ __d(
       );
     }
     function z() {
-      return X(1);
+      return o("WAWebABProps").getABPropConfigValue(
+        "status_viewer_header_gradient_darker_enabled",
+      );
     }
     function j() {
-      return X(2);
+      return o("WAWebABProps").getABPropConfigValue(
+        "status_viewer_header_gradient_darker_alpha",
+      );
     }
     function K() {
-      return X(3);
+      return J(1);
     }
     function Q() {
-      return X(4);
+      return J(2);
     }
-    function X(e) {
+    function X() {
+      return J(3);
+    }
+    function Y() {
+      return J(4);
+    }
+    function J(e) {
       return (
         o("WAWebABProps").getABPropConfigValue(
           "wa_web_status_viewer_refresh_level",
         ) >= e
       );
     }
-    function Y() {
+    function Z() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_web_status_progressive_decrypt",
       );
@@ -281,11 +291,13 @@ __d(
       (l.getStatusHoverPrefetchDwellMs = V),
       (l.isStatusBadUxLoggingParityEnabled = H),
       (l.isStatusComposerQuickRepliesEnabled = G),
-      (l.isStatusViewerRefreshM1Enabled = z),
-      (l.isStatusViewerRefreshM2Enabled = j),
-      (l.isStatusViewerRefreshM3Enabled = K),
-      (l.isStatusViewerRefreshM4Enabled = Q),
-      (l.isStatusChunkDecryptEnabled = Y));
+      (l.isStatusViewerHeaderGradientDarkerEnabled = z),
+      (l.getStatusViewerHeaderGradientDarkerAlpha = j),
+      (l.isStatusViewerRefreshM1Enabled = K),
+      (l.isStatusViewerRefreshM2Enabled = Q),
+      (l.isStatusViewerRefreshM3Enabled = X),
+      (l.isStatusViewerRefreshM4Enabled = Y),
+      (l.isStatusChunkDecryptEnabled = Z));
   },
   98,
 );

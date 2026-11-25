@@ -20,56 +20,61 @@ __d(
         n,
         r,
         a,
-        i = e.chat,
-        l = e.entryPoint,
-        s = e.newDuration,
-        u = e.previousDuration,
-        c = o("WAWebChatGetters").getIsGroup(i),
-        d =
-          c &&
+        i = e.accountTokenAtCapture,
+        l = e.chat,
+        s = e.entryPoint,
+        u = e.newDuration,
+        c = e.previousDuration,
+        d = o("WAWebChatGetters").getIsGroup(l),
+        f =
+          d &&
           (t =
-            (n = (r = i.groupMetadata) == null ? void 0 : r.size) != null
+            (n = (r = l.groupMetadata) == null ? void 0 : r.size) != null
               ? n
-              : (a = i.groupMetadata) == null || (a = a.participants) == null
+              : (a = l.groupMetadata) == null || (a = a.participants) == null
                 ? void 0
                 : a.length) != null
             ? t
             : 0;
       m({
-        previousOption: _(u),
-        selectedOption: p(s),
+        previousOption: _(c),
+        selectedOption: p(u),
         scopeMetadata: babelHelpers.extends(
-          { setting_scope: "chat", chat_type: c ? "group" : "individual" },
-          d > 0 ? { chat_group_size: String(d) } : {},
+          { setting_scope: "chat", chat_type: d ? "group" : "individual" },
+          f > 0 ? { chat_group_size: String(f) } : {},
         ),
         entryPoint: g(
           o("WAWebWamEnumEphemeralSettingEntryPointType")
             .EPHEMERAL_SETTING_ENTRY_POINT_TYPE,
-          l,
+          s,
         ),
+        accountTokenAtCapture: i,
       });
     }
     function d(e) {
-      var t = e.entryPoint,
-        n = e.newDuration,
-        r = e.previousDuration;
+      var t = e.accountTokenAtCapture,
+        n = e.entryPoint,
+        r = e.newDuration,
+        a = e.previousDuration;
       m({
-        previousOption: _(r),
-        selectedOption: p(n),
+        previousOption: _(a),
+        selectedOption: p(r),
         scopeMetadata: { setting_scope: "account" },
         entryPoint: g(
           o("WAWebWamEnumDisappearingModeEntryPointType")
             .DISAPPEARING_MODE_ENTRY_POINT_TYPE,
-          t,
+          n,
         ),
+        accountTokenAtCapture: t,
       });
     }
     function m(t) {
-      var n = t.entryPoint,
-        a = t.previousOption,
-        i = t.scopeMetadata,
-        l = t.selectedOption;
-      if (!(a == null || l == null || a === l))
+      var n = t.accountTokenAtCapture,
+        a = t.entryPoint,
+        i = t.previousOption,
+        l = t.scopeMetadata,
+        s = t.selectedOption;
+      if (!(i == null || s == null || i === s))
         try {
           o("WAWebPathfinderCustomEvent").recordPathfinderCustomEvent({
             eventName: "CONTENT_CHANGED",
@@ -80,12 +85,13 @@ __d(
             customMetadata: o(
               "WAWebPathfinderReservedMetadataKeys",
             ).dynamicPathfinderMetadata(
-              babelHelpers.extends({}, i, {
-                selected_option: l,
-                previous_option: a,
-                entry_point: n,
+              babelHelpers.extends({}, l, {
+                selected_option: s,
+                previous_option: i,
+                entry_point: a,
               }),
             ),
+            accountTokenAtCapture: n,
           });
         } catch (t) {
           o("WALogger")

@@ -343,7 +343,7 @@ __d(
               o("WAWebNewsletterWamoSubMessageType")
                 .NewsletterWamoSubMessageType.WamoSub,
           }),
-            (a.composeQuotedMsg = null),
+            a.set("composeQuotedMsg", null),
             a.setComposeContents({}),
             (e = i()) == null || e.reset(),
             o(

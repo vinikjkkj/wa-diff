@@ -15,6 +15,7 @@ __d(
         ),
         isVideoCall: t.IsVideoCall,
         enabled: t.Enabled,
+        callId: t.CallId,
       };
     }
     l.parseWindowsSwitchEntryPointChangedData = e;

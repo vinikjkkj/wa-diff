@@ -11,16 +11,21 @@ __d(
       "read-receipts-privacy-settings-item",
       "silence-unknown-callers-privacy-settings-item",
     ]);
-    function s(t, n, r) {
-      e.has(t) &&
+    function s(t) {
+      var n = t.accountTokenAtCapture,
+        r = t.changeSource,
+        a = t.isOn,
+        i = t.testId;
+      e.has(i) &&
         o("WAWebPathfinderLogger").emitPathfinderEvent({
+          accountTokenAtCapture: n,
           appReactionMetadata: {
             toggle_change_source: r,
-            toggle_state: n ? "on" : "off",
+            toggle_state: a ? "on" : "off",
           },
           eventType: "TOGGLE_STATE_CHANGED",
           screenName: o("WAWebPathfinderScreenName").getCurrentScreenName(),
-          targetTrackingId: t,
+          targetTrackingId: i,
           timestampMs: Date.now(),
         });
     }

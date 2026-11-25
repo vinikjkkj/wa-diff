@@ -199,50 +199,45 @@ __d(
       }
     }
     function L(e, t) {
-      return (
-        r("vulture")("LekoiFKOyKN7mo_eKCRgzRVLLiw="),
-        new Promise(function (n, o) {
-          r("vulture")("9DpeG8RX7rcjODaFvUz4svMu_-k=");
-          var a = new WebSocket(e);
-          a.binaryType = "arraybuffer";
-          var i = null,
-            l = function () {
-              (r("vulture")("nSy2xNeY8_iJ4UPisS6QSY2VVhE="),
-                i != null && self.clearTimeout(i),
-                a.removeEventListener("open", s),
-                a.removeEventListener("error", u),
-                a.removeEventListener("close", c));
-            },
-            s = function () {
-              (r("vulture")("hMqjgfwRdh5x6MN3y0CTkA9tOQE="), l(), n(a));
-            },
-            u = function (t) {
-              (r("vulture")("DfPDBBKz2Y3UguYuAN8gEm4-2VQ="),
-                l(),
-                o(r("err")("RA-TLS WebSocket open failed")));
-            },
-            c = function (t) {
-              (r("vulture")("dzTyTjKzLuqvbll578jytu701nU="), l(), o(F(t)));
-            };
-          ((i = self.setTimeout(function () {
-            (r("vulture")("23uYNgzMtwHJFLKkBScvgi7_4ek="),
+      return new Promise(function (n, o) {
+        var a = new WebSocket(e);
+        a.binaryType = "arraybuffer";
+        var i = null,
+          l = function () {
+            (r("vulture")("nSy2xNeY8_iJ4UPisS6QSY2VVhE="),
+              i != null && self.clearTimeout(i),
+              a.removeEventListener("open", s),
+              a.removeEventListener("error", u),
+              a.removeEventListener("close", c));
+          },
+          s = function () {
+            (r("vulture")("hMqjgfwRdh5x6MN3y0CTkA9tOQE="), l(), n(a));
+          },
+          u = function (t) {
+            (r("vulture")("DfPDBBKz2Y3UguYuAN8gEm4-2VQ="),
               l(),
-              A(a, t),
-              o(r("err")("RA-TLS WebSocket open timed out")));
-          }, _)),
-            a.addEventListener("open", s),
-            a.addEventListener("error", u),
-            a.addEventListener("close", c));
-        })
-      );
+              o(r("err")("RA-TLS WebSocket open failed")));
+          },
+          c = function (t) {
+            (r("vulture")("dzTyTjKzLuqvbll578jytu701nU="), l(), o(F(t)));
+          };
+        ((i = self.setTimeout(function () {
+          (r("vulture")("23uYNgzMtwHJFLKkBScvgi7_4ek="),
+            l(),
+            A(a, t),
+            o(r("err")("RA-TLS WebSocket open timed out")));
+        }, _)),
+          a.addEventListener("open", s),
+          a.addEventListener("error", u),
+          a.addEventListener("close", c));
+      });
     }
     function E(e, t) {
       return (
-        r("vulture")("ZgIDO8UlcBygUzFOy0Mre1LTOKU="),
         "wss://teellm.meta.com/" +
-          e +
-          "?x-tee-node-token=" +
-          encodeURIComponent(t)
+        e +
+        "?x-tee-node-token=" +
+        encodeURIComponent(t)
       );
     }
     async function k(e, t, n, o) {
@@ -473,18 +468,17 @@ __d(
       );
     }
     function O(e) {
-      r("vulture")("wKpjdKShtqRBmP6xL51vJoTvXW4=");
       try {
         var t = new URL(e),
           n = [];
         t.searchParams.forEach(function (e, t) {
-          (r("vulture")("8DkLyPEBWyOSU9jWzi-pZU2P5Rg="), n.push(t));
+          n.push(t);
         });
-        var o = t.searchParams.get("x-tee-node-token");
+        var r = t.searchParams.get("x-tee-node-token");
         return {
           host: t.host,
-          nodeTokenLength: o == null ? 0 : o.length,
-          nodeTokenPresent: o != null && o.length > 0,
+          nodeTokenLength: r == null ? 0 : r.length,
+          nodeTokenPresent: r != null && r.length > 0,
           pathname: t.pathname,
           protocol: t.protocol,
           redacted: b,
@@ -561,8 +555,7 @@ __d(
       );
     }
     function z(e) {
-      if ((r("vulture")("hbNQn3Da3OTc-Tx7o6MmeBgrhYE="), e == null))
-        return null;
+      if (e == null) return null;
       try {
         return j(e.getState());
       } catch (e) {
@@ -642,18 +635,12 @@ __d(
     }
     function ee(e) {
       var t;
-      return (
-        r("vulture")("HvZozKdBIqeJaLHCkatEjg10J8I="),
-        (t = C[e]) != null ? t : "UNKNOWN"
-      );
+      return (t = C[e]) != null ? t : "UNKNOWN";
     }
     function te(e) {
-      return (
-        r("vulture")("al2W0ASl1y1MEGz6cK_FDlOaZJw="),
-        e instanceof Error
-          ? { message: e.message, name: e.name, stack: e.stack }
-          : { message: String(e) }
-      );
+      return e instanceof Error
+        ? { message: e.message, name: e.name, stack: e.stack }
+        : { message: String(e) };
     }
     ((l.checkTheiaRaTlsHandshake = S), (l.openTheiaRaTlsConnection = R));
   },

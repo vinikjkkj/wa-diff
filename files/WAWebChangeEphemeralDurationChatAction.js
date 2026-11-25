@@ -19,6 +19,7 @@ __d(
     "WAWebGroupSettingsService",
     "WAWebMsgKey",
     "WAWebMsgType",
+    "WAWebPathfinderAccountToken",
     "WAWebPathfinderDisappearingMessagesSetting",
     "WAWebSendMsgChatAction",
     "WAWebSendMsgResultAction",
@@ -161,35 +162,40 @@ __d(
             e.id.toString(),
         );
       var i = o("WAWebChatEphemerality").calculateEphemeralDurationForChat(e);
-      i !== t &&
+      if (i !== t) {
+        var l = o(
+          "WAWebPathfinderAccountToken",
+        ).getPathfinderCaptureAccountToken();
         (o("WAWebChatGetters").getIsGroup(e)
           ? await c(e, t, a)
           : await u(e, t, a),
-        o(
-          "WAWebPathfinderDisappearingMessagesSetting",
-        ).recordChatDisappearingMessagesSettingChange({
-          chat: e,
-          previousDuration: i,
-          newDuration: t,
-          entryPoint: n,
-        }));
-      var l =
+          o(
+            "WAWebPathfinderDisappearingMessagesSetting",
+          ).recordChatDisappearingMessagesSettingChange({
+            chat: e,
+            previousDuration: i,
+            newDuration: t,
+            entryPoint: n,
+            accountTokenAtCapture: l,
+          }));
+      }
+      var s =
           o("WAWebAfterReadUtils").isAfterReadDuration(t) &&
           o("WAWebAfterReadUtils").isAfterReadEnabled(),
-        s = {
-          chatEphemeralityDuration: l ? void 0 : t,
+        d = {
+          chatEphemeralityDuration: s ? void 0 : t,
           threadId: await o("WAWebChatThreadLogging").getChatThreadID(
             e.id.toJid(),
           ),
           ephemeralSettingEntryPoint: n,
-          isAfterRead: l,
-          afterReadDuration: l ? t : void 0,
+          isAfterRead: s,
+          afterReadDuration: s ? t : void 0,
         };
       if (
         (i != null &&
-          ((s.previousEphemeralityDuration = i),
+          ((d.previousEphemeralityDuration = i),
           i > 0 &&
-            (s.previousEphemeralityType = o(
+            (d.previousEphemeralityType = o(
               "WAWebAfterReadUtils",
             ).isAfterReadDuration(i)
               ? o("WAWebWamEnumPreviousEphemeralityType")
@@ -198,20 +204,20 @@ __d(
                   .PREVIOUS_EPHEMERALITY_TYPE.DISAPPEARING_MESSAGE)),
         o("WAWebChatGetters").getIsGroup(e))
       ) {
-        var d, m;
-        s.ephemeralSettingGroupSize = o(
+        var m, p;
+        d.ephemeralSettingGroupSize = o(
           "WAWebWamNumberToPreciseSizeBucket",
         ).numberToPreciseSizeBucket(
-          (d =
-            (m = e.groupMetadata) == null ? void 0 : m.participants.length) !=
+          (m =
+            (p = e.groupMetadata) == null ? void 0 : p.participants.length) !=
             null
-            ? d
+            ? m
             : 0,
         );
       }
       new (o(
         "WAWebEphemeralSettingChangeWamEvent",
-      ).EphemeralSettingChangeWamEvent)(s).commit();
+      ).EphemeralSettingChangeWamEvent)(d).commit();
     }
     function m(e) {
       var t = e.chats,

@@ -33,7 +33,7 @@ __d(
           "WAWebHatchPairingUnavailableDialogStrings",
         ).getHatchPairingUnavailableTitle();
       return s.jsx("div", {
-        "aria-label": a,
+        "aria-label": String(a),
         "aria-modal": !0,
         "data-testid": "hatch-pairing-unavailable-loading",
         role: "dialog",

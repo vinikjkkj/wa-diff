@@ -11,6 +11,7 @@ __d(
       Newsletters: "newsletters",
       BizTools: "bizTools",
       AdCreation: "adCreation",
+      BusinessBroadcast: "businessBroadcast",
       Orders: "orders",
       Labels: "labels",
       LockedChats: "lockedChats",

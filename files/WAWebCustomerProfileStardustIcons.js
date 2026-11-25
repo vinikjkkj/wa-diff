@@ -12,7 +12,7 @@ __d(
       return n
         ? u.jsx("span", {
             role: "img",
-            "aria-label": s._(/*BTDS*/ ""),
+            "aria-label": String(s._(/*BTDS*/ "")),
             "data-testid": r,
             children: u.jsx(o, { width: 24, height: 24 }),
           })
