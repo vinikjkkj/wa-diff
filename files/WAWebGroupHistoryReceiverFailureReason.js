@@ -11,12 +11,13 @@ __d(
       d = "not_shareable",
       m = "older_than_local_history",
       p = "parse_failed",
-      _ = "timestamp_too_old",
-      f = "insert_messages_exception",
-      g = "processing_failed",
-      h = "protobuf_parse_failed",
-      y = "out_window_pin:";
-    function C(e) {
+      _ = "reporting_token_missing_from_public_stanza",
+      f = "timestamp_too_old",
+      g = "insert_messages_exception",
+      h = "processing_failed",
+      y = "protobuf_parse_failed",
+      C = "out_window_pin:";
+    function b(e) {
       var t = new Map();
       for (var n of e) {
         var r = n[0],
@@ -31,7 +32,7 @@ __d(
       }
       return t;
     }
-    function b(t) {
+    function v(t) {
       var n = Array.from(t.entries())
         .filter(function (e) {
           var t = e[1];
@@ -59,13 +60,14 @@ __d(
       (i.SKIP_REASON_NOT_SHAREABLE = d),
       (i.SKIP_REASON_OLDER_THAN_LOCAL_HISTORY = m),
       (i.SKIP_REASON_PARSE_FAILED = p),
-      (i.SKIP_REASON_TIMESTAMP_TOO_OLD = _),
-      (i.FAILURE_REASON_INSERT_MESSAGES_EXCEPTION = f),
-      (i.FAILURE_REASON_PROCESSING_FAILED = g),
-      (i.FAILURE_REASON_PROTOBUF_PARSE_FAILED = h),
-      (i.OUT_WINDOW_PIN_REASON_PREFIX = y),
-      (i.mergeReasonCounts = C),
-      (i.formatReceiverFailureReason = b));
+      (i.SKIP_REASON_REPORTING_TOKEN_MISSING_FROM_PUBLIC_STANZA = _),
+      (i.SKIP_REASON_TIMESTAMP_TOO_OLD = f),
+      (i.FAILURE_REASON_INSERT_MESSAGES_EXCEPTION = g),
+      (i.FAILURE_REASON_PROCESSING_FAILED = h),
+      (i.FAILURE_REASON_PROTOBUF_PARSE_FAILED = y),
+      (i.OUT_WINDOW_PIN_REASON_PREFIX = C),
+      (i.mergeReasonCounts = b),
+      (i.formatReceiverFailureReason = v));
   },
   66,
 );

@@ -2,6 +2,7 @@ __d(
   "WDSRichTextAddOns",
   [
     "WDSButton.react",
+    "WDSIconIcCheckCircleFilled.react",
     "WDSIconIcError.react",
     "WDSSpinner.react",
     "WDSText.react",
@@ -26,7 +27,8 @@ __d(
         EndIconContainer: { marginInlineEnd: "x7g7pl8", $$css: !0 },
         textSuffixNoIcon: { marginInlineEnd: "x1sa5p1d", $$css: !0 },
       },
-      m = {
+      m = { x1st70lr: "x1rvo2s5 x1st70lr", $$css: !0 },
+      p = {
         iconContainer: {
           display: "x78zum5",
           justifyContent: "xl56j7k",
@@ -52,7 +54,7 @@ __d(
         },
         errorIcon: { flexShrink: "x2lah0s", $$css: !0 },
       };
-    function p(t) {
+    function _(t) {
       var n = t.StartIcon,
         o = t.platform,
         a = t.prefix;
@@ -70,12 +72,12 @@ __d(
                 "div",
                 babelHelpers.extends(
                   {},
-                  (e || (e = r("stylex"))).props(m.iconContainer, i),
+                  (e || (e = r("stylex"))).props(p.iconContainer, i),
                   {
                     children: u.jsx(n, {
                       height: l,
                       width: l,
-                      xstyle: m.iconContainer,
+                      xstyle: p.iconContainer,
                       colorName: "contentDeemphasized",
                     }),
                   },
@@ -88,7 +90,7 @@ __d(
                   type: s,
                   colorName: "contentDeemphasized",
                   selectable: !1,
-                  xstyle: [m.textAffixes, m.textPrefix],
+                  xstyle: [p.textAffixes, p.textPrefix],
                   children: a,
                 }),
               }),
@@ -96,94 +98,121 @@ __d(
         })
       );
     }
-    p.displayName = p.name + " [from " + i.id + "]";
-    function _(e, t) {
+    _.displayName = _.name + " [from " + i.id + "]";
+    function f(e, t) {
       return e + "/" + t;
     }
-    function f(t) {
+    function g(t) {
       var n = t.EmojiIcon,
         o = t.EndIcon,
         a = t.SecondaryIcon,
         i = t.emojiIconAriaLabel,
         l = t.endIconAriaLabel,
         s = t.isDisabled,
-        p = t.isFocused,
-        _ = t.loading,
-        f = t.onEmojiIconClick,
-        g = t.onEndIconClick,
-        h = t.onSecondaryIconClick,
-        y = t.platform,
-        C = t.secondaryIconAriaLabel,
-        b = t.suffix;
-      if (o == null && n == null && a == null && b == null && _ == null)
+        _ = t.isFocused,
+        f = t.isWithinDisabledField,
+        g = t.loading,
+        h = t.onEmojiIconClick,
+        y = t.onEndIconClick,
+        C = t.onSecondaryIconClick,
+        b = t.platform,
+        v = t.secondaryIconAriaLabel,
+        S = t.statusIconState,
+        R = t.suffix,
+        L = t.testid;
+      if (
+        o == null &&
+        n == null &&
+        a == null &&
+        R == null &&
+        g == null &&
+        S == null
+      )
         return null;
-      var v, S, R, L, E, k, I;
-      y === "android"
-        ? ((v = 24),
-          (S = c.iconContainer),
-          (R = c.EndIconContainer),
-          (L = c.textSuffixNoIcon),
-          (E = "Body1"),
-          (k = c.addOnEnd),
-          (I = c.addOnEnd))
-        : ((v = 20),
-          (S = d.iconContainer),
-          (R = d.EndIconContainer),
-          (L = d.textSuffixNoIcon),
-          (E = "Body2"));
-      var T = [m.iconContainer, S, R],
-        D = null;
+      var E, k, I, T, D, x, $;
+      b === "android"
+        ? ((E = 24),
+          (k = c.iconContainer),
+          (I = c.EndIconContainer),
+          (T = c.textSuffixNoIcon),
+          (D = "Body1"),
+          (x = c.addOnEnd),
+          ($ = c.addOnEnd))
+        : ((E = 20),
+          (k = d.iconContainer),
+          (I = d.EndIconContainer),
+          (T = d.textSuffixNoIcon),
+          (D = "Body2"));
+      var P = [p.iconContainer, k, I, f === !0 && m],
+        N = null;
       a != null &&
-        (h != null
-          ? (D = u.jsx(
+        (C != null
+          ? (N = u.jsx(
               "div",
               babelHelpers.extends(
                 {},
-                (e || (e = r("stylex"))).props.apply(e, T),
+                (e || (e = r("stylex"))).props.apply(e, P),
                 {
                   children: u.jsx(r("WDSButton.react"), {
                     variant: "borderless",
-                    size: y === "android" ? "medium" : "small",
-                    onPress: h,
+                    size: b === "android" ? "medium" : "small",
+                    onPress: C,
                     Icon: a,
-                    xstyle: k,
-                    "aria-label": C != null ? C : void 0,
+                    xstyle: x,
+                    "aria-label": v != null ? v : void 0,
                     widthMode: "fit",
                     disabled: s === !0,
                   }),
                 },
               ),
             ))
-          : (D = u.jsx(a, {
+          : (N = u.jsx(a, {
               colorName: "contentDefault",
-              xstyle: [].concat(T, [I]),
-              height: v,
-              width: v,
+              xstyle: [].concat(P, [$]),
+              height: E,
+              width: E,
             })));
-      var x = null;
-      _ === !0
-        ? (x = u.jsx(
-            "div",
-            babelHelpers.extends(
-              {},
-              (e || (e = r("stylex"))).props.apply(e, T),
-              { children: u.jsx(r("WDSSpinner.react"), { size: v }) },
-            ),
-          ))
-        : o != null &&
-          (g != null
-            ? (x = u.jsx(
+      var M = null;
+      if (g === !0)
+        M = u.jsx(
+          "div",
+          babelHelpers.extends({}, (e || (e = r("stylex"))).props.apply(e, P), {
+            children: u.jsx(r("WDSSpinner.react"), { size: E }),
+          }),
+        );
+      else if (S != null) {
+        var w = r(
+          S === "success"
+            ? "WDSIconIcCheckCircleFilled.react"
+            : "WDSIconIcError.react",
+        );
+        M = u.jsx(
+          "div",
+          babelHelpers.extends({}, (e || (e = r("stylex"))).props.apply(e, P), {
+            children: u.jsx(w, {
+              colorName:
+                S === "success" ? "secondaryPositive" : "contentDeemphasized",
+              height: E,
+              testid: void 0,
+              width: E,
+            }),
+          }),
+        );
+      } else
+        o != null &&
+          (y != null
+            ? (M = u.jsx(
                 "div",
                 babelHelpers.extends(
                   {},
-                  (e || (e = r("stylex"))).props.apply(e, T),
+                  (e || (e = r("stylex"))).props.apply(e, P),
                   {
                     children: u.jsx(r("WDSButton.react"), {
                       variant: "borderless",
-                      size: y === "android" ? "medium" : "small",
-                      onPress: g,
+                      size: b === "android" ? "medium" : "small",
+                      onPress: y,
                       Icon: o,
-                      xstyle: k,
+                      xstyle: x,
                       "aria-label": l != null ? l : void 0,
                       widthMode: "fit",
                       disabled: s === !0,
@@ -191,29 +220,29 @@ __d(
                   },
                 ),
               ))
-            : (x = u.jsx(o, {
+            : (M = u.jsx(o, {
                 colorName: "contentDefault",
-                xstyle: [].concat(T, [I]),
-                height: v,
-                width: v,
+                xstyle: [].concat(P, [$]),
+                height: E,
+                width: E,
               })));
-      var $ = null;
+      var A = null;
       return (
         n != null &&
-          f != null &&
-          p === !0 &&
-          ($ = u.jsx(
+          h != null &&
+          _ === !0 &&
+          (A = u.jsx(
             "div",
             babelHelpers.extends(
               {},
-              (e || (e = r("stylex"))).props.apply(e, T),
+              (e || (e = r("stylex"))).props.apply(e, P),
               {
                 children: u.jsx(r("WDSButton.react"), {
                   variant: "borderless",
-                  size: y === "android" ? "medium" : "small",
-                  onPress: f,
+                  size: b === "android" ? "medium" : "small",
+                  onPress: h,
                   Icon: n,
-                  xstyle: k,
+                  xstyle: x,
                   "aria-label": i != null ? i : void 0,
                   widthMode: "fit",
                   disabled: s === !0,
@@ -223,51 +252,52 @@ __d(
           )),
         u.jsxs(u.Fragment, {
           children: [
-            b != null &&
+            R != null &&
               u.jsx("div", {
                 "aria-hidden": "true",
                 children: u.jsx(r("WDSText.react"), {
-                  type: E,
+                  type: D,
                   colorName: "contentDeemphasized",
                   selectable: !1,
                   xstyle: [
-                    m.textAffixes,
-                    m.textSuffix,
-                    o == null && a == null && n == null && L,
+                    p.textAffixes,
+                    p.textSuffix,
+                    o == null && a == null && n == null && S == null && T,
                   ],
-                  children: b,
+                  children: R,
                 }),
               }),
-            D,
-            $,
-            x,
+            N,
+            A,
+            M,
           ],
         })
       );
     }
-    f.displayName = f.name + " [from " + i.id + "]";
-    function g(e) {
+    g.displayName = g.name + " [from " + i.id + "]";
+    function h(e) {
       var t = e.bottomId,
         n = e.bottomText,
         o = e.characterCountRenderer,
-        a = o === void 0 ? _ : o,
+        a = o === void 0 ? f : o,
         i = e.errorText,
         l = e.maxCharacterCount,
         s = e.platform,
-        c = e.shouldShowError,
+        c = e.semanticState,
         d = e.testid,
-        p = e.textLength;
+        m = e.textLength;
       if (n == null && l == null && i == null) return null;
-      var f;
-      c
+      var _ = c === "error",
+        g;
+      _
         ? s === "android"
-          ? (f = "secondaryNegative")
-          : (f = "secondaryNegativeEmphasized")
-        : (f = "contentDeemphasized");
-      var g = c ? d + "-error-text" : d + "-bottom-text";
+          ? (g = "secondaryNegative")
+          : (g = "secondaryNegativeEmphasized")
+        : (g = "contentDeemphasized");
+      var h = _ ? d + "-error-text" : d + "-bottom-text";
       return u.jsxs(u.Fragment, {
         children: [
-          c
+          _
             ? i != null &&
               u.jsxs("div", {
                 className:
@@ -277,15 +307,15 @@ __d(
                 "data-testid": void 0,
                 children: [
                   u.jsx(r("WDSIconIcError.react"), {
-                    colorName: f,
-                    xstyle: m.errorIcon,
+                    colorName: g,
+                    xstyle: p.errorIcon,
                     height: 16,
                     width: 16,
                   }),
                   u.jsx(r("WDSText.react"), {
                     type: "Body3",
                     selectable: !1,
-                    colorName: f,
+                    colorName: g,
                     children: i,
                   }),
                 ],
@@ -296,26 +326,29 @@ __d(
                 type: "Body3",
                 selectable: !1,
                 testid: void 0,
-                xstyle: m.bottomTextContainer,
-                colorName: "contentDeemphasized",
+                xstyle: p.bottomTextContainer,
+                colorName:
+                  c === "success"
+                    ? "contentActionEmphasized"
+                    : "contentDeemphasized",
                 children: n,
               }),
           l != null &&
             u.jsx(r("WDSText.react"), {
               type: "Body3",
               selectable: !1,
-              xstyle: m.counter,
+              xstyle: p.counter,
               testid: void 0,
-              colorName: f,
-              children: a(p, l),
+              colorName: g,
+              children: a(m, l),
             }),
         ],
       });
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"),
-      (l.RichTextFieldAddOnStart = p),
-      (l.RichTextFieldAddOnEnd = f),
-      (l.RichTextFieldAddOnBottom = g));
+    ((h.displayName = h.name + " [from " + i.id + "]"),
+      (l.RichTextFieldAddOnStart = _),
+      (l.RichTextFieldAddOnEnd = g),
+      (l.RichTextFieldAddOnBottom = h));
   },
   98,
 );

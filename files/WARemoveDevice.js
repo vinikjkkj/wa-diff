@@ -2,24 +2,23 @@ __d(
   "WARemoveDevice",
   [
     "WALogger",
-    "WAPersistedJobManager",
     "WAPushSafeTypes",
     "WAResultOrError",
     "WASignalOther",
     "WASmaxDevicesRemoveRPC",
-    "WATimeUtils",
+    "err",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
     async function s(t) {
       var n = o("WAPushSafeTypes").unsafeNotNullable(t),
-        r = n.deviceId,
-        a = n.identity,
-        i = o("WASignalOther").sliceBytes(a, 1, 32),
-        l = await o("WASmaxDevicesRemoveRPC").sendRemoveRPC({
-          removeId: r,
-          identityKeyMixinArgs: { anyElementValue: i },
+        a = n.deviceId,
+        i = n.identity,
+        l = o("WASignalOther").sliceBytes(i, 1, 32),
+        s = await o("WASmaxDevicesRemoveRPC").sendRemoveRPC({
+          removeId: a,
+          identityKeyMixinArgs: { anyElementValue: l },
         });
       if (
         (o("WALogger").LOG(
@@ -29,30 +28,17 @@ __d(
               ": ",
               " ",
             ])),
-          r,
-          l,
+          a,
+          s,
         ),
-        l.name === "RemoveResponseSuccess")
+        s.name === "RemoveResponseSuccess")
       )
         return o("WAResultOrError").makeResult();
-      l.name;
-      var s = l.value.errorRemoveDeviceErrors;
-      if (s.name !== "RetryableIQError")
-        return o("WAResultOrError").makeError();
       s.name;
-      var u = s.value.backoff;
-      throw u != null
-        ? new (o("WAPersistedJobManager").RetryOnBackoff)({
-            algo: { type: "constant", delay: u },
-            jitter: 0,
-          })
-        : new (o("WAPersistedJobManager").RetryOnBackoff)({
-            algo: {
-              type: "exponential",
-              first: o("WATimeUtils").HOUR_MILLISECONDS / 60,
-            },
-            jitter: 0.1,
-          });
+      var u = s.value.errorRemoveDeviceErrors;
+      if (u.name !== "RetryableIQError")
+        return o("WAResultOrError").makeError();
+      throw (u.name, r("err")("Failed with a retryable error"));
     }
     l.removeDevice = s;
   },

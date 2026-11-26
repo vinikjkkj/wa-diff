@@ -7,6 +7,7 @@ __d(
     "WAWebExportChatSystemMsgFormatter",
     "WAWebFormatMsgTextUtils",
     "WAWebFormatPaymentMsg",
+    "WAWebForwardedBotMaskedText",
     "WAWebGetPlainTextFromBotMsg",
     "WAWebInstantMsgTypes",
     "WAWebInstantsStrings",
@@ -395,47 +396,53 @@ __d(
       return h;
     }
     function L(e) {
-      var t = e.downloadedMediaMsgIds,
-        n = e.includeMedia,
-        r = e.lines,
-        a = e.mediaFolder,
-        i = e.msg,
-        l = e.time,
-        u = e.type;
-      if (m.has(u)) {
-        (r.push(
+      var t,
+        n = e.downloadedMediaMsgIds,
+        r = e.includeMedia,
+        a = e.lines,
+        i = e.mediaFolder,
+        l = e.msg,
+        u = e.time,
+        c = e.type;
+      if (m.has(c)) {
+        (a.push(
           "[" +
-            l +
+            u +
             "] " +
             v({
-              downloadedMediaMsgIds: t,
-              includeMedia: n,
-              mediaFolder: a,
-              msg: i,
+              downloadedMediaMsgIds: n,
+              includeMedia: r,
+              mediaFolder: i,
+              msg: l,
             }),
         ),
-          r.push(""));
+          a.push(""));
         return;
       }
-      var c = g(i),
-        d = y(i),
-        p = v({
-          downloadedMediaMsgIds: t,
-          includeMedia: n,
-          mediaFolder: a,
-          msg: i,
-        }),
-        _ = p;
-      if (o("WAWebMsgGetters").getIsForwarded(i)) {
-        var f = o("WAWebMsgGetters").getIsFrequentlyForwarded(i)
+      var d = g(l),
+        p = y(l),
+        _ =
+          (t = o("WAWebForwardedBotMaskedText").getMaskedForwardedBotCopyText(
+            l,
+          )) != null
+            ? t
+            : v({
+                downloadedMediaMsgIds: n,
+                includeMedia: r,
+                mediaFolder: i,
+                msg: l,
+              }),
+        f = _;
+      if (o("WAWebMsgGetters").getIsForwarded(l)) {
+        var h = o("WAWebMsgGetters").getIsFrequentlyForwarded(l)
           ? "[" + s._(/*BTDS*/ "").toString() + "] "
           : "[" + s._(/*BTDS*/ "").toString() + "] ";
-        _ = f + p;
+        f = h + _;
       }
-      (d
-        ? (r.push("[" + l + "] **" + c + ":**"), r.push(d.trimEnd()), r.push(_))
-        : r.push("[" + l + "] **" + c + ":** " + _),
-        r.push(""));
+      (p
+        ? (a.push("[" + u + "] **" + d + ":**"), a.push(p.trimEnd()), a.push(f))
+        : a.push("[" + u + "] **" + d + ":** " + f),
+        a.push(""));
     }
     ((l.MEDIA_TYPES = c),
       (l.formatPaymentForExport = b),

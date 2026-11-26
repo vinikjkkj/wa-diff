@@ -4,7 +4,6 @@ __d(
     "EBBridgedAPIHandler",
     "IGDBridgedAPIHandler",
     "IGDLowLevelApiBridgeHandlers",
-    "MAWJobManager",
     "MAWODSProxy",
     "WABridgedAPIHandler",
     "WAMockServerShell",
@@ -54,18 +53,8 @@ __d(
           minosEBAPI: function () {
             throw r("err")("not implemented");
           },
-          runJobFireAndForget: async function (t) {
-            return (
-              await o("WAWaitForComms").waitForComms(),
-              o("MAWJobManager").getJobManager().fireAndForget(t)
-            );
-          },
-          runJobWaitUntilCompleted: async function (t) {
-            return (
-              await o("WAWaitForComms").waitForComms(),
-              o("MAWJobManager").getJobManager().waitUntilCompleted(t)
-            );
-          },
+          runJobFireAndForget: function (t) {},
+          runJobWaitUntilCompleted: function (t) {},
           runMock: function (t) {
             return o("WAMockServerShell").getMockServer == null
               ? Promise.reject(

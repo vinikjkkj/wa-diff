@@ -58,9 +58,6 @@ __d(
         maxUsersForNotifyDeviceChange: function () {
           return o("WADbDeviceRegistration").MAX_USERS_FOR_NOTIFY_DEVICE_CHANGE;
         },
-        orchestratorVersion: function () {
-          return "bucket";
-        },
         pjpegPreviewAvoidLastScan: function () {
           return !0;
         },

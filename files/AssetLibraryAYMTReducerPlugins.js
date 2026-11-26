@@ -21,10 +21,7 @@ __d(
               o.channelName,
               e || (e = r("AdsDataAtom")),
             ),
-            n.set(o.channelName, {
-              tipsData: r("immutable").List(),
-              hideTips: !1,
-            })
+            n.set(o.channelName, { tipsData: r("immutable").List() })
           );
         },
       },
@@ -38,27 +35,16 @@ __d(
                   o.map(function (e) {
                     return {
                       name: e.name,
-                      tipData: d(e.client_side_rendering_spec, e.aymt_data),
+                      tipData: c(e.client_side_rendering_spec, e.aymt_data),
                       aymtData: e.aymt_data,
                     };
                   }),
                 ),
-                hideTips: !1,
               })
             : t;
         },
-      },
-      c = {
-        reduce: function (t, n) {
-          var e = n.channelName,
-            r = n.hideTips,
-            o = t.get(e);
-          return o == null
-            ? t
-            : t.set(e, { tipsData: o.tipsData, hideTips: r });
-        },
       };
-    function d(e, t) {
+    function c(e, t) {
       var n,
         a = e.client_side_rendering_params,
         i = e.client_side_react_props;
@@ -78,7 +64,7 @@ __d(
         videoURI: i.tip_video_uri,
       });
     }
-    ((l.onTipsRequested = s), (l.onTipsLoaded = u), (l.onHideTips = c));
+    ((l.onTipsRequested = s), (l.onTipsLoaded = u));
   },
   98,
 );

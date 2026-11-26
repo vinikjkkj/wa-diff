@@ -3,6 +3,7 @@ __d(
   [
     "JSResourceForInteraction",
     "WALogger",
+    "WAWebLazyLoadFailureSignal.react",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "getErrorSafe",
@@ -15,13 +16,15 @@ __d(
       c = s,
       d = c.createContext,
       m = c.useContext,
-      p = d(null),
-      _ = r("JSResourceForInteraction")(
+      p = c.useMemo,
+      _ = d(null),
+      f = d(null),
+      g = r("JSResourceForInteraction")(
         "WAWebHatchJarvisForwardSendPolicy",
       ).__setRef("WAWebHatchJarvisBubbleLoadable"),
-      f = r("WAWebLazyLoadedRetriable")(async function () {
+      h = r("WAWebLazyLoadedRetriable")(async function () {
         return (
-          _.load().catch(function (t) {
+          g.load().catch(function (t) {
             o("WALogger")
               .WARN(
                 e ||
@@ -37,37 +40,62 @@ __d(
             .load()
         );
       }, "HatchJarvisBubble"),
-      g = r("WAWebLoadable")({
-        loader: f,
-        loading: function () {
-          return u.jsx(y, {});
+      y = r("WAWebLoadable")({
+        loader: h,
+        loading: function (t) {
+          var e = t.error;
+          return u.jsx(b, { hasFailed: e != null });
         },
         renderLoadingImmediately: !0,
       });
-    function h(e) {
-      var t = e.displayAuthor,
-        n = e.displayType,
-        r = e.errorFallback,
-        o = e.fallback,
-        a = e.isForwardedCopy,
-        i = e.msgKey;
-      return u.jsx(p.Provider, {
-        value: o,
-        children: u.jsx(g, {
-          displayAuthor: t,
-          displayType: n,
-          errorFallback: r,
-          fallback: o,
-          isForwardedCopy: a,
-          msgKey: i,
+    function C(e) {
+      var t = e.contentKey,
+        n = e.displayAuthor,
+        r = e.displayType,
+        o = e.errorFallback,
+        a = e.fallback,
+        i = e.isForwardedCopy,
+        l = e.msgKey,
+        s = e.onContentError,
+        c = p(
+          function () {
+            return s == null ? null : { contentKey: t, onContentError: s };
+          },
+          [t, s],
+        );
+      return u.jsx(_.Provider, {
+        value: a,
+        children: u.jsx(f.Provider, {
+          value: c,
+          children: u.jsx(y, {
+            displayAuthor: n,
+            displayType: r,
+            errorFallback: o,
+            fallback: a,
+            isForwardedCopy: i,
+            msgKey: l,
+          }),
         }),
       });
     }
-    h.displayName = h.name + " [from " + i.id + "]";
-    function y() {
-      return m(p);
+    C.displayName = C.name + " [from " + i.id + "]";
+    function b(e) {
+      var t = e.hasFailed,
+        n = m(_),
+        o = m(f);
+      return u.jsxs(u.Fragment, {
+        children: [
+          n,
+          t && o != null
+            ? u.jsx(r("WAWebLazyLoadFailureSignal.react"), {
+                contentKey: o.contentKey,
+                onLoadFailure: o.onContentError,
+              })
+            : null,
+        ],
+      });
     }
-    ((y.displayName = y.name + " [from " + i.id + "]"), (l.default = h));
+    ((b.displayName = b.name + " [from " + i.id + "]"), (l.default = C));
   },
   98,
 );

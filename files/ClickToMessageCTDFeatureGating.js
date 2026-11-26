@@ -163,24 +163,7 @@ __d(
       );
     }
     function I() {
-      var e = r("gkx")("11155") === !0;
-      if (!e) return !1;
-      var t = r("gkx")("11835") === !0;
-      if (t) return !0;
-      var n = r("gkx")("18078") === !0;
-      return (
-        r("CtxAdvertiserQeHbtExposureFalcoEvent").log(function () {
-          var e;
-          return {
-            condition: n ? "test" : "control",
-            feature_name: "remove_existing_post_cta_guidance",
-            hbt_name: "h2_26_train_1_bundle_7_ad_acct_hbt",
-            unit_id: (e = r("CurrentAdAccount").getID()) != null ? e : "",
-            unit_type: "ad_account_id",
-          };
-        }),
-        n
-      );
+      return r("gkx")("11155") === !0;
     }
     function T(e, t) {
       t === void 0 && (t = {});

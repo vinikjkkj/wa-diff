@@ -1,6 +1,6 @@
 __d(
   "WAWebBotUnifiedResponseGating",
-  ["WAWebABProps", "justknobx"],
+  ["$InternalEnum", "WAWebABProps", "justknobx"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return o("WAWebABProps").getABPropConfigValue(
@@ -35,13 +35,31 @@ __d(
     function p() {
       return !0;
     }
+    var _ = n("$InternalEnum")({
+      Off: 0,
+      TerminalReplies: 1,
+      FirstAndTerminalReplies: 2,
+      AllReplies: 3,
+    });
+    function f() {
+      var e;
+      return (e = _.cast(
+        o("WAWebABProps").getABPropConfigValue(
+          "ai_rich_response_content_types_logging_mode",
+        ),
+      )) != null
+        ? e
+        : _.Off;
+    }
     ((l.isUnifiedResponseImagineReceiverEnabled = e),
       (l.isUnifiedResponseReceiverEnabled = s),
       (l.isAiRichResponseForwardingSenderEnabled = u),
       (l.isUnifiedResponseSendingEnabled = c),
       (l.isUnifiedResponseMutationEnabled = d),
       (l.isInlineImageNodeRendererEnabled = m),
-      (l.isFoABloksNodeRendererEnabled = p));
+      (l.isFoABloksNodeRendererEnabled = p),
+      (l.AiRichResponseContentTypesLoggingMode = _),
+      (l.getAiRichResponseContentTypesLoggingMode = f));
   },
   98,
 );

@@ -7,10 +7,9 @@ __d(
     "EBMinosBridgedAPIHandler",
     "EBSMBridgeHandlers",
     "KeyTransparencyBridgeHandlers",
-    "MAWJobManager",
+    "MAWDeleteThread",
     "MAWMpsBridgeHandlers",
     "MAWODSProxy",
-    "MAWReliabilityMonitor",
     "MWFBLogger",
     "WAAPIBridgeHandlers",
     "WABridgedAPIHandler",
@@ -21,7 +20,16 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s, u;
-    function c(t, n, a) {
+    function c(e) {
+      return e.type === "deleteThread"
+        ? o("WAWaitForComms")
+            .waitForComms()
+            .then(function () {
+              return o("MAWDeleteThread").deleteThreadImpl(e.args.chatJid);
+            })
+        : void 0;
+    }
+    function d(t, n) {
       (t.setHandlers(
         "kt",
         o("KeyTransparencyBridgeHandlers").keyTransparencyBridgeHandlers,
@@ -85,42 +93,8 @@ __d(
                 e.apply(void 0, t.args)
               );
             },
-            runJobFireAndForget: function (t) {
-              return o("WAWaitForComms")
-                .waitForComms()
-                .then(function () {
-                  return (
-                    a() !== o("MAWReliabilityMonitor").HealthReportState.OK &&
-                      o("MWFBLogger")
-                        .MWLogger()
-                        .tags(["backend"])
-                        .mustfix(
-                          "Job %s: backend is not ready: %s",
-                          t.type,
-                          String(a()),
-                        ),
-                    o("MAWJobManager").getJobManager().fireAndForget(t)
-                  );
-                });
-            },
-            runJobWaitUntilCompleted: function (t) {
-              return o("WAWaitForComms")
-                .waitForComms()
-                .then(function () {
-                  return (
-                    a() !== o("MAWReliabilityMonitor").HealthReportState.OK &&
-                      o("MWFBLogger")
-                        .MWLogger()
-                        .tags(["backend"])
-                        .mustfix(
-                          "Job %s: backend is not ready: %s",
-                          t.type,
-                          String(a()),
-                        ),
-                    o("MAWJobManager").getJobManager().waitUntilCompleted(t)
-                  );
-                });
-            },
+            runJobFireAndForget: c,
+            runJobWaitUntilCompleted: c,
             runMock: function (t) {
               return o("WAMockServerShell").getMockServer == null
                 ? Promise.reject(
@@ -161,7 +135,7 @@ __d(
         ),
         o("BackendInitLoggingUtils").MAWInitPoint("backend_bridge_ready"));
     }
-    l.registerBridgeHandlers = c;
+    l.registerBridgeHandlers = d;
   },
   98,
 );

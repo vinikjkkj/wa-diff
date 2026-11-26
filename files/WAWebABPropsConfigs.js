@@ -177,6 +177,7 @@ __d(
       ai_hatch_encrypted_media_enabled: [32496, "bool", !1, !0],
       ai_hatch_fab_animation_variant: [38617, "int", 0, 1],
       ai_hatch_fab_enabled: [38618, "bool", !1, !1],
+      ai_hatch_fab_large_size_enabled: [43679, "bool", !1, !1],
       ai_hatch_first_party_connectors_enabled: [38142, "bool", !1, !0],
       ai_hatch_forwarding_html_enabled: [27876, "bool", !1, !1],
       ai_hatch_group_history_share_enabled: [42143, "bool", !1, !1],

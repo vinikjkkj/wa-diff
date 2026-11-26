@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipTransportFallbackTracker",
-  ["WALogger", "WAWebCoreActionsODS", "WAWebVoipWebTransportCallSummary"],
+  ["WALogger", "WAWebODS", "WAWebVoipWebTransportCallSummary"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -21,9 +21,9 @@ __d(
         c ||
         ((c = !0),
         o("WAWebVoipWebTransportCallSummary").recordWtFallbackSctpConnected(),
-        o(
-          "WAWebCoreActionsODS",
-        ).logCallWebtransportFallbackToSctpSctpConnected(),
+        r("WAWebODS").incr(
+          "web.call.webtransport.fallback_to_sctp.sctp_connected",
+        ),
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -35,7 +35,9 @@ __d(
       !u ||
         c ||
         ((c = !0),
-        o("WAWebCoreActionsODS").logCallWebtransportFallbackToSctpSctpFailed(),
+        r("WAWebODS").incr(
+          "web.call.webtransport.fallback_to_sctp.sctp_failed",
+        ),
         o("WALogger")
           .ERROR(
             s ||

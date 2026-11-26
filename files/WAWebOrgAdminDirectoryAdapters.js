@@ -6,24 +6,35 @@ __d(
     "WAWebFrontendContactGetters",
     "WAWebOrgContactIdentityResolver",
     "WAWebOrgMemberLidEligibility",
+    "WAWebOrgViewerRoleUtils",
     "WAWebSchemaOrg",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 20;
-    function s(e) {
+    function s(e, t) {
+      var n = u(e.filter(o("WAWebOrgViewerRoleUtils").canViewerAdministerOrg));
+      return {
+        live: n,
+        visible:
+          n.length === 0
+            ? u(t.filter(o("WAWebOrgViewerRoleUtils").canViewerAdministerOrg))
+            : n,
+      };
+    }
+    function u(e) {
       return e.map(function (e) {
         return babelHelpers.extends({}, e, {
           isMemberDirectoryEnabled: e.isMemberDirectoryEnabled === !0,
-          viewerRole: f(e.viewerRole),
+          viewerRole: g(e.viewerRole),
         });
       });
     }
-    function u(e) {
+    function c(e) {
       return e.flatMap(function (e) {
-        var t = f(e.role);
+        var t = g(e.role);
         if (t == null) return [];
         var n = o("WAWebOrgContactIdentityResolver").resolveOrgContactIdentity(
-          c(e.lid),
+          d(e.lid),
           { memberName: e.displayName, username: e.username },
         );
         return [
@@ -38,7 +49,7 @@ __d(
         ];
       });
     }
-    function c(e) {
+    function d(e) {
       var t = o("WAWebOrgMemberLidEligibility").parseWAWebOrgMemberLidUser(e),
         n =
           t == null
@@ -52,7 +63,7 @@ __d(
             username: o("WAWebFrontendContactGetters").getUsername(n),
           };
     }
-    function d(e, t) {
+    function m(e, t) {
       return e
         ? "loaded"
         : t === "error"
@@ -61,7 +72,7 @@ __d(
             ? "loaded"
             : "not_loaded";
     }
-    function m(t) {
+    function p(t) {
       var n = new Map();
       return (
         t.forEach(function (e) {
@@ -72,7 +83,7 @@ __d(
           }
         }),
         Array.from(n.entries())
-          .sort(p)
+          .sort(_)
           .slice(0, e)
           .map(function (e) {
             var t = e[0];
@@ -83,20 +94,20 @@ __d(
           })
       );
     }
-    function p(e, t) {
+    function _(e, t) {
       var n = e[0],
         r = e[1],
         o = t[0],
         a = t[1],
         i = a - r;
       if (i !== 0) return i;
-      var l = _(n.toLowerCase(), o.toLowerCase());
-      return l !== 0 ? l : _(n, o);
+      var l = f(n.toLowerCase(), o.toLowerCase());
+      return l !== 0 ? l : f(n, o);
     }
-    function _(e, t) {
+    function f(e, t) {
       return e === t ? 0 : e < t ? -1 : 1;
     }
-    function f(e) {
+    function g(e) {
       return e === o("WAWebSchemaOrg").OrgMemberRole.Admin
         ? "ADMIN"
         : e === o("WAWebSchemaOrg").OrgMemberRole.Creator
@@ -112,10 +123,11 @@ __d(
                   );
                 })();
     }
-    ((l.toOrgAdminOrganizations = s),
-      (l.toOrgAdminDirectoryMembers = u),
-      (l.getDirectoryLoadStatus = d),
-      (l.getTopMemberTags = m));
+    ((l.getAdministeredOrgViews = s),
+      (l.toOrgAdminOrganizations = u),
+      (l.toOrgAdminDirectoryMembers = c),
+      (l.getDirectoryLoadStatus = m),
+      (l.getTopMemberTags = p));
   },
   98,
 );

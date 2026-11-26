@@ -379,9 +379,9 @@ __d(
               { merge: !0 },
             );
           }
-          o(
-            "WAWebCtwaConversationDepthUtils",
-          ).CTWA_CONVERSATION_COUNTER_MSG_TYPES.has(t.type) &&
+          o("WAWebCtwaConversationDepthUtils").isCtwaConversationCounterMsgType(
+            t.type,
+          ) &&
             o("WAWebCommonCTWADataSharing").getReceivedCTWAEligibilityFromChat(
               e,
             ) &&
@@ -389,18 +389,19 @@ __d(
               (o(
                 "WAWebCtwaConversationDepthUtils",
               ).advanceCtwaConversationCounters(e, t.id.fromMe),
-                o(
-                  "WAWebSmb3pdAggregatedConversionSignalAction",
-                ).log3pdAggregatedConversionSignal(
-                  e,
-                  "message",
-                  "message",
-                  t.id.fromMe
-                    ? o("WAWebWamEnumCtwaDirectionFrom").CTWA_DIRECTION_FROM
-                        .BUSINESS
-                    : o("WAWebWamEnumCtwaDirectionFrom").CTWA_DIRECTION_FROM
-                        .CUSTOMER,
-                ));
+                !(t.id.fromMe && t.isSmbAutomated === !0) &&
+                  o(
+                    "WAWebSmb3pdAggregatedConversionSignalAction",
+                  ).log3pdAggregatedConversionSignal(
+                    e,
+                    "message",
+                    "message",
+                    t.id.fromMe
+                      ? o("WAWebWamEnumCtwaDirectionFrom").CTWA_DIRECTION_FROM
+                          .BUSINESS
+                      : o("WAWebWamEnumCtwaDirectionFrom").CTWA_DIRECTION_FROM
+                          .CUSTOMER,
+                  ));
             });
           var p = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
             _ = o("WAWebUserUtils").getMeLidUserOrThrow();

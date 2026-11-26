@@ -42,7 +42,32 @@ __d(
               return e.getOrNull();
             });
     }
-    var s = async function (n) {
+    function s(e) {
+      var t = n("cr:19391");
+      return t == null
+        ? o("WebMps")
+            .mps()
+            .loadMessage(e)
+            .then(function (e) {
+              if (!e.success) throw e.error;
+              return e.value;
+            })
+        : t
+            .runMps(
+              {
+                boundary: "load_message",
+                code: "read_failed",
+                subject: e.debug.purpose,
+              },
+              function (n) {
+                return t.loadMessage(n, e);
+              },
+            )
+            .then(function (e) {
+              return e.getOrThrow();
+            });
+    }
+    var u = async function (n) {
       var t = o("MpsToBridgeMessageId").bridgeMsgIdToMps(n),
         r = t.messageId,
         a = t.threadId,
@@ -72,13 +97,13 @@ __d(
           };
       }
     };
-    function u(e) {
+    function c(e) {
       var t = e.mediaEntry,
         n = e.message,
         r = o("MpsToBridgeMessageId").mpsToBridgeMsgId(n.threadId, n.messageId);
       return new Map([[r, t]]);
     }
-    async function c(t) {
+    async function d(t) {
       var n = o("MpsMediaEntryCache").getEntry(t);
       if (n != null) return n;
       var r = await o("WmiMediaService")
@@ -100,11 +125,11 @@ __d(
         o("MpsMediaEntryCache").getEntry(t)
       );
     }
-    async function d(e) {
-      var t = await c(e);
-      return t == null ? null : u(t);
+    async function m(e) {
+      var t = await d(e);
+      return t == null ? null : c(t);
     }
-    var m = {
+    var p = {
         getStoredMediaKey: async function (t) {
           var e = await o("WmiMediaService")
             .mediaService()
@@ -124,11 +149,11 @@ __d(
             );
         },
       },
-      p = null;
-    function _() {
-      if (p == null) {
+      _ = null;
+    function f() {
+      if (_ == null) {
         var e = o("WmiChunkApi").getChunkApi();
-        p = o("WAMediaManager").createMediaManager({
+        _ = o("WAMediaManager").createMediaManager({
           blobStorage:
             o("WAMediaStorageV2Gate").MediaStorageV2 == null
               ? void 0
@@ -154,8 +179,8 @@ __d(
                     isProgressivePreview: t.isProgressivePreview,
                   };
             },
-            getMediaEntries: d,
-            getProtocolMsgIdAndSortOrderMs: s,
+            getMediaEntries: m,
+            getProtocolMsgIdAndSortOrderMs: u,
             storeChunkByPlaintextHash: async function (n) {
               var t = n.blobData,
                 r = n.isProgressivePreview,
@@ -165,15 +190,18 @@ __d(
             },
           },
           mediaKeyStore:
-            o("WAMediaStorageV2Gate").MediaStorageV2 == null ? null : m,
+            o("WAMediaStorageV2Gate").MediaStorageV2 == null ? null : p,
         });
       }
-      return p;
+      return _;
     }
-    function f() {
-      p = null;
+    function g() {
+      _ = null;
     }
-    ((l.loadEntry = c), (l.mpsMediaManager = _), (l.reset__TEST_ONLY = f));
+    ((l.mpsLoadMessageOrThrow = s),
+      (l.loadEntry = d),
+      (l.mpsMediaManager = f),
+      (l.reset__TEST_ONLY = g));
   },
   98,
 );

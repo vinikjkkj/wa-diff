@@ -569,8 +569,7 @@ __d(
     ((j.doc = "Send a raw wam event (used by UWP Hybrid app)"),
       (j.paramsToExecute = []));
     function K(e, t) {
-      (r("vulture")("SDbG34TilP6I6G-yF-kthq2ORFs="),
-        o("WAWebTos").TosManager.setState(e, t, o("WATimeUtils").unixTime()));
+      o("WAWebTos").TosManager.setState(e, t, o("WATimeUtils").unixTime());
     }
     K.doc = "Set the state of a given TOS notice";
     function Q(e) {

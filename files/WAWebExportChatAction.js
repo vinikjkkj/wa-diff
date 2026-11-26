@@ -13,6 +13,7 @@ __d(
     "WAWebFileSaver",
     "WAWebFileSaverDownloadData",
     "WAWebFileSaverTypes",
+    "WAWebForwardedBotMessageUtils",
     "WAWebLimitSharingUIUtils",
     "WAWebMediaLocalAvailability",
     "WAWebMessageQueryService",
@@ -187,7 +188,8 @@ __d(
           var F = D.filter(function (e) {
             return (
               o("WAWebExportChatMarkdownFormatter").MEDIA_TYPES.has(e.type) &&
-              o("WAWebMediaLocalAvailability").isMsgMediaAvailableLocally(e)
+              o("WAWebMediaLocalAvailability").isMsgMediaAvailableLocally(e) &&
+              !o("WAWebForwardedBotMessageUtils").isMaskedForwardedBotCopy(e)
             );
           });
           if (

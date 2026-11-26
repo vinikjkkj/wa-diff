@@ -4,9 +4,8 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     async function e(e) {
-      var t;
-      r("vulture")("Aqh2JCiORSjecuV7cWz7upUIiaY=");
-      var n = e.mockFilePath,
+      var t,
+        n = e.mockFilePath,
         o = e.mockName,
         a = e.response,
         i = e.variables,

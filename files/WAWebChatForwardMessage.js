@@ -539,6 +539,7 @@ __d(
           "botMessageSecret",
           "forwardReachScore",
           "hatchMetadataSync",
+          "isSmbAutomated",
           "botEditType",
           "botFeedbackKind",
           "botFeedbackText",

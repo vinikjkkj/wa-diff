@@ -311,6 +311,7 @@ __d(
         delete o.multicast,
         delete o.urlNumber,
         delete o.urlText,
+        delete o.isSmbAutomated,
         delete o.linkPreview,
         delete o.star,
         delete o.forwardedFromWeb,

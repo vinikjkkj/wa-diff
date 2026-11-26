@@ -42,7 +42,12 @@ __d(
     function c() {
       return o("WAWebABProps").getABPropConfigValue("rt_ghs_receiver_enabled");
     }
-    function d(e) {
+    function d() {
+      return o("WAWebABProps").getABPropConfigValue(
+        "ghs_drop_msg_missing_from_public_stanza",
+      );
+    }
+    function m(e) {
       if (
         o("WAWebABProps").getABPropConfigValue("group_history_send_after_join")
       )
@@ -58,52 +63,53 @@ __d(
         }
       return !1;
     }
-    function m() {
+    function p() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_messages_time_limit_secs",
       );
     }
-    function p() {
+    function _() {
       return o("WAWebABProps").getABPropConfigValue("is_internal_tester");
     }
-    function _(e) {
-      return d(e) || p();
+    function f(e) {
+      return m(e) || _();
     }
-    function f() {
+    function g() {
       return o("WAWebABProps").getABPropConfigValue(
         "ai_hatch_group_history_share_enabled",
       );
     }
-    function g() {
+    function h() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_send_once_default_on",
       );
     }
-    function h() {
+    function y() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_send_default_on",
       );
     }
-    function y() {
+    function C() {
       return o("WAWebABProps").getABPropConfigValue(
         "group_history_sender_speed_bump_dialog_display_times",
       );
     }
-    function C() {
+    function b() {
       return r("justknobx")._("5870");
     }
     ((l.isGroupHistorySenderEnabled = e),
       (l.isGroupHistorySettingsToggleUIEnabled = s),
       (l.isGroupHistorySenderReportingTokenEnabled = u),
       (l.isGroupHistoryReceiverReportingTokenEnabled = c),
-      (l.isGroupHistoryPostJoinSenderEnabled = d),
-      (l.getGroupHistoryMessagesTimeLimitSecs = m),
-      (l.isGroupHistoryPostJoinSenderOrInternalTesterEnabled = _),
-      (l.isMuseGroupHistoryShareEnabled = f),
-      (l.isGroupHistorySendOnceDefaultOnEnabled = g),
-      (l.isGroupHistorySendDefaultOnEnabled = h),
-      (l.getGroupHistorySpeedBumpDialogDisplayTimes = y),
-      (l.shouldSkipUnsupportedMessagesFromBundle = C));
+      (l.isGroupHistoryMissingFromPublicStanzaDropEnabled = d),
+      (l.isGroupHistoryPostJoinSenderEnabled = m),
+      (l.getGroupHistoryMessagesTimeLimitSecs = p),
+      (l.isGroupHistoryPostJoinSenderOrInternalTesterEnabled = f),
+      (l.isMuseGroupHistoryShareEnabled = g),
+      (l.isGroupHistorySendOnceDefaultOnEnabled = h),
+      (l.isGroupHistorySendDefaultOnEnabled = y),
+      (l.getGroupHistorySpeedBumpDialogDisplayTimes = C),
+      (l.shouldSkipUnsupportedMessagesFromBundle = b));
   },
   98,
 );

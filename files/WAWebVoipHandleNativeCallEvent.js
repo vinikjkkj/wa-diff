@@ -57,6 +57,7 @@ __d(
     "WAWebVoipVideoCaptureAndRendering",
     "WAWebVoipWaCallEnums",
     "WAWebVoipWasmHeapMonitor",
+    "WAWebVoipWebCodecsEncoderState",
     "WAWebVoipWebTransportCallSummary",
     "WAWebVoipWebTransportConnectionManager",
     "WAWebVoipWindowMetrics",
@@ -1537,9 +1538,7 @@ __d(
             o(
               "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
             ).syncVoipPersistentFSWithIdleCallback(),
-          o(
-            "WAWebVoipHandleNativeCallEventMediaHandlers",
-          ).resetWebCodecsEncoderState(),
+          o("WAWebVoipWebCodecsEncoderState").resetWebCodecsEncoderState(),
           o(
             "WAWebVoipHandleNativeCallEventCallLinkHandlers",
           ).resetCallLinkHandlerState(),

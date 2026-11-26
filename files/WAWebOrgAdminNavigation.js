@@ -11,61 +11,80 @@ __d(
       },
       l = e,
       s = null,
-      u = 0,
-      c = new Set();
-    function d() {
+      u = null,
+      c = 0,
+      d = new Set();
+    function m() {
       return l;
     }
-    function m(e) {
+    function p(e) {
       return (
-        c.add(e),
+        d.add(e),
         function () {
-          c.delete(e);
+          d.delete(e);
         }
       );
     }
-    function p(e) {
+    function _(e) {
       ((l = e),
-        c.forEach(function (e) {
+        d.forEach(function (e) {
           return e();
         }));
     }
-    function _() {
-      p(e);
-    }
     function f() {
-      return ((u += 1), u);
+      _(e);
     }
-    function g(e) {
-      return e === u;
+    function g() {
+      return ((c += 1), c);
     }
     function h(e) {
+      return e === c;
+    }
+    function y(e, t) {
       return (
         (s = e),
+        (u = t),
         function () {
           s === e &&
             ((s = null),
-            p(
-              babelHelpers.extends({}, l, { disabled: !1, switchDisabled: !1 }),
+            (u = null),
+            _(
+              babelHelpers.extends({}, l, {
+                disabled: !1,
+                leaveDisabled: !1,
+                selectedOrganizationID: "",
+                switchDisabled: !1,
+              }),
             ));
         }
       );
     }
-    function y() {
+    function C() {
       return s != null;
     }
-    function C(e, t) {
+    function b(e) {
+      var t = u;
+      if (t == null) {
+        e();
+        return;
+      }
+      t(function () {
+        u === t && e();
+      });
+    }
+    function v(e, t) {
       return s == null ? !1 : (s(e, t), !0);
     }
-    ((i.getOrgAdminNavigation = d),
-      (i.subscribeToOrgAdminNavigation = m),
-      (i.publishOrgAdminNavigation = p),
-      (i.resetOrgAdminNavigation = _),
-      (i.startOrgAdminNavigationSession = f),
-      (i.isCurrentOrgAdminNavigationSession = g),
-      (i.registerOrgAdminPageHandler = h),
-      (i.hasOrgAdminPageHandler = y),
-      (i.openOrgAdminPage = C));
+    ((i.getOrgAdminNavigation = m),
+      (i.subscribeToOrgAdminNavigation = p),
+      (i.publishOrgAdminNavigation = _),
+      (i.resetOrgAdminNavigation = f),
+      (i.startOrgAdminNavigationSession = g),
+      (i.isCurrentOrgAdminNavigationSession = h),
+      (i.registerOrgAdminPageHandler = y),
+      (i.hasOrgAdminPageHandler = C),
+      (i.leaveOrgAdminPage = b),
+      (i.openOrgAdminPage = v));
   },
   66,
 );

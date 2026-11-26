@@ -6,30 +6,30 @@ __d(
     "WAWebHatchJarvisReplyGate",
     "WAWebHatchJarvisText",
     "WAWebMsgGetters",
+    "WAWebRichResponseQuoteMarkdown",
     "WAWebUnifiedResponseUtils",
     "fbs",
     "getPlainTextFromUnifiedResponse",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = /!\[[^\[\]\r\n]*\]\((?:container|sandbox):\/\/[^()\s]+\)/g;
-    function s(t) {
-      var n,
-        o = (n = u(t)) != null ? n : "",
-        a = o.replace(e, "");
-      return a === o
-        ? o
+    function e(e) {
+      var t,
+        n = (t = s(e)) != null ? t : "",
+        a = o("WAWebRichResponseQuoteMarkdown").stripServerFileImages(n);
+      return a === n
+        ? n
         : a.replace(/\n{3,}/g, "\n\n").trim() ||
             r("fbs")._(/*BTDS*/ "").toString();
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WAWebUnifiedResponseUtils").isUnifiedResponseVisible(e)
-        ? c(e, e.unifiedResponse)
+        ? u(e, e.unifiedResponse)
         : "";
       return n !== ""
         ? n
         : o("WAWebGetPlainTextFromBotMsg").getPlainTextFromBotMsg(e, t);
     }
-    function c(e, t, n) {
+    function u(e, t, n) {
       if (t == null) return "";
       var a = o("WAWebHatchJarvisReplyGate").getHatchJarvisDrawMode({
           chatId: e.id.remote,
@@ -57,9 +57,9 @@ __d(
         ? r("getPlainTextFromUnifiedResponse")(t)
         : r("getPlainTextFromUnifiedResponse")(t, n);
     }
-    ((l.getRichResponseQuoteText = s),
-      (l.getRichResponsePreviewText = u),
-      (l.getUnifiedResponsePreviewText = c));
+    ((l.getRichResponseQuoteText = e),
+      (l.getRichResponsePreviewText = s),
+      (l.getUnifiedResponsePreviewText = u));
   },
   226,
 );

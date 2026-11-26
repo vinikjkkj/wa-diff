@@ -1,11 +1,18 @@
 __d(
   "WAWebForwardedBotMaskedText",
-  ["fbt"],
+  ["fbt", "WAWebForwardedBotMessageUtils", "WAWebMsgType"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
       return s._(/*BTDS*/ "");
     }
-    l.getForwardedBotMaskedWarning = e;
+    function u(t) {
+      return t.type === o("WAWebMsgType").MSG_TYPE.REVOKED ||
+        !o("WAWebForwardedBotMessageUtils").isMaskedForwardedBotCopy(t)
+        ? null
+        : e().toString();
+    }
+    ((l.getForwardedBotMaskedWarning = e),
+      (l.getMaskedForwardedBotCopyText = u));
   },
   226,
 );

@@ -16,11 +16,12 @@ __d(
     var e,
       u = e || (e = o("react"));
     function c(e) {
-      if (
-        !o("WAWebBotUtils").isHatchBot(e.id) ||
+      return !o("WAWebBotUtils").isHatchBot(e.id) ||
         !o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()
-      )
-        return null;
+        ? null
+        : d(e);
+    }
+    function d(e) {
       var t = o("WAWebFrontendContactGetters").getFormattedName(e.contact);
       return r("WAWebHatchLinkedStatusManager").isUnlinked()
         ? s._(/*BTDS*/ "", [s._param("bot_name", t)])
@@ -38,10 +39,10 @@ __d(
             );
           })(o("WAWebHatchCvmReadOnlyState").getHatchCvmReadOnlyReason());
     }
-    function d(e) {
+    function m(e) {
       return o("WAWebHatchCvmReadOnlyState").subscribeToHatchCvmReadOnly(e);
     }
-    ((l.getHatchReadOnlyNotice = c), (l.subscribeToHatchReadOnly = d));
+    ((l.getHatchReadOnlyNotice = c), (l.subscribeToHatchReadOnly = m));
   },
   226,
 );

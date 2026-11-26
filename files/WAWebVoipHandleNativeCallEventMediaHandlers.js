@@ -249,10 +249,7 @@ __d(
       (l.handleSelfCameraAutoOff = S),
       (l.handleRaiseHandStateChanged = R),
       (l.handleEncodeTargetFpsChanged = L),
-      (l.handleEncodeParamsChanged = E),
-      (l.resetWebCodecsEncoderState = o(
-        "WAWebVoipWebCodecsEncoderState",
-      ).resetWebCodecsEncoderState));
+      (l.handleEncodeParamsChanged = E));
   },
   98,
 );

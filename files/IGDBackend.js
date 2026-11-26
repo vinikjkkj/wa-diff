@@ -4,7 +4,6 @@ __d(
     "IGDAWMainWebWorkerConfig",
     "IGDBackendBridgeHandlers",
     "IGDCOP",
-    "IGDJobHandlers",
     "IGDLoadRecentParticipantsApi",
     "MAWClearSignalAndTempStores",
     "MAWCommsConfig",
@@ -12,7 +11,6 @@ __d(
     "MAWCreateGroupApi",
     "MAWCurrentUser",
     "MAWDebugDefineFunctions",
-    "MAWDefinePersistedJob",
     "MAWEphemeralConsts",
     "MAWExternalId",
     "MAWExtractMsFromExternalId",
@@ -143,9 +141,6 @@ __d(
           o("MAWODSProxy").bumpBridgeRouteUsage,
         ),
         a.setHandlers("mps", o("MAWMpsBridgeHandlers").mpsBridgeHandlers),
-        o("MAWDefinePersistedJob").setMsgrJobImplementations(
-          o("IGDJobHandlers").getJobHandlers(),
-        ),
         await p.startComms(),
         d.LOG(
           c || (c = babelHelpers.taggedTemplateLiteralLoose(["Worker inited"])),

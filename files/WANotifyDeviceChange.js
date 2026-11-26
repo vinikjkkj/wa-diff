@@ -1,13 +1,6 @@
 __d(
   "WANotifyDeviceChange",
-  [
-    "WAGlobals",
-    "WALogger",
-    "WAPersistedJobManager",
-    "WASmaxDevicesNotifyRPC",
-    "WATimeUtils",
-    "err",
-  ],
+  ["WAGlobals", "WALogger", "WASmaxDevicesNotifyRPC", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
@@ -39,22 +32,9 @@ __d(
       if (t.name !== "NotifyResponseSuccess") {
         t.name;
         var n = t.value.errorDeviceIqErrors;
-        if (n.name === "RetryableIQError") {
-          var a = n.value.backoff;
-          throw a != null
-            ? new (o("WAPersistedJobManager").RetryOnBackoff)({
-                algo: { type: "constant", delay: a },
-                jitter: 0,
-              })
-            : new (o("WAPersistedJobManager").RetryOnBackoff)({
-                algo: {
-                  type: "exponential",
-                  first: o("WATimeUtils").HOUR_MILLISECONDS / 60,
-                },
-                jitter: 0.1,
-              });
-        }
-        throw r("err")("Failed with an unexpected error code " + n.value.code);
+        throw n.name === "RetryableIQError"
+          ? r("err")("Failed with a retryable error")
+          : r("err")("Failed with an unexpected error code " + n.value.code);
       }
     }
     l.notifyDeviceChange = s;

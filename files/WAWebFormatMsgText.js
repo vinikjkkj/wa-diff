@@ -15,6 +15,7 @@ __d(
     "WAWebFormatNotificationTemplateText",
     "WAWebFormatOversizedMsg",
     "WAWebFormatUnknownMsg",
+    "WAWebForwardedBotMaskedText",
     "WAWebFrontendMsgGetters",
     "WAWebGalaxyFlowResponseUtils",
     "WAWebInteractiveMessagesNativeFlowName",
@@ -45,17 +46,19 @@ __d(
         R = _.spoilerReplacement,
         L = _.searchQuery,
         E = L === void 0 ? [] : L,
-        k = m.safe(),
-        I = !1,
-        T;
-      if (k.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN && k.futureproofType)
-        T = o("WAWebMessagePluginFutureproofMsgText").futureproofMsgText({
+        k = o("WAWebForwardedBotMaskedText").getMaskedForwardedBotCopyText(m);
+      if (k != null) return k;
+      var I = m.safe(),
+        T = !1,
+        D;
+      if (I.type === o("WAWebMsgType").MSG_TYPE.UNKNOWN && I.futureproofType)
+        D = o("WAWebMessagePluginFutureproofMsgText").futureproofMsgText({
           msg: m,
         });
       else {
-        var D;
-        T =
-          (D = o("WAWebMessagePluginFormatMsgText").formatMsgText({
+        var x;
+        D =
+          (x = o("WAWebMessagePluginFormatMsgText").formatMsgText({
             msg: m,
             associatedMessages: l,
             options: {
@@ -65,13 +68,13 @@ __d(
               formatAsLastMsg: b,
               formatAsSearchResult: S,
               onSpoilerReplacementHandled: function () {
-                I = !0;
+                T = !0;
               },
               spoilerReplacement: R,
               searchQuery: E,
             },
           })) != null
-            ? D
+            ? x
             : o("WAWebSystemMessagePluginFormatMsgText").formatMsgText({
                 msg: m,
                 options: {
@@ -81,29 +84,29 @@ __d(
                   formatAsLastMsg: b,
                   formatAsSearchResult: S,
                   onSpoilerReplacementHandled: function () {
-                    I = !0;
+                    T = !0;
                   },
                   spoilerReplacement: R,
                   searchQuery: E,
                 },
               });
       }
-      if (T != null) return u(T, R, I);
-      switch (k.type) {
+      if (D != null) return u(D, R, T);
+      switch (I.type) {
         case o("WAWebMsgType").MSG_TYPE.HSM:
           return c(m, (t = m.body) != null ? t : "", y, R);
         case o("WAWebMsgType").MSG_TYPE.CHAT:
           if (m.isFromTemplate) {
-            var x,
-              $ = (x = m.body) != null ? x : "";
+            var $,
+              P = ($ = m.body) != null ? $ : "";
             return m.title
-              ? c(m, m.title + " " + $, y, R, "*" + m.title + "* " + $)
-              : c(m, $, y, R);
+              ? c(m, m.title + " " + P, y, R, "*" + m.title + "* " + P)
+              : c(m, P, y, R);
           }
           if (m.isDynamicReplyButtonsMsg && m.title) {
-            var P = o("WAWebFormatMsgTextUtils").maybeAddFooter(m.body, m);
-            if (P != null)
-              return c(m, m.title + "\n" + P, y, R, "*" + m.title + "*\n" + P);
+            var N = o("WAWebFormatMsgTextUtils").maybeAddFooter(m.body, m);
+            if (N != null)
+              return c(m, m.title + "\n" + N, y, R, "*" + m.title + "*\n" + N);
           }
           return c(m, (n = m.body) != null ? n : "", y, R);
         case o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE:
@@ -119,12 +122,12 @@ __d(
               )
             : d(m.body || "", R);
         case o("WAWebMsgType").MSG_TYPE.PTV: {
-          if (k.isViewOnce)
-            return o("WAWebViewOnceState").isViewed(k)
+          if (I.isViewOnce)
+            return o("WAWebViewOnceState").isViewed(I)
               ? s._(/*BTDS*/ "")
               : s._(/*BTDS*/ "");
-          var N = o("WAWebFormatMsgTextUtils").maybeAddFooter(m.caption, m);
-          return N != null && N !== "" ? c(m, N, y, R) : s._(/*BTDS*/ "");
+          var M = o("WAWebFormatMsgTextUtils").maybeAddFooter(m.caption, m);
+          return M != null && M !== "" ? c(m, M, y, R) : s._(/*BTDS*/ "");
         }
         case o("WAWebMsgType").MSG_TYPE.GP2:
           return r("WAWebFormatGroupNotification")(m, b);
@@ -135,28 +138,28 @@ __d(
         case o("WAWebMsgType").MSG_TYPE.NOTIFICATION:
           return d((i = m.body) != null ? i : "", R);
         case o("WAWebMsgType").MSG_TYPE.E2E_NOTIFICATION:
-          return o("WAWebFormatE2ENotification").formatE2ENotification(k);
+          return o("WAWebFormatE2ENotification").formatE2ENotification(I);
         case o("WAWebMsgType").MSG_TYPE.PRODUCT: {
-          var M = [o("WAWebFrontendMsgGetters").getText(m), m.caption, m.footer]
+          var w = [o("WAWebFrontendMsgGetters").getText(m), m.caption, m.footer]
             .filter(Boolean)
             .join(" ");
-          return M.length ? c(m, M, y, R) : s._(/*BTDS*/ "");
+          return w.length ? c(m, w, y, R) : s._(/*BTDS*/ "");
         }
         case o("WAWebMsgType").MSG_TYPE.OVERSIZED:
           return o("WAWebFormatOversizedMsg").formatOversizedMsgText();
         case o("WAWebMsgType").MSG_TYPE.INTERACTIVE: {
-          var w = m;
+          var A = m;
           if (
-            w.nativeFlowName ===
+            A.nativeFlowName ===
               r("WAWebInteractiveMessagesNativeFlowName")
                 .BOOKING_CONFIRMATION &&
             !o("WAWebBookingConfirmationGating").isBookingConfirmationEnabled()
           )
             return o("WAWebFormatUnknownMsg").formatUnknownMsgText(m);
-          var A = o("WAWebBizFormatInteractiveMsg").formatInteractive(w, {
+          var F = o("WAWebBizFormatInteractiveMsg").formatInteractive(A, {
             formatAsSearchResult: S,
           });
-          return R == null ? A : d(A.toString(), R);
+          return R == null ? F : d(F.toString(), R);
         }
         case o("WAWebMsgType").MSG_TYPE.UNKNOWN:
           return o("WAWebFormatUnknownMsg").formatUnknownMsgText(m);
@@ -188,11 +191,11 @@ __d(
         case o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_BUNDLE:
           return o(
             "WAWebFormatMessageHistoryBundleBody",
-          ).formatMessageHistoryBundleBody(k);
+          ).formatMessageHistoryBundleBody(I);
         case o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_NOTICE:
           return o(
             "WAWebFormatMessageHistoryNoticeBody",
-          ).formatMessageHistoryNoticeBody(k);
+          ).formatMessageHistoryNoticeBody(I);
         default:
           return "";
       }

@@ -20,7 +20,6 @@ __d(
     C.doc =
       "Apply per-customer data sharing mutations to the DB. This is used for testing syncd mutations only.";
     async function b(e, t) {
-      r("vulture")("ADda30ZKc4rdlyYzcWnaI21gUHw=");
       var n = o("WAWebWidFactory").createUserLidOrThrow(e);
       return r(
         "WAWebCtwaPerCustomerDataSharingSync",
@@ -81,7 +80,6 @@ __d(
     v.doc =
       "Inspect the current state of DataSharing3pdLidCollection. Shows total count and details of all records.";
     function S(e) {
-      r("vulture")("Iwem6hZG5UpL0MJiNvh0y8LUdEM=");
       var t = o(
           "WAWebDataSharing3pdLidCollection",
         ).DataSharing3pdLidCollection.isDataSharingEnabled(e),

@@ -5,7 +5,6 @@ __d(
     "WAGlobals",
     "WAJids",
     "WALogger",
-    "WAPersistedJobManager",
     "WASignalKeys",
     "WASmaxDevicesFetchSelfRPC",
     "WATimeUtils",
@@ -42,35 +41,22 @@ __d(
         case "FetchSelfResponseError": {
           var t = e.value.errorDeviceIqErrors;
           switch (t.name) {
-            case "RetryableIQError": {
-              var n = t.value.backoff;
-              throw n != null
-                ? new (o("WAPersistedJobManager").RetryOnBackoff)({
-                    algo: { delay: n, type: "constant" },
-                    jitter: 0,
-                  })
-                : new (o("WAPersistedJobManager").RetryOnBackoff)({
-                    algo: {
-                      first: o("WATimeUtils").HOUR_MILLISECONDS / 60,
-                      type: "exponential",
-                    },
-                    jitter: 0.1,
-                  });
-            }
+            case "RetryableIQError":
+              throw r("err")("Failed with a retryable error");
             default: {
               t.name;
-              var a = t.value.code;
-              throw r("err")("Failed with an error code " + a);
+              var n = t.value.code;
+              throw r("err")("Failed with an error code " + n);
             }
           }
         }
         case "FetchSelfResponseSuccess": {
-          var i = o("WAJids").extractDeviceId(o("WAGlobals").getMyDeviceJid());
+          var a = o("WAJids").extractDeviceId(o("WAGlobals").getMyDeviceJid());
           return e.value.selfDevice
             .map(function (e) {
               var t,
                 n,
-                a,
+                i,
                 l,
                 s,
                 u = e.creation,
@@ -96,7 +82,7 @@ __d(
                 identityKey: o("WASignalKeys").serializeIdentity(y),
                 ipAddress:
                   (t = m == null ? void 0 : m.elementValue) != null ? t : null,
-                isCurrentDevice: c === i,
+                isCurrentDevice: c === a,
                 lastSeen:
                   h == null
                     ? null
@@ -108,7 +94,7 @@ __d(
                   (n = p == null ? void 0 : p.elementValue) != null ? n : null,
                 longitude: p == null ? null : parseFloat(p.longitude),
                 manufacturer:
-                  (a = _ == null ? void 0 : _.elementValue) != null ? a : null,
+                  (i = _ == null ? void 0 : _.elementValue) != null ? i : null,
                 model:
                   (l = f == null ? void 0 : f.elementValue) != null ? l : null,
                 platform:

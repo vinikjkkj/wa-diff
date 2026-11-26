@@ -20,6 +20,7 @@ __d(
     "WAWebFormatPaymentMsg",
     "WAWebFormatRevokedMsg",
     "WAWebFormatUnknownMsg",
+    "WAWebForwardedBotMaskedText",
     "WAWebFrontendMsgGetters",
     "WAWebInstantsStrings",
     "WAWebInteractiveMessageType",
@@ -57,25 +58,27 @@ __d(
         _ = e.safe(),
         f = "";
       if (p && !m) return p().toString();
+      var h = o("WAWebForwardedBotMaskedText").getMaskedForwardedBotCopyText(e);
+      if (h != null) return m ? h : "";
       switch (_.type) {
         case "chat": {
           m && (f = r("WAWebUnformatMsg")(e, e.body));
           break;
         }
         case "image": {
-          var h = "";
+          var y = "";
           (o("WAWebUA").UA.hasEmoji &&
-            (h = _.isViewOnce ? "1\uFE0F\u20E3 " : "\uD83D\uDCF7 "),
+            (y = _.isViewOnce ? "1\uFE0F\u20E3 " : "\uD83D\uDCF7 "),
             (f =
-              h +
+              y +
               ((m && r("WAWebUnformatMsg")(e, e.caption)) ||
                 r("fbs")._(/*BTDS*/ "").toString())));
           break;
         }
         case "product": {
-          var y = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDED2 " : "";
+          var C = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDED2 " : "";
           f =
-            y +
+            C +
             ((o("WAWebFrontendMsgGetters").getText(e) &&
               r("WAWebUnformatMsg")(
                 e,
@@ -89,17 +92,17 @@ __d(
             e.interactiveType ===
             r("WAWebInteractiveMessageType").SHOPS_STOREFRONT
           ) {
-            var C,
-              b = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDECD\uFE0F  " : "";
+            var b,
+              v = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDECD\uFE0F  " : "";
             f =
-              b +
+              v +
                 r("WAWebUnformatMsg")(
                   e,
                   e.body != null
                     ? e.body
-                    : (C = e.interactiveHeader) == null
+                    : (b = e.interactiveHeader) == null
                       ? void 0
-                      : C.title,
+                      : b.title,
                 ) || "";
             break;
           }
@@ -109,15 +112,15 @@ __d(
             e.nativeFlowName ===
               r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
           ) {
-            var v,
-              S = _;
+            var S,
+              R = _;
             f =
               o(
                 "WAWebBizFormatInteractiveMsg",
-              ).formatOrderDetailsMessagePreview(S) ||
-              ((v = e.caption) != null ? v : "");
-            var R = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCC3  " : "";
-            f = R + f;
+              ).formatOrderDetailsMessagePreview(R) ||
+              ((S = e.caption) != null ? S : "");
+            var L = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCC3  " : "";
+            f = L + f;
             break;
           }
           if (
@@ -126,12 +129,12 @@ __d(
             e.nativeFlowName ===
               r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
           ) {
-            var L,
-              E = _;
+            var E,
+              k = _;
             f =
               o("WAWebBizFormatInteractiveMsg").formatPaymentInfoMessagePreview(
-                E,
-              ) || ((L = e.caption) != null ? L : "");
+                k,
+              ) || ((E = e.caption) != null ? E : "");
             break;
           }
           if (
@@ -140,12 +143,12 @@ __d(
             e.nativeFlowName ===
               r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS
           ) {
-            var k,
-              I = _;
+            var I,
+              T = _;
             f =
               o("WAWebBizFormatInteractiveMsg").formatOrderStatusMessagePreview(
-                I,
-              ) || ((k = e.caption) != null ? k : "");
+                T,
+              ) || ((I = e.caption) != null ? I : "");
             break;
           }
           return (
@@ -165,24 +168,24 @@ __d(
             e.nativeFlowName ===
             r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
           ) {
-            var T,
-              D = _,
-              x = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCC3  " : "";
+            var D,
+              x = _,
+              $ = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCC3  " : "";
             f =
-              x +
-              (o("WAWebFormatNfmText").formatNFMTextPreview(D) ||
-                ((T = e.caption) != null ? T : ""));
+              $ +
+              (o("WAWebFormatNfmText").formatNFMTextPreview(x) ||
+                ((D = e.caption) != null ? D : ""));
             break;
           }
           if (
             e.nativeFlowName ===
             r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
           ) {
-            var $,
-              P = _;
+            var P,
+              N = _;
             f =
-              o("WAWebFormatNfmText").formatNFMTextPreview(P) ||
-              (($ = e.caption) != null ? $ : "");
+              o("WAWebFormatNfmText").formatNFMTextPreview(N) ||
+              ((P = e.caption) != null ? P : "");
             break;
           }
           return (
@@ -197,39 +200,39 @@ __d(
             ""
           );
         case "sticker": {
-          var N = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDC9F" : "";
-          f = s._(/*BTDS*/ "", [s._param("stickerIcon", N)]);
+          var M = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDC9F" : "";
+          f = s._(/*BTDS*/ "", [s._param("stickerIcon", M)]);
           break;
         }
         case "video": {
-          var M = "",
-            w;
+          var w = "",
+            A;
           (e.isGif
-            ? ((M = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDC7E " : ""),
-              (w = (m && r("WAWebUnformatMsg")(e, e.caption)) || "GIF"))
+            ? ((w = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDC7E " : ""),
+              (A = (m && r("WAWebUnformatMsg")(e, e.caption)) || "GIF"))
             : (o("WAWebUA").UA.hasEmoji &&
-                (M = _.isViewOnce ? "1\uFE0F\u20E3 " : "\uD83C\uDFA5 "),
-              (w =
+                (w = _.isViewOnce ? "1\uFE0F\u20E3 " : "\uD83C\uDFA5 "),
+              (A =
                 (m && r("WAWebUnformatMsg")(e, e.caption)) ||
                 r("fbs")._(/*BTDS*/ "").toString()),
               _.isViewOnce ||
-                (w =
-                  w +
+                (A =
+                  A +
                   " (" +
                   o("WAWebClock").Clock.durationStr(e.duration) +
                   ")")),
-            (f = "" + M + w));
+            (f = "" + w + A));
           break;
         }
         case "ptv": {
-          var A = o("WAWebUA").UA.hasEmoji ? "\uD83C\uDFA5 " : "",
-            F = (m && r("WAWebUnformatMsg")(e, e.caption)) || s._(/*BTDS*/ ""),
-            O =
-              F.toString() +
+          var F = o("WAWebUA").UA.hasEmoji ? "\uD83C\uDFA5 " : "",
+            O = (m && r("WAWebUnformatMsg")(e, e.caption)) || s._(/*BTDS*/ ""),
+            B =
+              O.toString() +
               " (" +
               o("WAWebClock").Clock.durationStr(e.duration) +
               ")";
-          f = "" + A + O;
+          f = "" + F + B;
           break;
         }
         case "instant_image":
@@ -239,20 +242,20 @@ __d(
             o("WAWebInstantsStrings").getInstantLabel();
           break;
         case "ptt": {
-          var B = "",
-            W = s._(/*BTDS*/ "").toString();
+          var W = "",
+            q = s._(/*BTDS*/ "").toString();
           (o("WAWebUA").UA.hasEmoji &&
-            (B = _.isViewOnce ? "1\uFE0F\u20E3 " : "\uD83C\uDFA4 "),
+            (W = _.isViewOnce ? "1\uFE0F\u20E3 " : "\uD83C\uDFA4 "),
             _.isViewOnce ||
-              (W =
-                W + " (" + o("WAWebClock").Clock.durationStr(e.duration) + ")"),
-            (f = "" + B + W));
+              (q =
+                q + " (" + o("WAWebClock").Clock.durationStr(e.duration) + ")"),
+            (f = "" + W + q));
           break;
         }
         case "audio": {
-          var q = o("WAWebUA").UA.hasEmoji ? "\uD83C\uDFB5 " : "";
+          var U = o("WAWebUA").UA.hasEmoji ? "\uD83C\uDFB5 " : "";
           f =
-            q +
+            U +
             " " +
             r("fbs")._(/*BTDS*/ "").toString() +
             " (" +
@@ -261,14 +264,14 @@ __d(
           break;
         }
         case "location": {
-          var U = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCCD " : "",
-            V;
+          var V = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCCD " : "",
+            H;
           (e.isLive
-            ? (V =
+            ? (H =
                 (m && r("WAWebUnformatMsg")(e, e.comment)) ||
                 s._(/*BTDS*/ "").toString())
-            : (V = (m && e.loc) || r("fbs")._(/*BTDS*/ "").toString()),
-            (f = U + " " + V));
+            : (H = (m && e.loc) || r("fbs")._(/*BTDS*/ "").toString()),
+            (f = V + " " + H));
           break;
         }
         case "groups_v4_invite":
@@ -289,30 +292,30 @@ __d(
           f = (t = e.body) != null ? t : "";
           break;
         case "vcard": {
-          var H = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDC64 " : "";
-          f = H + (e.subtype || r("fbs")._(/*BTDS*/ "").toString());
+          var G = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDC64 " : "";
+          f = G + (e.subtype || r("fbs")._(/*BTDS*/ "").toString());
           break;
         }
         case "multi_vcard": {
-          var G = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDC65 " : "";
-          f = G + o("WAWebVcardUtils").getNameString(e.vcardList).toString();
+          var z = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDC65 " : "";
+          f = z + o("WAWebVcardUtils").getNameString(e.vcardList).toString();
           break;
         }
         case "document": {
           if (e.isVcardOverMmsDocument) {
-            var z = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDC64 " : "";
+            var j = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDC64 " : "";
             f =
-              z +
+              j +
               (e.filename ||
                 s._(/*BTDS*/ "", [s._plural(e.pageCount, "count")]).toString());
             break;
           }
-          var j = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCC4 " : "",
-            K = e.caption;
-          ((e.caption == null || e.caption === "") && (K = e.filename),
+          var K = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCC4 " : "",
+            Q = e.caption;
+          ((e.caption == null || e.caption === "") && (Q = e.filename),
             (f =
-              j +
-              ((m && r("WAWebUnformatMsg")(e, K)) ||
+              K +
+              ((m && r("WAWebUnformatMsg")(e, Q)) ||
                 r("fbs")._(/*BTDS*/ "").toString())));
           break;
         }
@@ -351,35 +354,35 @@ __d(
           break;
         case "poll_result_snapshot":
         case "poll_creation": {
-          var Q =
+          var X =
               e.pollType === o("WAWebPollCreationUtils").PollType.QUIZ
                 ? "\uD83C\uDFC6 "
                 : "\uD83D\uDCCA ",
-            X = o("WAWebUA").UA.hasEmoji ? Q : "";
-          f = "" + X + r("WAWebUnformatMsg")(e, e.pollName);
+            Y = o("WAWebUA").UA.hasEmoji ? X : "";
+          f = "" + Y + r("WAWebUnformatMsg")(e, e.pollName);
           break;
         }
         case "event_creation": {
-          var Y,
-            J = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCC6 " : "",
-            Z =
+          var J,
+            Z = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCC6 " : "",
+            ee =
               e.eventStartTime != null
                 ? o("WAWebFormatEventDateString").getEventDateStringFor(
                     e.eventStartTime,
-                    (Y = e.eventEndTime) != null ? Y : void 0,
+                    (J = e.eventEndTime) != null ? J : void 0,
                   )
                 : null;
           f = s._(/*BTDS*/ "", [
-            s._param("eventIcon", J),
+            s._param("eventIcon", Z),
             s._param("eventName", e.eventName),
-            s._param("eventTime", Z),
+            s._param("eventTime", ee),
           ]);
           break;
         }
         case "sharable_event_invite": {
-          var ee = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCC6 " : "";
+          var te = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCC6 " : "";
           f = s._(/*BTDS*/ "", [
-            s._param("eventIcon", ee),
+            s._param("eventIcon", te),
             s._param("eventName", _.sharableEventInviteTitle),
           ]);
           break;
@@ -388,22 +391,22 @@ __d(
           f = s._(/*BTDS*/ "");
           break;
         case "album": {
-          var te = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCF7 " : "",
-            ne = r("WAWebAlbumsFormatAlbumMessageText")({
+          var ne = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCF7 " : "",
+            re = r("WAWebAlbumsFormatAlbumMessageText")({
               msg: e,
               options: {},
             });
           f = s._(/*BTDS*/ "", [
-            s._param("albumIcon", te),
-            s._param("photoAndVideoCountText", ne),
+            s._param("albumIcon", ne),
+            s._param("photoAndVideoCountText", re),
           ]);
           break;
         }
         case "order": {
-          var re = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDED2 " : "";
+          var oe = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDED2 " : "";
           f = s._(/*BTDS*/ "", [
             s._plural(e.itemCount, "count"),
-            s._param("shoppingCartIcon", re),
+            s._param("shoppingCartIcon", oe),
             s._param(
               "message",
               e.message != null && e.message !== "" ? "\n" + e.message : "",
@@ -412,26 +415,26 @@ __d(
           break;
         }
         case "sticker-pack": {
-          var oe = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDC9F " : "";
-          f = s._(/*BTDS*/ "", [s._param("stickerPackIcon", oe)]);
+          var ae = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDC9F " : "";
+          f = s._(/*BTDS*/ "", [s._param("stickerPackIcon", ae)]);
           break;
         }
         case "quarantined": {
-          var ae = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCC4 " : "",
-            ie =
+          var ie = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCC4 " : "",
+            le =
               e.quarantineExtractedText != null &&
               e.quarantineExtractedText !== ""
                 ? e.quarantineExtractedText
                 : s._(/*BTDS*/ "").toString();
-          f = "" + ae + ie;
+          f = "" + ie + le;
           break;
         }
         case "rich_response": {
           if (m) {
-            var le = o(
+            var se = o(
               "WAWebRichResponsePreviewText",
             ).getRichResponsePreviewText(e, { includeBodyFallback: !1 });
-            le != null && le !== "" && (f = r("WAWebUnformatMsg")(e, le));
+            se != null && se !== "" && (f = r("WAWebUnformatMsg")(e, se));
           }
           break;
         }
@@ -464,11 +467,11 @@ __d(
             ""
           );
       }
-      var se = o("WAWebUA").UA.hasEmoji && e.isQuestion ? "\u2753 " : "",
-        ue = "" + se + f.toString();
+      var ue = o("WAWebUA").UA.hasEmoji && e.isQuestion ? "\u2753 " : "",
+        ce = "" + ue + f.toString();
       return e.isSpoiler === !0
-        ? o("WAWebSpoilerNotificationMask").maskSpoilersForNotification(ue)
-        : ue;
+        ? o("WAWebSpoilerNotificationMask").maskSpoilersForNotification(ce)
+        : ce;
     }
     function f(e) {
       var t = e.msgDir,

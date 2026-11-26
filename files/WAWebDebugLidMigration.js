@@ -258,16 +258,15 @@ __d(
         await O(e.id));
     }
     async function W(e, t, n) {
-      r("vulture")("5kJz3rhjQS3DnmaOPHuuSxRQau0=");
-      var a =
+      var r =
           t == null
             ? o("WAWebWidFactory").createUserWidOrThrow("4444444444@lid")
             : o("WAWebWidFactory").createUserLidOrThrow(t),
-        i = o("WAWebWidFactory").asUserWidOrThrow(
+        a = o("WAWebWidFactory").asUserWidOrThrow(
           o("WAWebWidFactory").createWid(e),
         );
       await o("WAWebDBCreateLidPnMappings").createLidPnMappings({
-        mappings: [{ lid: a, pn: i }],
+        mappings: [{ lid: r, pn: a }],
         write: "now",
         learningSource: n != null ? n : "usync",
       });

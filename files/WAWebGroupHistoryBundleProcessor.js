@@ -220,14 +220,15 @@ __d(
           U = W.parsedMessages,
           V = W.reportingInfoRows,
           H = W.skipReasonCounts,
-          Y = $[2],
-          J = Y.addonPromises,
-          Z = Y.parsedMessages,
-          ee = Y.reportingInfoRows,
+          G = $[2],
+          z = G.addonPromises,
+          Z = G.parsedMessages,
+          ee = G.reportingInfoRows,
           te = [].concat(A, U, Z),
-          ne = [].concat(M, q, J),
+          ne = [].concat(M, q, z),
           re = [].concat(O, V, ee);
         if (te.length === 0) {
+          var oe;
           (o("WALogger").WARN(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -258,7 +259,20 @@ __d(
                 ),
                 uncountedCount: 0,
               },
-            ));
+            ),
+            ((oe = B.get(
+              o("WAWebGroupHistoryReceiverFailureReason")
+                .SKIP_REASON_REPORTING_TOKEN_MISSING_FROM_PUBLIC_STANZA,
+            )) != null
+              ? oe
+              : 0) > 0 &&
+              (await o(
+                "WAWebUpdateMessageHistoryBundleState",
+              ).updateGroupHistoryBundleState(
+                t.id,
+                o("WAWebGroupHistoryMsgData.flow")
+                  .MessageHistoryBundleProcessState.INJECTED_PARTIAL,
+              )));
           return;
         }
         o("WALogger").LOG(
@@ -271,40 +285,40 @@ __d(
           te.length,
           U.length,
         );
-        var oe = await G(te),
-          ae = new Set(
+        var ae = await j(te),
+          ie = new Set(
             Z.map(function (e) {
               return e.id.toString();
             }),
           ),
-          ie = N(await z(oe, a), ae),
-          le = await j(ne, T),
-          se =
-            ie.filter(function (e) {
-              return !ae.has(e.id.toString());
+          le = N(await K(ae, a), ie),
+          se = await Q(ne, T),
+          ue =
+            le.filter(function (e) {
+              return !ie.has(e.id.toString());
             }).length <
             v.messages.length + _
               ? o("WAWebGroupHistoryMsgData.flow")
                   .MessageHistoryBundleProcessState.INJECTED_PARTIAL
               : o("WAWebGroupHistoryMsgData.flow")
                   .MessageHistoryBundleProcessState.INJECTED,
-          ue = new Set(
+          ce = new Set(
             U.map(function (e) {
               return e.id.toString();
             }),
           ),
-          ce = new Set(
-            oe.map(function (e) {
+          de = new Set(
+            ae.map(function (e) {
               return e.id.toString();
             }),
           ),
-          de = new Set(
-            ie.map(function (e) {
+          me = new Set(
+            le.map(function (e) {
               return e.id.toString();
             }),
           );
         if (
-          (await K(ie, a, t.id, function (e) {
+          (await X(le, a, t.id, function (e) {
             var t,
               n = new Set(
                 e.map(function (e) {
@@ -314,10 +328,10 @@ __d(
             ((g = !0),
               o("WAWebBackendApi").frontendFireAndForget(
                 "logGroupHistoryDbInserted",
-                babelHelpers.extends({}, Q(e, ue, ae, F), {
+                babelHelpers.extends({}, Y(e, ce, ie, F), {
                   applyDurationMs: Math.round(self.performance.now() - i),
                   dbIgnoredOlderMessages:
-                    se ===
+                    ue ===
                     o("WAWebGroupHistoryMsgData.flow")
                       .MessageHistoryBundleProcessState.INJECTED_PARTIAL,
                   groupId: l,
@@ -326,9 +340,9 @@ __d(
                   )).formatReceiverFailureReason(
                     t.mergeReasonCounts([
                       ["", B],
-                      ["", X(A, ce, de, n)],
+                      ["", J(A, de, me, n)],
                       [t.OUT_WINDOW_PIN_REASON_PREFIX, H],
-                      [t.OUT_WINDOW_PIN_REASON_PREFIX, X(U, ce, de, n)],
+                      [t.OUT_WINDOW_PIN_REASON_PREFIX, J(U, de, me, n)],
                     ]),
                   ),
                 }),
@@ -337,8 +351,8 @@ __d(
           re.length > 0)
         )
           try {
-            var me = new Set(
-                ie.flatMap(function (e) {
+            var pe = new Set(
+                le.flatMap(function (e) {
                   var t = [e.id.toString()];
                   return (
                     e.protocolMessageKey != null &&
@@ -347,12 +361,12 @@ __d(
                   );
                 }),
               ),
-              pe = re.filter(function (e) {
-                return me.has(e.msgKey);
+              _e = re.filter(function (e) {
+                return pe.has(e.msgKey);
               });
-            pe.length > 0 &&
+            _e.length > 0 &&
               (await o("WAWebDBReportingTokenUtils").handleAddReportingInfos(
-                pe,
+                _e,
               ));
           } catch (e) {
             o("WALogger").WARN(
@@ -364,33 +378,33 @@ __d(
               r("WAWebSerializeError")(e),
             );
           }
-        (await o("WAWebMsgStoreExtensions").handleStoredSyncedMsgs(ie),
-          ie.length > 0 &&
+        (await o("WAWebMsgStoreExtensions").handleStoredSyncedMsgs(le),
+          le.length > 0 &&
             (await o("WAWebBackendApi").frontendSendAndReceive(
               "hydrateReactionsForMessages",
               {
-                messageIds: ie.map(function (e) {
+                messageIds: le.map(function (e) {
                   return e.id.toString();
                 }),
               },
             ),
             await Promise.all(
-              ie.map(function (e) {
+              le.map(function (e) {
                 return o("WAWebHandleOrphansForNewMsg").handleOrphansForNewMsg(
                   e,
                 );
               }),
             )),
-          le.length > 0 &&
+          se.length > 0 &&
             (await o("WAWebAddonProcessMsgs").processMsgsAndGetOrphans(
-              le,
+              se,
               null,
               o("WAWebAddonConstants").AddonProcessMode
                 .ProcessGroupHistoryBundle,
             )),
           await o(
             "WAWebUpdateMessageHistoryBundleState",
-          ).updateGroupHistoryBundleState(t.id, se));
+          ).updateGroupHistoryBundleState(t.id, ue));
       } catch (e) {
         if (e instanceof r("WAWeb-dexie").BulkError) {
           (g ||
@@ -495,50 +509,50 @@ __d(
           w = (N = M.key) == null ? void 0 : N.id;
         try {
           if (T && O(M)) {
-            var U, G;
+            var U, V;
             B(
               E,
-              (U = (G = M.key) == null ? void 0 : G.id) != null ? U : "unknown",
+              (U = (V = M.key) == null ? void 0 : V.id) != null ? U : "unknown",
             );
             continue;
           }
-          var z = $({
+          var H = $({
             baseMessage: t,
             bundleMessageKey: n,
             messageInfo: M,
             scrubUnattestableFields: T,
           });
-          if (z == null) {
+          if (H == null) {
             k++;
             continue;
           }
-          if (T && !F(z)) {
-            B(L, z.id);
+          if (T && !F(H)) {
+            B(L, H.id);
             continue;
           }
-          if (!A(z, i)) {
-            B(v, z.id);
+          if (!A(H, i)) {
+            B(v, H.id);
             continue;
           }
-          if (V(z, b)) {
-            B(S, z.id);
+          if (G(H, b)) {
+            B(S, H.id);
             continue;
           }
-          if (!s && H(z, b)) {
-            B(R, z.id);
+          if (!s && z(H, b)) {
+            B(R, H.id);
             continue;
           }
           if (u != null) {
             var j = u.messageBytesArray[P];
             (D != null && (j = w == null ? null : D.get(w)),
-              I.push(q({ msgWithBytes: j, parsedMsg: z, validationCtx: u })));
+              I.push(q({ msgWithBytes: j, parsedMsg: H, validationCtx: u })));
           }
-          (c.push(z),
-            x(M) && d.add(z.id.toString()),
+          (c.push(H),
+            x(M) && d.add(H.id.toString()),
             m.push(
               o("WAWebAddonProcessMsgsUtils").parseHistorySyncMsg({
                 webMsgInfo: M,
-                parsedWebMsgInfo: z,
+                parsedWebMsgInfo: H,
                 isFromCag: !1,
               }),
             ));
@@ -556,7 +570,12 @@ __d(
             ));
         }
       }
-      for (var K of await Promise.all(I)) K != null && C.push(K);
+      var K = new Set();
+      for (var Q of await Promise.all(I)) {
+        var X = Q.droppedMsgKey,
+          Y = Q.row;
+        (Y != null && C.push(Y), X != null && K.add(X));
+      }
       return (
         L.count > 0 &&
           o("WALogger").WARN(
@@ -618,7 +637,9 @@ __d(
             R.ids,
           ),
         {
-          parsedMessages: c,
+          parsedMessages: c.filter(function (e) {
+            return !K.has(e.id.toString());
+          }),
           addonPromises: m,
           reportingInfoRows: C,
           pinnedMsgKeys: d,
@@ -646,6 +667,11 @@ __d(
               o("WAWebGroupHistoryReceiverFailureReason")
                 .SKIP_REASON_PARSE_FAILED,
               k,
+            ],
+            [
+              o("WAWebGroupHistoryReceiverFailureReason")
+                .SKIP_REASON_REPORTING_TOKEN_MISSING_FROM_PUBLIC_STANZA,
+              K.size,
             ],
           ]),
         }
@@ -898,30 +924,25 @@ __d(
       var t = e.msgWithBytes,
         n = e.parsedMsg,
         a = e.validationCtx;
-      if (t == null) return null;
+      if (t == null) return { row: null, droppedMsgKey: null };
       try {
         var i = await o(
             "WAWebGroupHistoryReportingTokenValidator",
           ).validateAndBuildReportingInfoRow(n, t, a),
           l = i.failureReason,
           s = i.row;
-        if (l != null && U(l)) {
-          var u = o("WAWebReportingTokenUtils").genDebugMsgInfo(n);
-          o(
-            "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
-          ).maybeInsertDebugPlaceholder({
-            externalId: u.externalId,
-            nackReason: o("WAWebCreateNackFromStanza").NackReason.ParsingError,
-            msgInfo: u,
-            offline: !1,
-            additionalInfo:
-              "[ghs] reporting token validation failed (reason " +
-              l +
-              ") for msg " +
-              n.id.toString(),
-          });
-        }
-        return s;
+        return V(n, l)
+          ? { row: null, droppedMsgKey: n.id.toString() }
+          : (l != null &&
+              H(l) &&
+              U(
+                n,
+                "[ghs] reporting token validation failed (reason " +
+                  l +
+                  ") for msg " +
+                  n.id.toString(),
+              ),
+            { row: s, droppedMsgKey: null });
       } catch (e) {
         return (
           o("WALogger").WARN(
@@ -934,11 +955,45 @@ __d(
             n.id.toString(),
             r("WAWebSerializeError")(e),
           ),
-          null
+          { row: null, droppedMsgKey: null }
         );
       }
     }
-    function U(e) {
+    function U(e, t) {
+      var n = o("WAWebReportingTokenUtils").genDebugMsgInfo(e);
+      o(
+        "WAWebMessageInsertDebugPlaceholderWorkerCompatible",
+      ).maybeInsertDebugPlaceholder({
+        externalId: n.externalId,
+        nackReason: o("WAWebCreateNackFromStanza").NackReason.ParsingError,
+        msgInfo: n,
+        offline: !1,
+        additionalInfo: t,
+      });
+    }
+    function V(e, t) {
+      return t !==
+        o("WAWebWamEnumReportingTokenValidationFailureReason")
+          .REPORTING_TOKEN_VALIDATION_FAILURE_REASON
+          .GROUP_HISTORY_MESSAGE_MISSING_FROM_PUBLIC_STANZA ||
+        !o(
+          "WAWebGroupHistoryGating",
+        ).isGroupHistoryMissingFromPublicStanzaDropEnabled()
+        ? !1
+        : (o(
+            "WAWebMessagingGatingUtils",
+          ).isReportingTokenValidationFailureDebugPlaceholderEnabled() &&
+            U(
+              e,
+              "[ghs] msg " +
+                e.id.toString() +
+                " was not added: missing from the public reporting stanza (reason " +
+                t +
+                ")",
+            ),
+          !0);
+    }
+    function H(e) {
       return (
         e !==
           o("WAWebWamEnumReportingTokenValidationFailureReason")
@@ -952,7 +1007,7 @@ __d(
         ).isReportingTokenValidationFailureDebugPlaceholderEnabled()
       );
     }
-    function V(e, t) {
+    function G(e, t) {
       var n,
         r = e.ephemeralDuration;
       if (r == null || r === 0) return !1;
@@ -960,7 +1015,7 @@ __d(
         i = a + r;
       return !o("WAWebEphemeralKeepInChatUtils").isKept(e.kicState) && i <= t;
     }
-    function H(e, t) {
+    function z(e, t) {
       var n,
         r = (n = e.t) != null ? n : 0;
       if (r === 0) return !1;
@@ -969,7 +1024,7 @@ __d(
       );
       return r + 2 * a < t;
     }
-    async function G(e) {
+    async function j(e) {
       for (
         var t = e.map(function (e) {
             return e.id.toString();
@@ -996,7 +1051,7 @@ __d(
         return !n[t];
       });
     }
-    async function z(e, t) {
+    async function K(e, t) {
       var n = await o("WAWebDBGroupsGroupMetadata").getGroupMetadata(t);
       if (n == null) return e;
       var r = n.ephemeralDuration;
@@ -1009,7 +1064,7 @@ __d(
           : e;
       });
     }
-    async function j(e, t) {
+    async function Q(e, t) {
       var n,
         r = await Promise.all(e),
         a = (n = []).concat.apply(n, r);
@@ -1028,7 +1083,7 @@ __d(
         return babelHelpers.extends({}, e, r, { id: n });
       });
     }
-    async function K(e, t, n, a) {
+    async function X(e, t, n, a) {
       var i = null;
       try {
         var l,
@@ -1046,7 +1101,7 @@ __d(
             "WAWebApiFilterAndReplaceMessages",
           ).filterAndReplaceMessages(e),
           f = _.newMsgs,
-          g = Y(f, p == null ? void 0 : p.t),
+          g = Z(f, p == null ? void 0 : p.t),
           h = await o("WAWebDBEncryptMultipleMsgs").encryptMultipleDBMsgs(
             g,
             !1,
@@ -1102,7 +1157,7 @@ __d(
             return y.has(e.id.toString());
           }),
         ),
-          await J(g, t, i));
+          await ee(g, t, i));
       } catch (e) {
         if (e instanceof r("WAWeb-dexie").BulkError) {
           var C = i != null ? i.anchorInChatMsgId - 1 : null,
@@ -1181,7 +1236,7 @@ __d(
         throw e;
       }
     }
-    function Q(e, t, n, o) {
+    function Y(e, t, n, o) {
       var a = r("countWhere")(e, function (e) {
           return t.has(e.id.toString());
         }),
@@ -1197,7 +1252,7 @@ __d(
         uncountedCount: i,
       };
     }
-    function X(e, t, n, a) {
+    function J(e, t, n, a) {
       var i = e.map(function (e) {
         return e.id.toString();
       });
@@ -1225,14 +1280,14 @@ __d(
         ],
       ]);
     }
-    function Y(e, t) {
+    function Z(e, t) {
       var n = t != null ? t : 0;
       return e.filter(function (e) {
         var t;
         return ((t = e.t) != null ? t : 0) > n;
       });
     }
-    async function J(e, t, n) {
+    async function ee(e, t, n) {
       var a,
         i =
           n != null && (a = n.anchorMessage) != null && a.id

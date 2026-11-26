@@ -30,7 +30,6 @@ __d(
     }
     u.doc = "Log out of the web client";
     function c() {
-      r("vulture")("2L9U1CjUrHiGLdsE_cLTNkcLalM=");
       var e = o("WAComms").singletonOrThrowIfUninitialized("closeSocket");
       e.closeSocketInDebugMode();
     }
@@ -41,10 +40,9 @@ __d(
     }
     d.doc = "Take client back online";
     function m() {
-      (r("vulture")("5j4V9hwPNRnAp4Nf2shCHPsdQZg="),
-        o("WAComms").closeSocketAndPreventRetry(
-          o("WAWebAppCommsCloseReason").AppCommsCloseReason.DebugClose,
-        ));
+      o("WAComms").closeSocketAndPreventRetry(
+        o("WAWebAppCommsCloseReason").AppCommsCloseReason.DebugClose,
+      );
     }
     m.doc = "Closes the socket and prevents it from reopening";
     var p = {

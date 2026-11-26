@@ -13,10 +13,10 @@ __d(
     "WAWebSwUpdater",
     "WAWebUpdaterBaseUpdater",
     "WAWebUpdaterDownloadStateType",
+    "WAWebUpdaterRefreshState",
     "WAWebUpdaterVersion",
     "WAWebVoipSignalingEnums",
     "WAWebVoipStackInterface",
-    "cr:12474",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -30,20 +30,20 @@ __d(
       _ = 6e4,
       f = 1e3,
       g = (function (t) {
-        function a() {
+        function n() {
           return t.apply(this, arguments) || this;
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.clearHardExpiration = function () {
+          (a.clearHardExpiration = function () {
             (t.prototype.clearHardExpiration.call(this),
               this.stopListening(
                 r("WAWebCallCollection"),
                 "change:activeCall",
               ));
           }),
-          (i.showSoftUpdateBanner = function () {
+          (a.showSoftUpdateBanner = function () {
             if (!r("gkx")("27709")) {
               y();
               return;
@@ -54,7 +54,7 @@ __d(
                 o("WAWebStreamModel").Stream.isHardRefresh || y();
               });
           }),
-          (i.update = function (n) {
+          (a.update = function (n) {
             var t = this,
               a = n === void 0 ? {} : n,
               i = a.belowHard,
@@ -143,7 +143,7 @@ __d(
               this.updateInProgress
             );
           }),
-          (i._update = function (t) {
+          (a._update = function (t) {
             if (
               !this.activeVersion.equals(t) &&
               r("WAWebFeatureDetectionSwSupport").alive
@@ -167,7 +167,7 @@ __d(
                   .UPDATE_DOWNLOADED;
             return Promise.resolve(e);
           }),
-          (i.killServiceWorker = function () {
+          (a.killServiceWorker = function () {
             if (!r("WAWebFeatureDetectionSwSupport").alive)
               return Promise.resolve();
             var e = navigator.serviceWorker;
@@ -194,7 +194,7 @@ __d(
                   }))
               : Promise.resolve();
           }),
-          (i._doRestart = function () {
+          (a._doRestart = function () {
             return (
               o("WALogger").LOG(
                 m ||
@@ -205,12 +205,12 @@ __d(
               o("WAWebReloadCrashAnnotations").annotateCrashWithReloadReason(
                 "Updater.restart",
               ),
-              n("cr:12474") == null || n("cr:12474").saveRefreshState(),
+              o("WAWebUpdaterRefreshState").saveRefreshState(),
               r("WAWebMiscBrowserUtils").hardRefresh(),
               o("WAWebUpdaterDownloadStateType").DownloadState.UPDATE_DOWNLOADED
             );
           }),
-          (i.restart = async function (t) {
+          (a.restart = async function (t) {
             return t === !0
               ? this.update({ belowHard: 0, belowSoft: !0 })
               : (r("WAWebCallCollection").activeCall != null &&
@@ -238,7 +238,7 @@ __d(
                   ])),
                 this._doRestart());
           }),
-          a
+          n
         );
       })(o("WAWebUpdaterBaseUpdater").UpdaterBase),
       h = new g();

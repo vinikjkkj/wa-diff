@@ -3,7 +3,6 @@ __d(
   [
     "MAWDeleteThreadApi",
     "MAWGetThreadInfoForDeletionApi",
-    "MAWJobManager",
     "MWFBLogger",
     "MawMessageSendService",
     "QPLFlow",
@@ -16,16 +15,8 @@ __d(
     var e,
       s,
       u,
-      c = o("MWFBLogger").MWLogger().tags(["backend", "deleteThread"]),
-      d = o("MAWJobManager")
-        .getPersistedJobsApi()
-        .definePersistedJob()
-        .finalStep("saveAndPassOff", function (e) {
-          var t = e.chatJid;
-          return m(t);
-        })
-        .end();
-    async function m(t) {
+      c = o("MWFBLogger").MWLogger().tags(["backend", "deleteThread"]);
+    async function d(t) {
       c.DEBUG(
         e ||
           (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -68,7 +59,7 @@ __d(
           n.endFail("delete_thread_failed"));
       }
     }
-    ((l.deleteThread = d), (l.deleteThreadImpl = m));
+    l.deleteThreadImpl = d;
   },
   98,
 );

@@ -56,7 +56,13 @@ __d(
         c = u.ciphertext;
       return c.slice().buffer;
     }
-    function m(t) {
+    async function m(e, t, n, r) {
+      var o = c(e, t, n);
+      return o == null
+        ? null
+        : babelHelpers.extends({}, o, { ciphertext: await d(o, r) });
+    }
+    function p(t) {
       var n = t.getChunkWithPreviewFlagByPlaintextHash,
         a = t.getMediaEntries,
         i = t.writeCiphertext;
@@ -157,7 +163,7 @@ __d(
         },
       };
     }
-    l.createLegacyChunkFallback = m;
+    ((l.encryptChunk = m), (l.createLegacyChunkFallback = p));
   },
   98,
 );

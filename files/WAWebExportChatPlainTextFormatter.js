@@ -5,6 +5,7 @@ __d(
     "WAWebExportChatFormatFailures",
     "WAWebExportChatMarkdownFormatter",
     "WAWebExportChatSystemMsgFormatter",
+    "WAWebForwardedBotMaskedText",
     "WAWebGetPlainTextFromBotMsg",
     "WAWebInstantMsgTypes",
     "WAWebInstantsStrings",
@@ -252,20 +253,26 @@ __d(
         var _ = u(d),
           f = e.has(m);
         try {
+          var g;
           if (f) {
-            var g = p(l, a, n);
-            i.push("[" + _ + "] - " + g);
+            var h = p(l, a, n);
+            i.push("[" + _ + "] - " + h);
             return;
           }
-          var h = c(l),
-            y = p(l, a, n);
+          var y = c(l),
+            C =
+              (g = o(
+                "WAWebForwardedBotMaskedText",
+              ).getMaskedForwardedBotCopyText(l)) != null
+                ? g
+                : p(l, a, n);
           if (o("WAWebMsgGetters").getIsForwarded(l)) {
-            var C = o("WAWebMsgGetters").getIsFrequentlyForwarded(l)
+            var b = o("WAWebMsgGetters").getIsFrequentlyForwarded(l)
               ? "[" + s._(/*BTDS*/ "").toString() + "] "
               : "[" + s._(/*BTDS*/ "").toString() + "] ";
-            y = C + y;
+            C = b + C;
           }
-          i.push("[" + _ + "] " + h + ": " + y);
+          i.push("[" + _ + "] " + y + ": " + C);
         } catch (e) {
           (o("WAWebExportChatFormatFailures").recordFailure(r, e),
             i.push(

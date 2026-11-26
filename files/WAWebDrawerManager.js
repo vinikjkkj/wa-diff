@@ -48,11 +48,11 @@ __d(
               "right",
             )) == null || e.closeDrawer();
           }),
-          (a.closeDrawerMid = function () {
+          (a.closeDrawerMid = function (t) {
             var e;
             (e = o("WAWebDrawerManagerGlobalContext").getGlobalDrawerManager(
               "mid",
-            )) == null || e.closeDrawer();
+            )) == null || e.closeDrawer(t);
           }),
           (a.closeDrawerLeft = function (t) {
             var e;

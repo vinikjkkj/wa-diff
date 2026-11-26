@@ -266,7 +266,7 @@ __d(
     P.doc =
       "Resolve a pending Hatch HITL approval (synthetic decision echo) by id, clearing the approval bar";
     function N(e) {
-      (e === void 0 && (e = !0), r("vulture")("waL_S9CJn9jVoH7Zxp7pvOYpFpc="));
+      e === void 0 && (e = !0);
       var t = o(
         "WAWebHatchLinkedStatusDebugOverride",
       ).pinHatchLinkedStatusForDebug(e);

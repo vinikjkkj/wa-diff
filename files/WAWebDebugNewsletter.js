@@ -453,7 +453,6 @@ __d(
         (r("vulture")("8UXdPX-jzC_AujOw3G6xZcrzYGY="),
           await Promise.all(
             t.map(function (e) {
-              r("vulture")("RQb6a6Y5s6GtaAxy1F_qnEfd6XI=");
               var t = o("WAWebDecodeJid").strictDecodeJid(e);
               if (t != null)
                 return o(

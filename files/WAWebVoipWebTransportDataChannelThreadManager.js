@@ -3,8 +3,8 @@ __d(
   [
     "WACustomError",
     "WALogger",
-    "WAWebCoreActionsODS",
     "WAWebNoop",
+    "WAWebODS",
     "WAWebVoipPthreadHardening",
     "WAWebVoipWebTransportDataChannelThread",
     "getErrorSafe",
@@ -78,7 +78,7 @@ __d(
         await e.shutdown();
       } catch (e) {
         if (e instanceof o("WACustomError").TimeoutError) {
-          (o("WAWebCoreActionsODS").logCallWebtransportJsWorkerJoinTimeout(),
+          (r("WAWebODS").incr("web.call.webtransport.js_worker.join_timeout"),
             o("WALogger").WARN(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([

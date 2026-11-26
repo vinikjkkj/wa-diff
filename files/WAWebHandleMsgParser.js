@@ -618,9 +618,12 @@ __d(
             ? void 0
             : p.maybeAttrEnum("appdata", o("WAWebHandleMsgCommon").APPDATA),
       };
-      (p &&
-        p.hasAttr(o("WAWebHandleMsgCommon").BIZ_SOURCE_ATTR) &&
-        (g.bizSource = p.attrString(o("WAWebHandleMsgCommon").BIZ_SOURCE_ATTR)),
+      (e.hasChild("automated") && (g.isSmbAutomated = !0),
+        p &&
+          p.hasAttr(o("WAWebHandleMsgCommon").BIZ_SOURCE_ATTR) &&
+          (g.bizSource = p.attrString(
+            o("WAWebHandleMsgCommon").BIZ_SOURCE_ATTR,
+          )),
         p &&
           p.hasAttr("thread_msg_id") &&
           (g.threadMsgId = p.attrString("thread_msg_id")),
