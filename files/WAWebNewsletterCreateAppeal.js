@@ -6,7 +6,7 @@ __d(
     async function e(e) {
       var t = e.additionalAppealReason,
         n = e.appealReason,
-        a = e.chat,
+        a = e.chatId,
         i = e.enforcementId;
       if (i == null)
         return Promise.reject(
@@ -14,7 +14,7 @@ __d(
         );
       var l = r("WAWebL10N").getLocale();
       return o("WAWebCreateEnforcementAppealJob").createEnforcementAppeal({
-        newsletterJid: o("WAJids").toNewsletterJid(a.id.toString()),
+        newsletterJid: o("WAJids").toNewsletterJid(a.toString()),
         enforcementId: i,
         reason: n,
         additionalAppealReason: t,

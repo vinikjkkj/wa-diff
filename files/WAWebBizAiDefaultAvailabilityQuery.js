@@ -41,18 +41,22 @@ __d(
             };
           }),
         ),
-        a = r.invalidCount,
+        a = r.dropped,
         i = r.ranges;
       return (
-        a > 0 &&
+        a.length > 0 &&
           o("WALogger")
             .ERROR(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
                   "normalizeDefaultAvailability dropped ",
-                  " malformed availability ranges",
+                  " availability ranges (",
+                  ")",
                 ])),
-              a,
+              a.length,
+              o(
+                "WAWebBizAiAppointmentAvailabilityNormalize",
+              ).summarizeDroppedRanges(a),
             )
             .sendLogs("biz-ai-appointment-default-availability-range-invalid"),
         { availability: i, timezoneId: n == null || n === "" ? null : n }

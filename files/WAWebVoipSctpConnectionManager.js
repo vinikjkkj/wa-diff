@@ -12,7 +12,6 @@ __d(
     "WAWebVoipSctpBufferDrain",
     "WAWebVoipSctpConnectionManagerConstants",
     "WAWebVoipSctpConnectionState",
-    "WAWebVoipSctpConnectionStats",
     "WAWebVoipSctpConnectionTeardown",
     "WAWebVoipSctpDataChannelThreadManager",
     "WAWebVoipSctpDiagnostics",
@@ -1755,20 +1754,7 @@ __d(
         e,
       );
     }
-    ((l.markSctpEnteredViaWebTransportFallback = o(
-      "WAWebVoipSctpFallbackFamilyOutcome",
-    ).markSctpEnteredViaWebTransportFallback),
-      (l.reportSctpFallbackFamilyOutcome = o(
-        "WAWebVoipSctpFallbackFamilyOutcome",
-      ).reportSctpFallbackFamilyOutcome),
-      (l.resetSctpFallbackFamilyOutcome = o(
-        "WAWebVoipSctpFallbackFamilyOutcome",
-      ).resetSctpFallbackFamilyOutcome),
-      (l.getSctpRelayDebugSummary = o(
-        "WAWebVoipSctpConnectionStats",
-      ).getSctpRelayDebugSummary),
-      (l.mergeWorkerStats = o("WAWebVoipSctpConnectionStats").mergeWorkerStats),
-      (l.cleanupWebTransportSctpWarmStandby = pe),
+    ((l.cleanupWebTransportSctpWarmStandby = pe),
       (l.resetWebTransportSctpWarmStandbyAtCallBoundary = _e),
       (l.activateWebTransportSctpWarmStandbyForRelayList = fe),
       (l.markSctpCallIdentityChanged = Ce),

@@ -21,6 +21,7 @@ __d(
     "WAWebDBMsgUtils",
     "WAWebDBStoreMessageAssociations",
     "WAWebGroupAgentRichResponseLinkIndex",
+    "WAWebInstantsExpiry",
     "WAWebLinkify",
     "WAWebModelStorageUtils",
     "WAWebMsgDataUtils",
@@ -297,10 +298,17 @@ __d(
       var l = (t = e.t) != null ? t : o("WATimeUtils").unixTime(),
         s = r("WAWebMsgKey").fromString(e.id),
         u = e.scheduledTimestampS != null,
-        c = e.ack != null && e.ack >= o("WAWebAck").ACK.READ;
+        c = e.ack != null && e.ack >= o("WAWebAck").ACK.READ,
+        d = { type: e.type, t: l, kicState: e.kicState };
       return s.fromMe || c
-        ? (u ? o("WATimeUtils").unixTime() : l) + a
-        : (n = o("WAWebMsgGetters").getEphemeralExpirationTimestamp(e)) != null
+        ? o("WAWebInstantsExpiry").capAfterReadDeadlineForInstant(
+            d,
+            (u ? o("WATimeUtils").unixTime() : l) + a,
+          )
+        : (n = o("WAWebInstantsExpiry").capAfterReadDeadlineForInstant(
+              d,
+              o("WAWebMsgGetters").getEphemeralExpirationTimestamp(e),
+            )) != null
           ? n
           : void 0;
     }

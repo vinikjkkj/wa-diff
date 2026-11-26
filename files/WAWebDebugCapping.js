@@ -18,8 +18,7 @@ __d(
         (r("vulture")("o8yE1u2Kc2eZfuq6uvsARNP4Lt4="),
           o("WAWebModalManager").ModalManager.open(
             u.jsx(
-              o("WAWebIndividualNewChatMessageCappedModalLoadable.react")
-                .IndividualNewChatMessageCappedModalLoadable,
+              r("WAWebIndividualNewChatMessageCappedModalLoadable.react"),
               {},
             ),
           ));

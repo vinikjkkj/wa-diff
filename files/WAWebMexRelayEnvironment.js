@@ -10,34 +10,37 @@ __d(
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      var n;
-      return (
-        t != null && (n = { query_id: o("WAWap").CUSTOM_STRING(t) }),
-        o("WADeprecatedSendIq").deprecatedSendIq(
-          o("WAWap").wap(
-            "iq",
-            {
-              id: o("WAWap").generateId(),
-              to: o("WAWap").S_WHATSAPP_NET,
-              type: "get",
-              xmlns: "w:mex",
-            },
-            new (o("WAWap").WapNode)(
-              "query",
-              n,
-              o("WABinary").Binary.build(JSON.stringify(e)).readByteArrayView(),
-            ),
+    function e(e, t, n) {
+      n === void 0 && (n = !1);
+      var a;
+      t != null && (a = { query_id: o("WAWap").CUSTOM_STRING(t) });
+      var i = o("WAWap").wap(
+          "iq",
+          {
+            id: o("WAWap").generateId(),
+            to: o("WAWap").S_WHATSAPP_NET,
+            type: "get",
+            xmlns: "w:mex",
+          },
+          new (o("WAWap").WapNode)(
+            "query",
+            a,
+            o("WABinary").Binary.build(JSON.stringify(e)).readByteArrayView(),
           ),
-          new (r("WADeprecatedWapParser"))("mexParser", function (e) {
-            return new TextDecoder("utf-8").decode(
-              e.child("result").contentBytes(),
-            );
-          }),
-        )
-      );
+        ),
+        l = new (r("WADeprecatedWapParser"))("mexParser", function (e) {
+          return new TextDecoder("utf-8").decode(
+            e.child("result").contentBytes(),
+          );
+        });
+      return s(i, l, n);
     }
-    var s = (function (e) {
+    function s(e, t, n) {
+      return n
+        ? o("WADeprecatedSendIq").deprecatedSendIqWithoutRetry(e, t)
+        : o("WADeprecatedSendIq").deprecatedSendIq(e, t);
+    }
+    var u = (function (e) {
         function t(t, n) {
           var r;
           return (
@@ -50,7 +53,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      u = (function (e) {
+      c = (function (e) {
         function t(t) {
           var n;
           return (
@@ -62,7 +65,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      c = (function (e) {
+      d = (function (e) {
         function t(t) {
           var n;
           return (
@@ -74,47 +77,53 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error));
-    async function d(e, t, n) {
+    async function m(e, t, n) {
       var a,
-        i = (a = n.metadata) == null ? void 0 : a.mexPerfTracker,
-        l = i instanceof o("WAWebMexLogging").MexPerfTracker ? i : null;
-      l != null && (l.setQueryId(e.id), l.setOperationName(e.name));
-      var d = { variables: t },
-        _ = await p(d, r("nullthrows")(e.id), l);
-      if (!_.success)
+        i,
+        l = (a = n.metadata) == null ? void 0 : a.mexPerfTracker,
+        s = l instanceof o("WAWebMexLogging").MexPerfTracker ? l : null;
+      s != null && (s.setQueryId(e.id), s.setOperationName(e.name));
+      var m = { variables: t },
+        f = await _(
+          m,
+          r("nullthrows")(e.id),
+          s,
+          ((i = n.metadata) == null ? void 0 : i.withoutRetry) === !0,
+        );
+      if (!f.success)
         throw (
-          l != null &&
-            (l.setHasData(!1),
-            l.setErrors([
+          s != null &&
+            (s.setHasData(!1),
+            s.setErrors([
               o("WAWebMexLogging").createLoggingTransportError(
-                _.errorCode,
-                _.errorText,
+                f.errorCode,
+                f.errorText,
               ),
             ])),
-          new s(_.errorCode, _.errorText)
+          new u(f.errorCode, f.errorText)
         );
-      var f = {};
+      var g = {};
       try {
-        f = JSON.parse(_.result);
+        g = JSON.parse(f.result);
       } catch (e) {
-        var g = r("getErrorSafe")(e);
+        var h = r("getErrorSafe")(e);
         throw (
-          l != null &&
-            (l.setHasData(!1),
-            l.setErrors([
-              o("WAWebMexLogging").createLoggingClientError(472, g.message),
+          s != null &&
+            (s.setHasData(!1),
+            s.setErrors([
+              o("WAWebMexLogging").createLoggingClientError(472, h.message),
             ])),
-          new u(g)
+          new c(h)
         );
       }
-      var h = f;
-      l != null &&
-        (l.setHasData(h.data != null), l.setExtensionErrors(h.errors));
-      var y = m(h.errors);
-      if (y != null) throw new c(y);
-      return f;
+      var y = g;
+      s != null &&
+        (s.setHasData(y.data != null), s.setExtensionErrors(y.errors));
+      var C = p(y.errors);
+      if (C != null) throw new d(C);
+      return g;
     }
-    function m(e) {
+    function p(e) {
       var t;
       if (e == null || e.length === 0) return null;
       var n =
@@ -135,27 +144,27 @@ __d(
       }
       return n;
     }
-    async function p(t, n, a) {
+    async function _(t, n, a, i) {
       try {
-        return await e(t, n);
+        return await e(t, n, i);
       } catch (e) {
-        var i = r("getErrorSafe")(e);
+        var l = r("getErrorSafe")(e);
         throw (
           a != null &&
             (a.setHasData(!1),
             a.setErrors([
-              o("WAWebMexLogging").createLoggingClientError(471, i.message),
+              o("WAWebMexLogging").createLoggingClientError(471, l.message),
             ])),
-          new s(500, i.message)
+          new u(500, l.message)
         );
       }
     }
     ((l.sendMexIq = e),
-      (l.MexIqError = s),
-      (l.MexPayloadParsingError = u),
-      (l.MexFatalExtensionError = c),
-      (l.fetchFunc = d),
-      (l.parseFatalExtensionError = m));
+      (l.MexIqError = u),
+      (l.MexPayloadParsingError = c),
+      (l.MexFatalExtensionError = d),
+      (l.fetchFunc = m),
+      (l.parseFatalExtensionError = p));
   },
   98,
 );

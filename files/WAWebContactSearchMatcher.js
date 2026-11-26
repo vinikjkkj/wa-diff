@@ -107,7 +107,7 @@ __d(
           contact: e,
           label: a,
           matchFn: i,
-          orgMemberName: u,
+          shownMemberName: u,
           term: t,
         });
       if (!t) return null;
@@ -161,7 +161,7 @@ __d(
         n = e.contact,
         a = e.label,
         i = e.matchFn,
-        l = e.orgMemberName,
+        l = e.shownMemberName,
         s = e.term,
         u = o("WAWebFrontendContactGetters").getSearchName(n),
         c = o("WAWebUsernameTypes").serializeMaybeUsername(

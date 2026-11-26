@@ -11,6 +11,7 @@ __d(
     "WAWebViewMode.flow",
     "WAWebVoipActionWriteCallLogImpl",
     "WAWebVoipAdHocCallLogs",
+    "WAWebVoipBackendCallLogTargetResolver",
     "WAWebVoipCallLogPlaceholderTracker",
     "WAWebVoipCallLogWriteMutex",
     "WAWebVoipOngoingCallCollection",
@@ -85,7 +86,9 @@ __d(
                   finalCallOutcome: E,
                 })));
         else if (v != null) {
-          var D = await o("WAWebCallLogUtils").getCallLogTargetDetails({
+          var D = await o(
+              "WAWebVoipBackendCallLogTargetResolver",
+            ).getCallLogTargetDetails({
               callId: c,
               peerWid: v,
               groupJid: C,

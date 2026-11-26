@@ -36,7 +36,7 @@ __d(
     "WAWebEventInfoFlowLoadable",
     "WAWebFbtCommon",
     "WAWebGroupsV4InviteFlowLoadable",
-    "WAWebHeader.react",
+    "WAWebHeaderInfoPanelActions",
     "WAWebKeyboardTabUtils",
     "WAWebLazyLoadedRetriable",
     "WAWebMMUserControlsLogger",
@@ -187,7 +187,7 @@ __d(
           );
         },
         h = function (t) {
-          o("WAWebHeader.react").openInfoPanel({
+          o("WAWebHeaderInfoPanelActions").openInfoPanel({
             chat: t,
             profileEntryPoint: o("WAWebWamEnumProfileEntryPoint")
               .PROFILE_ENTRY_POINT.NOTIFICATION_BLOCK_ACTION,

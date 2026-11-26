@@ -11,7 +11,12 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n, r) {
-      if (t === "background") {
+      if (
+        (o("WAWebPathfinderHeldBackSurface").noteBackgroundTransition(
+          t === "background",
+        ),
+        t === "background")
+      ) {
         var a,
           i,
           l = o("WAWebPathfinderHeldBackScreen").getOccurrenceVerdict(

@@ -31,10 +31,7 @@ __d(
       );
     }
     function c() {
-      return (
-        r("vulture")("LXBwQKG6eYP1WrVUhYA00jWaGCA="),
-        r("WAWebIsCagGroupCache")
-      );
+      return r("WAWebIsCagGroupCache");
     }
     c.doc = "Get cache object that can check if a given group ID is a CAG.";
     function d(e, t) {

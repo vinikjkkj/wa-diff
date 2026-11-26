@@ -66,6 +66,7 @@ __d(
               scale: { x: 0, y: 0 },
             }),
             sending: !1,
+            resolution: 1,
           });
         };
         var a = t.prototype;
@@ -105,6 +106,7 @@ __d(
               a.rotation != null && (e.rotation = a.rotation),
               a.activeFilter != null && (e.activeFilter = a.activeFilter),
               a.sending != null && (e.sending = a.sending),
+              a.resolution != null && (e.resolution = a.resolution),
               o("WADeepEquals").deepEqual(this.$1, e) ? this : new t(e)
             );
           }),
@@ -184,7 +186,38 @@ __d(
               tintColor: h,
               paintLayer: y,
               outlineLayer: C,
+              resolution: 1,
             });
+          }),
+          (a.swapBackgroundImage = function (t) {
+            var e = this.getBackground();
+            if (e == null || !t.width || !t.height) return this;
+            var n = e.getWidth() / t.width,
+              o = e.getHeight() / t.height,
+              a = e.getFrame().getCenter(),
+              i = e.getScale(),
+              l = e
+                .setImage(t)
+                .setScale({ x: i.x * n, y: i.y * o })
+                .setOrigin(
+                  new (r("WAWebMediaEditorGeometryPoint"))({
+                    x: a.getX() - t.width / 2,
+                    y: a.getY() - t.height / 2,
+                  }),
+                ),
+              s = this.getSelectedLayer(),
+              u = this.getLayers().findIndex(function (e) {
+                return e === s;
+              }),
+              c = this.$2({
+                background: l,
+                resolution: this.getResolution() / n,
+              }).setShapeLayerBackground(l.getFrame(), t);
+            return s === e
+              ? c.setSelectedLayer(l)
+              : u >= 0
+                ? c.setSelectedLayer(c.getLayers()[u])
+                : c;
           }),
           (a.updateBackground = function (t) {
             var e,
@@ -530,6 +563,9 @@ __d(
           }),
           (a.getId = function () {
             return this.$1.id;
+          }),
+          (a.getResolution = function () {
+            return this.$1.resolution;
           }),
           (a.toScreenPoint = function (t) {
             var e,

@@ -3,11 +3,11 @@ __d(
   [
     "WALogger",
     "WAWebCallCollection",
-    "WAWebCallLogUtils",
     "WAWebChatCollection",
     "WAWebContactCollection",
     "WAWebFrontendContactGetters",
     "WAWebMsgGetters",
+    "WAWebVoipBackendCallLogTargetResolver",
     "WAWebVoipEventConstants",
     "WAWebVoipOngoingCallCollection",
     "WAWebVoipOngoingTransferCalls",
@@ -41,9 +41,9 @@ __d(
             );
           try {
             var r = o("WAWebWidFactory").asUserWidOrThrow(t),
-              a = await o("WAWebCallLogUtils").get1x1CallLidOrPnDestination({
-                callDestinationWid: r,
-              }),
+              a = await o(
+                "WAWebVoipBackendCallLogTargetResolver",
+              ).get1x1CallLidOrPnDestination({ callDestinationWid: r }),
               i = o("WAWebChatCollection").ChatCollection.get(a);
             return (
               i == null &&

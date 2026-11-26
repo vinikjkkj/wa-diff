@@ -18,6 +18,7 @@ __d(
     "WAWebEphemeralKeepInChatUtils",
     "WAWebEphemeralityUtils",
     "WAWebGetChatRecordByAccountLid",
+    "WAWebInstantsExpiry",
     "WAWebLidMigrationUtils",
     "WAWebModelStorageUtils",
     "WAWebMsgGetters",
@@ -161,110 +162,107 @@ __d(
       var t = e.chatId,
         n = e.keepChatUnread,
         a = e.lastReadRowId,
-        i = e.preservePendingReceipts,
-        l = i === void 0 ? !1 : i,
-        s = e.readAt,
-        u = e.readMsgRows,
-        c = e.threadId;
+        i = e.readAt,
+        l = e.readMsgRows,
+        s = e.threadId;
       o("WALogger").LOG(
         p ||
           (p = babelHelpers.taggedTemplateLiteralLoose([
             "markMessageAndChatAsRead: ",
           ])),
       );
-      var d = o("WAWebWidFactory").createWid(t),
-        m = o("WAWebBotUtils").isMetaAiBot(d),
-        _ = m ? ["message", "chat", "thread-metadata"] : ["message", "chat"],
-        f =
-          d.isNewsletter() &&
+      var u = o("WAWebWidFactory").createWid(t),
+        c = o("WAWebBotUtils").isMetaAiBot(u),
+        d = c ? ["message", "chat", "thread-metadata"] : ["message", "chat"],
+        m =
+          u.isNewsletter() &&
           o("WAWebABProps").getABPropConfigValue(
             "thread_interactions_channel_reads_aligned_web_enabled",
           ) === !0,
-        g = f && (await A(t)),
-        h =
-          u != null
+        _ = m && (await A(t)),
+        f =
+          l != null
             ? new Map(
-                u.map(function (e) {
+                l.map(function (e) {
                   return [e.id, e];
                 }),
               )
             : null;
       return o("WAWebModelStorageUtils")
         .getStorage()
-        .lock(_, async function (e) {
-          var i,
+        .lock(d, async function (e) {
+          var l,
             u = e[0],
             d = e[1],
             p = e[2],
-            _ = await o(
+            g = await o(
               "WAWebDBPendingReadReceiptQueries",
-            ).queryPendingReadReceiptMsgRowsWithTable(u, t, m ? c : void 0),
-            y = f
-              ? w(g, (i = await d.get(t)) == null ? void 0 : i.unreadCount)
+            ).queryPendingReadReceiptMsgRowsWithTable(u, t, c ? s : void 0),
+            h = m
+              ? w(_, (l = await d.get(t)) == null ? void 0 : l.unreadCount)
               : null,
-            C = Q({
-              pendingMessages: _,
+            y = Q({
+              pendingMessages: g,
               lastReadRowId: a,
-              readMsgRowsById: h,
-              preservePendingReceipts: l,
-              readAt: s,
-              shouldProcessThreads: m,
-              threadId: c,
+              readMsgRowsById: f,
+              readAt: i,
+              shouldProcessThreads: c,
+              threadId: s,
             }),
-            b = C.ackUpdates,
-            v = C.expirationSetMsgIdCount,
-            S = C.expirationSetMsgIds,
-            R = C.expiredTimestampUpdates,
-            L = C.fullyReadThreadIds,
-            E = C.newlyReadIds,
-            k = C.newUnreadCount,
-            I = C.updatedUnreadMentions;
-          Y(v, S, s);
-          var T = [],
-            D = null,
-            x = m && c != null;
-          if (x)
-            b.length > 0 &&
-              (D = await o(
+            C = y.ackUpdates,
+            b = y.expirationSetMsgIdCount,
+            v = y.expirationSetMsgIds,
+            S = y.expiredTimestampUpdates,
+            R = y.fullyReadThreadIds,
+            L = y.newlyReadIds,
+            E = y.newUnreadCount,
+            k = y.updatedUnreadMentions;
+          Y(b, v, i);
+          var I = [],
+            T = null,
+            D = c && s != null;
+          if (D)
+            C.length > 0 &&
+              (T = await o(
                 "WAWebDBPendingReadReceiptQueries",
               ).updateChatUnreadCountForReadMessages(
                 d,
                 t,
-                E,
+                L,
                 new Set(
-                  b.flatMap(function (e) {
+                  C.flatMap(function (e) {
                     var t;
                     return (t = e.id) != null ? t : [];
                   }),
                 ),
               ));
           else {
-            var $ = k === 0 && n ? -1 : k;
-            T.push(
+            var x = E === 0 && n ? -1 : E;
+            I.push(
               d.merge(t, {
                 id: t,
-                unreadCount: $,
+                unreadCount: x,
                 unreadDividerOffset: 0,
-                unreadMentionsOfMe: I,
+                unreadMentionsOfMe: k,
                 unreadMentionCount: 0,
               }),
             );
           }
           if (
-            (T.push(
+            (I.push(
               J(
                 u,
                 t,
-                { ackUpdates: b, newlyReadIds: E, expiredTimestampUpdates: R },
-                y,
+                { ackUpdates: C, newlyReadIds: L, expiredTimestampUpdates: S },
+                h,
               ),
             ),
-            await Promise.all(T),
-            m && c != null && L.add(c.toString()),
-            L.size === 0)
+            await Promise.all(I),
+            c && s != null && R.add(s.toString()),
+            R.size === 0)
           )
             return { fullyReadThreadIds: [] };
-          var P = Array.from(L).map(function (e) {
+          var $ = Array.from(R).map(function (e) {
             return r("WAWebThreadId").from(e);
           });
           return (
@@ -272,11 +270,11 @@ __d(
               "WAWebThreadMetadataBulkJob",
             ).bulkUpdateThreadUnreadCountWithTable(
               p,
-              P.map(function (e) {
+              $.map(function (e) {
                 return { threadId: e, unreadCount: 0 };
               }),
             ),
-            { fullyReadThreadIds: P, chatUnreadUpdate: D != null ? D : void 0 }
+            { fullyReadThreadIds: $, chatUnreadUpdate: T != null ? T : void 0 }
           );
         });
     }
@@ -302,64 +300,49 @@ __d(
     }
     function F(e) {
       var t = e.chatId,
-        n = e.preservePendingReceipts,
-        a = n === void 0 ? !1 : n,
-        i = e.readMsgKeys,
-        l = e.threadId,
-        s = t.toString();
+        n = e.readMsgKeys,
+        a = e.threadId,
+        i = t.toString();
       o("WALogger").LOG(
         f ||
           (f = babelHelpers.taggedTemplateLiteralLoose([
             "markEditedMessageAndChatAsRead: ",
           ])),
       );
-      var u = new Set(
-          i.map(function (e) {
+      var l = new Set(
+          n.map(function (e) {
             return e.id;
           }),
         ),
-        c = o("WAWebBotUtils").isMetaAiBot(t),
-        d = c ? ["message", "chat", "thread-metadata"] : ["message"];
+        s = o("WAWebBotUtils").isMetaAiBot(t),
+        u = s ? ["message", "chat", "thread-metadata"] : ["message"];
       return o("WAWebModelStorageUtils")
         .getStorage()
-        .lock(d, async function (e) {
+        .lock(u, async function (e) {
           var t = e[0],
             n = e[1],
-            i = e[2],
-            d = await o(
+            u = e[2],
+            c = await o(
               "WAWebDBPendingReadReceiptQueries",
-            ).queryUnreadEditedMsgRowsWithTable(t, s, c ? l : void 0),
-            m = d.filter(function (e) {
+            ).queryUnreadEditedMsgRowsWithTable(t, i, s ? a : void 0),
+            d = c.filter(function (e) {
               var t = r("WAWebMsgKey").fromString(e.latestEditMsgKey).id;
-              return u.has(t);
+              return l.has(t);
             });
-          if (m.length === 0) return { fullyReadThreadIds: [] };
-          var p = new Set();
-          for (var _ of m) j(_, c, l, p);
-          var f = Date.now(),
-            h = m.map(function (e) {
-              return babelHelpers.extends(
-                { id: e.id },
-                o(
-                  "WAWebDBPendingReadReceiptQueries",
-                ).getLocallyReadPendingReceiptUpdate(e, a, f),
-              );
+          if (d.length === 0) return { fullyReadThreadIds: [] };
+          var m = new Set();
+          for (var p of d) j(p, s, a, m);
+          var _ = d.map(function (e) {
+              return {
+                id: e.id,
+                pendingReadReceipt: null,
+                pendingReadReceiptOrigin: null,
+              };
             }),
-            y = new Set(
-              m
-                .filter(function (e) {
-                  var t;
-                  return (
-                    ((t = o(
-                      "WAWebDBPendingReadReceiptQueries",
-                    ).getCurrentPendingReadReceiptOrigin(e)) == null
-                      ? void 0
-                      : t.locallyRead) !== !0
-                  );
-                })
-                .map(function (e) {
-                  return e.id;
-                }),
+            f = new Set(
+              d.map(function (e) {
+                return e.id;
+              }),
             );
           (o("WALogger")
             .LOG(
@@ -369,53 +352,44 @@ __d(
                 ])),
             )
             .tags("missing-lid"),
-            await t.bulkCreateOrMerge(h));
-          var C = null;
+            await t.bulkCreateOrMerge(_));
+          var h = null;
           if (
-            (c &&
-              l != null &&
-              h.length > 0 &&
-              (C = await o(
+            (s &&
+              a != null &&
+              _.length > 0 &&
+              (h = await o(
                 "WAWebDBPendingReadReceiptQueries",
-              ).updateChatUnreadCountForReadMessages(
-                n,
-                s,
-                y,
-                new Set(
-                  h.map(function (e) {
-                    return e.id;
-                  }),
-                ),
-              )),
-            c && l != null && p.add(l.toString()),
-            z(d, u, c, l, p),
-            p.size === 0)
+              ).updateChatUnreadCountForReadMessages(n, i, f)),
+            s && a != null && m.add(a.toString()),
+            z(c, l, s, a, m),
+            m.size === 0)
           )
             return {
               fullyReadThreadIds: [],
-              chatUnreadUpdate: C != null ? C : void 0,
+              chatUnreadUpdate: h != null ? h : void 0,
             };
-          var b = Array.from(p).map(function (e) {
+          var y = Array.from(m).map(function (e) {
             return r("WAWebThreadId").from(e);
           });
           return (
             await o(
               "WAWebThreadMetadataBulkJob",
             ).bulkUpdateThreadUnreadCountWithTable(
-              i,
-              b.map(function (e) {
+              u,
+              y.map(function (e) {
                 return { threadId: e, unreadCount: 0 };
               }),
             ),
             await o(
               "WAWebThreadMetadataBulkJob",
             ).bulkUpdateThreadUnreadEditTimestampWithTable(
-              i,
-              b.map(function (e) {
+              u,
+              y.map(function (e) {
                 return { threadId: e, unreadEditTimestampMs: null };
               }),
             ),
-            { fullyReadThreadIds: b, chatUnreadUpdate: C != null ? C : void 0 }
+            { fullyReadThreadIds: y, chatUnreadUpdate: h != null ? h : void 0 }
           );
         });
     }
@@ -688,20 +662,13 @@ __d(
           .tags("missing-lid");
       }
     }
-    function z(e, t, n, a, i) {
-      var l = new Set();
-      for (var s of e) {
-        var u;
-        ((u = o(
-          "WAWebDBPendingReadReceiptQueries",
-        ).getCurrentPendingReadReceiptOrigin(s)) == null
-          ? void 0
-          : u.locallyRead) !== !0 &&
-          !t.has(r("WAWebMsgKey").fromString(s.latestEditMsgKey).id) &&
-          j(s, n, a, l);
-      }
-      l.forEach(function (e) {
-        return i.delete(e);
+    function z(e, t, n, o, a) {
+      var i = new Set();
+      for (var l of e)
+        t.has(r("WAWebMsgKey").fromString(l.latestEditMsgKey).id) ||
+          j(l, n, o, i);
+      i.forEach(function (e) {
+        return a.delete(e);
       });
     }
     function j(e, t, n, r) {
@@ -720,77 +687,72 @@ __d(
         !o("WAWebEphemeralKeepInChatUtils").isKept(e.kicState)
       ) {
         var i = t != null ? t : o("WATimeUtils").unixTime();
-        return { id: e.id, expiredTimestamp: i + r };
+        return {
+          id: e.id,
+          expiredTimestamp: o(
+            "WAWebInstantsExpiry",
+          ).capAfterReadDeadlineForInstant(e, i + r),
+        };
       }
       return null;
     }
     function Q(e) {
       var t = e.lastReadRowId,
         n = e.pendingMessages,
-        r = e.preservePendingReceipts,
-        a = e.readAt,
-        i = e.readMsgRowsById,
-        l = e.shouldProcessThreads,
-        s = e.threadId,
-        u = [],
-        c = new Set(),
-        d = [],
-        m = 0,
-        p = [],
-        _ = new Set(),
-        f = [],
-        g = 0,
-        h = Date.now();
+        r = e.readAt,
+        a = e.readMsgRowsById,
+        i = e.shouldProcessThreads,
+        l = e.threadId,
+        s = [],
+        u = new Set(),
+        c = [],
+        d = 0,
+        m = [],
+        p = new Set(),
+        _ = [],
+        f = 0;
       return (
         n.forEach(function (e) {
-          var n, y;
+          var n;
           e.hsmTag === o("WAWebBusinessHSMTypes").HSM_TAG_TYPE.AUTHENTICATION &&
             o("WAWebBackendApi").frontendFireAndForget(
               "logOTPMessageReadActions",
               { msgRow: e },
             );
-          var C = X(e, t, i),
-            b =
-              e.ack === o("WAWebAck").ACK.READ ||
-              ((n = o(
-                "WAWebDBPendingReadReceiptQueries",
-              ).getCurrentPendingReadReceiptOrigin(e)) == null
-                ? void 0
-                : n.locallyRead) === !0;
-          if (C) {
-            if (b) return;
-            if ((m++, o("WAWebMsgGetters").getIsImportantMessage(e))) {
-              var v = { id: e.id, timestamp: e.t };
-              p.push(v);
+          var g = X(e, t, a),
+            h = e.ack === o("WAWebAck").ACK.READ;
+          if (g) {
+            if (h) return;
+            if ((d++, o("WAWebMsgGetters").getIsImportantMessage(e))) {
+              var y = { id: e.id, timestamp: e.t };
+              m.push(y);
             }
             return;
           }
-          b || c.add(e.id);
-          var S = (y = e.ack) != null ? y : o("WAWebAck").ACK.CLOCK;
-          u.push(
-            babelHelpers.extends(
-              { id: e.id, ack: Math.max(S, o("WAWebAck").ACK.READ) },
-              o(
-                "WAWebDBPendingReadReceiptQueries",
-              ).getLocallyReadPendingReceiptUpdate(e, r, h),
-            ),
-          );
-          var R = K(e, a);
-          if (R != null && (d.push(R), g++, f.length < 3)) {
-            var L;
-            f.push(e == null || (L = e.id) == null ? void 0 : L.toString());
+          h || u.add(e.id);
+          var C = (n = e.ack) != null ? n : o("WAWebAck").ACK.CLOCK;
+          s.push({
+            id: e.id,
+            ack: Math.max(C, o("WAWebAck").ACK.READ),
+            pendingReadReceipt: null,
+            pendingReadReceiptOrigin: null,
+          });
+          var b = K(e, r);
+          if (b != null && (c.push(b), f++, _.length < 3)) {
+            var v;
+            _.push(e == null || (v = e.id) == null ? void 0 : v.toString());
           }
-          j(e, l, s, _);
+          j(e, i, l, p);
         }),
         {
-          ackUpdates: u,
-          newlyReadIds: c,
-          expiredTimestampUpdates: d,
-          newUnreadCount: m,
-          updatedUnreadMentions: p,
-          fullyReadThreadIds: _,
-          expirationSetMsgIds: f,
-          expirationSetMsgIdCount: g,
+          ackUpdates: s,
+          newlyReadIds: u,
+          expiredTimestampUpdates: c,
+          newUnreadCount: d,
+          updatedUnreadMentions: m,
+          fullyReadThreadIds: p,
+          expirationSetMsgIds: _,
+          expirationSetMsgIdCount: f,
         }
       );
     }

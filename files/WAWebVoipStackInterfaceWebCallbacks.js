@@ -19,6 +19,7 @@ __d(
     "WAWebVoipP2PConnectionManager",
     "WAWebVoipPersistentFS",
     "WAWebVoipSctpConnectionManager",
+    "WAWebVoipSctpConnectionStats",
     "WAWebVoipSendSignalingXmpp",
     "WAWebVoipVideoCaptureAndRendering",
     "WAWebVoipVideoCaptureFpsTracker",
@@ -301,7 +302,7 @@ __d(
                       "WAWebVoipP2PConnectionManager",
                     ).handleWorkerP2PChannelClosed(t.stats)
                   : (t.stats != null &&
-                      o("WAWebVoipSctpConnectionManager").mergeWorkerStats(
+                      o("WAWebVoipSctpConnectionStats").mergeWorkerStats(
                         e,
                         t.stats,
                       ),

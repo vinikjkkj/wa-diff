@@ -80,7 +80,7 @@ __d(
     }
     async function c(t) {
       var n = o("MpsMediaEntryCache").getEntry(t);
-      if (n != null) return u(n);
+      if (n != null) return n;
       var r = await o("WmiMediaService")
         .mediaService()
         .getMessageReferenceForMediaId(t);
@@ -95,11 +95,16 @@ __d(
         messageId: r.messageId,
         threadId: r.threadId,
       });
-      a != null && o("MpsMediaEntryCache").hydrateCache(a.toplevelProtobuf);
-      var i = o("MpsMediaEntryCache").getEntry(t);
-      return i != null ? u(i) : null;
+      return (
+        a != null && o("MpsMediaEntryCache").hydrateCache(a.toplevelProtobuf),
+        o("MpsMediaEntryCache").getEntry(t)
+      );
     }
-    var d = {
+    async function d(e) {
+      var t = await c(e);
+      return t == null ? null : u(t);
+    }
+    var m = {
         getStoredMediaKey: async function (t) {
           var e = await o("WmiMediaService")
             .mediaService()
@@ -119,11 +124,11 @@ __d(
             );
         },
       },
-      m = null;
-    function p() {
-      if (m == null) {
+      p = null;
+    function _() {
+      if (p == null) {
         var e = o("WmiChunkApi").getChunkApi();
-        m = o("WAMediaManager").createMediaManager({
+        p = o("WAMediaManager").createMediaManager({
           blobStorage:
             o("WAMediaStorageV2Gate").MediaStorageV2 == null
               ? void 0
@@ -149,7 +154,7 @@ __d(
                     isProgressivePreview: t.isProgressivePreview,
                   };
             },
-            getMediaEntries: c,
+            getMediaEntries: d,
             getProtocolMsgIdAndSortOrderMs: s,
             storeChunkByPlaintextHash: async function (n) {
               var t = n.blobData,
@@ -160,15 +165,15 @@ __d(
             },
           },
           mediaKeyStore:
-            o("WAMediaStorageV2Gate").MediaStorageV2 == null ? null : d,
+            o("WAMediaStorageV2Gate").MediaStorageV2 == null ? null : m,
         });
       }
-      return m;
+      return p;
     }
-    function _() {
-      m = null;
+    function f() {
+      p = null;
     }
-    ((l.mpsMediaManager = p), (l.reset__TEST_ONLY = _));
+    ((l.loadEntry = c), (l.mpsMediaManager = _), (l.reset__TEST_ONLY = f));
   },
   98,
 );

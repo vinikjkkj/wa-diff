@@ -149,7 +149,16 @@ __d(
                     o("WAWebProtobufsAdv.pb").ADVEncryptionType.E2EE &&
                   (c = !0);
               }
-              s.push({ wid: t.wid, currentRecord: a, update: r.update });
+              s.push(
+                r.fromHandleOmittedResult === !0
+                  ? {
+                      wid: t.wid,
+                      currentRecord: a,
+                      update: r.update,
+                      isFromPrimaryOnlyDeviceList: !0,
+                    }
+                  : { wid: t.wid, currentRecord: a, update: r.update },
+              );
             }
           }
         };

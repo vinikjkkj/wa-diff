@@ -330,8 +330,14 @@ __d(
           .lock(["message", "chat", "thread-metadata"], async function (r) {
             var a = r[0],
               i = r[1],
-              l = r[2],
-              s = [],
+              l = r[2];
+            await o("WAWebBotEditSignatureMetadata").keepStoredBotSignatures({
+              messageEdits: e,
+              readStoredMsgs: function (t) {
+                return a.bulkGet(t);
+              },
+            });
+            var s = [],
               u = new Set(),
               c = new Map();
             e.forEach(function (e) {

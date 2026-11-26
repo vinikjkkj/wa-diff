@@ -6,7 +6,6 @@ __d(
     "WAWebABProps",
     "WAWebCallCollection",
     "WAWebCallLogMsgData.flow",
-    "WAWebCallLogUtils",
     "WAWebModelStorageUtils",
     "WAWebMsgCollection",
     "WAWebMsgKey",
@@ -14,6 +13,7 @@ __d(
     "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebVoipActionWriteCallLogImpl",
+    "WAWebVoipBackendCallLogTargetResolver",
     "WAWebVoipCallLogWriteMutex",
     "WAWebVoipOngoingCallCollection",
     "WAWebVoipTransferredCallRegistry",
@@ -240,7 +240,9 @@ __d(
         n = e.rootCallCreatorJid,
         a = e.rootCallId,
         i = o("WAWebWidFactory").createWid(n),
-        l = await o("WAWebCallLogUtils").getCallLogTargetDetails({
+        l = await o(
+          "WAWebVoipBackendCallLogTargetResolver",
+        ).getCallLogTargetDetails({
           callCreatorWid: i,
           callId: a,
           groupJid: null,

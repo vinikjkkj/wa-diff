@@ -14,39 +14,26 @@ __d(
     function u() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
-        (o("WAWebABProps").getABPropConfigValue(
-          "contact_manager_mvp_enabled",
-        ) ||
-          o("WAWebABProps").getABPropConfigValue(
-            "smb_web_customer_management_enabled",
-          ) ||
+        (b() ||
           o("WAWebABProps").getABPropConfigValue(
             "wa_contact_manager_meta_one_rollout_enabled",
+            { suppressExposure: !0 },
           ))
       );
     }
     function c(e) {
       return (
         e === void 0 && (e = o("WAWebMetaOneGating").getMetaOneEligibility()),
-        u() &&
+        o("WAWebMobilePlatforms").isSMB() &&
           o("WAWebMetaOneGating").isMetaOneEligible(e) &&
-          (o("WAWebABProps").getABPropConfigValue(
-            "contact_manager_mvp_enabled",
-          ) ||
-            o("WAWebABProps").getABPropConfigValue(
-              "smb_web_customer_management_enabled",
-            ) ||
-            d())
+          (b() ||
+            (v() &&
+              o("WAWebABProps").getABPropConfigValue(
+                "wa_contact_manager_meta_one_rollout_enabled",
+              )))
       );
     }
     function d() {
-      var e = o("WAWebMobilePlatforms").getMaybeMobilePlatform(),
-        t = e == null ? null : s[e];
-      return (
-        t != null && o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(t)
-      );
-    }
-    function m() {
       return (
         u() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -54,7 +41,7 @@ __d(
         )
       );
     }
-    function p() {
+    function m() {
       return (
         u() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -62,7 +49,7 @@ __d(
         )
       );
     }
-    function _() {
+    function p() {
       return (
         u() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -70,7 +57,7 @@ __d(
         )
       );
     }
-    function f() {
+    function _() {
       return (
         u() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -78,7 +65,7 @@ __d(
         )
       );
     }
-    function g() {
+    function f() {
       return (
         u() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -86,7 +73,7 @@ __d(
         )
       );
     }
-    function h() {
+    function g() {
       return (
         u() &&
         o("WAWebABProps").getABPropConfigValue(
@@ -94,14 +81,14 @@ __d(
         )
       );
     }
-    function y() {
+    function h() {
       return e;
     }
-    function C(e) {
+    function y(e) {
       var t = e.id;
-      return t != null && !o("WAWebContactGetters").getIsMe(e) && b(t);
+      return t != null && !o("WAWebContactGetters").getIsMe(e) && C(t);
     }
-    function b(e) {
+    function C(e) {
       return (
         e.isUser() &&
         !o("WAWebUserUtils").isMeAccount(e) &&
@@ -114,17 +101,32 @@ __d(
         !e.isBot()
       );
     }
+    function b() {
+      return (
+        o("WAWebABProps").getABPropConfigValue("contact_manager_mvp_enabled") ||
+        o("WAWebABProps").getABPropConfigValue(
+          "smb_web_customer_management_enabled",
+        )
+      );
+    }
+    function v() {
+      var e = o("WAWebMobilePlatforms").getMaybeMobilePlatform(),
+        t = e == null ? null : s[e];
+      return (
+        t != null && o("WAWebPrimaryVersionGating").primaryVersionIsAtLeast(t)
+      );
+    }
     ((l.customerManagerEnabled = u),
       (l.customerManagerPanelEnabled = c),
-      (l.customerManagerDateRangeFilterEnabled = m),
-      (l.customerManagerExportEnabled = p),
-      (l.customerManagerImportExportEnabled = _),
-      (l.customerManagerCustomFieldsEnabled = f),
-      (l.customerManagerNuxDebugToolsEnabled = g),
-      (l.customerManagerBulkEditEnabled = h),
-      (l.customerManagerEducationBannerMaxViewDays = y),
-      (l.isEligibleForCustomerFields = C),
-      (l.isWidEligibleForCustomerFields = b));
+      (l.customerManagerDateRangeFilterEnabled = d),
+      (l.customerManagerExportEnabled = m),
+      (l.customerManagerImportExportEnabled = p),
+      (l.customerManagerCustomFieldsEnabled = _),
+      (l.customerManagerNuxDebugToolsEnabled = f),
+      (l.customerManagerBulkEditEnabled = g),
+      (l.customerManagerEducationBannerMaxViewDays = h),
+      (l.isEligibleForCustomerFields = y),
+      (l.isWidEligibleForCustomerFields = C));
   },
   98,
 );

@@ -226,8 +226,7 @@ __d(
         n = e.bizBotType,
         r = e.botProduct,
         a = e.chatId;
-      if (y(a, r)) return o("WAWebWamEnumBotType").BOT_TYPE.HATCH;
-      if (a.isBot()) return o("WAWebWamEnumBotType").BOT_TYPE.METABOT;
+      if (C(a, r) || a.isBot()) return y({ botWid: a, botProduct: r });
       if (n) {
         if (n === o("WAWebBotTypes").BizBotType.BIZ_1P)
           return o("WAWebWamEnumBotType").BOT_TYPE.BOT_1P_BIZ;
@@ -242,13 +241,20 @@ __d(
       }
       return o("WAWebWamEnumBotType").BOT_TYPE.UNKNOWN;
     }
-    function y(e, t) {
+    function y(e) {
+      var t = e.botProduct,
+        n = e.botWid;
+      return C(n, t)
+        ? o("WAWebWamEnumBotType").BOT_TYPE.HATCH
+        : o("WAWebWamEnumBotType").BOT_TYPE.METABOT;
+    }
+    function C(e, t) {
       return (
         o("WAWebBotUtils").isHatchBot(e) ||
         o("WAWebBotProduct").isMuseAgentProduct(e, t)
       );
     }
-    function C(e) {
+    function b(e) {
       if (e == null || e === "") return null;
       switch (e) {
         case o("WAWebHandleMsgCommon").MSG_CATEGORY.peer:
@@ -258,7 +264,7 @@ __d(
           return null;
       }
     }
-    function b(e) {
+    function v(e) {
       if (e.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL)
         return e.subtype ===
           o("WAWebCommonMsgSubtypeTypes").MsgSubtype.HatchMetadataSync ||
@@ -268,7 +274,7 @@ __d(
               .INVISIBLE_MESSAGE_CATEGORY_TYPE.AI_METADATA_OPERATION
           : void 0;
     }
-    function v(e) {
+    function S(e) {
       if (!o("WAWebMsgGetters").getIsCoexV2Relay(e))
         return e.botEditType === o("WAWebBotTypes").BotMsgEditType.FIRST
           ? o("WAWebWamEnumBotInteractionStage").BOT_INTERACTION_STAGE
@@ -291,7 +297,7 @@ __d(
                       );
                     })();
     }
-    function S(e, t, n) {
+    function R(e, t, n) {
       if (t.isGroup()) return !!n;
       if (t.isStatus()) {
         var r, o;
@@ -310,10 +316,11 @@ __d(
       (l.getWamE2eSenderType = f),
       (l.getWamAgentEngagementType = g),
       (l.getWamBotType = h),
-      (l.getWamInvisibleMessageCategoryType = C),
-      (l.getWamAiInvisibleMessageCategory = b),
-      (l.getWamBotInteractionStage = v),
-      (l.msgIsLid = S));
+      (l.getWamMetaAiBotType = y),
+      (l.getWamInvisibleMessageCategoryType = b),
+      (l.getWamAiInvisibleMessageCategory = v),
+      (l.getWamBotInteractionStage = S),
+      (l.msgIsLid = R));
   },
   98,
 );

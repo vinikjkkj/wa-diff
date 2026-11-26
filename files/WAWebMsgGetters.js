@@ -1177,7 +1177,8 @@ __d(
               n === "encrypt") ||
             o(
               "WAWebBizSystemMsgSubtypes",
-            ).BIZ_SYSTEM_MSG_SUBTYPES_V2_INIT.includes(n)
+            ).BIZ_SYSTEM_MSG_SUBTYPES_V2_INIT.includes(n) ||
+            n === "chat_privacy_non_e2ee_init"
           );
         },
         [R, L],
@@ -1888,9 +1889,12 @@ __d(
         !pr(e) &&
         R(e) !== o("WAWebMsgType").MSG_TYPE.CALL_LOG &&
         !In(e) &&
-        !["change_number", "change_username", "masked_thread_created"].includes(
-          L(e),
-        ) &&
+        ![
+          "change_number",
+          "change_username",
+          "chat_privacy_non_e2ee",
+          "masked_thread_created",
+        ].includes(L(e)) &&
         !_r(e)
       );
     }

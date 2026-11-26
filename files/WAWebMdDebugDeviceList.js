@@ -1,12 +1,12 @@
 __d(
   "WAWebMdDebugDeviceList",
   [
-    "WAWebButton.react",
     "WAWebDebug",
     "WAWebMdDebugSettingStyles",
     "WAWebMdDebugSettingTitle",
     "WAWebSchemaDeviceList",
     "WAWebText.react",
+    "WDSButton.react",
     "gkx",
     "react",
     "stylex",
@@ -160,11 +160,11 @@ __d(
           }),
         }),
         T = b.size > 0,
-        D = u.jsx(o("WAWebButton.react").Button, {
-          type: "primary",
+        D = u.jsx(r("WDSButton.react"), {
           disabled: !(_ && T),
-          onClick: E,
-          children: "Save",
+          label: "Save",
+          onPress: E,
+          variant: "filled",
         });
       return u.jsxs(
         "div",

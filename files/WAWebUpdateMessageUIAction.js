@@ -12,6 +12,7 @@ __d(
     "WAWebHandleForMessageRange",
     "WAWebHandleForMessageRangeEnums",
     "WAWebHandleMsgTypes",
+    "WAWebInstantsExpiry",
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebStatusCollection",
@@ -264,10 +265,14 @@ __d(
         var r;
         return (r = e.expiredTimestamp) != null ? r : null;
       }
-      var a = (t = e.t) != null ? t : o("WATimeUtils").unixTime();
+      var a = (t = e.t) != null ? t : o("WATimeUtils").unixTime(),
+        i = { type: e.type, t: a, kicState: e.kicState };
       return e.id.fromMe || (e.ack != null && e.ack >= o("WAWebAck").ACK.READ)
-        ? a + n
-        : o("WAWebMsgGetters").getEphemeralExpirationTimestamp(e);
+        ? o("WAWebInstantsExpiry").capAfterReadDeadlineForInstant(i, a + n)
+        : o("WAWebInstantsExpiry").capAfterReadDeadlineForInstant(
+            i,
+            o("WAWebMsgGetters").getEphemeralExpirationTimestamp(e),
+          );
     }
     ((l.updateUI = m), (l.updateUIForMessages = p), (l.removePlaceholder = b));
   },

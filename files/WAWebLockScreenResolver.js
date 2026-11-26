@@ -13,6 +13,7 @@ __d(
     "WAWebDbEncryptionKey",
     "WAWebModalManager",
     "WAWebMsgCollection",
+    "WAWebMsgOpaqueData",
     "WAWebPathfinderHeldBackSurface",
     "WAWebReloadCrashAnnotations",
     "WAWebUserPrefsInfoStore",
@@ -161,7 +162,7 @@ __d(
       var t = o("WAWebChatCollection").ChatCollection.getActive();
       if (
         (t && o("WAWebCmd").Cmd.closeChat(t),
-        await o("WAWebMsgCollection").MsgCollection.encryptAndClearModels(),
+        await v(),
         o(
           "WAWebUserPrefsInfoStore",
         ).waNoiseInfo.resetCachedPasscodeDerivedKey(),
@@ -184,6 +185,14 @@ __d(
         return;
       }
       (await o("WAWebCryptoEncKeyHelper").initEncSalt(), e.openSocketLoop());
+    }
+    async function v() {
+      var e = o("WAWebMsgCollection")
+        .MsgCollection.getModelsArray()
+        .map(function (e) {
+          return o("WAWebMsgOpaqueData").encryptDataInMsgModel(e);
+        });
+      await Promise.all(e);
     }
     ((l.LockScreenResolvable = h), (l.lockScreenAndTriggerUnlockFlow = y));
   },

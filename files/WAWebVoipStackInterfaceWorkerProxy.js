@@ -38,6 +38,7 @@ __d(
     "WAWebVoipRelayConnectQpl",
     "WAWebVoipRelayConnectionUtils",
     "WAWebVoipSctpConnectionManager",
+    "WAWebVoipSctpFallbackFamilyOutcome",
     "WAWebVoipStackInterfaceWebHelpers",
     "WAWebVoipStorageInit",
     "WAWebVoipTransportFallbackTracker",
@@ -699,7 +700,7 @@ __d(
                         ])),
                     ),
                     o(
-                      "WAWebVoipSctpConnectionManager",
+                      "WAWebVoipSctpFallbackFamilyOutcome",
                     ).markSctpEnteredViaWebTransportFallback(),
                     o("WAWebVoipGatingUtils").markWebTransportFellBack(),
                     o(

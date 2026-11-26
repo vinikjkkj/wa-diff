@@ -978,6 +978,7 @@ __d(
       channels_forward_counter_on_status_card_enabled: [26148, "bool", !1, !1],
       channels_forward_logging_v2_enabled: [5492, "bool", !1, !0],
       channels_forward_to_my_status_web_enabled: [43192, "bool", !1, !0],
+      channels_fts_enabled: [11266, "bool", !1, !1],
       channels_hide_news_url_preview: [5287, "bool", !1, !0],
       channels_in_app_policy_detail_enabled: [29132, "bool", !1, !0],
       channels_invite_contacts_to_follow_consumer_enabled: [
@@ -1802,6 +1803,8 @@ __d(
       gif_max_play_loops: [3683, "int", 3, 3],
       gif_min_play_loops: [3682, "int", 1, 1],
       gif_provider: [14343, "int", 1, 1],
+      gif_reply_sticker_layout_enabled: [44271, "bool", !1, !1],
+      gif_size_match_sticker_mode: [39352, "int", 0, 0],
       gimmick_phase_two_data_suffix: [6785, "string", "", ""],
       giphy_pma_shutoff_enabled: [27942, "bool", !1, !1],
       give_dogfooders_task_id_for_bug_reporting: [27444, "bool", !1, !0],
@@ -4260,6 +4263,7 @@ __d(
       web_ai_sticker_emission_enabled: [36294, "bool", !1, !0],
       web_album_group_cancel_retry_enabled: [41087, "bool", !1, !0],
       web_album_star_as_one_message_enabled: [41329, "bool", !1, !0],
+      web_album_v2_sender_enabled: [44632, "bool", !1, !1],
       web_anr_app_launch_skew_rtt_guard_enabled: [40496, "bool", !1, !1],
       web_anr_async_contacts_restore_from_db_enabled: [27775, "bool", !1, !1],
       web_anr_async_media_decryption_enabled: [23200, "bool", !1, !1],
@@ -4352,6 +4356,7 @@ __d(
       web_calls_tab_empty_state_buttons: [17724, "bool", !1, !0],
       web_catalog_recovery_flow_enabled: [14294, "bool", !1, !1],
       web_catalog_viewing_variants_enabled: [15534, "bool", !1, !1],
+      web_channel_qr_code_enabled: [44625, "bool", !1, !1],
       web_channel_status_likes_sending_enabled: [32428, "bool", !1, !1],
       web_channel_status_likes_sending_enabled_no_exposure: [
         35221,

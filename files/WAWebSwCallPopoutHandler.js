@@ -12,6 +12,7 @@ __d(
             i[l] = arguments[l];
           return (
             (n = t.call.apply(t, [this].concat(i)) || this),
+            (n.servesDocumentRequests = !0),
             (n.matchFetch = function (t) {
               var n = t.request;
               if (n.mode !== "navigate") return !1;

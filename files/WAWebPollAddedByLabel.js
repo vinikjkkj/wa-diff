@@ -65,7 +65,7 @@ __d(
                 groupMetadata: f,
                 isMyContact: c,
                 notifyName: d,
-                orgMemberName: p,
+                shownMemberName: p,
               }),
             ),
           ]),

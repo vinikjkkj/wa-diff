@@ -5,18 +5,25 @@ __d(
     function e(e) {
       return babelHelpers.extends({}, e, {
         processorType: o("WAWebAssociationProcessorConstants")
+          .AssociationProcessorType.Regular,
+      });
+    }
+    function s(e) {
+      return babelHelpers.extends({}, e, {
+        processorType: o("WAWebAssociationProcessorConstants")
           .AssociationProcessorType.WithDetachedMessages,
       });
     }
-    function s(e, t) {
+    function u(e, t) {
       var n;
       return t.groupHistoryIndividualMessageInfo != null &&
         (n = e.groupHistoryViewMode) != null
         ? n
         : e.viewMode;
     }
-    ((l.createAssociationMsgProcessorWithDetachedMessages = e),
-      (l.getAssociatedMsgViewMode = s));
+    ((l.createAssociationMsgProcessor = e),
+      (l.createAssociationMsgProcessorWithDetachedMessages = s),
+      (l.getAssociatedMsgViewMode = u));
   },
   98,
 );

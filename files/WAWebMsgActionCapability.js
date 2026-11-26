@@ -48,6 +48,7 @@ __d(
     "WAWebMediaGatingUtils",
     "WAWebMediaTypes",
     "WAWebMessageAssociation.flow",
+    "WAWebMessageAssociationConfig",
     "WAWebMessageEditGatingUtils",
     "WAWebMessageEditUtils",
     "WAWebMiscGatingUtils",
@@ -481,10 +482,13 @@ __d(
               ));
     }
     function w(e) {
-      return o("WAWebFrontendMsgGetters").getAsAlbum(e)
-        ? o("WAWebMsgGetters").getStar(e) ||
-            o("WAWebMediaGatingUtils").isAlbumStarAsOneMsgEnabled()
-        : !0;
+      return o("WAWebMsgGetters").getStar(e)
+        ? !0
+        : o("WAWebFrontendMsgGetters").getAsAlbum(e)
+          ? o("WAWebMediaGatingUtils").isAlbumStarAsOneMsgEnabled()
+          : o("WAWebMessageAssociationConfig").getChildStarringPolicy(
+              e.associationType,
+            ).canStarIndependently;
     }
     function A(e) {
       var t,
@@ -999,7 +1003,7 @@ __d(
           ? !1
           : e.type === o("WAWebMsgType").MSG_TYPE.COMMENT
             ? e.ack != null && e.ack >= o("WAWebAck").ACK.SENT
-            : o("WAWebMsgGetters").getIsUserCreatedType(e) &&
+            : pe(e) &&
               !(e.broadcast != null && e.broadcast) &&
               ((e instanceof o("WAWebMsgModel").Msg && !e.isUnsentPhoneMsg()) ||
                 o("WAWebMsgGetters").getIsEdited(e)) &&
@@ -1012,6 +1016,12 @@ __d(
               );
     }
     function pe(e) {
+      return (
+        o("WAWebMsgGetters").getIsUserCreatedType(e) ||
+        o("WAWebInstantMsgTypes").isInstantMsgType(e.type)
+      );
+    }
+    function _e(e) {
       var t = e;
       e instanceof o("WAWebMsgModel").Msg &&
         (t = o("WAWebStateUtils").unproxy(e));
@@ -1020,7 +1030,7 @@ __d(
         o("WAWebRevokeMsgConstants").REVOKE_WINDOW;
       return me(t) && t.id.fromMe && n;
     }
-    function _e(e) {
+    function fe(e) {
       var t,
         n = e;
       e instanceof o("WAWebMsgModel").Msg &&
@@ -1038,7 +1048,7 @@ __d(
         a
       );
     }
-    function fe(e) {
+    function ge(e) {
       var t = e;
       e instanceof o("WAWebMsgModel").Msg &&
         (t = o("WAWebStateUtils").unproxy(e));
@@ -1063,7 +1073,14 @@ __d(
               ) &&
               o("WAWebHatchFrontendGating").isHatchRevokeEnabled());
     }
-    function ge(e) {
+    function he(e) {
+      return (
+        o("WAWebFrontendMsgGetters").getAsMms(e) != null &&
+        e.type !== o("WAWebMsgType").MSG_TYPE.STICKER &&
+        !o("WAWebInstantMsgTypes").isInstantMsgType(e.type)
+      );
+    }
+    function ye(e) {
       var t, n;
       if (
         o("WAWebBizCtwaAGMUtils").isAutomatedGreetingMessage({
@@ -1111,10 +1128,11 @@ __d(
       (l.canEmbedNewsletterMessage = le),
       (l.canAddPaidPartnershipLabelToMsg = se),
       (l.canAddAiContentLabelToMsg = ue),
-      (l.canSenderRevokeMsg = pe),
-      (l.canAdminRevokeMsg = _e),
-      (l.canBotResponseBeRevokeByInvoker = fe),
-      (l.canDeleteMsg = ge));
+      (l.canSenderRevokeMsg = _e),
+      (l.canAdminRevokeMsg = fe),
+      (l.canBotResponseBeRevokeByInvoker = ge),
+      (l.canDeleteMediaFileFromPhone = he),
+      (l.canDeleteMsg = ye));
   },
   98,
 );

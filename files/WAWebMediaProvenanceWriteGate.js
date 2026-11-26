@@ -2,6 +2,7 @@ __d(
   "WAWebMediaProvenanceWriteGate",
   [
     "WAKaleidoscopeProvenanceField",
+    "WAWebABProps",
     "WAWebMediaTypes",
     "WAWebNewsletterGatingUtils",
     "WAWebSystemProvenanceGating",
@@ -65,30 +66,20 @@ __d(
     async function p(t) {
       var n = t.isChannel,
         r = t.mediaType,
-        o = t.resolveSystemProvenance;
-      if (!n || !e(r)) return null;
-      var a = m(await o());
-      return a == null ? null : a.digitalSourceType == null ? f(a) : _(a);
-    }
-    function _(e) {
-      return o("WAWebNewsletterGatingUtils").isChannelAIAntiTamperingEnabled()
-        ? o("WAKaleidoscopeProvenanceField").allowedProvenanceFields(
-            e,
-            o(
-              "WAWebSystemProvenanceGating",
-            ).systemProvenanceAllowedFieldNames(),
-          )
-        : null;
-    }
-    function f(e) {
-      var t = o("WAKaleidoscopeProvenanceField").allowedProvenanceFields(
-        e,
+        a = t.resolveSystemProvenance;
+      if (!e(r)) return null;
+      var i = m(await a());
+      if (i == null) return null;
+      var l = o("WAKaleidoscopeProvenanceField").allowedProvenanceFields(
+        i,
         o("WAWebSystemProvenanceGating").systemProvenanceAllowedFieldNames(),
       );
-      return t == null ||
-        !o("WAWebNewsletterGatingUtils").isChannelAIAntiTamperingEnabled()
-        ? null
-        : t;
+      return l == null || !_(n) ? null : l;
+    }
+    function _(e) {
+      return e
+        ? o("WAWebNewsletterGatingUtils").isChannelAIAntiTamperingEnabled()
+        : o("WAWebABProps").getABPropConfigValue("channels_ai_at_enabled");
     }
     ((l.isMarkableMediaType = e),
       (l.systemProvenanceClass = c),

@@ -2,6 +2,7 @@ __d(
   "WAWebMessagePluginQuotedMsgThumbnailIconRegistry",
   [
     "WAWebChatQuotedMsgThumbnailIcon.react",
+    "WAWebInstantQuotedMsgThumbnailIcon.react",
     "WAWebInteractiveQuotedMsgThumbnailIcon",
     "WAWebListQuotedMsgThumbnailIcon",
     "WAWebLocationQuotedMsgThumbnailIcon",
@@ -98,8 +99,16 @@ __d(
         },
         { type: "hsm", subtype: void 0, quotedMsgThumbnailIcon: null },
         { type: "image", subtype: void 0, quotedMsgThumbnailIcon: e },
-        { type: "instant_image", subtype: void 0, quotedMsgThumbnailIcon: e },
-        { type: "instant_video", subtype: void 0, quotedMsgThumbnailIcon: e },
+        {
+          type: "instant_image",
+          subtype: void 0,
+          quotedMsgThumbnailIcon: r("WAWebInstantQuotedMsgThumbnailIcon.react"),
+        },
+        {
+          type: "instant_video",
+          subtype: void 0,
+          quotedMsgThumbnailIcon: r("WAWebInstantQuotedMsgThumbnailIcon.react"),
+        },
         {
           type: "interactive",
           subtype: void 0,

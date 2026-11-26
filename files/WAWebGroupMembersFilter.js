@@ -21,14 +21,12 @@ __d(
         ? !0
         : t === "admins"
           ? e.isAdmin
-          : t === "members"
-            ? !e.isAdmin
-            : (function () {
-                throw Error(
-                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                    t,
-                );
-              })();
+          : (function () {
+              throw Error(
+                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                  t,
+              );
+            })();
     }
     ((l.filterGroupMembers = e), (l.createContactSearchMatcher = s));
   },

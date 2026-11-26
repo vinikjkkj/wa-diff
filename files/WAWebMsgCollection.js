@@ -30,7 +30,6 @@ __d(
     "WAWebMsgGetters",
     "WAWebMsgKey",
     "WAWebMsgModel",
-    "WAWebMsgOpaqueData",
     "WAWebMsgType",
     "WAWebMsgVcardUtils",
     "WAWebNewsletterMsgHistoryUtils",
@@ -738,18 +737,6 @@ __d(
                 !0,
               );
             }
-          }),
-          (a.encryptAndClearModels = async function () {
-            var e = this._models.map(function (e) {
-              return o("WAWebMsgOpaqueData").encryptDataInMsgModel(e);
-            });
-            await Promise.all(e);
-          }),
-          (a.decryptAndSetModels = async function (t) {
-            var e = this._models.map(function (e) {
-              return o("WAWebMsgOpaqueData").decryptDataInMsgModel(e, t);
-            });
-            await Promise.all(e);
           }),
           n
         );

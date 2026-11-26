@@ -5,7 +5,6 @@ __d(
     "JSResourceForInteraction",
     "WALogger",
     "WAWebABProps",
-    "WAWebAboutWamLogger",
     "WAWebActiveAccountInfoContext.react",
     "WAWebAdaptiveLayoutGatingUtils",
     "WAWebAddEditPixFeature",
@@ -88,6 +87,7 @@ __d(
     "WAWebStatusAttachMediaFlowLoadable",
     "WAWebStatusNavigateTo",
     "WAWebStickerStoreFlowLoadable",
+    "WAWebTPExecReceiveFileCmd",
     "WAWebTextStatusEditModalLoadable",
     "WAWebUpdateUtmAction",
     "WAWebUserUtils",
@@ -97,6 +97,7 @@ __d(
     "WAWebVoipGatingUtils",
     "WAWebVoipOutgoingCallConsent",
     "WAWebVoipStartCall",
+    "WAWebWamEnumAboutEntrypointType",
     "WAWebWamEnumCallFromUi",
     "WAWebWamEnumCatalogEntryPoint",
     "WAWebWamEnumCommunityCreationCurrentScreenType",
@@ -110,7 +111,6 @@ __d(
     "WAWebWamEnumSmbDataSharingConsentSettingEntryPoint",
     "WAWebWidFactory",
     "WDSDialogBridge",
-    "cr:12407",
     "cr:17104",
     "cr:1923",
     "cr:19328",
@@ -1497,13 +1497,8 @@ __d(
                 n("cr:2679").handleWorkContactSync(a.data.compressedData),
               !0);
         }
-        case "SEND_FILE": {
-          var ut;
-          return (ut =
-            n("cr:12407") == null ? void 0 : n("cr:12407")(a.data)) != null
-            ? ut
-            : !1;
-        }
+        case "SEND_FILE":
+          return r("WAWebTPExecReceiveFileCmd")(a.data);
         case "NEWSLETTER_STATUS_DEEPLINK":
           return (
             r("JSResourceForInteraction")("WAWebNewsletterStatusExecApiCmd")
@@ -1583,8 +1578,8 @@ __d(
                 o("WAWebTextStatusEditModalLoadable")
                   .TextStatusEditModalLoadable,
                 {
-                  entrypoint: o("WAWebAboutWamLogger").ABOUT_ENTRYPOINT_TYPE
-                    .DEEP_LINK,
+                  entrypoint: o("WAWebWamEnumAboutEntrypointType")
+                    .ABOUT_ENTRYPOINT_TYPE.DEEP_LINK,
                 },
               ),
             ),

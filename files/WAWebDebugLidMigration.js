@@ -150,16 +150,17 @@ __d(
     F.doc =
       "Toggles the addressing mode of the given groups on the server via mex api.";
     async function O(e) {
-      var t, n, a;
-      r("vulture")("rVbGRdFJbLTxvz9gXtVchisQUZE=");
-      var i = await o("WAWebSchemaParticipant")
+      var t,
+        n,
+        r,
+        a = await o("WAWebSchemaParticipant")
           .getParticipantTable()
           .get(e.toString()),
-        l = await o("WAWebSchemaGroupMetadata")
+        i = await o("WAWebSchemaGroupMetadata")
           .getGroupMetadataTable()
           .get(e.toString()),
-        s = o("WAWebChatCollection").ChatCollection.get(e.toString()),
-        u = i ? i.senderKey : new Map();
+        l = o("WAWebChatCollection").ChatCollection.get(e.toString()),
+        s = a ? a.senderKey : new Map();
       (o("WALogger").LOG(
         m ||
           (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -170,9 +171,9 @@ __d(
             "",
           ])),
         e.toString(),
-        l == null ? void 0 : l.isLidAddressingMode,
-        i == null ? void 0 : i.admins,
-        i == null ? void 0 : i.participants,
+        i == null ? void 0 : i.isLidAddressingMode,
+        a == null ? void 0 : a.admins,
+        a == null ? void 0 : a.participants,
       ),
         o("WALogger").LOG(
           p ||
@@ -183,8 +184,8 @@ __d(
               "",
             ])),
           e.toString(),
-          Array.from(u.entries()),
-          i == null ? void 0 : i.rotateKey,
+          Array.from(s.entries()),
+          a == null ? void 0 : a.rotateKey,
         ),
         o("WALogger").LOG(
           _ ||
@@ -196,10 +197,10 @@ __d(
               "",
             ])),
           e.toString(),
-          s == null || (t = s.groupMetadata) == null
+          l == null || (t = l.groupMetadata) == null
             ? void 0
             : t.isLidAddressingMode,
-          s == null || (n = s.groupMetadata) == null
+          l == null || (n = l.groupMetadata) == null
             ? void 0
             : n.participants
                 .toArray()
@@ -209,9 +210,9 @@ __d(
                 .map(function (e) {
                   return e.id.toString();
                 }),
-          s == null || (a = s.groupMetadata) == null
+          l == null || (r = l.groupMetadata) == null
             ? void 0
-            : a.participants.toArray().map(function (e) {
+            : r.participants.toArray().map(function (e) {
                 return e.id.toString();
               }),
         ));

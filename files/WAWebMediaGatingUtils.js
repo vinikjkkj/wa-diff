@@ -81,7 +81,9 @@ __d(
             : !0;
     }
     function c() {
-      return o("WAWebABProps").getABPropConfigValue("album_v2_sender_enabled");
+      return o("WAWebABProps").getABPropConfigValue(
+        "web_album_v2_sender_enabled",
+      );
     }
     function d() {
       return o("WAWebABProps").getABPropConfigValue(

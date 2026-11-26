@@ -141,13 +141,6 @@ __d(
               }
             return e;
           }),
-          (a.markProfileAsStale = function (t) {
-            var e;
-            (e = this.get(t)) == null || e.markStale();
-          }),
-          (a.hasBusinessProfileInCache = function (t) {
-            return !!this.get(t);
-          }),
           (a.convertBusinessProfileIdForLidMigration = function (t) {
             var e =
               t instanceof r("WAWebWid")

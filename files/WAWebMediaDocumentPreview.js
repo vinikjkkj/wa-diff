@@ -153,7 +153,7 @@ __d(
         children: [
           u.jsx("span", {
             className: "x1rg5ohu x6ikm8r x10wlt62 xlyipyv xuxw1ft xwcf1sq",
-            title: n,
+            title: String(n),
             children: n,
           }),
           u.jsx(f, {}),

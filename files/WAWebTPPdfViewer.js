@@ -48,6 +48,7 @@ __d(
                     file: n,
                     fileName: r,
                     isAnnotationsEnabled: o.isAnnotationsEnabled,
+                    isLocalSdkEnabled: o.isLocalSdkEnabled,
                     isWindowsHybrid: o.isWindowsHybrid,
                     styleConfig: o.styleConfig,
                   })

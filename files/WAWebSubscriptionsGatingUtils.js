@@ -21,6 +21,7 @@ __d(
         ) ||
           o("WAWebABProps").getABPropConfigValue(
             "wa_contact_manager_meta_one_rollout_enabled",
+            { suppressExposure: !0 },
           ))
       );
     }

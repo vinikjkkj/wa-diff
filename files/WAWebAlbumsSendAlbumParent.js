@@ -18,7 +18,8 @@ __d(
         a = t.isViewOnce,
         i = t.medias,
         l = t.onMsgKeyCreated,
-        u = t.quotedMsg;
+        u = t.pathfinderAccountToken,
+        c = t.quotedMsg;
       if (
         !o("WAWebAlbumsSendEligibility").isAlbumSendEligible({
           chat: n,
@@ -27,36 +28,38 @@ __d(
         })
       )
         return null;
-      var c = o("WAWebAlbumsSendEligibility").countAlbumItems(i),
-        d = c.imageCount,
-        _ = c.videoCount;
+      var d = o("WAWebAlbumsSendEligibility").countAlbumItems(i),
+        _ = d.imageCount,
+        f = d.videoCount;
       try {
-        var f = await o(
+        var g = await o(
           "WAWebAlbumsCreateAlbumParentMsgData",
         ).createAlbumParentMsg({
           chat: n,
-          expectedImageCount: d,
-          expectedVideoCount: _,
-          quotedMsg: u,
+          expectedImageCount: _,
+          expectedVideoCount: f,
+          quotedMsg: c,
         });
         if (o("WAWebChatGetters").getIsNewsletter(n)) {
-          var g = await o(
+          var h = await o(
             "WAWebNewsletterSendMsgAction",
-          ).sendNewsletterAlbumMsg({ chat: n, msg: f });
-          return g.messageSendResult ===
+          ).sendNewsletterAlbumMsg({ chat: n, msg: g });
+          return h.messageSendResult ===
             o("WAWebSendMsgResultAction").SendMsgResult.OK
-            ? f.id
-            : (m(g), null);
+            ? g.id
+            : (m(h), null);
         }
-        p(l, f.id);
-        var h = o("WAWebSendMsgChatAction").addAndSendMsgToChat(
+        p(l, g.id);
+        var y = o("WAWebSendMsgChatAction").addAndSendMsgToChat(
             n,
-            o("WAWebMsgDataFromModel").msgDataFromMsgModel(f),
+            o("WAWebMsgDataFromModel").msgDataFromMsgModel(g),
+            null,
+            { pathfinderAccountToken: u },
           ),
-          y = h[0],
-          C = h[1];
+          C = y[0],
+          b = y[1];
         return (
-          C.then(m).catch(function (t) {
+          b.then(m).catch(function (t) {
             o("WALogger")
               .ERROR(
                 e ||
@@ -67,8 +70,8 @@ __d(
               .catching(r("getErrorSafe")(t))
               .sendLogs("album-parent-send-failed");
           }),
-          await y,
-          f.id
+          await C,
+          g.id
         );
       } catch (e) {
         return (

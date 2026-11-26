@@ -9,6 +9,7 @@ __d(
     "WAWebInteractiveMessagesNativeFlowName",
     "WAWebMsgCollection",
     "WAWebMsgType",
+    "WAWebMusicParsingUtils",
     "WAWebOrderDetailProductLabel",
     "WAWebOrderDetails",
     "WAWebProductCatalogCatalogConstants",
@@ -45,8 +46,10 @@ __d(
       }
     }
     function d(e) {
-      var t, n;
-      return (t = (n = e.musicData) == null ? void 0 : n.title) != null
+      var t;
+      return (t = o("WAWebMusicParsingUtils").getQuotedMusicTitle(
+        e.musicData,
+      )) != null
         ? t
         : r("WAWebFormatMsgText")({ msg: e.unsafe() });
     }

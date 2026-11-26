@@ -98,12 +98,6 @@ __d(
               );
             }
           }),
-          (n.verifySignature = function (t, n, r) {
-            var e =
-                o("WASignalSignatures").convertPublicKeyToSerializedPubKey(t),
-              a = o("WASignalOther").ensureSize(r, 64);
-            return o("WASignalSignatures").verifyMsgSignalVariant(e, n, a);
-          }),
           (n.signMsg = async function (t, n, r) {
             var e = o("WASignalKeys").makeKeyPairFromArrayBuffers(t, n),
               a = await o("WASignalSignatures").signMsg(e, new Uint8Array(r));

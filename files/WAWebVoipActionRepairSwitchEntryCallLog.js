@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WALongInt",
     "WAWebCallLogMsgData.flow",
-    "WAWebCallLogUtils",
     "WAWebCmd",
     "WAWebDBMessageRangeIndex",
     "WAWebEventsWaitForBbEvent",
@@ -19,6 +18,7 @@ __d(
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
     "WAWebVoipActionWriteCallLogSwitchEntryPoint",
+    "WAWebVoipBackendCallLogTargetResolver",
     "WAWebVoipCallLogOrderingContext",
     "WAWebVoipCallLogOrderingTimestampRepair",
     "WAWebVoipCallLogPlaceholderTracker",
@@ -415,7 +415,9 @@ __d(
         : null;
     }
     async function M(e, t) {
-      var n = await o("WAWebCallLogUtils").getCallLogTargetDetails({
+      var n = await o(
+          "WAWebVoipBackendCallLogTargetResolver",
+        ).getCallLogTargetDetails({
           callCreatorWid: o("WAWebWidFactory").createWid(
             r("nullthrows")(e.callCreatorJid),
           ),

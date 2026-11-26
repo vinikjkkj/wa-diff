@@ -21,6 +21,7 @@ __d(
             (this.matchNotificationClick = n.returnFalse),
             (this.matchNotificationClose = n.returnFalse),
             (this.matchPeriodicSync = n.returnFalse),
+            (this.servesDocumentRequests = !1),
             (this.cache = e),
             (this.store = t));
         }

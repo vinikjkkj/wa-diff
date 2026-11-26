@@ -336,23 +336,24 @@ __d(
         .getMessageTable()
         .between(["internalId"], e + "_/", e + "_g", { reverse: !0 }, t);
     }
-    function I(e) {
+    var I = [
+      "biz_privacy_mode_init_fb",
+      "biz_me_account_type_is_hosted",
+      "biz_me_account_type_is_hosted_transition",
+      "biz_account_type_is_hosted",
+      "biz_account_type_changed_to_hosted",
+      "chat_privacy_non_e2ee",
+      "chat_privacy_non_e2ee_init",
+    ];
+    function T(e) {
       return (
         (e.type === o("WAWebMsgType").MSG_TYPE.E2E_NOTIFICATION &&
           e.subtype === "encrypt") ||
         (e.type === o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE &&
-          e.subtype === "biz_privacy_mode_init_fb") ||
-        (e.type === o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE &&
-          e.subtype === "biz_me_account_type_is_hosted") ||
-        (e.type === o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE &&
-          e.subtype === "biz_me_account_type_is_hosted_transition") ||
-        (e.type === o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE &&
-          e.subtype === "biz_account_type_is_hosted") ||
-        (e.type === o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE &&
-          e.subtype === "biz_account_type_changed_to_hosted")
+          I.includes(e.subtype))
       );
     }
-    function T(e) {
+    function D(e) {
       return (
         e.type === o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE &&
         (e.subtype === "bot_init" ||
@@ -378,8 +379,8 @@ __d(
       (l.getKeyMsgsFromChatHistory = S),
       (l.isSecuritySensitiveMessage = E),
       (l.getMessagesBefore = k),
-      (l.isInitialEncryptionMessage = I),
-      (l.isBotSystemMessageToPreserveOnClear = T));
+      (l.isInitialEncryptionMessage = T),
+      (l.isBotSystemMessageToPreserveOnClear = D));
   },
   98,
 );

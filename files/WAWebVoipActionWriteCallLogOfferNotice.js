@@ -2,13 +2,13 @@ __d(
   "WAWebVoipActionWriteCallLogOfferNotice",
   [
     "WATimeUtils",
-    "WAWebCallLogUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebReleaseToEventLoop",
     "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebVoipActionWriteCallLogImpl",
+    "WAWebVoipBackendCallLogTargetResolver",
     "WAWebVoipCallLogPlaceholderTracker",
     "WAWebVoipPhaseTracker",
   ],
@@ -27,7 +27,9 @@ __d(
           c = e.isVideo,
           d = e.offerTime,
           m = e.silenceReason,
-          p = await o("WAWebCallLogUtils").getCallLogTargetDetails({
+          p = await o(
+            "WAWebVoipBackendCallLogTargetResolver",
+          ).getCallLogTargetDetails({
             callCreatorWid: n,
             callId: a,
             groupJid: l,

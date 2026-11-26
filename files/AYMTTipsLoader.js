@@ -250,18 +250,30 @@ __d(
         if (b == null) return null;
         (h.set(y, b), p.add(C + "|" + y));
       }
-      return p.size !== d.size ||
+      if (
+        p.size !== d.size ||
         Array.from(d).some(function (e) {
           return !p.has(e);
         })
-        ? null
-        : {
-            channels: m,
-            icContext: n,
-            icNUXMessages: h,
-            icResponse: s,
-            isEligible: c,
-          };
+      )
+        return null;
+      var v = [];
+      for (var S of (L = $(i.anchorless_priority_tip_names)) != null ? L : []) {
+        var L;
+        if (typeof S != "string" || S === "") {
+          v.length = 0;
+          break;
+        }
+        v.push(S);
+      }
+      return {
+        anchorlessPriorityTipNames: v,
+        channels: m,
+        icContext: n,
+        icNUXMessages: h,
+        icResponse: s,
+        isEligible: c,
+      };
     }
     function U(e, t) {
       var n;
@@ -553,7 +565,7 @@ __d(
                     sequence: ++this.$15,
                   },
                 },
-                { line: "885", module: "AYMTTipsLoader.js", moduleID: i.id },
+                { line: "902", module: "AYMTTipsLoader.js", moduleID: i.id },
               ));
           }),
           (a.$21 = function () {
@@ -1157,10 +1169,11 @@ __d(
             }
           }),
           (a.$55 = function (a, i) {
-            var t = this,
-              l = new Set(),
-              s = [];
-            (R.forEach(function (e, t) {
+            var t,
+              l = this,
+              s = new Set(),
+              u = [];
+            R.forEach(function (e, t) {
               var n,
                 r,
                 o = i.channels.get(e);
@@ -1169,9 +1182,9 @@ __d(
                 : []
               ).forEach(function (n, r) {
                 var o = e + "|" + String(n.tip.name);
-                l.has(o) ||
-                  (l.add(o),
-                  s.push({
+                s.has(o) ||
+                  (s.add(o),
+                  u.push({
                     channelName: e,
                     channelOrder: t,
                     extraName: null,
@@ -1186,10 +1199,10 @@ __d(
                   : []
                 ).forEach(function (n, r) {
                   var a = e + "|" + n.name;
-                  if (!l.has(a)) {
+                  if (!s.has(a)) {
                     var i;
-                    (l.add(a),
-                      s.push({
+                    (s.add(a),
+                      u.push({
                         channelName: e,
                         channelOrder: t,
                         extraName: n.name,
@@ -1204,54 +1217,54 @@ __d(
                       }));
                   }
                 }));
-            }),
-              s.sort(
-                o("AYMTSequentialDisplayManager").compareRankedCandidates,
-              ));
-            var u = new Map();
-            for (var c of s.slice(
-              0,
-              o("AYMTSequentialDisplayManager").MAX_DISPATCHED_TIPS_PER_PAGE,
-            )) {
-              var d = c.extraName;
-              if (d != null) {
-                var m,
-                  p = (m = u.get(c.channelName)) != null ? m : [];
-                (p.push(d), u.set(c.channelName, p));
+            });
+            var c = (t = i.anchorlessPriorityTipNames) != null ? t : [],
+              d = new Map();
+            for (var m of o("AYMTSequentialDisplayManager")
+              .sortRankedCandidates(u, c)
+              .slice(
+                0,
+                o("AYMTSequentialDisplayManager").MAX_DISPATCHED_TIPS_PER_PAGE,
+              )) {
+              var p = m.extraName;
+              if (p != null) {
+                var _,
+                  f = (_ = d.get(m.channelName)) != null ? _ : [];
+                (f.push(p), d.set(m.channelName, f));
               }
             }
-            var _ = Array.from(u).map(function (e) {
-              var n = e[0],
-                r = e[1];
-              return t.$56(a, n, r).then(
+            var g = Array.from(d).map(function (e) {
+              var t = e[0],
+                n = e[1];
+              return l.$56(a, t, n).then(
                 function (e) {
-                  return [n, e];
+                  return [t, e];
                 },
                 function () {
-                  return [n, []];
+                  return [t, []];
                 },
               );
             });
             r("promiseDone")(
-              (e || (e = n("Promise"))).all(_),
+              (e || (e = n("Promise"))).all(g),
               function (e) {
-                return t.$57(a, i, new Map(e));
+                return l.$57(a, i, new Map(e), c);
               },
               function () {
-                return t.$57(a, i, new Map());
+                return l.$57(a, i, new Map(), c);
               },
             );
           }),
-          (a.$57 = function (t, n, r) {
+          (a.$57 = function (t, n, r, a) {
             if (!(t.isEnded || t.decision.kind !== "pending")) {
               if (!this.$34(t) || z() !== t.path) {
                 this.$41(t);
                 return;
               }
               var e = [],
-                a = function () {
+                i = function () {
                   var t,
-                    o = n.channels.get(i),
+                    o = n.channels.get(l),
                     a = new Map(
                       ((t = o == null ? void 0 : o.extraCandidates) != null
                         ? t
@@ -1260,19 +1273,19 @@ __d(
                         return [e.name, e];
                       }),
                     ),
-                    l = [],
+                    i = [],
                     s = [],
                     u = function (t, n, r) {
                       var e = M(t.tip_id);
                       if (e != null) {
                         var o = A(t, n);
                         (s.push(o),
-                          l.push({
+                          i.push({
                             isRequired: r,
                             rankingScore: n,
                             tip: o,
                             tipID: e,
-                            tipIndex: l.length,
+                            tipIndex: i.length,
                           }));
                       }
                     };
@@ -1282,44 +1295,44 @@ __d(
                     var d;
                     u(c.tip, c.rankingScore, c.isRequired);
                   }
-                  for (var m of (p = r.get(i)) != null ? p : []) {
+                  for (var m of (p = r.get(l)) != null ? p : []) {
                     var p,
                       _ = typeof m.name == "string" ? a.get(m.name) : null;
                     _ != null && u(m, _.rankingScore, _.isRequired);
                   }
-                  e.push({ candidates: l, channelName: i, tips: s });
+                  e.push({ candidates: i, channelName: l, tips: s });
                 };
-              for (var i of R) a();
-              var l = [],
-                s = [];
-              for (var u of n.icNUXMessages) {
-                var c = u[0],
-                  d = u[1],
-                  m = U(c, d);
-                (l.push(m),
-                  s.push({
+              for (var l of R) i();
+              var s = [],
+                u = [];
+              for (var c of n.icNUXMessages) {
+                var d = c[0],
+                  m = c[1],
+                  p = U(d, m);
+                (s.push(p),
+                  u.push({
                     isRequired: !1,
                     rankingScore: 0,
-                    tip: m,
-                    tipID: d.tipID,
-                    tipIndex: s.length,
+                    tip: p,
+                    tipID: m.tipID,
+                    tipIndex: u.length,
                   }));
               }
-              (e.push({ candidates: s, channelName: C, tips: l }),
+              (e.push({ candidates: u, channelName: C, tips: s }),
                 o(
                   "AYMTSequentialDisplayManager",
                 ).AYMTSequentialDisplayManager.noteAdAccountID(t.accountID));
-              var p = o(
+              var _ = o(
                 "AYMTSequentialDisplayManager",
-              ).AYMTSequentialDisplayManager.stageGateSequence(e);
-              if (p == null) {
+              ).AYMTSequentialDisplayManager.stageGateSequence(e, a);
+              if (_ == null) {
                 this.$51(t, { kind: "withheld" });
                 return;
               }
-              (this.$51(t, { cycleID: p, kind: "treatment", snapshot: n }),
+              (this.$51(t, { cycleID: _, kind: "treatment", snapshot: n }),
                 o(
                   "AYMTSequentialDisplayManager",
-                ).AYMTSequentialDisplayManager.startGateSequence(p) ||
+                ).AYMTSequentialDisplayManager.startGateSequence(_) ||
                   o(
                     "AYMTSequentialDisplayManager",
                   ).AYMTSequentialDisplayManager.abortGateSequence());

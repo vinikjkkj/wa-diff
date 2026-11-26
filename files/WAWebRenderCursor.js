@@ -7,6 +7,7 @@ __d(
     "WAWebMsgGetters",
     "WAWebRenderCursorGetWindowHeight",
     "WAWebRenderCursorGuessMessageHeight",
+    "WAWebStickerBoxSize",
     "WAWebUserPrefsMeUser",
     "sumBy",
   ],
@@ -92,6 +93,10 @@ __d(
                 k.safe(),
               ) &&
                 o("WAWebFrontendMsgGetters").getAsGroupedSticker(k) &&
+                o("WAWebStickerBoxSize").canStickersShareAlbumRow(
+                  h.mediaData,
+                  k.mediaData,
+                ) &&
                 (L = !0);
             }
           }
@@ -165,6 +170,10 @@ __d(
                 T.safe(),
               ) &&
                 o("WAWebFrontendMsgGetters").getAsGroupedSticker(T) &&
+                o("WAWebStickerBoxSize").canStickersShareAlbumRow(
+                  y.mediaData,
+                  T.mediaData,
+                ) &&
                 (k = !0);
             }
           }

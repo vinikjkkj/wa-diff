@@ -201,31 +201,40 @@ __d(
         D = R.wrapperRef,
         x = g(!1),
         P = x[0],
-        N = x[1],
-        M = m(
-          function (e) {
-            var t = _;
-            if (e.keyCode === o("WebBloksConstants").KEY_LEFT) t -= 1;
-            else if (e.keyCode === o("WebBloksConstants").KEY_RIGHT) t += 1;
-            else return;
-            (P || (N(!0), C(t)), b(t));
-          },
-          [P, b, C, _],
-        ),
+        M = x[1],
         w = m(
+          function (e) {
+            var t = D.current;
+            if (
+              !(
+                t == null ||
+                (e.keyCode !== o("WebBloksConstants").KEY_LEFT &&
+                  e.keyCode !== o("WebBloksConstants").KEY_RIGHT)
+              )
+            ) {
+              var n = N(t)
+                  ? o("WebBloksConstants").KEY_LEFT
+                  : o("WebBloksConstants").KEY_RIGHT,
+                r = e.keyCode === n ? _ + 1 : _ - 1;
+              (P || (M(!0), C(r)), b(r));
+            }
+          },
+          [P, b, C, _, D],
+        ),
+        A = m(
           function (e) {
             (e.keyCode !== o("WebBloksConstants").KEY_LEFT &&
               e.keyCode !== o("WebBloksConstants").KEY_RIGHT) ||
-              (N(!1), v(_));
+              (M(!1), v(_));
           },
           [v, _],
         ),
-        A = f["aria-label"],
-        F = f.disabled,
-        O = babelHelpers.objectWithoutPropertiesLoose(f, s);
+        F = f["aria-label"],
+        O = f.disabled,
+        B = babelHelpers.objectWithoutPropertiesLoose(f, s);
       return c.jsxs(
         "div",
-        babelHelpers.extends({}, O, {
+        babelHelpers.extends({}, B, {
           ref: D,
           className: T.wrapper,
           onMouseDown: L,
@@ -248,13 +257,13 @@ __d(
                 ref: I,
                 className: T.thumb,
                 role: "slider",
-                "aria-label": A,
+                "aria-label": F,
                 "aria-valuenow": _,
                 "aria-valuemin": h,
                 "aria-valuemax": y,
-                disabled: F,
-                onKeyDown: M,
-                onKeyUp: w,
+                disabled: O,
+                onKeyDown: w,
+                onKeyUp: A,
                 tabIndex: 0,
                 style: {
                   marginInlineStart: S,
@@ -287,8 +296,8 @@ __d(
               i = e.clientX,
               u = l.current;
             if (u != null) {
-              c.current = window.getComputedStyle(u).direction === "rtl";
-              var d = N(u, i, n, t, c.current);
+              c.current = N(u);
+              var d = M(u, i, n, t, c.current);
               ((o = s.current) == null || o.focus(),
                 a == null || a(d),
                 r == null || r(d));
@@ -300,7 +309,7 @@ __d(
           function (e) {
             var o = e.clientX;
             if (l.current != null) {
-              var a = N(l.current, o, n, t, c.current);
+              var a = M(l.current, o, n, t, c.current);
               r == null || r(a);
             }
           },
@@ -411,14 +420,17 @@ __d(
       });
       return n < 0 ? null : e.changedTouches[n];
     }
-    function N(e, t, n, r, o) {
+    function N(e) {
+      return window.getComputedStyle(e).direction === "rtl";
+    }
+    function M(e, t, n, r, o) {
       var a = e.getBoundingClientRect(),
         i = a.left,
         l = a.width,
         s = t - i;
-      return (o && (s = i + l - t), M((s / l) * (r - n) + n, n, r));
+      return (o && (s = i + l - t), w((s / l) * (r - n) + n, n, r));
     }
-    function M(e, t, n) {
+    function w(e, t, n) {
       return Math.min(Math.max(Math.round(e), t), n);
     }
     l.default = D;

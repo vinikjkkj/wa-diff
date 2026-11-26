@@ -334,11 +334,21 @@ __d(
             ).MuteCollection.getGlobalCallNotifications(),
           };
     }
-    async function x(e) {
+    function x() {
+      var e = Date.now(),
+        t = o("WAWebDailyAggregatedStatsCollection")
+          .DailyAggregatedStatsCollection.toArray()
+          .find(function (t) {
+            return t.startTime <= e && e < t.getEndTime();
+          });
+      t != null && (t.forwardReachTracked = !0);
+    }
+    async function $(e, t) {
       o("WAWebABProps").getABPropConfigValue(
         "forward_reach_stats_logging_enabled",
       ) &&
-        (await Promise.all(
+        (x(),
+        await Promise.all(
           e.map(function (e) {
             return o("WAPromiseDelays")
               .withTimeout(
@@ -347,6 +357,7 @@ __d(
                 ).submitForwardReachDailyStats(
                   e,
                   o("WAWebCountryCodeUtils").getMyCountryCode,
+                  t,
                 ),
                 S,
                 function () {
@@ -374,7 +385,7 @@ __d(
           }),
         ));
     }
-    function $(e) {
+    function P(e) {
       return o("WAWebABProps").getABPropConfigValue(
         "forward_reach_stats_logging_enabled",
       )
@@ -387,30 +398,30 @@ __d(
           })
         : e;
     }
-    async function P() {
+    async function N(e) {
       (o("WAWebABPropsGlobals").logClientExposurePulseEventFromDailyStatsTask(),
         o(
           "WAWebGroupABPropsGlobals",
         ).logGroupExposurePulseEventFromDailyStatsTask());
-      var e = await Promise.all([N(), W(), H(), G(), K(), J(), Y(), j()]),
-        t = e[0],
-        a = e[1],
-        i = e[2],
-        l = e[3],
-        s = e[4],
-        u = e[5],
-        m = e[6],
-        p = e[7],
-        _ = z(),
-        f = babelHelpers.extends({}, t, a, i, _, s, u, m, p, {
+      var t = await Promise.all([M(), q(), G(), z(), Q(), Z(), J(), K()]),
+        a = t[0],
+        i = t[1],
+        l = t[2],
+        s = t[3],
+        u = t[4],
+        m = t[5],
+        p = t[6],
+        _ = t[7],
+        f = j(),
+        g = babelHelpers.extends({}, a, i, l, f, u, m, p, _, {
           isCanonicalEntPresent: o("WAWebCanonicalUtils").isCanonicalPresent(),
         }),
-        g = new (o("WAWebDailyWamEvent").DailyWamEvent)();
-      (g.set(f), g.commit(), T());
+        h = new (o("WAWebDailyWamEvent").DailyWamEvent)();
+      (h.set(g), h.commit(), T());
       try {
-        var h = await M({ includeGroupComposition: !0 });
+        var y = await w({ includeGroupComposition: !0 });
         new (o("WAWebLidMigrationDailyWamEvent").LidMigrationDailyWamEvent)(
-          h,
+          y,
         ).commit();
       } catch (e) {
         o("WALogger")
@@ -424,12 +435,12 @@ __d(
           .sendLogs("lid-migration-daily-dropped");
       }
       o("WAWebTasksExperienceIdDailyReport").reportExperienceIdDailyStats();
-      var y = new (o("WAWebWebcFtsStorageWamEvent").WebcFtsStorageWamEvent)();
-      (y.set({ ftsTotalSize: l }), y.commit());
-      var C = new (o(
+      var C = new (o("WAWebWebcFtsStorageWamEvent").WebcFtsStorageWamEvent)();
+      (C.set({ ftsTotalSize: s }), C.commit());
+      var b = new (o(
         "WAWebScreenLockSettingsDataWamEvent",
       ).ScreenLockSettingsDataWamEvent)();
-      (C.set(Q()), C.commit());
+      (b.set(X()), b.commit());
       try {
         n("cr:17587") == null ||
           n("cr:17587").reportAeaConsumerBackfillStatus();
@@ -444,61 +455,61 @@ __d(
           .catching(r("getErrorSafe")(e))
           .sendLogs("aea-backfill-status-report-fail");
       }
-      var b = o("WAWebUserPrefsMultiDevice").getPairingTimestamp(),
-        v = new (o("WAWebWebcStorageStatWamEvent").WebcStorageStatWamEvent)();
-      (v.set({
-        webcStorageQuota: i.storageTotalSize,
-        webcStorageUsage: i.storageUsed,
+      var v = o("WAWebUserPrefsMultiDevice").getPairingTimestamp(),
+        S = new (o("WAWebWebcStorageStatWamEvent").WebcStorageStatWamEvent)();
+      (S.set({
+        webcStorageQuota: l.storageTotalSize,
+        webcStorageUsage: l.storageUsed,
         webcAgeOfStorage:
-          b != null
-            ? o("WATimeUtils").unixTimeWithoutClockSkewCorrection() - b
+          v != null
+            ? o("WATimeUtils").unixTimeWithoutClockSkewCorrection() - v
             : -1,
         webcPackingEnabled: !1,
       }),
-        v.commit());
-      var S = await o(
+        S.commit());
+      var R = await o(
         "WAWebUserPrefsGeneral",
       ).getOfflineNotificationEngagement();
-      if (S) {
-        var R, L;
+      if (R) {
+        var L, E;
         (new (o(
           "WAWebNotificationEngagementWamEvent",
         ).NotificationEngagementWamEvent)({
           isWebBackgroundSyncNotif: !0,
-          totalNotifShown: (R = S.totalNotifShown) != null ? R : 0,
-          totalNotifTapToOpen: (L = S.totalNotifTapToOpen) != null ? L : 0,
+          totalNotifShown: (L = R.totalNotifShown) != null ? L : 0,
+          totalNotifTapToOpen: (E = R.totalNotifTapToOpen) != null ? E : 0,
         }).commit(),
           o(
             "WAWebUserPrefsGeneral",
           ).clearOfflineNotificationContentEngagement());
       }
-      var E = await o("WAWebUserPrefsGeneral").getNotificationEngagement();
-      if (E) {
-        var k, D, P, w;
+      var k = await o("WAWebUserPrefsGeneral").getNotificationEngagement();
+      if (k) {
+        var D, x, N, A;
         (new (o(
           "WAWebNotificationEngagementWamEvent",
         ).NotificationEngagementWamEvent)({
           totalNotifRtcVoipAccept:
-            (k = E.totalNotifRtcVoipAccept) != null ? k : 0,
+            (D = k.totalNotifRtcVoipAccept) != null ? D : 0,
           totalNotifRtcVoipDecline:
-            (D = E.totalNotifRtcVoipDecline) != null ? D : 0,
-          totalNotifShown: (P = E.totalNotifShown) != null ? P : 0,
-          totalNotifTapToOpen: (w = E.totalNotifTapToOpen) != null ? w : 0,
+            (x = k.totalNotifRtcVoipDecline) != null ? x : 0,
+          totalNotifShown: (N = k.totalNotifShown) != null ? N : 0,
+          totalNotifTapToOpen: (A = k.totalNotifTapToOpen) != null ? A : 0,
         }).commit(),
           o("WAWebUserPrefsGeneral").clearNotificationContentEngagement());
       }
       o("WAWebWamPrivateStatsUtils").logDailyPrivateStatsTestEvents();
-      var A = o("WAWebDailyAggregatedStatsCollection")
+      var F = o("WAWebDailyAggregatedStatsCollection")
         .DailyAggregatedStatsCollection.toArray()
         .filter(function (e) {
           return e.shouldBeSubmitted();
         });
-      (await x(A),
-        (A = $(A)),
+      (await $(F, e),
+        (F = P(F)),
         o(
           "WAWebDailyAggregatedStatsCollection",
-        ).DailyAggregatedStatsCollection.remove(A),
-        A.forEach(function (e) {
+        ).DailyAggregatedStatsCollection.remove(F),
+        F.forEach(function (e) {
           var t = new (o("WAWebPttDailyWamEvent").PttDailyWamEvent)({
             pttCancelBroadcast: e.pttCancelBroadcast,
             pttCancelGroup: e.pttCancelGroup,
@@ -627,7 +638,7 @@ __d(
           "WAWebWebDynamicSamplingTestEventWithSamplingWamEvent",
         ).WebDynamicSamplingTestEventWithSamplingWamEvent)().commit());
     }
-    async function N() {
+    async function M() {
       var e = await o("WAWebBackendApi").frontendSendAndReceive(
         "getDeviceInfo",
         void 0,
@@ -640,7 +651,7 @@ __d(
         simMnc: parseInt(e.mnc, 10),
       };
     }
-    async function M(e) {
+    async function w(e) {
       var t,
         n,
         a,
@@ -820,7 +831,7 @@ __d(
           o("WAWebABProps").getABPropConfigValue(
             "lid_migration_daily_group_composition_enabled",
           )
-            ? await A(b)
+            ? await F(b)
             : null,
         N = babelHelpers.extends(
           {
@@ -853,7 +864,7 @@ __d(
         N
       );
     }
-    async function w() {
+    async function A() {
       var e = new Set(),
         t = await o("WAWebDBOutContactDatabaseApi").getAllOutContacts();
       for (var n of t)
@@ -862,7 +873,7 @@ __d(
         } catch (e) {}
       return e;
     }
-    async function A(e) {
+    async function F(e) {
       var t = {
           numberOfPnOnlyGroups: 0,
           numberOfLidOnlyGroups: 0,
@@ -880,13 +891,13 @@ __d(
         .forEach(function (e) {
           n.set(e.groupId, e.participants);
         });
-      var r = await w(),
+      var r = await A(),
         a = 0;
       for (var i of e)
         try {
           var l,
             s = (l = n.get(i.id)) != null ? l : [];
-          O(t, i.defaultSubgroup === !0, F(s), r);
+          B(t, i.defaultSubgroup === !0, O(s), r);
         } catch (e) {
           a++;
         }
@@ -905,7 +916,7 @@ __d(
         t
       );
     }
-    function F(e) {
+    function O(e) {
       var t = !1,
         n = !1,
         r = !1,
@@ -926,7 +937,7 @@ __d(
         unmappedPnWids: a,
       };
     }
-    function O(e, t, n, r) {
+    function B(e, t, n, r) {
       var o = n.hasLidParticipant,
         a = n.hasPnParticipant,
         i = n.isCurrentUserMember;
@@ -942,9 +953,9 @@ __d(
         e.numberOfLidOnlyGroups++;
         return;
       }
-      a && (e.numberOfPnOnlyGroups++, i || B(e, n, r));
+      a && (e.numberOfPnOnlyGroups++, i || W(e, n, r));
     }
-    function B(e, t, n) {
+    function W(e, t, n) {
       e.numberOfPnOnlyGroupsNotMember++;
       var r = t.unmappedPnWids;
       r.length === 0
@@ -955,7 +966,7 @@ __d(
           ? e.numberOfPnOnlyGroupsNotMemberUnmappedOutContacts++
           : e.numberOfPnOnlyGroupsNotMemberUnmappedContacts++;
     }
-    async function W() {
+    async function q() {
       var e, t, n, r;
       o("WALogger").LOG(
         b ||
@@ -964,25 +975,25 @@ __d(
       var a = o("WAWebUserPrefsGeneral").getUserPrivacySettings(),
         i = { receiptsEnabled: a.readReceipts !== "none" },
         l = await o("WAWebApiPrivacyDisallowedList").queryDisallowedLists();
-      ((i.privacySettingsAbout = q(a.about)),
+      ((i.privacySettingsAbout = U(a.about)),
         (i.privacySettingsAboutExceptNum =
           a.about === "contact_blacklist"
-            ? U((e = l.about) == null ? void 0 : e.disallowedList.length)
+            ? V((e = l.about) == null ? void 0 : e.disallowedList.length)
             : null),
-        (i.privacySettingsGroups = q(a.groupAdd)),
+        (i.privacySettingsGroups = U(a.groupAdd)),
         (i.privacySettingsGroupsExceptNum =
           a.groupAdd === "contact_blacklist"
-            ? U((t = l.groupadd) == null ? void 0 : t.disallowedList.length)
+            ? V((t = l.groupadd) == null ? void 0 : t.disallowedList.length)
             : null),
-        (i.privacySettingsLastSeen = q(a.lastSeen)),
+        (i.privacySettingsLastSeen = U(a.lastSeen)),
         (i.privacySettingsLastSeenExceptNum =
           a.lastSeen === "contact_blacklist"
-            ? U((n = l.last) == null ? void 0 : n.disallowedList.length)
+            ? V((n = l.last) == null ? void 0 : n.disallowedList.length)
             : null),
-        (i.privacySettingsProfilePhoto = q(a.profilePicture)),
+        (i.privacySettingsProfilePhoto = U(a.profilePicture)),
         (i.privacySettingsProfilePhotoExceptNum =
           a.profilePicture === "contact_blacklist"
-            ? U((r = l.profile) == null ? void 0 : r.disallowedList.length)
+            ? V((r = l.profile) == null ? void 0 : r.disallowedList.length)
             : null));
       var s = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
         o("WAWebContactCollection").ContactCollection.getMeContact(),
@@ -995,7 +1006,7 @@ __d(
       ((i.defaultAfterReadEnabled = u),
         (i.defaultAfterReadDuration = u ? s : void 0),
         u && (i.defaultDisappearingDuration = 0),
-        (i.defenseMode = V(a.defenseMode)),
+        (i.defenseMode = H(a.defenseMode)),
         (i.isDefaultDisappearingMessagingUser =
           i.defaultDisappearingDuration !== 0));
       var c = await o(
@@ -1011,7 +1022,7 @@ __d(
         i
       );
     }
-    function q(e) {
+    function U(e) {
       return e == null
         ? null
         : e === "all"
@@ -1033,7 +1044,7 @@ __d(
                     );
                   })();
     }
-    function U(e) {
+    function V(e) {
       return e == null
         ? null
         : e === 0
@@ -1081,7 +1092,7 @@ __d(
                                       "WAWebWamEnumPrivacySettingsContactsBuckets",
                                     ).PRIVACY_SETTINGS_CONTACTS_BUCKETS.B100;
     }
-    function V(e) {
+    function H(e) {
       if (e == null) return -1;
       switch (e) {
         case "off":
@@ -1090,7 +1101,7 @@ __d(
           return 1;
       }
     }
-    async function H() {
+    async function G() {
       var e = r("WAWebLidAwareContactsDB")
           .equals(["isAddressBookContact"], 1)
           .then(function (e) {
@@ -1120,22 +1131,22 @@ __d(
         ((m = g - h), (p = g), (_ = h));
       }
       return {
-        addressbookWhatsappSize: X(u.length, 10),
+        addressbookWhatsappSize: Y(u.length, 10),
         totalCountInNetworkUniquePhoneNumber: r("countWhere")(u, function (e) {
           return e.isUsernameContact !== !0;
         }),
-        storageAvailSize: X(m, 100),
-        storageTotalSize: X(p, 100),
-        storageUsed: X(_, 100),
+        storageAvailSize: Y(m, 100),
+        storageTotalSize: Y(p, 100),
+        storageUsed: Y(_, 100),
         mediaFolderFileCount: c,
-        webcContactsTableSize: X(d, 10),
+        webcContactsTableSize: Y(d, 10),
         webcFilteredContactsSize: i,
       };
     }
-    function G() {
+    function z() {
       return o("WAWebEstimateFtsStorageApi").getEstimatedFTSDbSize();
     }
-    function z() {
+    function j() {
       var e = o("WAWebWamEnumNotificationSettingType").NOTIFICATION_SETTING_TYPE
         .UNKNOWN;
       if (window.Notification != null)
@@ -1161,7 +1172,7 @@ __d(
         { osNotificationSetting: e, isContactSyncToOsDefaultOn: t }
       );
     }
-    async function j() {
+    async function K() {
       try {
         if (!o("WAWebCallUserJourneyGating").isCallUserJourneyM2Enabled())
           return {};
@@ -1189,7 +1200,7 @@ __d(
         );
       }
     }
-    async function K() {
+    async function Q() {
       var e = [],
         t = [],
         n = window.navigator.mediaCapabilities;
@@ -1258,17 +1269,17 @@ __d(
       }
       return { supportedEncoders: e.join(","), supportedDecoders: t.join(",") };
     }
-    function Q() {
+    function X() {
       return {
         screenAutoLockDuration: o(
           "WAWebUserPrefsScreenLock",
         ).getScreenLockDurationForLogging(),
       };
     }
-    function X(e, t) {
+    function Y(e, t) {
       return r("gkx")("26258") ? Math.round(e / t) * t : e;
     }
-    async function Y() {
+    async function J() {
       var e = await Promise.all([
           o("WAWebChatThreadLoggingUtils").getMeHasUsername(),
           o("WAWebChatThreadLoggingUtils").getMeHasUsernamePin(),
@@ -1285,7 +1296,7 @@ __d(
         { hasUsername: t, hasUsernamePin: n, usernameState: a }
       );
     }
-    async function J() {
+    async function Z() {
       var e = new Set(),
         t = 0,
         n = new Set(),
@@ -1311,10 +1322,10 @@ __d(
         contactsRequiringSyncBeforeDisplaySize: a,
       };
     }
-    ((l.logDailyStats = P),
-      (l.getLidMigrationStatus = M),
-      (l.classifyGroupParticipants = F),
-      (l.tallyNonMemberPnOnlyGroup = B));
+    ((l.logDailyStats = N),
+      (l.getLidMigrationStatus = w),
+      (l.classifyGroupParticipants = O),
+      (l.tallyNonMemberPnOnlyGroup = W));
   },
   98,
 );

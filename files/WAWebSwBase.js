@@ -71,7 +71,7 @@ __d(
             return e.matchFetch(n);
           });
           if (!o("WAWebBuildConstants").isWindowsOfflineUrl(n.request.url) && e)
-            return n.respondWith(e.onFetch(n));
+            return n.respondWith(p(e, n));
         }),
         self.addEventListener("push", function (n) {
           var e = t.find(function (e) {
@@ -109,7 +109,24 @@ __d(
       });
       a.init();
     }
-    l.addSWBaseHandlers = m;
+    function p(e, t) {
+      var r = t.request,
+        o = r.destination,
+        a = r.mode;
+      return !e.servesDocumentRequests && (a === "navigate" || o === "document")
+        ? (d || (d = n("Promise"))).resolve(
+            new Response("", {
+              status: 400,
+              statusText: "Bad Request",
+              headers: {
+                "Content-Type": "text/plain; charset=utf-8",
+                "X-Content-Type-Options": "nosniff",
+              },
+            }),
+          )
+        : e.onFetch(t);
+    }
+    ((l.addSWBaseHandlers = m), (l.respondToFetch = p));
   },
   98,
 );

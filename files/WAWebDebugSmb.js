@@ -384,17 +384,15 @@ __d(
     };
     ((q.doc = "Opens the DO Intro Popup"), (q.paramsToExecute = []));
     var U = function () {
-      (r("vulture")("qCwURaUgrBdpUhxGnO63Ham7ZmU="),
-        o("WAWebModalManager").ModalManager.open(
-          R.jsx(o("WAWebSMBListsIntroPopup.react").SMBListsIntroPopup, {}),
-        ));
+      o("WAWebModalManager").ModalManager.open(
+        R.jsx(o("WAWebSMBListsIntroPopup.react").SMBListsIntroPopup, {}),
+      );
     };
     ((U.doc = "Opens the SMB Lists Intro NUX Popup"), (U.paramsToExecute = []));
     var V = function () {
-      (r("vulture")("B3Kq6DVZO-2SfgQe9L2qUmHRu0o="),
-        o("WAWebModalManager").ModalManager.open(
-          R.jsx(r("WAWebCustomerManagerNuxModal.react"), {}),
-        ));
+      o("WAWebModalManager").ModalManager.open(
+        R.jsx(r("WAWebCustomerManagerNuxModal.react"), {}),
+      );
     };
     ((V.doc = "Opens the Customer Manager Intro NUX Modal"),
       (V.paramsToExecute = []));

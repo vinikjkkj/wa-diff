@@ -465,6 +465,7 @@ __d(
       },
       PEERS_INBOX: "/api/peers/inbox",
       PEERS_INBOX_DECLINE: "/api/peers/inbox/decline",
+      PEERS_INBOX_FETCH: "/api/peers/inbox/fetch",
       PEERS_INVITES: "/api/peers/invites",
       PEERS_INVITES_ACCEPT: "/api/peers/invites/accept",
       PEERS_INVITES_OPEN: "/api/peers/invites/open",

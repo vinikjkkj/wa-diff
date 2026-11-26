@@ -69,7 +69,7 @@ __d(
     "WAWebHandleNewMsgAction",
     "WAWebInboundMsgChatKey",
     "WAWebInboundMsgDrainActiveChat",
-    "WAWebKeepInChatMsgUtils",
+    "WAWebInstantsExpiry",
     "WAWebL10N",
     "WAWebLidMigrationUtils",
     "WAWebLimitSharingModelUtils",
@@ -1259,27 +1259,32 @@ __d(
               o("WAWebMediaMsgRegistration").deregisterMsg(t));
           }),
           (a.$ChatImpl$p_28 = async function (t) {
-            var e = this;
+            var e,
+              n = this;
             (r("WAWebAlarm").clearTimeout(this.$ChatImpl$p_2.get(t)),
               this.$ChatImpl$p_2.delete(t),
               this.$ChatImpl$p_1.delete(t));
-            var n = o("WAWebMsgGetters").getEphemeralExpirationTimestamp(t);
+            var a =
+              (e = o("WAWebMsgGetters").getEphemeralExpirationTimestamp(t)) !=
+              null
+                ? e
+                : o("WAWebInstantsExpiry").getInstantExpiryTs(t);
             if (
               !(
-                n == null ||
+                a == null ||
                 !this.msgs.includes(t) ||
                 o("WAWebMsgGetters").getIsKept(t)
               )
             ) {
-              var a = async function () {
+              var i = async function () {
                 if (
-                  (e.$ChatImpl$p_2.delete(t),
+                  (n.$ChatImpl$p_2.delete(t),
                   !o("WAWebMsgGetters").getIsKept(t))
                 ) {
-                  var n =
+                  var e =
                     t.afterReadDuration != null && t.afterReadDuration > 0;
-                  if (!e.active || n) {
-                    var a = n && e.active;
+                  if (!n.active || e) {
+                    var a = e && n.active;
                     a &&
                       ((t.isFadingOut = !0),
                       await o("WAPromiseDelays").delayMs(C));
@@ -1317,19 +1322,19 @@ __d(
                               o("WAWebAddonService").AddonService,
                             ).requestDeleteAddOns
                           : o("WAWebRequestDeleteAddOns").requestDeleteAddOns
-                      )(e.id.toString(), [t.id.toString()]),
+                      )(n.id.toString(), [t.id.toString()]),
                       t.delete({
                         skipUpdatingSortTime: !0,
                         doNotResetLastReceived: !0,
                       }));
-                  } else e.$ChatImpl$p_1.add(t);
+                  } else n.$ChatImpl$p_1.add(t);
                 }
               };
-              if (o("WAWebKeepInChatMsgUtils").isExpired(t)) return a();
-              var i = r("WAWebAlarm").setGlobalTimeout(function () {
-                return void a();
-              }, n * 1e3);
-              this.$ChatImpl$p_2.set(t, i);
+              if (a <= o("WATimeUtils").unixTime()) return i();
+              var l = r("WAWebAlarm").setGlobalTimeout(function () {
+                return void i();
+              }, a * 1e3);
+              this.$ChatImpl$p_2.set(t, l);
             }
           }),
           (a.isUnreadMsg = function (t) {

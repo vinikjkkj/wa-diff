@@ -6,18 +6,12 @@ __d(
     "WALogger",
     "WAWap",
     "WAWebBackendJobsCommon",
-    "WAWebBizSuggestionsGatingUtils",
     "WAWebBusinessNotificationPluginHandlers",
-    "WAWebCTWAGatingUtils",
-    "WAWebCTWAParsePrivacy",
-    "WAWebCTWAParseSuggestion",
     "WAWebCommonParsersVerifiedName",
     "WAWebHandleBusinessNameChange",
     "WAWebHandleBusinessProductCatalogNotification",
     "WAWebHandleBusinessProfile",
     "WAWebHandleBusinessRemoval",
-    "WAWebHandleCTWASuggestion",
-    "WAWebHandlePrivacySettingsNotification",
     "WAWebJidToWid",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebParseSubscriptionNotification",
@@ -34,8 +28,6 @@ __d(
         "profile",
         "product_catalog",
         "subscriptions",
-        "ctwa_suggestion",
-        "privacy",
       ],
       u = new (r("WADeprecatedWapParser"))(
         "businessNotificationParser",
@@ -123,32 +115,13 @@ __d(
             n,
           );
         }
-        if (e === "ctwa_suggestion") {
-          if (o("WAWebBizSuggestionsGatingUtils").adsActionBannersEnabled()) {
-            var p = o("WAWebCTWAParseSuggestion").parseCTWASuggestion(t);
-            if (p != null)
-              return babelHelpers.extends(
-                { type: "ctwa_suggestion", suggestion: p },
-                n,
-              );
-          }
-          return null;
-        }
-        if (e === "privacy") {
-          if (o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled()) {
-            var _ = o("WAWebCTWAParsePrivacy").parseCTWAPrivacy(t);
-            if (_ != null)
-              return babelHelpers.extends({ type: "privacy", privacy: _ }, n);
-          }
-          return null;
-        }
         if (e === "feature") {
-          var f = o(
+          var p = o(
             "WAWebBusinessNotificationPluginHandlers",
           ).parseBusinessNotificationPluginAction(t, n.ts);
-          return f == null
+          return p == null
             ? null
-            : babelHelpers.extends({ type: "feature", apply: f }, n);
+            : babelHelpers.extends({ type: "feature", apply: p }, n);
         }
         throw Error(
           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -355,41 +328,12 @@ __d(
         }
         if (
           ((typeof t == "object" && t !== null) || typeof t == "function") &&
-          t.type === "ctwa_suggestion"
-        ) {
-          var y = t;
-          return (
-            await o("WAWebHandleCTWASuggestion").handleCTWASuggestion(
-              y.suggestion,
-            ),
-            f.Handled
-          );
-          break e;
-        }
-        if (
-          ((typeof t == "object" && t !== null) || typeof t == "function") &&
-          t.type === "privacy"
-        ) {
-          var C = t;
-          return (
-            o(
-              "WAWebHandlePrivacySettingsNotification",
-            ).handleSmbDataSharingSettingNotification(
-              C.privacy.smbDataSharingSetting,
-              C.privacy.smbDataSharingVersion,
-            ),
-            f.Handled
-          );
-          break e;
-        }
-        if (
-          ((typeof t == "object" && t !== null) || typeof t == "function") &&
           t.type === "feature" &&
           "apply" in t
         ) {
-          var b = t.apply,
-            v = b();
-          return (v != null && (await v), f.Handled);
+          var y = t.apply,
+            C = y();
+          return (C != null && (await C), f.Handled);
           break e;
         }
         if (

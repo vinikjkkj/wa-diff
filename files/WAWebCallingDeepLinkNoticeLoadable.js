@@ -45,7 +45,7 @@ __d(
         "div",
         babelHelpers.extends(
           {
-            "aria-label": l,
+            "aria-label": String(l),
             "aria-modal": !0,
             "data-testid": "calling-deep-link-notice-loading",
             role: "dialog",

@@ -10,6 +10,7 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebMetaAiForwardedText",
     "WAWebMsgType",
+    "WAWebPathfinderAccountToken",
     "WAWebSendMsgResultAction",
     "WAWebSendTextMsgChatAction",
     "getErrorSafe",
@@ -59,14 +60,17 @@ __d(
           o("WAWebSendMsgResultAction").SendMsgResult.OK
         );
       }
+      var s = o(
+        "WAWebPathfinderAccountToken",
+      ).resolvePathfinderCaptureAccountToken(a.pathfinderAccountToken);
       if (i.type === o("WAWebMsgType").MSG_TYPE.CHAT) {
-        var s,
-          u = (s = i.body) != null ? s : "";
+        var u,
+          c = (u = i.body) != null ? u : "";
         try {
-          u = o(
+          c = o(
             "WAWebBotReplaceMentionWidsWithPushnames",
           ).replaceMentionsInText(
-            u,
+            c,
             await o("WAWebBotReplaceMentionWidsWithPushnames").buildMentionMap(
               i.mentionedJidList,
               i.groupMentions,
@@ -83,40 +87,48 @@ __d(
             .catching(r("getErrorSafe")(t))
             .sendLogs("ask-meta-ai-quoted-mention-name-fail");
         }
-        var c = await o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
+        var m = await o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
           t,
-          o("WAWebMetaAiForwardedText").composeMetaAiForwardedText(u, n),
-          babelHelpers.extends({}, a, { quotedMsg: void 0 }),
+          o("WAWebMetaAiForwardedText").composeMetaAiForwardedText(c, n),
+          babelHelpers.extends({}, a, {
+            pathfinderAccountToken: s,
+            quotedMsg: void 0,
+          }),
         );
         return (
-          (c == null ? void 0 : c.messageSendResult) ===
+          (m == null ? void 0 : m.messageSendResult) ===
           o("WAWebSendMsgResultAction").SendMsgResult.OK
         );
       }
-      var m = await _(t, i, n, a);
-      if (m) return !0;
-      var p = await o("WAWebSendTextMsgChatAction").sendTextMsgToChat(t, n, a);
+      var p = await _(t, i, n, a, s);
+      if (p) return !0;
+      var f = await o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
+        t,
+        n,
+        babelHelpers.extends({}, a, { pathfinderAccountToken: s }),
+      );
       return (
-        (p == null ? void 0 : p.messageSendResult) ===
+        (f == null ? void 0 : f.messageSendResult) ===
         o("WAWebSendMsgResultAction").SendMsgResult.OK
       );
     }
-    async function _(e, t, n, a) {
+    async function _(e, t, n, a, i) {
       try {
-        var i,
-          l = await c(),
-          d = l.forwardMediaMsg,
-          m = await d({
+        var l,
+          d = await c(),
+          m = d.forwardMediaMsg,
+          p = await m({
             aiThreadInfo: a.aiThreadInfo,
             appendedText: n,
             chat: e,
             includeCaption: !1,
             msg: t,
             onMsgKeyCreated: a.onMsgKeyCreated,
-            threadId: (i = a.threadIds) == null ? void 0 : i[0],
+            pathfinderAccountToken: i,
+            threadId: (l = a.threadIds) == null ? void 0 : l[0],
           }),
-          p = m.messageSendResult;
-        if (p === o("WAWebSendMsgResultAction").SendMsgResult.OK) return !0;
+          _ = p.messageSendResult;
+        if (_ === o("WAWebSendMsgResultAction").SendMsgResult.OK) return !0;
         o("WALogger")
           .ERROR(
             s ||
@@ -124,7 +136,7 @@ __d(
                 "[askMetaAi] quoted media send to Meta AI returned ",
                 ", keeping the reply quote",
               ])),
-            String(p),
+            String(_),
           )
           .sendLogs("ask-meta-ai-quoted-media-forward-fail");
       } catch (e) {

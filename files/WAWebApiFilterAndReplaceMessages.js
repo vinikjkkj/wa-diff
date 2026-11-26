@@ -5,6 +5,7 @@ __d(
     "WAWebApiOrphanRevoke",
     "WAWebBackendApi",
     "WAWebCoexV2StoredRevokeAuthorization",
+    "WAWebInstantMsgTypes",
     "WAWebLidMigrationUtils",
     "WAWebReactionUiService",
     "WAWebRequestDeleteAddOns",
@@ -55,7 +56,8 @@ __d(
           )
             (s++,
               u.length < 3 && u.push(e.id.id),
-              r("WAWebWid").isStatus(e.id.remote) ||
+              !r("WAWebWid").isStatus(e.id.remote) &&
+                !o("WAWebInstantMsgTypes").isInstantMsgType(e.type) &&
                 l.push(
                   o("WAWebApiOrphanRevoke").createRevokeMsgFromOrphanRevoke(
                     e,

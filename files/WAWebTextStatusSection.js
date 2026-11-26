@@ -4,7 +4,6 @@ __d(
     "fbt",
     "WATimeUtils",
     "WAWebAboutPrompts",
-    "WAWebAboutWamLogger",
     "WAWebBox.react",
     "WAWebClock",
     "WAWebContactCollection",
@@ -17,6 +16,7 @@ __d(
     "WAWebTextStatusEditModalLoadable",
     "WAWebTextStatusUtils",
     "WAWebUserUtils",
+    "WAWebWamEnumAboutEntrypointType",
     "WDSButton.react",
     "WDSIconIcEdit.react",
     "WDSIconIcMood.react",
@@ -101,8 +101,8 @@ __d(
             c.jsx(
               o("WAWebTextStatusEditModalLoadable").TextStatusEditModalLoadable,
               {
-                entrypoint: o("WAWebAboutWamLogger").ABOUT_ENTRYPOINT_TYPE
-                  .SETTINGS,
+                entrypoint: o("WAWebWamEnumAboutEntrypointType")
+                  .ABOUT_ENTRYPOINT_TYPE.SETTINGS,
                 promptKey: L ? null : _,
               },
             ),

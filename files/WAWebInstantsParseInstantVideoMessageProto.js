@@ -8,6 +8,7 @@ __d(
     "WAWebE2EProtoParserApi",
     "WAWebE2EProtoUtils",
     "WAWebInstantMsgTypes",
+    "WAWebInstantsExpiry",
     "WAWebMediaMessageGetValidatedProperties",
     "WAWebMediaUrlAllowlist",
     "WAWebMsgType",
@@ -18,16 +19,17 @@ __d(
     function s(t) {
       var n,
         r,
-        a = t.baseMessage,
-        i = t.editAttr,
-        l = t.messageProtobuf,
-        s = t.msgContext,
-        d = l.instantVideoMessage;
-      if (d != null) {
-        var m = (n = a.id) == null ? void 0 : n.remote;
-        if (!(m != null && !c(m))) {
-          var p = u(d, i);
-          if (p != null) {
+        a,
+        i = t.baseMessage,
+        l = t.editAttr,
+        s = t.messageProtobuf,
+        d = t.msgContext,
+        m = s.instantVideoMessage;
+      if (m != null) {
+        var p = (n = i.id) == null ? void 0 : n.remote;
+        if (!(p != null && !c(p))) {
+          var _ = u(m, l);
+          if (_ != null) {
             o("WALogger")
               .WARN(
                 e ||
@@ -36,8 +38,8 @@ __d(
                     ", msgContext: ",
                     "",
                   ])),
-                p,
-                s,
+                _,
+                d,
               )
               .sendLogs("instant-video-invalid");
             return;
@@ -47,64 +49,72 @@ __d(
               o("WAWebMsgType").MSG_TYPE.INSTANT_VIDEO,
             )
           ) {
-            var _ = d.caption,
-              f = d.contextInfo,
-              g = d.directPath,
-              h = d.height,
-              y = d.jpegThumbnail,
-              C = d.mediaKeyTimestamp,
-              b = d.mimetype,
-              v = d.seconds,
-              S = d.staticUrl,
-              R = d.thumbnailDirectPath,
-              L = d.thumbnailEncSha256,
-              E = d.thumbnailSha256,
-              k = d.width,
-              I = o(
+            var f = m.caption,
+              g = m.contextInfo,
+              h = m.directPath,
+              y = m.height,
+              C = m.jpegThumbnail,
+              b = m.mediaKeyTimestamp,
+              v = m.mimetype,
+              S = m.seconds,
+              R = m.staticUrl,
+              L = m.thumbnailDirectPath,
+              E = m.thumbnailEncSha256,
+              k = m.thumbnailSha256,
+              I = m.width,
+              T = o(
                 "WAWebMediaMessageGetValidatedProperties",
               ).getValidatedMediaMessageProperties(
+                m,
+                i,
                 d,
-                a,
-                s,
                 o("WAWebMsgType").MSG_TYPE.INSTANT_VIDEO,
               ),
-              T = I.fileEncSha256,
-              D = I.fileLength,
-              x = I.fileSha256,
-              $ = I.mediaKey,
-              P = I.url,
-              N = babelHelpers.extends({}, a, {
+              D = T.fileEncSha256,
+              x = T.fileLength,
+              $ = T.fileSha256,
+              P = T.mediaKey,
+              N = T.url,
+              M = babelHelpers.extends({}, i, {
                 type: o("WAWebMsgType").MSG_TYPE.INSTANT_VIDEO,
-                kind: o("WAWebMsgType").MsgKind.InstantVideo,
-                deprecatedMms3Url: o("WAWebE2EProtoParserApi").decodeUrl(P),
-                directPath: g || "",
-                staticUrl:
-                  (r = o("WAWebMediaUrlAllowlist").allowlistedMediaUrl(S)) !=
-                  null
+                expiredTimestamp:
+                  (r = o("WAWebInstantsExpiry").getInstantExpiryStamp(
+                    o("WAWebMsgType").MSG_TYPE.INSTANT_VIDEO,
+                    i,
+                    g,
+                  )) != null
                     ? r
+                    : void 0,
+                kind: o("WAWebMsgType").MsgKind.InstantVideo,
+                deprecatedMms3Url: o("WAWebE2EProtoParserApi").decodeUrl(N),
+                directPath: h || "",
+                staticUrl:
+                  (a = o("WAWebMediaUrlAllowlist").allowlistedMediaUrl(R)) !=
+                  null
+                    ? a
                     : "",
-                mimetype: b || "",
+                mimetype: v || "",
                 caption:
-                  o("WAWebE2EProtoUtils").convertToTextWithoutSpecialEmojis(_),
-                filehash: o("WAWebE2EProtoParserApi").decodeBytes(x),
-                encFilehash: o("WAWebE2EProtoParserApi").decodeBytes(T),
-                size: D,
-                height: h || 0,
-                width: k || 0,
-                mediaKey: o("WAWebE2EProtoParserApi").decodeBytes($),
+                  o("WAWebE2EProtoUtils").convertToTextWithoutSpecialEmojis(f),
+                filehash: o("WAWebE2EProtoParserApi").decodeBytes($),
+                encFilehash: o("WAWebE2EProtoParserApi").decodeBytes(D),
+                size: x,
+                height: y || 0,
+                width: I || 0,
+                mediaKey: o("WAWebE2EProtoParserApi").decodeBytes(P),
                 mediaKeyTimestamp:
-                  C != null
-                    ? o("WALongInt").numberOrThrowIfTooLarge(C)
+                  b != null
+                    ? o("WALongInt").numberOrThrowIfTooLarge(b)
                     : o("WATimeUtils").unixTime(),
-                duration: "" + (v || 0),
-                body: o("WAWebE2EProtoParserApi").decodeBytes(y) || "",
-                thumbnailDirectPath: R,
-                thumbnailSha256: o("WAWebE2EProtoParserApi").decodeBytes(E),
-                thumbnailEncSha256: o("WAWebE2EProtoParserApi").decodeBytes(L),
+                duration: "" + (S || 0),
+                body: o("WAWebE2EProtoParserApi").decodeBytes(C) || "",
+                thumbnailDirectPath: L,
+                thumbnailSha256: o("WAWebE2EProtoParserApi").decodeBytes(k),
+                thumbnailEncSha256: o("WAWebE2EProtoParserApi").decodeBytes(E),
               });
             return (
-              o("WAWebE2EProtoParserApi").validateRequiredMediaProperties(N, d),
-              { msgData: N, contextInfo: f }
+              o("WAWebE2EProtoParserApi").validateRequiredMediaProperties(M, m),
+              { msgData: M, contextInfo: g }
             );
           }
         }

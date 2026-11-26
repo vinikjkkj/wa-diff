@@ -12,6 +12,7 @@ __d(
     "WAWebUserUtils",
     "WAWebVoipActionWriteCallLogImpl",
     "WAWebVoipAdHocCallLogs",
+    "WAWebVoipBackendCallLogTargetResolver",
     "WAWebVoipCallLogWriteMutex",
     "WAWebVoipNativeRootCallLogEnding",
     "WAWebVoipOngoingCallCollection",
@@ -145,7 +146,9 @@ __d(
           }
         } else {
           if (h != null || N) return;
-          var q = await o("WAWebCallLogUtils").getCallLogTargetDetails({
+          var q = await o(
+              "WAWebVoipBackendCallLogTargetResolver",
+            ).getCallLogTargetDetails({
               callCreatorWid: P,
               peerWid: b,
               callId: m,

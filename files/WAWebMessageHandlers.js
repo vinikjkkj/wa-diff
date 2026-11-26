@@ -23,6 +23,7 @@ __d(
     "WAWebMsgType",
     "WAWebMultiSelectBarConstants",
     "WAWebQuotedMessageUserJourneyLogger",
+    "WAWebRichResponseFrontendUtils",
     "WAWebStateUtils",
     "WAWebTimeSpentLoggingNavigation",
     "WDSButtonGroup.react",
@@ -95,7 +96,12 @@ __d(
         o("WDSDialogBridge").openWDSDialog(d.jsx(f, { description: c })));
     }
     function p(e, t, n, r) {
-      if (!o("WAWebDeactivatedContactUtils").isDeactivatedChatReplyBlocked(e))
+      if (
+        !(
+          o("WAWebDeactivatedContactUtils").isDeactivatedChatReplyBlocked(e) ||
+          o("WAWebRichResponseFrontendUtils").isHiddenForwardedRichResponse(t)
+        )
+      )
         if (
           (o("WAWebModalManager").closeModalManager(),
           o("WAWebFrontendChatGetters").getIsCAG(e))

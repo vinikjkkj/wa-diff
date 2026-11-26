@@ -21,60 +21,107 @@ __d(
       u = 100,
       c = 60,
       d = 180,
-      m = d;
-    function p(e, t) {
-      var n = new (o("WABinary").Binary)(t),
-        r = T(e, n, void 0, !1, !1, 0, h());
-      return (o("WAProtoValidate").checkRequirements(e, r), r);
-    }
-    function _(e, t) {
-      var n = new (o("WABinary").Binary)(t),
-        r = T(e, n, void 0, !1, !0, 0, h());
-      return (o("WAProtoValidate").checkRequirements(e, r), r);
-    }
+      m = d,
+      p = c * 2,
+      _ = d * 2;
     function f(e, t) {
       var n = new (o("WABinary").Binary)(t),
-        r = T(e, n, void 0, !0, !1, 0, h());
+        r = M(e, n, void 0, !1, !1, 0, C());
       return (o("WAProtoValidate").checkRequirements(e, r), r);
     }
-    function g(e) {
+    function g(e, t) {
+      var n = new (o("WABinary").Binary)(t),
+        r = M(e, n, void 0, !1, !0, 0, C());
+      return (o("WAProtoValidate").checkRequirements(e, r), r);
+    }
+    function h(e, t) {
+      var n = new (o("WABinary").Binary)(t),
+        r = M(e, n, void 0, !0, !1, 0, C());
+      return (o("WAProtoValidate").checkRequirements(e, r), r);
+    }
+    function y(e) {
       return r("WAHasProperty")(e, "$$unsafeUnknownFields")
         ? e.$$unsafeUnknownFields
         : null;
     }
-    function h() {
-      return r("justknobx")._("7544") ? new WeakMap() : null;
+    function C() {
+      return r("justknobx")._("7544")
+        ? {
+            budgetsByMessage: new WeakMap(),
+            countsByObject: new WeakMap(),
+            packEmojisByPack: new WeakMap(),
+          }
+        : null;
     }
-    function y(e, t, n, r, a) {
+    function b(e, t) {
+      var n = e.get(t);
+      return (
+        n == null && ((n = { stickerEmojis: 0, stickers: 0 }), e.set(t, n)),
+        n
+      );
+    }
+    function v(e, t) {
+      var n = e.get(t);
+      return (n == null && ((n = { count: 0 }), e.set(t, n)), n);
+    }
+    function S(e, t, n, r) {
+      if (e == null) return null;
+      var o = n === "Message$StickerPackMessage";
+      return t != null
+        ? o
+          ? { message: t.message, packEmojis: v(e.packEmojisByPack, r) }
+          : t
+        : n !== "Message" && !o && n !== "Message$StickerPackMessage$Sticker"
+          ? null
+          : {
+              message: b(e.budgetsByMessage, r),
+              packEmojis: o ? v(e.packEmojisByPack, r) : null,
+            };
+    }
+    function R(e) {
+      var t = e.packEmojis;
+      if (t != null && ++t.count > d)
+        throw new (o("WAProtoEntryLimitError").ProtobufEntryLimitError)(
+          "emojis",
+        );
+      if (++e.message.stickerEmojis > _)
+        throw new (o("WAProtoEntryLimitError").ProtobufEntryLimitError)(
+          "message_emojis",
+        );
+    }
+    function L(e, t, n, r) {
+      if (e != null) {
+        if (n && t === "stickers") {
+          if (++e.message.stickers > p)
+            throw new (o("WAProtoEntryLimitError").ProtobufEntryLimitError)(
+              "message_stickers",
+            );
+          return;
+        }
+        r && t === "emojis" && R(e);
+      }
+    }
+    function E(e, t, n, r, a, i, l, s) {
       e != null &&
-        !(r & o("WAProtoConst").FLAGS.PACKED) &&
-        (r & o("WAProtoConst").FLAGS.REPEATED ||
-          (r & o("WAProtoConst").TYPE_MASK) === o("WAProtoConst").TYPES.MAP) &&
-        C(e, t, n, a);
+        !(a & o("WAProtoConst").FLAGS.PACKED) &&
+        (a & o("WAProtoConst").FLAGS.REPEATED ||
+          (a & o("WAProtoConst").TYPE_MASK) === o("WAProtoConst").TYPES.MAP) &&
+        (k(e, n, r, i), L(t, r, l, s));
     }
-    function C(e, t, n, r) {
+    function k(e, t, n, r) {
       var a = e[t],
         i = (typeof a == "number" ? a : 0) + 1;
       if (i > r)
         throw new (o("WAProtoEntryLimitError").ProtobufEntryLimitError)(n);
       e[t] = i;
     }
-    function b(e) {
-      var t = e.reduce(function (e, t) {
-        return e + t.emojis.length;
-      }, 0);
-      if (t > d)
-        throw new (o("WAProtoEntryLimitError").ProtobufEntryLimitError)(
-          "emojis",
-        );
-    }
-    function v(t, n, r, a, i, l, s, u) {
+    function I(t, n, r, a, i, l, s, u) {
       try {
-        return T(t, n, r, a, i, l, s, u);
+        return M(t, n, r, a, i, l, s, u);
       } catch (t) {
         if (
           s == null ||
-          u ||
+          u != null ||
           !(t instanceof o("WAProtoEntryLimitError").ProtobufEntryLimitError)
         )
           throw t;
@@ -92,16 +139,16 @@ __d(
         return;
       }
     }
-    function S(e, t, n) {
+    function T(e, t, n) {
       if (e !== o("WAProtoUtils").typeToEncType(t)) {
         var r = new Error("FormatError: " + n + " encoded with wire type " + e);
         throw (r.stack, r);
       }
     }
-    function R(e, t, n) {
+    function D(e, t, n) {
       switch (t) {
         case o("WAProtoConst").TYPES.INT32:
-          return L(
+          return x(
             n,
             -2147483648,
             2147483648,
@@ -109,25 +156,25 @@ __d(
             o("WABinary").parseInt64OrThrow,
           );
         case o("WAProtoConst").TYPES.INT64:
-          return n.readVarInt(E);
+          return n.readVarInt($);
         case o("WAProtoConst").TYPES.UINT32:
-          return L(n, 0, 4294967296, e, o("WABinary").parseUint64OrThrow);
+          return x(n, 0, 4294967296, e, o("WABinary").parseUint64OrThrow);
         case o("WAProtoConst").TYPES.UINT64:
-          return n.readVarInt(k);
+          return n.readVarInt(P);
         case o("WAProtoConst").TYPES.SINT32: {
-          var r = L(n, 0, 4294967296, e, o("WABinary").parseInt64OrThrow);
+          var r = x(n, 0, 4294967296, e, o("WABinary").parseInt64OrThrow);
           return r & 1 ? ~(r >>> 1) : r >>> 1;
         }
         case o("WAProtoConst").TYPES.SINT64:
-          return n.readVarInt(I);
+          return n.readVarInt(N);
         case o("WAProtoConst").TYPES.BOOL:
-          return !!L(n, 0, 2, e, o("WABinary").parseUint64OrThrow);
+          return !!x(n, 0, 2, e, o("WABinary").parseUint64OrThrow);
         case o("WAProtoConst").TYPES.ENUM:
           return n.readVarInt(o("WABinary").parseInt64OrThrow);
         case o("WAProtoConst").TYPES.FIXED64:
-          return n.readLong(k, !0);
+          return n.readLong(P, !0);
         case o("WAProtoConst").TYPES.SFIXED64:
-          return n.readLong(E, !0);
+          return n.readLong($, !0);
         case o("WAProtoConst").TYPES.DOUBLE:
           return n.readFloat64(!0);
         case o("WAProtoConst").TYPES.STRING:
@@ -142,7 +189,7 @@ __d(
           return n.readFloat32(!0);
       }
     }
-    function L(e, t, n, r, o) {
+    function x(e, t, n, r, o) {
       var a = e.readVarInt(o);
       if (a < t || a >= n) {
         var i = new Error(
@@ -152,10 +199,10 @@ __d(
       }
       return a;
     }
-    function E(e, t) {
+    function $(e, t) {
       var n = o("WABinary").longFitsInDouble(!0, e, t);
       if (n) {
-        var r = D(t);
+        var r = w(t);
         return e * 4294967296 + r;
       } else {
         var a = e < 0,
@@ -165,25 +212,25 @@ __d(
         return o("WAHex").createHexLongFrom32Bits(i, l, a);
       }
     }
-    function k(e, t) {
+    function P(e, t) {
       var n = o("WABinary").longFitsInDouble(!1, e, t);
       if (n) {
-        var r = D(e),
-          a = D(t);
+        var r = w(e),
+          a = w(t);
         return r * 4294967296 + a;
       } else return o("WAHex").createHexLongFrom32Bits(e, t);
     }
-    function I(e, t) {
+    function N(e, t) {
       var n = e >>> 1,
         r = (e << 31) | (t >>> 1);
-      return (t & 1 && ((n = ~n), (r = ~r)), E(n, r));
+      return (t & 1 && ((n = ~n), (r = ~r)), $(n, r));
     }
-    function T(e, t, n, a, i, l, d, p) {
+    function M(e, t, n, a, i, l, d, p) {
       var _;
       if (
         (l === void 0 && (l = 0),
         d === void 0 && (d = null),
-        p === void 0 && (p = !1),
+        p === void 0 && (p = null),
         r("justknobx")._("2451") && l >= u)
       )
         throw (
@@ -202,38 +249,39 @@ __d(
         );
       var f = e.name === "Message$StickerPackMessage",
         g = e.name === "Message$StickerPackMessage$Sticker",
-        h = d != null && (p || e.name === "Message" || f || g),
-        E = f ? c : m,
-        k = o("WAProtoCompile").compileSpec(e),
-        I = k.fields,
-        D = k.fieldToOneof,
-        x = k.meta,
-        $ = k.names,
-        P = k.oneofToFields,
-        N = k.reservedFields,
-        M = k.reservedTags,
-        w = k.types,
-        A = e.internalDefaults,
-        F = n || babelHelpers.extends({}, A) || {};
-      F.$$unknownFieldCount =
+        h = f ? c : m,
+        y = o("WAProtoCompile").compileSpec(e),
+        C = y.fields,
+        b = y.fieldToOneof,
+        v = y.meta,
+        R = y.names,
+        L = y.oneofToFields,
+        $ = y.reservedFields,
+        P = y.reservedTags,
+        N = y.types,
+        w = e.internalDefaults,
+        A = n || babelHelpers.extends({}, w) || {};
+      A.$$unknownFieldCount =
         (_ = n == null ? void 0 : n.$$unknownFieldCount) != null ? _ : 0;
-      var O = null;
+      var F = S(d, p, e.name, A),
+        O = null;
       if (d != null && (f || g)) {
         var B;
-        ((O = (B = d.get(F)) != null ? B : []), d.set(F, O));
+        ((O = (B = d.countsByObject.get(A)) != null ? B : []),
+          d.countsByObject.set(A, O));
       }
-      for (var W = 0; W < $.length; W++)
-        w[W] & o("WAProtoConst").FLAGS.REPEATED
-          ? (F[$[W]] = [])
-          : w[W] ===
+      for (var W = 0; W < R.length; W++)
+        N[W] & o("WAProtoConst").FLAGS.REPEATED
+          ? (A[R[W]] = [])
+          : N[W] ===
               (o("WAProtoConst").TYPES.MAP & o("WAProtoConst").TYPE_MASK) &&
-            (F[$[W]] = new Map());
+            (A[R[W]] = new Map());
       for (
         var q = 0,
-          U = I.length > 0,
-          V = I[0],
+          U = C.length > 0,
+          V = C[0],
           H = function () {
-            var e = L(
+            var e = x(
                 t,
                 0,
                 4294967296,
@@ -244,141 +292,141 @@ __d(
               r = e >>> 3;
             if (U && r !== V) {
               var s = q;
-              do (++q === I.length && (q = 0), (V = I[q]));
+              do (++q === C.length && (q = 0), (V = C[q]));
               while (r !== V && q !== s);
             }
             if (U && r === V) {
-              var u = $[q],
-                c = w[q];
-              (S(n, c, u), y(O, q, u, c, E));
+              var u = R[q],
+                c = N[q];
+              (T(n, c, u), E(O, F, q, u, c, h, f, g));
               var m = c & o("WAProtoConst").TYPE_MASK,
-                p = x[q];
+                p = v[q];
               if (c & o("WAProtoConst").FLAGS.PACKED)
                 for (
                   var _ = t.readVarInt(o("WABinary").parseUint64OrThrow),
-                    f = t.readBinary(_);
-                  f.size();
+                    y = t.readBinary(_);
+                  y.size();
                 ) {
-                  O != null && C(O, q, u, E);
-                  var g = R(u, m, f);
+                  O != null && k(O, q, u, h);
+                  var S = D(u, m, y);
                   (m !== o("WAProtoConst").TYPES.ENUM ||
-                    p[g] ||
-                    (p.cast == null ? void 0 : p.cast(g)) !== void 0) &&
-                    F[u].push(g);
+                    p[S] ||
+                    (p.cast == null ? void 0 : p.cast(S)) !== void 0) &&
+                    A[u].push(S);
                 }
               else if (m === o("WAProtoConst").TYPES.MESSAGE) {
-                var b = t.readVarInt(o("WABinary").parseUint64OrThrow),
-                  k = t.readBinary(b);
+                var w = t.readVarInt(o("WABinary").parseUint64OrThrow),
+                  B = t.readBinary(w);
                 if (c & o("WAProtoConst").FLAGS.REPEATED) {
-                  var A = v(p, k, void 0, a, i, l + 1, d, h);
-                  if (A === void 0) return 1;
-                  F[u].push(A);
-                } else F[u] = T(p, k, F[u], a, i, l + 1, d, h);
+                  var W = I(p, B, void 0, a, i, l + 1, d, F);
+                  if (W === void 0) return 1;
+                  A[u].push(W);
+                } else A[u] = M(p, B, A[u], a, i, l + 1, d, F);
               } else if (m === o("WAProtoConst").TYPES.MAP) {
                 for (
-                  var B = t.readVarInt(o("WABinary").parseUint64OrThrow),
-                    W = t.readBinary(B),
-                    H,
-                    G,
-                    z = !1,
-                    j = 0;
-                  j < x[q].length;
-                  j++
+                  var H = t.readVarInt(o("WABinary").parseUint64OrThrow),
+                    G = t.readBinary(H),
+                    z,
+                    j,
+                    K = !1,
+                    Q = 0;
+                  Q < v[q].length;
+                  Q++
                 ) {
-                  var K = L(
-                      W,
+                  var X = x(
+                      G,
                       0,
                       4294967296,
                       "map field and enc type",
                       o("WABinary").parseInt64OrThrow,
                     ),
-                    Q = K & 7,
-                    X = K >>> 3,
-                    Y = void 0;
-                  switch (Q) {
+                    Y = X & 7,
+                    J = X >>> 3,
+                    Z = void 0;
+                  switch (Y) {
                     case o("WAProtoConst").ENC.VARINT:
-                      Y = W.readVarInt(o("WABinary").parseInt64OrThrow);
+                      Z = G.readVarInt(o("WABinary").parseInt64OrThrow);
                       break;
                     case o("WAProtoConst").ENC.BIT64:
-                      Y = W.readBinary(8);
+                      Z = G.readBinary(8);
                       break;
                     case o("WAProtoConst").ENC.BINARY: {
-                      var J = p[j];
+                      var ee = p[Q];
                       if (
-                        J === o("WAProtoConst").TYPES.BYTES ||
-                        J === o("WAProtoConst").TYPES.STRING
+                        ee === o("WAProtoConst").TYPES.BYTES ||
+                        ee === o("WAProtoConst").TYPES.STRING
                       )
-                        Y = R(u, J, W);
+                        Z = D(u, ee, G);
                       else {
-                        var Z = W.readVarInt(o("WABinary").parseUint64OrThrow),
-                          ee = W.readBinary(Z),
-                          te = v(J, ee, void 0, a, i, l + 1, d, h);
-                        if (te === void 0) {
-                          z = !0;
+                        var te = G.readVarInt(o("WABinary").parseUint64OrThrow),
+                          ne = G.readBinary(te),
+                          re = I(ee, ne, void 0, a, i, l + 1, d, F);
+                        if (re === void 0) {
+                          K = !0;
                           break;
                         }
-                        Y = te;
+                        Z = re;
                       }
                       break;
                     }
                     case o("WAProtoConst").ENC.BIT32:
-                      Y = W.readBinary(4);
+                      Z = G.readBinary(4);
                       break;
                   }
-                  X === 1 ? (H = Y) : (G = Y);
+                  J === 1 ? (z = Z) : (j = Z);
                 }
-                z || F[u].set(H, G);
+                K || A[u].set(z, j);
               } else {
-                var ne = R(u, m, t);
+                var oe = D(u, m, t);
                 (m !== o("WAProtoConst").TYPES.ENUM ||
-                  p[ne] ||
-                  (p.cast == null ? void 0 : p.cast(ne)) !== void 0) &&
+                  p[oe] ||
+                  (p.cast == null ? void 0 : p.cast(oe)) !== void 0) &&
                   (c & o("WAProtoConst").FLAGS.REPEATED
-                    ? F[u].push(ne)
-                    : (F[u] = ne));
+                    ? A[u].push(oe)
+                    : (A[u] = oe));
               }
-              var re = D[u];
-              (re &&
-                typeof F[u] != "undefined" &&
-                re.forEach(function (e) {
-                  var t = P[e].filter(function (e) {
+              var ae = b[u];
+              (ae &&
+                typeof A[u] != "undefined" &&
+                ae.forEach(function (e) {
+                  var t = L[e].filter(function (e) {
                     return e !== u;
                   });
                   if (
                     (t.forEach(function (e) {
-                      delete F[e];
+                      delete A[e];
                     }),
                     i)
                   ) {
                     var n;
-                    ((F[e] =
-                      ((n = { type: u, value: F[u] }),
+                    ((A[e] =
+                      ((n = { type: u, value: A[u] }),
                       (n[o("WABaseProto").TAGGED_UNION_TAG] = !0),
                       n)),
-                      delete F[u]);
+                      delete A[u]);
                   }
                 }),
-                (M[r] || N[u]) && delete F[u]);
-            } else if ((F.$$unknownFieldCount++, a)) {
-              F.$$unsafeUnknownFields || (F.$$unsafeUnknownFields = {});
-              var oe;
+                (P[r] || $[u]) && delete A[u]);
+            } else if ((A.$$unknownFieldCount++, a)) {
+              A.$$unsafeUnknownFields || (A.$$unsafeUnknownFields = {});
+              var ie;
               switch (n) {
                 case o("WAProtoConst").ENC.VARINT:
-                  oe = t.readVarInt(o("WABinary").parseInt64OrThrow);
+                  ie = t.readVarInt(o("WABinary").parseInt64OrThrow);
                   break;
                 case o("WAProtoConst").ENC.BIT64:
-                  oe = t.readBinary(8);
+                  ie = t.readBinary(8);
                   break;
                 case o("WAProtoConst").ENC.BINARY:
-                  oe = t.readBinary(
+                  ie = t.readBinary(
                     t.readVarInt(o("WABinary").parseUint64OrThrow),
                   );
                   break;
                 case o("WAProtoConst").ENC.BIT32:
-                  oe = t.readBinary(4);
+                  ie = t.readBinary(4);
                   break;
               }
-              F.$$unsafeUnknownFields[r] = oe;
+              A.$$unsafeUnknownFields[r] = ie;
             } else
               n === o("WAProtoConst").ENC.VARINT
                 ? t.readVarInt(o("WABinary").parseInt64OrThrow)
@@ -391,18 +439,18 @@ __d(
         t.size();
       )
         H();
-      return (f && d != null && b(F.stickers), F);
+      return A;
     }
-    function D(e) {
+    function w(e) {
       return e >= 0 ? e : 4294967296 + e;
     }
     ((l.ProtobufEntryLimitError = o(
       "WAProtoEntryLimitError",
     ).ProtobufEntryLimitError),
-      (l.decodeProtobuf = p),
-      (l.decodeProtobufWithTaggedUnions = _),
-      (l.decodeProtobufWithUnknowns = f),
-      (l.getUnknownFields = g));
+      (l.decodeProtobuf = f),
+      (l.decodeProtobufWithTaggedUnions = g),
+      (l.decodeProtobufWithUnknowns = h),
+      (l.getUnknownFields = y));
   },
   98,
 );

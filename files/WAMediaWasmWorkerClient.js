@@ -585,17 +585,18 @@ __d(
         n = e.eventFlow,
         a = e.hints,
         i = e.input,
-        l = ae();
+        l = e.logProvenanceDetails,
+        s = ae();
       V().INFO(
         D ||
           (D = babelHelpers.taggedTemplateLiteralLoose([
             "start kaleidoscope provenance detection in worker, requestId: ",
             "",
           ])),
-        l,
+        s,
       );
-      var s = await z.getNextConnectedPortWithTimeout(n);
-      if (!s.success)
+      var u = await z.getNextConnectedPortWithTimeout(n);
+      if (!u.success)
         return (
           V().WARN(
             x ||
@@ -604,8 +605,8 @@ __d(
                 ", reason: no-worker-port, error: ",
                 "",
               ])),
-            l,
-            s.error,
+            s,
+            u.error,
           ),
           n == null ||
             n.addPoint("worker_roundtrip_fail", {
@@ -613,25 +614,26 @@ __d(
             }),
           { transferredBuffer: i, provenance: null }
         );
-      var u = s.value;
-      return ie(u, async function () {
+      var c = u.value;
+      return ie(c, async function () {
         var e = function () {},
-          s = new Promise(function (t) {
-            var n = u.addMessageListener(
+          u = new Promise(function (t) {
+            var n = c.addMessageListener(
               "kaleidoscopeProvenanceResponse",
               function (n) {
-                n.requestId === l &&
+                n.requestId === s &&
                   (e(),
-                  V().INFO(
-                    $ ||
-                      ($ = babelHelpers.taggedTemplateLiteralLoose([
-                        "received provenance from worker, requestId: ",
-                        ", hasSignal: ",
-                        "",
-                      ])),
-                    l,
-                    n.provenance != null,
-                  ),
+                  l &&
+                    V().INFO(
+                      $ ||
+                        ($ = babelHelpers.taggedTemplateLiteralLoose([
+                          "received provenance from worker, requestId: ",
+                          ", hasSignal: ",
+                          "",
+                        ])),
+                      s,
+                      n.provenance != null,
+                    ),
                   t({
                     transferredBuffer: n.transferredBuffer,
                     provenance: n.provenance,
@@ -641,27 +643,28 @@ __d(
               },
             );
             e = function () {
-              u.removeMessageListener("kaleidoscopeProvenanceResponse", n);
+              c.removeMessageListener("kaleidoscopeProvenanceResponse", n);
             };
           });
         try {
           (n == null || n.addPoint("worker_roundtrip_start"),
-            u.postMessage(
+            c.postMessage(
               {
                 input: i,
                 hints: a,
                 allowlists: t,
                 qplData: n == null ? void 0 : n.flowDetails,
-                requestId: l,
+                logProvenanceDetails: l,
+                requestId: s,
                 type: "kaleidoscopeProvenanceRequest",
               },
               [i],
             ));
-          var c = await o("WAPromiseTimeout").promiseTimeout(s, de);
-          return (n == null || n.addPoint("worker_roundtrip_end"), c);
+          var d = await o("WAPromiseTimeout").promiseTimeout(u, de);
+          return (n == null || n.addPoint("worker_roundtrip_end"), d);
         } catch (t) {
           e();
-          var d =
+          var m =
             t instanceof o("WACustomError").TimeoutError
               ? "timeout"
               : "post_failed";
@@ -674,13 +677,13 @@ __d(
                   ", error: ",
                   "",
                 ])),
-              l,
-              d,
+              s,
+              m,
               r("getErrorSafe")(t).message,
             ),
             n == null ||
               n.addPoint("worker_roundtrip_fail", {
-                string: { failure_reason: d },
+                string: { failure_reason: m },
               }),
             { transferredBuffer: i, provenance: null }
           );
@@ -691,79 +694,84 @@ __d(
       var t = e.fields,
         n = e.hints,
         a = e.input,
-        i = e.timeoutMs,
-        l = i === void 0 ? de : i,
-        s = ae();
-      V().INFO(
-        N ||
-          (N = babelHelpers.taggedTemplateLiteralLoose([
-            "start kaleidoscope provenance write in worker, requestId: ",
-            "",
-          ])),
-        s,
-      );
-      var u = await z.getNextConnectedPortWithTimeout();
-      if (!u.success)
+        i = e.logProvenanceDetails,
+        l = e.timeoutMs,
+        s = l === void 0 ? de : l,
+        u = ae();
+      i &&
+        V().INFO(
+          N ||
+            (N = babelHelpers.taggedTemplateLiteralLoose([
+              "start kaleidoscope provenance write in worker, requestId: ",
+              "",
+            ])),
+          u,
+        );
+      var c = await z.getNextConnectedPortWithTimeout();
+      if (!c.success)
         return (
-          V().WARN(
-            M ||
-              (M = babelHelpers.taggedTemplateLiteralLoose([
-                "provenance write failed, requestId: ",
-                ", reason: no-worker-port, error: ",
-                "",
-              ])),
-            s,
-            u.error,
-          ),
+          i &&
+            V().WARN(
+              M ||
+                (M = babelHelpers.taggedTemplateLiteralLoose([
+                  "provenance write failed, requestId: ",
+                  ", reason: no-worker-port, error: ",
+                  "",
+                ])),
+              u,
+              c.error,
+            ),
           o("WAResultOrError").makeError("worker-error")
         );
-      var c = u.value;
-      return ie(c, async function () {
+      var d = c.value;
+      return ie(d, async function () {
         var e = function () {},
-          i = new Promise(function (t) {
-            var n = c.addMessageListener(
+          l = new Promise(function (t) {
+            var n = d.addMessageListener(
               "kaleidoscopeProvenanceWriteResponse",
               function (n) {
-                n.requestId === s && (e(), t(n.output));
+                n.requestId === u && (e(), t(n.output));
               },
             );
             e = function () {
-              c.removeMessageListener("kaleidoscopeProvenanceWriteResponse", n);
+              d.removeMessageListener("kaleidoscopeProvenanceWriteResponse", n);
             };
           });
         try {
           return (
-            c.postMessage(
+            d.postMessage(
               {
                 fields: t,
                 hints: n,
                 input: a,
-                requestId: s,
+                logProvenanceDetails: i,
+                requestId: u,
                 type: "kaleidoscopeProvenanceWriteRequest",
               },
               [a],
             ),
-            await o("WAPromiseTimeout").promiseTimeout(i, l)
+            await o("WAPromiseTimeout").promiseTimeout(l, s)
           );
         } catch (t) {
           e();
-          var u =
+          var c =
             t instanceof o("WACustomError").TimeoutError
               ? "timeout"
               : "post_failed";
           return (
-            V().WARN(
-              w ||
-                (w = babelHelpers.taggedTemplateLiteralLoose([
-                  "provenance write failed, requestId: ",
-                  ", reason: ",
-                  ", error: ",
-                  "",
-                ])),
-              s,
-              u,
-              r("getErrorSafe")(t).message,
-            ),
+            i &&
+              V().WARN(
+                w ||
+                  (w = babelHelpers.taggedTemplateLiteralLoose([
+                    "provenance write failed, requestId: ",
+                    ", reason: ",
+                    ", error: ",
+                    "",
+                  ])),
+                u,
+                c,
+                r("getErrorSafe")(t).message,
+              ),
             o("WAResultOrError").makeError("worker-error")
           );
         }

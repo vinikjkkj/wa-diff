@@ -5,6 +5,7 @@ __d(
     "WAWebEnvironment",
     "WAWebMimeTypes",
     "WAWebUA",
+    "gkx",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -25,60 +26,63 @@ __d(
       return o("WAWebMimeTypes").isPdfDocument(e) && u();
     }
     function d() {
+      return r("justknobx")._("8602") && r("gkx")("30020");
+    }
+    function m() {
       return r("WAWebEnvironment").isWindows
         ? o("WAWebABProps").getABPropConfigValue(
             "wa_win_webtp_pdf_viewer_preload_enabled",
           )
         : !0;
     }
-    function m() {
+    function p() {
       return e() && r("justknobx")._("1130");
     }
-    function p(t) {
+    function _(t) {
       return (
         e() &&
         r("justknobx")._("1130") &&
         (t == null || o("WAWebMimeTypes").isPdfDocument(t))
       );
     }
-    function _() {
+    function f() {
       return e() && r("justknobx")._("1228");
     }
-    var f = 137;
-    function g() {
+    var g = 137;
+    function h() {
       var e = o("WAWebUA").UA.isChrome,
         t = o("WAWebUA").UA.browser === o("WAWebUA").BROWSER_TYPE.EDGE;
       return !e && !t
         ? null
         : parseInt(o("WAWebUA").UA.browserVersion.split(".")[0], 10);
     }
-    function h() {
-      var e = g();
-      return e != null && e >= f
+    function y() {
+      var e = h();
+      return e != null && e >= g
         ? "supported"
-        : e != null && e < f
+        : e != null && e < g
           ? "upgrade_browser"
           : "unsupported";
     }
-    function y() {
+    function C() {
       return (
         e() &&
         o("WAWebABProps").getABPropConfigValue("wa_webtp_use_pdf_annotations")
       );
     }
-    function C() {
+    function b() {
       return o("WAWebABProps").getABPropConfigValue(
         "wa_webtp_use_async_pdf_send",
       );
     }
-    function b() {
+    function v() {
       return r("justknobx")._("2723");
     }
-    function v() {
+    function S() {
       return e();
     }
-    function S() {
-      return !v() || h() !== "supported"
+    function R() {
+      return !S() || y() !== "supported"
         ? "control"
         : (function (e) {
             return e === 1
@@ -97,16 +101,17 @@ __d(
     ((l.isWebTPThumbnailRendererEnabled = s),
       (l.isWebTPPdfViewerEnabled = u),
       (l.isWebTPPdfViewerEnabledForMimeType = c),
-      (l.isWebTPPdfViewerPreloadEnabled = d),
-      (l.isWebTP3PSharingEnabled = m),
-      (l.isWebTPPdfEditAndShareEnabled = p),
-      (l.isWebTP3PExtensionSharingEnabled = _),
-      (l.getWebTPBrowserCompatibility = h),
-      (l.isWebTPPdfAnnotationsEnabled = y),
-      (l.isAsyncPdfSendEnabled = C),
-      (l.isPdfPreviewBeforeSendEnabled = b),
-      (l.isWebTPSharerSavePreferenceEnabled = v),
-      (l.getWebTPSkipSharerConfirmationVariant = S));
+      (l.isWebTPLocalPdfSdkEnabled = d),
+      (l.isWebTPPdfViewerPreloadEnabled = m),
+      (l.isWebTP3PSharingEnabled = p),
+      (l.isWebTPPdfEditAndShareEnabled = _),
+      (l.isWebTP3PExtensionSharingEnabled = f),
+      (l.getWebTPBrowserCompatibility = y),
+      (l.isWebTPPdfAnnotationsEnabled = C),
+      (l.isAsyncPdfSendEnabled = b),
+      (l.isPdfPreviewBeforeSendEnabled = v),
+      (l.isWebTPSharerSavePreferenceEnabled = S),
+      (l.getWebTPSkipSharerConfirmationVariant = R));
   },
   98,
 );

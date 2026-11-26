@@ -1,17 +1,15 @@
 __d(
   "WAWebUnknownAssociationProcessor",
   [
-    "WAWebAssociationProcessorConstants",
+    "WAWebCreateAssociationProcessor",
     "WAWebMessageAssociation.flow",
     "WAWebViewMode.flow",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = {
+    var e = o("WAWebCreateAssociationProcessor").createAssociationMsgProcessor({
         type: o("WAWebMessageAssociation.flow").MessageAssociationType.UNKNOWN,
         viewMode: o("WAWebViewMode.flow").ViewModeType.HIDDEN,
-        processorType: o("WAWebAssociationProcessorConstants")
-          .AssociationProcessorType.Regular,
-      },
+      }),
       s = e;
     l.default = s;
   },

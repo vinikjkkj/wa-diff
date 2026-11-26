@@ -104,6 +104,7 @@ __d(
             (t.forwardReachCounts = o("WAWebBaseModel").prop(function () {
               return [];
             })),
+            (t.forwardReachTracked = o("WAWebBaseModel").prop()),
             (t.kicGroupNotificationTaps = o("WAWebBaseModel").prop(0)),
             (t.kicGroupNotifications = o("WAWebBaseModel").prop(0)),
             (t.kicNotificationTaps = o("WAWebBaseModel").prop(0)),

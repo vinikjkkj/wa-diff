@@ -8,13 +8,14 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = !1,
-      s = null,
-      u = null;
-    function c(t) {
+    var e = 3e4,
+      s = !1,
+      u = null,
+      c = null;
+    function d(e) {
       !o("WAWebTPPdfViewerGatingUtils").isWebTPThumbnailRendererEnabled() ||
-        e ||
-        ((e = !0),
+        s ||
+        ((s = !0),
         o("WAWebPonyfillsIdleCallback").requestIdleCallback(function () {
           var e = o("WAWebTPFrameUrlBuilder").getWAWebTPThumbnailUrl(),
             t = o("WAWebTPThumbnailUtils").getSandboxIframe(
@@ -24,9 +25,9 @@ __d(
           o("WAWebTPThumbnailUtils").appendToDocumentBody(t);
         }));
     }
-    function d() {
-      if (s != null) {
-        (o("WAWebPonyfillsIdleCallback").cancelIdleCallback(s), (s = null));
+    function m() {
+      if (u != null) {
+        (o("WAWebPonyfillsIdleCallback").cancelIdleCallback(u), (u = null));
         return;
       }
       var e = document.getElementById(
@@ -34,10 +35,10 @@ __d(
       );
       e instanceof HTMLIFrameElement && e.remove();
     }
-    function m(e, t) {
+    function p(e, t) {
       o("WAWebTPPdfViewerGatingUtils").isWebTPPdfViewerEnabledForMimeType(e) &&
-        (u = o("WAWebPonyfillsIdleCallback").requestIdleCallback(function () {
-          u = null;
+        (c = o("WAWebPonyfillsIdleCallback").requestIdleCallback(function () {
+          c = null;
           var e = o("WAWebTPFrameUrlBuilder").getWAWebTPPdfInlineSharerUrl(),
             t = o("WAWebTPThumbnailUtils").getSandboxIframe(
               e,
@@ -46,9 +47,9 @@ __d(
           o("WAWebTPThumbnailUtils").appendToDocumentBody(t);
         }));
     }
-    function p() {
-      if (u != null) {
-        (o("WAWebPonyfillsIdleCallback").cancelIdleCallback(u), (u = null));
+    function _() {
+      if (c != null) {
+        (o("WAWebPonyfillsIdleCallback").cancelIdleCallback(c), (c = null));
         return;
       }
       var e = document.getElementById(
@@ -56,27 +57,43 @@ __d(
       );
       e instanceof HTMLIFrameElement && e.remove();
     }
-    function _(e, t) {
-      o("WAWebTPPdfViewerGatingUtils").isWebTPPdfViewerEnabledForMimeType(e) &&
-        (s = o("WAWebPonyfillsIdleCallback").requestIdleCallback(function () {
-          s = null;
-          var e = o("WAWebTPFrameUrlBuilder").getWAWebTPPdfViewerUrl(),
-            t = o("WAWebTPThumbnailUtils").getSandboxIframe(
-              e,
-              o("WAWebTPThumbnailUtils").WEBTP_VIEWER_IFRAME_ID,
+    function f(t, n) {
+      o("WAWebTPPdfViewerGatingUtils").isWebTPPdfViewerEnabledForMimeType(t) &&
+        (u = o("WAWebPonyfillsIdleCallback").requestIdleCallback(function () {
+          u = null;
+          var t = o("WAWebTPFrameUrlBuilder").getWAWebTPPdfViewerUrl();
+          if (!o("WAWebTPPdfViewerGatingUtils").isWebTPLocalPdfSdkEnabled()) {
+            o("WAWebTPThumbnailUtils").appendToDocumentBody(
+              o("WAWebTPThumbnailUtils").getSandboxIframe(
+                t,
+                o("WAWebTPThumbnailUtils").WEBTP_VIEWER_IFRAME_ID,
+              ),
             );
-          o("WAWebTPThumbnailUtils").appendToDocumentBody(t);
+            return;
+          }
+          var n = o(
+            "WAWebTPPdfViewerGatingUtils",
+          ).isWebTPPdfAnnotationsEnabled()
+            ? "annotations"
+            : "view";
+          o("WAWebTPThumbnailUtils").appendToDocumentBody(
+            o("WAWebTPThumbnailUtils").getSandboxIframe(
+              t + "&prewarm=" + n,
+              o("WAWebTPThumbnailUtils").WEBTP_VIEWER_IFRAME_ID,
+            ),
+            e,
+          );
         }));
     }
     ((l.getSandboxIframe = o("WAWebTPThumbnailUtils").getSandboxIframe),
       (l.renderWebTPThumbnailIfEnabled = o(
         "WAWebTPThumbnailUtils",
       ).renderWebTPThumbnailIfEnabled),
-      (l.preloadWebTPThumbnailRendererIfEnabled = c),
-      (l.removePreloadedIframe = d),
-      (l.preloadWebTPInlineSharerIframeIfEnabled = m),
-      (l.removePreloadedInlineSharerIframe = p),
-      (l.preloadWebTPIframeIfEnabled = _));
+      (l.preloadWebTPThumbnailRendererIfEnabled = d),
+      (l.removePreloadedIframe = m),
+      (l.preloadWebTPInlineSharerIframeIfEnabled = p),
+      (l.removePreloadedInlineSharerIframe = _),
+      (l.preloadWebTPIframeIfEnabled = f));
   },
   98,
 );

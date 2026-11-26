@@ -11,6 +11,7 @@ __d(
     "WAWebBackgroundPauseGating",
     "WAWebBackgroundPauseState",
     "WAWebEventsWaitForReadyForOffline",
+    "WAWebHandleMsgCommon",
     "WAWebHandleOfflineAbProps",
     "WAWebMessageQueueImpl",
     "WAWebNoop",
@@ -52,8 +53,9 @@ __d(
       I = R,
       T = 5e3,
       D = new Set(["message", "receipt", "status"]),
-      x = O(),
-      $ = (function () {
+      x = 60 * 1e3,
+      $ = B(),
+      P = (function () {
         function t() {
           ((this.$2 = !1),
             (this.$3 = 0),
@@ -72,7 +74,9 @@ __d(
             (this.$18 = 0),
             (this.$19 = 0),
             (this.$20 = 0),
-            (this.$22 = 0));
+            (this.$23 = null),
+            (this.$24 = 0),
+            (this.$25 = 0));
         }
         var n = t.prototype;
         return (
@@ -89,7 +93,8 @@ __d(
                 blocking_resume: !0,
               }),
               (this.$1 = n.getNonblockingStageManager),
-              (this.$21 = n.maybeRequestPrimarySnapshot));
+              (this.$21 = n.maybeRequestPrimarySnapshot),
+              (this.$22 = n.rcodChunkFinder));
           }),
           (n.processOfflinePreviewIb = function (t) {
             (o("WAWebPageLoadLogging").addPageLoadQplPoint(
@@ -103,14 +108,14 @@ __d(
               ).annotateCrashWithOfflineResumeMessages(t));
             var e = !this.isResumeFromRestartComplete();
             if (
-              (this.$23(),
+              (this.$26(),
               (this.$9 = !o("WAWebRuntimeEnvironmentUtils").isServiceWorker()),
               this.$1 != null)
             ) {
               var n = this.$1;
               o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd &&
               this.isResumeFromRestartComplete()
-                ? W(t.message)
+                ? q(t.message)
                   ? (o("WALogger").LOG(
                       u ||
                         (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -132,24 +137,25 @@ __d(
                     ))
                 : !this.$2 &&
                   !this.isResumeFromRestartComplete() &&
-                  W(t.message) &&
+                  q(t.message) &&
                   (o("WAWebPageLoadLogging").addPageLoadQplAnnotation({
                     blocking_resume: !1,
                   }),
                   (this.offlineResumeManager = n()));
             }
             ((this.$2 = !0),
-              B(),
+              W(),
               o("WAWebOneQueue").handleOneQueueOfflineStart(t),
               this.offlineResumeManager.processOfflinePreview(t),
-              this.$24(t),
-              this.$25(e),
-              this.$26(e));
+              this.$27(t),
+              this.$28(e),
+              this.$29(e));
           }),
           (n.processMessageDecryptResult = function (t) {
             (this.offlineResumeManager.processDecryptResult(t),
               (this.$3 -= 1),
-              this.$27());
+              this.$30(),
+              this.$31());
           }),
           (n.addOfflinePendingMessage = function () {
             this.isResumeFromRestartComplete() || (this.$3 += 1);
@@ -158,12 +164,12 @@ __d(
             var e = this;
             return (
               (this.$19 = Math.max(this.$19 - 1, 0)),
-              this.$28(),
+              this.$32(),
               (this.$4 = !1),
               (this.$8 = Math.max(this.$8, r)),
               this.$6 == null &&
                 (this.$6 = self.setTimeout(function () {
-                  (e.$27(),
+                  (e.$31(),
                     (e.$6 = null),
                     o("WALogger").LOG(
                       d ||
@@ -179,14 +185,14 @@ __d(
             var e = this;
             return !t.attrs.offline ||
               !D.has(t.tag) ||
-              N(t) ||
+              M(t) ||
               !o(
                 "WAWebOfflineResumePrimarySnapshotGating",
               ).isOfflineResumePrimarySnapshotEnabled()
               ? r("WAWebNoop")
               : ((this.$20 += 1),
                 function () {
-                  ((e.$20 -= 1), e.$29() && e.$27());
+                  ((e.$20 -= 1), e.$33() && e.$31());
                 });
           }),
           (n.offlineStanzaReceivedAfterComplete = function () {
@@ -220,6 +226,7 @@ __d(
             return this.getOfflineDeliveryProgress() === 100;
           }),
           (n.processOfflineIb = function (t) {
+            var e = this;
             return (
               o("WAWebPageLoadLogging").addPageLoadQplPoint("offline_received"),
               o("WAWebOfflineSyncQplSession").OfflineSyncQpl.mark(
@@ -227,15 +234,31 @@ __d(
                   .OfflineIbReceived,
               ),
               (this.$16 = !1),
+              this.$34(),
               o("WAWebOneQueue").handleOneQueueOfflineIb(),
               this.offlineResumeManager
                 .processOfflineSessionComplete(t)
                 .finally(function () {
-                  o("WAWebAppTracker").AppTracker.stop(
+                  (o("WAWebAppTracker").AppTracker.stop(
                     o("WAWebAppTracker").AppTrackerType.OfflineResume,
-                  );
+                  ),
+                    e.$35());
                 })
             );
+          }),
+          (n.queueOfflineMessage = function (t) {
+            t !== o("WAWebHandleMsgCommon").MSG_CATEGORY.peer &&
+              (this.$24 += 1);
+          }),
+          (n.startOfflineMessage = function (t) {
+            t !== o("WAWebHandleMsgCommon").MSG_CATEGORY.peer &&
+              (this.$24 = Math.max(this.$24 - 1, 0));
+          }),
+          (n.checkForRcodChunk = function (t) {
+            if (this.$36()) {
+              var e;
+              (e = this.$22) == null || e.check(t, this.$24);
+            }
           }),
           (n.shouldUseOfflineResumeScreen = function () {
             return this.offlineResumeManager.shouldUseOfflineResumeScreen();
@@ -252,7 +275,7 @@ __d(
           (n.getResumeType = function () {
             return this.offlineResumeManager.resumeType;
           }),
-          (n.$23 = function () {
+          (n.$26 = function () {
             ((this.$4 = !1), (this.$5 = !1), (this.$10 = 0));
             var e = this.$11;
             e != null &&
@@ -261,35 +284,35 @@ __d(
                 e,
               ));
           }),
-          (n.$30 = function () {
+          (n.$37 = function () {
             var e = o(
               "WAWebOfflineSyncQplSession",
             ).OfflineSyncQpl.markBatchRequest();
             return ((this.$11 = e), e);
           }),
-          (n.$31 = async function (t, n) {
+          (n.$38 = async function (t, n) {
             n === void 0 && (n = !1);
-            var e = this.$30(),
+            var e = this.$37(),
               r = this.$14;
-            this.$32(t, n);
-            var a = await A(t);
+            this.$39(t, n);
+            var a = await F(t);
             a === "sent"
               ? o("WAWebOfflineSyncQplSession").OfflineSyncQpl.markBatchSent(e)
-              : (this.$33(r, t, n), this.$34(e, a));
+              : (this.$40(r, t, n), this.$41(e, a));
           }),
-          (n.$32 = function (t, n) {
+          (n.$39 = function (t, n) {
             o(
               "WAWebOfflineResumePrimarySnapshotGating",
             ).isOfflineResumePrimarySnapshotEnabled() &&
               ((this.$19 += t),
               n || ((this.$18 -= t), this.$16 && (this.$16 = this.$18 > 0)));
           }),
-          (n.$33 = function (t, n, r) {
+          (n.$40 = function (t, n, r) {
             t === this.$14 &&
               ((this.$19 = Math.max(this.$19 - n, 0)),
               r ? ((this.$16 = !1), (this.$17 = !0)) : (this.$18 += n));
           }),
-          (n.$34 = function (t, n) {
+          (n.$41 = function (t, n) {
             this.$11 === t &&
               ((this.$11 = null),
               o("WAWebOfflineSyncQplSession").OfflineSyncQpl.markBatchAbandoned(
@@ -297,25 +320,27 @@ __d(
               ),
               n === "failed" && ((this.$4 = !1), (this.$10 = 0)));
           }),
-          (n.$24 = function (t) {
+          (n.$27 = function (t) {
             var e,
               n = (e = o("WAComms").getComms()) == null ? void 0 : e.socketId;
-            (n !== this.$13 && this.$35(n),
+            (n !== this.$13 && this.$42(n),
               (this.$15 += t.message),
               (this.$18 += t.count));
           }),
-          (n.$35 = function (t) {
+          (n.$42 = function (t) {
             ((this.$13 = t),
               (this.$14 += 1),
               (this.$15 = 0),
               (this.$16 = !1),
               (this.$17 = !1),
               (this.$18 = 0),
-              (this.$19 = 0));
+              (this.$19 = 0),
+              (this.$24 = 0),
+              this.$35());
           }),
-          (n.$25 = function (t) {
+          (n.$28 = function (t) {
             this.$17 ||
-              !this.$36(t) ||
+              !this.$43(t) ||
               (o("WALogger").LOG(
                 m ||
                   (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -325,12 +350,12 @@ __d(
                 this.$18,
               ),
               (this.$16 = this.$18 > 0),
-              this.$37());
+              this.$44());
           }),
-          (n.$36 = function (t) {
-            return !W(this.$15) && this.$38(t);
+          (n.$43 = function (t) {
+            return !q(this.$15) && this.$45(t);
           }),
-          (n.$38 = function (t) {
+          (n.$45 = function (t) {
             return (
               t &&
               !o(
@@ -343,47 +368,80 @@ __d(
               ).isOfflineResumePrimarySnapshotEnabled()
             );
           }),
-          (n.$26 = function (t) {
-            var e;
-            this.$22 === this.$14 ||
-              W(this.$15) ||
-              !this.$38(t) ||
-              ((this.$22 = this.$14),
-              o("WALogger").LOG(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "[offline-resume][rcod] requesting recent conversations at ",
-                    " offline messages",
-                  ])),
-                this.$15,
-              ),
-              (e = this.$21) == null || e.call(this));
+          (n.$29 = function (t) {
+            var e, n;
+            if (!(this.$25 === this.$14 || q(this.$15) || !this.$45(t))) {
+              ((this.$25 = this.$14),
+                o("WALogger").LOG(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "[offline-resume][rcod] requesting recent conversations at ",
+                      " offline messages",
+                    ])),
+                  this.$15,
+                ));
+              var r = this.$13;
+              ((e = this.$22) == null ||
+                e.start(function () {
+                  return U(r);
+                }),
+                (n = this.$21) == null || n.call(this));
+            }
           }),
-          (n.$29 = function () {
+          (n.$34 = function () {
+            var e,
+              t = this;
+            ((e = this.$22) == null ? void 0 : e.isSearching()) === !0 &&
+              this.$23 == null &&
+              (this.$23 = self.setTimeout(function () {
+                return t.$35();
+              }, x));
+          }),
+          (n.$30 = function () {
+            if (this.$36()) {
+              var e;
+              (e = this.$22) == null || e.onMessageProcessed(this.$24);
+            }
+          }),
+          (n.$36 = function () {
+            var e;
+            return ((e = this.$22) == null ? void 0 : e.isSearching()) !== !0
+              ? !1
+              : this.isResumeComplete() && this.$23 == null
+                ? (this.$35(), !1)
+                : !0;
+          }),
+          (n.$35 = function () {
+            var e;
+            (this.$23 != null &&
+              (self.clearTimeout(this.$23), (this.$23 = null)),
+              (e = this.$22) == null || e.stop());
+          }),
+          (n.$33 = function () {
             return this.$16 && !this.isResumeComplete();
           }),
-          (n.$39 = function () {
-            return this.$29() && !M();
+          (n.$46 = function () {
+            return this.$33() && !w();
           }),
-          (n.$27 = function () {
-            this.$39() ? this.$37() : this.$40() && this.$41();
+          (n.$31 = function () {
+            this.$46() ? this.$44() : this.$47() && this.$48();
           }),
-          (n.$40 = function () {
-            return !this.$29() || this.$42() >= P(L);
+          (n.$47 = function () {
+            return !this.$33() || this.$49() >= N(L);
           }),
-          (n.$42 = function () {
+          (n.$49 = function () {
             return T - this.$19 - this.$20;
           }),
-          (n.$37 = function () {
+          (n.$44 = function () {
             var e = this.$18,
-              t = Math.min(this.$42(), e);
-            t > 0 && t >= Math.min(L, e) && this.$43(t);
+              t = Math.min(this.$49(), e);
+            t > 0 && t >= Math.min(L, e) && this.$50(t);
           }),
-          (n.$43 = function (t) {
-            var e = P(t);
-            ((this.$18 -= e), (this.$16 = this.$18 > 0), this.$44(e, !0, !0));
+          (n.$50 = function (t) {
+            var e = N(t);
+            ((this.$18 -= e), (this.$16 = this.$18 > 0), this.$51(e, !0, !0));
           }),
-          (n.$28 = function () {
+          (n.$32 = function () {
             var e = this.$11;
             e != null &&
               ((this.$11 = null),
@@ -391,7 +449,7 @@ __d(
                 e,
               ));
           }),
-          (n.$45 = async function () {
+          (n.$52 = async function () {
             var e = o(
               "WAWebOfflineSyncQplSession",
             ).OfflineSyncQpl.markReadyWaitStart();
@@ -403,7 +461,7 @@ __d(
                   "WAWebOfflineSyncQplSession",
                 ).OfflineSyncQpl.markReadyWaitEnd());
           }),
-          (n.$44 = function (t, n, r) {
+          (n.$51 = function (t, n, r) {
             var e = this;
             (n === void 0 && (n = !1), r === void 0 && (r = !1));
             var a = n === !0 || this.$10 === 0;
@@ -417,16 +475,16 @@ __d(
                       ])),
                     this.$3,
                   ),
-                  this.$31(t, r),
+                  this.$38(t, r),
                   (this.$10 = Date.now()),
                   (this.$8 = 0),
                   (this.$4 = !0),
                   (this.$5 = !1))
                 : (this.$12 = self.setTimeout(function () {
-                    e.$46();
+                    e.$53();
                   }, E)));
           }),
-          (n.$46 = async function (t) {
+          (n.$53 = async function (t) {
             t === void 0 && (t = !1);
             var e = Date.now() - this.$10,
               n =
@@ -465,28 +523,28 @@ __d(
                   ])),
               ),
                 (this.$5 = !0),
-                await this.$45());
+                await this.$52());
               var r = S;
-              ((r = x(this.$8, this.$7)), (this.$7 = r), this.$47(r, n));
+              ((r = $(this.$8, this.$7)), (this.$7 = r), this.$54(r, n));
             }
           }),
-          (n.$47 = function (t, n) {
-            var e = P(t);
-            if (!this.$29() || this.$48(e)) {
-              this.$44(e, n);
+          (n.$54 = function (t, n) {
+            var e = N(t);
+            if (!this.$33() || this.$55(e)) {
+              this.$51(e, n);
               return;
             }
-            ((this.$5 = !1), this.$27());
+            ((this.$5 = !1), this.$31());
           }),
-          (n.$48 = function (t) {
-            return M() && this.$42() >= t;
+          (n.$55 = function (t) {
+            return w() && this.$49() >= t;
           }),
-          (n.$41 = async function (t) {
+          (n.$48 = async function (t) {
             if (
               (t === void 0 && (t = !1),
               !o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled())
             ) {
-              if (this.$9) return this.$46(t);
+              if (this.$9) return this.$53(t);
               if (this.isResumeComplete() || this.$4 || this.$5) {
                 this.isResumeComplete() ||
                   o("WALogger").LOG(
@@ -511,8 +569,8 @@ __d(
                     ])),
                 ),
                 (this.$5 = !0),
-                await this.$45(),
-                this.$31(S),
+                await this.$52(),
+                this.$38(S),
                 (this.$5 = !1),
                 (this.$4 = !0),
                 o("WALogger").LOG(
@@ -528,23 +586,23 @@ __d(
           t
         );
       })();
-    function P(e) {
-      return M() ? Math.min(e, I) : e;
-    }
     function N(e) {
+      return w() ? Math.min(e, I) : e;
+    }
+    function M(e) {
       var t = e.attrs.type;
       return e.tag === "receipt" && (t === "retry" || t === "enc_rekey_retry");
     }
-    function M() {
-      return o("WAWebBackgroundPauseState").backgroundPauseState.get() && w();
-    }
     function w() {
+      return o("WAWebBackgroundPauseState").backgroundPauseState.get() && A();
+    }
+    function A() {
       return (
         !o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled() &&
         o("WAWebBackgroundPauseGating").isVoipDeprioritizeOfflineResumeEnabled()
       );
     }
-    async function A(e) {
+    async function F(e) {
       var t;
       if (
         ((t = o("WAComms").getComms()) == null
@@ -582,7 +640,7 @@ __d(
         );
       }
     }
-    function F(e) {
+    function O(e) {
       var t = e.currentSize,
         n = e.multiplier,
         r = n === void 0 ? 0.2 : n,
@@ -602,7 +660,7 @@ __d(
         i != null ? i : L
       );
     }
-    function O() {
+    function B() {
       var e = null;
       return function (t, n) {
         var r = o("WAWebHandleOfflineAbProps").getOfflineDynamicBatchConfig(),
@@ -612,7 +670,7 @@ __d(
         return (
           (e = t),
           i === "progressive"
-            ? F({
+            ? O({
                 currentSize: n,
                 multiplier: a,
                 prevRetryCount: l,
@@ -622,7 +680,7 @@ __d(
         );
       };
     }
-    function B() {
+    function W() {
       var e = o("WAWebMessageQueueImpl").getMessageQueueImpl();
       (o("WAWebPageLoadLogging").addPageLoadQplAnnotation({
         message_queue_impl: e,
@@ -631,7 +689,7 @@ __d(
           string: { message_queue_impl: e },
         }));
     }
-    function W(e) {
+    function q(e) {
       return !(
         e >=
         o("WAWebABProps").getABPropConfigValue(
@@ -639,11 +697,18 @@ __d(
         )
       );
     }
-    var q = new $();
+    function U(e) {
+      var t = o("WAComms").getComms();
+      return (
+        (t == null ? void 0 : t.socketId) === e &&
+        (t == null ? void 0 : t.isSocketConnected()) === !0
+      );
+    }
+    var V = new P();
     ((l.DEFAULT_MAX_BATCH_SIZE = L),
-      (l.OfflineMessageHandlerImpl = $),
-      (l.capBatchSizeForActiveCall = P),
-      (l.OfflineMessageHandler = q));
+      (l.OfflineMessageHandlerImpl = P),
+      (l.capBatchSizeForActiveCall = N),
+      (l.OfflineMessageHandler = V));
   },
   98,
 );

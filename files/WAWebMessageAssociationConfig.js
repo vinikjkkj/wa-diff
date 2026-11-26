@@ -9,32 +9,36 @@ __d(
     "WAWebWid",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      var n = m(e);
+    function e(e) {
+      var t;
+      return e == null ? _ : (t = g.get(e)) != null ? t : _;
+    }
+    function s(e, t) {
+      var n = p(e);
       if (!(n == null || !n.canDestinationCarry(t) || !n.isEnabled()))
         return { role: n.role, viewMode: n.viewMode };
     }
-    function s(e) {
-      return p.has(e);
-    }
     function u(e) {
-      return _.get(e);
+      return h.has(e);
     }
     function c(e) {
+      return y.get(e);
+    }
+    function d(e) {
       var t = e.chatWid;
       return !r("WAWebWid").isNewsletter(t) && !t.isBot();
     }
-    function d(e) {
+    function m(e) {
       var t = e.businessProfile,
         n = e.chatWid;
       return o("WAWebDualUploadsSendPolicy").canChatCarryHdImagePair(n, t);
     }
-    function m(e) {
+    function p(e) {
       return e ===
         o("WAWebMessageAssociation.flow").MessageAssociationType
           .HD_IMAGE_DUAL_UPLOAD
         ? {
-            canDestinationCarry: d,
+            canDestinationCarry: m,
             isEnabled: o("WAWebMediaGatingUtils")
               .isHdImageDualUploadConsumptionEnabled,
             role: "shadow",
@@ -43,7 +47,7 @@ __d(
         : e ===
             o("WAWebMessageAssociation.flow").MessageAssociationType.MEDIA_ALBUM
           ? {
-              canDestinationCarry: c,
+              canDestinationCarry: d,
               isEnabled: o("WAWebMediaGatingUtils").isAlbumV2SenderEnabled,
               role: "member",
               viewMode: o("WAWebViewMode.flow").ViewModeType.MEDIA_ALBUM,
@@ -88,8 +92,21 @@ __d(
                 );
               })();
     }
-    var p = new Set([o("WAWebMsgType").MSG_TYPE.ALBUM]),
-      _ = new Map([
+    var _ = { canStarIndependently: !0, detachOnStarChange: !1 },
+      f = { canStarIndependently: !0, detachOnStarChange: !0 },
+      g = new Map([
+        [
+          o("WAWebMessageAssociation.flow").MessageAssociationType.MEDIA_ALBUM,
+          f,
+        ],
+        [
+          o("WAWebMessageAssociation.flow").MessageAssociationType
+            .POLL_ADD_OPTION,
+          f,
+        ],
+      ]),
+      h = new Set([o("WAWebMsgType").MSG_TYPE.ALBUM]),
+      y = new Map([
         [
           o("WAWebMsgType").MSG_TYPE.ALBUM,
           {
@@ -100,9 +117,10 @@ __d(
           },
         ],
       ]);
-    ((l.getForwardAssociationConfig = e),
-      (l.isForwardContainerMsgType = s),
-      (l.getStarredMessageAssociationPolicy = u));
+    ((l.getChildStarringPolicy = e),
+      (l.getForwardAssociationConfig = s),
+      (l.isForwardContainerMsgType = u),
+      (l.getStarredMessageAssociationPolicy = c));
   },
   98,
 );

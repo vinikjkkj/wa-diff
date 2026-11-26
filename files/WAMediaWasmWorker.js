@@ -432,35 +432,38 @@ __d(
           var t = e.allowlists,
             n = e.hints,
             r = e.input,
-            a = e.qplData,
-            i = e.requestId,
-            l =
-              a != null
+            a = e.logProvenanceDetails,
+            i = e.qplData,
+            l = e.requestId,
+            s =
+              i != null
                 ? o(
                     "WAMediaWasmWorkerQplProxy",
-                  ).continueQplMediaWasmWorkeQplFlow(a.event, a.instanceKey)
+                  ).continueQplMediaWasmWorkeQplFlow(i.event, i.instanceKey)
                 : null,
-            s = await o("WAKaleidoscopeProvenance").detectAiProvenanceFromBytes(
+            u = await o("WAKaleidoscopeProvenance").detectAiProvenanceFromBytes(
               r,
-              l,
+              s,
               n,
               t,
+              { logProvenanceDetails: a },
             );
           return m({
-            provenance: s.provenance,
-            engineErrorCode: s.engineErrorCode,
-            systemProvenance: s.systemProvenance,
+            provenance: u.provenance,
+            engineErrorCode: u.engineErrorCode,
+            systemProvenance: u.systemProvenance,
             input: r,
-            requestId: i,
+            requestId: l,
           });
         })
         .catch(function (t) {
           return (
-            o("WAMediaWasmWorkerMainThreadBridge").sendLogToMainThread(
-              "error",
-              "kaleidoscopeProvenance has runtime-error " +
-                o("WAErrorMessage").maybeGetMessageFromError(t),
-            ),
+            e.logProvenanceDetails &&
+              o("WAMediaWasmWorkerMainThreadBridge").sendLogToMainThread(
+                "error",
+                "kaleidoscopeProvenance has runtime-error " +
+                  o("WAErrorMessage").maybeGetMessageFromError(t),
+              ),
             m({ provenance: null, input: e.input, requestId: e.requestId })
           );
         });
@@ -490,21 +493,24 @@ __d(
           var t = e.fields,
             n = e.hints,
             r = e.input,
-            a = e.requestId,
-            i = await o("WAKaleidoscopeProvenanceWrite").provenanceWrite({
+            a = e.logProvenanceDetails,
+            i = e.requestId,
+            l = await o("WAKaleidoscopeProvenanceWrite").provenanceWrite({
               fields: t,
               hints: n,
               input: r,
+              logProvenanceDetails: a,
             });
-          return p({ output: i, requestId: a });
+          return p({ output: l, requestId: i });
         })
         .catch(function (t) {
           return (
-            o("WAMediaWasmWorkerMainThreadBridge").sendLogToMainThread(
-              "error",
-              "kaleidoscopeProvenanceWrite has runtime-error " +
-                o("WAErrorMessage").maybeGetMessageFromError(t),
-            ),
+            e.logProvenanceDetails &&
+              o("WAMediaWasmWorkerMainThreadBridge").sendLogToMainThread(
+                "error",
+                "kaleidoscopeProvenanceWrite has runtime-error " +
+                  o("WAErrorMessage").maybeGetMessageFromError(t),
+              ),
             p({
               output: o("WAResultOrError").makeError("internal-error"),
               requestId: e.requestId,

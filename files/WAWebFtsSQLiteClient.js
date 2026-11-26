@@ -3,6 +3,7 @@ __d(
   [
     "WAFtsIsSearchQueryEligibleForMessageSearch",
     "WAFtsMultiLangTokenizer",
+    "WAJids",
     "WALogger",
     "WAWebFtsClientMessageIdResolver",
     "WAWebFtsGenRequestId",
@@ -203,62 +204,65 @@ __d(
         }),
         (n.search = async function (t, n) {
           var e,
-            o = Array.from(this.$1.tokenize(t)).filter(
+            a = Array.from(this.$1.tokenize(t)).filter(
               r("WAFtsIsSearchQueryEligibleForMessageSearch"),
             );
-          if (o.length === 0)
+          if (a.length === 0)
             return Promise.resolve({
               canceled: !1,
               eof: !0,
               status: 200,
               messages: [],
             });
-          var a = [
-              o
+          var i = [
+              a
                 .map(function (e) {
                   var t = e.replaceAll('"', '""');
                   return '"' + t + '"*';
                 })
                 .join(" AND "),
             ],
-            i = ["message_fts MATCH ?"],
-            l = n == null ? void 0 : n.remote;
-          l != null && l && (i.push("AND chatId = ?"), a.push(l));
-          var s = n == null ? void 0 : n.limit,
-            u = n == null ? void 0 : n.page,
-            c = null,
-            d =
+            l = ["message_fts MATCH ?"],
+            s = n == null ? void 0 : n.remote;
+          (s != null && s && (l.push("AND chatId = ?"), i.push(s)),
+            (n == null ? void 0 : n.excludeNewsletterChats) === !0 &&
+              (l.push("AND chatId NOT LIKE ?"),
+              i.push("%" + o("WAJids").WA_NEWSLETTER_JID_DOMAIN)));
+          var u = n == null ? void 0 : n.limit,
+            c = n == null ? void 0 : n.page,
+            d = null,
+            m =
               `SELECT t.rowid, t.id, t.chatId, t.timestamp, t.text, rank
       FROM message t JOIN message_fts f ON t.rowid = f.rowid
       WHERE ` +
-              i.join(" ") +
+              l.join(" ") +
               `
       ORDER BY rank`;
-          if (typeof s == "number" && s > 0) {
-            c = s;
-            var m = typeof u == "number" && u > 0 ? u : 1,
-              p = (m - 1) * c;
-            ((d += `
+          if (typeof u == "number" && u > 0) {
+            d = u;
+            var p = typeof c == "number" && c > 0 ? c : 1,
+              _ = (p - 1) * d;
+            ((m += `
       LIMIT ? OFFSET ?`),
-              a.push(String(c), String(p)));
+              i.push(String(d), String(_)));
           }
-          var _ = await this.$7([[d].concat(a)]);
-          if (_ == null || _.length !== 1)
+          var f = await this.$7([[m].concat(i)]);
+          if (f == null || f.length !== 1)
             return Promise.resolve({
               canceled: !1,
               eof: !0,
               status: 404,
               messages: [],
             });
-          var f = ((e = _[0].Rows) != null ? e : []).map(function (e) {
+          var g = ((e = f[0].Rows) != null ? e : []).map(function (e) {
               return {
                 id: String(e[1]),
                 chatId: String(e[2]),
                 timestamp: parseInt(String(e[3]), 10),
               };
             }),
-            g = c == null || f.length < c;
-          return this.$10({ eof: g, status: 200, messages: f });
+            h = d == null || g.length < d;
+          return this.$10({ eof: h, status: 200, messages: g });
         }),
         (n.$10 = async function (t) {
           if (Array.isArray(t) || typeof t == "boolean")

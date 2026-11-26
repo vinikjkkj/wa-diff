@@ -285,8 +285,39 @@ __d(
         e.tipIndex - t.tipIndex
       );
     }
-    function E(e) {
-      return S(e).sort(L);
+    function E(e, t) {
+      if ((e.sort(L), t.length === 0)) return e;
+      var n = new Map(
+          t.map(function (e, t) {
+            return [e, t];
+          }),
+        ),
+        r = t.length,
+        o = function (t) {
+          var e;
+          return typeof t.tip.name == "string" &&
+            (e = n.get(t.tip.name)) != null
+            ? e
+            : r;
+        },
+        a = function (n) {
+          var t = [],
+            r = [];
+          (e.forEach(function (e, o) {
+            e.channelName === "AYMTAMDAnchorlessNUXChannel" &&
+              e.isRequired === n &&
+              (t.push(o), r.push(e));
+          }),
+            r
+              .sort(function (e, t) {
+                return o(e) - o(t);
+              })
+              .forEach(function (n, r) {
+                e[t[r]] = n;
+              }));
+        };
+      for (var i of [!0, !1]) a(i);
+      return e;
     }
     function k(e, t) {
       e != null && t(e);
@@ -329,7 +360,8 @@ __d(
         g = null,
         C = new Set(),
         R = null,
-        x = 0,
+        L = 0,
+        x = null,
         $ = null,
         P = null,
         N = null,
@@ -338,14 +370,14 @@ __d(
         A = null,
         F = null,
         O = null,
-        B = null,
+        B = !1,
         W = !1,
-        q = !1,
+        q = 0,
         U = 0,
-        V = 0,
-        H = !0,
+        V = !0,
+        H = !1,
         G = !1,
-        z = !1,
+        z = [],
         j = new Set(),
         K = y(function () {
           return b(e);
@@ -367,11 +399,11 @@ __d(
       }
       function X() {
         return {
-          bufferedCandidate: N,
+          bufferedCandidate: P,
           currentTipID: g,
-          cycleID: V,
+          cycleID: U,
           dispatchedChannels: Array.from(i),
-          dispatchedTipCount: U,
+          dispatchedTipCount: q,
         };
       }
       y(
@@ -393,40 +425,40 @@ __d(
         return (l != null || (l = e.isV3Enabled()), l);
       }
       function Z() {
-        (k(M, e.clearTimeout), (M = null));
+        (k(N, e.clearTimeout), (N = null));
       }
       function ee() {
-        (k(w, e.clearTimeout), (w = null));
+        (k(M, e.clearTimeout), (M = null));
       }
       function te() {
-        (k(A, e.clearTimeout), (A = null));
+        (k(w, e.clearTimeout), (w = null));
       }
       function ne() {
-        (k(F, e.clearTimeout), (F = null));
+        (k(A, e.clearTimeout), (A = null));
       }
       function re() {
-        M != null ||
+        N != null ||
+          B ||
           W ||
-          q ||
-          (M = e.setTimeout(function () {
-            ((M = null), Se(!0));
+          (N = e.setTimeout(function () {
+            ((N = null), Se(!0));
           }, m));
       }
       function oe() {
-        w != null ||
-          q ||
-          G ||
+        M != null ||
           W ||
-          (w = e.setTimeout(function () {
-            ((w = null), (G = !0), Se());
+          H ||
+          B ||
+          (M = e.setTimeout(function () {
+            ((M = null), (H = !0), Se());
           }, p));
       }
       function ae() {
-        (O == null || O(), (O = null), B == null || B(), (B = null));
+        (F == null || F(), (F = null), O == null || O(), (O = null));
       }
       function ie() {
-        var e = P;
-        ((P = null), e != null && y(e.cancel, void 0));
+        var e = $;
+        (($ = null), e != null && y(e.cancel, void 0));
       }
       function le(t) {
         var n = e.waitForInterruptiveUIToClear;
@@ -439,7 +471,7 @@ __d(
           return;
         }
         var r = { cancel: function () {} };
-        ((P = r),
+        (($ = r),
           y(
             function () {
               return e.bumpCounter == null
@@ -451,10 +483,10 @@ __d(
         var o = null;
         try {
           o = n(function () {
-            P === r && ((P = null), Ce());
+            $ === r && (($ = null), Ce());
           });
         } catch (e) {
-          P === r && ((P = null), Ce());
+          $ === r && (($ = null), Ce());
           return;
         }
         o != null && (r.cancel = o);
@@ -481,9 +513,9 @@ __d(
           (u = 0),
           se(null),
           (R = null),
-          ($ = null),
-          (N = null),
-          (W = !1));
+          (x = null),
+          (P = null),
+          (B = !1));
       }
       function ce() {
         (Q(function (e) {
@@ -494,32 +526,33 @@ __d(
           o.clear(),
           a.clear(),
           i.clear(),
-          (G = !1),
+          (H = !1),
           (l = null),
-          (U = 0),
+          (q = 0),
           j.clear(),
-          (z = !1),
-          V++,
-          (H = !0),
-          (q = !1),
+          (G = !1),
+          (z = []),
+          U++,
+          (V = !0),
+          (W = !1),
           Q(function (e) {
             return e.reset();
           }));
       }
       function de(e, n) {
-        return n !== V || W || q || !t.has(e)
+        return n !== U || B || W || !t.has(e)
           ? !1
           : (a.delete(e), o.delete(e), !0);
       }
       function me(e) {
-        var t = H;
+        var t = V;
         return (
-          (H = !1),
+          (V = !1),
           t &&
             Q(function (e) {
               return e.openCycle();
             }),
-          { cycleID: V, isNewCycle: t }
+          { cycleID: U, isNewCycle: t }
         );
       }
       function pe(e) {
@@ -528,25 +561,25 @@ __d(
             return t.flush("sequence_finished", e, X());
           }),
           ue(),
-          (q = !0),
-          (H = !1));
+          (W = !0),
+          (V = !1));
       }
       function _e(t, n) {
         (te(),
-          (N = null),
-          x++,
+          (P = null),
+          L++,
           (R = t),
           se(t.tipID),
-          ($ = n),
+          (x = n),
           Q(function (e) {
             return e.dispatched(t);
           }),
-          (F = e.setTimeout(function () {
-            ((F = null),
+          (A = e.setTimeout(function () {
+            ((A = null),
               g === t.tipID &&
                 (se(null),
                 (R = null),
-                ($ = null),
+                (x = null),
                 Q(function (e) {
                   return e.outcome(t, "timer_advanced");
                 }),
@@ -558,7 +591,7 @@ __d(
         } catch (n) {
           (ne(),
             se(null),
-            ($ = null),
+            (x = null),
             Q(function (e) {
               return e.outcome(t, "dispatch_threw");
             }),
@@ -568,26 +601,26 @@ __d(
         if (r === !1) {
           (ne(),
             se(null),
-            ($ = null),
+            (x = null),
             Q(function (e) {
               return e.outcome(t, "dispatch_rejected");
             }),
             Ce());
           return;
         }
-        (i.add(t.channelName), U++);
+        (i.add(t.channelName), q++);
       }
       function fe(t) {
         (te(),
-          (N = t),
+          (P = t),
           Q(function (e) {
             return e.outcome(t, "awaiting_dispatcher");
           }),
-          (A = e.setTimeout(function () {
-            N !== t ||
+          (w = e.setTimeout(function () {
+            P !== t ||
               r.has(t.channelName) ||
-              ((A = null),
-              (N = null),
+              ((w = null),
+              (P = null),
               Q(function (e) {
                 return e.outcome(t, "dispatcher_missing");
               }),
@@ -595,7 +628,7 @@ __d(
           }, _)));
       }
       function ge(e) {
-        var t = D(e, N, r);
+        var t = D(e, P, r);
         t != null && (te(), ne(), _e(t.candidate, t.dispatch));
       }
       function he(e) {
@@ -607,10 +640,10 @@ __d(
             t.channelName !== e ||
             g !== t.tipID ||
             n == null ||
-            n === $
+            n === x
           )
         ) {
-          $ = n;
+          x = n;
           try {
             n([t.tip]);
           } catch (e) {}
@@ -618,13 +651,13 @@ __d(
       }
       function ye(a, i) {
         e.setTimeout(function () {
-          i === V &&
+          i === U &&
             (he(a), ge(a), t.has(a) ? Se() : n.has(a) || T(a, n, r, o));
         }, 0);
       }
       function Ce() {
-        if (!(g != null || N != null || P != null)) {
-          if ((ne(), te(), U >= h)) {
+        if (!(g != null || P != null || $ != null)) {
+          if ((ne(), te(), q >= h)) {
             pe("page_cap_reached");
             return;
           }
@@ -655,7 +688,7 @@ __d(
           (ne(),
             se(null),
             (R = null),
-            ($ = null),
+            (x = null),
             Q(function (e) {
               return e.dismissedCurrent();
             }),
@@ -665,13 +698,16 @@ __d(
       function Se(t, n) {
         (t === void 0 && (t = !1),
           n === void 0 && (n = t ? "barrier_timeout" : "all_settled"),
-          !(q || W || (!t && (!G || !Y()))) &&
-            ((W = !0),
+          !(W || B || (!t && (!H || !Y()))) &&
+            ((B = !0),
             Z(),
             ee(),
-            (s = E(o).filter(function (e) {
-              return !j.has(v(e.channelName, e.tipID));
-            })),
+            (s = E(
+              S(o).filter(function (e) {
+                return !j.has(v(e.channelName, e.tipID));
+              }),
+              z,
+            )),
             Q(function (e) {
               return e.sequenceStarted(
                 s,
@@ -684,8 +720,8 @@ __d(
                 }),
               );
             }),
-            (B = e.subscribeToImpressions(be)),
-            (O = e.subscribeToDismissals(ve)),
+            (O = e.subscribeToImpressions(be)),
+            (F = e.subscribeToDismissals(ve)),
             Ce()));
       }
       function Re(e) {
@@ -700,13 +736,15 @@ __d(
             return !j.has(v(e.channelName, e.tipID));
           });
         s = t.concat(
-          s
-            .slice(u)
-            .filter(function (t) {
-              return t.channelName !== e.channelName;
-            })
-            .concat(n)
-            .sort(L),
+          E(
+            s
+              .slice(u)
+              .filter(function (t) {
+                return t.channelName !== e.channelName;
+              })
+              .concat(n),
+            z,
+          ),
         );
       }
       return {
@@ -714,7 +752,7 @@ __d(
           var e = R;
           return g == null || e == null || e.tipID !== g
             ? null
-            : { channelName: e.channelName, deliveryID: x, tipID: e.tipID };
+            : { channelName: e.channelName, deliveryID: L, tipID: e.tipID };
         },
         getCurrentTipID: function () {
           return g;
@@ -729,7 +767,7 @@ __d(
         },
         abortGateSequence: function () {
           try {
-            return ((z = !1), ce(), !0);
+            return ((G = !1), ce(), !0);
           } catch (e) {
             return !1;
           }
@@ -737,15 +775,15 @@ __d(
         offerLateGateResult: function (t, n) {
           n === void 0 && (n = !0);
           try {
-            return z
+            return G
               ? (Re(t),
                 Q(function (e) {
                   return e.noteActivity();
                 }),
-                q && !n
+                W && !n
                   ? !0
-                  : q
-                    ? ((q = !1),
+                  : W
+                    ? ((W = !1),
                       i.delete(t.channelName),
                       Q(function (e) {
                         return e.reset();
@@ -755,43 +793,45 @@ __d(
                       }),
                       Se(!0, "gate_late_result"),
                       !0)
-                    : (W && (Le(t), Ce()), !0))
+                    : (B && (Le(t), Ce()), !0))
               : !1;
           } catch (e) {
             return !1;
           }
         },
-        stageGateSequence: function (t) {
+        stageGateSequence: function (t, n) {
+          n === void 0 && (n = []);
           try {
             (ce(),
-              (H = !1),
+              (z = n),
+              (V = !1),
               Q(function (e) {
                 return e.openCycle();
               }),
-              (z = !0),
-              (G = !0));
+              (G = !0),
+              (H = !0));
             for (var e of t) Re(e);
-            for (var n of c) a.add(n);
+            for (var r of c) a.add(r);
             return (
               Q(function (e) {
                 return e.noteActivity();
               }),
-              V
+              U
             );
           } catch (e) {
-            return ((z = !1), null);
+            return ((G = !1), null);
           }
         },
         startGateSequence: function (t) {
           try {
-            return !z || t !== V ? !1 : (Se(!0, "gate_decided"), W || q);
+            return !G || t !== U ? !1 : (Se(!0, "gate_decided"), B || W);
           } catch (e) {
             return !1;
           }
         },
         addChannelResult: function (i, l, s, u) {
-          u !== V ||
-            q ||
+          u !== U ||
+            W ||
             (o.set(i, { candidates: s, tips: l }),
             Q(function (e) {
               return e.noteActivity();
@@ -807,9 +847,9 @@ __d(
         },
         registerChannel: function (n, i, l) {
           var e;
-          i === V &&
+          i === U &&
             (r.set(n, l),
-            ((e = N) == null ? void 0 : e.channelName) === n && te(),
+            ((e = P) == null ? void 0 : e.channelName) === n && te(),
             t.has(n) && (o.has(n) && a.add(n), re(), oe()),
             ye(n, i));
         },
@@ -948,6 +988,7 @@ __d(
       (l.INTERRUPTIVE_UI_CLEAR_SETTLE_MS = g),
       (l.MAX_DISPATCHED_TIPS_PER_PAGE = h),
       (l.compareRankedCandidates = L),
+      (l.sortRankedCandidates = E),
       (l.createAYMTSequentialDisplayManager = x),
       (l.sendAYMTSequentialCycleRecord = P),
       (l.waitForNUXTourToClear = N),

@@ -26,12 +26,14 @@ __d(
     function c(e) {
       return e.item != null ? e.item.latex_expression : e.latex_expression;
     }
-    function d(t) {
+    function d(t, n) {
       switch (t.__typename) {
         case "GenAICodeUXPrimitive":
           return e(t);
-        case "GenAIMarkdownTextUXPrimitive":
-          return s(t);
+        case "GenAIMarkdownTextUXPrimitive": {
+          var r = s(t);
+          return n == null ? r : n(r);
+        }
         case "GenATableUXPrimitive":
           return u(t);
         case "GenAIBotProgressStatusPrimitive":
@@ -66,22 +68,22 @@ __d(
           ? e.primitives
           : [];
     }
-    function p(e) {
+    function p(e, t) {
       return m(e.view_model)
         .map(function (e) {
-          return d(e);
+          return d(e, t);
         })
         .filter(function (e) {
           return e !== "";
         })
         .join("\n");
     }
-    function _(e) {
+    function _(e, t) {
       if (e == null) return "";
-      var t = e.sections;
-      return t
+      var n = e.sections;
+      return n
         .map(function (e) {
-          return p(e);
+          return p(e, t == null ? void 0 : t.transformMarkdown);
         })
         .filter(function (e) {
           return e !== "";

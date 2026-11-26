@@ -26,10 +26,10 @@ __d(
     "WAWebOpenMediaMissingDialog",
     "WAWebShowMediaNotReadableModal",
     "WAWebTPPdfViewerGatingUtils",
+    "WAWebTPPreloadingUtils",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebWamEnumWebcRmrReasonCode",
-    "cr:11804",
     "cr:7565",
     "getErrorSafe",
     "justknobx",
@@ -416,11 +416,10 @@ __d(
                 (o(
                   "WAWebTPPdfViewerGatingUtils",
                 ).isWebTPPdfViewerEnabledForMimeType(ne) &&
-                  (n("cr:11804") == null ||
-                    n("cr:11804").maybePreloadWebTPIframeForPDFs(void 0, {
-                      source: "pdfPreviewClick",
-                      force: !0,
-                    })),
+                  o("WAWebTPPreloadingUtils").maybePreloadWebTPIframeForPDFs(
+                    void 0,
+                    { source: "pdfPreviewClick", force: !0 },
+                  ),
                   await a.downloadMedia({
                     downloadEvenIfExpensive: Z <= O,
                     rmrReason: o("WAWebWamEnumWebcRmrReasonCode")

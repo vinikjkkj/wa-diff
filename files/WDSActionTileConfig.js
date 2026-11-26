@@ -31,17 +31,22 @@ __d(
     }
     function c() {
       return o("WDSActionTileDefaultConfig.stylex").WDSActionTileIconContainer
+        .iconContainerPressed;
+    }
+    function d() {
+      return o("WDSActionTileDefaultConfig.stylex").WDSActionTileIconContainer
         .iconHoverOverlay;
     }
-    var d = { icon24: { height: "xxk0z11", width: "xvy4d1p", $$css: !0 } };
-    function m() {
-      return [24, d.icon24];
+    var m = { icon24: { height: "xxk0z11", width: "xvy4d1p", $$css: !0 } };
+    function p() {
+      return [24, m.icon24];
     }
     ((l.WDSActionTileStyles = e),
       (l.getButtonSizeStyles = s),
       (l.getIconContainerStyle = u),
-      (l.getIconHoverOverlayStyle = c),
-      (l.getIconSizeAndStyle = m));
+      (l.getIconContainerPressedStyle = c),
+      (l.getIconHoverOverlayStyle = d),
+      (l.getIconSizeAndStyle = p));
   },
   98,
 );

@@ -296,6 +296,8 @@ __d(
       BizMeAccountTypeIsHostedSystemMsgTransition:
         "biz_me_account_type_is_hosted_transition",
       BizAccountTypeIsHostedSystemMsg: "biz_account_type_is_hosted",
+      ChatPrivacyNonE2ee: "chat_privacy_non_e2ee",
+      ChatPrivacyNonE2eeInit: "chat_privacy_non_e2ee_init",
       EventEditDecrypted: "event_edit_decrypted",
       HostedGroup: "is_capi_hosted_group",
       LimitSharingSystemMessage: "limit_sharing_system_message",

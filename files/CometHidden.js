@@ -7,7 +7,7 @@ __d(
       s,
       u = s || (s = o("react")),
       c = s,
-      d = c.unstable_Activity,
+      d = c.Activity,
       m = c.useContext;
     function p(t) {
       var n = t.ref,

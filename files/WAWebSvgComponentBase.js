@@ -48,7 +48,7 @@ __d(
           {
             "data-testid": f,
             "aria-hidden": v,
-            "aria-label": l,
+            "aria-label": l == null ? void 0 : l.toString(),
             ref: c,
             "data-icon": f,
           },

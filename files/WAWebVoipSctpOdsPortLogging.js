@@ -82,7 +82,11 @@ __d(
       h(
         e,
         o("WAWebCoreActionsODS").logCallSctpConnectionCleanedUpPort3478,
-        o("WAWebCoreActionsODS").logCallSctpConnectionCleanedUpPort3480,
+        function () {
+          return r("WAWebODS").incr(
+            "web.call.sctp.connection_cleaned_up.port_3480",
+          );
+        },
       );
     }
     function f(e) {

@@ -8,6 +8,9 @@ __d(
     "WAWebSyncdAction",
     "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
+    "WAWebWamEnumLabelSyncDirectionType",
+    "WAWebWamEnumLabelSyncResultType",
+    "WAWebWamEnumLabelSyncTypeEnum",
     "WAWebWamLabelSyncTrackingReporter",
   ],
   function (t, n, r, o, a, i, l) {
@@ -60,11 +63,11 @@ __d(
                     return (
                       o("WAWebWamLabelSyncTrackingReporter").logLabelSyncEvent(
                         i,
-                        o("WAWebWamLabelSyncTrackingReporter")
-                          .LABEL_SYNC_TYPE_ENUM.LABEL_REORDER,
-                        o("WAWebWamLabelSyncTrackingReporter")
+                        o("WAWebWamEnumLabelSyncTypeEnum").LABEL_SYNC_TYPE_ENUM
+                          .LABEL_REORDER,
+                        o("WAWebWamEnumLabelSyncDirectionType")
                           .LABEL_SYNC_DIRECTION_TYPE.RECEIVER,
-                        o("WAWebWamLabelSyncTrackingReporter")
+                        o("WAWebWamEnumLabelSyncResultType")
                           .LABEL_SYNC_RESULT_TYPE.SKIP_EMPTY_LIST,
                         !1,
                         Date.now(),
@@ -89,11 +92,11 @@ __d(
                   return (
                     o("WAWebWamLabelSyncTrackingReporter").logLabelSyncEvent(
                       l,
-                      o("WAWebWamLabelSyncTrackingReporter")
-                        .LABEL_SYNC_TYPE_ENUM.LABEL_REORDER,
-                      o("WAWebWamLabelSyncTrackingReporter")
+                      o("WAWebWamEnumLabelSyncTypeEnum").LABEL_SYNC_TYPE_ENUM
+                        .LABEL_REORDER,
+                      o("WAWebWamEnumLabelSyncDirectionType")
                         .LABEL_SYNC_DIRECTION_TYPE.RECEIVER,
-                      o("WAWebWamLabelSyncTrackingReporter")
+                      o("WAWebWamEnumLabelSyncResultType")
                         .LABEL_SYNC_RESULT_TYPE.SUCCESS,
                       !1,
                       Date.now(),

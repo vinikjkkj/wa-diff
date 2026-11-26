@@ -13,6 +13,8 @@ __d(
         "biz_me_account_type_is_hosted_transition",
         "biz_account_type_is_hosted",
         "biz_account_type_changed_to_hosted",
+        "chat_privacy_non_e2ee",
+        "chat_privacy_non_e2ee_init",
         "is_capi_hosted_group",
         "support_system_message",
         "group_transition_to_bot_group",

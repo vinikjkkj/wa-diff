@@ -363,10 +363,10 @@ __d(
                 p && h.dragging,
               ),
               {
-                "aria-label": s != null ? k(a, N) : v,
+                "aria-label": s != null ? String(k(a, N)) : v,
                 role: "button",
                 tabIndex: 0,
-                "aria-roledescription": E ? b() : void 0,
+                "aria-roledescription": E ? String(b()) : void 0,
               },
               g != null ? g : {},
               {

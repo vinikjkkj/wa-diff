@@ -29,9 +29,9 @@ __d(
         ? n
         : o("WAWebGetPlainTextFromBotMsg").getPlainTextFromBotMsg(e, t);
     }
-    function c(e, t) {
+    function c(e, t, n) {
       if (t == null) return "";
-      var n = o("WAWebHatchJarvisReplyGate").getHatchJarvisDrawMode({
+      var a = o("WAWebHatchJarvisReplyGate").getHatchJarvisDrawMode({
           chatId: e.id.remote,
           hasForwardedAttribution:
             o("WAWebMsgGetters").getForwardedAiBotMessageInfo(e) != null,
@@ -39,13 +39,23 @@ __d(
           isFromMe: e.id.fromMe,
           unifiedResponse: t,
         }),
-        a =
-          n === "reply"
+        i =
+          a === "reply"
             ? o("WAWebHatchJarvisPayload").getHatchJarvisPayload(t)
             : null;
-      return a != null && a.presentation == null
-        ? o("WAWebHatchJarvisText").getHatchJarvisReplyText(a.displayText)
-        : r("getPlainTextFromUnifiedResponse")(t);
+      if (i != null && i.presentation == null) {
+        var l,
+          s = o("WAWebHatchJarvisText").getHatchJarvisReplyText(i.displayText);
+        return (l =
+          n == null || n.transformMarkdown == null
+            ? void 0
+            : n.transformMarkdown(s)) != null
+          ? l
+          : s;
+      }
+      return n == null
+        ? r("getPlainTextFromUnifiedResponse")(t)
+        : r("getPlainTextFromUnifiedResponse")(t, n);
     }
     ((l.getRichResponseQuoteText = s),
       (l.getRichResponsePreviewText = u),

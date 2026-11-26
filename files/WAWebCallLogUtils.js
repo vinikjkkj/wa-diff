@@ -16,7 +16,6 @@ __d(
     "WAWebProfilePicThumbGetters",
     "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
-    "WAWebVoipBackendCallLogTargetResolver",
     "WAWebVoipConnectingStatus.react",
     "WAWebVoipTransferredCallRegistry",
     "WAWebVoipWaCallEnums",
@@ -534,13 +533,7 @@ __d(
         o("WAWebContactExternalUserState").ExternalUserState.GuestUser
       );
     }
-    ((l.get1x1CallLidOrPnDestination = o(
-      "WAWebVoipBackendCallLogTargetResolver",
-    ).get1x1CallLidOrPnDestination),
-      (l.getCallLogTargetDetails = o(
-        "WAWebVoipBackendCallLogTargetResolver",
-      ).getCallLogTargetDetails),
-      (l.getIsSelfConnected = c),
+    ((l.getIsSelfConnected = c),
       (l.getIsOneToOneCallLog = d),
       (l.getCallParticipantKey = m),
       (l.getIsMissedCallOrNotConnected = p),

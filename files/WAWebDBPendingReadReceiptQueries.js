@@ -36,7 +36,7 @@ __d(
           return (
             a.forEach(function (e, t) {
               var a = s[t];
-              if (!(a == null || l.has(a.id) || !p(a, n, e))) {
+              if (!(a == null || l.has(a.id) || !d(a, n, e))) {
                 var i = o(
                   "WAWebDBReadReceiptOriginBindings",
                 ).getCurrentPendingReadReceiptOrigin(a);
@@ -73,65 +73,19 @@ __d(
           );
         });
     }
-    function c(e, t, n) {
-      var r,
-        a = o(
-          "WAWebDBReadReceiptOriginBindings",
-        ).getCurrentPendingReadReceiptOrigin(e);
-      return t && a != null
-        ? {
-            pendingReadReceiptOrigin: babelHelpers.extends({}, a, {
-              locallyRead: !0,
-              locallyReadAtMs: (r = a.locallyReadAtMs) != null ? r : n,
-            }),
-          }
-        : { pendingReadReceipt: null, pendingReadReceiptOrigin: null };
-    }
-    function d(e) {
-      return o("WAWebModelStorageUtils")
-        .getStorage()
-        .lock(["message"], async function (t) {
-          var n = t[0],
-            r = await n.bulkGet(
-              e.map(function (e) {
-                return e.id;
-              }),
-              !1,
-            ),
-            a = [];
-          (r.forEach(function (t, n) {
-            var r;
-            t != null &&
-              ((r = o(
-                "WAWebDBReadReceiptOriginBindings",
-              ).getCurrentPendingReadReceiptOrigin(t)) == null
-                ? void 0
-                : r.locallyRead) === !0 &&
-              o(
-                "WAWebDBReadReceiptOriginBindings",
-              ).isPendingReadReceiptTargetUnchanged(t, e[n]) &&
-              a.push({
-                id: t.id,
-                pendingReadReceipt: null,
-                pendingReadReceiptOrigin: null,
-              });
-          }),
-            a.length > 0 && (await n.bulkMergeOnly(a)));
-        });
-    }
-    function m(e) {
+    function c(e) {
       return s.has(e.type);
     }
-    function p(e, t, n) {
+    function d(e, t, n) {
       return e.from !== t || e.pendingReadReceipt !== n.pendingType
         ? !1
         : n.pendingType ===
             o("WAWebDBMsgUtils").PendingReadReceiptType.MessageEdit
           ? e.latestEditMsgKey != null &&
             e.latestEditMsgKey === n.latestEditMsgKey
-          : !m(e);
+          : !c(e);
     }
-    async function _(e) {
+    async function m(e) {
       var t = e.MessageTable,
         n = e.chatId,
         r = e.pendingReadReceiptType,
@@ -148,8 +102,8 @@ __d(
             : o("WAWebDBMessageUtils").messageHasThreadId(e, a);
       });
     }
-    function f(e, t, n) {
-      return _({
+    function p(e, t, n) {
+      return m({
         MessageTable: e,
         chatId: t,
         pendingReadReceiptType:
@@ -157,11 +111,11 @@ __d(
         threadId: n,
       });
     }
-    function g(e, t) {
-      return f(o("WAWebSchemaMessage").getMessageTable(), e, t);
+    function _(e, t) {
+      return p(o("WAWebSchemaMessage").getMessageTable(), e, t);
     }
-    function h(e, t, n) {
-      return _({
+    function f(e, t, n) {
+      return m({
         MessageTable: e,
         chatId: t,
         pendingReadReceiptType:
@@ -169,10 +123,10 @@ __d(
         threadId: n,
       });
     }
-    function y(e, t) {
-      return h(o("WAWebSchemaMessage").getMessageTable(), e, t);
+    function g(e, t) {
+      return f(o("WAWebSchemaMessage").getMessageTable(), e, t);
     }
-    async function C(e, t, n, r) {
+    async function h(e, t, n, r) {
       var o, a, i;
       r === void 0 && (r = n);
       var l = n.size;
@@ -206,24 +160,19 @@ __d(
         }
       );
     }
-    ((l.getCarriedPendingReadReceiptOrigin = o(
+    ((l.getCurrentPendingReadReceiptOrigin = o(
       "WAWebDBReadReceiptOriginBindings",
-    ).getCarriedPendingReadReceiptOrigin),
-      (l.getCurrentPendingReadReceiptOrigin = o(
-        "WAWebDBReadReceiptOriginBindings",
-      ).getCurrentPendingReadReceiptOrigin),
+    ).getCurrentPendingReadReceiptOrigin),
       (l.isPendingReadReceiptTargetUnchanged = o(
         "WAWebDBReadReceiptOriginBindings",
       ).isPendingReadReceiptTargetUnchanged),
       (l.claimPendingReadReceiptOrigins = u),
-      (l.getLocallyReadPendingReceiptUpdate = c),
-      (l.clearSentPendingReadReceipts = d),
-      (l.isUnreceiptedMessageRow = m),
-      (l.queryPendingReadReceiptMsgRowsWithTable = f),
-      (l.queryPendingReadReceiptMsgRows = g),
-      (l.queryUnreadEditedMsgRowsWithTable = h),
-      (l.queryUnreadEditedMsgRows = y),
-      (l.updateChatUnreadCountForReadMessages = C));
+      (l.isUnreceiptedMessageRow = c),
+      (l.queryPendingReadReceiptMsgRowsWithTable = p),
+      (l.queryPendingReadReceiptMsgRows = _),
+      (l.queryUnreadEditedMsgRowsWithTable = f),
+      (l.queryUnreadEditedMsgRows = g),
+      (l.updateChatUnreadCountForReadMessages = h));
   },
   98,
 );

@@ -465,12 +465,13 @@ __d(
       );
     }
     function x(e) {
-      return e === null ||
-        typeof e != "object" ||
-        e instanceof Array ||
-        (e.type !== "VISUAL_EDITOR" && e.type !== "JSON_SETUP")
+      return e == null || typeof e != "object" || Array.isArray(e)
         ? "LEGACY_DATA"
-        : e.type;
+        : e.type === "VISUAL_EDITOR"
+          ? "VISUAL_EDITOR"
+          : e.type === "JSON_SETUP"
+            ? "JSON_SETUP"
+            : "LEGACY_DATA";
     }
     function $(e) {
       if (e == null) return null;

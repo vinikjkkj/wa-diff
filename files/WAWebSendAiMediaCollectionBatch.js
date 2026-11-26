@@ -25,7 +25,8 @@ __d(
         a = t.chat,
         i = t.medias,
         l = t.onMsgKeyCreated,
-        s = t.threadId;
+        s = t.pathfinderAccountToken,
+        c = t.threadId;
       if (i.length !== 0) {
         o("WAWebImagineActionLogger").logImagineMediaSendConfirm({
           chat: a,
@@ -36,21 +37,21 @@ __d(
             return e.fileOrigin;
           }),
         });
-        var c = await r("WAWebMsgKey").newId(),
-          d = await o(
+        var d = await r("WAWebMsgKey").newId(),
+          m = await o(
             "WAWebCreateAiMediaCollectionMsgData",
           ).createAiMediaCollectionMsgData({
             botPersonaId: n,
-            collectionId: c,
+            collectionId: d,
             hasGlobalCaption: !1,
             chat: a,
             expectedMediaCount: i.length,
-            threadId: s,
+            threadId: c,
           });
         try {
           await o(
             "WAWebSendAiMediaCollectionEnvelope",
-          ).sendAiMediaCollectionEnvelope(a, d);
+          ).sendAiMediaCollectionEnvelope(a, m);
         } catch (n) {
           (o("WALogger")
             .ERROR(
@@ -65,12 +66,12 @@ __d(
             p(t));
           return;
         }
-        var m = a.composeQuotedMsg;
+        var _ = a.composeQuotedMsg;
         ((a.composeQuotedMsg = null), a.setAttachMediaContents(null));
-        var _ = d.botPersonaId,
-          f = d.botMetricsMetadata,
-          g = d.aiThreadInfo,
-          h = await Promise.allSettled(
+        var f = m.botPersonaId,
+          g = m.botMetricsMetadata,
+          h = m.aiThreadInfo,
+          y = await Promise.allSettled(
             i.map(function (e, t) {
               var n = {
                 type: e.type,
@@ -80,23 +81,24 @@ __d(
                   e.state ===
                     o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE
                       .PROCESSING,
-                botPersonaId: _,
-                threadId: s,
-                aiMediaCollectionInfo: { collectionId: c, uploadOrderIndex: t },
-                botMetricsMetadata: f,
-                aiThreadInfo: g,
+                botPersonaId: f,
+                threadId: c,
+                aiMediaCollectionInfo: { collectionId: d, uploadOrderIndex: t },
+                botMetricsMetadata: g,
+                aiThreadInfo: h,
                 onMsgKeyCreated: l != null ? l : void 0,
+                pathfinderAccountToken: s,
               };
               return (
-                t === 0 && (n.quotedMsg = m),
+                t === 0 && (n.quotedMsg = _),
                 e.sendToChat({ chat: a, options: n })
               );
             }),
           ),
-          y = r("countWhere")(h, function (e) {
+          C = r("countWhere")(y, function (e) {
             return e.status === "fulfilled";
           });
-        y < i.length &&
+        C < i.length &&
           o("WALogger")
             .ERROR(
               u ||
@@ -105,7 +107,7 @@ __d(
                   "/",
                   " child send fail; may buffer",
                 ])),
-              i.length - y,
+              i.length - C,
               i.length,
             )
             .sendLogs("ai-media-collection-child-send-shortfall");

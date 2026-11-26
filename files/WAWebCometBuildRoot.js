@@ -9,12 +9,8 @@ __d(
     "CometRelayEnvironmentFactory",
     "CometTimeSpentEventListener.react",
     "CurrentUser",
-    "JSResourceForInteraction",
     "RelayEnvironmentFactoryProvider",
-    "buildCometRootComponent",
     "buildWAWebCometRouterStateProvider",
-    "justknobx",
-    "lazyLoadComponent",
     "react",
     "shouldUseNonReactTSListeners",
     "useCometRouterState",
@@ -22,86 +18,49 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e,
-      u = e || (e = o("react")),
-      c = r("lazyLoadComponent")(
-        r("JSResourceForInteraction")("WAWebCometAppShellRoot.react").__setRef(
-          "WAWebCometBuildRoot",
-        ),
-      );
-    function d(e, t, n) {
+      u = e || (e = o("react"));
+    function c(e, t, n) {
       var a = r("buildWAWebCometRouterStateProvider")(
-        babelHelpers.extends({}, e, {
-          disableTimeSpentLogging: n,
-          initialLoadTraceId: t,
-          initialTimeSpentMetadata: null,
-          relayEnvironmentFactory: o("CometRelayEnvironmentFactory")
-            .CometRelayEnvironmentFactory,
-        }),
-      );
-      if (m()) {
-        var l = function () {
-            return u.jsx(r("CometErrorBoundary.react"), {
-              context: { project: "comet_platform_root_boundary" },
-              type: "fatal",
-              children: u.jsxs(
-                o("RelayEnvironmentFactoryProvider")
-                  .RelayEnvironmentFactoryProvider,
-                {
-                  factory: o("CometRelayEnvironmentFactory")
-                    .CometRelayEnvironmentFactory,
-                  children: [
-                    u.jsx(a, {
-                      children: u.jsx(o("Actor").ActorProvider, {
-                        initialActorID: s,
-                        readonly: !0,
-                        children: u.jsx(_, {}),
-                      }),
-                    }),
-                    c && u.jsx(r("CometTimeSpentEventListener.react"), {}),
-                  ],
-                },
-              ),
-            });
-          },
-          s = r("CurrentUser").getID(),
-          c = !n && r("shouldUseNonReactTSListeners") !== !0;
-        return ((l.displayName = l.name + " [from " + i.id + "]"), l);
+          babelHelpers.extends({}, e, {
+            disableTimeSpentLogging: n,
+            initialLoadTraceId: t,
+            initialTimeSpentMetadata: null,
+            relayEnvironmentFactory: o("CometRelayEnvironmentFactory")
+              .CometRelayEnvironmentFactory,
+          }),
+        ),
+        l = r("CurrentUser").getID(),
+        s = !n && r("shouldUseNonReactTSListeners") !== !0;
+      function c() {
+        return u.jsx(r("CometErrorBoundary.react"), {
+          context: { project: "comet_platform_root_boundary" },
+          type: "fatal",
+          children: u.jsxs(
+            o("RelayEnvironmentFactoryProvider")
+              .RelayEnvironmentFactoryProvider,
+            {
+              factory: o("CometRelayEnvironmentFactory")
+                .CometRelayEnvironmentFactory,
+              children: [
+                u.jsx(a, {
+                  children: u.jsx(o("Actor").ActorProvider, {
+                    initialActorID: l,
+                    readonly: !0,
+                    children: u.jsx(d, {}),
+                  }),
+                }),
+                s && u.jsx(r("CometTimeSpentEventListener.react"), {}),
+              ],
+            },
+          ),
+        });
       }
-      return o("buildCometRootComponent").buildCometRootComponent(
-        u.jsx(p, {}),
-        {
-          disableTimeSpentLogging: n,
-          initialLoadTraceId: t,
-          relayEnvironmentFactory: o("CometRelayEnvironmentFactory")
-            .CometRelayEnvironmentFactory,
-        },
-        {
-          CometRouterStateProvider: a,
-          OtherRootComponents: {
-            CookieConsentDialog: null,
-            KeyCommandNub: null,
-            Redblock: null,
-            UncaughtErrorFallback: null,
-          },
-          UIStateProviders: null,
-        },
-      );
+      return ((c.displayName = c.name + " [from " + i.id + "]"), c);
     }
-    function m() {
-      return r("justknobx")._("7144");
-    }
-    function p() {
-      return u.jsx(r("CometPlaceholder.react"), {
-        fallback: null,
-        name: i.id,
-        children: u.jsx(c, {}),
-      });
-    }
-    p.displayName = p.name + " [from " + i.id + "]";
-    function _() {
+    function d() {
       var e = r("useCometRouterState")();
       return (
-        e != null || s(0, 191183),
+        e != null || s(0, 197734),
         u.jsx(r("CometPlaceholder.react"), {
           fallback: null,
           name: i.id,
@@ -109,9 +68,8 @@ __d(
         })
       );
     }
-    ((_.displayName = _.name + " [from " + i.id + "]"),
-      (l.buildRootComponent = d),
-      (l.isLeanRouterRoot = m));
+    ((d.displayName = d.name + " [from " + i.id + "]"),
+      (l.buildRootComponent = c));
   },
   98,
 );

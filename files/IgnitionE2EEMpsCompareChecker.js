@@ -3,7 +3,7 @@ __d(
   [
     "EBMessageContentType",
     "EBMinosServerOriginGating",
-    "FBLogger",
+    "IgnitionE2EEDeltaErrors",
     "IgnitionE2EEPaymentMessageCompare",
     "MAWEBLSInWorkerSwitch",
     "MAWMpsMigrationProtobufCorrectnessChecker",
@@ -14,9 +14,9 @@ __d(
     "WAJids",
     "WATimeUtils",
     "WMIQplFlow",
+    "WmiErrorReport",
     "WmiOds",
     "clearTimeout",
-    "getErrorSafe",
     "justknobx",
     "qpl",
     "setTimeout",
@@ -418,10 +418,18 @@ __d(
           $ === "payment_message" && C(a));
       } catch (e) {
         (o("WmiOds").wmiOdsBump("e2ee_ignition_compare", "record_error"),
-          r("FBLogger")("wmi")
-            .tags(["E2EEIgnition"])
-            .catching(r("getErrorSafe")(e))
-            .warn("Ignition compare checker record failed for side %s", t));
+          o("WmiErrorReport").reportWmiError(
+            o("IgnitionE2EEDeltaErrors").IgnitionE2EEDeltaErrors.classify(
+              e,
+              "compare_record",
+              "shadow_compare_failed",
+            ),
+            babelHelpers.extends(
+              {},
+              o("IgnitionE2EEDeltaErrors").IGNITION_E2EE_DELTA_REPORT_SINKS,
+              { loggerSubject: t },
+            ),
+          ));
       }
     }
     function O(e, t) {

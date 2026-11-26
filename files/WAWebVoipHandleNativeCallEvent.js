@@ -46,6 +46,7 @@ __d(
     "WAWebVoipPersistentFS",
     "WAWebVoipQplHelpers",
     "WAWebVoipSctpConnectionManager",
+    "WAWebVoipSctpFallbackFamilyOutcome",
     "WAWebVoipSctpIceTcpFallback",
     "WAWebVoipSignalingEnums",
     "WAWebVoipStackInterface",
@@ -1158,7 +1159,9 @@ __d(
         o("WAWebVoipHardwareInfo").ensureHardwareInfoDetected(),
         o("WAWebVoipErrorLogUpload").resetReconnectingStateForNewCall(),
         o("WAWebVoipTransportFallbackTracker").resetFallbackTracker(),
-        o("WAWebVoipSctpConnectionManager").resetSctpFallbackFamilyOutcome(),
+        o(
+          "WAWebVoipSctpFallbackFamilyOutcome",
+        ).resetSctpFallbackFamilyOutcome(),
         o(
           "WAWebVoipWebTransportConnectionManager",
         ).resetFallbackStateForNewCall(),
@@ -1193,7 +1196,9 @@ __d(
           (o("WAWebVoipFocusTracker").stopVoipFocusTracking(),
           o("WAWebVoipTransportFallbackTracker").finalizeFallbackOutcome(),
           o("WAWebVoipGatingUtils").resetWebTransportFallbackState(),
-          o("WAWebVoipSctpConnectionManager").reportSctpFallbackFamilyOutcome(),
+          o(
+            "WAWebVoipSctpFallbackFamilyOutcome",
+          ).reportSctpFallbackFamilyOutcome(),
           o(
             "WAWebVoipSctpConnectionManager",
           ).resetWebTransportSctpWarmStandbyAtCallBoundary(),
@@ -1800,13 +1805,7 @@ __d(
           ));
       }
     }
-    ((l.requestStoredFieldstatsSend = o(
-      "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
-    ).requestStoredFieldstatsSend),
-      (l.sendStoredFieldstats = o(
-        "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
-      ).sendStoredFieldstats),
-      (l.handleWAWebVoipNativeCallEvent = be));
+    l.handleWAWebVoipNativeCallEvent = be;
   },
   98,
 );

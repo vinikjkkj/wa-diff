@@ -34,6 +34,7 @@ __d(
         s.MSG_TYPE.LIST,
         s.MSG_TYPE.LOCATION,
         s.MSG_TYPE.MULTI_VCARD,
+        s.MSG_TYPE.MUSIC,
         s.MSG_TYPE.ORDER,
         s.MSG_TYPE.PAYMENT,
         s.MSG_TYPE.POLL_CREATION,
@@ -114,105 +115,106 @@ __d(
       return r("isEmptyObject")(a) ? null : a;
     }
     async function f(t) {
-      var n, a, i, l, s, u, m, f, g, h, y, C, b, v, S, R, L, E, k, I, T;
+      var n, a, i, l, s, u, m, f, h, y, C, b, v, S, R, L, E, k, I, T, D;
       if (t == null || !p(t)) return null;
-      var D = await o("WAWebSchemaMessage")
+      var x = await o("WAWebSchemaMessage")
           .getMessageTable()
           .postflightDecryptSingleRecord(t),
-        x = r("nullthrows")(r("WAWebParseMsgKeyString")(D.id)),
-        $ = x.remote;
-      if ($ === "status@broadcast") return null;
-      var P = o("decodeProtobuf").decodeProtobuf(
+        $ = r("nullthrows")(r("WAWebParseMsgKeyString")(x.id)),
+        P = $.remote;
+      if (P === "status@broadcast") return null;
+      var N = o("decodeProtobuf").decodeProtobuf(
           o("WAWebProtobufsMdStorageMsgRowOpaqueData.pb").MsgRowOpaqueDataSpec,
-          D.msgRowOpaqueData,
+          x.msgRowOpaqueData,
         ),
-        N =
-          (n = (a = P.currentMsg) == null ? void 0 : a.pollOptions) != null
+        M =
+          (n = (a = N.currentMsg) == null ? void 0 : a.pollOptions) != null
             ? n
             : [],
-        M =
+        w =
           (i =
-            (l = P.currentMsg) == null || (l = l.pollVotesSnapshot) == null
+            (l = N.currentMsg) == null || (l = l.pollVotesSnapshot) == null
               ? void 0
               : l.pollVotes) != null
             ? i
             : [],
-        w = [
-          (s = P.currentMsg) == null ? void 0 : s.title,
-          (u = P.currentMsg) == null ? void 0 : u.description,
-          (m = P.currentMsg) == null ? void 0 : m.caption,
-          (f = P.currentMsg) == null ? void 0 : f.vcardFormattedName,
-          (g = P.currentMsg) == null || (g = g.list) == null ? void 0 : g.title,
-          (h = P.currentMsg) == null || (h = h.list) == null
+        A = [
+          (s = N.currentMsg) == null ? void 0 : s.title,
+          (u = N.currentMsg) == null ? void 0 : u.description,
+          (m = N.currentMsg) == null ? void 0 : m.caption,
+          (f = N.currentMsg) == null ? void 0 : f.vcardFormattedName,
+          (h = N.currentMsg) == null || (h = h.list) == null ? void 0 : h.title,
+          (y = N.currentMsg) == null || (y = y.list) == null
             ? void 0
-            : h.description,
-          (y = P.currentMsg) == null ? void 0 : y.pollName,
-          (C = P.currentMsg) == null ? void 0 : C.eventName,
-          (b = P.currentMsg) == null ? void 0 : b.sharableEventInviteTitle,
-          (v = P.currentMsg) == null ? void 0 : v.sharableEventInviteCaption,
+            : y.description,
+          (C = N.currentMsg) == null ? void 0 : C.pollName,
+          (b = N.currentMsg) == null ? void 0 : b.eventName,
+          (v = N.currentMsg) == null ? void 0 : v.sharableEventInviteTitle,
+          (S = N.currentMsg) == null ? void 0 : S.sharableEventInviteCaption,
         ]
           .concat(
-            N.map(function (e) {
+            M.map(function (e) {
               return e.name;
             }),
-            M.map(function (e) {
+            w.map(function (e) {
               var t = e.option;
               return t == null ? void 0 : t.name;
             }),
             [
-              D.vcardFormattedName,
-              D.message,
-              (S = D.list) == null ? void 0 : S.title,
-              (R = D.list) == null ? void 0 : R.description,
-              (L = D.interactiveHeader) == null ? void 0 : L.title,
-              (E = D.interactiveHeader) == null ? void 0 : E.subtitle,
-              D.filename,
-              D.stickerPackPublisher,
+              x.vcardFormattedName,
+              x.message,
+              (R = x.list) == null ? void 0 : R.title,
+              (L = x.list) == null ? void 0 : L.description,
+              (E = x.interactiveHeader) == null ? void 0 : E.title,
+              (k = x.interactiveHeader) == null ? void 0 : k.subtitle,
+              x.filename,
+              x.stickerPackPublisher,
             ],
+            g(t.type, N.currentMsg),
           )
           .filter(Boolean);
       (t.type === o("WAWebMsgType").MSG_TYPE.AUTOMATED_GREETING_MESSAGE &&
-        ((k = D.ctwaContext) == null ? void 0 : k.greetingMessageBody) !=
+        ((I = x.ctwaContext) == null ? void 0 : I.greetingMessageBody) !=
           null &&
-        w.push(D.ctwaContext.greetingMessageBody),
+        A.push(x.ctwaContext.greetingMessageBody),
         !c.has(t.type) &&
-          ((I = P.currentMsg) == null ? void 0 : I.body) != null &&
-          P.currentMsg.body !== "" &&
-          w.push(P.currentMsg.body),
+          ((T = N.currentMsg) == null ? void 0 : T.body) != null &&
+          N.currentMsg.body !== "" &&
+          A.push(N.currentMsg.body),
         d.has(t.type) &&
-          D.footer != null &&
-          D.footer !== "" &&
-          w.push(D.footer));
-      var A = (T = D.bloksWidget) == null ? void 0 : T.fallback;
+          x.footer != null &&
+          x.footer !== "" &&
+          A.push(x.footer));
+      var F = (D = x.bloksWidget) == null ? void 0 : D.fallback;
       if (
-        (A != null && A !== "" && w.push(A),
-        D.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
-          D.nativeFlowName ===
+        (F != null && F !== "" && A.push(F),
+        x.type === o("WAWebMsgType").MSG_TYPE.INTERACTIVE &&
+          x.nativeFlowName ===
             r("WAWebInteractiveMessagesNativeFlowName").ORDER_STATUS)
       ) {
-        var F = o("WAWebOrderStatusButton").getOrderStatusButton(D);
-        if (F != null) {
-          var O, B;
-          w.push.apply(
-            w,
+        var O = o("WAWebOrderStatusButton").getOrderStatusButton(x);
+        if (O != null) {
+          var B, W;
+          A.push.apply(
+            A,
             [
-              F.reference_id,
-              F.order.status,
-              F.order.shipping_method,
-              (O = F.order.tracking) == null ? void 0 : O.courier_name,
-              (B = F.order.tracking) == null ? void 0 : B.tracking_ref,
+              O.reference_id,
+              O.order.status,
+              O.order.shipping_method,
+              (B = O.order.tracking) == null ? void 0 : B.courier_name,
+              (W = O.order.tracking) == null ? void 0 : W.tracking_ref,
             ].filter(Boolean),
           );
         }
       }
       if (t.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE) {
-        if (D.unifiedResponse != null) {
-          var W = r("getPlainTextFromUnifiedResponse")(D.unifiedResponse);
-          W !== "" && w.push(W);
+        if (x.unifiedResponse != null) {
+          var q = r("getPlainTextFromUnifiedResponse")(x.unifiedResponse);
+          q !== "" && A.push(q);
         }
-        if (D.richResponse != null) {
-          var q = r("WAWebCompactMapString")(
-            D.richResponse.fragments,
+        if (x.richResponse != null) {
+          var U = r("WAWebCompactMapString")(
+            x.richResponse.fragments,
             function (e) {
               return e.type ===
                 o("WAWebRichResponse.flow").RichResponseFragmentType.Text
@@ -227,20 +229,20 @@ __d(
                   : null;
             },
           );
-          q.length > 0 &&
-            w.push(
-              q.join(`
+          U.length > 0 &&
+            A.push(
+              U.join(`
 `),
             );
         }
       }
       try {
-        var U = await _(D);
-        if (U != null)
-          for (var V = 0; V < w.length; V++) {
-            var H = w[V];
-            for (var G of Object.keys(U)) H = H.replaceAll(G, U[G]);
-            w[V] = H;
+        var V = await _(x);
+        if (V != null)
+          for (var H = 0; H < A.length; H++) {
+            var G = A[H];
+            for (var z of Object.keys(V)) G = G.replaceAll(z, V[z]);
+            A[H] = G;
           }
       } catch (t) {
         o("WALogger")
@@ -254,11 +256,20 @@ __d(
           )
           .sendLogs("mention-search");
       }
-      return w.length === 0
+      return A.length === 0
         ? null
-        : { id: String(D.rowId), chatId: $, timestamp: D.t, textFragments: w };
+        : { id: String(x.rowId), chatId: P, timestamp: x.t, textFragments: A };
     }
-    async function g(e) {
+    function g(e, t) {
+      var n, r;
+      return e !== o("WAWebMsgType").MSG_TYPE.MUSIC
+        ? []
+        : [
+            t == null || (n = t.musicData) == null ? void 0 : n.title,
+            t == null || (r = t.musicData) == null ? void 0 : r.author,
+          ];
+    }
+    async function h(e) {
       for (var t = [], n = 0; n < e.length; n++) {
         var r = await f(e[n]);
         (t.push(r),
@@ -266,7 +277,7 @@ __d(
       }
       return t;
     }
-    var h = (function () {
+    var y = (function () {
       function e() {}
       var t = e.prototype;
       return (
@@ -285,7 +296,7 @@ __d(
             a = await o("WAWebSchemaMessage")
               .getMessageTable()
               .anyOf(["rowId"], n, { shouldDecrypt: !1 }),
-            i = await g(a),
+            i = await h(a),
             l = await m(i);
           return (
             l.forEach(function (e) {
@@ -321,7 +332,7 @@ __d(
                 shouldDecrypt: e,
               });
           if (r.length === 0) return null;
-          var a = await g(r);
+          var a = await h(r);
           return m(a);
         }),
         (t.getAll = async function (t) {
@@ -334,7 +345,7 @@ __d(
                 shouldDecrypt: e,
               });
           if (n.length === 0) return null;
-          var r = await g(n);
+          var r = await h(n);
           return m(r);
         }),
         (t.size = function () {
@@ -343,7 +354,7 @@ __d(
         e
       );
     })();
-    l.default = h;
+    l.default = y;
   },
   98,
 );

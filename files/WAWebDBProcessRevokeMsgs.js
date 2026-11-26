@@ -10,8 +10,10 @@ __d(
     "WAWebCoexV2RevokeRetention",
     "WAWebCoexV2StoredRevokeAuthorization",
     "WAWebDBAssociatedMsgsAttachDetachAPI",
+    "WAWebDBRemoveMsgsAndUpdateChats",
     "WAWebDBReportingTokenUtils",
     "WAWebDBStoreRevokeMsgs",
+    "WAWebInstantMsgTypes",
     "WAWebLidMigrationUtils",
     "WAWebModelStorageUtils",
     "WAWebMsgGetters",
@@ -39,28 +41,32 @@ __d(
       g,
       h,
       y,
-      C = (e = n("cr:375")) != null ? e : {},
-      b = C.ftsLightClient;
-    async function v(e) {
-      await S(e);
+      C,
+      b,
+      v = (e = n("cr:375")) != null ? e : {},
+      S = v.ftsLightClient;
+    async function R(e) {
+      await L(e);
     }
-    async function S(e) {
+    async function L(e) {
       var t = new Set(),
-        n = new Set(
+        n = new Set(),
+        a = [],
+        i = new Set(
           e.map(function (e) {
             return e.revokeMsgKey.toString();
           }),
         ),
-        a = [],
-        i = [],
-        l = new Map(),
-        C = new Map(),
-        v = [],
-        S = [],
-        k = [],
-        I = [],
-        T = [],
-        D = e.filter(function (e) {
+        l = [],
+        C = [],
+        b = new Map(),
+        v = new Map(),
+        R = [],
+        L = [],
+        x = [],
+        $ = [],
+        P = [],
+        N = e.filter(function (e) {
           var t = e.newMsgKey,
             n = e.revokeMsgKey,
             o = e.subtype,
@@ -69,19 +75,19 @@ __d(
             o === "admin_revoke"
               ? !r("WAWebWid").isGroup(n.remote) &&
                 !r("WAWebWid").isNewsletter(n.remote)
-                ? ((a = !1), k.length < 3 && k.push(String(n)))
+                ? ((a = !1), x.length < 3 && x.push(String(n)))
                 : r("WAWebWid").equals(n.remote, t.remote) ||
-                  ((a = !1), I.length < 3 && I.push(String(n)))
-              : ((a = R(e)),
+                  ((a = !1), $.length < 3 && $.push(String(n)))
+              : ((a = k(e)),
                 a ||
-                  (T.length < 3 &&
-                    T.push({ revokeMsgKey: String(n), newMsgKey: String(t) }),
-                  C.set(e.revokeMsgKey.id, e))),
+                  (P.length < 3 &&
+                    P.push({ revokeMsgKey: String(n), newMsgKey: String(t) }),
+                  v.set(e.revokeMsgKey.id, e))),
             a
           );
         });
       if (
-        (k.length > 0 &&
+        (x.length > 0 &&
           (o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -89,8 +95,8 @@ __d(
                 " revokeMsgKeys have not been revoked => ",
                 "",
               ])),
-            k.length,
-            k,
+            x.length,
+            x,
           ),
           o("WALogger")
             .WARN(
@@ -100,7 +106,7 @@ __d(
                 ])),
             )
             .sendLogs("process-admin-revoke-message")),
-        I.length > 0 &&
+        $.length > 0 &&
           (o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -108,8 +114,8 @@ __d(
                 " revokes skipped (diff group) => ",
                 "",
               ])),
-            I.length,
-            I,
+            $.length,
+            $,
           ),
           o("WALogger")
             .WARN(
@@ -119,7 +125,7 @@ __d(
                 ])),
             )
             .sendLogs("process-admin-revoke-message")),
-        T.length > 0 &&
+        P.length > 0 &&
           (o("WALogger").LOG(
             m ||
               (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -127,8 +133,8 @@ __d(
                 " invalid revoke requests => ",
                 "",
               ])),
-            T.length,
-            T.map(function (e) {
+            P.length,
+            P.map(function (e) {
               return e.revokeMsgKey;
             }),
           ),
@@ -138,15 +144,15 @@ __d(
                 "processRevokeMsgs: retry invalid revokes as bot invoker",
               ])),
           )),
-        C.size > 0)
+        v.size > 0)
       )
         try {
-          var x,
-            $ = Array.from(C.entries()),
-            P = $.map(function (e) {
+          var M,
+            w = Array.from(v.entries()),
+            A = w.map(function (e) {
               return e[1].revokeMsgKey.toString();
             }),
-            N = $.map(function (e) {
+            F = w.map(function (e) {
               var t;
               return (t = o("WAWebLidMigrationUtils").getAlternateMsgKey(
                 e[1].revokeMsgKey,
@@ -154,14 +160,14 @@ __d(
                 ? void 0
                 : t.toString();
             }),
-            M = await o("WAWebSchemaMessage")
+            O = await o("WAWebSchemaMessage")
               .getMessageTable()
-              .bulkGet([].concat(P, N), !1);
-          (M.forEach(function (e) {
+              .bulkGet([].concat(A, F), !1);
+          (O.forEach(function (e) {
             var t = !1;
             if (e != null) {
               var n = r("WAWebMsgKey").from(e.id),
-                a = C.get(n.id);
+                a = v.get(n.id);
               if (a != null) {
                 var i = a.newMsgKey,
                   l = a.sender,
@@ -198,22 +204,22 @@ __d(
                             (t = !0)),
                       t)
                     ) {
-                      v.push(a);
+                      R.push(a);
                       var p = e.botResponseTargetId,
                         _ = e.internalId;
                       (d || m) &&
                         _ != null &&
                         p != null &&
-                        S.push([a, { internalId: _, targetId: p }]);
+                        L.push([a, { internalId: _, targetId: p }]);
                     }
                   }
                 }
               }
             }
           }),
-            (x = D).push.apply(x, v));
+            (M = N).push.apply(M, R));
         } catch (e) {
-          var w = r("getErrorSafe")(e);
+          var B = r("getErrorSafe")(e);
           o("WALogger")
             .ERROR(
               _ ||
@@ -221,43 +227,43 @@ __d(
                   "Store Revoked Msg: re-validate bot revoke failed",
                 ])),
             )
-            .catching(w)
+            .catching(B)
             .sendLogs("Re-validate revoke failed");
         }
-      var A = new Set(D),
-        F = await o(
+      var W = new Set(N),
+        q = await o(
           "WAWebCoexV2StoredRevokeAuthorization",
         ).authorizeCoexV2RevokeMsgInfos(e);
-      D = F.filterAuthorizedRevokeMsgInfos(A);
-      var O = await F.deferEarlyRevokes(A, n);
-      O.length > 0 &&
+      N = q.filterAuthorizedRevokeMsgInfos(W);
+      var U = await q.deferEarlyRevokes(W, i);
+      U.length > 0 &&
         (await o("WAWebApiOrphanRevoke").addOrphanRevokes(
-          O.map(function (e) {
+          U.map(function (e) {
             var t = e[0],
               n = e[1];
-            return babelHelpers.extends({}, E(t, n), {
+            return babelHelpers.extends({}, T(t, n), {
               requiresTargetAuthorization: !0,
             });
           }),
         ));
-      var B = await o(
+      var V = await o(
           "WAWebCoexV2RevokeRetention",
         ).retainCoexV2BotSecretsForAuthorizedRevokes(
-          D,
-          F.resolvedTargetMsgKeys,
+          N,
+          q.resolvedTargetMsgKeys,
         ),
-        W = S.filter(function (e) {
+        H = L.filter(function (e) {
           var t = e[0];
-          return !F.coexV2RevokeMsgInfos.has(t);
+          return !q.coexV2RevokeMsgInfos.has(t);
         }).map(function (e) {
           var t = e[1];
           return t;
         });
-      if (W.length > 0)
+      if (H.length > 0)
         try {
-          await o("WAWebDBStoreRevokeMsgs").findAndDeleteAssociatedPluginMsg(W);
+          await o("WAWebDBStoreRevokeMsgs").findAndDeleteAssociatedPluginMsg(H);
         } catch (e) {
-          var q = r("getErrorSafe")(e);
+          var G = r("getErrorSafe")(e);
           o("WALogger")
             .ERROR(
               f ||
@@ -265,279 +271,282 @@ __d(
                   "Store Revoked Msg: delete associated carousel revoke failed",
                 ])),
             )
-            .catching(q)
+            .catching(G)
             .sendLogs("Plugin carousel delete revoke failed");
         }
-      var U = [],
-        V = new Set(),
-        H = await Promise.all([
-          o("WAWebModelStorageUtils")
-            .getStorage()
-            .lock(["message", "message-association"], async function (e) {
-              var n = e[0],
-                s = e[1],
-                u = D.map(function (e) {
-                  var t;
-                  return (t = F.resolvedTargetMsgKeys.get(
-                    e.revokeMsgKey.toString(),
-                  )) != null
-                    ? t
-                    : e.revokeMsgKey;
+      var z = [],
+        j = new Set(),
+        K = o("WAWebModelStorageUtils")
+          .getStorage()
+          .lock(["message", "message-association"], async function (e) {
+            var i = e[0],
+              s = e[1],
+              u = N.map(function (e) {
+                var t;
+                return (t = q.resolvedTargetMsgKeys.get(
+                  e.revokeMsgKey.toString(),
+                )) != null
+                  ? t
+                  : e.revokeMsgKey;
+              }),
+              c = u.map(o("WAWebLidMigrationUtils").getAlternateMsgKey),
+              d = [].concat(
+                u,
+                c,
+                N.map(function (e) {
+                  return e.newMsgKey;
                 }),
-                c = u.map(o("WAWebLidMigrationUtils").getAlternateMsgKey),
-                d = [].concat(
-                  u,
-                  c,
-                  D.map(function (e) {
-                    return e.newMsgKey;
-                  }),
-                ),
-                m = await o(
-                  "WAWebDBAssociatedMsgsAttachDetachAPI",
-                ).getAssociatedMsgsByParentMsgKeyFromAssociationTable(
-                  d.filter(Boolean),
-                ),
-                p = o(
-                  "WAWebDBAssociatedMsgsAttachDetachAPI",
-                ).getValidAssociatedMsgs(
-                  m,
-                  o("WAWebDBAssociatedMsgsAttachDetachAPI").ViewModeUpdateType
-                    .Detach,
-                ),
-                _ = p.map(function (e) {
-                  return e.msgKey;
+              ),
+              m = await o(
+                "WAWebDBAssociatedMsgsAttachDetachAPI",
+              ).getAssociatedMsgsByParentMsgKeyFromAssociationTable(
+                d.filter(Boolean),
+              ),
+              p = o(
+                "WAWebDBAssociatedMsgsAttachDetachAPI",
+              ).getValidAssociatedMsgs(
+                m,
+                o("WAWebDBAssociatedMsgsAttachDetachAPI").ViewModeUpdateType
+                  .Detach,
+              ),
+              _ = p.map(function (e) {
+                return e.msgKey;
+              }),
+              f = [].concat(
+                d.map(function (e) {
+                  return e ? e.toString() : "";
                 }),
-                f = [].concat(
-                  d.map(function (e) {
-                    return e ? e.toString() : "";
-                  }),
-                  _,
+                _,
+              ),
+              v = await i.bulkGet(f, !1),
+              S = [],
+              R = N.length,
+              L = v.slice(0, R),
+              E = v.slice(R, R * 2),
+              k = v.slice(R * 2, R * 3),
+              T = v.slice(R * 3).filter(Boolean),
+              x = [],
+              $ = [],
+              P = [];
+            if (
+              (N.forEach(function (e, i) {
+                var s,
+                  u = (s = L[i]) != null ? s : E[i],
+                  c = k[i];
+                if (u == null) {
+                  ($.length < 3 && $.push(String(e.revokeMsgKey)), S.push(e));
+                  return;
+                }
+                var d = r("WAWebMsgKey").fromString(u.id);
+                if (
+                  e.skipRevokeWindow !== !0 &&
+                  !o("WAWebRevoke").canRevokeOutsideWindow({
+                    associationType: u.associationType,
+                    revokedMsgKey: d,
+                    subtype: e.subtype,
+                  }) &&
+                  !o("WAWebRevoke").isWithinRevokeWindow({
+                    revokedMsgKey: d,
+                    revokedMsgTimestamp: u.t,
+                    revokeTimestamp: e.revokeTimestamp,
+                  })
+                ) {
+                  (q.recordRejectedRevoke(e),
+                    P.length < 3 && P.push(String(e.revokeMsgKey)));
+                  return;
+                }
+                if (
+                  (q.recordAcceptedRevoke(e),
+                  o("WAWebInstantMsgTypes").isInstantMsgType(u.type))
+                ) {
+                  (n.add(u.id), a.push(D(u, e, c)));
+                  return;
+                }
+                (t.add(u.id),
+                  C.push(String(u.rowId)),
+                  u.associationType != null &&
+                    z.push([u.id, u.associationType]));
+                var m = D(u, e, c);
+                if (
+                  (l.push(m), o("WAWebMsgGetters").getIsImportantMessage(u))
+                ) {
+                  var p = r("WAWebMsgKey").fromString(u.id),
+                    _ = p.remote.toString();
+                  if (b.has(_)) {
+                    var f,
+                      g = (f = b.get(_)) != null ? f : [];
+                    b.set(_, [].concat(g, [u.id]));
+                  } else b.set(_, [u.id]);
+                }
+              }),
+              $.length > 0 &&
+                o("WALogger").LOG(
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                      "processRevokeMsg: ",
+                      " revokes are orphan or addon => ",
+                      "",
+                    ])),
+                  S.length,
+                  $,
                 ),
-                C = await n.bulkGet(f, !1),
-                b = [],
-                v = D.length,
-                S = C.slice(0, v),
-                R = C.slice(v, v * 2),
-                E = C.slice(v * 2, v * 3),
-                k = C.slice(v * 3).filter(Boolean),
-                I = [],
-                T = [],
-                x = [];
-              if (
-                (D.forEach(function (e, n) {
-                  var s,
-                    u,
-                    c = (s = S[n]) != null ? s : R[n],
-                    d = E[n];
-                  if (c == null) {
-                    (T.length < 3 && T.push(String(e.revokeMsgKey)), b.push(e));
-                    return;
-                  }
-                  var m = r("WAWebMsgKey").fromString(c.id);
-                  if (
-                    e.skipRevokeWindow !== !0 &&
-                    !o("WAWebRevoke").canRevokeOutsideWindow({
-                      associationType: c.associationType,
-                      revokedMsgKey: m,
-                      subtype: e.subtype,
-                    }) &&
-                    !o("WAWebRevoke").isWithinRevokeWindow({
-                      revokedMsgKey: m,
-                      revokedMsgTimestamp: c.t,
-                      revokeTimestamp: e.revokeTimestamp,
-                    })
-                  ) {
-                    (F.recordRejectedRevoke(e),
-                      x.length < 3 && x.push(String(e.revokeMsgKey)));
-                    return;
-                  }
-                  (F.recordAcceptedRevoke(e),
-                    t.add(c.id),
-                    i.push(String(c.rowId)),
-                    c.associationType != null &&
-                      U.push([c.id, c.associationType]));
-                  var p = o("WAWebRevoke").getMsgKeyAfterRevoke({
-                      originalKey: r("WAWebMsgKey").from(c.id),
-                      revokeKey: e.newMsgKey,
-                    }),
-                    _ = {
-                      id: p.toString(),
-                      ack: c.ack,
-                      to: c.to,
-                      author: c.author,
-                      type: o("WAWebMsgType").MSG_TYPE.REVOKED,
-                      subtype:
-                        e.subtype === "admin_revoke" ? "admin" : "sender",
-                      revokeSender: e.sender,
-                      protocolMessageKey: c.id,
-                      protocolMessageRowId: d == null ? void 0 : d.rowId,
-                      from: c.from,
-                      t: c.t,
-                      rowId: c.rowId,
-                      internalId: c.internalId,
-                      messageRangeIndex: c.messageRangeIndex,
-                      revokeTimestamp: e.revokeTimestamp,
-                      disappearingModeInitiator: c.disappearingModeInitiator,
-                      ephemeralDuration: c.ephemeralDuration,
-                      ephemeralSettingTimestamp: c.ephemeralSettingTimestamp,
-                      viewMode: o("WAWebViewModeUtils").getRevokedViewMode({
-                        associationType: c.associationType,
-                        incomingViewMode:
-                          (u = e.viewMode) != null ? u : c.viewMode,
-                        msgType: c.type,
-                        storedViewMode: c.viewMode,
-                      }),
-                    };
-                  if (
-                    (a.push(_), o("WAWebMsgGetters").getIsImportantMessage(c))
-                  ) {
-                    var f = r("WAWebMsgKey").fromString(c.id),
-                      g = f.remote.toString();
-                    if (l.has(g)) {
-                      var h,
-                        y = (h = l.get(g)) != null ? h : [];
-                      l.set(g, [].concat(y, [c.id]));
-                    } else l.set(g, [c.id]);
-                  }
+              P.length > 0 &&
+                o("WALogger").LOG(
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                      "processRevokeMsgs: ",
+                      " revokes outside window => ",
+                      "",
+                    ])),
+                  P.length,
+                  P,
+                ),
+              T != null && T.length)
+            ) {
+              var M = I(t),
+                w = T.filter(function (e) {
+                  return !o(
+                    "WAWebAssociationProcessor",
+                  ).isChildDeletedOnParentRevoke(e.associationType);
                 }),
-                T.length > 0 &&
-                  o("WALogger").LOG(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
-                        "processRevokeMsg: ",
-                        " revokes are orphan or addon => ",
-                        "",
-                      ])),
-                    b.length,
-                    T,
-                  ),
-                x.length > 0 &&
-                  o("WALogger").LOG(
-                    h ||
-                      (h = babelHelpers.taggedTemplateLiteralLoose([
-                        "processRevokeMsgs: ",
-                        " revokes outside window => ",
-                        "",
-                      ])),
-                    x.length,
-                    x,
-                  ),
-                k != null && k.length)
-              ) {
-                var $ = L(t),
-                  P = k.filter(function (e) {
-                    return !o(
-                      "WAWebAssociationProcessor",
-                    ).isChildDeletedOnParentRevoke(e.associationType);
-                  }),
-                  N = k.filter(function (e) {
-                    return (
-                      o(
-                        "WAWebAssociationProcessor",
-                      ).isChildDeletedOnParentRevoke(e.associationType) &&
-                      e.parentMsgKey != null &&
-                      $.has(e.parentMsgKey)
-                    );
-                  });
-                N.forEach(function (e) {
-                  (t.add(e.id),
-                    V.add(e.id),
-                    e.rowId != null && i.push(String(e.rowId)));
-                });
-                var M = o("WAWebDBAssociatedMsgsAttachDetachAPI")
-                  .getDetachedForeverAssociatedMsgs(P)
-                  .filter(Boolean);
-                (M.forEach(function (e) {
-                  e != null && !t.has(e.id) && I.push(e);
-                }),
-                  [].concat(P, N).forEach(function (e) {
-                    U.push([e.id, e.associationType]);
-                  }),
-                  o("WAWebBackendApi").frontendFireAndForget(
-                    "detachAssociatedMsgsForever",
-                    {
-                      msgIds: M.map(function (e) {
-                        return e.id;
-                      }),
-                    },
-                  ));
-              }
-              var w = a.filter(function (e) {
+                A = T.filter(function (e) {
                   return (
-                    e.protocolMessageKey == null || !V.has(e.protocolMessageKey)
+                    o("WAWebAssociationProcessor").isChildDeletedOnParentRevoke(
+                      e.associationType,
+                    ) &&
+                    e.parentMsgKey != null &&
+                    M.has(e.parentMsgKey)
                   );
+                });
+              A.forEach(function (e) {
+                (t.add(e.id),
+                  j.add(e.id),
+                  e.rowId != null && C.push(String(e.rowId)));
+              });
+              var F = o("WAWebDBAssociatedMsgsAttachDetachAPI")
+                .getDetachedForeverAssociatedMsgs(w)
+                .filter(Boolean);
+              (F.forEach(function (e) {
+                e != null && !t.has(e.id) && x.push(e);
+              }),
+                [].concat(w, A).forEach(function (e) {
+                  z.push([e.id, e.associationType]);
                 }),
-                A = [],
-                O = [];
-              return (
-                t.size > 0 &&
-                  A.push(
-                    n.bulkRemove(Array.from(t)).catch(function (e) {
-                      var n = r("getErrorSafe")(e);
-                      throw (
-                        o("WALogger")
-                          .ERROR(
-                            y ||
-                              (y = babelHelpers.taggedTemplateLiteralLoose([
-                                "Store Revoked Msg: failed to remove ",
-                                " revoked messages",
-                              ])),
-                            t.size,
-                          )
-                          .catching(n)
-                          .sendLogs(
-                            "store-revoked-msg-failed-to-remove-revoked-messages",
-                          ),
-                        e
-                      );
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "detachAssociatedMsgsForever",
+                  {
+                    msgIds: F.map(function (e) {
+                      return e.id;
                     }),
+                  },
+                ));
+            }
+            var O = l.filter(function (e) {
+                return (
+                  e.protocolMessageKey == null || !j.has(e.protocolMessageKey)
+                );
+              }),
+              B = [],
+              W = [];
+            return (
+              t.size > 0 &&
+                B.push(
+                  i.bulkRemove(Array.from(t)).catch(function (e) {
+                    var n = r("getErrorSafe")(e);
+                    throw (
+                      o("WALogger")
+                        .ERROR(
+                          y ||
+                            (y = babelHelpers.taggedTemplateLiteralLoose([
+                              "Store Revoked Msg: failed to remove ",
+                              " revoked messages",
+                            ])),
+                          t.size,
+                        )
+                        .catching(n)
+                        .sendLogs(
+                          "store-revoked-msg-failed-to-remove-revoked-messages",
+                        ),
+                      e
+                    );
+                  }),
+                ),
+              z.length > 0 && B.push(s.bulkRemove(z)),
+              await Promise.all(B),
+              (O.length > 0 || x.length > 0) &&
+                W.push(
+                  i.bulkCreateOrReplace_ALREADY_ENCRYPTED_RECORDS_ONLY(
+                    [].concat(O, x),
                   ),
-                U.length > 0 && A.push(s.bulkRemove(U)),
-                await Promise.all(A),
-                (w.length > 0 || I.length > 0) &&
-                  O.push(
-                    n.bulkCreateOrReplace_ALREADY_ENCRYPTED_RECORDS_ONLY(
-                      [].concat(w, I),
-                    ),
-                  ),
-                await Promise.all(O),
-                b
-              );
-            }),
-          o("WAWebAddonProcessRevoke").processRevokeMsgs(D),
+                ),
+              await Promise.all(W),
+              S
+            );
+          }),
+        Q = K.then(function () {
+          return E(n, a);
+        }, r("WAWebNoop")),
+        X = await Promise.all([
+          K,
+          o("WAWebAddonProcessRevoke").processRevokeMsgs(N),
         ]),
-        G = H[0],
-        z = H[1];
+        Y = X[0],
+        J = X[1];
       if (
         (o(
           "WAWebCoexV2RevokeRetention",
-        ).evictCoexV2RawSecretsForCommittedRevokes(t, B),
-        V.forEach(function (e) {
+        ).evictCoexV2RawSecretsForCommittedRevokes(
+          new Set([].concat(Array.from(t), Array.from(n))),
+          V,
+        ),
+        j.forEach(function (e) {
           o("WAWebBackendApi").frontendFireAndForget(
             "deleteMessageFromCollectionForSync",
             { msgKey: e },
           );
         }),
-        G.length > 0)
+        Y.length > 0)
       ) {
-        var j = G.filter(function (e) {
-          return z.has(e.revokeMsgKey);
+        var Z = Y.filter(function (e) {
+          return J.has(e.revokeMsgKey);
         }).map(function (e) {
-          return E(e, e.revokeMsgKey);
+          return T(e, e.revokeMsgKey);
         });
-        j.length > 0 && (await o("WAWebApiOrphanRevoke").addOrphanRevokes(j));
+        Z.length > 0 && (await o("WAWebApiOrphanRevoke").addOrphanRevokes(Z));
       }
       return (
-        b == null || b.purge(i).catch(r("WAWebNoop")),
+        S == null || S.purge(C).catch(r("WAWebNoop")),
         o("WAWebDBReportingTokenUtils").handleDeleteReportingInfos(
           t ? Array.from(t) : [],
           { removeWholeRow: !1 },
         ),
-        l.size > 0 && o("WAWebApiChatUnreadMention").removeUnreadMentionChat(l),
-        F.getCleanupMsgKeys(n)
+        b.size > 0 && o("WAWebApiChatUnreadMention").removeUnreadMentionChat(b),
+        await Q,
+        q.getCleanupMsgKeys(i)
       );
     }
-    function R(e) {
+    async function E(e, t) {
+      e.size !== 0 &&
+        (await o("WAWebDBRemoveMsgsAndUpdateChats")
+          .removeMessagesAndUpdateChats(Array.from(e), function (e) {
+            return o("WAWebInstantMsgTypes").isInstantMsgType(e.type);
+          })
+          .catch(function (e) {
+            return (
+              o("WALogger")
+                .ERROR(
+                  C ||
+                    (C = babelHelpers.taggedTemplateLiteralLoose([
+                      "processRevokeMsgs: deleting revoked messages failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("delete-on-revoke-failed"),
+              x(t)
+            );
+          }));
+    }
+    function k(e) {
       var t = e.authenticatedSender,
         n = e.newMsgKey,
         a = e.revokeMsgKey,
@@ -565,7 +574,7 @@ __d(
         })
       );
     }
-    function L(e) {
+    function I(e) {
       var t = new Set(e);
       for (var n of e) {
         var a = o("WAWebLidMigrationUtils").getAlternateMsgKey(
@@ -575,7 +584,7 @@ __d(
       }
       return t;
     }
-    function E(e, t) {
+    function T(e, t) {
       var n, r, o;
       return {
         msgKey: t.toString(),
@@ -594,8 +603,101 @@ __d(
         subtype: (o = e.subtype) != null ? o : "sender_revoke",
       };
     }
-    ((l.processRevokeMsgs = v),
-      (l.processRevokeMsgsAndGetCleanupEligibleKeys = S));
+    function D(e, t, n) {
+      var a,
+        i = o("WAWebRevoke").getMsgKeyAfterRevoke({
+          originalKey: r("WAWebMsgKey").from(e.id),
+          revokeKey: t.newMsgKey,
+        });
+      return {
+        id: i.toString(),
+        ack: e.ack,
+        to: e.to,
+        author: e.author,
+        type: o("WAWebMsgType").MSG_TYPE.REVOKED,
+        subtype: t.subtype === "admin_revoke" ? "admin" : "sender",
+        revokeSender: t.sender,
+        protocolMessageKey: e.id,
+        protocolMessageRowId: n == null ? void 0 : n.rowId,
+        from: e.from,
+        t: e.t,
+        rowId: e.rowId,
+        internalId: e.internalId,
+        messageRangeIndex: e.messageRangeIndex,
+        revokeTimestamp: t.revokeTimestamp,
+        disappearingModeInitiator: e.disappearingModeInitiator,
+        ephemeralDuration: e.ephemeralDuration,
+        ephemeralSettingTimestamp: e.ephemeralSettingTimestamp,
+        viewMode: o("WAWebViewModeUtils").getRevokedViewMode({
+          associationType: e.associationType,
+          incomingViewMode: (a = t.viewMode) != null ? a : e.viewMode,
+          msgType: e.type,
+          storedViewMode: e.viewMode,
+        }),
+      };
+    }
+    async function x(e) {
+      if (e.length !== 0) {
+        var t = Array.from(
+          new Set(
+            e
+              .map(function (e) {
+                return e.protocolMessageKey;
+              })
+              .filter(Boolean)
+              .map(String),
+          ),
+        );
+        try {
+          await o("WAWebModelStorageUtils")
+            .getStorage()
+            .lock(["message"], async function () {
+              var n = new Set(
+                (await o("WAWebSchemaMessage").getMessageTable().bulkGet(t, !1))
+                  .filter(Boolean)
+                  .map(function (e) {
+                    return e.id;
+                  }),
+              );
+              (await o("WAWebSchemaMessage")
+                .getMessageTable()
+                .bulkRemove(Array.from(n)),
+                await o("WAWebSchemaMessage")
+                  .getMessageTable()
+                  .bulkCreateOrReplace(
+                    e.filter(function (e) {
+                      return n.has(String(e.protocolMessageKey));
+                    }),
+                  ));
+            });
+        } catch (e) {
+          o("WALogger")
+            .ERROR(
+              b ||
+                (b = babelHelpers.taggedTemplateLiteralLoose([
+                  "processRevokeMsgs: storing tombstones for revoked messages failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("delete-on-revoke-tombstone-failed");
+        }
+        var n = new Map();
+        (t.forEach(function (e) {
+          var t,
+            o = r("WAWebMsgKey").fromString(e).remote.toString();
+          n.set(o, [].concat((t = n.get(o)) != null ? t : [], [e]));
+        }),
+          n.forEach(function (e, t) {
+            o("WAWebBackendApi").frontendFireAndForget("chatDeleteMessages", {
+              chatId: t,
+              messageIds: e,
+              removeLoaded: !0,
+            });
+          }));
+      }
+    }
+    ((l.processRevokeMsgs = R),
+      (l.processRevokeMsgsAndGetCleanupEligibleKeys = L));
   },
   98,
 );

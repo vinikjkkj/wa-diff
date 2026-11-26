@@ -56,7 +56,7 @@ __d(
     }
     async function y(e, t, n) {
       var r,
-        a = await w(e),
+        a = await A(e),
         i = a.accountState,
         l = a.identityKey;
       return (l != null ? l : null) !==
@@ -119,7 +119,7 @@ __d(
           !o("WAWebAeaRollout").isAeaMonitoringEnabled()
         )
           return null;
-        var n = await w(o("WAWebLidMigrationUtils").toUserLidOrThrow(t)),
+        var n = await A(o("WAWebLidMigrationUtils").toUserLidOrThrow(t)),
           a = n.accountState;
         if (!o("WAWebAeaAccountState").isAeaNonE2eeAccountState(a)) return null;
         var i = await o("WAWebAeaAccountCategory").getAeaAccountCategory(t);
@@ -242,7 +242,7 @@ __d(
                     ));
                   return;
                 }
-                var n = await w(l),
+                var n = await A(l),
                   r = n.accountState;
                 if (
                   t === o("WAWebAeaAccountState").AeaAccountState.E2EE &&
@@ -291,7 +291,7 @@ __d(
       return (
         n &&
           ((c.aeaCooldownStartedAtMs = Date.now()),
-          (c.aeaCooldownIdentityKey = (await w(e)).identityKey)),
+          (c.aeaCooldownIdentityKey = (await A(e)).identityKey)),
         u || (c.aeaDisclosedThreadState = null),
         await o("WAWebSchemaChat").getChatTable().merge(l.id, c),
         o("WAWebBackendApi").frontendFireAndForget("chatCollectionUpdate", {
@@ -359,7 +359,10 @@ __d(
               ).isAeaEnforcementEnabledForAccount(e)))
           )
         ) {
-          if (await M(e)) {
+          var l = await o(
+            "WAWebApiVerifiedBusinessName",
+          ).getVerifiedBusinessNameRecordLidAware(e);
+          if (await w(e, l)) {
             a.aeaDisclosedThreadState != null &&
               (await o("WAWebSchemaChat")
                 .getChatTable()
@@ -367,35 +370,22 @@ __d(
             return;
           }
           if (a.aeaDisclosedThreadState !== String(i)) {
-            var l = o("WAWebWidFactory").createWid(a.id),
-              s =
-                i === o("WAWebAeaAccountState").AeaAccountState.HYBRID_E2EE
-                  ? o(
-                      "WAWebAdvHostedAccountTypeSystemMsg",
-                    ).genAdvAccountTypeChangeNotificationMsg({
-                      accountTypeChangedUser: l,
-                      chatId: l,
-                      newAdvAccountType: o("WAWebProtobufsAdv.pb")
-                        .ADVEncryptionType.HOSTED,
-                    })
-                  : o("WAWebContactSystemMsg").genNonE2ENotificationMsg(
-                      l,
-                      "biz_privacy_mode_to_fb",
-                    );
-            if (s != null) {
-              var u = s.id.toString();
+            var s = o("WAWebWidFactory").createWid(a.id),
+              u = P(s, i, l);
+            if (u != null) {
+              var c = u.id.toString();
               if (
                 (await o(
                   "WAWebHandleSingleMsgWorkerCompatible",
                 ).handleSingleMsg({
-                  chatId: l,
-                  newMsg: s,
+                  chatId: s,
+                  newMsg: u,
                   handleSingleMsgOrigin: "aeaNonE2eeDisclosure",
                   messageOverwriteOption: o("WAWebHandleMsgTypes")
                     .MessageOverwriteOption.NO_OVERWRITE,
                   preserveOrder: !1,
                 }),
-                (await o("WAWebSchemaMessage").getMessageTable().get(u)) ==
+                (await o("WAWebSchemaMessage").getMessageTable().get(c)) ==
                   null)
               )
                 throw r("err")("[aea] non-E2EE notice was not stored");
@@ -409,13 +399,34 @@ __d(
                 e.toLogString(),
                 i,
               ),
-                await N(a.id, i));
+                await M(a.id, i));
             }
           }
         }
       }
     }
-    async function P(e, t, n) {
+    function P(e, t, n) {
+      return (n == null ? void 0 : n.isSmb) !== !0 &&
+        (n == null ? void 0 : n.isApi) !== !0
+        ? o("WAWebContactSystemMsg").genNonE2ENotificationMsg(
+            e,
+            "chat_privacy_non_e2ee",
+          )
+        : t === o("WAWebAeaAccountState").AeaAccountState.HYBRID_E2EE
+          ? o(
+              "WAWebAdvHostedAccountTypeSystemMsg",
+            ).genAdvAccountTypeChangeNotificationMsg({
+              accountTypeChangedUser: e,
+              chatId: e,
+              newAdvAccountType: o("WAWebProtobufsAdv.pb").ADVEncryptionType
+                .HOSTED,
+            })
+          : o("WAWebContactSystemMsg").genNonE2ENotificationMsg(
+              e,
+              "biz_privacy_mode_to_fb",
+            );
+    }
+    async function N(e, t, n) {
       try {
         var a = o("WAWebLidMigrationUtils").toUserLidOrThrow(e);
         await T(a, async function () {
@@ -425,7 +436,7 @@ __d(
             r = e[0];
           r != null &&
             (await o("WAWebSchemaMessage").getMessageTable().get(n)) != null &&
-            (await N(r.id, t));
+            (await M(r.id, t));
         });
       } catch (e) {
         o("WALogger")
@@ -439,7 +450,7 @@ __d(
           .sendLogs("aea-non-e2ee-disclosure-record-fail");
       }
     }
-    async function N(e, t) {
+    async function M(e, t) {
       try {
         await o("WAWebSchemaChat")
           .getChatTable()
@@ -456,29 +467,25 @@ __d(
           .sendLogs("aea-non-e2ee-disclosure-record-fail");
       }
     }
-    async function M(e) {
-      var t = await Promise.all([
+    async function w(e, t) {
+      var n = await Promise.all([
           o("WAWebAeaAdvState").readAeaAdvState(e),
-          o(
-            "WAWebApiVerifiedBusinessName",
-          ).getVerifiedBusinessNameRecordLidAware(e),
           o("WAWebApiContact").getContactRecord(e),
         ]),
-        n = t[0],
-        r = t[1],
-        a = t[2],
+        r = n[0],
+        a = n[1],
         i = o("WAWebAeaSendRules").inferAeaUserThreadStateForSend(
           e,
           [],
-          n,
+          r,
           o("WAWebAeaSendRules").isNonE2eeBusinessPrivacyMode(
-            r == null ? void 0 : r.privacyMode,
+            t == null ? void 0 : t.privacyMode,
           ),
           (a == null ? void 0 : a.isHosted) === !0,
         );
       return i != null && o("WAWebAeaAccountState").isAeaNonE2eeAccountState(i);
     }
-    async function w(e) {
+    async function A(e) {
       var t = await o(
           "WAWebAeaIdentityChangeBaseline",
         ).readAeaStoredAccountAfterIdentityChange(e),
@@ -495,7 +502,7 @@ __d(
       (l.updateAeaThreadStateInBackground = L),
       (l.updateAeaThreadStateFromUnsignedSource = E),
       (l.ensureAeaNonE2eeDisclosure = x),
-      (l.recordAeaNewChatDisclosure = P));
+      (l.recordAeaNewChatDisclosure = N));
   },
   98,
 );

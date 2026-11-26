@@ -19,22 +19,22 @@ __d(
     async function c(t) {
       var n = t.isChannel,
         a = t.media,
-        i = t.resolveSystemProvenance;
-      if (!n) return a;
-      var l;
+        i = t.resolveSystemProvenance,
+        l;
       try {
         l = await o("WAPromiseTimeout").promiseTimeout(u(), s);
       } catch (t) {
         return (
-          o("WALogger")
-            .WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[media-sgi] provenance marker not written: metadata writer failed to load",
-                ])),
-            )
-            .catching(r("getErrorSafe")(t))
-            .sendLogs("media-sgi-provenance-marker-failed"),
+          n &&
+            o("WALogger")
+              .WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[media-sgi] provenance marker not written: metadata writer failed to load",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t))
+              .sendLogs("media-sgi-provenance-marker-failed"),
           a
         );
       }

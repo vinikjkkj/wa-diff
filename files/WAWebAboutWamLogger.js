@@ -4,11 +4,7 @@ __d(
     "WAWebAboutConsumptionWamEvent",
     "WAWebAboutCreationWamEvent",
     "WAWebAboutInteractionWamEvent",
-    "WAWebWamEnumAboutConsumptionSurfaceType",
-    "WAWebWamEnumAboutEntrypointType",
     "WAWebWamEnumAboutPromptType",
-    "WAWebWamEnumAboutRequestType",
-    "WAWebWamEnumPresetType",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -45,17 +41,7 @@ __d(
         aboutConsumptionSurface: e == null ? void 0 : e.aboutConsumptionSurface,
       }).commit();
     }
-    ((l.ABOUT_CONSUMPTION_SURFACE_TYPE = o(
-      "WAWebWamEnumAboutConsumptionSurfaceType",
-    ).ABOUT_CONSUMPTION_SURFACE_TYPE),
-      (l.ABOUT_ENTRYPOINT_TYPE = o(
-        "WAWebWamEnumAboutEntrypointType",
-      ).ABOUT_ENTRYPOINT_TYPE),
-      (l.ABOUT_REQUEST_TYPE = o(
-        "WAWebWamEnumAboutRequestType",
-      ).ABOUT_REQUEST_TYPE),
-      (l.PRESET_TYPE = o("WAWebWamEnumPresetType").PRESET_TYPE),
-      (l.logAboutCreation = u),
+    ((l.logAboutCreation = u),
       (l.logAboutConsumption = c),
       (l.logAboutInteraction = d));
   },

@@ -2,13 +2,27 @@ __d(
   "WAWebAssociatedMessagesRevokeUtils",
   [
     "WAWebAssociationProcessor",
+    "WAWebAssociationProcessorConstants",
     "WAWebDBAssociatedMsgsAttachDetachAPI",
     "WAWebMsgCollection",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    async function e(e, t) {
-      var n = await s([e]);
+    function e(e) {
+      var t = e.associationType;
+      if (t != null) {
+        var n = o(
+          "WAWebAssociationProcessor",
+        ).getAssociationProcessorByAssociationType(t);
+        n &&
+          n.processorType ===
+            o("WAWebAssociationProcessorConstants").AssociationProcessorType
+              .WithDetachedMessages &&
+          e.detachAssociatedMsg();
+      }
+    }
+    async function s(e, t) {
+      var n = await u([e]);
       return n
         .filter(function (e) {
           return !o("WAWebAssociationProcessor").isChildDeletedOnParentRevoke(
@@ -17,7 +31,7 @@ __d(
         })
         .map(t);
     }
-    async function s(e) {
+    async function u(e) {
       var t = await o(
           "WAWebDBAssociatedMsgsAttachDetachAPI",
         ).getAssociatedMsgsByParentMsgKeyFromAssociationTable(
@@ -32,8 +46,9 @@ __d(
         );
       return n;
     }
-    ((l.getAssociatedChildMessageRevokePromises = e),
-      (l.getHydratedAssociatedChildMessageModelsFromParentMsgs = s));
+    ((l.detachAssociatedMsgOnRevoke = e),
+      (l.getAssociatedChildMessageRevokePromises = s),
+      (l.getHydratedAssociatedChildMessageModelsFromParentMsgs = u));
   },
   98,
 );

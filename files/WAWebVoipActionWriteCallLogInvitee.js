@@ -5,12 +5,12 @@ __d(
     "WATimeUtils",
     "WAWebCallCollection",
     "WAWebCallLogMsgData.flow",
-    "WAWebCallLogUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebVoipActionWriteCallLogImpl",
+    "WAWebVoipBackendCallLogTargetResolver",
     "WAWebVoipCallLogWriteMutex",
     "WAWebVoipOngoingCallCollection",
     "WAWebVoipWaCallEnums",
@@ -54,7 +54,9 @@ __d(
           !0
         );
       try {
-        var n = await o("WAWebCallLogUtils").get1x1CallLidOrPnDestination({
+        var n = await o(
+          "WAWebVoipBackendCallLogTargetResolver",
+        ).get1x1CallLidOrPnDestination({
           callDestinationWid: o("WAWebWidFactory").asUserWidOrThrow(e),
         });
         if (n.equals(t.id.remote)) return !0;

@@ -31,16 +31,22 @@ __d(
         o
       );
     }
-    function d(t) {
-      t.parentElement ||
-        (document.body.appendChild(t),
-        (t.onerror = function () {
-          t.remove();
-        }),
-        (t.onload = function () {
-          ((t.id === s || t.id === u) && t.remove(),
-            t.id === e && p.getReferenceNumber() <= 0 && t.remove());
-        }));
+    function d(t, n) {
+      (n === void 0 && (n = 0),
+        t.parentElement ||
+          (document.body.appendChild(t),
+          (t.onerror = function () {
+            t.remove();
+          }),
+          (t.onload = function () {
+            ((t.id === s || t.id === u) &&
+              (n > 0
+                ? window.setTimeout(function () {
+                    return t.remove();
+                  }, n)
+                : t.remove()),
+              t.id === e && p.getReferenceNumber() <= 0 && t.remove());
+          })));
     }
     var m = (function () {
         function t() {

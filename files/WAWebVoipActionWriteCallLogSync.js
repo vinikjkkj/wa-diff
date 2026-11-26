@@ -24,6 +24,7 @@ __d(
     "WAWebViewMode.flow",
     "WAWebViewModeUtils",
     "WAWebVoipActionWriteCallLogImpl",
+    "WAWebVoipBackendCallLogTargetResolver",
     "WAWebVoipCallLogOrderingAdmission",
     "WAWebVoipCallLogPlaceholderTracker",
     "WAWebVoipCallLogWriteMutex",
@@ -195,7 +196,9 @@ __d(
             ? o("WAWebWidFactory").createWid(s)
             : o("WAWebUserUtils").getMeDevicePnLessOrFallback_DO_NOT_USE();
       try {
-        E = await o("WAWebCallLogUtils").getCallLogTargetDetails({
+        E = await o(
+          "WAWebVoipBackendCallLogTargetResolver",
+        ).getCallLogTargetDetails({
           callCreatorWid: k,
           callId: u,
           groupJid: r("isStringNullOrEmpty")(m)

@@ -11,6 +11,7 @@ __d(
     "WAWebMessageListAlbums",
     "WAWebMessageListDayOfMsg",
     "WAWebMsgGetters",
+    "WAWebStickerBoxSize",
     "WAWebThreadMsgUtils",
     "err",
   ],
@@ -74,6 +75,10 @@ __d(
                 : null;
           j &&
             o("WAWebMessageListAlbums").canBeGroupedAsAlbum(x, z) &&
+            o("WAWebStickerBoxSize").canStickersShareAlbumRow(
+              G.mediaData,
+              j.mediaData,
+            ) &&
             !b(z) &&
             !g(z, l) &&
             (O.push(j),

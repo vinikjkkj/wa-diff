@@ -16,7 +16,7 @@ __d(
     "WAWebParticipantListUtils",
     "WAWebVoipCallSurveyState",
     "WAWebVoipGatingUtils",
-    "WAWebVoipHandleNativeCallEvent",
+    "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
     "WAWebVoipLinkPreviewCallLink",
     "WAWebVoipNackHandlers",
     "WAWebVoipScreeningPrompt",
@@ -156,7 +156,7 @@ __d(
               ).setShouldShowPostCallSurveyOnLastActiveCall(!0))
             : a >= 0 &&
               o(
-                "WAWebVoipHandleNativeCallEvent",
+                "WAWebVoipHandleNativeCallEventFieldstatsHandlers",
               ).requestStoredFieldstatsSend());
       },
       handleGroupCallReminder: function (t) {

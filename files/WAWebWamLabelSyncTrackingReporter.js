@@ -6,9 +6,6 @@ __d(
     "WAWebMobilePlatforms",
     "WAWebUserPrefsMultiDevice",
     "WAWebWamEnumLabelSyncDeviceRoleType",
-    "WAWebWamEnumLabelSyncDirectionType",
-    "WAWebWamEnumLabelSyncResultType",
-    "WAWebWamEnumLabelSyncTypeEnum",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -177,16 +174,7 @@ __d(
       (l.takeDeferredLabelAssociations = R),
       (l.resetLabelSyncTrackingState = L),
       (l.generateLabelReorderHash = E),
-      (l.logLabelSyncEvent = k),
-      (l.LABEL_SYNC_TYPE_ENUM = o(
-        "WAWebWamEnumLabelSyncTypeEnum",
-      ).LABEL_SYNC_TYPE_ENUM),
-      (l.LABEL_SYNC_DIRECTION_TYPE = o(
-        "WAWebWamEnumLabelSyncDirectionType",
-      ).LABEL_SYNC_DIRECTION_TYPE),
-      (l.LABEL_SYNC_RESULT_TYPE = o(
-        "WAWebWamEnumLabelSyncResultType",
-      ).LABEL_SYNC_RESULT_TYPE));
+      (l.logLabelSyncEvent = k));
   },
   98,
 );

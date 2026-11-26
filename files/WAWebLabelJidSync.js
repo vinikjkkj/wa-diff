@@ -27,6 +27,9 @@ __d(
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsLabelAssociationsLidMigration",
     "WAWebUserPrefsMultiDevice",
+    "WAWebWamEnumLabelSyncDirectionType",
+    "WAWebWamEnumLabelSyncResultType",
+    "WAWebWamEnumLabelSyncTypeEnum",
     "WAWebWamLabelSyncTrackingReporter",
     "WAWebWid",
     "WAWebWidFactory",
@@ -136,8 +139,7 @@ __d(
         .then(function (e) {
           o("WAWebWamLabelSyncTrackingReporter").logLabelSyncEvent(
             e,
-            o("WAWebWamLabelSyncTrackingReporter").LABEL_SYNC_TYPE_ENUM
-              .LABEL_JID,
+            o("WAWebWamEnumLabelSyncTypeEnum").LABEL_SYNC_TYPE_ENUM.LABEL_JID,
             n,
             u,
             a,
@@ -160,7 +162,7 @@ __d(
     }
     function h(e, t) {
       (t ===
-        o("WAWebWamLabelSyncTrackingReporter").LABEL_SYNC_RESULT_TYPE
+        o("WAWebWamEnumLabelSyncResultType").LABEL_SYNC_RESULT_TYPE
           .FAILED_ORPHANED &&
         e.labeled &&
         o("WAWebWamLabelSyncTrackingReporter").recordDeferredLabelAssociation(
@@ -168,7 +170,7 @@ __d(
           { chatJid: e.jid, isLabeled: e.labeled, timestampMs: e.timestampMs },
         ),
         g({
-          direction: o("WAWebWamLabelSyncTrackingReporter")
+          direction: o("WAWebWamEnumLabelSyncDirectionType")
             .LABEL_SYNC_DIRECTION_TYPE.RECEIVER,
           isLabeled: e.labeled,
           jid: e.jid,
@@ -187,9 +189,9 @@ __d(
         h(
           e,
           e.isOrphaned
-            ? o("WAWebWamLabelSyncTrackingReporter").LABEL_SYNC_RESULT_TYPE
+            ? o("WAWebWamEnumLabelSyncResultType").LABEL_SYNC_RESULT_TYPE
                 .FAILED_ORPHANED
-            : o("WAWebWamLabelSyncTrackingReporter").LABEL_SYNC_RESULT_TYPE
+            : o("WAWebWamEnumLabelSyncResultType").LABEL_SYNC_RESULT_TYPE
                 .SUCCESS,
         ));
     }
@@ -244,12 +246,12 @@ __d(
                         return (
                           C++,
                           g({
-                            direction: o("WAWebWamLabelSyncTrackingReporter")
+                            direction: o("WAWebWamEnumLabelSyncDirectionType")
                               .LABEL_SYNC_DIRECTION_TYPE.RECEIVER,
                             isLabeled: !1,
                             jid: S,
                             labelId: v,
-                            result: o("WAWebWamLabelSyncTrackingReporter")
+                            result: o("WAWebWamEnumLabelSyncResultType")
                               .LABEL_SYNC_RESULT_TYPE.FAILED_MISSING_ACTION,
                             timestampMs: Date.now(),
                           }),
@@ -264,12 +266,12 @@ __d(
                       if (!r("WAWebWid").isWid(S))
                         return (
                           g({
-                            direction: o("WAWebWamLabelSyncTrackingReporter")
+                            direction: o("WAWebWamEnumLabelSyncDirectionType")
                               .LABEL_SYNC_DIRECTION_TYPE.RECEIVER,
                             isLabeled: R,
                             jid: S,
                             labelId: v,
-                            result: o("WAWebWamLabelSyncTrackingReporter")
+                            result: o("WAWebWamEnumLabelSyncResultType")
                               .LABEL_SYNC_RESULT_TYPE.FAILED_INVALID_JID,
                             timestampMs: Date.now(),
                           }),
@@ -469,8 +471,8 @@ __d(
                 S.forEach(function (e) {
                   h(
                     e,
-                    o("WAWebWamLabelSyncTrackingReporter")
-                      .LABEL_SYNC_RESULT_TYPE.FAILED_DB_UPDATE,
+                    o("WAWebWamEnumLabelSyncResultType").LABEL_SYNC_RESULT_TYPE
+                      .FAILED_DB_UPDATE,
                   );
                 }),
                 e
@@ -486,8 +488,8 @@ __d(
                 R.forEach(function (e) {
                   h(
                     e,
-                    o("WAWebWamLabelSyncTrackingReporter")
-                      .LABEL_SYNC_RESULT_TYPE.FAILED_DB_UPDATE,
+                    o("WAWebWamEnumLabelSyncResultType").LABEL_SYNC_RESULT_TYPE
+                      .FAILED_DB_UPDATE,
                   );
                 }),
                 e
@@ -552,7 +554,7 @@ __d(
                 if (u != null && d != null) {
                   var m;
                   g({
-                    direction: o("WAWebWamLabelSyncTrackingReporter")
+                    direction: o("WAWebWamEnumLabelSyncDirectionType")
                       .LABEL_SYNC_DIRECTION_TYPE.SENDER,
                     isLabeled:
                       ((m = l.value.labelAssociationAction) == null
@@ -560,7 +562,7 @@ __d(
                         : m.labeled) === !0,
                     jid: d,
                     labelId: u,
-                    result: o("WAWebWamLabelSyncTrackingReporter")
+                    result: o("WAWebWamEnumLabelSyncResultType")
                       .LABEL_SYNC_RESULT_TYPE.SUCCESS,
                     timestampMs: r,
                   });

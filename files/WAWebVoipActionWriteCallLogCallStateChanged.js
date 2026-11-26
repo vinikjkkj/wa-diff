@@ -11,6 +11,7 @@ __d(
     "WAWebViewMode.flow",
     "WAWebVoipActionWriteCallLogImpl",
     "WAWebVoipAdHocCallLogs",
+    "WAWebVoipBackendCallLogTargetResolver",
     "WAWebVoipCallLogPlaceholderTracker",
     "WAWebVoipCallLogTimestamp",
     "WAWebVoipCallLogWriteMutex",
@@ -203,7 +204,9 @@ __d(
           );
           return;
         }
-        var n = await o("WAWebCallLogUtils").getCallLogTargetDetails({
+        var n = await o(
+            "WAWebVoipBackendCallLogTargetResolver",
+          ).getCallLogTargetDetails({
             callCreatorWid: e.creatorJid,
             callId: e.callId,
             groupJid: e.groupJid,

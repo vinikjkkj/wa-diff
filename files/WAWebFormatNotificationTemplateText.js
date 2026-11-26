@@ -44,7 +44,7 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     function e(e, t, n) {
       var r = { text: u(e, t, n) },
-        o = X(e);
+        o = Y(e);
       return (o != null && (r.ctaText = o), r);
     }
     function u(e, t, n) {
@@ -722,187 +722,192 @@ __d(
                                                                                                                                                                                     /*BTDS*/ "",
                                                                                                                                                                                   )
                                                                                                                                                                                 : i ===
-                                                                                                                                                                                    "block_contact"
-                                                                                                                                                                                  ? W(
-                                                                                                                                                                                      a,
-                                                                                                                                                                                    )
+                                                                                                                                                                                      "chat_privacy_non_e2ee" ||
+                                                                                                                                                                                    i ===
+                                                                                                                                                                                      "chat_privacy_non_e2ee_init"
+                                                                                                                                                                                  ? z()
                                                                                                                                                                                   : i ===
-                                                                                                                                                                                      "disappearing_mode_update"
-                                                                                                                                                                                    ? o(
-                                                                                                                                                                                        "WAWebFormatEphemeralSetting",
-                                                                                                                                                                                      ).formatEphemeralSetting(
-                                                                                                                                                                                        e,
+                                                                                                                                                                                      "block_contact"
+                                                                                                                                                                                    ? W(
+                                                                                                                                                                                        a,
                                                                                                                                                                                       )
                                                                                                                                                                                     : i ===
-                                                                                                                                                                                        "disappearing_mode"
+                                                                                                                                                                                        "disappearing_mode_update"
                                                                                                                                                                                       ? o(
                                                                                                                                                                                           "WAWebFormatEphemeralSetting",
-                                                                                                                                                                                        ).getDefaultDisappearingModeSystemMessageText(
+                                                                                                                                                                                        ).formatEphemeralSetting(
                                                                                                                                                                                           e,
                                                                                                                                                                                         )
                                                                                                                                                                                       : i ===
-                                                                                                                                                                                          "disappearing_mode_unsupported"
+                                                                                                                                                                                          "disappearing_mode"
                                                                                                                                                                                         ? o(
                                                                                                                                                                                             "WAWebFormatEphemeralSetting",
-                                                                                                                                                                                          ).getDMUnsupportedSystemMessageText()
+                                                                                                                                                                                          ).getDefaultDisappearingModeSystemMessageText(
+                                                                                                                                                                                            e,
+                                                                                                                                                                                          )
                                                                                                                                                                                         : i ===
-                                                                                                                                                                                            "chat_assignment"
-                                                                                                                                                                                          ? U(
-                                                                                                                                                                                              a,
-                                                                                                                                                                                              t,
-                                                                                                                                                                                            )
+                                                                                                                                                                                            "disappearing_mode_unsupported"
+                                                                                                                                                                                          ? o(
+                                                                                                                                                                                              "WAWebFormatEphemeralSetting",
+                                                                                                                                                                                            ).getDMUnsupportedSystemMessageText()
                                                                                                                                                                                           : i ===
-                                                                                                                                                                                              "chat_assignment_unassign"
-                                                                                                                                                                                            ? V(
+                                                                                                                                                                                              "chat_assignment"
+                                                                                                                                                                                            ? U(
+                                                                                                                                                                                                a,
                                                                                                                                                                                                 t,
                                                                                                                                                                                               )
                                                                                                                                                                                             : i ===
-                                                                                                                                                                                                "order_ephemeral_exemption"
-                                                                                                                                                                                              ? H()
+                                                                                                                                                                                                "chat_assignment_unassign"
+                                                                                                                                                                                              ? V(
+                                                                                                                                                                                                  t,
+                                                                                                                                                                                                )
                                                                                                                                                                                               : i ===
-                                                                                                                                                                                                  "bot_init"
-                                                                                                                                                                                                ? z(
-                                                                                                                                                                                                    e,
-                                                                                                                                                                                                    n,
-                                                                                                                                                                                                  )
+                                                                                                                                                                                                  "order_ephemeral_exemption"
+                                                                                                                                                                                                ? H()
                                                                                                                                                                                                 : i ===
-                                                                                                                                                                                                    "bot_invoke_disclaimer"
-                                                                                                                                                                                                  ? j()
+                                                                                                                                                                                                    "bot_init"
+                                                                                                                                                                                                  ? j(
+                                                                                                                                                                                                      e,
+                                                                                                                                                                                                      n,
+                                                                                                                                                                                                    )
                                                                                                                                                                                                   : i ===
-                                                                                                                                                                                                      "biz_bot_1p_disclosure"
-                                                                                                                                                                                                    ? q()
+                                                                                                                                                                                                      "bot_invoke_disclaimer"
+                                                                                                                                                                                                    ? K()
                                                                                                                                                                                                     : i ===
-                                                                                                                                                                                                        "biz_bot_3p_disclosure"
-                                                                                                                                                                                                      ? s._(
-                                                                                                                                                                                                          /*BTDS*/ "",
-                                                                                                                                                                                                        )
+                                                                                                                                                                                                        "biz_bot_1p_disclosure"
+                                                                                                                                                                                                      ? q()
                                                                                                                                                                                                       : i ===
-                                                                                                                                                                                                          "change_lid"
-                                                                                                                                                                                                        ? o(
-                                                                                                                                                                                                            "WAWebFormatChangeLidTemplateText",
-                                                                                                                                                                                                          ).formatChangeLidLeadTemplateText(
-                                                                                                                                                                                                            e,
+                                                                                                                                                                                                          "biz_bot_3p_disclosure"
+                                                                                                                                                                                                        ? s._(
+                                                                                                                                                                                                            /*BTDS*/ "",
                                                                                                                                                                                                           )
                                                                                                                                                                                                         : i ===
-                                                                                                                                                                                                            "change_username"
-                                                                                                                                                                                                          ? r(
-                                                                                                                                                                                                              "WAWebFormatChangeUsernameTemplateText",
-                                                                                                                                                                                                            )(
+                                                                                                                                                                                                            "change_lid"
+                                                                                                                                                                                                          ? o(
+                                                                                                                                                                                                              "WAWebFormatChangeLidTemplateText",
+                                                                                                                                                                                                            ).formatChangeLidLeadTemplateText(
                                                                                                                                                                                                               e,
                                                                                                                                                                                                             )
                                                                                                                                                                                                           : i ===
-                                                                                                                                                                                                              "saga_init"
-                                                                                                                                                                                                            ? s._(
-                                                                                                                                                                                                                /*BTDS*/ "",
+                                                                                                                                                                                                              "change_username"
+                                                                                                                                                                                                            ? r(
+                                                                                                                                                                                                                "WAWebFormatChangeUsernameTemplateText",
+                                                                                                                                                                                                              )(
+                                                                                                                                                                                                                e,
                                                                                                                                                                                                               )
                                                                                                                                                                                                             : i ===
-                                                                                                                                                                                                                "biz_account_type_changed_to_hosted"
+                                                                                                                                                                                                                "saga_init"
                                                                                                                                                                                                               ? s._(
                                                                                                                                                                                                                   /*BTDS*/ "",
                                                                                                                                                                                                                 )
                                                                                                                                                                                                               : i ===
-                                                                                                                                                                                                                  "biz_me_account_type_is_hosted"
+                                                                                                                                                                                                                  "biz_account_type_changed_to_hosted"
                                                                                                                                                                                                                 ? s._(
                                                                                                                                                                                                                     /*BTDS*/ "",
                                                                                                                                                                                                                   )
                                                                                                                                                                                                                 : i ===
-                                                                                                                                                                                                                    "biz_account_type_is_hosted"
+                                                                                                                                                                                                                    "biz_me_account_type_is_hosted"
                                                                                                                                                                                                                   ? s._(
                                                                                                                                                                                                                       /*BTDS*/ "",
                                                                                                                                                                                                                     )
                                                                                                                                                                                                                   : i ===
-                                                                                                                                                                                                                      "biz_me_account_type_is_hosted_transition"
+                                                                                                                                                                                                                      "biz_account_type_is_hosted"
                                                                                                                                                                                                                     ? s._(
                                                                                                                                                                                                                         /*BTDS*/ "",
                                                                                                                                                                                                                       )
                                                                                                                                                                                                                     : i ===
-                                                                                                                                                                                                                        "marketing_messages_from_business_stopped"
+                                                                                                                                                                                                                        "biz_me_account_type_is_hosted_transition"
                                                                                                                                                                                                                       ? s._(
                                                                                                                                                                                                                           /*BTDS*/ "",
                                                                                                                                                                                                                         )
                                                                                                                                                                                                                       : i ===
-                                                                                                                                                                                                                          "marketing_messages_from_business_resumed"
+                                                                                                                                                                                                                          "marketing_messages_from_business_stopped"
                                                                                                                                                                                                                         ? s._(
                                                                                                                                                                                                                             /*BTDS*/ "",
                                                                                                                                                                                                                           )
                                                                                                                                                                                                                         : i ===
-                                                                                                                                                                                                                            "marketing_messages_post_send_opt_out"
+                                                                                                                                                                                                                            "marketing_messages_from_business_resumed"
                                                                                                                                                                                                                           ? s._(
                                                                                                                                                                                                                               /*BTDS*/ "",
-                                                                                                                                                                                                                              [
-                                                                                                                                                                                                                                s._param(
-                                                                                                                                                                                                                                  "businessName",
-                                                                                                                                                                                                                                  r(
-                                                                                                                                                                                                                                    "WAWebGetBusinessNameFromMsg",
-                                                                                                                                                                                                                                  )(
-                                                                                                                                                                                                                                    e,
-                                                                                                                                                                                                                                  ),
-                                                                                                                                                                                                                                ),
-                                                                                                                                                                                                                              ],
                                                                                                                                                                                                                             )
                                                                                                                                                                                                                           : i ===
-                                                                                                                                                                                                                              "limit_sharing_system_message"
-                                                                                                                                                                                                                            ? o(
-                                                                                                                                                                                                                                "WAWebLimitSharingUIUtils",
-                                                                                                                                                                                                                              ).getLimitSharingMessageSystemNotificationText(
-                                                                                                                                                                                                                                e,
+                                                                                                                                                                                                                              "marketing_messages_post_send_opt_out"
+                                                                                                                                                                                                                            ? s._(
+                                                                                                                                                                                                                                /*BTDS*/ "",
+                                                                                                                                                                                                                                [
+                                                                                                                                                                                                                                  s._param(
+                                                                                                                                                                                                                                    "businessName",
+                                                                                                                                                                                                                                    r(
+                                                                                                                                                                                                                                      "WAWebGetBusinessNameFromMsg",
+                                                                                                                                                                                                                                    )(
+                                                                                                                                                                                                                                      e,
+                                                                                                                                                                                                                                    ),
+                                                                                                                                                                                                                                  ),
+                                                                                                                                                                                                                                ],
                                                                                                                                                                                                                               )
                                                                                                                                                                                                                             : i ===
-                                                                                                                                                                                                                                "acp2_system_message"
+                                                                                                                                                                                                                                "limit_sharing_system_message"
                                                                                                                                                                                                                               ? o(
                                                                                                                                                                                                                                   "WAWebLimitSharingUIUtils",
-                                                                                                                                                                                                                                ).getAcp2MessageSystemNotificationText(
+                                                                                                                                                                                                                                ).getLimitSharingMessageSystemNotificationText(
                                                                                                                                                                                                                                   e,
                                                                                                                                                                                                                                 )
                                                                                                                                                                                                                               : i ===
-                                                                                                                                                                                                                                  "is_capi_hosted_group"
-                                                                                                                                                                                                                                ? K(
+                                                                                                                                                                                                                                  "acp2_system_message"
+                                                                                                                                                                                                                                ? o(
+                                                                                                                                                                                                                                    "WAWebLimitSharingUIUtils",
+                                                                                                                                                                                                                                  ).getAcp2MessageSystemNotificationText(
                                                                                                                                                                                                                                     e,
                                                                                                                                                                                                                                   )
                                                                                                                                                                                                                                 : i ===
-                                                                                                                                                                                                                                    "biz_automatically_labeled_chat_system_message"
+                                                                                                                                                                                                                                    "is_capi_hosted_group"
                                                                                                                                                                                                                                   ? Q(
                                                                                                                                                                                                                                       e,
                                                                                                                                                                                                                                     )
                                                                                                                                                                                                                                   : i ===
-                                                                                                                                                                                                                                      "biz_per_customer_3pd_data_share_opt_in"
-                                                                                                                                                                                                                                    ? d(
-                                                                                                                                                                                                                                        !0,
+                                                                                                                                                                                                                                      "biz_automatically_labeled_chat_system_message"
+                                                                                                                                                                                                                                    ? X(
+                                                                                                                                                                                                                                        e,
                                                                                                                                                                                                                                       )
                                                                                                                                                                                                                                     : i ===
-                                                                                                                                                                                                                                        "biz_per_customer_3pd_data_share_opt_out"
+                                                                                                                                                                                                                                        "biz_per_customer_3pd_data_share_opt_in"
                                                                                                                                                                                                                                       ? d(
-                                                                                                                                                                                                                                          !1,
+                                                                                                                                                                                                                                          !0,
                                                                                                                                                                                                                                         )
                                                                                                                                                                                                                                       : i ===
-                                                                                                                                                                                                                                          "ctwa_consumer_data_sharing_disclosure_system_message"
-                                                                                                                                                                                                                                        ? c()
+                                                                                                                                                                                                                                          "biz_per_customer_3pd_data_share_opt_out"
+                                                                                                                                                                                                                                        ? d(
+                                                                                                                                                                                                                                            !1,
+                                                                                                                                                                                                                                          )
                                                                                                                                                                                                                                         : i ===
-                                                                                                                                                                                                                                            "group_transition_to_bot_group"
-                                                                                                                                                                                                                                          ? J(
-                                                                                                                                                                                                                                              a,
-                                                                                                                                                                                                                                              e
-                                                                                                                                                                                                                                                .id
-                                                                                                                                                                                                                                                .remote,
-                                                                                                                                                                                                                                            )
+                                                                                                                                                                                                                                            "ctwa_consumer_data_sharing_disclosure_system_message"
+                                                                                                                                                                                                                                          ? c()
                                                                                                                                                                                                                                           : i ===
-                                                                                                                                                                                                                                              "biz_broadcast_status"
-                                                                                                                                                                                                                                            ? r(
-                                                                                                                                                                                                                                                "WAWebBizBroadcastFormatStatusText",
-                                                                                                                                                                                                                                              )(
+                                                                                                                                                                                                                                              "group_transition_to_bot_group"
+                                                                                                                                                                                                                                            ? Z(
                                                                                                                                                                                                                                                 a,
+                                                                                                                                                                                                                                                e
+                                                                                                                                                                                                                                                  .id
+                                                                                                                                                                                                                                                  .remote,
                                                                                                                                                                                                                                               )
-                                                                                                                                                                                                                                            : s._(
-                                                                                                                                                                                                                                                /*BTDS*/ "",
-                                                                                                                                                                                                                                                [
-                                                                                                                                                                                                                                                  s._param(
-                                                                                                                                                                                                                                                    "app name",
-                                                                                                                                                                                                                                                    o(
-                                                                                                                                                                                                                                                      "WAWebFbtAppName",
-                                                                                                                                                                                                                                                    ).fbtWAWebAppShortName(),
-                                                                                                                                                                                                                                                  ),
-                                                                                                                                                                                                                                                ],
-                                                                                                                                                                                                                                              );
+                                                                                                                                                                                                                                            : i ===
+                                                                                                                                                                                                                                                "biz_broadcast_status"
+                                                                                                                                                                                                                                              ? r(
+                                                                                                                                                                                                                                                  "WAWebBizBroadcastFormatStatusText",
+                                                                                                                                                                                                                                                )(
+                                                                                                                                                                                                                                                  a,
+                                                                                                                                                                                                                                                )
+                                                                                                                                                                                                                                              : s._(
+                                                                                                                                                                                                                                                  /*BTDS*/ "",
+                                                                                                                                                                                                                                                  [
+                                                                                                                                                                                                                                                    s._param(
+                                                                                                                                                                                                                                                      "app name",
+                                                                                                                                                                                                                                                      o(
+                                                                                                                                                                                                                                                        "WAWebFbtAppName",
+                                                                                                                                                                                                                                                      ).fbtWAWebAppShortName(),
+                                                                                                                                                                                                                                                    ),
+                                                                                                                                                                                                                                                  ],
+                                                                                                                                                                                                                                                );
     }
     function c() {
       return o("WAWebCTWAGatingUtils").shouldShowMetaAdSourceCopy()
@@ -1297,7 +1302,10 @@ __d(
         ? s._(/*BTDS*/ "")
         : s._(/*BTDS*/ "");
     }
-    function z(e, t) {
+    function z() {
+      return s._(/*BTDS*/ "");
+    }
+    function j(e, t) {
       var n = o("WAWebResolveBotProfile").resolveBotSupportInput(e.id.remote);
       return o("WAWebBotExposedName").isBotProfileViewOnly(n) ||
         o("WAWebBotSupportGating").isThirdPartyAgent(n)
@@ -1310,12 +1318,12 @@ __d(
               ? s._(/*BTDS*/ "")
               : s._(/*BTDS*/ "");
     }
-    function j() {
+    function K() {
       return o("WAWebBotBaseGating").isBotEnabled()
         ? s._(/*BTDS*/ "")
         : s._(/*BTDS*/ "");
     }
-    function K(e) {
+    function Q(e) {
       var t,
         n = o("WAWebFrontendMsgGetters").getChat(e),
         r = n.groupMetadata,
@@ -1326,7 +1334,7 @@ __d(
         ? o("WAWebHostedGroupUtils").getSecureServicesBannerText(a)
         : "";
     }
-    function Q(e) {
+    function X(e) {
       var t = Number(e.templateParams[0]),
         n = "";
       return (
@@ -1337,17 +1345,17 @@ __d(
         s._(/*BTDS*/ "", [s._param("labelName", n)])
       );
     }
-    function X(e) {
+    function Y(e) {
       var t = e.subtype;
       return t === "change_lid"
         ? o("WAWebFormatChangeLidTemplateText").formatChangeLidCtaTemplateText(
             e,
           )
-        : t === "group_transition_to_bot_group" && Y(e.templateParams)
+        : t === "group_transition_to_bot_group" && J(e.templateParams)
           ? s._(/*BTDS*/ "")
           : null;
     }
-    function Y(e) {
+    function J(e) {
       var t = o("WAWebGroupAgentPrivacyNoticeKind").getGroupAgentPrivacyNotice(
           e,
         ),
@@ -1364,22 +1372,22 @@ __d(
         ).systemMessageActionTextStylingEnabled()
       );
     }
-    function J(e, t) {
+    function Z(e, t) {
       var n = o("WAWebGroupAgentPrivacyNoticeKind").getGroupAgentPrivacyNotice(
           e,
         ),
         r = n.agent,
         a = n.kind,
-        i = Y(e);
+        i = J(e);
       return a ===
         o("WAWebGroupAgentPrivacyNoticeKind").GroupAgentPrivacyNoticeKind
           .THIRD_PARTY && r != null
-        ? ne(r)
+        ? re(r)
         : a ===
               o("WAWebGroupAgentPrivacyNoticeKind").GroupAgentPrivacyNoticeKind
                 .MUSE &&
             o("WAWebBotGroupGatingUtils").isMuseGroupAgentRenderingEnabled()
-          ? Z(
+          ? ee(
               i,
               o(
                 "WAWebGroupHistoryPostJoinEligibility",
@@ -1391,21 +1399,21 @@ __d(
               a ===
                 o("WAWebGroupAgentPrivacyNoticeKind")
                   .GroupAgentPrivacyNoticeKind.GENERIC
-            ? te(i)
+            ? ne(i)
             : s._(/*BTDS*/ "");
     }
-    function Z(e, t) {
-      return t != null ? ee(e, t) : e ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
-    }
     function ee(e, t) {
+      return t != null ? te(e, t) : e ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
+    }
+    function te(e, t) {
       return e
         ? s._(/*BTDS*/ "", [s._param("museName", t)])
         : s._(/*BTDS*/ "", [s._param("museName", t)]);
     }
-    function te(e) {
+    function ne(e) {
       return e ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
-    function ne(e) {
+    function re(e) {
       var t,
         n =
           (t = o("WAWebBotProfileCollection").BotProfileCollection.get(e)) ==

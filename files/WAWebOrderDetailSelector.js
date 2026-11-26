@@ -77,7 +77,7 @@ __d(
                   ]),
                   {
                     role: "button",
-                    "aria-label": i,
+                    "aria-label": String(i),
                     children:
                       n === b
                         ? u.jsx(

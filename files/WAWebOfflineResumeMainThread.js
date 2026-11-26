@@ -4,12 +4,16 @@ __d(
     "WAWebBlockingOfflineResumeManager",
     "WAWebNonBlockingOfflineResumeManager",
     "cr:22575",
+    "cr:22621",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = (e = n("cr:22575")) != null ? e : {},
-      u = s.maybeRequestPrimarySnapshot;
-    function c(e) {
+      s,
+      u = (e = n("cr:22575")) != null ? e : {},
+      c = u.maybeRequestPrimarySnapshot,
+      d = (s = n("cr:22621")) != null ? s : {},
+      m = d.RcodChunkFinder;
+    function p(e) {
       e.initState({
         getBlockingStageManager: function () {
           return new (o(
@@ -21,10 +25,14 @@ __d(
             "WAWebNonBlockingOfflineResumeManager",
           ).OfflineNonBlockingResumeStageManager)(t);
         },
-        maybeRequestPrimarySnapshot: u,
+        maybeRequestPrimarySnapshot: c,
+        rcodChunkFinder: _(),
       });
     }
-    l.setupMainThreadResume = c;
+    function _() {
+      return m != null ? new m() : void 0;
+    }
+    l.setupMainThreadResume = p;
   },
   98,
 );

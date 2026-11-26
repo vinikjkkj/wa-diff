@@ -50,20 +50,7 @@ __d(
         t.set("Content-Type", "application/octet-stream"),
         t.set("X-Content-Type-Options", "nosniff"));
     }
-    function b(e, t) {
-      return e === "navigate" || t === "document";
-    }
-    function v() {
-      return new Response("", {
-        status: 400,
-        statusText: "Bad Request",
-        headers: {
-          "Content-Type": "text/plain; charset=utf-8",
-          "X-Content-Type-Options": "nosniff",
-        },
-      });
-    }
-    function S() {
+    function b() {
       return new Response("", {
         status: 403,
         statusText: "Forbidden",
@@ -73,14 +60,14 @@ __d(
         },
       });
     }
-    function R() {
+    function v() {
       try {
         return !r("justknobx")._("8512");
       } catch (e) {
         return !0;
       }
     }
-    var L = (function () {
+    var S = (function () {
       function e(e) {
         var t = e.chunkDecrypt,
           n = t === void 0 ? !1 : t,
@@ -113,13 +100,13 @@ __d(
             n = this.streamData,
             a = n.clientUrl,
             i = n.msgKey,
-            l = E(t),
+            l = R(t),
             d = l.clientRangeEnd,
             m = l.clientRangeStart,
-            p = T(m, d),
+            p = k(m, d),
             _ = p.serverRangeEnd,
             f = p.serverRangeStart,
-            g = I(t, f, _, a),
+            g = E(t, f, _, a),
             h = await self.fetch(g);
           if (h.status === 404) return this.handleRMR(t, i);
           if (h.status >= 400)
@@ -146,8 +133,8 @@ __d(
             if (y != null) return y;
           }
           var C = await h.arrayBuffer(),
-            b = C.byteLength;
-          if (!C || b < o("WAWebCryptoDecryptPartialMedia").BLOCK_SIZE)
+            S = C.byteLength;
+          if (!C || S < o("WAWebCryptoDecryptPartialMedia").BLOCK_SIZE)
             return (
               o("WALogger").LOG(
                 u ||
@@ -155,15 +142,15 @@ __d(
                     "[sw] videoStreaming ciphertext too short ",
                     "B",
                   ])),
-                b,
+                S,
               ),
-              new Response("Ciphertext is too short - " + b + " bytes", {
+              new Response("Ciphertext is too short - " + S + " bytes", {
                 status: 500,
               })
             );
-          var v;
+          var L;
           try {
-            v = await this.decryptRange(f, C);
+            L = await this.decryptRange(f, C);
           } catch (e) {
             return (
               o("WALogger")
@@ -178,31 +165,31 @@ __d(
               new Response("Range check failed", { status: 500 })
             );
           }
-          if (R() && !(await this.isStreamAllowed(f, _, v, t))) return S();
-          var L = this.cleanupPlaintext({
+          if (v() && !(await this.isStreamAllowed(f, _, L, t))) return b();
+          var I = this.cleanupPlaintext({
               clientRangeEnd: d,
               clientRangeStart: m,
-              plaintext: v,
+              plaintext: L,
               serverRangeEnd: _,
               serverRangeStart: f,
             }),
-            k = this.createClientResponse({
-              body: L,
-              byteLength: L.byteLength,
+            T = this.createClientResponse({
+              body: I,
+              byteLength: I.byteLength,
               clientRangeStart: m,
               serverResponse: h,
             });
-          return (this.sendBackArrayBuffer(m, L), k);
+          return (this.sendBackArrayBuffer(m, I), T);
         }),
         (t.chunkDecryptScreened = async function (t, n) {
           var e;
-          if (!R()) return this.chunkDecryptStream(t, n);
+          if (!v()) return this.chunkDecryptStream(t, n);
           var o = this.screenedStreams.get(this.streamKey());
           return o == null
             ? null
             : (await o)
               ? this.chunkDecryptStream(t, n)
-              : ((e = t.body) == null || e.cancel().catch(r("WAWebNoop")), S());
+              : ((e = t.body) == null || e.cancel().catch(r("WAWebNoop")), b());
         }),
         (t.isStreamAllowed = function (t, n, a, i) {
           var e = this,
@@ -264,7 +251,7 @@ __d(
           this.screenedStreams.set(t, n);
         }),
         (t.fetchFirstWindow = async function (t) {
-          var e = I(t, 0, h - 1, this.streamData.clientUrl),
+          var e = E(t, 0, h - 1, this.streamData.clientUrl),
             n = await self.fetch(e);
           if (n.status >= 400) return null;
           var r = await n.arrayBuffer();
@@ -276,7 +263,7 @@ __d(
           var e = this.streamData,
             t = e.msgKey,
             n = e.size;
-          return t + "|" + n + "|" + $(this.cryptoKeys.iv);
+          return t + "|" + n + "|" + D(this.cryptoKeys.iv);
         }),
         (t.canChunkDecrypt = function (t, n, r) {
           return (
@@ -290,7 +277,7 @@ __d(
           var e = this,
             a = Math.ceil((n + 1) / g),
             i = r("nullthrows")(t.body).getReader(),
-            l = D(i),
+            l = I(i),
             s = 0,
             u = new ReadableStream({
               pull: async function (n) {
@@ -372,7 +359,7 @@ __d(
           });
         }),
         (t.decryptChunk = async function (t, n) {
-          var e = T(n * g, (n + 1) * g - 1),
+          var e = k(n * g, (n + 1) * g - 1),
             o = e.serverRangeStart,
             a = await t(n),
             i = await this.decryptRange(o, a.buffer);
@@ -500,8 +487,8 @@ __d(
         e
       );
     })();
-    function E(e) {
-      var t = k(e),
+    function R(e) {
+      var t = L(e),
         n = t.clientRangeEndString,
         r = t.clientRangeStartString,
         o = parseInt(String(r), 10),
@@ -511,7 +498,7 @@ __d(
         clientRangeEnd: isNaN(a) ? null : a,
       };
     }
-    function k(e) {
+    function L(e) {
       var t = e.headers.get("Range");
       if (t != null && t !== "") {
         var n = t.replace("bytes=", "").split("-"),
@@ -525,7 +512,7 @@ __d(
         clientRangeEndString: a.searchParams.get("bytesend"),
       };
     }
-    function I(e, t, n, r) {
+    function E(e, t, n, r) {
       var a = new URL(r);
       (a.searchParams.set("bytestart", t.toString()),
         a.searchParams.set("byteend", n.toString()));
@@ -537,21 +524,21 @@ __d(
       });
       return i;
     }
-    function T(e, t) {
+    function k(e, t) {
       var n = e,
         r = t;
       return (
-        e ? (n = N(e, g)) : (n = 0),
-        t != null && t !== 0 ? (r = P(t, g) - 1) : (r = n + h - 1),
+        e ? (n = $(e, g)) : (n = 0),
+        t != null && t !== 0 ? (r = x(t, g) - 1) : (r = n + h - 1),
         n > 0 && (n -= o("WAWebCryptoDecryptPartialMedia").BLOCK_SIZE),
         { serverRangeStart: n, serverRangeEnd: r }
       );
     }
-    function D(e) {
+    function I(e) {
       var t = [],
         n = new Uint8Array(0);
       return async function (r) {
-        var a = await x(e, t, g),
+        var a = await T(e, t, g),
           i = a.slice(0, g);
         t = [a.slice(g)];
         var l =
@@ -564,7 +551,7 @@ __d(
         );
       };
     }
-    async function x(e, t, n) {
+    async function T(e, t, n) {
       var a = t.reduce(function (e, t) {
         return e + t.byteLength;
       }, 0);
@@ -573,27 +560,25 @@ __d(
       var i = await e.read(),
         l = i.value;
       if (l == null) throw r("err")("Video range ended inside a chunk");
-      return x(e, [].concat(t, [l]), n);
+      return T(e, [].concat(t, [l]), n);
     }
-    function $(e) {
+    function D(e) {
       return Array.from(new Uint8Array(e), function (e) {
         return e.toString(16).padStart(2, "0");
       }).join("");
     }
-    function P(e, t) {
+    function x(e, t) {
       return Math.ceil(e / t) * t;
     }
-    function N(e, t) {
+    function $(e, t) {
       return Math.floor(e / t) * t;
     }
     ((l.enforceSafeMediaContentType = C),
-      (l.isUnsafeStreamRequest = b),
-      (l.rejectUnsafeStreamRequest = v),
-      (l.rejectUnscreenedStreamRequest = S),
-      (l.VideoStreamer = L),
-      (l.createServerRequest = I),
-      (l.computeServerRange = T),
-      (l.createChunkCiphertextReader = D));
+      (l.rejectUnscreenedStreamRequest = b),
+      (l.VideoStreamer = S),
+      (l.createServerRequest = E),
+      (l.computeServerRange = k),
+      (l.createChunkCiphertextReader = I));
   },
   98,
 );

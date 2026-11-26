@@ -5,6 +5,7 @@ __d(
     "WACustomError",
     "WAFtsIsSearchQueryEligibleForMessageSearch",
     "WAFtsSearchResultComparator",
+    "WAJids",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -32,49 +33,53 @@ __d(
                 .sort(function (e, t) {
                   return t.length - e.length;
                 }),
-              o = !1,
-              a = n.remote,
-              i = [];
-            if (e.length === 0) o = !0;
+              a = !1,
+              i = n.remote,
+              l = [];
+            if (e.length === 0) a = !0;
             else {
-              var l = e[0];
-              if (a != null)
-                ((i = await this.tableAdapter.bulkGetAnyOf(
+              var u = e[0];
+              if (i != null)
+                ((l = await this.tableAdapter.bulkGetAnyOf(
                   ["prefixes"],
-                  [await this.blindIndexGenerator.generateForToken(l, a)],
+                  [await this.blindIndexGenerator.generateForToken(u, i)],
                 )),
-                  (i = i.filter(function (e) {
-                    return e.chatId === a;
+                  (l = l.filter(function (e) {
+                    return e.chatId === i;
                   })));
               else {
-                var u =
-                    await this.blindIndexGenerator.generateBoundsForToken(l),
-                  c = u[0],
-                  d = u[1];
-                i = await this.tableAdapter.between(["prefixes"], c, d, {
+                var c =
+                    await this.blindIndexGenerator.generateBoundsForToken(u),
+                  d = c[0],
+                  m = c[1];
+                l = await this.tableAdapter.between(["prefixes"], d, m, {
                   lowerInclusive: !0,
                   upperInclusive: !0,
                 });
               }
-              for (var m = 1; m < e.length; m++)
-                if (((i = await this.$2(e[m], i, a)), i.length === 0)) {
-                  o = !0;
+              for (var p = 1; p < e.length; p++)
+                if (((l = await this.$2(e[p], l, i)), l.length === 0)) {
+                  a = !0;
                   break;
                 }
-              if (!o) {
-                for (var p = 0; p < e.length; p++)
+              if (!a) {
+                for (var _ = 0; _ < e.length; _++)
                   if (
-                    e[p].length > 2 &&
-                    ((i = await this.$2(e[p].slice(0, e[p].length - 1), i, a)),
-                    i.length === 0)
+                    e[_].length > 2 &&
+                    ((l = await this.$2(e[_].slice(0, e[_].length - 1), l, i)),
+                    l.length === 0)
                   ) {
-                    o = !0;
+                    a = !0;
                     break;
                   }
               }
             }
-            if (o) return s();
-            var _ = i
+            if (a) return s();
+            n.excludeNewsletterChats === !0 &&
+              (l = l.filter(function (e) {
+                return !e.chatId.endsWith(o("WAJids").WA_NEWSLETTER_JID_DOMAIN);
+              }));
+            var f = l
               .map(function (e) {
                 var t = e.chatId,
                   n = e.id,
@@ -82,7 +87,7 @@ __d(
                 return { id: n, chatId: t, timestamp: r };
               })
               .sort(r("WAFtsSearchResultComparator"));
-            return this.$3(_, n);
+            return this.$3(f, n);
           }),
           (n.$2 = async function (t, n, r) {
             var e = this;

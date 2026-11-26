@@ -14,17 +14,22 @@ __d(
       s,
       u,
       c = 1e3;
-    async function d(t, n) {
-      var a = new (o("WAWebMexLogging").MexPerfTracker)(!0);
-      a.start();
+    async function d(t, n, a) {
+      var i = new (o("WAWebMexLogging").MexPerfTracker)(!0);
+      i.start();
       try {
-        var i = _(t),
-          l = i.params;
-        (a.setQueryId(l.id), a.setOperationName(l.name));
-        var c = { metadata: { mexPerfTracker: a } },
-          d = await o("WAWebMexRelayEnvironment").fetchFunc(i.params, n, c),
-          f = p(d, a);
-        return (a.setHasData(!0), a.stop(), a.logEvent(), f.data);
+        var l = _(t),
+          c = l.params;
+        (i.setQueryId(c.id), i.setOperationName(c.name));
+        var d = {
+            metadata: {
+              mexPerfTracker: i,
+              withoutRetry: (a == null ? void 0 : a.withoutRetry) === !0,
+            },
+          },
+          f = await o("WAWebMexRelayEnvironment").fetchFunc(l.params, n, d),
+          h = p(f, i);
+        return (i.setHasData(!0), i.stop(), i.logEvent(), h.data);
       } catch (n) {
         if (
           n instanceof o("WAWebMexRelayEnvironment").MexIqError ||
@@ -43,7 +48,7 @@ __d(
               .tags("mex", "native-client")
               .sendLogs("mex-native-client-infra-error");
         else {
-          var h = r("getErrorSafe")(n);
+          var y = r("getErrorSafe")(n);
           (o("WALogger")
             .ERROR(
               s ||
@@ -51,17 +56,17 @@ __d(
                   "[mex][native-client] unexpected error",
                 ])),
             )
-            .catching(h)
+            .catching(y)
             .tags("mex", "native-client")
             .sendLogs("mex-native-client-unexpected-error"),
-            a.setHasData(!1),
-            a.setErrors([
-              o("WAWebMexLogging").createLoggingClientError(417, h.message),
+            i.setHasData(!1),
+            i.setErrors([
+              o("WAWebMexLogging").createLoggingClientError(417, y.message),
             ]));
         }
         if (
-          (a.stop(),
-          a.logEvent(),
+          (i.stop(),
+          i.logEvent(),
           n instanceof o("WAWebMexRelayEnvironment").MexFatalExtensionError ||
             o("WALogger")
               .ERROR(
@@ -75,14 +80,14 @@ __d(
               .tags("GQL", "MEX"),
           n instanceof o("WAWebMexRelayEnvironment").MexFatalExtensionError)
         ) {
-          var y = n.error.extensions,
-            C = y.backoff_sec,
-            b = y.error_code,
-            v = y.is_retryable;
+          var C = n.error.extensions,
+            b = C.backoff_sec,
+            v = C.error_code,
+            S = C.is_retryable;
           throw new (o("WAWebBackendErrors").MexServerStatusCodeError)(
-            Number(b),
+            Number(v),
             "MexFatalExtensionError: " + g(t) + ": " + n.error.message,
-            { backoffMs: m(C), retryable: v },
+            { backoffMs: m(b), retryable: S },
           );
         }
         throw n instanceof o("WAWebMexRelayEnvironment").MexIqError

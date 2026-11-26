@@ -1106,8 +1106,8 @@ __d(
       (Vt.name = "Message$VpcRequestMessage"),
       (Vt.internalSpec = {
         payloadSchemaVersion: [1, e.TYPES.UINT32],
-        requestId: [2, e.TYPES.STRING],
         scopeHint: [3, e.TYPES.ENUM, x],
+        token: [4, e.TYPES.BYTES],
       }),
       (Ht.name = "Message$RequestLocationUpdateMessage"),
       (Ht.internalSpec = {

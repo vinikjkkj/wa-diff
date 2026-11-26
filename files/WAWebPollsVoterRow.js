@@ -241,9 +241,11 @@ __d(
         i = o("WAWebClock").Clock.relativeDateAndTimeStr(t / 1e3);
       return c.jsx(
         "span",
-        babelHelpers.extends({ title: i }, (s || (s = r("stylex"))).props(a), {
-          children: i,
-        }),
+        babelHelpers.extends(
+          { title: String(i) },
+          (s || (s = r("stylex"))).props(a),
+          { children: i },
+        ),
       );
     }
     y.displayName = y.name + " [from " + i.id + "]";

@@ -45,17 +45,17 @@ __d(
     function b() {
       return s._(/*BTDS*/ "").toString();
     }
-    function v(e) {
+    function v() {
+      return s._(/*BTDS*/ "");
+    }
+    function S() {
+      return s._(/*BTDS*/ "");
+    }
+    function R(e) {
       return e ? s._(/*BTDS*/ "").toString() : s._(/*BTDS*/ "").toString();
     }
-    function S(e) {
+    function L(e) {
       return e ? s._(/*BTDS*/ "").toString() : s._(/*BTDS*/ "").toString();
-    }
-    function R() {
-      return s._(/*BTDS*/ "").toString();
-    }
-    function L() {
-      return s._(/*BTDS*/ "").toString();
     }
     function E() {
       return s._(/*BTDS*/ "").toString();
@@ -69,7 +69,13 @@ __d(
     function T() {
       return s._(/*BTDS*/ "").toString();
     }
-    function D(e, t) {
+    function D() {
+      return s._(/*BTDS*/ "").toString();
+    }
+    function x() {
+      return s._(/*BTDS*/ "").toString();
+    }
+    function $(e, t) {
       return t != null && t !== ""
         ? s
             ._(/*BTDS*/ "", [
@@ -79,13 +85,13 @@ __d(
             .toString()
         : s._(/*BTDS*/ "", [s._param("sender name", e)]).toString();
     }
-    function x(e) {
+    function P(e) {
       return s._(/*BTDS*/ "", [s._plural(e, "count")]);
     }
-    function $(e) {
+    function N(e) {
       return s._(/*BTDS*/ "", [s._plural(e, "count")]);
     }
-    function P(e, t) {
+    function M(e, t) {
       return s
         ._(/*BTDS*/ "", [s._plural(e, "zaps"), s._plural(t, "messages")])
         .toString();
@@ -103,18 +109,20 @@ __d(
       (l.getInstantViewerReactionOverflowLabel = y),
       (l.getInstantViewerReplyPlaceholder = C),
       (l.getInstantViewerSendLabel = b),
-      (l.getInstantViewerFullscreenLabel = v),
-      (l.getInstantViewerSoundLabel = S),
-      (l.getInstantViewerVideoFailedLabel = R),
-      (l.getInstantViewerRetryLabel = L),
-      (l.getInstantViewerPlayLabel = E),
-      (l.getInstantViewerMoreOptionsLabel = k),
-      (l.getInstantViewerReportLabel = I),
-      (l.getInstantViewerDeletedLabel = T),
-      (l.getInstantViewerVideoAccessibilityLabel = D),
-      (l.getChatListUnplayedInstantsLabel = x),
-      (l.getChatListPlayInstantsLabel = $),
-      (l.getChatListUnplayedInstantsAndUnreadLabel = P));
+      (l.getInstantViewerReplySentLabel = v),
+      (l.getInstantViewerReplyFailedLabel = S),
+      (l.getInstantViewerFullscreenLabel = R),
+      (l.getInstantViewerSoundLabel = L),
+      (l.getInstantViewerVideoFailedLabel = E),
+      (l.getInstantViewerRetryLabel = k),
+      (l.getInstantViewerPlayLabel = I),
+      (l.getInstantViewerMoreOptionsLabel = T),
+      (l.getInstantViewerReportLabel = D),
+      (l.getInstantViewerDeletedLabel = x),
+      (l.getInstantViewerVideoAccessibilityLabel = $),
+      (l.getChatListUnplayedInstantsLabel = P),
+      (l.getChatListPlayInstantsLabel = N),
+      (l.getChatListUnplayedInstantsAndUnreadLabel = M));
   },
   226,
 );

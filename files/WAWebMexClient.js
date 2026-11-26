@@ -5,7 +5,12 @@ __d(
     async function e(e, t) {
       return o("WAWebMexNativeClient").fetchQuery(e, t);
     }
-    ((l.graphql = o("WAWebRelayClient").graphql), (l.fetchQuery = e));
+    async function s(e, t) {
+      return o("WAWebMexNativeClient").fetchQuery(e, t, { withoutRetry: !0 });
+    }
+    ((l.graphql = o("WAWebRelayClient").graphql),
+      (l.fetchQuery = e),
+      (l.fetchQueryWithoutRetry = s));
   },
   98,
 );

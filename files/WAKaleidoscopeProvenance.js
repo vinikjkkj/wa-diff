@@ -9,7 +9,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
+    var e = ["logProvenanceDetails"],
       s,
       u,
       c,
@@ -23,115 +23,129 @@ __d(
       y = "/" + f,
       C = "/" + g,
       b = null;
-    async function v(t, n, a, i) {
-      a === void 0 && (a = []);
-      var l = i == null || i.trim() === "" ? null : D(i),
-        m = x({ allowlistsContent: l, hints: a, input: t }),
-        p;
-      n == null || n.addPoint("extraction_start");
+    async function v(e, t, n, a, i) {
+      n === void 0 && (n = []);
+      var l = i === void 0 ? {} : i,
+        p = l.logProvenanceDetails,
+        _ = p === void 0 ? !0 : p,
+        f = a == null || a.trim() === "" ? null : D(a),
+        g = x({
+          allowlistsContent: f,
+          hints: n,
+          input: e,
+          logProvenanceDetails: _,
+        }),
+        h;
+      t == null || t.addPoint("extraction_start");
       try {
-        var _,
-          f = await m(),
-          g = f.exitCode,
-          h = f.fs;
-        if (g !== 0 && l != null) {
+        var C,
+          b = await g(),
+          v = b.exitCode,
+          R = b.fs;
+        if (v !== 0 && f != null) {
           o("WAKaleidoscopeLogger")
             .ksLogger()
             .WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "detectAiProvenance: read with allowlists failed, exit code ",
                   "",
                 ])),
-              g,
+              v,
             );
-          var C = await x({ allowlistsContent: null, hints: a, input: t })();
-          ((g = C.exitCode), (h = C.fs));
+          var L = await x({
+            allowlistsContent: null,
+            hints: n,
+            input: e,
+            logProvenanceDetails: _,
+          })();
+          ((v = L.exitCode), (R = L.fs));
         }
-        if (g !== 0)
+        if (v !== 0)
           return (
             o("WAKaleidoscopeLogger")
               .ksLogger()
               .DEBUG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "detectAiProvenance: non-zero exit code ",
                     "",
                   ])),
-                g,
+                v,
               ),
-            n == null ||
-              n.addPoint("extraction_end", { int: { exit_code: g } }),
+            t == null ||
+              t.addPoint("extraction_end", { int: { exit_code: v } }),
             { provenance: null, engineErrorCode: null, systemProvenance: null }
           );
-        p = (_ = h[y]) == null ? void 0 : _.content;
+        h = (C = R[y]) == null ? void 0 : C.content;
       } catch (e) {
-        return (
-          o("WAKaleidoscopeLogger")
-            .ksLogger()
-            .WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "detectAiProvenance failed: ",
-                  "",
-                ])),
-              r("getErrorSafe")(e).message,
-            ),
-          n == null ||
-            n.addPoint("extraction_fail", {
-              string: { failure_reason: "wasi_error" },
-            }),
-          { provenance: null, engineErrorCode: null, systemProvenance: null }
-        );
-      }
-      if (typeof p != "string")
         return (
           o("WAKaleidoscopeLogger")
             .ksLogger()
             .WARN(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "detectAiProvenance: missing/invalid output",
+                  "detectAiProvenance failed: ",
+                  "",
                 ])),
+              r("getErrorSafe")(e).message,
             ),
-          n == null ||
-            n.addPoint("extraction_fail", {
-              string: { failure_reason: "parse_error" },
+          t == null ||
+            t.addPoint("extraction_fail", {
+              string: { failure_reason: "wasi_error" },
             }),
           { provenance: null, engineErrorCode: null, systemProvenance: null }
         );
-      var b;
-      try {
-        b = JSON.parse(p);
-      } catch (e) {
+      }
+      if (typeof h != "string")
         return (
           o("WAKaleidoscopeLogger")
             .ksLogger()
             .WARN(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "detectAiProvenance: unparseable output: ",
-                  "",
+                  "detectAiProvenance: missing/invalid output",
                 ])),
-              r("getErrorSafe")(e).message,
             ),
-          n == null ||
-            n.addPoint("extraction_fail", {
+          t == null ||
+            t.addPoint("extraction_fail", {
+              string: { failure_reason: "parse_error" },
+            }),
+          { provenance: null, engineErrorCode: null, systemProvenance: null }
+        );
+      var E;
+      try {
+        E = JSON.parse(h);
+      } catch (e) {
+        return (
+          _ &&
+            o("WAKaleidoscopeLogger")
+              .ksLogger()
+              .WARN(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "detectAiProvenance: unparseable output: ",
+                    "",
+                  ])),
+                r("getErrorSafe")(e).message,
+              ),
+          t == null ||
+            t.addPoint("extraction_fail", {
               string: { failure_reason: "parse_error" },
             }),
           { provenance: null, engineErrorCode: null, systemProvenance: null }
         );
       }
-      var v = k(b);
-      return v != null
-        ? (n == null ||
-            n.addPoint("extraction_fail", {
-              int: { engine_error_code: v },
+      var I = k(E);
+      return I != null
+        ? (t == null ||
+            t.addPoint("extraction_fail", {
+              int: { engine_error_code: I },
               string: { failure_reason: "engine_error" },
             }),
-          { provenance: null, engineErrorCode: v })
-        : (n == null || n.addPoint("extraction_end"),
-          { provenance: T(b), engineErrorCode: null, systemProvenance: S(b) });
+          { provenance: null, engineErrorCode: I })
+        : (t == null || t.addPoint("extraction_end"),
+          { provenance: T(E), engineErrorCode: null, systemProvenance: S(E) });
     }
     function S(e) {
       if (e == null || typeof e != "object") return null;
@@ -222,37 +236,27 @@ __d(
       var n = new TextEncoder().encode(e);
       return ((b = { json: e, content: n }), n);
     }
-    function x(e) {
-      var t = o("WASI").createWasi(
-          $(
-            babelHelpers.extends({}, e, {
-              stderr: function (t) {
-                o("WAKaleidoscopeLogger")
-                  .ksLogger()
-                  .DEBUG(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
-                    t,
-                  );
-              },
-              stdout: function (t) {
-                o("WAKaleidoscopeLogger")
-                  .ksLogger()
-                  .DEBUG(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
-                    t,
-                  );
-              },
-            }),
-          ),
+    function x(t) {
+      var n = t.logProvenanceDetails,
+        r = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        a = function (t) {
+          n &&
+            o("WAKaleidoscopeLogger")
+              .ksLogger()
+              .DEBUG(
+                p || (p = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
+                t,
+              );
+        },
+        i = o("WASI").createWasi(
+          $(babelHelpers.extends({}, r, { stderr: a, stdout: a })),
         ),
-        n = t.getImportObject,
-        r = t.start;
+        l = i.getImportObject,
+        s = i.start;
       return async function () {
         var e = await o("WAGetKaleidoscopeWasm").getKaleidoscopeWasm(),
-          t = await WebAssembly.instantiate(e, n());
-        return r(t);
+          t = await WebAssembly.instantiate(e, l());
+        return s(t);
       };
     }
     function $(e) {

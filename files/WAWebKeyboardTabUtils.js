@@ -16,7 +16,11 @@ __d(
         a = t.focusType;
       return a === e.TABBABLE
         ? {
-            candidateElements: o("tabbable").tabbable(n),
+            candidateElements: f(
+              n,
+              o("tabbable").tabbable(n),
+              n.ownerDocument.activeElement,
+            ),
             isElementTabbable: function (t) {
               return !0;
             },
@@ -39,11 +43,50 @@ __d(
                   (parseInt(String(t.getAttribute("data-tab")), 10) || 0)
                 );
               }),
-              isElementTabbable: h,
+              isElementTabbable: v,
               skipOccluded: !0,
             };
     }
-    function m(t, n, r, o) {
+    var m = 'input[type="radio"][name]:not([name=""])',
+      p = m + ":not(:checked)";
+    function _(e, t) {
+      return (
+        e.matches(m) &&
+        e.getAttribute("name") === t.getAttribute("name") &&
+        e.closest("form") === t.closest("form")
+      );
+    }
+    function f(e, t, n) {
+      var r =
+          n instanceof HTMLInputElement && n.type === "radio" && e.contains(n)
+            ? n
+            : null,
+        o = new Map(),
+        a = t.filter(function (e) {
+          var t;
+          if (r != null) {
+            if (e === r) return !0;
+            if (_(e, r)) return !1;
+          }
+          if (!e.matches(p)) return !0;
+          var n = e.closest("form"),
+            a = String(e.getAttribute("name")),
+            i = (t = o.get(n)) != null ? t : new Set();
+          o.set(n, i);
+          var l = !i.has(a);
+          return (i.add(a), l);
+        });
+      if (r != null && !a.includes(r)) {
+        var i = a.findIndex(function (e) {
+          return (
+            r.compareDocumentPosition(e) === Node.DOCUMENT_POSITION_FOLLOWING
+          );
+        });
+        a.splice(i === -1 ? a.length : i, 0, r);
+      }
+      return a;
+    }
+    function g(t, n, r, o) {
       (n === void 0 && (n = e.CUSTOM),
         r === void 0 &&
           (r = function () {
@@ -56,7 +99,7 @@ __d(
         return l(e) && r(e);
       });
     }
-    function p(t, n, r, a, i) {
+    function h(t, n, r, a, i) {
       var l;
       (n === void 0 && (n = s.FORWARD),
         r === void 0 && (r = e.CUSTOM),
@@ -65,19 +108,19 @@ __d(
         c = u.candidateElements,
         m = u.isElementTabbable,
         p = u.skipOccluded,
-        g = n === s.FORWARD ? 1 : -1,
-        h = _(t, c, g),
-        y = function (t) {
+        _ = n === s.FORWARD ? 1 : -1,
+        f = y(t, c, _),
+        g = function (t) {
           return m(t) && a(t);
         };
       return p &&
-        (l = f(c, h, g, function (e) {
-          return y(e) && !C(e);
+        (l = C(c, f, _, function (e) {
+          return g(e) && !R(e);
         })) != null
         ? l
-        : f(c, h, g, y);
+        : C(c, f, _, g);
     }
-    function _(e, t, n) {
+    function y(e, t, n) {
       var r = e.ownerDocument.activeElement;
       if (!r) return 0;
       var o = t.findIndex(function (e) {
@@ -86,19 +129,19 @@ __d(
         a = t.findIndex(function (e) {
           return e === r;
         });
-      return (a > 0 && (o = a), o === -1 ? 0 : g(o + n, t.length));
+      return (a > 0 && (o = a), o === -1 ? 0 : b(o + n, t.length));
     }
-    function f(e, t, n, r) {
+    function C(e, t, n, r) {
       for (var o = 0; o < e.length; o++) {
-        var a = e[g(t + o * n, e.length)];
+        var a = e[b(t + o * n, e.length)];
         if (r(a)) return a;
       }
       return null;
     }
-    function g(e, t) {
+    function b(e, t) {
       return (e + t) % t;
     }
-    function h(e) {
+    function v(e) {
       if (e.disabled) return !1;
       var t = parseInt(String(e.dataset.tab), 10);
       if (typeof t != "number" || t < 0) return !1;
@@ -106,9 +149,9 @@ __d(
       return (n != null && parseInt(n, 10) === -1) ||
         e.closest("[inert]") != null
         ? !1
-        : !y(e);
+        : !S(e);
     }
-    function y(e) {
+    function S(e) {
       if (getComputedStyle(e).visibility === "hidden") return !0;
       for (var t = e; t; ) {
         if (getComputedStyle(t).display === "none") return !0;
@@ -116,7 +159,7 @@ __d(
       }
       return !1;
     }
-    function C(e) {
+    function R(e) {
       var t = e.ownerDocument;
       if (!("elementFromPoint" in t) || e.getRootNode() !== t) return !1;
       var n = e.getBoundingClientRect(),
@@ -127,14 +170,14 @@ __d(
       if (
         o === 0 ||
         r === 0 ||
-        !v(e, a + o / 2, i + r / 2) ||
+        !E(e, a + o / 2, i + r / 2) ||
         getComputedStyle(e).pointerEvents === "none"
       )
         return !1;
-      var l = S(e, { height: r, width: o, x: a, y: i });
-      return l == null ? !1 : b(e, l);
+      var l = k(e, { height: r, width: o, x: a, y: i });
+      return l == null ? !1 : L(e, l);
     }
-    function b(e, t) {
+    function L(e, t) {
       var n = t.height,
         r = t.width,
         o = t.x,
@@ -144,20 +187,20 @@ __d(
         s = a + u,
         c = a + n - u;
       return (
-        v(e, o + r / 2, a + n / 2) &&
-        v(e, i, s) &&
-        v(e, l, s) &&
-        v(e, i, c) &&
-        v(e, l, c)
+        E(e, o + r / 2, a + n / 2) &&
+        E(e, i, s) &&
+        E(e, l, s) &&
+        E(e, i, c) &&
+        E(e, l, c)
       );
     }
-    function v(e, t, n) {
+    function E(e, t, n) {
       var r = e.ownerDocument.elementFromPoint(t, n);
       return r == null || r.shadowRoot != null || e.contains(r) || r.contains(e)
         ? !1
         : getComputedStyle(r).opacity !== "0";
     }
-    function S(e, t) {
+    function k(e, t) {
       for (
         var n = t.height,
           r = t.width,
@@ -170,7 +213,7 @@ __d(
           c = e.parentElement;
         c != null;
       ) {
-        if (R(c)) {
+        if (I(c)) {
           var d = c.getBoundingClientRect();
           if (
             ((i = Math.max(i, d.x)),
@@ -185,7 +228,7 @@ __d(
       }
       return { height: u - l, width: s - i, x: i, y: l };
     }
-    function R(e) {
+    function I(e) {
       var t = getComputedStyle(e),
         n = t.overflowX,
         r = t.overflowY;
@@ -193,8 +236,8 @@ __d(
     }
     ((l.FocusType = e),
       (l.TabDirection = s),
-      (l.getTabbableElements = m),
-      (l.getNextTabbableElement = p));
+      (l.getTabbableElements = g),
+      (l.getNextTabbableElement = h));
   },
   98,
 );

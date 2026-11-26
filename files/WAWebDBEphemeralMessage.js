@@ -8,18 +8,27 @@ __d(
     "WAWebAppTracker",
     "WAWebChatThreadLogging",
     "WAWebDBMessageDelete",
+    "WAWebDBRemoveMsgsAndUpdateChats",
     "WAWebEphemeralKeepInChatUtils",
     "WAWebEphemeralityUtils",
+    "WAWebInstantMsgTypes",
     "WAWebLidAwareContactsDB",
     "WAWebLidMigrationUtils",
     "WAWebMsgKey",
+    "WAWebMsgType",
     "WAWebSchemaMessage",
     "WAWebWid",
     "WAWebWidFactory",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    async function c() {
+    var e,
+      s,
+      u,
+      c = new Set([
+        o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE,
+        o("WAWebMsgType").MSG_TYPE.INSTANT_VIDEO,
+      ]);
+    async function d() {
       o("WALogger")
         .LOG(
           e ||
@@ -36,70 +45,86 @@ __d(
         n = t.filter(function (e) {
           return !o("WAWebEphemeralKeepInChatUtils").isKept(e.kicState);
         });
-      return n.length === 0
-        ? []
-        : (m(
-            n.map(function (e) {
-              return {
-                ack: e.ack,
-                afterReadDuration: e.afterReadDuration,
-                chatId: r("WAWebMsgKey").fromString(e.id.toString()).remote,
-              };
-            }),
-          ),
+      if (n.length === 0) return [];
+      (_(
+        n.map(function (e) {
+          return {
+            ack: e.ack,
+            afterReadDuration: e.afterReadDuration,
+            chatId: r("WAWebMsgKey").fromString(e.id.toString()).remote,
+          };
+        }),
+      ),
+        o("WAWebAppTracker").AppTracker.start(
+          o("WAWebAppTracker").AppTrackerType.PurgeEphemeral,
+        ));
+      var a = n.reduce(
+          function (e, t) {
+            return (e.ids.push(t.id.toString()), e.types.add(t.type), e);
+          },
+          { ids: [], types: new Set() },
+        ),
+        i = a.ids,
+        l = a.types;
+      return (
+        await p(i, l).finally(function () {
+          return o("WAWebAppTracker").AppTracker.stop(
+            o("WAWebAppTracker").AppTrackerType.PurgeEphemeral,
+          );
+        }),
+        o("WALogger")
+          .LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "pruneExpiredMessages completed",
+              ])),
+          )
+          .tags("ephemeral-messages"),
+        n
+      );
+    }
+    async function m(e) {
+      if (e.length !== 0) {
+        (_(
+          e.map(function (e) {
+            return {
+              ack: e.ack,
+              afterReadDuration: e.afterReadDuration,
+              chatId: e.id.remote,
+            };
+          }),
+        ),
           o("WAWebAppTracker").AppTracker.start(
             o("WAWebAppTracker").AppTrackerType.PurgeEphemeral,
+          ));
+        var t = e.reduce(
+            function (e, t) {
+              return (e.ids.push(t.id.toString()), e.types.add(t.type), e);
+            },
+            { ids: [], types: new Set() },
           ),
-          await o("WAWebDBMessageDelete")
-            .removeMessagesFromHistory(
-              n.map(function (e) {
-                return e.id.toString();
-              }),
-            )
-            .finally(function () {
-              return o("WAWebAppTracker").AppTracker.stop(
-                o("WAWebAppTracker").AppTrackerType.PurgeEphemeral,
-              );
-            }),
-          o("WALogger")
-            .LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "pruneExpiredMessages completed",
-                ])),
-            )
-            .tags("ephemeral-messages"),
-          n);
-    }
-    async function d(e) {
-      if (e.length !== 0)
-        return (
-          m(
-            e.map(function (e) {
-              return {
-                ack: e.ack,
-                afterReadDuration: e.afterReadDuration,
-                chatId: e.id.remote,
-              };
-            }),
-          ),
-          o("WAWebAppTracker").AppTracker.start(
+          n = t.ids,
+          r = t.types;
+        return p(n, r).finally(function () {
+          return o("WAWebAppTracker").AppTracker.stop(
             o("WAWebAppTracker").AppTrackerType.PurgeEphemeral,
-          ),
-          o("WAWebDBMessageDelete")
-            .removeMessagesFromHistory(
-              e.map(function (e) {
-                return e.id.toString();
-              }),
-            )
-            .finally(function () {
-              return o("WAWebAppTracker").AppTracker.stop(
-                o("WAWebAppTracker").AppTrackerType.PurgeEphemeral,
-              );
-            })
-        );
+          );
+        });
+      }
     }
-    function m(e) {
+    function p(e, t) {
+      return Array.from(t).some(function (e) {
+        return c.has(e);
+      })
+        ? o("WAWebDBRemoveMsgsAndUpdateChats").removeMessagesAndUpdateChats(
+            e,
+            function (e) {
+              return o("WAWebInstantMsgTypes").isInstantMsgType(e.type);
+            },
+          )
+        : o("WAWebDBMessageDelete").removeMessagesFromHistory(e);
+    }
+    function _(e) {
       if (o("WAWebAfterReadUtils").isAfterReadEnabled()) {
         var t = o("WATimeUtils").unixTime(),
           n = [];
@@ -118,7 +143,7 @@ __d(
           o("WAWebChatThreadLogging").handleActivitiesForChatThreadLogging(n);
       }
     }
-    async function p(e) {
+    async function f(e) {
       var t = e.contactId,
         n = e.messageId,
         a = await Promise.all([
@@ -166,9 +191,9 @@ __d(
         }
       }
     }
-    ((l.pruneExpiredMessages = c),
-      (l.removeExpiredMessagesFromHistory = d),
-      (l.convertMessageNotEphemeralForContactWithEphmeralityDisabled = p));
+    ((l.pruneExpiredMessages = d),
+      (l.removeExpiredMessagesFromHistory = m),
+      (l.convertMessageNotEphemeralForContactWithEphmeralityDisabled = f));
   },
   98,
 );

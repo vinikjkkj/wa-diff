@@ -78,7 +78,9 @@ __d(
     async function f(e, t, n) {
       n === void 0 && (n = {});
       var r = o("WAWebStateUtils").unproxy(e),
-        a = o("WAWebPathfinderAccountToken").getPathfinderCaptureAccountToken(),
+        a = o(
+          "WAWebPathfinderAccountToken",
+        ).resolvePathfinderCaptureAccountToken(n.pathfinderAccountToken),
         i = await g(r, t, n);
       if (i) {
         await o("WAWebBizBotTosUtils").maybeShowBizBot1pTos(r);

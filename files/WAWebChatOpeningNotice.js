@@ -7,6 +7,7 @@ __d(
         PSA: "chat_psa",
         META_PRIVACY: "biz_privacy_mode_init_fb",
         BSP_PRIVACY: "biz_privacy_mode_init_bsp",
+        NON_E2EE_PRIVACY: "chat_privacy_non_e2ee_init",
         HOSTED_GROUP: "is_capi_hosted_group",
         HOSTED_SELF: "biz_me_account_type_is_hosted",
         HOSTED_CONTACT: "biz_account_type_is_hosted",

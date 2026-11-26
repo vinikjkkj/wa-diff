@@ -14,17 +14,25 @@ __d(
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = e.msg,
-        n = e.options,
-        a = o("useWAWebMsgValues").useMsgValues(t.id, [
+      var t,
+        n,
+        a = e.msg,
+        i = e.options,
+        l = o("useWAWebMsgValues").useOptionalMsgValues(a.id, [
           o("WAWebMsgGetters").getAck,
           o("WAWebMsgGetters").getIsViewOnce,
         ]),
-        i = a[0],
-        l = a[1];
-      if (l)
-        return n.viewOnceStatic === !0 ||
-          !o("WAWebViewOnceState").isViewed(t.safe())
+        u =
+          (t = l == null ? void 0 : l[0]) != null
+            ? t
+            : o("WAWebMsgGetters").getAck(a),
+        c =
+          (n = l == null ? void 0 : l[1]) != null
+            ? n
+            : o("WAWebMsgGetters").getIsViewOnce(a);
+      if (c)
+        return i.viewOnceStatic === !0 ||
+          !o("WAWebViewOnceState").isViewed(a.safe())
           ? s.jsx(r("WDSIconWdsIcViewOnce.react"), {
               width: 20,
               height: 20,
@@ -35,11 +43,11 @@ __d(
               height: 20,
               testid: "view-once-opened-icon",
             });
-      var u = i === o("WAWebAck").ACK.PLAYED ? "contentDeemphasized" : "accent";
+      var d = u === o("WAWebAck").ACK.PLAYED ? "contentDeemphasized" : "accent";
       return s.jsx(r("WDSIconIcKeyboardVoiceFilled.react"), {
         height: 20,
         width: 20,
-        colorName: u,
+        colorName: d,
         testid: "mic",
       });
     }

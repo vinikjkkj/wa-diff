@@ -31,26 +31,27 @@ __d(
         i = t.entryPoint,
         l = t.groupMetadata,
         u = t.onBack,
-        m = t.reopenAddGroupFlowCallback,
-        p = o("WAWebMiscGatingUtils").getGroupSizeLimit(
+        m = t.onClosed,
+        p = t.reopenAddGroupFlowCallback,
+        _ = o("WAWebMiscGatingUtils").getGroupSizeLimit(
           o("WAWebGroupMetadataTypeUtils").getGroupTypeForMetadata(l),
         ),
-        _ = o("WAWebWidFactory").asGroupWidOrThrow(n.id),
-        f = o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(_)
+        f = o("WAWebWidFactory").asGroupWidOrThrow(n.id),
+        g = o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(f)
           ? o("WATimeUtils").unixTime()
           : null,
-        g =
-          f != null
+        h =
+          g != null
             ? o(
                 "WAWebGetGroupHistoryBundleMessagesCount",
               ).getGroupHistoryBundleMessageCount({
-                groupWid: _,
-                targetStartMessageTime: f,
+                groupWid: f,
+                targetStartMessageTime: g,
               })
             : null;
       if (
-        (g != null &&
-          g
+        (h != null &&
+          h
             .then(function (e) {
               return o(
                 "WAWebGroupHistorySenderUserJourneyLogger",
@@ -73,29 +74,30 @@ __d(
                   "group-history-add-member-selectable-messages-load-failed",
                 );
             }),
-        (l == null ? void 0 : l.participants.length) >= p)
+        (l == null ? void 0 : l.participants.length) >= _)
       ) {
-        var h = s._(/*BTDS*/ "", [s._param("max", p)]);
+        var y = s._(/*BTDS*/ "", [s._param("max", _)]);
         o("WAWebToastManager").ToastManager.open(
-          c.jsx(o("WAWebToast.react").Toast, { msg: h, id: d }),
+          c.jsx(o("WAWebToast.react").Toast, { msg: y, id: d }),
         );
       } else {
-        var y = c.jsx(
+        var C = c.jsx(
           r("WAWebAddGroupParticipantGroupHistoryContextProvider.react"),
           {
             chatId: n.id,
-            enterFlowTimestamp: f,
-            messageCountPromise: g,
+            enterFlowTimestamp: g,
+            messageCountPromise: h,
             children: c.jsx(r("WAWebAddGroupParticipantFlowLoadable.react"), {
               chatId: n.id,
               communityName: a,
               entryPoint: i,
               onBack: u,
-              reopenAddGroupFlowCallback: m,
+              onClosed: m,
+              reopenAddGroupFlowCallback: p,
             }),
           },
         );
-        o("WAWebModalManager").ModalManager.open(y, {
+        o("WAWebModalManager").ModalManager.open(C, {
           transition: "modal-flow",
         });
       }

@@ -1,26 +1,92 @@
 __d(
   "WAWebBotEditSignatureMetadata",
-  ["WACryptoUtils", "nullthrows"],
+  ["WACryptoUtils", "WAWebBotTypes", "nullthrows"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t,
         n = e.parentMsg,
         r = e.protocolMsg,
         o = e.sameBatchEdits,
-        a = (t = s(n, r, o)) != null ? t : n,
+        a = (t = d(n, r, o)) != null ? t : n,
         i = r.botSignatureVerificationMetadata,
         l = a.botSignatureVerificationMetadata;
-      return c(i) || !c(l)
+      return p(i) || !p(l)
         ? i
-        : d(a.unifiedResponseRawData, r.unifiedResponseRawData)
+        : _(a.unifiedResponseRawData, r.unifiedResponseRawData)
           ? l
           : i;
     }
-    function s(e, t, n) {
+    async function s(e) {
+      var t = e.messageEdits,
+        n = e.readStoredMsgs,
+        r = t.filter(function (e) {
+          var t = e.isLatest;
+          return t;
+        }),
+        o = await u({ latestEdits: r, readStoredMsgs: n });
+      for (var a of r) {
+        var i = o.get(a.protocolMsg.id.toString()),
+          l = a.editedMsgData;
+        i != null &&
+          l.unifiedResponseRawData &&
+          (a.editedMsgData = babelHelpers.extends({}, l, {
+            botSignatureVerificationMetadata: i,
+          }));
+      }
+    }
+    async function u(e) {
+      var t = e.latestEdits,
+        n = e.readStoredMsgs,
+        r = new Map(),
+        o = t.filter(function (e) {
+          var t = e.parentMsg,
+            n = e.protocolMsg;
+          return c(t, n);
+        });
+      if (o.length === 0) return r;
+      var a = await n(
+        o.map(function (e) {
+          var t = e.parentMsg;
+          return t.id.toString();
+        }),
+      );
+      return (
+        o.forEach(function (e, t) {
+          var n,
+            o,
+            i = e.protocolMsg,
+            l =
+              (n = a[t]) == null ? void 0 : n.botSignatureVerificationMetadata;
+          l != null &&
+            p(l) &&
+            _(
+              (o = a[t]) == null ? void 0 : o.unifiedResponseRawData,
+              i.unifiedResponseRawData,
+            ) &&
+            r.set(i.id.toString(), l);
+        }),
+        r
+      );
+    }
+    function c(e, t) {
+      var n = t.botEditType,
+        r = t.unifiedResponseRawData;
+      return (
+        r != null &&
+        n !== o("WAWebBotTypes").BotMsgEditType.FIRST &&
+        n !== o("WAWebBotTypes").BotMsgEditType.INNER &&
+        !p(t.botSignatureVerificationMetadata) &&
+        !(
+          p(e.botSignatureVerificationMetadata) &&
+          _(e.unifiedResponseRawData, r)
+        )
+      );
+    }
+    function d(e, t, n) {
       var o;
       if (
         n == null ||
-        c(t.botSignatureVerificationMetadata) ||
+        p(t.botSignatureVerificationMetadata) ||
         t.unifiedResponseRawData == null
       )
         return null;
@@ -31,16 +97,16 @@ __d(
         var r = e.latestEditSenderTimestampMs;
         return (
           e !== t &&
-          u(e, a, n.parentMsgsByKey) &&
+          m(e, a, n.parentMsgsByKey) &&
           r != null &&
           r <= l &&
           r >= i &&
-          c(e.botSignatureVerificationMetadata) &&
-          d(e.unifiedResponseRawData, t.unifiedResponseRawData)
+          p(e.botSignatureVerificationMetadata) &&
+          _(e.unifiedResponseRawData, t.unifiedResponseRawData)
         );
       });
     }
-    function u(e, t, n) {
+    function m(e, t, n) {
       var r,
         o = e.protocolMessageKey;
       return (
@@ -48,16 +114,18 @@ __d(
         ((r = n.get(o.toString())) == null ? void 0 : r.id.toString()) === t
       );
     }
-    function c(e) {
+    function p(e) {
       var t;
       return ((t = e == null ? void 0 : e.proofs.length) != null ? t : 0) > 0;
     }
-    function d(e, t) {
+    function _(e, t) {
       return (
         e != null && t != null && o("WACryptoUtils").uint8ArraysEqual(e, t)
       );
     }
-    l.getEditedBotSignatureMetadata = e;
+    ((l.getEditedBotSignatureMetadata = e),
+      (l.keepStoredBotSignatures = s),
+      (l.findStoredBotSignatures = u));
   },
   98,
 );

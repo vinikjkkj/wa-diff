@@ -299,18 +299,18 @@ __d(
             ((e = this.$1) == null || e.close(), (this.$1 = null));
           }),
           (n.deleteKeyCache = function () {
-            var e;
             ((this.$2 = null),
               (this.$4 = null),
               (this.$3 = null),
-              (this.$8 = new (e = o("WAResolvable")).Resolvable()),
-              (this.$9 = new e.Resolvable()),
-              (this.$10 = new e.Resolvable()),
+              (this.$8 = new (o("WAResolvable").Resolvable)()),
+              (this.$9 = new (o("WAResolvable").Resolvable)()),
+              this.$10.resolveWasCalled() &&
+                (this.$10 = new (o("WAResolvable").Resolvable)()),
               (this.$5 = null),
               (this.$6 = null),
               (this.$7 = null),
               (this.$11 = null),
-              (this.$12 = new e.Resolvable()));
+              (this.$12 = new (o("WAResolvable").Resolvable)()));
           }),
           (n.setFinalDbMsgEncKeys_TESTONLY = function (t) {
             this.$3 = t;

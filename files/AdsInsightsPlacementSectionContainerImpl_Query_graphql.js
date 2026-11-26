@@ -12,11 +12,7 @@ __d(
       fragment: {
         argumentDefinitions: [],
         kind: "Fragment",
-        metadata: {
-          hasClientEdges: !0,
-          throwOnFieldError: !0,
-          vultureHash: "Tz6FvxzjJchgq4r0I-W2oj5kSxg=",
-        },
+        metadata: { hasClientEdges: !0, throwOnFieldError: !0 },
         name: "AdsInsightsPlacementSectionContainerImpl_Query",
         selections: [
           {
@@ -123,7 +119,7 @@ __d(
       params: {
         cacheID: "5b6c1cce7cf3c76284e68522d0b0b466",
         id: null,
-        metadata: { vultureHash: "Tz6FvxzjJchgq4r0I-W2oj5kSxg=" },
+        metadata: {},
         name: "AdsInsightsPlacementSectionContainerImpl_Query",
         operationKind: "query",
         text: null,

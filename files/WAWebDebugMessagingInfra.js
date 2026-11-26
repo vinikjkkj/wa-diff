@@ -84,7 +84,6 @@ __d(
       Z = null,
       ee = null;
     async function te(e) {
-      r("vulture")("W8jBs-Wu98CU9KwQdMV4SJeMY-s=");
       var t;
       if (e instanceof ArrayBuffer) t = e;
       else if (e instanceof Uint8Array) t = e;
@@ -95,30 +94,29 @@ __d(
         t = new TextEncoder().encode((n = JSON.stringify(e)) != null ? n : "");
       }
       for (
-        var o = await self.crypto.subtle.digest("SHA-256", t),
-          a = new Uint8Array(o),
-          i = "",
-          l = 0;
-        l < a.length;
-        l++
+        var r = await self.crypto.subtle.digest("SHA-256", t),
+          o = new Uint8Array(r),
+          a = "",
+          i = 0;
+        i < o.length;
+        i++
       )
-        i += a[l].toString(16).padStart(2, "0");
-      return i;
+        a += o[i].toString(16).padStart(2, "0");
+      return a;
     }
     async function ne() {
-      r("vulture")("MELlip27xexO1A4Bp3IpjlAh9Uw=");
       var t = o("WAWebSignalProtocolStore")
           .getPersistSignalProtocolStore()
           .cache_TESTONLY(),
         n = await o("WAWebSchemaSession").getTable().all(),
-        a = new Map();
+        r = new Map();
       (await Promise.all(
         n.map(async function (e) {
           var t = e.address,
             n = e.session;
           if (n != null) {
-            var r = await te(n);
-            a.set(t, r);
+            var o = await te(n);
+            r.set(t, o);
           }
         }),
       ),
@@ -126,23 +124,23 @@ __d(
           Array.from(t.SessionStore.entries()).map(async function (e) {
             var t = e[0],
               n = e[1];
-            if (n != null && n.deleted) a.delete(t);
+            if (n != null && n.deleted) r.delete(t);
             else if (n != null) {
-              var r = await te(n.session);
-              a.set(t, r);
+              var o = await te(n.session);
+              r.set(t, o);
             }
           }),
         ),
-        (J = a));
-      var i = await o("WAWebSchemaSenderkey").getTable().all(),
-        l = new Map();
+        (J = r));
+      var a = await o("WAWebSchemaSenderkey").getTable().all(),
+        i = new Map();
       (await Promise.all(
-        i.map(async function (e) {
+        a.map(async function (e) {
           var t = e.senderKey,
             n = e.senderKeyName;
           if (t != null) {
             var r = await te(t);
-            l.set(n, r);
+            i.set(n, r);
           }
         }),
       ),
@@ -152,13 +150,13 @@ __d(
               n = e[1];
             if (n != null) {
               var r = await te(n);
-              l.set(t, r);
-            } else l.delete(t);
+              i.set(t, r);
+            } else i.delete(t);
           }),
         ),
-        (Z = l));
-      var s = await o("WAWebUserPrefsStatus").getStatusSenderKeyMap();
-      ((ee = new Set(s.senderKey)),
+        (Z = i));
+      var l = await o("WAWebUserPrefsStatus").getStatusSenderKeyMap();
+      ((ee = new Set(l.senderKey)),
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -167,15 +165,15 @@ __d(
               " sender key entries (IDB + cache overlay), ",
               " status SK distrib entries",
             ])),
-          a.size,
-          l.size,
+          r.size,
+          i.size,
           ee.size,
         ));
     }
     ne.doc =
       "Take a snapshot of all in-memory signal sessions and sender keys (address + hash). Call diffSignalSessions after sending to see changes.";
     async function re() {
-      if ((r("vulture")("MaJRvqc30aJFCEaEbMKLUj9EsYA="), J == null))
+      if (J == null)
         return (
           o("WALogger").WARN(
             s ||
@@ -190,14 +188,14 @@ __d(
           .getPersistSignalProtocolStore()
           .cache_TESTONLY(),
         n = await o("WAWebSchemaSession").getTable().all(),
-        a = new Map();
+        r = new Map();
       (await Promise.all(
         n.map(async function (e) {
           var t = e.address,
             n = e.session;
           if (n != null) {
-            var r = await te(n);
-            a.set(t, r);
+            var o = await te(n);
+            r.set(t, o);
           }
         }),
       ),
@@ -205,24 +203,24 @@ __d(
           Array.from(t.SessionStore.entries()).map(async function (e) {
             var t = e[0],
               n = e[1];
-            if (n != null && n.deleted) a.delete(t);
+            if (n != null && n.deleted) r.delete(t);
             else if (n != null) {
-              var r = await te(n.session);
-              a.set(t, r);
+              var o = await te(n.session);
+              r.set(t, o);
             }
           }),
         ));
-      var i = [],
+      var a = [],
+        i = [],
         l = [],
-        b = [],
-        v = 0;
-      for (var S of a) {
-        var R = S[0],
-          L = S[1],
-          E = e.get(R);
-        E == null ? i.push(R) : E !== L ? b.push(R) : v++;
+        b = 0;
+      for (var v of r) {
+        var S = v[0],
+          R = v[1],
+          L = e.get(S);
+        L == null ? a.push(S) : L !== R ? l.push(S) : b++;
       }
-      for (var k of e.keys()) a.has(k) || l.push(k);
+      for (var E of e.keys()) r.has(E) || i.push(E);
       (o("WALogger").LOG(
         u ||
           (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -232,55 +230,55 @@ __d(
             " modified, ",
             " unchanged",
           ])),
+        a.length,
         i.length,
         l.length,
-        b.length,
-        v,
+        b,
       ),
-        i.length > 0 &&
+        a.length > 0 &&
           o("WALogger").LOG(
             c || (c = babelHelpers.taggedTemplateLiteralLoose(["  NEW: ", ""])),
-            i.join(", "),
+            a.join(", "),
           ),
-        l.length > 0 &&
+        i.length > 0 &&
           o("WALogger").LOG(
             d ||
               (d = babelHelpers.taggedTemplateLiteralLoose([
                 "  REMOVED: ",
                 "",
               ])),
-            l.join(", "),
+            i.join(", "),
           ),
-        b.length > 0 &&
+        l.length > 0 &&
           o("WALogger").LOG(
             m ||
               (m = babelHelpers.taggedTemplateLiteralLoose([
                 "  MODIFIED: ",
                 "",
               ])),
-            b.join(", "),
+            l.join(", "),
           ));
-      var I = [].concat(
-          i.map(function (e) {
+      var k = [].concat(
+          a.map(function (e) {
             return { change: "added", address: e };
           }),
-          l.map(function (e) {
+          i.map(function (e) {
             return { change: "removed", address: e };
           }),
-          b.map(function (e) {
+          l.map(function (e) {
             return { change: "modified", address: e };
           }),
         ),
-        T = Z != null ? Z : new Map(),
-        D = await o("WAWebSchemaSenderkey").getTable().all(),
-        x = new Map();
+        I = Z != null ? Z : new Map(),
+        T = await o("WAWebSchemaSenderkey").getTable().all(),
+        D = new Map();
       (await Promise.all(
-        D.map(async function (e) {
+        T.map(async function (e) {
           var t = e.senderKey,
             n = e.senderKeyName;
           if (t != null) {
             var r = await te(t);
-            x.set(n, r);
+            D.set(n, r);
           }
         }),
       ),
@@ -290,23 +288,23 @@ __d(
               n = e[1];
             if (n != null) {
               var r = await te(n);
-              x.set(t, r);
-            } else x.delete(t);
+              D.set(t, r);
+            } else D.delete(t);
           }),
         ));
-      var $ = [],
+      var x = [],
+        $ = [],
         P = [],
-        N = [],
-        M = 0;
-      for (var w of x) {
-        var A = w[0],
-          F = w[1];
+        N = 0;
+      for (var M of D) {
+        var w = M[0],
+          A = M[1];
         {
-          var O = T.get(A);
-          O == null ? $.push(A) : O !== F ? N.push(A) : M++;
+          var F = I.get(w);
+          F == null ? x.push(w) : F !== A ? P.push(w) : N++;
         }
       }
-      for (var B of T.keys()) x.has(B) || P.push(B);
+      for (var O of I.keys()) D.has(O) || $.push(O);
       (o("WALogger").LOG(
         p ||
           (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -316,53 +314,53 @@ __d(
             " modified, ",
             " unchanged",
           ])),
+        x.length,
         $.length,
         P.length,
-        N.length,
-        M,
+        N,
       ),
-        $.length > 0 &&
+        x.length > 0 &&
           o("WALogger").LOG(
             _ || (_ = babelHelpers.taggedTemplateLiteralLoose(["  NEW: ", ""])),
-            $.join(", "),
+            x.join(", "),
           ),
-        P.length > 0 &&
+        $.length > 0 &&
           o("WALogger").LOG(
             f ||
               (f = babelHelpers.taggedTemplateLiteralLoose([
                 "  REMOVED: ",
                 "",
               ])),
-            P.join(", "),
+            $.join(", "),
           ),
-        N.length > 0 &&
+        P.length > 0 &&
           o("WALogger").LOG(
             g ||
               (g = babelHelpers.taggedTemplateLiteralLoose([
                 "  MODIFIED: ",
                 "",
               ])),
-            N.join(", "),
+            P.join(", "),
           ));
-      var W = [].concat(
-          $.map(function (e) {
+      var B = [].concat(
+          x.map(function (e) {
             return { change: "added", address: e };
           }),
-          P.map(function (e) {
+          $.map(function (e) {
             return { change: "removed", address: e };
           }),
-          N.map(function (e) {
+          P.map(function (e) {
             return { change: "modified", address: e };
           }),
         ),
-        q = await o("WAWebUserPrefsStatus").getStatusSenderKeyMap(),
-        U = new Set(q.senderKey),
-        V = ee,
-        H = [],
-        G = [];
-      if (V != null) {
-        for (var z of U) V.has(z) || H.push(z);
-        for (var j of V) U.has(j) || G.push(j);
+        W = await o("WAWebUserPrefsStatus").getStatusSenderKeyMap(),
+        q = new Set(W.senderKey),
+        U = ee,
+        V = [],
+        H = [];
+      if (U != null) {
+        for (var G of q) U.has(G) || V.push(G);
+        for (var z of U) q.has(z) || H.push(z);
       }
       (o("WALogger").LOG(
         h ||
@@ -371,37 +369,37 @@ __d(
             " new, ",
             " removed",
           ])),
+        V.length,
         H.length,
-        G.length,
       ),
-        H.length > 0 &&
+        V.length > 0 &&
           o("WALogger").LOG(
             y || (y = babelHelpers.taggedTemplateLiteralLoose(["  NEW: ", ""])),
-            H.join(", "),
+            V.join(", "),
           ),
-        G.length > 0 &&
+        H.length > 0 &&
           o("WALogger").LOG(
             C ||
               (C = babelHelpers.taggedTemplateLiteralLoose([
                 "  REMOVED: ",
                 "",
               ])),
-            G.join(", "),
+            H.join(", "),
           ));
-      var K = [].concat(
-        H.map(function (e) {
+      var j = [].concat(
+        V.map(function (e) {
           return { change: "added", address: e };
         }),
-        G.map(function (e) {
+        H.map(function (e) {
           return { change: "removed", address: e };
         }),
       );
       return {
-        sessions: I,
-        senderKeys: W,
-        statusSkDistrib: K,
-        unchanged: v,
-        skUnchanged: M,
+        sessions: k,
+        senderKeys: B,
+        statusSkDistrib: j,
+        unchanged: b,
+        skUnchanged: N,
       };
     }
     re.doc =

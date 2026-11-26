@@ -191,6 +191,12 @@ __d(
               ],
             );
           }),
+          (a.__getAllCached = function (t) {
+            s(0, 1537, this.constructor.name, "__getAllCached");
+          }),
+          (a.__getCachedData = function (t, n) {
+            s(0, 1537, this.constructor.name, "__getCachedData");
+          }),
           n
         );
       })(r("AdsBaseCombinedListStore"));

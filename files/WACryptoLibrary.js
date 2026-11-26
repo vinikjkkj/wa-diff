@@ -11,6 +11,7 @@ __d(
     "WASignalGroupSession",
     "WASignalKeys",
     "WASignalOther",
+    "WASignalSessions",
     "WASignalSignatures",
     "WASignalWhitepaper",
   ],
@@ -25,7 +26,7 @@ __d(
     }
     async function m(e, t) {
       d("createOutgoingSession");
-      var n = S(t),
+      var n = k(t),
         r = n.signedKey,
         a = await o("WASignalSignatures").verifyMsgSignalVariant(
           n.identity,
@@ -210,6 +211,51 @@ __d(
       }
     }
     function h(e, t, n, r) {
+      return (
+        d("decryptMsgWithoutSaving"),
+        s.lock([o("WAJids").extractUserJid(t)], async function () {
+          var a = o("WASignalCipher").deserializeMsg(n);
+          if (!a.success)
+            return o("WAResultOrError").makeError("errCryptoDeserialization");
+          var i = a.value,
+            l = await e(t, "decryptMsgWithoutSaving");
+          if (l == null)
+            return o("WAResultOrError").makeError("errSignalNoSession");
+          if (i.counter - y(l, i.ratchetPubKey) >= r)
+            return o("WAResultOrError").makeError("errCounterTooFarAhead");
+          var s = await o("WASignalCipher").decryptMsg(l, i);
+          return s.success
+            ? o("WAResultOrError").makeResult(s.value.plaintext)
+            : o("WAResultOrError").makeError(s.error);
+        })
+      );
+    }
+    function y(e, t) {
+      var n = b(e, t);
+      if (n != null) return n;
+      for (var r of e.prevSessions) {
+        var o = b(C(r), t);
+        if (o != null) return o;
+      }
+      return 0;
+    }
+    function C(e) {
+      try {
+        return o("WASignalSessions").parseSession(e);
+      } catch (e) {
+        return null;
+      }
+    }
+    function b(e, t) {
+      var n;
+      return e == null ||
+        (n = e.recvChains.find(function (e) {
+          return o("WACryptoUtils").serializedPubKeysEqual(e.ratchetPubKey, t);
+        })) == null
+        ? void 0
+        : n.nextMsgIndex;
+    }
+    function v(e, t, n, r) {
       var a = e.loadSenderKeySession,
         i = e.saveSenderKeySession;
       return (
@@ -249,7 +295,7 @@ __d(
         })
       );
     }
-    function y(t, n, r, a, i) {
+    function S(t, n, r, a, i) {
       var l = t.loadSenderKeySession,
         u = t.saveSenderKeySession;
       return (
@@ -294,7 +340,7 @@ __d(
         })
       );
     }
-    function C(e, t, n, r) {
+    function R(e, t, n, r) {
       var a = e.loadSenderKeySession,
         i = e.saveSenderKeySession;
       return (
@@ -317,7 +363,7 @@ __d(
         })
       );
     }
-    function b(e, t, n, r) {
+    function L(e, t, n, r) {
       var a = e.saveSenderKeySession;
       return (
         d("rotateGroupSenderKey"),
@@ -332,7 +378,7 @@ __d(
         })
       );
     }
-    async function v(e, t, n) {
+    async function E(e, t, n) {
       var r = e.loadSenderKeySession,
         a = e.saveSenderKeySession;
       d("createSenderKeyDistributionMsg");
@@ -340,7 +386,7 @@ __d(
         l = i.error;
       if (!i.success && l === "errLoadSenderKeySession") {
         var s = await o("WASignalKeys").makeKeyPair();
-        (await b({ saveSenderKeySession: a }, t, n, s), (i = await r(t, n)));
+        (await L({ saveSenderKeySession: a }, t, n, s), (i = await r(t, n)));
       }
       if (i.success) {
         var u = i.value.senderKeyStates.slice(-1);
@@ -356,7 +402,7 @@ __d(
         o("WAResultOrError").makeError("errGetSenderKeyProto")
       );
     }
-    function S(e) {
+    function k(e) {
       var t = e.identity,
         n = e.oneTimeKey,
         r = e.regId,
@@ -382,11 +428,12 @@ __d(
       (l.establishOutgoingSession = p),
       (l.encryptContent = _),
       (l.decryptContent = f),
-      (l.encryptGroupContent = h),
-      (l.decryptGroupContent = y),
-      (l.saveSenderKeySession = C),
-      (l.rotateGroupSenderKey = b),
-      (l.createSenderKeyDistributionMsg = v));
+      (l.decryptMsgWithoutSaving = h),
+      (l.encryptGroupContent = v),
+      (l.decryptGroupContent = S),
+      (l.saveSenderKeySession = R),
+      (l.rotateGroupSenderKey = L),
+      (l.createSenderKeyDistributionMsg = E));
   },
   98,
 );

@@ -33,15 +33,8 @@ __d(
             }),
             (t.onFetch = async function (e) {
               var n = e.clientId,
-                a = e.request;
-              if (
-                o("WAWebSwVideoStreamer").isUnsafeStreamRequest(
-                  a.mode,
-                  a.destination,
-                )
-              )
-                return o("WAWebSwVideoStreamer").rejectUnsafeStreamRequest();
-              var i = o("WAWebSwFeature").SWFeature.parseUrl(a.url),
+                a = e.request,
+                i = o("WAWebSwFeature").SWFeature.parseUrl(a.url),
                 l = n;
               if (l == null)
                 return Promise.reject(r("err")("No client id found."));

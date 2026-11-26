@@ -45,7 +45,7 @@ __d(
                 "x1n2onr6 x78zum5 x3psx0u x6s0dn4 xl56j7k xvy4d1p xxk0z11 xdj266r x7g7pl8 xat24cr x3n7f7h x1h6gzvc",
             },
           }[!!l << 0],
-          { ref: a, "aria-label": r("WAWebFbtCommon")("Cancel") },
+          { ref: a, "aria-label": String(r("WAWebFbtCommon")("Cancel")) },
           c,
           {
             children: [

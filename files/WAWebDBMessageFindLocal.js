@@ -201,7 +201,7 @@ __d(
         ? [r, i != null ? i : 1 / 0]
         : [i != null ? i : r, 1 / 0];
     }
-    function v(e) {
+    async function v(e) {
       var t;
       if (e.label != null)
         return Promise.resolve({
@@ -211,11 +211,17 @@ __d(
           status: 200,
         });
       var n = {
-        remote: (t = e.remote) == null ? void 0 : t.toString(),
-        page: e.page,
-        limit: e.count,
-      };
-      return o("WAWebFtsClient").ftsClient.search(e.searchTerm, n);
+          remote: (t = e.remote) == null ? void 0 : t.toString(),
+          excludeNewsletterChats: e.remote == null,
+          page: e.page,
+          limit: e.count,
+        },
+        r = await o("WAWebFtsClient").ftsClient.search(e.searchTerm, n);
+      return babelHelpers.extends({}, r, {
+        messages: r.messages.filter(function (e) {
+          return e.isNewsletterStatus !== !0;
+        }),
+      });
     }
     function S(e) {
       var t = e.anchor,

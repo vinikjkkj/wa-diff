@@ -4,6 +4,7 @@ __d(
     "JSResourceForInteraction",
     "WALogger",
     "WAPromiseTimeout",
+    "WAWebDbEncryptionKey",
     "WAWebInboundMsgPersistedQueueAdapter",
     "WAWebInboundMsgQueueGating",
     "WAWebInboundMsgQueueODS",
@@ -32,13 +33,16 @@ __d(
           (o(
             "WAWebInboundMsgPersistedQueueAdapter",
           ).armInboundMsgQueueRegistration(),
-          o("WAPromiseTimeout")
-            .promiseTimeout(
-              o(
-                "WAWebInboundMsgPersistedQueueAdapter",
-              ).whenInboundMsgQueueRegistered(),
-              c,
-            )
+          o("WAWebDbEncryptionKey")
+            .DbEncKeyStore.waitForWormEarKey()
+            .then(function () {
+              return o("WAPromiseTimeout").promiseTimeout(
+                o(
+                  "WAWebInboundMsgPersistedQueueAdapter",
+                ).whenInboundMsgQueueRegistered(),
+                c,
+              );
+            })
             .catch(p)),
         d()
           .then(function (e) {

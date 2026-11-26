@@ -7,6 +7,7 @@ __d(
     "WAWebABProps",
     "WAWebE2EProtoParserApi",
     "WAWebE2EProtoUtils",
+    "WAWebInstantsExpiry",
     "WAWebMediaMessageGetValidatedProperties",
     "WAWebMediaUrlAllowlist",
     "WAWebMsgType",
@@ -16,15 +17,16 @@ __d(
     function s(t) {
       var n,
         r,
-        a = t.baseMessage,
-        i = t.messageProtobuf,
-        l = t.msgContext,
-        s = i.instantImageMessage;
-      if (s != null) {
-        var c = (n = a.id) == null ? void 0 : n.remote;
-        if (!(c != null && !u(c))) {
-          if (s.viewOnce === !0) {
-            var d;
+        a,
+        i = t.baseMessage,
+        l = t.messageProtobuf,
+        s = t.msgContext,
+        c = l.instantImageMessage;
+      if (c != null) {
+        var d = (n = i.id) == null ? void 0 : n.remote;
+        if (!(d != null && !u(d))) {
+          if (c.viewOnce === !0) {
+            var m;
             o("WALogger")
               .WARN(
                 e ||
@@ -33,8 +35,8 @@ __d(
                     ", msgContext: ",
                     "",
                   ])),
-                String((d = a.id) == null ? void 0 : d.id),
-                l,
+                String((m = i.id) == null ? void 0 : m.id),
+                s,
               )
               .sendLogs("instant-image-view-once");
             return;
@@ -42,66 +44,74 @@ __d(
           if (
             o("WAWebABProps").getABPropConfigValue("instants_receiver_enabled")
           ) {
-            var m = s.caption,
-              p = s.contextInfo,
-              _ = s.directPath,
-              f = s.height,
-              g = s.jpegThumbnail,
-              h = s.mediaKeyTimestamp,
-              y = s.mimetype,
-              C = s.scanLengths,
-              b = s.scansSidecar,
-              v = s.staticUrl,
-              S = s.thumbnailDirectPath,
-              R = s.thumbnailEncSha256,
-              L = s.thumbnailSha256,
-              E = s.width,
-              k = o(
+            var p = c.caption,
+              _ = c.contextInfo,
+              f = c.directPath,
+              g = c.height,
+              h = c.jpegThumbnail,
+              y = c.mediaKeyTimestamp,
+              C = c.mimetype,
+              b = c.scanLengths,
+              v = c.scansSidecar,
+              S = c.staticUrl,
+              R = c.thumbnailDirectPath,
+              L = c.thumbnailEncSha256,
+              E = c.thumbnailSha256,
+              k = c.width,
+              I = o(
                 "WAWebMediaMessageGetValidatedProperties",
               ).getValidatedMediaMessageProperties(
+                c,
+                i,
                 s,
-                a,
-                l,
                 o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE,
               ),
-              I = k.fileEncSha256,
-              T = k.fileLength,
-              D = k.fileSha256,
-              x = k.mediaKey,
-              $ = k.url,
-              P = babelHelpers.extends({}, a, {
+              T = I.fileEncSha256,
+              D = I.fileLength,
+              x = I.fileSha256,
+              $ = I.mediaKey,
+              P = I.url,
+              N = babelHelpers.extends({}, i, {
                 type: o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE,
-                kind: o("WAWebMsgType").MsgKind.InstantImage,
-                deprecatedMms3Url: o("WAWebE2EProtoParserApi").decodeUrl($),
-                directPath: _ || "",
-                staticUrl:
-                  (r = o("WAWebMediaUrlAllowlist").allowlistedMediaUrl(v)) !=
-                  null
+                expiredTimestamp:
+                  (r = o("WAWebInstantsExpiry").getInstantExpiryStamp(
+                    o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE,
+                    i,
+                    _,
+                  )) != null
                     ? r
+                    : void 0,
+                kind: o("WAWebMsgType").MsgKind.InstantImage,
+                deprecatedMms3Url: o("WAWebE2EProtoParserApi").decodeUrl(P),
+                directPath: f || "",
+                staticUrl:
+                  (a = o("WAWebMediaUrlAllowlist").allowlistedMediaUrl(S)) !=
+                  null
+                    ? a
                     : "",
-                mimetype: y || "",
+                mimetype: C || "",
                 caption:
-                  o("WAWebE2EProtoUtils").convertToTextWithoutSpecialEmojis(m),
-                filehash: o("WAWebE2EProtoParserApi").decodeBytes(D),
-                encFilehash: o("WAWebE2EProtoParserApi").decodeBytes(I),
-                size: T,
-                height: f || 0,
-                width: E || 0,
-                mediaKey: o("WAWebE2EProtoParserApi").decodeBytes(x),
+                  o("WAWebE2EProtoUtils").convertToTextWithoutSpecialEmojis(p),
+                filehash: o("WAWebE2EProtoParserApi").decodeBytes(x),
+                encFilehash: o("WAWebE2EProtoParserApi").decodeBytes(T),
+                size: D,
+                height: g || 0,
+                width: k || 0,
+                mediaKey: o("WAWebE2EProtoParserApi").decodeBytes($),
                 mediaKeyTimestamp:
-                  h != null
-                    ? o("WALongInt").numberOrThrowIfTooLarge(h)
+                  y != null
+                    ? o("WALongInt").numberOrThrowIfTooLarge(y)
                     : o("WATimeUtils").unixTime(),
-                body: o("WAWebE2EProtoParserApi").decodeBytes(g) || "",
-                scanLengths: C,
-                scansSidecar: b,
-                thumbnailDirectPath: S,
-                thumbnailSha256: o("WAWebE2EProtoParserApi").decodeBytes(L),
-                thumbnailEncSha256: o("WAWebE2EProtoParserApi").decodeBytes(R),
+                body: o("WAWebE2EProtoParserApi").decodeBytes(h) || "",
+                scanLengths: b,
+                scansSidecar: v,
+                thumbnailDirectPath: R,
+                thumbnailSha256: o("WAWebE2EProtoParserApi").decodeBytes(E),
+                thumbnailEncSha256: o("WAWebE2EProtoParserApi").decodeBytes(L),
               });
             return (
-              o("WAWebE2EProtoParserApi").validateRequiredMediaProperties(P, s),
-              { msgData: P, contextInfo: p }
+              o("WAWebE2EProtoParserApi").validateRequiredMediaProperties(N, c),
+              { msgData: N, contextInfo: _ }
             );
           }
         }

@@ -115,61 +115,58 @@ __d(
       return e ? r("gkx")("9323") : r("gkx")("9347");
     }
     function v(e) {
-      return e !== !0 ? !1 : r("gkx")("1164");
-    }
-    function S(e) {
       return e !== !0 ? !1 : r("gkx")("1342");
     }
-    function R(e) {
+    function S(e) {
       return e !== !0 ? !1 : r("gkx")("7811");
     }
-    function L() {
+    function R() {
       var e = r("qex")._("1566");
       return e != null ? e : 0;
     }
-    function E() {
+    function L() {
       return y("silent");
     }
-    function k(e) {
+    function E(e) {
       return e ? r("gkx")("16196") : r("gkx")("23154");
     }
-    function I() {
+    function k() {
       return r("gkx")("23155");
     }
-    function T(e) {
+    function I(e) {
       return e ? r("gkx")("5123") : r("gkx")("5352");
     }
-    function D() {
+    function T() {
       return r("gkx")("23928");
     }
-    function x() {
+    function D() {
       return !1;
     }
-    function $() {
+    function x() {
       return !0;
     }
-    function P() {
-      return x() ? !1 : D();
+    function $() {
+      return D() ? !1 : T();
     }
-    function N() {
+    function P() {
       return !r("justknobx")._("4949");
     }
-    function M(e) {
+    function N(e) {
       return e !== !0 ? !1 : r("gkx")("25342");
     }
-    function w(e) {
+    function M(e) {
       return e ? r("gkx")("25991") : r("gkx")("25992");
     }
-    function A() {
+    function w() {
       return !r("justknobx")._("3220");
     }
-    function F(e) {
+    function A(e) {
       return e ? r("gkx")("6223") : r("gkx")("6315");
     }
-    function O(e, t) {
-      return !e || !A() ? !1 : F(t);
+    function F(e, t) {
+      return !e || !w() ? !1 : A(t);
     }
-    function B(e, t, n, r) {
+    function O(e, t, n, r) {
       var a,
         i,
         l =
@@ -244,12 +241,12 @@ __d(
                 .filter(Boolean);
       return { images: l, videos: u };
     }
-    function W(e, t) {
+    function B(e, t) {
       return e.filter(function (e) {
         return e != null && (e == null ? void 0 : e.type) === t;
       });
     }
-    function q(e) {
+    function W(e) {
       var t, n;
       return (e == null ? void 0 : e.type) === "image"
         ? (t = o("AdsImageIDUtils").getImageHashFromID(
@@ -263,7 +260,7 @@ __d(
           ? void 0
           : e.id;
     }
-    function U(e) {
+    function q(e) {
       return e;
     }
     ((l.areImageIDsEqual = s),
@@ -279,24 +276,23 @@ __d(
       (l.isEligibleForAdoptionFixes = y),
       (l.isEligibleForLocalVideoCartTile = C),
       (l.isEligibleForOptimizationGuidancePill = b),
-      (l.isEligibleForCustomizeMediaPillExperiment = v),
-      (l.isEligibleForDeleteInterceptionExperiment = S),
-      (l.isEligibleForPlaceholderScalingExperiment = R),
-      (l.getMultiMediaAccordionButtonArm = L),
-      (l.isEligibleForCartAnimation = E),
-      (l.isEligibleForCropColumnDesign = k),
-      (l.isEligibleForCropPreview = I),
-      (l.isEligibleForMultiPreview = T),
-      (l.isMediaRecommendationToastKilled = $),
-      (l.isEligibleForMultiMediaThumbnail = P),
-      (l.isEligibleForMultiMediaThumbnailUpload = N),
-      (l.isEligibleForLocalUploadsAutoSelect = M),
-      (l.isEligibleForVariantMapping = w),
-      (l.isEligibleForPerVariantPlacements = O),
-      (l.getMultiMediaAssetsFromMediaSourcingSpecType = B),
-      (l.getSelectedMultiMediaWithSpecificType = W),
-      (l.getAssetID = q),
-      (l.isMMVariantMappingShadowModeEnabled = U));
+      (l.isEligibleForDeleteInterceptionExperiment = v),
+      (l.isEligibleForPlaceholderScalingExperiment = S),
+      (l.getMultiMediaAccordionButtonArm = R),
+      (l.isEligibleForCartAnimation = L),
+      (l.isEligibleForCropColumnDesign = E),
+      (l.isEligibleForCropPreview = k),
+      (l.isEligibleForMultiPreview = I),
+      (l.isMediaRecommendationToastKilled = x),
+      (l.isEligibleForMultiMediaThumbnail = $),
+      (l.isEligibleForMultiMediaThumbnailUpload = P),
+      (l.isEligibleForLocalUploadsAutoSelect = N),
+      (l.isEligibleForVariantMapping = M),
+      (l.isEligibleForPerVariantPlacements = F),
+      (l.getMultiMediaAssetsFromMediaSourcingSpecType = O),
+      (l.getSelectedMultiMediaWithSpecificType = B),
+      (l.getAssetID = W),
+      (l.isMMVariantMappingShadowModeEnabled = q));
   },
   98,
 );

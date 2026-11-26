@@ -1,31 +1,46 @@
 __d(
   "WebWorkerV4DedicatedTierOnePreload",
-  ["ConstUriUtils"],
+  ["ConstUriUtils", "performanceNow"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = new Set();
-    function s(t) {
-      var n = document.head;
-      if (n != null)
-        for (var r of t) {
-          var a,
-            i =
-              (a = o("ConstUriUtils").getUri(r.src)) == null
+    var e,
+      s = new Set(),
+      u = null;
+    function c(t, n) {
+      var a = document.head;
+      if (a != null) {
+        var i = [];
+        for (var l of t) {
+          var c,
+            d =
+              (c = o("ConstUriUtils").getUri(l.src)) == null
                 ? void 0
-                : a.toString();
-          if (!(i == null || e.has(i))) {
-            e.add(i);
-            var l = document.createElement("link");
-            ((l.rel = "preload"),
-              (l.as = "script"),
-              (l.href = i),
-              r.cors && (l.crossOrigin = "anonymous"),
-              l.setAttribute("fetchpriority", "low"),
-              n.appendChild(l));
+                : c.toString();
+          if (!(d == null || s.has(d))) {
+            s.add(d);
+            var m = document.createElement("link");
+            ((m.rel = "preload"),
+              (m.as = "script"),
+              (m.href = d),
+              l.cors && (m.crossOrigin = "anonymous"),
+              m.setAttribute("fetchpriority", n.highPriority ? "high" : "low"),
+              a.appendChild(m),
+              i.push(d));
           }
         }
+        u == null &&
+          i.length > 0 &&
+          (u = {
+            highPriority: n.highPriority,
+            insertedAt: (e || (e = r("performanceNow")))(),
+            srcs: i,
+          });
+      }
     }
-    l.preloadTierOne = s;
+    function d() {
+      return u;
+    }
+    ((l.preloadTierOne = c), (l.getTierOnePreloadRecord = d));
   },
   98,
 );

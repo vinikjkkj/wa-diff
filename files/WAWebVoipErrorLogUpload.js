@@ -6,7 +6,7 @@ __d(
     "WAWebEnvironment",
     "WAWebUA",
     "WAWebVoipInvestigationLogUploadGating",
-    "WAWebVoipSctpConnectionManager",
+    "WAWebVoipSctpConnectionStats",
     "WAWebVoipTransportFallbackTracker",
     "WAWebVoipWebTransportCallSummary",
     "WAWebVoipWebTransportConnectionManager",
@@ -114,7 +114,7 @@ __d(
                 "voip: reconnecting SCTP relays ",
                 "",
               ])),
-            o("WAWebVoipSctpConnectionManager").getSctpRelayDebugSummary(),
+            o("WAWebVoipSctpConnectionStats").getSctpRelayDebugSummary(),
           ),
           o("WALogger").LOG(
             c ||

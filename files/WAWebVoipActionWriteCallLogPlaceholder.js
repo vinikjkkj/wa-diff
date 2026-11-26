@@ -6,7 +6,6 @@ __d(
     "WALogger",
     "WAPromiseTimeout",
     "WAWebCallLogMsgData.flow",
-    "WAWebCallLogUtils",
     "WAWebCmd",
     "WAWebDBGetByParentMsgKey",
     "WAWebEventsWaitForOfflineDeliveryEnd",
@@ -207,7 +206,9 @@ __d(
           : null;
       return a != null
         ? a
-        : await o("WAWebCallLogUtils").getCallLogTargetDetails({
+        : await o(
+            "WAWebVoipBackendCallLogTargetResolver",
+          ).getCallLogTargetDetails({
             callCreatorWid: t,
             callId: n,
             groupJid: r,

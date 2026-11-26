@@ -107,7 +107,7 @@ __d(
         var o = n();
         return o != null && o.isConnected && o.contains(t);
       }
-      return r != null && j(t, r);
+      return r != null && Y(t, r);
     }
     function I(e) {
       for (var t = e; t != null; t = t.parentElement)
@@ -120,32 +120,40 @@ __d(
     function D() {
       m++;
     }
-    var x = new Set([
+    var x = 0,
+      $ = !1;
+    function P(e) {
+      (e && !$ && x++, ($ = e));
+    }
+    function N() {
+      return $ ? null : x;
+    }
+    var M = new Set([
       s.CHAT_LOCK_SECRET_CODE,
       s.DIAL_PAD,
       s.PDF_PASSWORD_DIALOG,
     ]);
-    function $() {
+    function w() {
       var e;
       return (e = c.findLast(function (e) {
         return (
           (e.rootTestId != null || e.getRoot != null) &&
-          !x.has(e.name) &&
+          !M.has(e.name) &&
           (e.isCurrent == null ? void 0 : e.isCurrent()) !== !1
         );
       })) == null
         ? void 0
         : e.name;
     }
-    function P(e, t) {
-      var n = N(e);
+    function A(e, t) {
+      var n = F(e);
       try {
         t();
       } finally {
         n();
       }
     }
-    function N(e, t) {
+    function F(e, t) {
       var n = t === void 0 ? {} : t,
         r = n.getRoot,
         o = n.holdsUntilRootAttached,
@@ -171,30 +179,30 @@ __d(
           if (e !== -1) {
             var t = c.splice(e, 1),
               n = t[0];
-            w(n);
+            B(n);
           }
         }
       );
     }
-    function M(e) {
+    function O(e) {
       return c.some(function (t) {
         return t.screenName === e;
       });
     }
-    function w(e) {
-      var t = A(function () {
-          return G(e, null);
+    function B(e) {
+      var t = W(function () {
+          return Q(e, null);
         }, !0),
         n = c.some(function (n) {
           return (
             n.name === e.name &&
             n.screenName === e.screenName &&
-            A(function () {
+            W(function () {
               return (n.isCurrent == null ? void 0 : n.isCurrent()) !== !1;
             }, !1) &&
             (!t ||
-              A(function () {
-                return G(n, null);
+              W(function () {
+                return Q(n, null);
               }, !1))
           );
         });
@@ -207,7 +215,7 @@ __d(
         }),
         _.length > p && _.shift());
     }
-    function A(t, n) {
+    function W(t, n) {
       try {
         return t();
       } catch (t) {
@@ -228,7 +236,7 @@ __d(
         );
       }
     }
-    function F(e, t) {
+    function q(e, t) {
       if (_.length === p && _[0].exitedAtPerfMs >= t) return _[0].name;
       var n = _.findLast(function (n) {
         return (
@@ -238,7 +246,7 @@ __d(
       });
       return n != null ? n.name : void 0;
     }
-    function O(e) {
+    function U(e) {
       var t = c.findLast(function (t) {
         return (
           e != null &&
@@ -248,21 +256,21 @@ __d(
       });
       return t != null ? t.name : null;
     }
-    var B = null;
-    function W(e) {
-      B = e;
+    var V = null;
+    function H(e) {
+      V = e;
     }
-    function q(e) {
+    function G(e) {
       for (var t, n = c.length - 1; n >= 0; n--) {
         var r = c[n];
-        if (G(r, e)) return r.name;
+        if (Q(r, e)) return r.name;
       }
-      return e != null && (t = B == null ? void 0 : B(e)) != null ? t : null;
+      return e != null && (t = V == null ? void 0 : V(e)) != null ? t : null;
     }
-    function U(e) {
+    function z(e) {
       return c
         .filter(function (t) {
-          return G(t, e);
+          return Q(t, e);
         })
         .map(function (e) {
           var t = e.name,
@@ -270,23 +278,23 @@ __d(
           return { name: t, token: n };
         });
     }
-    function V() {
+    function j() {
       return new Set(
         c.map(function (e) {
           return e.token;
         }),
       );
     }
-    function H(e) {
-      var t = e.heldBackSurface !== void 0 ? e.heldBackSurface : q();
+    function K(e) {
+      var t = e.heldBackSurface !== void 0 ? e.heldBackSurface : G();
       return (
         t != null ||
         g(e.screenName) ||
         g(e.destinationName) ||
-        O(e.screenName) != null
+        U(e.screenName) != null
       );
     }
-    function G(e, t) {
+    function Q(e, t) {
       var n = e.getRoot,
         r = e.holdsUntilRootAttached,
         o = e.rootTestId;
@@ -296,12 +304,12 @@ __d(
           ? r
           : t instanceof Node && a.contains(t);
       }
-      return o == null || (r && !z(o)) ? !0 : j(t, o);
+      return o == null || (r && !X(o)) ? !0 : Y(t, o);
     }
-    function z(e) {
+    function X(e) {
       return document.querySelector('[data-testid="' + e + '"]') != null;
     }
-    function j(e, t) {
+    function Y(e, t) {
       return (
         e instanceof Element && e.closest('[data-testid="' + t + '"]') != null
       );
@@ -316,17 +324,19 @@ __d(
       (l.isInsideHeldBackElement = E),
       (l.getScreenUnlockCount = T),
       (l.noteScreenUnlocked = D),
-      (l.getOpenScopedHeldBackSurface = $),
-      (l.openHeldBack = P),
-      (l.enterHeldBackSurface = N),
-      (l.isScreenClaimedByOpenSurface = M),
-      (l.getHoldEndedSince = F),
-      (l.captureHeldBackScreen = O),
-      (l.setHeldPopupLookup = W),
-      (l.captureHeldBackSurface = q),
-      (l.getCoveringHeldBackHolds = U),
-      (l.getActiveHeldBackTokens = V),
-      (l.isHeldBackEvent = H));
+      (l.noteBackgroundTransition = P),
+      (l.getForegroundEpoch = N),
+      (l.getOpenScopedHeldBackSurface = w),
+      (l.openHeldBack = A),
+      (l.enterHeldBackSurface = F),
+      (l.isScreenClaimedByOpenSurface = O),
+      (l.getHoldEndedSince = q),
+      (l.captureHeldBackScreen = U),
+      (l.setHeldPopupLookup = H),
+      (l.captureHeldBackSurface = G),
+      (l.getCoveringHeldBackHolds = z),
+      (l.getActiveHeldBackTokens = j),
+      (l.isHeldBackEvent = K));
   },
   98,
 );

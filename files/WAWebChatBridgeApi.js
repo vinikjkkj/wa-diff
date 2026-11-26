@@ -12,6 +12,7 @@ __d(
     "WAWebMmSignalSharingGatingUtils",
     "WAWebMsgKey",
     "WAWebMuteCollection",
+    "WAWebRemoveDeletedMsgsFromChat",
     "WAWebRestoreChatsAndMessages",
     "WAWebThreadMetadataUtil",
     "WAWebUpdateLastAddOnPreviewChatAction",
@@ -273,10 +274,17 @@ __d(
         chatDeleteMessages: function (t) {
           var e = t.chatId,
             n = t.messageIds,
-            r = o("WAWebChatCollection").ChatCollection.get(
+            r = t.removeLoaded,
+            a = o("WAWebChatCollection").ChatCollection.get(
               o("WAWebWidFactory").createWid(e),
             );
-          r && r.deleteMessages(n);
+          a != null &&
+            (r === !0
+              ? o("WAWebRemoveDeletedMsgsFromChat").removeDeletedMsgsFromChat(
+                  a,
+                  n,
+                )
+              : a.deleteMessages(n));
         },
         chatDelete: function (t) {
           var e = t.chatId,

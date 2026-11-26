@@ -341,9 +341,12 @@ __d(
       }
       var Ce = o("WAWebHandleMsgTypes").MessageOverwriteOption.NO_OVERWRITE,
         be = !1,
-        ve = []
+        ve = [z, he].find(function (e) {
+          return (e == null ? void 0 : e.isEnforced) === !0;
+        }),
+        Se = []
           .concat(
-            (he == null ? void 0 : he.isEnforced) === !0 ? k(F, ue) : ue,
+            ve != null ? k(F, ue, { userIsEnterprise: B, userIsSmb: W }) : ue,
             [ie, J],
           )
           .filter(Boolean);
@@ -373,7 +376,7 @@ __d(
         o("WAWebGetMessageCache")
           .getMessageCache()
           .addMessages(
-            ve.map(function (e) {
+            Se.map(function (e) {
               return { msg: e };
             }),
             !1,
@@ -397,31 +400,33 @@ __d(
               " messages to chat ",
               "",
             ])),
-          ve.length,
+          Se.length,
           F.toLogString(),
         );
-        for (var Se of ve)
+        for (var Re of Se)
           await o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
             chatId: F,
-            newMsg: Se,
+            newMsg: Re,
             handleSingleMsgOrigin: "createChat",
             messageOverwriteOption: Ce,
             preserveOrder: be,
           });
-        var Re = [z, he].find(function (e) {
-            return (e == null ? void 0 : e.isEnforced) === !0;
-          }),
-          Le = ve.find(function (e) {
-            return e.subtype === "biz_privacy_mode_init_fb";
-          });
+        var Le = Se.find(function (e) {
+          return (
+            e.subtype ===
+              o("WAWebChatOpeningNotice").CHAT_OPENING_NOTICE.META_PRIVACY ||
+            e.subtype ===
+              o("WAWebChatOpeningNotice").CHAT_OPENING_NOTICE.NON_E2EE_PRIVACY
+          );
+        });
         ge != null &&
-          Re != null &&
+          ve != null &&
           Le != null &&
           (await (n("cr:17538") == null
             ? void 0
             : n("cr:17538").recordAeaNewChatDisclosure(
                 ge,
-                Re.state,
+                ve.state,
                 Le.id.toString(),
               )));
       }
@@ -470,13 +475,19 @@ __d(
         ? L
         : e;
     }
-    function k(e, t) {
+    function k(e, t, n) {
+      var r = n.userIsEnterprise,
+        a = n.userIsSmb,
+        i =
+          a || r
+            ? o("WAWebChatOpeningNotice").CHAT_OPENING_NOTICE.META_PRIVACY
+            : o("WAWebChatOpeningNotice").CHAT_OPENING_NOTICE.NON_E2EE_PRIVACY;
       return t.map(function (t) {
-        return t.subtype === "encrypt"
-          ? o("WAWebContactSystemMsg").genNonE2ENotificationMsg(
-              e,
-              o("WAWebChatOpeningNotice").CHAT_OPENING_NOTICE.META_PRIVACY,
-            )
+        return t.subtype ===
+          o("WAWebChatOpeningNotice").CHAT_OPENING_NOTICE.ENCRYPT ||
+          t.subtype ===
+            o("WAWebChatOpeningNotice").CHAT_OPENING_NOTICE.META_PRIVACY
+          ? o("WAWebContactSystemMsg").genNonE2ENotificationMsg(e, i)
           : t;
       });
     }

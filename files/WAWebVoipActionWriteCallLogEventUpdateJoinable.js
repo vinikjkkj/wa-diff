@@ -15,6 +15,7 @@ __d(
     "WAWebVoipActionWriteCallLogImpl",
     "WAWebVoipActionWriteCallLogSwitchEntryPoint",
     "WAWebVoipAdHocCallLogs",
+    "WAWebVoipBackendCallLogTargetResolver",
     "WAWebVoipCallLogTimestamp",
     "WAWebVoipCallLogWriteMutex",
     "WAWebVoipCallTransferEntryPointStore",
@@ -317,7 +318,9 @@ __d(
             ? o("WAWebUserUtils").isMeAccount(u)
             : o("WAWebUserUtils").isMeDevice(t) ||
               o("WAWebUserUtils").isMeAccount(t),
-        p = await o("WAWebCallLogUtils").getCallLogTargetDetails({
+        p = await o(
+          "WAWebVoipBackendCallLogTargetResolver",
+        ).getCallLogTargetDetails({
           callCreatorWid: u != null ? u : t,
           callId: i,
           groupJid: s,

@@ -4,17 +4,17 @@ __d(
     "EBLoadMostRecentSelfMinosEpoch",
     "EBLoadSelfMinosEpochForDecryption",
     "EBMinosCryptoLibrary",
+    "EBMinosErrors",
     "EBMinosLoadMessageEncryptionKey",
     "EBMinosLogger",
     "EBMinosSaveNewMessageEncryptionKey",
-    "FBLogger",
+    "WmiErrorReport",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    async function s(t) {
-      var n = t.transportSigningKeypair,
-        a = await o("EBMinosCryptoLibrary").createMinosCryptoLibrary({
+    async function e(e) {
+      var t = e.transportSigningKeypair,
+        n = await o("EBMinosCryptoLibrary").createMinosCryptoLibrary({
           io: {
             bulkLoadMessageEncryptionKeysForDecryption: o(
               "EBMinosLoadMessageEncryptionKey",
@@ -30,22 +30,22 @@ __d(
               .saveNewMessageEncryptionKey,
           },
           logger: o("EBMinosLogger").minosLogger,
-          transportSigningKeypair: n,
+          transportSigningKeypair: t,
         });
-      if (!a.success) {
-        r("FBLogger")("wmi_minos").MUSTFIX(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "Failed to create Minos crypto library ",
-              "",
-            ])),
-          a.error,
+      if (!n.success) {
+        o("WmiErrorReport").reportWmiError(
+          o("EBMinosErrors").EBMinosErrors.error(
+            "crypto_library_init_failed",
+            "Failed to create Minos crypto library: %s",
+            n.error,
+          ),
+          { loggerProject: "wmi_minos" },
         );
         return;
       }
-      o("EBMinosCryptoLibrary").setMinosCryptoLibrary(a.value);
+      o("EBMinosCryptoLibrary").setMinosCryptoLibrary(n.value);
     }
-    l.initializeMinosCryptoLibrary = s;
+    l.initializeMinosCryptoLibrary = e;
   },
   98,
 );

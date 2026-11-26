@@ -3,10 +3,9 @@ __d(
   [
     "WALogger",
     "WATimeUtils",
-    "WAWebAssociationProcessor",
-    "WAWebAssociationProcessorConstants",
     "WAWebCurrentUser",
     "WAWebDBProcessMessage",
+    "WAWebMessageAssociationStarUtils",
     "WAWebMsgCollection",
     "WAWebMsgKey",
     "WAWebProtobufsServerSync.pb",
@@ -136,28 +135,25 @@ __d(
                         };
                       p ? a.push(R.toString()) : i.push(R.toString());
                       var L = o("WAWebMsgCollection").MsgCollection.get(R);
-                      if (L) {
-                        var E = L.associationType;
-                        if (E != null) {
-                          var k = o(
-                            "WAWebAssociationProcessor",
-                          ).getAssociationProcessorByAssociationType(E);
-                          (k == null ? void 0 : k.processorType) ===
-                            o("WAWebAssociationProcessorConstants")
-                              .AssociationProcessorType.WithDetachedMessages &&
-                            L.detachAssociatedMsg();
+                      return (
+                        L
+                          ? (o(
+                              "WAWebMessageAssociationStarUtils",
+                            ).detachAssociatedMsgOnStarChange(L),
+                            (L.star = p),
+                            L.star
+                              ? o("WAWebStarredMsgCollection").addStarredMsgs([
+                                  L,
+                                ])
+                              : o(
+                                  "WAWebStarredMsgCollection",
+                                ).removeStarredMsgs([L]))
+                          : (y++, h.length < 3 && h.push(S)),
+                        {
+                          actionState:
+                            o("WAWebSyncdConst").SyncActionState.Success,
                         }
-                        ((L.star = p),
-                          L.star
-                            ? o("WAWebStarredMsgCollection").addStarredMsgs([L])
-                            : o("WAWebStarredMsgCollection").removeStarredMsgs([
-                                L,
-                              ]));
-                      } else (y++, h.length < 3 && h.push(S));
-                      return {
-                        actionState:
-                          o("WAWebSyncdConst").SyncActionState.Success,
-                      };
+                      );
                     }
                     return (
                       C++,

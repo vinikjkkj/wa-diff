@@ -206,10 +206,13 @@ __d(
           (c = babelHelpers.taggedTemplateLiteralLoose(["Prepping sticker"])),
       );
       var t = e.mediaObject,
-        n = e.mediaData.toJSON();
+        n = e.mediaData.toJSON(),
+        a = b(n.fullWidth, n.fullHeight),
+        i = a.height,
+        l = a.width;
       return (
-        (n.fullWidth = m),
-        (n.fullHeight = m),
+        (n.fullWidth = l),
+        (n.fullHeight = i),
         t
           ? new (r("WAWebMediaPrep"))(n.type, Promise.resolve(n))
           : (o("WALogger")
@@ -224,6 +227,11 @@ __d(
               Promise.reject(r("err")("non initialized media")),
             ))
       );
+    }
+    function b(e, t) {
+      return e == null || t == null || !(e > 0) || !(t > 0) || e === t
+        ? { width: m, height: m }
+        : { width: e, height: t };
     }
     ((l.registerSticker = g),
       (l.deregisterSticker = h),

@@ -6,7 +6,7 @@ __d(
     function e(e) {
       var t = e.isNewsletter,
         n = e.isNewsletterStatus;
-      return t ? (n ? "channel_status" : "channel") : null;
+      return t ? (n ? "channel_status" : "channel") : "private";
     }
     function s(e) {
       return (

@@ -21,6 +21,7 @@ __d(
       TRUST_BTN_TAPPED: 15,
       FOA_MUTUALS: 16,
       FOA_MUTUALS_REPLY: 17,
+      SHARE_CONTACT: 18,
     });
     i.FMX_EVENT = e;
   },

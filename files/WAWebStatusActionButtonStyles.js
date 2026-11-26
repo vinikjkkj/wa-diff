@@ -106,13 +106,29 @@ __d(
           paddingRight: null,
           $$css: !0,
         },
-        counterRowAlignedWithButtonInsideFrame: {
-          bottom: "x4smin3",
+        bottomBarRowWithReplyPill: {
+          paddingTop: "x1p57kb1",
+          paddingBottom: "xvpt6g3",
+          paddingInlineStart: "xdx6fka",
+          paddingInlineEnd: "xvtqlqk",
+          paddingLeft: null,
+          paddingRight: null,
           $$css: !0,
         },
-        counterRowAlignedWithRoundControl: { height: "xv5mptz", $$css: !0 },
+        counterRowAlignedWithButtonInsideFrame: {
+          bottom: "x4smin3",
+          height: "x18vuxv9",
+          $$css: !0,
+        },
+        counterRowAlignedWithRoundControl: {
+          bottom: "xmgy4br",
+          height: "xv5mptz",
+          $$css: !0,
+        },
         iconButtonInsideFrame: {
           alignSelf: "xamitd3",
+          height: "x18vuxv9",
+          width: "x1dk9rnt",
           marginBottom: "xat24cr",
           marginInlineStart: "x1lziwak",
           marginInlineEnd: "x14z9mp",

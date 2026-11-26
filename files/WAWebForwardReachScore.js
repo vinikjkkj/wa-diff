@@ -66,29 +66,39 @@ __d(
       );
     }
     function h(e, t, n) {
-      var r;
+      var r, a, i;
       if (
         !(t <= 0) &&
         o("WAWebForwardReachGating").isForwardReachStatsLoggingEnabled()
       ) {
-        var a = o(
+        var l = o(
             "WAWebDailyAggregatedStatsCollection",
           ).DailyAggregatedStatsCollection.gaddForToday(),
-          i = [].concat((r = a.forwardReachCounts) != null ? r : []),
-          l = Math.max(
+          s = [].concat((r = l.forwardReachCounts) != null ? r : []),
+          u = Math.max(
             1,
             o("WAWebForwardReachGating").getForwardReachStatsDailyBucketCap(),
           ),
-          s = [g(e, t, !1)];
-        n && s.push(g(e, t, !0));
-        for (var u of s) {
-          var c;
-          if (((c = i[u]) != null ? c : 0) < l) {
-            var d;
-            i[u] = ((d = i[u]) != null ? d : 0) + 1;
+          c = [g(e, t, !1)];
+        (n && c.push(g(e, t, !0)),
+          (s[o("WAWebForwardReachDailyStatsUtils").FORWARD_REACH_SLOT_COUNT] =
+            Math.min(
+              o("WAWebForwardReachDailyStatsUtils").FORWARD_REACH_COUNT_MAX,
+              ((a =
+                s[
+                  o("WAWebForwardReachDailyStatsUtils").FORWARD_REACH_SLOT_COUNT
+                ]) != null
+                ? a
+                : 0) + +(((i = s[c[0]]) != null ? i : 0) >= u),
+            )));
+        for (var d of c) {
+          var m;
+          if (((m = s[d]) != null ? m : 0) < u) {
+            var p;
+            s[d] = ((p = s[d]) != null ? p : 0) + 1;
           }
         }
-        a.forwardReachCounts = i;
+        l.forwardReachCounts = s;
       }
     }
     ((l.FORWARD_REACH_SCORE_CAP = e),

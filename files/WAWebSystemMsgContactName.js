@@ -15,7 +15,7 @@ __d(
         formattedName: o("WAWebFrontendContactGetters").getFormattedName(t),
         isMyContact: o("WAWebFrontendContactGetters").getIsMyContact(t),
         notifyName: o("WAWebContactGetters").getNotifyName(t),
-        orgMemberName: o("WAWebFrontendContactGetters").getShownMemberName(t),
+        shownMemberName: o("WAWebFrontendContactGetters").getShownMemberName(t),
       });
     }
     function u(t) {
@@ -35,7 +35,7 @@ __d(
         a = e.groupMetadata,
         i = e.isMyContact,
         l = e.notifyName,
-        s = e.orgMemberName;
+        s = e.shownMemberName;
       return i
         ? r
         : s != null

@@ -13,39 +13,50 @@ __d(
     "WmiErrorReport",
     "classifyProtobufDecodeError",
     "getMediaTypeFromConsumerMessage",
+    "gkx",
     "justknobx",
     "nullthrows",
     "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = new Map();
-    function s(t) {
-      var n,
-        r,
-        a = e.get(t.plaintextHash);
+    var e = 2e3,
+      s = new Map(),
+      u = null,
+      c = !1;
+    function d() {
+      if (!(s.size <= e) && (u != null || (u = r("gkx")("30009")), !!u))
+        for (var t of s.keys()) {
+          if (s.size <= e) break;
+          (s.delete(t), (c = !0));
+        }
+    }
+    function m(e) {
+      var t,
+        n,
+        r = s.get(e.plaintextHash);
       if (
-        ((n = t.mediaKeyTimestamp) != null ? n : 0) >=
-        ((r = a == null ? void 0 : a.mediaKeyTimestamp) != null ? r : 0)
+        ((t = e.mediaKeyTimestamp) != null ? t : 0) >=
+        ((n = r == null ? void 0 : r.mediaKeyTimestamp) != null ? n : 0)
       ) {
-        var i,
-          l = babelHelpers.extends({}, t, {
+        var a,
+          i = babelHelpers.extends({}, e, {
             e2eePlatform:
-              (i = t.e2eePlatform) != null
-                ? i
+              (a = e.e2eePlatform) != null
+                ? a
                 : o("WmiE2EEPlatform").getE2EEPlatformFromMessageId(
-                    t.message.messageId,
+                    e.message.messageId,
                   ),
           });
-        return (e.set(t.plaintextHash, l), l);
+        return (s.delete(e.plaintextHash), s.set(e.plaintextHash, i), d(), i);
       }
     }
-    function u(e) {
+    function p(e) {
       try {
         var t = o(
           "MpsMessageToBridgeWrapper",
         ).MpsMessageToBridgeWrapper.fromTopLevel(e);
-        return [d(t), _(t)].concat(p(t)).filter(Boolean);
+        return [f(t), y(t)].concat(h(t)).filter(Boolean);
       } catch (e) {
         var n = r("classifyProtobufDecodeError")(e, "hydrate_media_cache");
         if (o("MpsErrors").MpsErrors.codeOf(n) === "protobuf_malformed")
@@ -53,7 +64,7 @@ __d(
         throw n;
       }
     }
-    function c(e) {
+    function _(e) {
       var t, n;
       return (
         (e == null || (t = e.integral) == null ? void 0 : t.receiverFetchId) !=
@@ -62,29 +73,29 @@ __d(
           null
       );
     }
-    function d(e) {
+    function f(e) {
       var t,
         n = e.deserialize(),
         r =
           (t = n.encryptedTransportMessage()) == null
             ? void 0
             : t.consumerMessage();
-      if (r != null) return m(e, r);
+      if (r != null) return g(e, r);
     }
-    function m(e, t) {
+    function g(e, t) {
       var n,
         r,
         a = (n = t.attachmentMessage()) == null ? void 0 : n.payload;
       if (
-        !(a == null || c((r = t.stickerMessage()) == null ? void 0 : r.payload))
+        !(a == null || _((r = t.stickerMessage()) == null ? void 0 : r.payload))
       ) {
         var i = o(
           "getMediaTypeFromConsumerMessage",
         ).getMediaTypeFromConsumerMessage(t.proto);
-        return f(a, i, e);
+        return C(a, i, e);
       }
     }
-    function p(e) {
+    function h(e) {
       var t,
         n,
         r =
@@ -95,17 +106,17 @@ __d(
       if (o == null || r == null) return [];
       var a = "xma-image",
         i = o.previews().map(function (t) {
-          return f(t, a, e);
+          return C(t, a, e);
         }),
         l = o.headerImage();
-      l != null && i.push(f(l, a, e));
+      l != null && i.push(C(l, a, e));
       var s = o.favicon();
-      s != null && i.push(f(s, a, e));
+      s != null && i.push(C(s, a, e));
       var u =
         (n = o.associatedMessage()) == null ? void 0 : n.consumerMessage();
-      return (u != null && i.push(m(e, u)), i.filter(Boolean));
+      return (u != null && i.push(g(e, u)), i.filter(Boolean));
     }
-    function _(e) {
+    function y(e) {
       var t,
         n =
           (t = e.deserialize().encryptedTransportMessage()) == null
@@ -115,24 +126,24 @@ __d(
         i = a == null ? void 0 : a.stickerContent(),
         l = a == null ? void 0 : a.videoContent(),
         s = i != null ? i : l;
-      if (!(s == null || c(i))) {
+      if (!(s == null || _(i))) {
         var u =
             l != null
               ? o("getMediaTypeFromConsumerMessage").getMediaTypeForVideo(l)
               : void 0,
-          d = i != null ? "sticker" : void 0,
-          m = r("nullthrows")(u != null ? u : d);
-        return f(s, m, e);
+          c = i != null ? "sticker" : void 0,
+          d = r("nullthrows")(u != null ? u : c);
+        return C(s, d, e);
       }
     }
-    function f(e, t, n) {
+    function C(e, t, n) {
       var a,
         i,
         l,
+        s,
         u,
         c,
         d,
-        m,
         p,
         _,
         f,
@@ -220,11 +231,11 @@ __d(
         });
       var N = void 0,
         M =
-          (u = b.transport) == null ||
-          (u = u.ancillary) == null ||
-          (u = u.thumbnail) == null
+          (s = b.transport) == null ||
+          (s = s.ancillary) == null ||
+          (s = s.thumbnail) == null
             ? void 0
-            : u.downloadableThumbnail;
+            : s.downloadableThumbnail;
       if (M != null) {
         var w;
         N = {
@@ -248,20 +259,20 @@ __d(
           directPath: L,
           downloadableThumbnail: N,
           fileEncSha256:
-            (c = b.transport) == null || (c = c.integral) == null
+            (u = b.transport) == null || (u = u.integral) == null
               ? void 0
-              : c.fileEncSha256,
+              : u.fileEncSha256,
           filename: null,
           fileSha256: I,
           mediaKey:
-            ((d = b.transport) == null || (d = d.integral) == null
+            ((c = b.transport) == null || (c = c.integral) == null
               ? void 0
-              : d.mediaKey) == null
+              : c.mediaKey) == null
               ? void 0
               : o("WAMediaUtils").castToMediaKey(
-                  (m = b.transport) == null || (m = m.integral) == null
+                  (d = b.transport) == null || (d = d.integral) == null
                     ? void 0
-                    : m.mediaKey,
+                    : d.mediaKey,
                 ),
           mediaKeyTimestamp: k,
           objectId:
@@ -291,7 +302,7 @@ __d(
           uploadToken: void 0,
         },
         F = o("WAMediaUtils").encodeMediaEntryWithUpdatedPath(A, L);
-      return s({
+      return m({
         decodedMediaEntry: A,
         e2eePlatform: o("WmiE2EEPlatform").getE2EEPlatformFromMessageId(
           n.message.messageId,
@@ -312,16 +323,24 @@ __d(
             : void 0,
       });
     }
-    function g(t) {
-      return e.get(t);
+    function b(e) {
+      var t = s.get(e);
+      return (t != null && (s.delete(e), s.set(e, t)), t);
     }
-    function h() {
-      (r("vulture")("MT1Msm1hoBCtT3aVbFhJTmMQ7yk="), e.clear());
+    function v() {
+      return c;
     }
-    ((l.storeEntry = s),
-      (l.hydrateCache = u),
-      (l.getEntry = g),
-      (l.clear__TEST_ONLY = h));
+    function S() {
+      (r("vulture")("MT1Msm1hoBCtT3aVbFhJTmMQ7yk="),
+        s.clear(),
+        (u = null),
+        (c = !1));
+    }
+    ((l.storeEntry = m),
+      (l.hydrateCache = p),
+      (l.getEntry = b),
+      (l.hasEvicted = v),
+      (l.clear__TEST_ONLY = S));
   },
   98,
 );

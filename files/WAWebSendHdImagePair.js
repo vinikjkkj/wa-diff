@@ -147,6 +147,7 @@ __d(
             isScheduledMsg: _.isScheduledMsg,
             pairedMediaType: "HD_IMAGE_CHILD",
             parentMsgKey: h,
+            pathfinderAccountToken: _.pathfinderAccountToken,
             scheduledTimestampS: _.scheduledTimestampS,
             threadId: _.threadId,
             type: o("WAWebMsgType").MSG_TYPE.IMAGE,

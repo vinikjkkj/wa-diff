@@ -526,6 +526,7 @@ __d(
           "bizPrivacyStatus",
           "hostedBizEncStateMismatch",
           "aeaAutoUpgrade",
+          "senderOrRecipientAccountTypeHosted",
           "instantPlayedSelf",
           "kicState",
           "kicKey",
