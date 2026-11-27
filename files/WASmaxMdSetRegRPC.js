@@ -343,22 +343,10 @@ __d(
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
     ((l.receiveSetRegRPC = e),
-      (l.parseSetRegRequestPairSuccessBiz = s),
-      (l.parseSetRegRequestPairSuccessClientProps = u),
-      (l.parseSetRegRequestPairSuccessEncryptionMetadata = c),
-      (l.parseSetRegRequestPairSuccessCompanionRecoveryServerToken = d),
       (l.parseSetRegRequest = m),
       (l.makeSetRegResponseClientResponse = p),
       (l.makeSetRegResponseError = _),
-      (l.makeSetRegResponseHostedClientResponse = f),
-      (l.parseAESEncryptionMetadataMixin = g),
-      (l.mergeHostedCompanionSetRegResponseBundleMixin = y),
-      (l.mergeIQErrorNotAuthorizedMixin = b),
-      (l.makeRegularCompanionSetRegResponseBundlePairDeviceSignKeyAttestation =
-        v),
-      (l.makeRegularCompanionSetRegResponseBundlePairDeviceSignGpia = S),
-      (l.makeRegularCompanionSetRegResponseBundlePairDeviceSignClientAppId = R),
-      (l.mergeRegularCompanionSetRegResponseBundleMixin = E));
+      (l.makeSetRegResponseHostedClientResponse = f));
   },
   98,
 );

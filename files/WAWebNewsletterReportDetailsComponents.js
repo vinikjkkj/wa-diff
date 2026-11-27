@@ -2,12 +2,13 @@ __d(
   "WAWebNewsletterReportDetailsComponents",
   [
     "WAWebAppealOutcomeHeader.react",
+    "WAWebBox.react",
     "WAWebCommonNewsletterEnums",
     "WAWebFlex.react",
     "WAWebNewsletterIntegrityDrawerUiComponents.react",
     "WAWebNewsletterIntegrityUtils",
     "WAWebReportOutcomeHeader.react",
-    "WAWebText.react",
+    "WDSText.react",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -19,15 +20,19 @@ __d(
     function c(e) {
       var t = e.content,
         n = e.testid,
-        r = n === void 0 ? "newsletter-report-subtitle" : n;
+        a = n === void 0 ? "newsletter-report-subtitle" : n;
       return s.jsx(o("WAWebFlex.react").FlexRow, {
         align: "center",
         justify: "center",
-        children: s.jsx(o("WAWebText.react").WAWebTextSmall, {
-          testid: r,
+        children: s.jsx(r("WAWebBox.react"), {
+          testid: a,
           paddingTop: 12,
           xstyle: u.header,
-          children: t,
+          children: s.jsx(r("WDSText.react"), {
+            type: "Body2",
+            colorName: "contentDeemphasized",
+            children: t,
+          }),
         }),
       });
     }

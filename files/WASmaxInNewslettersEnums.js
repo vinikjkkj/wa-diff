@@ -27,6 +27,7 @@ __d(
       l = { audio: "audio", gif: "gif", image: "image", video: "video" },
       s = {
         av1_video_dual_upload: "av1_video_dual_upload",
+        experimental: "experimental",
         hd_image_dual_upload: "hd_image_dual_upload",
         hd_video_dual_upload: "hd_video_dual_upload",
         hevc_video_dual_upload: "hevc_video_dual_upload",
@@ -38,7 +39,7 @@ __d(
     ((i.ENUM_1PSTICKER_AUDIO_AVATARSTICKER_CATALOGLINK_COLLECTION_DOCUMENT_GENAISTICKER_GIF_IMAGE_MOTIONPHOTO_MOTIONVIDEO_PRODUCTLINK_PTT_PTV_STICKER_STICKERPACK_URL_USERCREATEDSTICKER_VCARD_VIDEO =
       e),
       (i.ENUM_AUDIO_GIF_IMAGE_VIDEO = l),
-      (i.ENUM_AV1VIDEODUALUPLOAD_HDIMAGEDUALUPLOAD_HDVIDEODUALUPLOAD_HEVCVIDEODUALUPLOAD_MEDIAPOLL_MOTIONPHOTO_POLLADDOPTION_STICKERANNOTATION =
+      (i.ENUM_AV1VIDEODUALUPLOAD_EXPERIMENTAL_HDIMAGEDUALUPLOAD_HDVIDEODUALUPLOAD_HEVCVIDEODUALUPLOAD_MEDIAPOLL_MOTIONPHOTO_POLLADDOPTION_STICKERANNOTATION =
         s));
   },
   66,

@@ -62,7 +62,6 @@ __d(
     }
     ((l.sendSetPasskeyPrologueRPC = e),
       (l.parseSetPasskeyPrologueResponseSuccess = s),
-      (l.makeSetPasskeyPrologueRequestPasskeyProloguePairingHandoffProof = u),
       (l.makeSetPasskeyPrologueRequest = c));
   },
   98,

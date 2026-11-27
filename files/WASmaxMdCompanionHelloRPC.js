@@ -267,14 +267,7 @@ __d(
     ((l.sendCompanionHelloRPC = e),
       (l.parseCompanionHelloResponseError = s),
       (l.parseCompanionHelloResponseNotifyCompanion = u),
-      (l.parseIqMixinErrors = c),
-      (l.makeCompanionHelloRequestLinkCodeCompanionRegLinkCodePairingNonce = d),
-      (l.makeCompanionHelloRequest = m),
-      (l.mergeCompanionPlatformDisplayElMixin = _),
-      (l.mergeCompanionPlatformIdElMixin = g),
-      (l.parseIQErrorFeatureNotAvailableMixin = h),
-      (l.parseIQErrorForbiddenMixin = y),
-      (l.parseIQErrorRateOverlimitMixin = C));
+      (l.makeCompanionHelloRequest = m));
   },
   98,
 );

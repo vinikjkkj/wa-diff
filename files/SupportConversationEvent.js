@@ -360,6 +360,7 @@ __d(
         UPSELL_MODAL_DISMISSED: "upsell_modal_dismissed",
         UPSELL_TOOLTIP_DISMISSED: "upsell_tooltip_dismissed",
         UPSELL_TOOLTIP_SHOWN: "upsell_tooltip_shown",
+        VIEW_MINT_LAUNCH_SIGNAL: "view_mint_launch_signal",
         VOICE_CALLBACK_CARD_CLICK: "voice_callback_card_click",
         VOICE_CALLBACK_CARD_IMPRESSION: "voice_callback_card_impression",
         VOICE_CALLBACK_INTRO_CALL_CLICK: "voice_callback_intro_call_click",

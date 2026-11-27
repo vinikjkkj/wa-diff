@@ -17,6 +17,7 @@ __d(
         },
         input: {
           color: "x14ug900",
+          caretColor: "xjdcl3y",
           backgroundColor: "xjbqb8w",
           borderTopColor: "x1v8p93f",
           borderInlineEndColor: "x1o3jo1z",
@@ -65,10 +66,8 @@ __d(
         addOnStart: {
           width: "xw4jnvo",
           height: "x1qx5ct2",
-          marginLeft: "x1yzq74r",
-          marginRight: "xv4jd37",
-          marginInlineStart: null,
-          marginInlineEnd: null,
+          marginInlineStart: "xlese2p",
+          marginInlineEnd: "x14mko6t",
           color: "xhslqc4",
           $$css: !0,
         },
@@ -89,9 +88,9 @@ __d(
         addOnStart: { width: "xvy4d1p", height: "xxk0z11", $$css: !0 },
         addOnEnd: {
           marginTop: "xav9cv8",
-          marginInlineEnd: "xqf2s3x",
           marginBottom: "x4tpdpg",
           marginInlineStart: "x1wbi8v6",
+          marginInlineEnd: "xqf2s3x",
           $$css: !0,
         },
         input: { paddingInlineEnd: "x1uc92m", $$css: !0 },
@@ -105,7 +104,6 @@ __d(
           height: "xsdox4t",
           $$css: !0,
         },
-        input: { caretColor: "xjdcl3y", $$css: !0 },
         addOnStart: {
           color: "x14ug900",
           marginInlineStart: "xlese2p",
@@ -184,7 +182,6 @@ __d(
           input: [
             e.input,
             u.input,
-            n.input,
             o("WDSFontTokenStyles").WDSFontTokenStyles.Body1,
           ],
         },

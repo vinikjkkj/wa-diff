@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipSctpFallbackFamilyOutcome",
-  ["WALogger", "WAWebCoreActionsODS"],
+  ["WALogger", "WAWebODS"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
@@ -43,7 +43,9 @@ __d(
     }
     function f() {
       c.isIpv4OnlyRecovery() &&
-        (o("WAWebCoreActionsODS").logCallSctpFallbackIpv4OnlyIpv6Failed(),
+        (r("WAWebODS").incr(
+          "web.call.webtransport.fallback_to_sctp.ipv4_only_ipv6_failed",
+        ),
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([

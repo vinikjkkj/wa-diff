@@ -112,8 +112,7 @@ __d(
     ((l.sendCompanionFinishRPC = e),
       (l.parseCompanionFinishResponseError = s),
       (l.parseCompanionFinishResponseSuccess = u),
-      (l.makeCompanionFinishRequest = c),
-      (l.parseCompanionFinishErrors = d));
+      (l.makeCompanionFinishRequest = c));
   },
   98,
 );

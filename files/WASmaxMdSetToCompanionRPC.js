@@ -90,7 +90,6 @@ __d(
       return r;
     }
     ((l.receiveSetToCompanionRPC = e),
-      (l.parseSetToCompanionRequestPairDeviceRef = s),
       (l.parseSetToCompanionRequest = u),
       (l.makeSetToCompanionResponseClientResponse = c));
   },

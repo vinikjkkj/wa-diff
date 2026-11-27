@@ -545,19 +545,19 @@ __d(
       var t = typeof e.callId == "string" ? e.callId : null,
         n = o("WAWebVoipWebTransportCallSummary").getWtCallSummaryForCall(t);
       if (n != null) {
-        var r = e.callResult,
-          a = e.callSetupErrorType,
-          i = e.maxConnectedParticipants;
+        var a = e.callResult,
+          i = e.callSetupErrorType,
+          l = e.maxConnectedParticipants;
         if (
           !(
             e.groupCallIsLastSegment !== !0 ||
-            typeof r != "number" ||
-            typeof i != "number"
+            typeof a != "number" ||
+            typeof l != "number"
           )
         ) {
-          var l = Pe(r, a);
-          l != null &&
-            (o("WAWebCoreActionsODS").logCallWebtransportGroupCallAnc(),
+          var s = Pe(a, i);
+          s != null &&
+            (r("WAWebODS").incr("web.call.webtransport.group_call_anc"),
             o("WALogger")
               .ERROR(
                 p ||
@@ -572,11 +572,11 @@ __d(
                     " attempts=",
                     "",
                   ])),
-                l,
+                s,
                 String(t),
-                r,
-                String(a != null ? a : "n/a"),
-                i,
+                a,
+                String(i != null ? i : "n/a"),
+                l,
                 n.numRelayAttempts,
                 n.numOpened,
                 JSON.stringify(n.attempts),

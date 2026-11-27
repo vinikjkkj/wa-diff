@@ -4,6 +4,7 @@ __d(
     "fbt",
     "WALongInt",
     "WAWeb-moment",
+    "WAWebBox.react",
     "WAWebDrawerButton.react",
     "WAWebGdprRequestAccountInfoSettingsDrawerConfirmPopup",
     "WAWebL10nFilesize",
@@ -72,25 +73,29 @@ __d(
                   testid: "gdpr-available-download-label",
                   children: s._(/*BTDS*/ ""),
                 }),
-                u.jsx(o("WAWebText.react").WAWebTextMuted, {
-                  children:
-                    p != null
-                      ? s._(/*BTDS*/ "", [
-                          s._param(
-                            "availability_date",
-                            r("WAWeb-moment").unix(n).format("MMMM D, YYYY"),
-                          ),
-                          s._param(
-                            "file_size",
-                            o("WAWebL10nFilesize").getL10nFilesize(p),
-                          ),
-                        ])
-                      : s._(/*BTDS*/ "", [
-                          s._param(
-                            "availability_date",
-                            r("WAWeb-moment").unix(n).format("MMMM D, YYYY"),
-                          ),
-                        ]),
+                u.jsx(r("WAWebBox.react"), {
+                  children: u.jsx(r("WDSText.react"), {
+                    type: "Body2",
+                    colorName: "contentDeemphasized",
+                    children:
+                      p != null
+                        ? s._(/*BTDS*/ "", [
+                            s._param(
+                              "availability_date",
+                              r("WAWeb-moment").unix(n).format("MMMM D, YYYY"),
+                            ),
+                            s._param(
+                              "file_size",
+                              o("WAWebL10nFilesize").getL10nFilesize(p),
+                            ),
+                          ])
+                        : s._(/*BTDS*/ "", [
+                            s._param(
+                              "availability_date",
+                              r("WAWeb-moment").unix(n).format("MMMM D, YYYY"),
+                            ),
+                          ]),
+                  }),
                 }),
               ],
             }),

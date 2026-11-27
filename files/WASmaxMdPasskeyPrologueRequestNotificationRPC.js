@@ -98,12 +98,8 @@ __d(
         : n;
     }
     ((l.receivePasskeyPrologueRequestNotificationRPC = e),
-      (l.parsePasskeyPrologueRequestNotificationRequestPasskeyRequestOptions =
-        s),
-      (l.parsePasskeyPrologueRequestNotificationRequestDbscRegistration = u),
       (l.parsePasskeyPrologueRequestNotificationRequest = c),
-      (l.makePasskeyPrologueRequestNotificationResponseAck = d),
-      (l.parseDbscRegistrationMixin = m));
+      (l.makePasskeyPrologueRequestNotificationResponseAck = d));
   },
   98,
 );

@@ -148,8 +148,9 @@ __d(
             : i === "after" && (e.msgs.loadRecentPromise = y),
           await y
         );
-      } catch (e) {
+      } catch (t) {
         throw (
+          c(e, i, !1),
           o("WALogger")
             .ERROR(
               s ||
@@ -158,7 +159,7 @@ __d(
                 ])),
             )
             .tags("newsletter"),
-          e
+          t
         );
       }
     }

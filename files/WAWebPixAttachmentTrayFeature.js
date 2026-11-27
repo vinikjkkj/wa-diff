@@ -19,14 +19,7 @@ __d(
         "payments_br_pix_web_attachment_tray",
       );
     }
-    function s(e) {
-      return u({
-        chatId: e.id,
-        contact: e.contact,
-        groupMetadata: e.groupMetadata,
-      });
-    }
-    function u(t) {
+    function s(t) {
       var n = t.chatId,
         r = t.contact,
         a = t.groupMetadata,
@@ -60,8 +53,7 @@ __d(
               ).showPixQuickReplyInAttachmentTrayForGroupMetadata(a)
           : !1;
     }
-    ((l.shouldShowPixInAttachmentTray = s),
-      (l.shouldShowPixInAttachmentTrayFor = u));
+    l.shouldShowPixInAttachmentTrayFor = s;
   },
   98,
 );

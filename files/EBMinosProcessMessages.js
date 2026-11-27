@@ -2,6 +2,7 @@ __d(
   "EBMinosProcessMessages",
   [
     "Base64Utils",
+    "EBMinosErrors",
     "EBMinosLogger",
     "EBMinosMessageEncryptionVersion",
     "EBMinosMessageMetadataVersion",
@@ -11,69 +12,72 @@ __d(
     "MpsTypes",
     "WAFrankingTypes",
     "WAResultOrError",
+    "WmiErrorReport",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d, m, p, _, f, g, h, y, C, b;
-    function v(t) {
-      var n = t != null ? t : {},
+    var e, s, u;
+    function c(e, t) {
+      var n = e != null ? e : {},
         r = n.actor_token,
         a = n.encrypted_protobuf,
         i = n.franking_tag,
         l = n.mek_fbid,
-        c = n.mek_id,
-        d = n.message_encryption_version,
-        m = n.message_metadata_version,
-        p = n.protobuf_timestamp,
-        _ = n.reporting_tag,
-        f = n.server_origin_content_type,
-        g = n.transport_sender_message_signature,
-        h = n.transport_sender_signing_pk;
+        s = n.mek_id,
+        u = n.message_encryption_version,
+        c = n.message_metadata_version,
+        d = n.protobuf_timestamp,
+        m = n.reporting_tag,
+        p = n.server_origin_content_type,
+        _ = n.transport_sender_message_signature,
+        f = n.transport_sender_signing_pk;
       if (
-        (d == null &&
-          o("EBMinosLogger").minosLogger.ERROR(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "missing message_encryption_version on restore",
-              ])),
-          ),
         r == null ||
-          a == null ||
-          d == null ||
-          m == null ||
-          l == null ||
-          c == null ||
-          p == null ||
-          g == null ||
-          h == null)
+        a == null ||
+        u == null ||
+        c == null ||
+        l == null ||
+        s == null ||
+        d == null ||
+        _ == null ||
+        f == null
       )
-        return o("WAResultOrError").makeError("top-level-missing-fields");
-      var y = o(
-        "EBMinosMessageEncryptionVersion",
-      ).MinosMessageEncryptionVersion.cast(d);
-      if (y == null)
         return (
-          o("EBMinosLogger").minosLogger.ERROR(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "Failed to cast message encryption version: ",
-                "",
-              ])),
-            d,
+          o("WmiErrorReport").reportWmiError(
+            o("EBMinosErrors").EBMinosErrors.error(
+              "payload_incomplete",
+              "top-level protobuf is missing required field(s)",
+            ),
+            t,
+          ),
+          o("WAResultOrError").makeError("top-level-missing-fields")
+        );
+      var g = o(
+        "EBMinosMessageEncryptionVersion",
+      ).MinosMessageEncryptionVersion.cast(u);
+      if (g == null)
+        return (
+          o("WmiErrorReport").reportWmiError(
+            o("EBMinosErrors").EBMinosErrors.error(
+              "payload_incomplete",
+              "top-level message encryption version %s is not recognized",
+              u,
+            ),
+            t,
           ),
           o("WAResultOrError").makeError("invalid-message-encryption-version")
         );
-      var C = o(
+      var h = o(
         "EBMinosMessageMetadataVersion",
-      ).MinosMessageMetadataVersion.cast(m);
-      return C == null
-        ? (o("EBMinosLogger").minosLogger.ERROR(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "Failed to cast message metadata version: ",
-                "",
-              ])),
-            m,
+      ).MinosMessageMetadataVersion.cast(c);
+      return h == null
+        ? (o("WmiErrorReport").reportWmiError(
+            o("EBMinosErrors").EBMinosErrors.error(
+              "payload_incomplete",
+              "top-level message metadata version %s is not recognized",
+              c,
+            ),
+            t,
           ),
           o("WAResultOrError").makeError("invalid-message-metadata-version"))
         : o("WAResultOrError").makeResult({
@@ -89,29 +93,29 @@ __d(
                 : null,
             mekFbid: o("EBMinosTypes").unsafeCastToMekFbId(l),
             mekId: o("EBMinosTypes").unsafeCastToMekId(
-              o("Base64Utils").toArrayBuffer(c),
+              o("Base64Utils").toArrayBuffer(s),
             ),
-            messageEncryptionVersion: y,
-            messageMetadataVersion: C,
-            protobufTimestamp: o("MpsTypes").toTimestamp(parseInt(p, 10)),
+            messageEncryptionVersion: g,
+            messageMetadataVersion: h,
+            protobufTimestamp: o("MpsTypes").toTimestamp(parseInt(d, 10)),
             reportingTag:
-              _ != null
+              m != null
                 ? o("WAFrankingTypes").castToReportingTag(
-                    new Uint8Array(o("Base64Utils").toArrayBuffer(_)),
+                    new Uint8Array(o("Base64Utils").toArrayBuffer(m)),
                   )
                 : null,
-            serverOriginContentType: f,
+            serverOriginContentType: p,
             transportSenderMessageSignature: o(
               "EBMinosTypes",
             ).unsafeCastToEncryptedMessageSignature(
-              o("Base64Utils").toArrayBuffer(g),
+              o("Base64Utils").toArrayBuffer(_),
             ),
             transportSenderSigningPk: o(
               "EBMinosTypes",
-            ).unsafeCastToTransportSigningPK(o("Base64Utils").toArrayBuffer(h)),
+            ).unsafeCastToTransportSigningPK(o("Base64Utils").toArrayBuffer(f)),
           });
     }
-    function S(e) {
+    function d(e) {
       return e === "PHOTO"
         ? o("MSGDataclassTypes.flow").MpsMessageTag.Photo
         : e === "PERMANENT"
@@ -167,201 +171,197 @@ __d(
                                                     .MpsMessageTag.ActionLog
                                                 : null;
     }
-    function R(e) {
+    function m(e) {
       if (e == null) return [];
       var t = [];
       for (var n of e) {
-        var r = S(n);
+        var r = d(n);
         r == null
-          ? o("EBMinosLogger").minosLogger.ERROR(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "convertArrayToMpsMessageTags: unrecognized message tag: ",
-                  "",
-                ])),
-              n,
+          ? o("WmiErrorReport").reportWmiError(
+              o("EBMinosErrors").EBMinosErrors.error(
+                "message_tag_dropped",
+                "message tag %s is not recognized",
+                n,
+              ),
+              { loggerProject: "wmi_minos" },
             )
           : t.push(r);
       }
       return t;
     }
-    function L(e) {
-      var t = e != null ? e : {},
-        n = t.actor_token,
-        r = t.encrypted_protobuf,
-        a = t.franking_tag,
-        i = t.mek_fbid,
-        l = t.mek_id,
-        s = t.message_encryption_version,
-        u = t.message_metadata_version,
-        c = t.protobuf_timestamp,
-        _ = t.reporting_tag,
-        f = t.supplemental_key,
-        g = t.supplemental_otid,
-        h = t.transport_sender_message_signature,
-        y = t.transport_sender_signing_pk;
+    function p(e, t) {
+      var n = e != null ? e : {},
+        r = n.actor_token,
+        a = n.encrypted_protobuf,
+        i = n.franking_tag,
+        l = n.mek_fbid,
+        s = n.mek_id,
+        u = n.message_encryption_version,
+        c = n.message_metadata_version,
+        d = n.protobuf_timestamp,
+        m = n.reporting_tag,
+        p = n.supplemental_key,
+        _ = n.supplemental_otid,
+        f = n.transport_sender_message_signature,
+        g = n.transport_sender_signing_pk;
       if (
-        (s == null &&
-          o("EBMinosLogger").minosLogger.ERROR(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
-                "missing message_encryption_version on restore",
-              ])),
-          ),
-        n == null ||
-          r == null ||
-          s == null ||
-          u == null ||
-          i == null ||
-          l == null ||
-          c == null ||
-          h == null ||
-          y == null ||
-          f == null ||
-          g == null)
+        r == null ||
+        a == null ||
+        u == null ||
+        c == null ||
+        l == null ||
+        s == null ||
+        d == null ||
+        f == null ||
+        g == null ||
+        p == null ||
+        _ == null
       )
-        return null;
-      var C = o(
-        "EBMinosMessageEncryptionVersion",
-      ).MinosMessageEncryptionVersion.cast(s);
-      if (C == null)
         return (
-          o("EBMinosLogger").minosLogger.ERROR(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
-                "Failed to cast message encryption version: ",
-                "",
-              ])),
-            s,
+          o("WmiErrorReport").reportWmiError(
+            o("EBMinosErrors").EBMinosErrors.error(
+              "payload_incomplete",
+              "supplemental protobuf is missing required field(s)",
+            ),
+            t,
           ),
           null
         );
-      var b = o(
+      var h = o(
+        "EBMinosMessageEncryptionVersion",
+      ).MinosMessageEncryptionVersion.cast(u);
+      if (h == null)
+        return (
+          o("WmiErrorReport").reportWmiError(
+            o("EBMinosErrors").EBMinosErrors.error(
+              "payload_incomplete",
+              "supplemental message encryption version %s is not recognized",
+              u,
+            ),
+            t,
+          ),
+          null
+        );
+      var y = o(
         "EBMinosMessageMetadataVersion",
-      ).MinosMessageMetadataVersion.cast(u);
-      return b == null
-        ? (o("EBMinosLogger").minosLogger.ERROR(
-            p ||
-              (p = babelHelpers.taggedTemplateLiteralLoose([
-                "Failed to cast message metadata version: ",
-                "",
-              ])),
-            u,
+      ).MinosMessageMetadataVersion.cast(c);
+      return y == null
+        ? (o("WmiErrorReport").reportWmiError(
+            o("EBMinosErrors").EBMinosErrors.error(
+              "payload_incomplete",
+              "supplemental message metadata version %s is not recognized",
+              c,
+            ),
+            t,
           ),
           null)
         : {
-            actorToken: o("EBMinosTypes").unsafeCastToUserFbId(n),
+            actorToken: o("EBMinosTypes").unsafeCastToUserFbId(r),
             encryptedProtobuf: o("EBMinosTypes").unsafeCastToEncryptedMessage(
-              o("Base64Utils").toArrayBuffer(r),
+              o("Base64Utils").toArrayBuffer(a),
             ),
             frankingTag:
-              a != null
+              i != null
                 ? o("WAFrankingTypes").castToFrankingTag(
-                    new Uint8Array(o("Base64Utils").toArrayBuffer(a)),
+                    new Uint8Array(o("Base64Utils").toArrayBuffer(i)),
                   )
                 : null,
-            mekFbid: o("EBMinosTypes").unsafeCastToMekFbId(i),
+            mekFbid: o("EBMinosTypes").unsafeCastToMekFbId(l),
             mekId: o("EBMinosTypes").unsafeCastToMekId(
-              o("Base64Utils").toArrayBuffer(l),
+              o("Base64Utils").toArrayBuffer(s),
             ),
-            messageEncryptionVersion: C,
-            messageMetadataVersion: b,
-            protobufTimestamp: o("MpsTypes").toTimestamp(parseInt(c, 10)),
+            messageEncryptionVersion: h,
+            messageMetadataVersion: y,
+            protobufTimestamp: o("MpsTypes").toTimestamp(parseInt(d, 10)),
             reportingTag:
-              _ != null
+              m != null
                 ? o("WAFrankingTypes").castToReportingTag(
-                    new Uint8Array(o("Base64Utils").toArrayBuffer(_)),
+                    new Uint8Array(o("Base64Utils").toArrayBuffer(m)),
                   )
                 : null,
-            supplementalKey: o("MpsTypes").toSupplementalKey(f),
-            supplementalOtid: o("MpsTypes").toMessageId(g),
+            supplementalKey: o("MpsTypes").toSupplementalKey(p),
+            supplementalOtid: o("MpsTypes").toMessageId(_),
             transportSenderMessageSignature: o(
               "EBMinosTypes",
             ).unsafeCastToEncryptedMessageSignature(
-              o("Base64Utils").toArrayBuffer(h),
+              o("Base64Utils").toArrayBuffer(f),
             ),
             transportSenderSigningPk: o(
               "EBMinosTypes",
-            ).unsafeCastToTransportSigningPK(o("Base64Utils").toArrayBuffer(y)),
+            ).unsafeCastToTransportSigningPK(o("Base64Utils").toArrayBuffer(g)),
           };
     }
-    function E(e, t) {
-      if (e == null) return [];
-      var n = new Set(),
-        r = new Set(),
-        a = 0,
+    function _(t, n) {
+      if (t == null) return [];
+      var r = new Set(),
+        a = new Set(),
         i = 0,
-        l = e
-          .map(function (e) {
-            var t = e.echo_document,
-              l = e.otid,
-              s = e.protobuf_stanzas;
-            if (l == null)
+        l = 0,
+        d = t
+          .map(function (t) {
+            var n = t.echo_document,
+              d = t.otid,
+              _ = t.protobuf_stanzas;
+            if (d == null)
               return (
-                o("EBMinosLogger").minosLogger.ERROR(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "processMinosMessages: otid is null",
-                    ])),
+                o("WmiErrorReport").reportWmiError(
+                  o("EBMinosErrors").EBMinosErrors.error(
+                    "payload_incomplete",
+                    "restored message has no otid",
+                  ),
+                  { loggerProject: "wmi_minos" },
                 ),
                 null
               );
-            if (s == null)
+            var f = { loggerProject: "wmi_minos", loggerSubject: d };
+            if (_ == null)
               return (
-                t == null &&
-                  o("EBMinosLogger").minosLogger.ERROR(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
-                        "processMinosMessages: protobuf_stanzas and echo_documents are null",
-                      ])),
+                n == null &&
+                  o("WmiErrorReport").reportWmiError(
+                    o("EBMinosErrors").EBMinosErrors.error(
+                      "payload_incomplete",
+                      "restored message has neither protobuf_stanzas nor echo_document",
+                    ),
+                    f,
                   ),
                 null
               );
-            var u = s.message_tags,
-              c = s.supplemental_protobufs_v2,
-              d = c === void 0 ? [] : c,
-              m = s.top_level_protobuf_v2;
-            if (m == null) return null;
-            var p = o(
+            var g = _.message_tags,
+              h = _.supplemental_protobufs_v2,
+              y = h === void 0 ? [] : h,
+              C = _.top_level_protobuf_v2;
+            if (C == null) return null;
+            var b = o(
                 "EBMinosServerOriginGating",
               ).classifyServerOriginContentWithReason(
-                m.server_origin_content_type,
+                C.server_origin_content_type,
               ),
-              b = o("EBMinosServerOriginGating").serverOriginContentTypeName(
-                m.server_origin_content_type,
+              v = o("EBMinosServerOriginGating").serverOriginContentTypeName(
+                C.server_origin_content_type,
               );
-            if ((b != null && n.add(b), p.verdict === "unsupported"))
+            if ((v != null && r.add(v), b.verdict === "unsupported"))
               return (
-                i++,
-                r.add(p.reason),
-                o("EBMinosLogger").minosLogger.ERROR(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                l++,
+                a.add(b.reason),
+                o("EBMinosLogger").minosLogger.DEV(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
                       "processMinosMessages: dropping server-origin content of unsupported type",
                     ])),
                 ),
                 null
               );
-            var S = v(m);
-            if (!S.success)
-              return (
-                o("EBMinosLogger").minosLogger.ERROR(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
-                      "processMinosMessages: top_level_protobuf_v2 conversion failed",
-                    ])),
-                ),
-                null
-              );
-            p.verdict === "supported" && a++;
-            var E = d
+            var S = c(C, f);
+            if (!S.success) return null;
+            b.verdict === "supported" && i++;
+            var R = y
                 .map(function (e) {
                   var t = e == null ? void 0 : e.supplemental_key,
-                    n = L(e);
+                    n = p(e, f);
                   if (t == null) {
                     o("EBMinosLogger").minosLogger.LOG(
-                      y ||
-                        (y = babelHelpers.taggedTemplateLiteralLoose([
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
                           "processMinosMessages: minos supplementalKey is null",
                         ])),
                     );
@@ -369,8 +369,8 @@ __d(
                   }
                   if (n == null) {
                     o("EBMinosLogger").minosLogger.LOG(
-                      C ||
-                        (C = babelHelpers.taggedTemplateLiteralLoose([
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
                           "processMinosMessages: minosSupplementalProtobuf is null",
                         ])),
                     );
@@ -379,55 +379,56 @@ __d(
                   return n;
                 })
                 .filter(Boolean),
-              k = o("MpsTypes").toMessageId(l);
+              L = o("MpsTypes").toMessageId(d);
             return {
-              messageTags: R(u),
-              otid: k,
-              supplementalProtobufsV2: E,
+              messageTags: m(g),
+              otid: L,
+              supplementalProtobufsV2: R,
               topLevelProtobufV2: S.value,
             };
           })
           .filter(Boolean);
       return (
-        t != null &&
-          (t.addAnnotations({
-            bool: { has_server_origin_content: n.size > 0 },
+        n != null &&
+          (n.addAnnotations({
+            bool: { has_server_origin_content: r.size > 0 },
           }),
-          n.size > 0 &&
-            t.addAnnotations({
+          r.size > 0 &&
+            n.addAnnotations({
               int: {
-                server_origin_content_accepted: a,
-                server_origin_content_dropped: i,
+                server_origin_content_accepted: i,
+                server_origin_content_dropped: l,
               },
               string_array: {
-                server_origin_content_types: Array.from(n),
-                server_origin_drop_reasons: Array.from(r),
+                server_origin_content_types: Array.from(r),
+                server_origin_drop_reasons: Array.from(a),
               },
             })),
-        l
+        d
       );
     }
-    function k(e, t, n) {
+    function f(e, t, n) {
       return t ===
         o("EBMinosMessageMetadataVersion").MinosMessageMetadataVersion.V1
         ? e
         : isNaN(Number(n))
-          ? (o("EBMinosLogger").minosLogger.ERROR(
-              b ||
-                (b = babelHelpers.taggedTemplateLiteralLoose([
-                  "createMessageTimestamp: otid is not a number",
-                ])),
+          ? (o("WmiErrorReport").reportWmiError(
+              o("EBMinosErrors").EBMinosErrors.error(
+                "timestamp_derivation_failed",
+                "V2 message timestamp needs a numeric otid",
+              ),
+              { loggerProject: "wmi_minos", loggerSubject: n },
             ),
             o("MpsTypes").toTimestamp(0))
-          : I(n);
+          : g(n);
     }
-    function I(e) {
+    function g(e) {
       return o("MpsTypes").toTimestamp(Number(BigInt(e) >> BigInt(22)));
     }
-    ((l.convertArrayToMpsMessageTags = R),
-      (l.processMinosMessages = E),
-      (l.createMessageTimestamp = k),
-      (l.extractTimestampFromOtid = I));
+    ((l.convertArrayToMpsMessageTags = m),
+      (l.processMinosMessages = _),
+      (l.createMessageTimestamp = f),
+      (l.extractTimestampFromOtid = g));
   },
   98,
 );
