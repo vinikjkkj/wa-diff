@@ -48,14 +48,15 @@ __d(
           return o("WAWebInstantsConsumption").canConsumeInstant(e);
         });
         if (i.length === 0) {
-          o("WALogger")
+          (o("WALogger")
             .WARN(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
                   "instants: the chat-list Zap pill was pressed with no playable Zap",
                 ])),
             )
-            .sendLogs("instants-chat-list-play-nothing-playable");
+            .sendLogs("instants-chat-list-play-nothing-playable"),
+            o("WAWebChatInstantCountsReader").recountChatInstants(n, !0));
           return;
         }
         (i
@@ -86,6 +87,7 @@ __d(
                 ])),
             )
             .sendLogs("instants-chat-list-play-nothing-stored"),
+          o("WAWebChatInstantCountsReader").recountChatInstants(e, !0),
           null
         );
       var n = new Map(

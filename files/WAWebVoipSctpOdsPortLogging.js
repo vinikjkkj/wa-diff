@@ -42,7 +42,9 @@ __d(
         function () {
           return r("WAWebODS").incr("web.call.dtls.started.port_3478");
         },
-        o("WAWebCoreActionsODS").logCallDtlsStartedPort3480,
+        function () {
+          return r("WAWebODS").incr("web.call.dtls.started.port_3480");
+        },
       );
     }
     function d(e) {

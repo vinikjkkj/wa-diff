@@ -9,6 +9,7 @@ __d(
     "WAWebSharableEventChangeFlags",
     "WAWebSharableEventInviteMessageRefreshJob",
     "WAWebSharableEventStorageEnums",
+    "WAWebUserUtils",
   ],
   function (t, n, r, o, a, i, l) {
     async function e(e, t) {
@@ -17,7 +18,7 @@ __d(
         ).upsertSharableEventMetadataIfNewer([e], { insertMissing: !0 }),
         r = n[0],
         a =
-          r != null && r.previous == null
+          r != null && r.previous == null && !c(e)
             ? await o("WAWebDBSharableEventChange").recordSharableEventChange(
                 e.eventId,
                 o("WAWebSharableEventChangeFlags").toSharableEventChangeFlags([
@@ -46,14 +47,15 @@ __d(
         n = t[0],
         r = n == null ? void 0 : n.previous;
       if (!(n == null || r == null)) {
-        var a = await o("WAWebDBSharableEventChange").recordSharableEventChange(
-          e.eventId,
-          o("WAWebSharableEventChangeFlags").computeSharableEventChangeFlags(
-            r,
-            n.row,
-          ),
-          e.lastUpdatedTsUsec,
-        );
+        var a = c(e)
+          ? null
+          : await o("WAWebDBSharableEventChange").recordSharableEventChange(
+              e.eventId,
+              o(
+                "WAWebSharableEventChangeFlags",
+              ).computeSharableEventChangeFlags(r, n.row),
+              e.lastUpdatedTsUsec,
+            );
         o("WAWebBackendApi").frontendFireAndForget("applySharableEventUpdate", {
           events: [n.row],
           unseenChanges: a == null ? [] : [a],
@@ -68,6 +70,12 @@ __d(
         await o(
           "WAWebSharableEventInviteMessageRefreshJob",
         ).markSharableEventInviteMessagesEnded([e], t));
+    }
+    function c(e) {
+      return (
+        e.creatorLid != null &&
+        o("WAWebUserUtils").isSerializedWidMe(e.creatorLid)
+      );
     }
     ((l.persistInvitedSharableEvent = e),
       (l.persistUpdatedSharableEvent = s),
